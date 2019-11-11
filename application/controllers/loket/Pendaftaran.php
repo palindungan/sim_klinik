@@ -11,4 +11,8 @@ class Pendaftaran extends CI_Controller
     {
         $this->template->load('sim_klinik/template/loket', 'sim_klinik/konten/loket/pendaftaran/tampil');
     }
+    public function add()
+    {
+        $this->template->load('sim_klinik/template/loket','sim_klinik/konten/loket/pendaftaran/tambah');
+    }
 }
