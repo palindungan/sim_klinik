@@ -15,4 +15,3 @@
 
 <!-- Custom styles for this template-->
 <link href="<?= base_url(); ?>assets/sb_admin_2/css/sb-admin-2.min.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
