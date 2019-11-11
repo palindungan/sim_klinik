@@ -28,7 +28,8 @@
 			</div>
 			<div class="form-group col-md-6">
 				<label for="inputEmail4">Tanggal Lahir</label>
-				<input type="text" class="form-control" id="inputEmail3" placeholder="Masukan tahun lahir">
+				<input type="text" name="birthday" class="form-control" id="inputEmail3"
+					placeholder="Masukan tahun lahir">
 			</div>
 		</div>
 		<div class="form-row">
