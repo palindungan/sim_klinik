@@ -28,30 +28,7 @@
 			</div>
 			<div class="form-group col-md-6">
 				<label for="inputEmail4">Tanggal Lahir</label>
-				<div class="row">
-					<div class="col-md-3">
-						<input type="text" class="form-control" id="inputEmail4" placeholder="tanggal">
-					</div>
-					<div class="col-md-6">
-						<select class="form-control" id="exampleFormControlSelect1">
-							<option>Januari</option>
-							<option>Februari</option>
-							<option>Maret</option>
-							<option>April</option>
-							<option>Mei</option>
-							<option>Juni</option>
-							<option>Juli</option>
-							<option>Agustus</option>
-							<option>September</option>
-							<option>Oktober</option>
-							<option>November</option>
-							<option>Desember</option>
-						</select>
-					</div>
-					<div class="col-md-3">
-						<input type="text" class="form-control" id="inputEmail4" placeholder="tahun">
-					</div>
-				</div>
+				<input type="text" class="form-control" id="inputEmail3" placeholder="Masukan tahun lahir">
 			</div>
 		</div>
 		<div class="form-row">
@@ -75,18 +52,22 @@
 		<div class="form-row">
 			<div class="form-group col-md-6">
 				<label for="inputEmail3">Layanan Tujuan</label>
-				<input type="text" class="form-control" id="inputEmail3" placeholder="Email">
-			</div>
-			<div class="form-group col-md-6">
-				<label for="inputEmail4">Tipe Antrian</label>
 				<select class="form-control" id="exampleFormControlSelect1">
 					<option>Balai Pengobatan</option>
 					<option>Poli KIA</option>
 					<option>Laboratorium</option>
 				</select>
 			</div>
+			<div class="form-group col-md-6">
+				<label for="inputEmail4">Tipe Antrian</label>
+				<select class="form-control" id="exampleFormControlSelect1">
+					<option>Dewasa</option>
+					<option>Anak-Anak</option>
+				</select>
+			</div>
 		</div>
-		<button type="submit" class="btn btn-primary">Sign in</button>
+		<button type="submit" class="btn btn-primary">Simpan</button>
+		<a href="" class="btn btn-link">Kembali</a>
 	</form>
 
 </div>
