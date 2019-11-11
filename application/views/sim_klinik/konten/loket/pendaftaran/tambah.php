@@ -65,7 +65,7 @@
 				</div>
 				<div class="col-md-6">
 					<select name="bulan"
-						class="form-control <?php if (form_error('alamat') == true) {echo "is-invalid";} ?>"
+						class="form-control <?php if (form_error('hari') == true) {echo "is-invalid";} ?>"
 						id="exampleFormControlSelect1">
 						<option value="01" <?= set_select('bulan', '01'); ?>>Januari</option>
 						<option value="02" <?= set_select('bulan', '02'); ?>>Februari</option>
@@ -83,7 +83,7 @@
 				</div>
 				<div class="col-md-3">
 					<select name="tahun"
-						class="form-control <?php if (form_error('alamat') == true) {echo "is-invalid";} ?>"
+						class="form-control <?php if (form_error('hari') == true) {echo "is-invalid";} ?>"
 						id="exampleFormControlSelect1">
 						<?php
 							$tgl = date("Y");
