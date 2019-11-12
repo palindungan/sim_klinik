@@ -143,4 +143,49 @@ class Antrian extends CI_Controller
 
         echo $data;
     }
+
+    public function click_lanjut_balai_pengobatan()
+    {
+        $kode_antrian_bp = $this->input->post('id');
+
+        $where = array(
+            'kode_antrian_bp' => $kode_antrian_bp
+        );
+
+        $data = array(
+            'status' => 'Selesai'
+        );
+
+        $this->M_antrian->update_data($where, 'antrian_bp', $data);
+    }
+
+    public function click_lanjut_kesehatan_ibu_dan_anak()
+    {
+        $kode_antrian_kia = $this->input->post('id');
+
+        $where = array(
+            'kode_antrian_kia' => $kode_antrian_kia
+        );
+
+        $data = array(
+            'status' => 'Selesai'
+        );
+
+        $this->M_antrian->update_data($where, 'antrian_kia', $data);
+    }
+
+    public function click_lanjut_laboratorium()
+    {
+        $kode_antrian_lab = $this->input->post('id');
+
+        $where = array(
+            'kode_antrian_lab' => $kode_antrian_lab
+        );
+
+        $data = array(
+            'status' => 'Selesai'
+        );
+
+        $this->M_antrian->update_data($where, 'antrian_lab', $data);
+    }
 }

@@ -10,7 +10,7 @@
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Balai Pengobatan : </div>
                             <div id="antrian_bp" class="h5 mb-0 font-weight-bold text-gray-800">Antrian Kosong</div>
-                            <input type="hidden" id="kode_antrian_bp" name="kode_antrian_bp">
+                            <input type="text" id="kode_antrian_bp" name="kode_antrian_bp">
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-clinic-medical fa-2x text-gray-300"></i>
@@ -18,7 +18,7 @@
                     </div>
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-12">
-                            <button class="btn btn-google btn-block"><i class="fas fa-forward"></i></i> lanjut</button>
+                            <button class="btn btn-google btn-block lanjut_bp"><i class="fas fa-forward"></i></i> lanjut</button>
                         </div>
                     </div>
                 </div>
@@ -33,7 +33,7 @@
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Poli KIA : </div>
                             <div id="antrian_kia" class="h5 mb-0 font-weight-bold text-gray-800">Antrian Kosong</div>
-                            <input type="hidden" id="kode_antrian_kia" name="kode_antrian_kia">
+                            <input type="text" id="kode_antrian_kia" name="kode_antrian_kia">
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-baby-carriage fa-2x text-gray-300"></i>
@@ -41,7 +41,7 @@
                     </div>
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-12">
-                            <button class="btn btn-google btn-block"><i class="fas fa-forward"></i></i> lanjut</button>
+                            <button class="btn btn-google btn-block lanjut_kia"><i class="fas fa-forward"></i></i> lanjut</button>
                         </div>
                     </div>
                 </div>
@@ -56,7 +56,7 @@
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Laboratorium : </div>
                             <div id="antrian_lab" class="h5 mb-0 font-weight-bold text-gray-800">Antrian Kosong</div>
-                            <input type="hidden" id="kode_antrian_lab" name="kode_antrian_lab">
+                            <input type="text" id="kode_antrian_lab" name="kode_antrian_lab">
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-flask fa-2x text-gray-300"></i>
@@ -64,7 +64,7 @@
                     </div>
                     <div class="row no-gutters align-items-center">
                         <a class="col mr-12">
-                            <button class="btn btn-google btn-block"><i class="fas fa-forward"></i></i> lanjut</button>
+                            <button class="btn btn-google btn-block lanjut_lab"><i class="fas fa-forward"></i></i> lanjut</button>
                         </a>
                     </div>
                 </div>
@@ -227,7 +227,7 @@
 
                     });
                 } else {
-                    $('.table_bp').html('<h3>No data are available</h3>');
+                    $('.table_bp').html('<h4>Data Antrian Kosong</h4>');
                 }
                 table.draw();
 
@@ -256,7 +256,7 @@
 
                     });
                 } else {
-                    $('.table_kia').html('<h3>No data are available</h3>');
+                    $('.table_kia').html('<h4>Data Antrian Kosong</h4>');
                 }
                 table.draw();
 
@@ -296,7 +296,7 @@
 
                     });
                 } else {
-                    $('.table_lab').html('<h3>No data are available</h3>');
+                    $('.table_lab').html('<h4>Data Antrian Kosong</h4>');
                 }
                 table.draw();
 
@@ -315,6 +315,7 @@
             },
             success: function(data) {
                 refresh_antrian_sekarang_bp();
+                refresh_tabel_antrian_bp();
             }
         });
     }
@@ -330,6 +331,7 @@
             },
             success: function(data) {
                 refresh_antrian_sekarang_lab();
+                refresh_tabel_antrian_lab();
             }
         });
     }
@@ -399,4 +401,68 @@
             }
         });
     }
+
+    $(document).on('click', '.lanjut_bp', function() {
+
+        if (confirm('Ingin Lanjut Antrian Balai Pengobatan ?')) {
+            var kode_antrian_bp = document.getElementById("kode_antrian_bp");
+            var value = kode_antrian_bp.value;
+
+            $.ajax({
+                url: "<?php echo base_url() . 'loket/antrian/click_lanjut_balai_pengobatan'; ?>",
+                method: "POST",
+                data: {
+                    id: value
+                },
+                success: function(data) {
+                    refresh_antrian_sekarang_bp();
+                    refresh_tabel_antrian_bp();
+                }
+            });
+        }
+
+    });
+
+    $(document).on('click', '.lanjut_kia', function() {
+
+        if (confirm('Ingin Lanjut Antrian Kesehatan Ibu dan Anak ?')) {
+            var kode_antrian_kia = document.getElementById("kode_antrian_kia");
+            var value = kode_antrian_kia.value;
+
+            $.ajax({
+                url: "<?php echo base_url() . 'loket/antrian/click_lanjut_kesehatan_ibu_dan_anak'; ?>",
+                method: "POST",
+                data: {
+                    id: value
+                },
+                success: function(data) {
+                    refresh_antrian_sekarang_kia();
+                    refresh_tabel_antrian_kia();
+                }
+            });
+        }
+
+
+    });
+
+    $(document).on('click', '.lanjut_lab', function() {
+
+        if (confirm('Ingin Lanjut Antrian Laboratorium ?')) {
+            var kode_antrian_lab = document.getElementById("kode_antrian_lab");
+            var value = kode_antrian_lab.value;
+
+            $.ajax({
+                url: "<?php echo base_url() . 'loket/antrian/click_lanjut_laboratorium'; ?>",
+                method: "POST",
+                data: {
+                    id: value
+                },
+                success: function(data) {
+                    refresh_antrian_sekarang_lab();
+                    refresh_tabel_antrian_lab();
+                }
+            });
+        }
+
+    });
 </script>
