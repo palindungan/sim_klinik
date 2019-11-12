@@ -55,7 +55,7 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Laboratorium : </div>
-                            <div id="antrian_lap" class="h5 mb-0 font-weight-bold text-gray-800">Antrian Kosong</div>
+                            <div id="antrian_lab" class="h5 mb-0 font-weight-bold text-gray-800">Antrian Kosong</div>
                             <input type="hidden" id="kode_antrian_lab" name="kode_antrian_lab">
                         </div>
                         <div class="col-auto">
@@ -84,7 +84,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <table class="table table-bordered table_bp" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th>No.</th>
@@ -99,31 +99,8 @@
                                     <th>Aksi</th>
                                 </tr>
                             </tfoot>
-                            <tbody>
-                                <?php
-                                foreach ($antrian_bp as $row) {
-                                    ?>
-                                    <tr>
-                                        <td><?= $row->kode_antrian_bp; ?></td>
-                                        <td><?= $row->nama; ?></td>
-                                        <td>
+                            <tbody id="daftar_antrian_bp">
 
-                                            <?php
-                                                if (substr($row->kode_antrian_bp, 0, 2) == "AG") {
-                                                    echo '
-    
-                                                        <button class="btn btn-block prioritas_balai_pengobatan" id="' . $row->kode_antrian_bp . '">
-                                                            <i class="far fa-hand-pointer"></i> Prioritas
-                                                        </button>
-                                                    ';
-                                                }
-                                                ?>
-
-                                        </td>
-                                    </tr>
-                                <?php
-                                }
-                                ?>
                             </tbody>
                         </table>
                     </div>
@@ -141,7 +118,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <table class="table table-bordered table_kia" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th>No.</th>
@@ -154,17 +131,8 @@
                                     <th>Nama</th>
                                 </tr>
                             </tfoot>
-                            <tbody>
-                                <?php
-                                foreach ($antrian_kia as $row) {
-                                    ?>
-                                    <tr>
-                                        <td><?= $row->kode_antrian_kia; ?></td>
-                                        <td><?= $row->nama; ?></td>
-                                    </tr>
-                                <?php
-                                }
-                                ?>
+                            <tbody id="daftar_antrian_kia">
+
                             </tbody>
                         </table>
                     </div>
@@ -182,7 +150,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <table class="table table-bordered table_lab" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th>No.</th>
@@ -197,33 +165,8 @@
                                     <th>Aksi</th>
                                 </tr>
                             </tfoot>
-                            <tbody>
+                            <tbody id="daftar_antrian_lab">
 
-                                <?php
-                                foreach ($antrian_lab as $row) {
-                                    ?>
-                                    <tr>
-                                        <td><?= $row->kode_antrian_lab; ?></td>
-                                        <td><?= $row->nama; ?></td>
-                                        <td>
-
-                                            <?php
-                                                if (substr($row->kode_antrian_lab, 0, 2) == "CG") {
-                                                    echo '
-    
-                                                        <button class="btn btn-block prioritas_laboratorium" id="' . $row->kode_antrian_lab . '">
-                                                            <i class="far fa-hand-pointer"></i> Prioritas
-                                                        </button>
-                                                    ';
-                                                }
-                                                ?>
-
-                                        </td>
-
-                                    </tr>
-                                <?php
-                                }
-                                ?>
                             </tbody>
                         </table>
                     </div>
@@ -243,8 +186,126 @@
     refresh_antrian_sekarang_kia();
     refresh_antrian_sekarang_lab();
 
-    $(document).on('click', '.prioritas_balai_pengobatan', function() {
-        var id = $(this).attr("id");
+    $(document).ready(function() {
+
+        refresh_tabel_antrian_bp();
+        refresh_tabel_antrian_kia();
+        refresh_tabel_antrian_lab();
+
+    });
+
+    function refresh_tabel_antrian_bp() {
+
+        var table;
+        table = $('.table_bp').DataTable();
+
+        table.clear();
+
+        $.ajax({
+            url: "<?php echo base_url() . 'loket/antrian/tampil_daftar_antrian_bp'; ?>",
+            success: function(hasil) {
+
+                var obj = JSON.parse(hasil);
+                let data = obj['tbl_data'];
+
+                if (data != '') {
+
+                    $.each(data, function(i, item) {
+
+                        var btn_aksi = "";
+                        if (data[i].kode_antrian_bp.length == 5) {
+                            var btn_aksi = `
+
+                                <button onclick="click_prioritas_bp('` + data[i].kode_antrian_bp + `')" id="` + data[i].kode_antrian_bp + `" class="btn btn-block">
+                                    <i class="far fa-hand-pointer"></i> Prioritas
+                                </button>
+                            
+                            `;
+                        }
+
+                        table.row.add([data[i].kode_antrian_bp, data[i].nama, btn_aksi]);
+
+                    });
+                } else {
+                    $('.table_bp').html('<h3>No data are available</h3>');
+                }
+                table.draw();
+
+            }
+        });
+    }
+
+    function refresh_tabel_antrian_kia() {
+        var table;
+        table = $('.table_kia').DataTable();
+
+        table.clear();
+
+        $.ajax({
+            url: "<?php echo base_url() . 'loket/antrian/tampil_daftar_antrian_kia'; ?>",
+            success: function(hasil) {
+
+                var obj = JSON.parse(hasil);
+                let data = obj['tbl_data'];
+
+                if (data != '') {
+
+                    $.each(data, function(i, item) {
+
+                        table.row.add([data[i].kode_antrian_kia, data[i].nama]);
+
+                    });
+                } else {
+                    $('.table_kia').html('<h3>No data are available</h3>');
+                }
+                table.draw();
+
+            }
+        });
+    }
+
+    function refresh_tabel_antrian_lab() {
+        var table;
+        table = $('.table_lab').DataTable();
+
+        table.clear();
+
+        $.ajax({
+            url: "<?php echo base_url() . 'loket/antrian/tampil_daftar_antrian_lab'; ?>",
+            success: function(hasil) {
+
+                var obj = JSON.parse(hasil);
+                let data = obj['tbl_data'];
+
+                if (data != '') {
+
+                    $.each(data, function(i, item) {
+
+                        var btn_aksi = "";
+                        if (data[i].kode_antrian_lab.length == 5) {
+                            var btn_aksi = `
+
+                                <button onclick="click_prioritas_lab('` + data[i].kode_antrian_lab + `')" id="` + data[i].kode_antrian_lab + `" class="btn btn-block">
+                                    <i class="far fa-hand-pointer"></i> Prioritas
+                                </button>
+                            
+                            `;
+                        }
+
+                        table.row.add([data[i].kode_antrian_lab, data[i].nama, btn_aksi]);
+
+                    });
+                } else {
+                    $('.table_lab').html('<h3>No data are available</h3>');
+                }
+                table.draw();
+
+            }
+        });
+    }
+
+    function click_prioritas_bp(param) {
+        var id = param;
 
         $.ajax({
             url: "<?php echo base_url() . 'loket/antrian/click_prioritas_balai_pengobatan'; ?>",
@@ -256,11 +317,10 @@
                 refresh_antrian_sekarang_bp();
             }
         });
+    }
 
-    });
-
-    $(document).on('click', '.prioritas_laboratorium', function() {
-        var id = $(this).attr("id");
+    function click_prioritas_lab(param) {
+        var id = param;
 
         $.ajax({
             url: "<?php echo base_url() . 'loket/antrian/click_prioritas_laboratorium'; ?>",
@@ -272,8 +332,7 @@
                 refresh_antrian_sekarang_lab();
             }
         });
-
-    });
+    }
 
     function refresh_antrian_sekarang_bp() {
 
@@ -332,7 +391,7 @@
                     var id = data[0].kode_antrian_lab;
                     var nama = data[0].nama;
 
-                    document.getElementById("antrian_lap").innerHTML = id + " (" + nama + ")";
+                    document.getElementById("antrian_lab").innerHTML = id + " (" + nama + ")";
 
                     $("#kode_antrian_lab").val(data[0].kode_antrian_lab);
 

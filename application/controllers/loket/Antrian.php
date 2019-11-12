@@ -9,10 +9,7 @@ class Antrian extends CI_Controller
     }
     public function index()
     {
-        $data['antrian_bp'] = $this->M_antrian->tampil_data('antrian_balai_pengobatan_tersisa')->result();
-        $data['antrian_kia'] = $this->M_antrian->tampil_data('antrian_kesehatan_ibu_dan_anak_tersisa')->result();
-        $data['antrian_lab'] = $this->M_antrian->tampil_data('antrian_laboratorium_tersisa')->result();
-        $this->template->load('sim_klinik/template/loket', 'sim_klinik/konten/loket/antrian/tampil', $data);
+        $this->template->load('sim_klinik/template/loket', 'sim_klinik/konten/loket/antrian/tampil');
     }
     public function click_prioritas_balai_pengobatan()
     {
@@ -118,5 +115,32 @@ class Antrian extends CI_Controller
                 echo 'Antrian Kosong';
             }
         }
+    }
+
+    public function tampil_daftar_antrian_bp()
+    {
+        $data_tbl['tbl_data'] = $this->M_antrian->tampil_data('antrian_balai_pengobatan_tersisa')->result();
+
+        $data = json_encode($data_tbl);
+
+        echo $data;
+    }
+
+    public function tampil_daftar_antrian_kia()
+    {
+        $data_tbl['tbl_data'] = $this->M_antrian->tampil_data('antrian_kesehatan_ibu_dan_anak_tersisa')->result();
+
+        $data = json_encode($data_tbl);
+
+        echo $data;
+    }
+
+    public function tampil_daftar_antrian_lab()
+    {
+        $data_tbl['tbl_data'] = $this->M_antrian->tampil_data('antrian_laboratorium_tersisa')->result();
+
+        $data = json_encode($data_tbl);
+
+        echo $data;
     }
 }
