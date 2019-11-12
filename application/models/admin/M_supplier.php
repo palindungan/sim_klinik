@@ -1,5 +1,5 @@
 <?php
-class M_kategoriObat extends CI_Model
+class M_supplier extends CI_Model
 {
     function tampil_data($table)
     {
@@ -34,10 +34,10 @@ class M_kategoriObat extends CI_Model
     // autogenerate kode / ID
     function get_no()
     {
-        $field = "no_kat_obat";
-        $tabel = "kategori_obat";
+        $field = "no_supplier";
+        $tabel = "supplier";
         $digit = "3";
-        $kode = "K";
+        $kode = "S";
         $q = $this->db->query("SELECT MAX(RIGHT($field,$digit)) AS kd_max FROM $tabel");
         $kd = "";
         if ($q->num_rows() > 0) {
@@ -46,7 +46,7 @@ class M_kategoriObat extends CI_Model
         $kd = $kode . sprintf('%0' . $digit . 's', $tmp);
         }
         } else {
-        $kd = "K001";
+        $kd = "S001";
         }
         return $kd;
     }

@@ -20,7 +20,7 @@
 						<?php echo form_open('apotek/kategori_obat/store'); ?>
 						<div class="modal-body">
 							<div class="form-row">
-								<div class="form-group col-md-12">
+								<div class="form-group col-md-8">
 									<label for="inputEmail2">Nama Kategori Obat</label>
 									<input type="text" name="nama" class="form-control" id="inputEmail2"
 										placeholder="Masukan nama kategori obat">
@@ -81,10 +81,10 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<?php echo form_open('balai_pengobatan/tindakan/update'); ?>
+			<?php echo form_open('apotek/kategori_obat/update'); ?>
 			<div class="modal-body">
 				<div class="form-row">
-					<div class="form-group col-md-12">
+					<div class="form-group col-md-8">
 						<input type="hidden" name="no_kat_obat" value="<?= $data->no_kat_obat ?>">
 						<label for="inputEmail2">Nama Kategori Obat</label>
 						<input type="text" name="nama" value="<?= $data->nama ?>" class="form-control" id="inputEmail2"
