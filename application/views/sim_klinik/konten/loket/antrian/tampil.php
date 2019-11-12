@@ -143,14 +143,12 @@
                                 <tr>
                                     <th>No.</th>
                                     <th>Nama</th>
-                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr>
                                     <th>No.</th>
                                     <th>Nama</th>
-                                    <th>Aksi</th>
                                 </tr>
                             </tfoot>
                             <tbody>
@@ -160,11 +158,6 @@
                                     <tr>
                                         <td><?= $row->kode_antrian_kia; ?></td>
                                         <td><?= $row->nama; ?></td>
-                                        <td>
-                                            <button class="btn btn-block">
-                                                <i class="far fa-hand-pointer"></i> Prioritas
-                                            </button>
-                                        </td>
                                     </tr>
                                 <?php
                                 }
