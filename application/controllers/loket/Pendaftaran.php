@@ -49,6 +49,7 @@ class Pendaftaran extends CI_Controller
                 'no_ref_pelayanan' => $no_ref,
                 'no_rm' => $this->input->post('no_rm'),
                 'no_user_pegawai' => "P001",
+                'layanan_tujuan' => $this->input->post('layanan_tujuan'),
                 'tipe_antrian' => $this->input->post('tipe_antrian'),
                 'tgl_pelayanan' => $now
             );
@@ -65,6 +66,48 @@ class Pendaftaran extends CI_Controller
 
             $this->M_pendaftaran->input_data('pelayanan', $data_pelayanan);
             $this->M_pendaftaran->input_data('pasien', $data_pasien);
+
+            // logic antrian
+            $layanan_tujuan = $this->input->post('layanan_tujuan');
+
+            if ($layanan_tujuan == 'Balai Pengobatan') {
+
+                $tipe_antrian =  $this->input->post('tipe_antrian');
+
+                if ($tipe_antrian == 'Dewasa') {
+                    # code...
+                } else {
+                    # code...
+                }
+
+
+                $data = array(
+                    'kode_antrian_bp' => $no_ref,
+                    'no_ref_pelayanan' => $no_ref,
+                    'status' => "Antri"
+                );
+
+                $this->M_pendaftaran->input_data('antrian_bp', $data);
+            } elseif ($layanan_tujuan == 'Poli KIA') {
+
+                $data = array(
+                    'kode_antrian_kia' => $no_ref,
+                    'no_ref_pelayanan' => $no_ref,
+                    'status' => "Antri"
+                );
+
+                $this->M_pendaftaran->input_data('antrian_kia', $data);
+            } else {
+
+                $data = array(
+                    'kode_antrian_lab' => $no_ref,
+                    'no_ref_pelayanan' => $no_ref,
+                    'status' => "Antri"
+                );
+
+                $this->M_pendaftaran->input_data('antrian_lab', $data);
+            }
+
             redirect('loket/pendaftaran/add');
         }
     }
