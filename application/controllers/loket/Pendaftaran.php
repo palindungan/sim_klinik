@@ -27,16 +27,18 @@ class Pendaftaran extends CI_Controller
         $tgl_lahir = $tahun . "-" . $bulan . "-" . $hari;
         $lama = selisihHari($tgl_lahir, $now);
         $this->form_validation->set_message('cek_umur', 'Umur pasien kurang dari 1 hari');
+        $this->form_validation->set_message('cek_rm', 'No.Rm tersebut sudah ada');
+        $this->form_validation->set_rules('no_rm', 'No. RM', 'required');
+
         $no_rm = $this->input->post('no_rm');
         $db = $this->db->query("SELECT COUNT(*) as jml_rm FROM pasien WHERE no_rm='$no_rm'")->row();
         $rm_db = $db->jml_rm;
         if ($rm_db > 0) {
-            $this->form_validation->set_message('cek_rm', 'No. Rm tersebut sudah ada');
+            $this->form_validation->set_rules('no_rm', 'No. Rm tersebut sudah ada','cek_rm');
         }
         if ($lama < 0) {
             $this->form_validation->set_rules('hari', 'Error aja', 'cek_umur');
         }
-        $this->form_validation->set_rules('no_rm', 'No. RM', 'required|cek_rm');
         $this->form_validation->set_rules('nik', 'NIK', 'required|numeric|min_length[16]|max_length[16]');
         $this->form_validation->set_rules('tempat_lahir', 'tempat lahir', 'required');
         $this->form_validation->set_rules('nama', 'nama', 'required');
