@@ -24,6 +24,11 @@ class M_antrian extends CI_Model
         return $this->db->get_where($table, $where);
     }
 
+    function get_data_antrian_sekarang($table)
+    {
+        return $this->db->query("SELECT * FROM $table WHERE no_antrian = ( SELECT MIN(no_antrian) FROM $table )");
+    }
+
     function update_data($where, $table, $data)
     {
         $this->db->where($where);

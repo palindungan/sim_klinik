@@ -9,7 +9,8 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Balai Pengobatan : </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">A002 (Andre)</div>
+                            <div id="antrian_bp" class="h5 mb-0 font-weight-bold text-gray-800">Antrian Kosong</div>
+                            <input type="hidden" id="kode_antrian_bp" name="kode_antrian_bp">
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-clinic-medical fa-2x text-gray-300"></i>
@@ -31,7 +32,8 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Poli KIA : </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">B002 (Vania)</div>
+                            <div id="antrian_kia" class="h5 mb-0 font-weight-bold text-gray-800">Antrian Kosong</div>
+                            <input type="hidden" id="kode_antrian_kia" name="kode_antrian_kia">
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-baby-carriage fa-2x text-gray-300"></i>
@@ -53,7 +55,8 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Laboratorium : </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">C001 (Nina)</div>
+                            <div id="antrian_lap" class="h5 mb-0 font-weight-bold text-gray-800">Antrian Kosong</div>
+                            <input type="hidden" id="kode_antrian_lab" name="kode_antrian_lab">
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-flask fa-2x text-gray-300"></i>
@@ -109,7 +112,7 @@
                                                 if (substr($row->kode_antrian_bp, 0, 2) == "AG") {
                                                     echo '
     
-                                                        <button class="btn btn-block">
+                                                        <button class="btn btn-block prioritas_balai_pengobatan" id="' . $row->kode_antrian_bp . '">
                                                             <i class="far fa-hand-pointer"></i> Prioritas
                                                         </button>
                                                     ';
@@ -208,7 +211,7 @@
                                                 if (substr($row->kode_antrian_lab, 0, 2) == "CG") {
                                                     echo '
                                                 
-                                                    <button class="btn btn-block">
+                                                    <button class="btn btn-block prioritas_laboratorium">
                                                         <i class="far fa-hand-pointer"></i> Prioritas
                                                     </button>
                                                 ';
@@ -232,3 +235,111 @@
     </div>
 
 </div>
+
+<script src="<?= base_url(); ?>assets/sb_admin_2/vendor/jquery/jquery-3.4.1.min.js"></script>
+
+<script>
+    refresh_antrian_sekarang_bp();
+    refresh_antrian_sekarang_kia();
+    refresh_antrian_sekarang_lab();
+
+    $(document).on('click', '.prioritas_balai_pengobatan', function() {
+        var id = $(this).attr("id");
+
+        $.ajax({
+            url: "<?php echo base_url() . 'loket/antrian/click_prioritas_balai_pengobatan'; ?>",
+            method: "POST",
+            data: {
+                id: id
+            },
+            success: function(data) {
+                alert(data);
+
+            }
+        });
+
+    });
+
+    $(document).on('click', '.prioritas_laboratorium', function() {
+        var id = $(this).attr("id");
+
+        $.ajax({
+            url: "<?php echo base_url() . 'loket/antrian/click_prioritas_laboratorium'; ?>",
+            method: "POST",
+            data: {
+                id: id
+            },
+            success: function(data) {
+                alert(data);
+
+            }
+        });
+
+    });
+
+    function refresh_antrian_sekarang_bp() {
+
+        $.ajax({
+            url: "<?php echo base_url() . 'loket/antrian/refresh_antrian_sekarang_bp'; ?>",
+            success: function(hasil) {
+                var obj = JSON.parse(hasil);
+                let data = obj['result_data'];
+
+                if (data != '') {
+
+                    var id = data[0].kode_antrian_bp;
+                    var nama = data[0].nama;
+
+                    document.getElementById("antrian_bp").innerHTML = id + " (" + nama + ")";
+
+                    $("#kode_antrian_bp").val(data[0].kode_antrian_bp);
+
+                }
+            }
+        });
+    }
+
+    function refresh_antrian_sekarang_kia() {
+
+        $.ajax({
+            url: "<?php echo base_url() . 'loket/antrian/refresh_antrian_sekarang_kia'; ?>",
+            success: function(hasil) {
+                var obj = JSON.parse(hasil);
+                let data = obj['result_data'];
+
+                if (data != '') {
+
+                    var id = data[0].kode_antrian_kia;
+                    var nama = data[0].nama;
+
+                    document.getElementById("antrian_kia").innerHTML = id + " (" + nama + ")";
+
+                    $("#kode_antrian_kia").val(data[0].kode_antrian_kia);
+
+                }
+            }
+        });
+    }
+
+    function refresh_antrian_sekarang_lab() {
+
+        $.ajax({
+            url: "<?php echo base_url() . 'loket/antrian/refresh_antrian_sekarang_lab'; ?>",
+            success: function(hasil) {
+                var obj = JSON.parse(hasil);
+                let data = obj['result_data'];
+
+                if (data != '') {
+
+                    var id = data[0].kode_antrian_lab;
+                    var nama = data[0].nama;
+
+                    document.getElementById("antrian_lap").innerHTML = id + " (" + nama + ")";
+
+                    $("#kode_antrian_lab").val(data[0].kode_antrian_lab);
+
+                }
+            }
+        });
+    }
+</script>
