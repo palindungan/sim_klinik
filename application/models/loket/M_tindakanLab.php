@@ -1,5 +1,5 @@
 <?php
-class M_ugdTindakan extends CI_Model
+class M_tindakanLab extends CI_Model
 {
     function tampil_data($table)
     {
@@ -34,10 +34,10 @@ class M_ugdTindakan extends CI_Model
     // autogenerate kode / ID
     function get_no()
     {
-        $field = "no_ugd_t";
-        $tabel = "ugd_tindakan";
+        $field = "no_lab_c";
+        $tabel = "lab_checkup";
         $digit = "3";
-        $kode = "U";
+        $kode = "L";
         $q = $this->db->query("SELECT MAX(RIGHT($field,$digit)) AS kd_max FROM $tabel");
         $kd = "";
         if ($q->num_rows() > 0) {
@@ -46,7 +46,7 @@ class M_ugdTindakan extends CI_Model
         $kd = $kode . sprintf('%0' . $digit . 's', $tmp);
         }
         } else {
-        $kd = "U001";
+        $kd = "L001";
         }
         return $kd;
     }

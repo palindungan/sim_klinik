@@ -17,7 +17,7 @@
 								<span aria-hidden="true">&times;</span>
 							</button>
 						</div>
-						<?php echo form_open('loket/ugdTindakan/store'); ?>
+						<?php echo form_open('loket/tindakanUgd/store'); ?>
 						<div class="modal-body">
 							<div class="form-row">
 								<div class="form-group col-md-6">
@@ -47,8 +47,8 @@
 							<th width="5%" class="text-center">No</th>
 							<th width="20%">Kode</th>
 							<th width="40%">Nama Tindakan</th>
-							<th width="20%" class="text-center">Harga</th>
-							<th width="15%" class="text-center">Aksi</th>
+							<th width="15%" class="text-center">Harga</th>
+							<th width="20%" class="text-center">Aksi</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -61,11 +61,11 @@
 							<td><?= $data->no_ugd_t ?></td>
 							<td><?= $data->nama ?></td>
 							<td class="text-right"><?= $data->harga ?></td>
-							<td>
+							<td class="text-center">
 								<a style="cursor:pointer" class="btn btn-warning text-white" data-toggle="modal"
 									data-target="#modal-edit<?= $data->no_ugd_t ?>">Edit</a>
 								<a onclick="return confirm('Anda yakin ingin menghapus data?')"
-									href="<?= base_url('loket/ugdTindakan/delete/'.$data->no_ugd_t) ?>"
+									href="<?= base_url('loket/tindakanUgd/delete/'.$data->no_ugd_t) ?>"
 									class="btn btn-danger">Hapus</a>
 							</td>
 						</tr>
@@ -88,7 +88,7 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<?php echo form_open('loket/ugdTindakan/update'); ?>
+			<?php echo form_open('loket/tindakanUgd/update'); ?>
 			<div class="modal-body">
 				<div class="form-row">
 					<div class="form-group col-md-6">
