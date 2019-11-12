@@ -8,15 +8,13 @@ class M_antrian extends CI_Model
 
     function input_data($table, $data)
     {
-        $status = $this->db->insert($table, $data);
-        return $status;
+        $this->db->insert($table, $data);
     }
 
     function hapus_data($where, $table)
     {
         $this->db->where($where);
-        $status = $this->db->delete($table);
-        return $status;
+        $this->db->delete($table);
     }
 
     function get_data($table, $where)
@@ -32,8 +30,7 @@ class M_antrian extends CI_Model
     function update_data($where, $table, $data)
     {
         $this->db->where($where);
-        $status = $this->db->update($table, $data);
-        return $status;
+        $this->db->update($table, $data);
     }
 
     // autogenerate kode / ID

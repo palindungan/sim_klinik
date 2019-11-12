@@ -15,9 +15,51 @@ class Antrian extends CI_Controller
         $this->template->load('sim_klinik/template/loket', 'sim_klinik/konten/loket/antrian/tampil', $data);
     }
     public function click_prioritas_balai_pengobatan()
-    { }
+    {
+        $kode_antrian_bp = $this->input->post('id');
+
+        $where = array(
+            'kode_antrian_bp' => $kode_antrian_bp
+        );
+        $query = $this->M_antrian->get_data("antrian_bp", $where);
+        foreach ($query->result_array() as $row) {
+            $status = $row["status"];
+            if ($status == "Prioritas") {
+                $data = array(
+                    'status' => 'Antri'
+                );
+                $this->M_antrian->update_data($where, 'antrian_bp', $data);
+            } else {
+                $data = array(
+                    'status' => 'Prioritas'
+                );
+                $this->M_antrian->update_data($where, 'antrian_bp', $data);
+            }
+        }
+    }
     public function click_prioritas_laboratorium()
-    { }
+    {
+        $kode_antrian_lab = $this->input->post('id');
+
+        $where = array(
+            'kode_antrian_lab' => $kode_antrian_lab
+        );
+        $query = $this->M_antrian->get_data("antrian_lab", $where);
+        foreach ($query->result_array() as $row) {
+            $status = $row["status"];
+            if ($status == "Prioritas") {
+                $data = array(
+                    'status' => 'Antri'
+                );
+                $this->M_antrian->update_data($where, 'antrian_lab', $data);
+            } else {
+                $data = array(
+                    'status' => 'Prioritas'
+                );
+                $this->M_antrian->update_data($where, 'antrian_lab', $data);
+            }
+        }
+    }
     public function refresh_antrian_sekarang_bp()
     {
         $query = $this->M_antrian->get_data_antrian_sekarang("antrian_balai_pengobatan_prioritas");

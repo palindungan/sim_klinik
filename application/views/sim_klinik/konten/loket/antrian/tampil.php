@@ -210,11 +210,11 @@
                                             <?php
                                                 if (substr($row->kode_antrian_lab, 0, 2) == "CG") {
                                                     echo '
-                                                
-                                                    <button class="btn btn-block prioritas_laboratorium">
-                                                        <i class="far fa-hand-pointer"></i> Prioritas
-                                                    </button>
-                                                ';
+    
+                                                        <button class="btn btn-block prioritas_laboratorium" id="' . $row->kode_antrian_lab . '">
+                                                            <i class="far fa-hand-pointer"></i> Prioritas
+                                                        </button>
+                                                    ';
                                                 }
                                                 ?>
 
@@ -253,8 +253,7 @@
                 id: id
             },
             success: function(data) {
-                alert(data);
-
+                refresh_antrian_sekarang_bp();
             }
         });
 
@@ -270,8 +269,7 @@
                 id: id
             },
             success: function(data) {
-                alert(data);
-
+                refresh_antrian_sekarang_lab();
             }
         });
 
