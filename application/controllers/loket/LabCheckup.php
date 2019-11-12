@@ -32,6 +32,18 @@ class LabCheckup extends CI_Controller
         $this->M_labCheckup->input_data('lab_checkup',$data);
         redirect('loket/labCheckup');
     }
+    public function update()
+    {
+        $where = array(
+            'no_lab_c' => $this->input->post('no_lab_c')
+        );
+        $data = array(
+            'nama' => $this->input->post('nama'),
+            'harga' => $this->input->post('harga')
+        );
+        $this->M_labCheckup->update_data($where,'lab_checkup',$data);
+        redirect('loket/labCheckup');
+    }
     public function delete($id)
     {
         $where = array('no_lab_c' => $id);

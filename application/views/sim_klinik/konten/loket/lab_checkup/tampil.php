@@ -22,21 +22,13 @@
 							<div class="form-row">
 								<div class="form-group col-md-6">
 									<label for="inputEmail2">Nama Tindakan</label>
-									<input type="text" name="nama" value="<?= set_value('nik') ?>"
-										class="form-control <?php if (form_error('nik') == true) {echo "is-invalid";} ?>"
-										id="inputEmail2" placeholder="Masukan nama tindakan">
-									<div class="invalid-feedback">
-										<?= form_error('nik'); ?>
-									</div>
+									<input type="text" name="nama" class="form-control" id="inputEmail2"
+										placeholder="Masukan nama tindakan">
 								</div>
 								<div class="form-group col-md-6">
 									<label for="inputEmail1">Harga Tindakan</label>
-									<input type="text" name="harga" value="<?= set_value('nama') ?>"
-										class="form-control <?php if (form_error('nama') == true) {echo "is-invalid";} ?>"
-										id="inputEmail1" placeholder="Masukan harga tindakan">
-									<div class="invalid-feedback">
-										<?= form_error('nama'); ?>
-									</div>
+									<input type="text" name="harga" class="form-control" id="inputEmail1"
+										placeholder="Masukan harga tindakan">
 								</div>
 							</div>
 						</div>
@@ -61,9 +53,8 @@
 					</thead>
 					<tbody>
 						<?php
-                            $no=1;
-                            foreach($record as $data)
-                            {
+						$no=1;
+						foreach($record as $data):
                         ?>
 						<tr>
 							<td class="text-center"><?= $no++ ?></td>
@@ -71,18 +62,56 @@
 							<td><?= $data->nama ?></td>
 							<td class="text-right"><?= $data->harga ?></td>
 							<td>
-								<a href="" class="btn btn-info">Edit</a>
+								<a style="cursor:pointer" class="btn btn-warning text-white" data-toggle="modal"
+									data-target="#modal-edit<?= $data->no_lab_c ?>">Edit</a>
 								<a onclick="return confirm('Anda yakin ingin menghapus data?')"
 									href="<?= base_url('loket/labCheckup/delete/'.$data->no_lab_c) ?>"
 									class="btn btn-danger">Hapus</a>
 							</td>
 						</tr>
-						<?php 
-                            }
-                        ?>
+						<?php endforeach; ?>
 					</tbody>
 				</table>
 			</div>
 		</div>
 	</div>
 </div>
+
+<!-- Modal Edit -->
+<?php foreach($record as $data):  ?>
+<div id="modal-edit<?=$data->no_lab_c;?>" class="modal fade">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Edit Tindakan Lab Checkup</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<?php echo form_open('loket/labCheckup/update'); ?>
+			<div class="modal-body">
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<input type="hidden" name="no_lab_c" value="<?= $data->no_lab_c ?>">
+						<label for="inputEmail2">Nama Tindakan</label>
+						<input type="text" name="nama" value="<?= $data->nama ?>" class="form-control" id="inputEmail2"
+							placeholder="Masukan nama tindakan">
+
+					</div>
+					<div class="form-group col-md-6">
+						<label for="inputEmail1">Harga Tindakan</label>
+						<input type="text" name="harga" value="<?= $data->harga ?>" class="form-control"
+							id="inputEmail1" placeholder="Masukan harga tindakan">
+
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="submit" class="btn btn-primary">Simpan</button>
+				<button type="button" class="btn btn-link" data-dismiss="modal">Kembali</button>
+			</div>
+			<?php echo form_close(); ?>
+		</div>
+	</div>
+</div>
+<?php endforeach; ?>
