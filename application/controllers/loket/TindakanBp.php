@@ -1,26 +1,26 @@
 <?php
-class BpTindakan extends CI_Controller
+class TindakanBp extends CI_Controller
 {
     function __construct()
     {
         parent::__construct();
-        $this->load->model('loket/M_bpTindakan');
+        $this->load->model('loket/M_tindakanBp');
     }
     public function index()
     {
-        $data['record'] = $this->M_bpTindakan->tampil_data('bp_tindakan')->result();
-        $this->template->load('sim_klinik/template/loket', 'sim_klinik/konten/loket/bp_tindakan/tampil',$data);
+        $data['record'] = $this->M_tindakanBp->tampil_data('bp_tindakan')->result();
+        $this->template->load('sim_klinik/template/loket', 'sim_klinik/konten/loket/tindakan_bp/tampil',$data);
     }
     public function store()
     {
-        $id = $this->M_bpTindakan->get_no(); // generate
+        $id = $this->M_tindakanBp->get_no(); // generate
         $data = array(
             'no_bp_t' => $id,
             'nama' => $this->input->post('nama'),
             'harga' => $this->input->post('harga')
         );
-        $this->M_bpTindakan->input_data('bp_tindakan',$data);
-        redirect('loket/bpTindakan');
+        $this->M_tindakanBp->input_data('bp_tindakan',$data);
+        redirect('loket/tindakanBp');
     }
     public function update()
     {
@@ -31,14 +31,14 @@ class BpTindakan extends CI_Controller
             'nama' => $this->input->post('nama'),
             'harga' => $this->input->post('harga')
         );
-        $this->M_bpTindakan->update_data($where,'bp_tindakan',$data);
-        redirect('loket/bpTindakan');
+        $this->M_tindakanBp->update_data($where,'bp_tindakan',$data);
+        redirect('loket/tindakanBp');
     }
     public function delete($id)
     {
         $where = array('no_bp_t' => $id);
-        $this->M_bpTindakan->hapus_data($where, 'bp_tindakan');
-        redirect('loket/bpTindakan');
+        $this->M_tindakanBp->hapus_data($where, 'bp_tindakan');
+        redirect('loket/tindakanBp');
     }
     
 

@@ -9,7 +9,7 @@ class UgdTindakan extends CI_Controller
     public function index()
     {
         $data['record'] = $this->M_ugdTindakan->tampil_data('ugd_tindakan')->result();
-        $this->template->load('sim_klinik/template/loket', 'sim_klinik/konten/loket/ugd_tindakan/tampil',$data);
+        $this->template->load('sim_klinik/template/loket', 'sim_klinik/konten/loket/tindakan_ugd/tampil',$data);
     }
     public function store()
     {

@@ -1,5 +1,5 @@
 <?php
-class M_bpTindakan extends CI_Model
+class M_tindakanBp extends CI_Model
 {
     function tampil_data($table)
     {
