@@ -34,21 +34,21 @@ class M_labCheckup extends CI_Model
     // autogenerate kode / ID
     function get_no()
     {
-        $field = "id_pengajar";
-        $tabel = "pengajar";
+        $field = "no_lab_c";
+        $tabel = "lab_checkup";
         $digit = "3";
-        $kode = "PE";
-
+        $kode = "L";
         $q = $this->db->query("SELECT MAX(RIGHT($field,$digit)) AS kd_max FROM $tabel");
         $kd = "";
         if ($q->num_rows() > 0) {
-            foreach ($q->result() as $k) {
-                $tmp = ((int) $k->kd_max) + 1;
-                $kd = $kode . sprintf('%0' . $digit . 's',  $tmp);
-            }
+        foreach ($q->result() as $k) {
+        $tmp = ((int) $k->kd_max) + 1;
+        $kd = $kode . sprintf('%0' . $digit . 's', $tmp);
+        }
         } else {
-            $kd = "PE001";
+        $kd = "L001";
         }
         return $kd;
     }
+    
 }
