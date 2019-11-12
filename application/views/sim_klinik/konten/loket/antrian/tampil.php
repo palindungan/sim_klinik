@@ -97,31 +97,30 @@
                                 </tr>
                             </tfoot>
                             <tbody>
-                                <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                    <td>Edinburgh</td>
-                                </tr>
-                                <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                    <td>Edinburgh</td>
-                                </tr>
-                                <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                    <td>Edinburgh</td>
-                                </tr>
-                                <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                    <td>Edinburgh</td>
-                                </tr>
-                                <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                    <td>Edinburgh</td>
-                                </tr>
+                                <?php
+                                foreach ($antrian_bp as $row) {
+                                    ?>
+                                    <tr>
+                                        <td><?= $row->kode_antrian_bp; ?></td>
+                                        <td><?= $row->nama; ?></td>
+                                        <td>
+
+                                            <?php
+                                                if (substr($row->kode_antrian_bp, 0, 2) == "AG") {
+                                                    echo '
+    
+                                                        <button class="btn btn-block">
+                                                            <i class="far fa-hand-pointer"></i> Prioritas
+                                                        </button>
+                                                    ';
+                                                }
+                                                ?>
+
+                                        </td>
+                                    </tr>
+                                <?php
+                                }
+                                ?>
                             </tbody>
                         </table>
                     </div>
@@ -155,31 +154,21 @@
                                 </tr>
                             </tfoot>
                             <tbody>
-                                <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                    <td>Edinburgh</td>
-                                </tr>
-                                <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                    <td>Edinburgh</td>
-                                </tr>
-                                <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                    <td>Edinburgh</td>
-                                </tr>
-                                <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                    <td>Edinburgh</td>
-                                </tr>
-                                <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                    <td>Edinburgh</td>
-                                </tr>
+                                <?php
+                                foreach ($antrian_kia as $row) {
+                                    ?>
+                                    <tr>
+                                        <td><?= $row->kode_antrian_kia; ?></td>
+                                        <td><?= $row->nama; ?></td>
+                                        <td>
+                                            <button class="btn btn-block">
+                                                <i class="far fa-hand-pointer"></i> Prioritas
+                                            </button>
+                                        </td>
+                                    </tr>
+                                <?php
+                                }
+                                ?>
                             </tbody>
                         </table>
                     </div>
@@ -213,31 +202,32 @@
                                 </tr>
                             </tfoot>
                             <tbody>
-                                <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                    <td>Edinburgh</td>
-                                </tr>
-                                <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                    <td>Edinburgh</td>
-                                </tr>
-                                <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                    <td>Edinburgh</td>
-                                </tr>
-                                <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                    <td>Edinburgh</td>
-                                </tr>
-                                <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                    <td>Edinburgh</td>
-                                </tr>
+
+                                <?php
+                                foreach ($antrian_lab as $row) {
+                                    ?>
+                                    <tr>
+                                        <td><?= $row->kode_antrian_lab; ?></td>
+                                        <td><?= $row->nama; ?></td>
+                                        <td>
+
+                                            <?php
+                                                if (substr($row->kode_antrian_lab, 0, 2) == "CG") {
+                                                    echo '
+                                                
+                                                    <button class="btn btn-block">
+                                                        <i class="far fa-hand-pointer"></i> Prioritas
+                                                    </button>
+                                                ';
+                                                }
+                                                ?>
+
+                                        </td>
+
+                                    </tr>
+                                <?php
+                                }
+                                ?>
                             </tbody>
                         </table>
                     </div>
