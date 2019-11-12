@@ -17,7 +17,7 @@
 								<span aria-hidden="true">&times;</span>
 							</button>
 						</div>
-						<?php echo form_open('loket/tindakanBp/store'); ?>
+						<?php echo form_open('balai_pengobatan/tindakan/store'); ?>
 						<div class="modal-body">
 							<div class="form-row">
 								<div class="form-group col-md-6">
@@ -65,7 +65,7 @@
 								<a style="cursor:pointer" class="btn btn-warning text-white" data-toggle="modal"
 									data-target="#modal-edit<?= $data->no_bp_t ?>">Edit</a>
 								<a onclick="return confirm('Anda yakin ingin menghapus data?')"
-									href="<?= base_url('loket/tindakanBp/delete/'.$data->no_bp_t) ?>"
+									href="<?= base_url('balai_pengobatan/tindakan/delete/'.$data->no_bp_t) ?>"
 									class="btn btn-danger">Hapus</a>
 							</td>
 						</tr>
@@ -88,7 +88,7 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<?php echo form_open('loket/tindakanBp/update'); ?>
+			<?php echo form_open('balai_pengobatan/tindakan/update'); ?>
 			<div class="modal-body">
 				<div class="form-row">
 					<div class="form-group col-md-6">
