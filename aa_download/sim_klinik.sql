@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 12 Nov 2019 pada 12.08
+-- Waktu pembuatan: 12 Nov 2019 pada 15.18
 -- Versi server: 10.1.37-MariaDB
 -- Versi PHP: 7.3.0
 
@@ -256,6 +256,7 @@ CREATE TABLE `pelayanan` (
   `no_ref_pelayanan` varchar(10) NOT NULL,
   `no_rm` varchar(10) NOT NULL,
   `no_user_pegawai` varchar(5) NOT NULL,
+  `layanan_tujuan` enum('Balai Pengobatan','Poli KIA','Laboratorium') NOT NULL,
   `tipe_antrian` enum('Dewasa','Anak-Anak') NOT NULL,
   `tgl_pelayanan` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -264,11 +265,11 @@ CREATE TABLE `pelayanan` (
 -- Dumping data untuk tabel `pelayanan`
 --
 
-INSERT INTO `pelayanan` (`no_ref_pelayanan`, `no_rm`, `no_user_pegawai`, `tipe_antrian`, `tgl_pelayanan`) VALUES
-('191112-001', 'asd', 'P001', 'Anak-Anak', '2019-11-12'),
-('191112-002', 'asd123', 'P001', 'Anak-Anak', '2019-11-12'),
-('191112-003', 'asd123', 'P001', 'Anak-Anak', '2019-11-12'),
-('191112-004', 'asd1234', 'P001', 'Anak-Anak', '2019-11-12');
+INSERT INTO `pelayanan` (`no_ref_pelayanan`, `no_rm`, `no_user_pegawai`, `layanan_tujuan`, `tipe_antrian`, `tgl_pelayanan`) VALUES
+('191112-001', 'asd', 'P001', 'Balai Pengobatan', 'Anak-Anak', '2019-11-12'),
+('191112-002', 'asd123', 'P001', 'Balai Pengobatan', 'Anak-Anak', '2019-11-12'),
+('191112-003', 'asd123', 'P001', 'Balai Pengobatan', 'Anak-Anak', '2019-11-12'),
+('191112-004', 'asd1234', 'P001', 'Balai Pengobatan', 'Anak-Anak', '2019-11-12');
 
 -- --------------------------------------------------------
 
