@@ -18,10 +18,10 @@ class Pendaftaran extends CI_Controller
     
     public function store()
     {
-        $this->form_validation->set_rules('no_ref','No. Ref','required');
         $this->form_validation->set_rules('no_rm','No. RM','required');
         $this->form_validation->set_rules('nik','NIK','required|numeric|min_length[16]|max_length[16]');
-        $this->form_validation->set_rules('tempat_lahir','tempat lahir','required|alpha');
+        $this->form_validation->set_rules('tempat_lahir','tempat lahir','required');
+        $this->form_validation->set_rules('nama','nama','required');
         $this->form_validation->set_rules('alamat','alamat','required');
         date_default_timezone_set("Asia/Jakarta");
         $now = Date('Y-m-d');
@@ -41,7 +41,29 @@ class Pendaftaran extends CI_Controller
         }
         else
         {
-            echo $lama;
+            $no_ref = $this->M_pendaftaran->get_no(); // generate
+            $data_pelayanan = array(
+                'no_ref_pelayanan' => $no_ref,
+                'no_rm' => $this->input->post('no_rm'),
+                'no_user_pegawai' => "P001",
+                'tipe_antrian' => $this->input->post('tipe_antrian'),
+                'tgl_pelayanan' => $now
+            );
+
+            $data_pasien = array(
+                'no_rm' => $this->input->post('no_rm'),
+                'nama' => $this->input->post('nama'),
+                'nik' => $this->input->post('nik'),
+                'tempat_lahir' => $this->input->post('tempat_lahir'),
+                'tgl_lahir' => $tgl_lahir,
+                'jenkel' => $this->input->post('jenis_kelamin'),
+                'alamat' => $this->input->post('alamat')
+            );
+
+            $this->M_pendaftaran->input_data('pelayanan', $data_pelayanan);
+            $this->M_pendaftaran->input_data('pasien', $data_pasien);
+            redirect('loket/pendaftaran/add');
+
         }
     }
 }
