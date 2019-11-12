@@ -73,77 +73,81 @@ class M_pendaftaran extends CI_Model
 
     function get_no_anak_anak_bp()
     {
-        $field = "no_ref_pelayanan";
-        $tabel = "pelayanan";
+        $field = "kode_antrian_bp";
+        $tabel = "antrian_bp";
         $digit = "3";
+        $kode = "AG";
 
         $q = $this->db->query("SELECT MAX(RIGHT($field,$digit)) AS kd_max FROM $tabel");
         $kd = "";
         if ($q->num_rows() > 0) {
             foreach ($q->result() as $k) {
                 $tmp = ((int) $k->kd_max) + 1;
-                $kd = sprintf('%0' . $digit . 's',  $tmp);
+                $kd = $kode . sprintf('%0' . $digit . 's',  $tmp);
             }
         } else {
-            $kd = "001";
+            $kd = "AG001";
         }
-        return date('ymd') . '-' . $kd;
+        return $kd;
     }
 
     function get_no_dewasa_lab()
     {
-        $field = "no_ref_pelayanan";
-        $tabel = "pelayanan";
+        $field = "kode_antrian_lab";
+        $tabel = "antrian_lab";
         $digit = "3";
+        $kode = "C";
 
         $q = $this->db->query("SELECT MAX(RIGHT($field,$digit)) AS kd_max FROM $tabel");
         $kd = "";
         if ($q->num_rows() > 0) {
             foreach ($q->result() as $k) {
                 $tmp = ((int) $k->kd_max) + 1;
-                $kd = sprintf('%0' . $digit . 's',  $tmp);
+                $kd = $kode . sprintf('%0' . $digit . 's',  $tmp);
             }
         } else {
-            $kd = "001";
+            $kd = "C001";
         }
-        return date('ymd') . '-' . $kd;
+        return $kd;
     }
 
     function get_no_anak_anak_lab()
     {
-        $field = "no_ref_pelayanan";
-        $tabel = "pelayanan";
+        $field = "kode_antrian_lab";
+        $tabel = "antrian_lab";
         $digit = "3";
+        $kode = "CG";
 
         $q = $this->db->query("SELECT MAX(RIGHT($field,$digit)) AS kd_max FROM $tabel");
         $kd = "";
         if ($q->num_rows() > 0) {
             foreach ($q->result() as $k) {
                 $tmp = ((int) $k->kd_max) + 1;
-                $kd = sprintf('%0' . $digit . 's',  $tmp);
+                $kd = $kode . sprintf('%0' . $digit . 's',  $tmp);
             }
         } else {
-            $kd = "001";
+            $kd = "CG001";
         }
-        return date('ymd') . '-' . $kd;
+        return $kd;
     }
 
     function get_no_kia()
     {
-        $field = "no_ref_pelayanan";
-        $tabel = "pelayanan";
+        $field = "kode_antrian_kia";
+        $tabel = "antrian_kia";
         $digit = "3";
+        $kode = "B";
 
         $q = $this->db->query("SELECT MAX(RIGHT($field,$digit)) AS kd_max FROM $tabel");
         $kd = "";
         if ($q->num_rows() > 0) {
             foreach ($q->result() as $k) {
                 $tmp = ((int) $k->kd_max) + 1;
-                $kd = sprintf('%0' . $digit . 's',  $tmp);
+                $kd = $kode . sprintf('%0' . $digit . 's',  $tmp);
             }
         } else {
-            $kd = "001";
+            $kd = "B001";
         }
-        return date('ymd') . '-' . $kd;
+        return $kd;
     }
 }

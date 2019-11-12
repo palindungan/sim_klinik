@@ -73,22 +73,24 @@ class Pendaftaran extends CI_Controller
             if ($layanan_tujuan == 'Balai Pengobatan') {
 
                 $tipe_antrian =  $this->input->post('tipe_antrian');
+                $kode_antrian = '';
 
                 if ($tipe_antrian == 'Dewasa') {
-                    # code...
+                    $kode_antrian = $this->M_pendaftaran->get_no_dewasa_bp(); // generate
                 } else {
-                    # code...
+                    $kode_antrian = $this->M_pendaftaran->get_no_anak_anak_bp(); // generate
                 }
 
-
                 $data = array(
-                    'kode_antrian_bp' => $no_ref,
+                    'kode_antrian_bp' => $kode_antrian,
                     'no_ref_pelayanan' => $no_ref,
                     'status' => "Antri"
                 );
 
                 $this->M_pendaftaran->input_data('antrian_bp', $data);
             } elseif ($layanan_tujuan == 'Poli KIA') {
+
+                $kode_antrian = $this->M_pendaftaran->get_no_kia(); // generate
 
                 $data = array(
                     'kode_antrian_kia' => $no_ref,
@@ -99,8 +101,17 @@ class Pendaftaran extends CI_Controller
                 $this->M_pendaftaran->input_data('antrian_kia', $data);
             } else {
 
+                $tipe_antrian =  $this->input->post('tipe_antrian');
+                $kode_antrian = '';
+
+                if ($tipe_antrian == 'Dewasa') {
+                    $kode_antrian = $this->M_pendaftaran->get_no_dewasa_lab(); // generate
+                } else {
+                    $kode_antrian = $this->M_pendaftaran->get_no_anak_anak_lab(); // generate
+                }
+
                 $data = array(
-                    'kode_antrian_lab' => $no_ref,
+                    'kode_antrian_lab' => $kode_antrian,
                     'no_ref_pelayanan' => $no_ref,
                     'status' => "Antri"
                 );
