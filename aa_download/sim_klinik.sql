@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 12 Nov 2019 pada 07.08
+-- Waktu pembuatan: 12 Nov 2019 pada 11.35
 -- Versi server: 10.4.6-MariaDB
 -- Versi PHP: 7.3.9
 
@@ -21,6 +21,65 @@ SET time_zone = "+00:00";
 --
 -- Database: `sim_klinik`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `bp_tindakan`
+--
+
+CREATE TABLE `bp_tindakan` (
+  `no_bp_t` varchar(5) NOT NULL,
+  `nama` varchar(50) NOT NULL,
+  `harga` int(9) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `bp_tindakan`
+--
+
+INSERT INTO `bp_tindakan` (`no_bp_t`, `nama`, `harga`) VALUES
+('B001', 'asd', 90000),
+('B002', 'asd', 100000);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `kia_tindakan`
+--
+
+CREATE TABLE `kia_tindakan` (
+  `no_kia_t` varchar(5) NOT NULL,
+  `nama` varchar(50) NOT NULL,
+  `harga` int(9) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `kia_tindakan`
+--
+
+INSERT INTO `kia_tindakan` (`no_kia_t`, `nama`, `harga`) VALUES
+('K001', 'asdx', 1000009);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `lab_checkup`
+--
+
+CREATE TABLE `lab_checkup` (
+  `no_lab_c` varchar(5) NOT NULL,
+  `nama` varchar(50) NOT NULL,
+  `harga` int(9) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `lab_checkup`
+--
+
+INSERT INTO `lab_checkup` (`no_lab_c`, `nama`, `harga`) VALUES
+('L001', 'Periksa kolestrols', 300009),
+('L002', 'Periksa Diabetex', 1000009);
 
 -- --------------------------------------------------------
 
@@ -44,7 +103,8 @@ CREATE TABLE `pasien` (
 
 INSERT INTO `pasien` (`no_rm`, `nama`, `nik`, `tempat_lahir`, `tgl_lahir`, `jenkel`, `alamat`) VALUES
 ('asd', 'Ali', '1234567812345678', 'Jember', '1983-01-17', '', 'sukosari'),
-('asd123', 'asdx', '1234567812345678', 'Jember', '1980-01-01', '', 'asd');
+('asd123', 'asdx', '1234567812345678', 'Jember', '1980-01-01', '', 'asd'),
+('asd1234', 'asdx', '1234567812345678', 'Jember', '1980-01-01', 'Perempuan', 'sukosiar');
 
 -- --------------------------------------------------------
 
@@ -66,11 +126,50 @@ CREATE TABLE `pelayanan` (
 
 INSERT INTO `pelayanan` (`no_ref_pelayanan`, `no_rm`, `no_user_pegawai`, `tipe_antrian`, `tgl_pelayanan`) VALUES
 ('191112-001', 'asd', 'P001', 'Anak-Anak', '2019-11-12'),
-('191112-002', 'asd123', 'P001', 'Anak-Anak', '2019-11-12');
+('191112-002', 'asd123', 'P001', 'Anak-Anak', '2019-11-12'),
+('191112-003', 'asd123', 'P001', 'Anak-Anak', '2019-11-12'),
+('191112-004', 'asd1234', 'P001', 'Anak-Anak', '2019-11-12');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `ugd_tindakan`
+--
+
+CREATE TABLE `ugd_tindakan` (
+  `no_ugd_t` varchar(5) NOT NULL,
+  `nama` varchar(50) NOT NULL,
+  `harga` int(9) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `ugd_tindakan`
+--
+
+INSERT INTO `ugd_tindakan` (`no_ugd_t`, `nama`, `harga`) VALUES
+('U001', 'Pemberian oksigens', 1000009);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indeks untuk tabel `bp_tindakan`
+--
+ALTER TABLE `bp_tindakan`
+  ADD PRIMARY KEY (`no_bp_t`);
+
+--
+-- Indeks untuk tabel `kia_tindakan`
+--
+ALTER TABLE `kia_tindakan`
+  ADD PRIMARY KEY (`no_kia_t`);
+
+--
+-- Indeks untuk tabel `lab_checkup`
+--
+ALTER TABLE `lab_checkup`
+  ADD PRIMARY KEY (`no_lab_c`);
 
 --
 -- Indeks untuk tabel `pasien`
@@ -83,6 +182,12 @@ ALTER TABLE `pasien`
 --
 ALTER TABLE `pelayanan`
   ADD PRIMARY KEY (`no_ref_pelayanan`);
+
+--
+-- Indeks untuk tabel `ugd_tindakan`
+--
+ALTER TABLE `ugd_tindakan`
+  ADD PRIMARY KEY (`no_ugd_t`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
