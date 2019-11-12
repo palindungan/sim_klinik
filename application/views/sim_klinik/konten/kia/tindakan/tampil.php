@@ -17,7 +17,7 @@
 								<span aria-hidden="true">&times;</span>
 							</button>
 						</div>
-						<?php echo form_open('loket/tindakanKia/store'); ?>
+						<?php echo form_open('kia/tindakan/store'); ?>
 						<div class="modal-body">
 							<div class="form-row">
 								<div class="form-group col-md-6">
@@ -65,7 +65,7 @@
 								<a style="cursor:pointer" class="btn btn-warning text-white" data-toggle="modal"
 									data-target="#modal-edit<?= $data->no_kia_t ?>">Edit</a>
 								<a onclick="return confirm('Anda yakin ingin menghapus data?')"
-									href="<?= base_url('loket/tindakanKia/delete/'.$data->no_kia_t) ?>"
+									href="<?= base_url('kia/tindakan/delete/'.$data->no_kia_t) ?>"
 									class="btn btn-danger">Hapus</a>
 							</td>
 						</tr>
@@ -88,7 +88,7 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<?php echo form_open('loket/tindakanKia/update'); ?>
+			<?php echo form_open('kia/tindakan/update'); ?>
 			<div class="modal-body">
 				<div class="form-row">
 					<div class="form-group col-md-6">
