@@ -10,7 +10,7 @@
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Balai Pengobatan : </div>
                             <div id="antrian_bp" class="h5 mb-0 font-weight-bold text-gray-800">Antrian Kosong</div>
-                            <input type="text" id="kode_antrian_bp" name="kode_antrian_bp">
+                            <input type="hidden" id="kode_antrian_bp" name="kode_antrian_bp">
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-clinic-medical fa-2x text-gray-300"></i>
@@ -33,7 +33,7 @@
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Poli KIA : </div>
                             <div id="antrian_kia" class="h5 mb-0 font-weight-bold text-gray-800">Antrian Kosong</div>
-                            <input type="text" id="kode_antrian_kia" name="kode_antrian_kia">
+                            <input type="hidden" id="kode_antrian_kia" name="kode_antrian_kia">
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-baby-carriage fa-2x text-gray-300"></i>
@@ -56,7 +56,7 @@
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Laboratorium : </div>
                             <div id="antrian_lab" class="h5 mb-0 font-weight-bold text-gray-800">Antrian Kosong</div>
-                            <input type="text" id="kode_antrian_lab" name="kode_antrian_lab">
+                            <input type="hidden" id="kode_antrian_lab" name="kode_antrian_lab">
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-flask fa-2x text-gray-300"></i>
