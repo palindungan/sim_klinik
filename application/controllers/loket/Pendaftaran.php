@@ -34,7 +34,7 @@ class Pendaftaran extends CI_Controller
         $db = $this->db->query("SELECT COUNT(*) as jml_rm FROM pasien WHERE no_rm='$no_rm'")->row();
         $rm_db = $db->jml_rm;
         if ($rm_db > 0) {
-            $this->form_validation->set_rules('no_rm', 'No. Rm tersebut sudah ada','cek_rm');
+            $this->form_validation->set_rules('no_rm', 'No. Rm tersebut sudah ada', 'cek_rm');
         }
         if ($lama < 0) {
             $this->form_validation->set_rules('hari', 'Error aja', 'cek_umur');
@@ -95,7 +95,7 @@ class Pendaftaran extends CI_Controller
                 $kode_antrian = $this->M_pendaftaran->get_no_kia(); // generate
 
                 $data = array(
-                    'kode_antrian_kia' => $no_ref,
+                    'kode_antrian_kia' => $kode_antrian,
                     'no_ref_pelayanan' => $no_ref,
                     'status' => "Antri"
                 );

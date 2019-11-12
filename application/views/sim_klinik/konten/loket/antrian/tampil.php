@@ -338,6 +338,9 @@
 
     function refresh_antrian_sekarang_bp() {
 
+        document.getElementById("antrian_bp").innerHTML = "Antrian Kosong";
+        $("#kode_antrian_bp").val('Antrian Kosong');
+
         $.ajax({
             url: "<?php echo base_url() . 'loket/antrian/refresh_antrian_sekarang_bp'; ?>",
             success: function(hasil) {
@@ -360,6 +363,9 @@
 
     function refresh_antrian_sekarang_kia() {
 
+        document.getElementById("antrian_kia").innerHTML = "Antrian Kosong";
+        $("#kode_antrian_kia").val('Antrian Kosong');
+
         $.ajax({
             url: "<?php echo base_url() . 'loket/antrian/refresh_antrian_sekarang_kia'; ?>",
             success: function(hasil) {
@@ -381,6 +387,9 @@
     }
 
     function refresh_antrian_sekarang_lab() {
+
+        document.getElementById("antrian_lab").innerHTML = "Antrian Kosong";
+        $("#kode_antrian_lab").val('Antrian Kosong');
 
         $.ajax({
             url: "<?php echo base_url() . 'loket/antrian/refresh_antrian_sekarang_lab'; ?>",
