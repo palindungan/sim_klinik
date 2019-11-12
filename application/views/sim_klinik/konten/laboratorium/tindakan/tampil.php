@@ -17,7 +17,7 @@
 								<span aria-hidden="true">&times;</span>
 							</button>
 						</div>
-						<?php echo form_open('loket/tindakanLab/store'); ?>
+						<?php echo form_open('laboratorium/tindakan/store'); ?>
 						<div class="modal-body">
 							<div class="form-row">
 								<div class="form-group col-md-6">
@@ -65,7 +65,7 @@
 								<a style="cursor:pointer" class="btn btn-warning text-white" data-toggle="modal"
 									data-target="#modal-edit<?= $data->no_lab_c ?>">Edit</a>
 								<a onclick="return confirm('Anda yakin ingin menghapus data?')"
-									href="<?= base_url('loket/tindakanLab/delete/'.$data->no_lab_c) ?>"
+									href="<?= base_url('laboratorium/tindakan/delete/'.$data->no_lab_c) ?>"
 									class="btn btn-danger">Hapus</a>
 							</td>
 						</tr>
@@ -88,7 +88,7 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<?php echo form_open('loket/tindakanLab/update'); ?>
+			<?php echo form_open('laboratorium/tindakan/update'); ?>
 			<div class="modal-body">
 				<div class="form-row">
 					<div class="form-group col-md-6">
