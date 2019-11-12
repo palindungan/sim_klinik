@@ -1,44 +1,42 @@
 <?php
-class Tindakan extends CI_Controller
+class Kategori_obat extends CI_Controller
 {
     function __construct()
     {
         parent::__construct();
-        $this->load->model('ugd/M_tindakan');
+        $this->load->model('apotek/M_kategoriObat');
     }
     public function index()
     {
-        $data['record'] = $this->M_tindakan->tampil_data('ugd_tindakan')->result();
-        $this->template->load('sim_klinik/template/loket', 'sim_klinik/konten/ugd/tindakan/tampil',$data);
+        $data['record'] = $this->M_kategoriObat->tampil_data('kategori_obat')->result();
+        $this->template->load('sim_klinik/template/loket', 'sim_klinik/konten/apotek/kategori_obat/tampil',$data);
     }
     public function store()
     {
-        $id = $this->M_tindakan->get_no(); // generate
+        $id = $this->M_kategoriObat->get_no(); // generate
         $data = array(
-            'no_ugd_t' => $id,
-            'nama' => $this->input->post('nama'),
-            'harga' => $this->input->post('harga')
+            'no_kat_obat' => $id,
+            'nama' => $this->input->post('nama')
         );
-        $this->M_tindakan->input_data('ugd_tindakan',$data);
-        redirect('ugd/tindakan');
+        $this->M_kategoriObat->input_data('kategori_obat',$data);
+        redirect('apotek/kategori_obat');
     }
     public function update()
     {
         $where = array(
-            'no_ugd_t' => $this->input->post('no_ugd_t')
+            'no_kat_obat' => $this->input->post('no_kat_obat')
         );
         $data = array(
-            'nama' => $this->input->post('nama'),
-            'harga' => $this->input->post('harga')
+            'nama' => $this->input->post('nama')
         );
-        $this->M_tindakan->update_data($where,'ugd_tindakan',$data);
-        redirect('ugd/tindakan');
+        $this->M_kategoriObat->update_data($where,'kategori_obat',$data);
+        redirect('apotek/kategori_obat');
     }
     public function delete($id)
     {
-        $where = array('no_ugd_t' => $id);
-        $this->M_tindakan->hapus_data($where, 'ugd_tindakan');
-        redirect('ugd/tindakan');
+        $where = array('no_kat_obat' => $id);
+        $this->M_kategoriObat->hapus_data($where, 'kategori_obat');
+        redirect('apotek/kategori_obat');
     }
     
 
