@@ -79,7 +79,7 @@
 							<td><?= $data->nama_obat ?></td>
 							<td><?= $data->nama_kategori ?></td>
 							<td><?= $data->min_stok ?></td>
-							<td class="text-right"><?= $data->harga_jual ?></td>
+							<td class="text-right"><?= rupiah($data->harga_jual) ?></td>
 							<td class="text-center">
 								<a style="cursor:pointer" class="btn btn-warning text-white" data-toggle="modal"
 									data-target="#modal-edit<?= $data->kode_obat ?>">Edit</a>
@@ -107,14 +107,37 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<?php echo form_open('apotek/kategori_obat/update'); ?>
+			<?php echo form_open('apotek/obat/update'); ?>
 			<div class="modal-body">
 				<div class="form-row">
-					<div class="form-group col-md-8">
+					<div class="form-group col-md-6">
+						<label for="inputEmail2">Nama Obat</label>
 						<input type="hidden" name="kode_obat" value="<?= $data->kode_obat ?>">
-						<label for="inputEmail2">Nama Kategori Obat</label>
-						<input type="text" name="nama" value="<?= $data->nama_obat ?>" class="form-control karakter"
-							id="inputEmail2" placeholder="Masukan nama kategori obat" required>
+						<input type="text" name="nama" value="<?= $data->nama_obat ?>"
+							class="form-control karakterAngka" id="inputEmail2" placeholder="Masukan nama kategori obat"
+							required>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="inputEmail3">Kategori Obat</label>
+						<select name="no_kat_obat" class="form-control" id="inputEmail3">
+							<?php foreach($kategori as $row):?>
+							<option value="<?= $row->no_kat_obat ?>"
+								<?php if($row->no_kat_obat == $data->no_kat){echo 'selected';} ?>>
+								<?= $row->nama ?></option>
+							<?php endforeach; ?>
+						</select>
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<label for="inputEmail4">Min Stok</label>
+						<input type="text" name="min_stok" value="<?= $data->min_stok ?>" class="form-control min_stok"
+							id="inputEmail4" placeholder="Masukan minimal stok" required>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="inputEmail5">Harga Jual</label>
+						<input type="text" name="harga_jual" value="<?= rupiah($data->harga_jual) ?>"
+							class="form-control rupiah" id="inputEmail5" placeholder="Masukan harga jual" required>
 					</div>
 				</div>
 			</div>
