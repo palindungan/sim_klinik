@@ -22,25 +22,26 @@
 							<div class="form-row">
 								<div class="form-group col-md-6">
 									<label for="inputEmail2">Nama Supplier</label>
-									<input type="text" name="nama" class="form-control" id="inputEmail2"
-										placeholder="Masukan nama supplier">
+									<input type="text" name="nama" class="form-control karakterAngka" id="inputEmail2"
+										placeholder="Masukan nama supplier" required>
 								</div>
 								<div class="form-group col-md-6">
 									<label for="inputEmail2">Contact Person</label>
-									<input type="text" name="cp" class="form-control" id="inputEmail2"
-										placeholder="Masukan contact person">
+									<input type="text" name="cp" class="form-control hp" id="inputEmail2"
+										placeholder="Contoh : 08xx-xxxx-xxxx" required>
 								</div>
 							</div>
 							<div class="form-row">
 								<div class="form-group col-md-6">
 									<label for="inputEmail2">Email</label>
 									<input type="text" name="email" class="form-control" id="inputEmail2"
-										placeholder="Masukan email">
+										placeholder="Masukan email" required>
 								</div>
 								<div class="form-group col-md-6">
 									<label for="inputEmail2">Alamat</label>
-									<textarea class="form-control" name="alamat" placeholder="Masukan alamat"
-										id="exampleFormControlTextarea1" rows="2"></textarea>
+									<textarea class="form-control karakterAngka" name="alamat"
+										placeholder="Masukan alamat" id="exampleFormControlTextarea1" rows="2"
+										required></textarea>
 								</div>
 							</div>
 						</div>
@@ -57,12 +58,12 @@
 					<thead>
 						<tr>
 							<th width="5%" class="text-center">No</th>
-							<th width="10%">Kode</th>
+							<th width="5%">Kode</th>
 							<th width="20%">Nama Supplier</th>
-							<th width="10%">Contact</th>
+							<th width="15%">Contact</th>
 							<th width="15%">Email</th>
 							<th width="20%">Alamat</th>
-							<th width="20%" class="text-center">Aksi</th>
+							<th width="15%" class="text-center">Aksi</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -74,7 +75,7 @@
 							<td class="text-center"><?= $no++ ?></td>
 							<td><?= $data->no_supplier ?></td>
 							<td><?= $data->nama ?></td>
-							<td><?= $data->cp ?></td>
+							<td><?= noHp($data->cp) ?></td>
 							<td><?= $data->email ?></td>
 							<td><?= $data->alamat ?></td>
 							<td class="text-center">
@@ -110,27 +111,27 @@
 					<div class="form-group col-md-6">
 						<input type="hidden" name="no_supplier" value="<?= $data->no_supplier ?>">
 						<label for="inputEmail2">Nama Supplier</label>
-						<input type="text" name="nama" value="<?= $data->nama ?>" class="form-control" id="inputEmail2"
-							placeholder="Masukan nama supplier">
+						<input type="text" name="nama" value="<?= $data->nama ?>" class="form-control karakterAngka"
+							id="inputEmail2" placeholder="Masukan nama supplier" required>
 
 					</div>
 					<div class="form-group col-md-6">
 						<label for="inputEmail2">Contact Person</label>
-						<input type="text" name="cp" value="<?= $data->cp ?>" class="form-control" id="inputEmail2"
-							placeholder="Masukan contact person">
+						<input type="text" name="cp" value="<?= noHp($data->cp) ?>" class="form-control hp"
+							id="inputEmail2" placeholder="Masukan contact person" required>
 					</div>
 				</div>
 				<div class="form-row">
 					<div class="form-group col-md-6">
 						<label for="inputEmail2">Email</label>
 						<input type="text" name="email" value="<?= $data->email ?>" class="form-control"
-							id="inputEmail2" placeholder="Masukan email">
+							id="inputEmail2" placeholder="Masukan email" required>
 
 					</div>
 					<div class="form-group col-md-6">
 						<label for="inputEmail2">Alamat</label>
-						<textarea class="form-control" placeholder="Masukan alamat" name="alamat"
-							id="exampleFormControlTextarea1" rows="2"><?= $data->alamat ?></textarea>
+						<textarea class="form-control karakterAngka" placeholder="Masukan alamat" name="alamat"
+							id="exampleFormControlTextarea1" rows="2" required><?= $data->alamat ?></textarea>
 					</div>
 				</div>
 			</div>

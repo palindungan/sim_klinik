@@ -17,12 +17,14 @@
 </script>
 <!-- Format Rupiah -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"></script>
+
 <!-- validasi inputan rupiah -->
 <script type="text/javascript">
 	$(document).ready(function () {
 		$('.rupiah').mask('000.000.000', {
 			reverse: true
 		});
+		$('.hp').mask('0000-0000-0000-000');
 	})
 
 </script>
@@ -30,6 +32,19 @@
 <script>
 	$('.karakter').keypress(function (e) {
 		var regex = new RegExp(/^[a-zA-Z\s]+$/);
+		var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+		if (regex.test(str)) {
+			return true;
+		} else {
+			e.preventDefault();
+			return false;
+		}
+	});
+
+</script>
+<script>
+	$('.karakterAngka').keypress(function (e) {
+		var regex = new RegExp(/^[a-z0-9\s]+$/i);
 		var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
 		if (regex.test(str)) {
 			return true;

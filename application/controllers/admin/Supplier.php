@@ -14,10 +14,11 @@ class Supplier extends CI_Controller
     public function store()
     {
         $id = $this->M_supplier->get_no(); // generate
+        $cp = str_replace("-", "", $this->input->post('cp'));
         $data = array(
             'no_supplier' => $id,
             'nama' => $this->input->post('nama'),
-            'cp' => $this->input->post('cp'),
+            'cp' => $cp,
             'email' => $this->input->post('email'),
             'alamat' => $this->input->post('alamat')
         );
@@ -29,9 +30,10 @@ class Supplier extends CI_Controller
         $where = array(
             'no_supplier' => $this->input->post('no_supplier')
         );
+        $cp = str_replace("-", "", $this->input->post('cp'));
         $data = array(
             'nama' => $this->input->post('nama'),
-            'cp' => $this->input->post('cp'),
+            'cp' => $cp,
             'email' => $this->input->post('email'),
             'alamat' => $this->input->post('alamat')
         );
