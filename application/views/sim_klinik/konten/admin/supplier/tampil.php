@@ -34,7 +34,7 @@
 							<div class="form-row">
 								<div class="form-group col-md-6">
 									<label for="inputEmail2">Email</label>
-									<input type="text" name="email" class="form-control" id="inputEmail2"
+									<input type="email" name="email" class="form-control" id="inputEmail2"
 										placeholder="Masukan email" required>
 								</div>
 								<div class="form-group col-md-6">
@@ -124,7 +124,7 @@
 				<div class="form-row">
 					<div class="form-group col-md-6">
 						<label for="inputEmail2">Email</label>
-						<input type="text" name="email" value="<?= $data->email ?>" class="form-control"
+						<input type="email" name="email" value="<?= $data->email ?>" class="form-control"
 							id="inputEmail2" placeholder="Masukan email" required>
 
 					</div>
