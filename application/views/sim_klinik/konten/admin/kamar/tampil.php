@@ -52,10 +52,10 @@
 					<thead>
 						<tr>
 							<th width="5%" class="text-center">No</th>
-							<th width="5%">Kode</th>
-							<th width="20%">Nama Kamar</th>
-							<th width="15%">Tipe</th>
-							<th width="15%">Harga</th>
+							<th width="10%">Kode</th>
+							<th width="25%">Nama Kamar</th>
+							<th width="20%">Tipe</th>
+							<th width="15%" class="text-center">Harga</th>
 							<th width="15%" class="text-center">Aksi</th>
 						</tr>
 					</thead>
@@ -69,7 +69,7 @@
 							<td><?= $data->no_kamar_rawat_i ?></td>
 							<td><?= $data->nama ?></td>
 							<td><?= $data->tipe ?></td>
-							<td><?= rupiah($data->harga_harian) ?></td>
+							<td class="text-right"><?= rupiah($data->harga_harian) ?></td>
 							<td class="text-center">
 								<a style="cursor:pointer" class="btn btn-warning text-white" data-toggle="modal"
 									data-target="#modal-edit<?= $data->no_kamar_rawat_i ?>">Edit</a>
