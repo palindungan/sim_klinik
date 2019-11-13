@@ -22,12 +22,12 @@
 							<div class="form-row">
 								<div class="form-group col-md-6">
 									<label for="inputEmail2">Nama Tindakan</label>
-									<input type="text" name="nama" class="form-control" id="inputEmail2"
-										placeholder="Masukan nama tindakan" pattern="[A-Za-z]+" required>
+									<input type="text" name="nama" class="form-control karakter" id="inputEmail2"
+										placeholder="Masukan nama tindakan" required>
 								</div>
 								<div class="form-group col-md-6">
 									<label for="inputEmail1">Harga Tindakan</label>
-									<input type="text" name="harga" class="form-control" id="rupiah"
+									<input type="text" name="harga" class="form-control rupiah" id="rupiah"
 										placeholder="Masukan harga tindakan" required>
 								</div>
 							</div>

@@ -17,17 +17,29 @@
 </script>
 <!-- Format Rupiah -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"></script>
+<!-- validasi inputan rupiah -->
 <script type="text/javascript">
 	$(document).ready(function () {
-
-		// Format mata uang.
-		$('#rupiah').mask('000.000.000', {
+		$('.rupiah').mask('000.000.000', {
 			reverse: true
 		});
-		$('#rupiah2').mask('000.000.000.000', {
+		$('.rupiah2').mask('000.000.000', {
 			reverse: true
 		});
-
 	})
+
+</script>
+<!-- Validasi hanya karakter -->
+<script>
+	$('.karakter').keypress(function (e) {
+		var regex = new RegExp(/^[a-zA-Z\s]+$/);
+		var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+		if (regex.test(str)) {
+			return true;
+		} else {
+			e.preventDefault();
+			return false;
+		}
+	});
 
 </script>
