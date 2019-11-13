@@ -1,7 +1,7 @@
 <div class="container-fluid">
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">
-			<h6 class="m-0 font-weight-bold text-primary">Data Supplier</h6>
+			<h6 class="m-0 font-weight-bold text-primary">Data Kamar</h6>
 		</div>
 		<div class="card-body">
 			<button type="button" class="btn btn-primary mb-3" data-toggle="modal"
@@ -12,36 +12,30 @@
 				<div class="modal-dialog modal-lg">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title">Tambah Data Supplier</h5>
+							<h5 class="modal-title">Tambah Data Kamar</h5>
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
 						</div>
-						<?php echo form_open('admin/supplier/store'); ?>
+						<?php echo form_open('admin/kamar/store'); ?>
 						<div class="modal-body">
 							<div class="form-row">
 								<div class="form-group col-md-6">
-									<label for="inputEmail2">Nama Supplier</label>
+									<label for="inputEmail2">Nama Kamar</label>
 									<input type="text" name="nama" class="form-control karakterAngka" id="inputEmail2"
-										placeholder="Masukan nama supplier" required>
+										placeholder="Masukan nama kamar" required>
 								</div>
 								<div class="form-group col-md-6">
-									<label for="inputEmail2">Contact Person</label>
-									<input type="text" name="cp" class="form-control hp" id="inputEmail2"
-										placeholder="Contoh : 08xx-xxxx-xxxx" required>
+									<label for="inputEmail2">Tipe</label>
+									<input type="text" name="tipe" class="form-control karakterAngka" id="inputEmail2"
+										placeholder="Masukan tipe kamar" required>
 								</div>
 							</div>
 							<div class="form-row">
 								<div class="form-group col-md-6">
-									<label for="inputEmail2">Email</label>
-									<input type="email" name="email" class="form-control" id="inputEmail2"
-										placeholder="Masukan email" required>
-								</div>
-								<div class="form-group col-md-6">
-									<label for="inputEmail2">Alamat</label>
-									<textarea class="form-control karakterAngka" name="alamat"
-										placeholder="Masukan alamat" id="exampleFormControlTextarea1" rows="2"
-										required></textarea>
+									<label for="inputEmail2">Harga</label>
+									<input type="text" name="harga" class="form-control rupiah" id="inputEmail2"
+										placeholder="Masukan harga/hari" required>
 								</div>
 							</div>
 						</div>
@@ -59,10 +53,9 @@
 						<tr>
 							<th width="5%" class="text-center">No</th>
 							<th width="5%">Kode</th>
-							<th width="20%">Nama Supplier</th>
-							<th width="15%">Contact</th>
-							<th width="15%">Email</th>
-							<th width="20%">Alamat</th>
+							<th width="20%">Nama Kamar</th>
+							<th width="15%">Tipe</th>
+							<th width="15%">Harga</th>
 							<th width="15%" class="text-center">Aksi</th>
 						</tr>
 					</thead>
@@ -73,16 +66,15 @@
                         ?>
 						<tr>
 							<td class="text-center"><?= $no++ ?></td>
-							<td><?= $data->no_supplier ?></td>
+							<td><?= $data->no_kamar_rawat_i ?></td>
 							<td><?= $data->nama ?></td>
-							<td><?= noHp($data->cp) ?></td>
-							<td><?= $data->email ?></td>
-							<td><?= $data->alamat ?></td>
+							<td><?= $data->tipe ?></td>
+							<td><?= rupiah($data->harga_harian) ?></td>
 							<td class="text-center">
 								<a style="cursor:pointer" class="btn btn-warning text-white" data-toggle="modal"
-									data-target="#modal-edit<?= $data->no_supplier ?>">Edit</a>
+									data-target="#modal-edit<?= $data->no_kamar_rawat_i ?>">Edit</a>
 								<a onclick="return confirm('Anda yakin ingin menghapus data?')"
-									href="<?= base_url('admin/supplier/delete/'.$data->no_supplier) ?>"
+									href="<?= base_url('admin/kamar/delete/'.$data->no_kamar_rawat_i) ?>"
 									class="btn btn-danger">Hapus</a>
 							</td>
 						</tr>
@@ -96,42 +88,35 @@
 
 <!-- Modal Edit -->
 <?php foreach($record as $data):  ?>
-<div id="modal-edit<?=$data->no_supplier;?>" class="modal fade">
+<div id="modal-edit<?=$data->no_kamar_rawat_i;?>" class="modal fade">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">Edit Data Supplier</h5>
+				<h5 class="modal-title">Edit Tindakan Balai Pengobatan</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<?php echo form_open('admin/supplier/update'); ?>
+			<?php echo form_open('admin/kamar/update'); ?>
 			<div class="modal-body">
 				<div class="form-row">
 					<div class="form-group col-md-6">
-						<input type="hidden" name="no_supplier" value="<?= $data->no_supplier ?>">
-						<label for="inputEmail2">Nama Supplier</label>
+						<label for="inputEmail2">Nama Kamar</label>
+						<input type="hidden" name="no_kamar_rawat_i" value="<?= $data->no_kamar_rawat_i ?>">
 						<input type="text" name="nama" value="<?= $data->nama ?>" class="form-control karakterAngka"
-							id="inputEmail2" placeholder="Masukan nama supplier" required>
-
+							id="inputEmail2" placeholder="Masukan nama kamar" required>
 					</div>
 					<div class="form-group col-md-6">
-						<label for="inputEmail2">Contact Person</label>
-						<input type="text" name="cp" value="<?= noHp($data->cp) ?>" class="form-control hp"
-							id="inputEmail2" placeholder="Masukan contact person" required>
+						<label for="inputEmail2">Tipe</label>
+						<input type="text" name="tipe" value="<?= $data->tipe ?>" class="form-control karakterAngka"
+							id="inputEmail2" placeholder="Masukan tipe kamar" required>
 					</div>
 				</div>
 				<div class="form-row">
 					<div class="form-group col-md-6">
-						<label for="inputEmail2">Email</label>
-						<input type="email" name="email" value="<?= $data->email ?>" class="form-control"
-							id="inputEmail2" placeholder="Masukan email" required>
-
-					</div>
-					<div class="form-group col-md-6">
-						<label for="inputEmail2">Alamat</label>
-						<textarea class="form-control karakterAngka" placeholder="Masukan alamat" name="alamat"
-							id="exampleFormControlTextarea1" rows="2" required><?= $data->alamat ?></textarea>
+						<label for="inputEmail2">Harga</label>
+						<input type="text" name="harga" value="<?= rupiah($data->harga_harian) ?>"
+							class="form-control rupiah" id="inputEmail2" placeholder="Masukan harga/hari" required>
 					</div>
 				</div>
 			</div>
