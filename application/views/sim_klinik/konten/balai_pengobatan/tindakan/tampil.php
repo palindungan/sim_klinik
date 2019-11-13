@@ -94,14 +94,14 @@
 					<div class="form-group col-md-6">
 						<input type="hidden" name="no_bp_t" value="<?= $data->no_bp_t ?>">
 						<label for="inputEmail2">Nama Tindakan</label>
-						<input type="text" name="nama" value="<?= $data->nama ?>" class="form-control" id="inputEmail2"
-							placeholder="Masukan nama tindakan">
+						<input type="text" name="nama" value="<?= $data->nama ?>" class="form-control karakter"
+							id="inputEmail2" placeholder="Masukan nama tindakan" required>
 
 					</div>
 					<div class="form-group col-md-6">
 						<label for="inputEmail1">Harga Tindakan</label>
-						<input type="text" name="harga" value="<?= rupiah($data->harga) ?>" class="form-control rupiah2"
-							id="rupiah2" placeholder="Masukan harga tindakan">
+						<input type="text" name="harga" value="<?= rupiah($data->harga) ?>" class="form-control rupiah"
+							id="inputEmail1" placeholder="Masukan harga tindakan" required>
 
 					</div>
 				</div>

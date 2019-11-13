@@ -14,10 +14,11 @@ class Tindakan extends CI_Controller
     public function store()
     {
         $id = $this->M_tindakan->get_no(); // generate
+        $harga = str_replace(".", "", $this->input->post('harga'));
         $data = array(
             'no_lab_c' => $id,
             'nama' => $this->input->post('nama'),
-            'harga' => $this->input->post('harga')
+            'harga' => $harga
         );
         $this->M_tindakan->input_data('lab_checkup',$data);
         redirect('laboratorium/tindakan');
@@ -27,9 +28,10 @@ class Tindakan extends CI_Controller
         $where = array(
             'no_lab_c' => $this->input->post('no_lab_c')
         );
+        $harga = str_replace(".", "", $this->input->post('harga'));
         $data = array(
             'nama' => $this->input->post('nama'),
-            'harga' => $this->input->post('harga')
+            'harga' => $harga
         );
         $this->M_tindakan->update_data($where,'lab_checkup',$data);
         redirect('laboratorium/tindakan');

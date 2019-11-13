@@ -23,9 +23,6 @@
 		$('.rupiah').mask('000.000.000', {
 			reverse: true
 		});
-		$('.rupiah2').mask('000.000.000', {
-			reverse: true
-		});
 	})
 
 </script>

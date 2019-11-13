@@ -22,13 +22,13 @@
 							<div class="form-row">
 								<div class="form-group col-md-6">
 									<label for="inputEmail2">Nama Tindakan</label>
-									<input type="text" name="nama" class="form-control" id="inputEmail2"
-										placeholder="Masukan nama tindakan">
+									<input type="text" name="nama" class="form-control karakter" id="inputEmail2"
+										placeholder="Masukan nama tindakan" required>
 								</div>
 								<div class="form-group col-md-6">
 									<label for="inputEmail1">Harga Tindakan</label>
-									<input type="text" name="harga" class="form-control" id="inputEmail1"
-										placeholder="Masukan harga tindakan">
+									<input type="text" name="harga" class="form-control rupiah" id="inputEmail1"
+										placeholder="Masukan harga tindakan" required>
 								</div>
 							</div>
 						</div>
@@ -60,7 +60,7 @@
 							<td class="text-center"><?= $no++ ?></td>
 							<td><?= $data->no_lab_c ?></td>
 							<td><?= $data->nama ?></td>
-							<td class="text-right"><?= $data->harga ?></td>
+							<td class="text-right"><?= rupiah($data->harga) ?></td>
 							<td class="text-center">
 								<a style="cursor:pointer" class="btn btn-warning text-white" data-toggle="modal"
 									data-target="#modal-edit<?= $data->no_lab_c ?>">Edit</a>
@@ -94,14 +94,14 @@
 					<div class="form-group col-md-6">
 						<input type="hidden" name="no_lab_c" value="<?= $data->no_lab_c ?>">
 						<label for="inputEmail2">Nama Tindakan</label>
-						<input type="text" name="nama" value="<?= $data->nama ?>" class="form-control" id="inputEmail2"
-							placeholder="Masukan nama tindakan">
+						<input type="text" name="nama" value="<?= $data->nama ?>" class="form-control karakter"
+							id="inputEmail2" placeholder="Masukan nama tindakan" required>
 
 					</div>
 					<div class="form-group col-md-6">
 						<label for="inputEmail1">Harga Tindakan</label>
-						<input type="text" name="harga" value="<?= $data->harga ?>" class="form-control"
-							id="inputEmail1" placeholder="Masukan harga tindakan">
+						<input type="text" name="harga" value="<?= rupiah($data->harga) ?>" class="form-control rupiah"
+							id="inputEmail1" placeholder="Masukan harga tindakan" required>
 
 					</div>
 				</div>
