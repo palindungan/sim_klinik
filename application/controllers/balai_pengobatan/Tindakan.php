@@ -13,11 +13,12 @@ class Tindakan extends CI_Controller
     }
     public function store()
     {
+        $harga = str_replace(".", "", $this->input->post('harga'));
         $id = $this->M_tindakan->get_no(); // generate
         $data = array(
             'no_bp_t' => $id,
             'nama' => $this->input->post('nama'),
-            'harga' => $this->input->post('harga')
+            'harga' => $harga
         );
         $this->M_tindakan->input_data('bp_tindakan',$data);
         redirect('balai_pengobatan/tindakan');
@@ -27,9 +28,10 @@ class Tindakan extends CI_Controller
         $where = array(
             'no_bp_t' => $this->input->post('no_bp_t')
         );
+        $harga = str_replace(".", "", $this->input->post('harga'));
         $data = array(
             'nama' => $this->input->post('nama'),
-            'harga' => $this->input->post('harga')
+            'harga' => $harga
         );
         $this->M_tindakan->update_data($where,'bp_tindakan',$data);
         redirect('balai_pengobatan/tindakan');

@@ -23,12 +23,12 @@
 								<div class="form-group col-md-6">
 									<label for="inputEmail2">Nama Tindakan</label>
 									<input type="text" name="nama" class="form-control" id="inputEmail2"
-										placeholder="Masukan nama tindakan">
+										placeholder="Masukan nama tindakan" pattern="[A-Za-z]+" required>
 								</div>
 								<div class="form-group col-md-6">
 									<label for="inputEmail1">Harga Tindakan</label>
-									<input type="text" name="harga" class="form-control" id="inputEmail1"
-										placeholder="Masukan harga tindakan">
+									<input type="text" name="harga" class="form-control" id="rupiah"
+										placeholder="Masukan harga tindakan" required>
 								</div>
 							</div>
 						</div>
@@ -60,7 +60,7 @@
 							<td class="text-center"><?= $no++ ?></td>
 							<td><?= $data->no_bp_t ?></td>
 							<td><?= $data->nama ?></td>
-							<td class="text-right"><?= $data->harga ?></td>
+							<td class="text-right"><?= rupiah($data->harga) ?></td>
 							<td class="text-center">
 								<a style="cursor:pointer" class="btn btn-warning text-white" data-toggle="modal"
 									data-target="#modal-edit<?= $data->no_bp_t ?>">Edit</a>
@@ -100,8 +100,8 @@
 					</div>
 					<div class="form-group col-md-6">
 						<label for="inputEmail1">Harga Tindakan</label>
-						<input type="text" name="harga" value="<?= $data->harga ?>" class="form-control"
-							id="inputEmail1" placeholder="Masukan harga tindakan">
+						<input type="text" name="harga" value="<?= rupiah($data->harga) ?>" class="form-control rupiah2"
+							id="rupiah2" placeholder="Masukan harga tindakan">
 
 					</div>
 				</div>
