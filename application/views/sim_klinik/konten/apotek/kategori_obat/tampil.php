@@ -22,8 +22,8 @@
 							<div class="form-row">
 								<div class="form-group col-md-8">
 									<label for="inputEmail2">Nama Kategori Obat</label>
-									<input type="text" name="nama" class="form-control" id="inputEmail2"
-										placeholder="Masukan nama kategori obat">
+									<input type="text" name="nama" class="form-control karakter" id="inputEmail2"
+										placeholder="Masukan nama kategori obat" required>
 								</div>
 							</div>
 						</div>
@@ -87,9 +87,8 @@
 					<div class="form-group col-md-8">
 						<input type="hidden" name="no_kat_obat" value="<?= $data->no_kat_obat ?>">
 						<label for="inputEmail2">Nama Kategori Obat</label>
-						<input type="text" name="nama" value="<?= $data->nama ?>" class="form-control" id="inputEmail2"
-							placeholder="Masukan nama kategori obat">
-
+						<input type="text" name="nama" value="<?= $data->nama ?>" class="form-control karakter"
+							id="inputEmail2" placeholder="Masukan nama kategori obat" required>
 					</div>
 				</div>
 			</div>
