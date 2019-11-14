@@ -9,10 +9,6 @@ class Pendaftaran extends CI_Controller
     }
     public function index()
     {
-        $this->template->load('sim_klinik/template/loket', 'sim_klinik/konten/loket/pendaftaran/tampil');
-    }
-    public function add()
-    {
         $this->template->load('sim_klinik/template/loket', 'sim_klinik/konten/loket/pendaftaran/tambah');
     }
 
@@ -121,7 +117,7 @@ class Pendaftaran extends CI_Controller
                 $this->M_pendaftaran->input_data('antrian_lab', $data);
             }
 
-            redirect('loket/pendaftaran/add');
+            redirect('loket/pendaftaran');
         }
     }
 }
