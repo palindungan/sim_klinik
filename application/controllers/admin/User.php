@@ -30,7 +30,6 @@ class User extends CI_Controller
         $where = array(
             'no_user_pegawai' => $this->input->post('no_user_pegawai')
         );
-        $password = $this->input->post('password', true);
         $data = array(
             'nama' => $this->input->post('nama'),
             'jenis_akses' => $this->input->post('jenis_akses'),
