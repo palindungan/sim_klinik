@@ -60,7 +60,7 @@
 </script>
 <script type="text/javascript">
 	$(document).ready(function () {
-		$('#selectSearch').select2();
+		$('.selectSearch').select2();
 	});
 
 </script>
