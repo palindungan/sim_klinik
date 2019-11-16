@@ -17,6 +17,7 @@
 </script>
 <!-- Format Rupiah -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
 
 <!-- validasi inputan rupiah -->
 <script type="text/javascript">
@@ -54,6 +55,12 @@
 			e.preventDefault();
 			return false;
 		}
+	});
+
+</script>
+<script type="text/javascript">
+	$(document).ready(function () {
+		$('#provinsi').select2();
 	});
 
 </script>

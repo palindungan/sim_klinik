@@ -16,3 +16,4 @@
 <!-- Custom styles for this template-->
 <link href="<?= base_url(); ?>assets/sb_admin_2/css/sb-admin-2.min.css" rel="stylesheet">
 <link href="<?= base_url(); ?>assets/sb_admin_2/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
