@@ -6,20 +6,6 @@
 		<div class="card-body">
 			<button type="button" class="btn btn-primary mb-3" data-toggle="modal"
 				data-target=".bd-example-modal-lg">Tambah</button>
-			<form method="POST">
-				<select id="provinsi" class="form-control" name="provinsi">
-					<option value="ACEH">ACEH</option>
-					<option value="RIAU">RIAU</option>
-					<option value="JAMBI">JAMBI</option>
-					<option value="SUMATERA UTARA">SUMATERA UTARA</option>
-					<option value="BENGKULU">BENGKULU</option>
-					<option value="LAMPUNG">LAMPUNG</option>
-					<option value="DKI JAKARTA">DKI JAKARTA</option>
-					<option value="JAWA BARAT">JAWA BARAT</option>
-					<option value="JAWA TENGAH">JAWA TENGAH</option>
-					<option value="JAWA TIMUR">JAWA TIMUR</option>
-				</select>
-			</form>
 			<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
 				aria-hidden="true">
 				<div class="modal-dialog modal-lg">
