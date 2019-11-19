@@ -273,7 +273,7 @@
                     var id = data[0].kode_antrian_bp;
                     var nama = data[0].nama;
 
-                    document.getElementById("antrian_bp").innerHTML = id + " (" + nama + ")";
+                    document.getElementById("antrian_bp").innerHTML = nama + " (" + id + ")";
                     $("#kode_antrian_bp").val(data[0].kode_antrian_bp);
 
                 }
@@ -300,7 +300,7 @@
                     var id = data[0].kode_antrian_kia;
                     var nama = data[0].nama;
 
-                    document.getElementById("antrian_kia").innerHTML = id + " (" + nama + ")";
+                    document.getElementById("antrian_kia").innerHTML = nama + " (" + id + ")";
                     $("#kode_antrian_kia").val(data[0].kode_antrian_kia);
 
                 }
@@ -328,7 +328,7 @@
                     var id = data[0].kode_antrian_lab;
                     var nama = data[0].nama;
 
-                    document.getElementById("antrian_lab").innerHTML = id + " (" + nama + ")";
+                    document.getElementById("antrian_lab").innerHTML = nama + " (" + id + ")";
                     $("#kode_antrian_lab").val(data[0].kode_antrian_lab);
 
                 }
