@@ -92,13 +92,6 @@
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
-                            <tfoot>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>Nama</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </tfoot>
                             <tbody id="daftar_antrian_bp">
 
                             </tbody>
@@ -125,12 +118,6 @@
                                     <th>Nama</th>
                                 </tr>
                             </thead>
-                            <tfoot>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>Nama</th>
-                                </tr>
-                            </tfoot>
                             <tbody id="daftar_antrian_kia">
 
                             </tbody>
@@ -158,13 +145,6 @@
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
-                            <tfoot>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>Nama</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </tfoot>
                             <tbody id="daftar_antrian_lab">
 
                             </tbody>
