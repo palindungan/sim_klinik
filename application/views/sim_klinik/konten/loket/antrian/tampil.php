@@ -368,7 +368,7 @@
 
                     });
                 } else {
-                    document.getElementById("daftar_antrian_kia").innerHTML = "<h4>Data Antrian Kosong</h4>";
+                    document.getElementById("daftar_antrian_bp").innerHTML = "<h4>Data Antrian Kosong</h4>";
                 }
             }
         });
@@ -484,7 +484,7 @@
 
                     });
                 } else {
-                    document.getElementById("daftar_antrian_kia").innerHTML = "<h4>Data Antrian Kosong</h4>";
+                    document.getElementById("daftar_antrian_lab").innerHTML = "<h4>Data Antrian Kosong</h4>";
                 }
             }
         });
