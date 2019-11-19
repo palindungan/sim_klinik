@@ -7,10 +7,12 @@ class Antrian extends CI_Controller
 
         $this->load->model('loket/M_antrian');
     }
+
     public function index()
     {
         $this->template->load('sim_klinik/template/loket', 'sim_klinik/konten/loket/antrian/tampil');
     }
+
     public function click_prioritas_balai_pengobatan()
     {
         $kode_antrian_bp = $this->input->post('id');
@@ -34,6 +36,7 @@ class Antrian extends CI_Controller
             }
         }
     }
+
     public function click_prioritas_laboratorium()
     {
         $kode_antrian_lab = $this->input->post('id');
@@ -57,22 +60,94 @@ class Antrian extends CI_Controller
             }
         }
     }
+
     public function refresh_antrian_sekarang_bp()
     {
-        $query = $this->M_antrian->get_data_antrian_sekarang("antrian_balai_pengobatan_prioritas");
+        $where = array(
+            'status' => 'Diperiksa'
+        );
+        $query0 = $this->M_antrian->get_data("antrian_balai_pengobatan_semua", $where);
 
-        if ($query->num_rows() >= 1) {
+        if ($query0->num_rows() >= 1) {
 
-            $data_result['result_data'] = $query->result();
+            $data_result['result_data'] = $query0->result();
             $data = json_encode($data_result);
             echo $data;
         } else {
+            $query1 = $this->M_antrian->get_data_antrian_sekarang("antrian_balai_pengobatan_prioritas");
 
-            $query2 = $this->M_antrian->get_data_antrian_sekarang("antrian_balai_pengobatan_tersisa");
+            if ($query1->num_rows() >= 1) {
 
-            if ($query2->num_rows() >= 1) {
+                foreach ($query1->result_array() as $row) {
+                    $id = $row["kode_antrian_bp"];
+                    $where2 = array(
+                        'kode_antrian_bp' =>  $id
+                    );
+                }
+                $data = array(
+                    'status' => 'Diperiksa'
+                );
+                $this->M_antrian->update_data($where2, 'antrian_bp', $data);
 
-                $data_result['result_data'] = $query2->result();
+                $data_result['result_data'] = $query1->result();
+                $data = json_encode($data_result);
+                echo $data;
+            } else {
+
+                $query2 = $this->M_antrian->get_data_antrian_sekarang("antrian_balai_pengobatan_tersisa");
+
+                if ($query2->num_rows() >= 1) {
+
+                    foreach ($query2->result_array() as $row) {
+                        $id = $row["kode_antrian_bp"];
+                        $where2 = array(
+                            'kode_antrian_bp' =>  $id
+                        );
+                    }
+                    $data = array(
+                        'status' => 'Diperiksa'
+                    );
+                    $this->M_antrian->update_data($where2, 'antrian_bp', $data);
+
+                    $data_result['result_data'] = $query2->result();
+                    $data = json_encode($data_result);
+                    echo $data;
+                } else {
+                    echo 'Antrian Kosong';
+                }
+            }
+        }
+    }
+
+    public function refresh_antrian_sekarang_kia()
+    {
+        $where = array(
+            'status' => 'Diperiksa'
+        );
+        $query0 = $this->M_antrian->get_data("antrian_kesehatan_ibu_dan_anak_semua", $where);
+
+        if ($query0->num_rows() >= 1) {
+
+            $data_result['result_data'] = $query0->result();
+            $data = json_encode($data_result);
+            echo $data;
+        } else {
+            $query1 = $this->M_antrian->get_data_antrian_sekarang("antrian_kesehatan_ibu_dan_anak_tersisa");
+
+            if ($query1->num_rows() >= 1) {
+
+                foreach ($query1->result_array() as $row) {
+                    $id = $row["kode_antrian_kia"];
+                    $where2 = array(
+                        'kode_antrian_kia' =>  $id
+                    );
+                }
+                $data = array(
+                    'status' => 'Diperiksa'
+                );
+                $this->M_antrian->update_data($where2, 'antrian_kia', $data);
+
+                $data_result['result_data'] = $query1->result();
                 $data = json_encode($data_result);
                 echo $data;
             } else {
@@ -80,39 +155,62 @@ class Antrian extends CI_Controller
             }
         }
     }
-    public function refresh_antrian_sekarang_kia()
-    {
-        $query2 = $this->M_antrian->get_data_antrian_sekarang("antrian_kesehatan_ibu_dan_anak_tersisa");
 
-        if ($query2->num_rows() >= 1) {
-
-            $data_result['result_data'] = $query2->result();
-            $data = json_encode($data_result);
-            echo $data;
-        } else {
-            echo 'Antrian Kosong';
-        }
-    }
     public function refresh_antrian_sekarang_lab()
     {
-        $query = $this->M_antrian->get_data_antrian_sekarang("antrian_laboratorium_prioritas");
+        $where = array(
+            'status' => 'Diperiksa'
+        );
+        $query0 = $this->M_antrian->get_data("antrian_laboratorium_semua", $where);
 
-        if ($query->num_rows() >= 1) {
+        if ($query0->num_rows() >= 1) {
 
-            $data_result['result_data'] = $query->result();
+            $data_result['result_data'] = $query0->result();
             $data = json_encode($data_result);
             echo $data;
         } else {
 
-            $query2 = $this->M_antrian->get_data_antrian_sekarang("antrian_laboratorium_tersisa");
+            $query1 = $this->M_antrian->get_data_antrian_sekarang("antrian_laboratorium_prioritas");
 
-            if ($query2->num_rows() >= 1) {
+            if ($query1->num_rows() >= 1) {
 
-                $data_result['result_data'] = $query2->result();
+                foreach ($query1->result_array() as $row) {
+                    $id = $row["kode_antrian_lab"];
+                    $where2 = array(
+                        'kode_antrian_lab' =>  $id
+                    );
+                }
+                $data = array(
+                    'status' => 'Diperiksa'
+                );
+                $this->M_antrian->update_data($where2, 'antrian_lab', $data);
+
+                $data_result['result_data'] = $query1->result();
                 $data = json_encode($data_result);
                 echo $data;
             } else {
-                echo 'Antrian Kosong';
+
+                $query2 = $this->M_antrian->get_data_antrian_sekarang("antrian_laboratorium_tersisa");
+
+                if ($query2->num_rows() >= 1) {
+
+                    foreach ($query2->result_array() as $row) {
+                        $id = $row["kode_antrian_lab"];
+                        $where2 = array(
+                            'kode_antrian_lab' =>  $id
+                        );
+                    }
+                    $data = array(
+                        'status' => 'Diperiksa'
+                    );
+                    $this->M_antrian->update_data($where2, 'antrian_lab', $data);
+
+                    $data_result['result_data'] = $query2->result();
+                    $data = json_encode($data_result);
+                    echo $data;
+                } else {
+                    echo 'Antrian Kosong';
+                }
             }
         }
     }
