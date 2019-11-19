@@ -391,7 +391,7 @@
                         <div class="px-3 py-3 ` + bg + ` text-white">
 
                             <div class="row">
-                                <div class="col-md-12 text-center">
+                                <div class="col-md-12 ">
                                 ` + no + `. ` + nama + ` (` + kode_antrian + `)
                                 </div>
                             </div>
@@ -399,7 +399,6 @@
                             ` + btn_aksi + `
 
                         </div>
-                        <br>
 
                         `);
 
@@ -439,10 +438,15 @@
 
                         $('#daftar_antrian_kia').append(`
 
-                            <p class="px-3 py-4  ` + bg + `  text-white">
-                            ` + no + ` - ` + kode_antrian + ` - ` + nama + `
-                            </p>
-                            <br>
+                        <div class="px-3 py-3 ` + bg + ` text-white">
+
+                            <div class="row">
+                                <div class="col-md-12 ">
+                                ` + no + `. ` + nama + ` (` + kode_antrian + `)
+                                </div>
+                            </div>
+
+                        </div>
 
                         `);
 
@@ -507,7 +511,7 @@
                             <div class="px-3 py-3 ` + bg + ` text-white">
 
                                 <div class="row">
-                                    <div class="col-md-12 text-center">
+                                    <div class="col-md-12 ">
                                     ` + no + `. ` + nama + ` (` + kode_antrian + `)
                                     </div>
                                 </div>
@@ -515,7 +519,6 @@
                                 ` + btn_aksi + `
 
                             </div>
-                            <br>
 
                         `);
 
