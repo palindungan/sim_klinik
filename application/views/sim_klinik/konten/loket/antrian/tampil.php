@@ -186,14 +186,6 @@
     refresh_antrian_sekarang_kia();
     refresh_antrian_sekarang_lab();
 
-    $(document).ready(function() {
-
-        refresh_tabel_antrian_bp();
-        refresh_tabel_antrian_kia();
-        refresh_tabel_antrian_lab();
-
-    });
-
     function refresh_tabel_antrian_bp() {
 
         var table;
@@ -315,7 +307,6 @@
             },
             success: function(data) {
                 refresh_antrian_sekarang_bp();
-                refresh_tabel_antrian_bp();
             }
         });
     }
@@ -331,7 +322,6 @@
             },
             success: function(data) {
                 refresh_antrian_sekarang_lab();
-                refresh_tabel_antrian_lab();
             }
         });
     }
@@ -355,6 +345,8 @@
                     document.getElementById("antrian_bp").innerHTML = id + " (" + nama + ")";
 
                     $("#kode_antrian_bp").val(data[0].kode_antrian_bp);
+
+                    refresh_tabel_antrian_bp();
 
                 }
             }
@@ -381,6 +373,8 @@
 
                     $("#kode_antrian_kia").val(data[0].kode_antrian_kia);
 
+                    refresh_tabel_antrian_kia();
+
                 }
             }
         });
@@ -406,6 +400,8 @@
 
                     $("#kode_antrian_lab").val(data[0].kode_antrian_lab);
 
+                    refresh_tabel_antrian_lab();
+
                 }
             }
         });
@@ -425,7 +421,6 @@
                 },
                 success: function(data) {
                     refresh_antrian_sekarang_bp();
-                    refresh_tabel_antrian_bp();
                 }
             });
         }
@@ -446,7 +441,6 @@
                 },
                 success: function(data) {
                     refresh_antrian_sekarang_kia();
-                    refresh_tabel_antrian_kia();
                 }
             });
         }
@@ -468,7 +462,6 @@
                 },
                 success: function(data) {
                     refresh_antrian_sekarang_lab();
-                    refresh_tabel_antrian_lab();
                 }
             });
         }
