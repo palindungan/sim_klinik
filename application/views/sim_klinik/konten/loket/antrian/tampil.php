@@ -83,7 +83,7 @@
                     <h6 class="m-0 font-weight-bold text-primary">Custom Text Color Utilities</h6>
                 </div>
                 <div class="card-body" id="daftar_antrian_bp">
-                    <h4>Data Antrian Kosong</h4>
+
                 </div>
             </div>
 
@@ -97,7 +97,7 @@
                     <h6 class="m-0 font-weight-bold text-primary">Custom Text Color Utilities</h6>
                 </div>
                 <div class="card-body" id="daftar_antrian_kia">
-                    <h4>Data Antrian Kosong</h4>
+
                 </div>
             </div>
 
@@ -111,7 +111,7 @@
                     <h6 class="m-0 font-weight-bold text-primary">Custom Text Color Utilities</h6>
                 </div>
                 <div class="card-body" id="daftar_antrian_lab">
-                    <h4>Data Antrian Kosong</h4>
+
                 </div>
             </div>
 
@@ -227,16 +227,16 @@
         $.ajax({
             url: "<?php echo base_url() . 'loket/antrian/refresh_antrian_sekarang_bp'; ?>",
             success: function(hasil) {
-                var obj = JSON.parse(hasil);
-                let data = obj['result_data'];
 
-                if (data != '') {
+                if (hasil != 'Antrian Kosong') {
+
+                    var obj = JSON.parse(hasil);
+                    let data = obj['result_data'];
 
                     var id = data[0].kode_antrian_bp;
                     var nama = data[0].nama;
 
                     document.getElementById("antrian_bp").innerHTML = id + " (" + nama + ")";
-
                     $("#kode_antrian_bp").val(data[0].kode_antrian_bp);
 
                 }
@@ -254,16 +254,16 @@
         $.ajax({
             url: "<?php echo base_url() . 'loket/antrian/refresh_antrian_sekarang_kia'; ?>",
             success: function(hasil) {
-                var obj = JSON.parse(hasil);
-                let data = obj['result_data'];
 
-                if (data != '') {
+                if (hasil != 'Antrian Kosong') {
+
+                    var obj = JSON.parse(hasil);
+                    let data = obj['result_data'];
 
                     var id = data[0].kode_antrian_kia;
                     var nama = data[0].nama;
 
                     document.getElementById("antrian_kia").innerHTML = id + " (" + nama + ")";
-
                     $("#kode_antrian_kia").val(data[0].kode_antrian_kia);
 
                 }
@@ -281,16 +281,17 @@
         $.ajax({
             url: "<?php echo base_url() . 'loket/antrian/refresh_antrian_sekarang_lab'; ?>",
             success: function(hasil) {
-                var obj = JSON.parse(hasil);
-                let data = obj['result_data'];
 
-                if (data != '') {
+
+                if (hasil != 'Antrian Kosong') {
+
+                    var obj = JSON.parse(hasil);
+                    let data = obj['result_data'];
 
                     var id = data[0].kode_antrian_lab;
                     var nama = data[0].nama;
 
                     document.getElementById("antrian_lab").innerHTML = id + " (" + nama + ")";
-
                     $("#kode_antrian_lab").val(data[0].kode_antrian_lab);
 
                 }
@@ -366,6 +367,8 @@
                         `);
 
                     });
+                } else {
+                    document.getElementById("daftar_antrian_kia").innerHTML = "<h4>Data Antrian Kosong</h4>";
                 }
             }
         });
@@ -407,6 +410,8 @@
                         `);
 
                     });
+                } else {
+                    document.getElementById("daftar_antrian_kia").innerHTML = "<h4>Data Antrian Kosong</h4>";
                 }
             }
         });
@@ -478,6 +483,8 @@
                         `);
 
                     });
+                } else {
+                    document.getElementById("daftar_antrian_kia").innerHTML = "<h4>Data Antrian Kosong</h4>";
                 }
             }
         });
