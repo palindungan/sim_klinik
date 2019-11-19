@@ -276,6 +276,87 @@
         });
     }
 
+    function refresh_antrian_sekarang_bp() {
+
+        document.getElementById("antrian_bp").innerHTML = "Antrian Kosong";
+        $("#kode_antrian_bp").val('Antrian Kosong');
+
+        $.ajax({
+            url: "<?php echo base_url() . 'loket/antrian/refresh_antrian_sekarang_bp'; ?>",
+            success: function(hasil) {
+                var obj = JSON.parse(hasil);
+                let data = obj['result_data'];
+
+                if (data != '') {
+
+                    var id = data[0].kode_antrian_bp;
+                    var nama = data[0].nama;
+
+                    document.getElementById("antrian_bp").innerHTML = id + " (" + nama + ")";
+
+                    $("#kode_antrian_bp").val(data[0].kode_antrian_bp);
+
+                }
+
+                refresh_tabel_antrian_bp();
+            }
+        });
+    }
+
+    function refresh_antrian_sekarang_kia() {
+
+        document.getElementById("antrian_kia").innerHTML = "Antrian Kosong";
+        $("#kode_antrian_kia").val('Antrian Kosong');
+
+        $.ajax({
+            url: "<?php echo base_url() . 'loket/antrian/refresh_antrian_sekarang_kia'; ?>",
+            success: function(hasil) {
+                var obj = JSON.parse(hasil);
+                let data = obj['result_data'];
+
+                if (data != '') {
+
+                    var id = data[0].kode_antrian_kia;
+                    var nama = data[0].nama;
+
+                    document.getElementById("antrian_kia").innerHTML = id + " (" + nama + ")";
+
+                    $("#kode_antrian_kia").val(data[0].kode_antrian_kia);
+
+                }
+
+                refresh_tabel_antrian_kia();
+            }
+        });
+    }
+
+    function refresh_antrian_sekarang_lab() {
+
+        document.getElementById("antrian_lab").innerHTML = "Antrian Kosong";
+        $("#kode_antrian_lab").val('Antrian Kosong');
+
+        $.ajax({
+            url: "<?php echo base_url() . 'loket/antrian/refresh_antrian_sekarang_lab'; ?>",
+            success: function(hasil) {
+                var obj = JSON.parse(hasil);
+                let data = obj['result_data'];
+
+                if (data != '') {
+
+                    var id = data[0].kode_antrian_lab;
+                    var nama = data[0].nama;
+
+                    document.getElementById("antrian_lab").innerHTML = id + " (" + nama + ")";
+
+                    $("#kode_antrian_lab").val(data[0].kode_antrian_lab);
+
+                }
+
+                refresh_tabel_antrian_lab();
+            }
+        });
+    }
+
     function click_prioritas_bp(param) {
         var id = param;
 
@@ -302,87 +383,6 @@
             },
             success: function(data) {
                 refresh_antrian_sekarang_lab();
-            }
-        });
-    }
-
-    function refresh_antrian_sekarang_bp() {
-
-        document.getElementById("antrian_bp").innerHTML = "Antrian Kosong";
-        $("#kode_antrian_bp").val('Antrian Kosong');
-
-        $.ajax({
-            url: "<?php echo base_url() . 'loket/antrian/refresh_antrian_sekarang_bp'; ?>",
-            success: function(hasil) {
-                var obj = JSON.parse(hasil);
-                let data = obj['result_data'];
-
-                if (data != '') {
-
-                    var id = data[0].kode_antrian_bp;
-                    var nama = data[0].nama;
-
-                    document.getElementById("antrian_bp").innerHTML = id + " (" + nama + ")";
-
-                    $("#kode_antrian_bp").val(data[0].kode_antrian_bp);
-
-                    refresh_tabel_antrian_bp();
-
-                }
-            }
-        });
-    }
-
-    function refresh_antrian_sekarang_kia() {
-
-        document.getElementById("antrian_kia").innerHTML = "Antrian Kosong";
-        $("#kode_antrian_kia").val('Antrian Kosong');
-
-        $.ajax({
-            url: "<?php echo base_url() . 'loket/antrian/refresh_antrian_sekarang_kia'; ?>",
-            success: function(hasil) {
-                var obj = JSON.parse(hasil);
-                let data = obj['result_data'];
-
-                if (data != '') {
-
-                    var id = data[0].kode_antrian_kia;
-                    var nama = data[0].nama;
-
-                    document.getElementById("antrian_kia").innerHTML = id + " (" + nama + ")";
-
-                    $("#kode_antrian_kia").val(data[0].kode_antrian_kia);
-
-                    refresh_tabel_antrian_kia();
-
-                }
-            }
-        });
-    }
-
-    function refresh_antrian_sekarang_lab() {
-
-        document.getElementById("antrian_lab").innerHTML = "Antrian Kosong";
-        $("#kode_antrian_lab").val('Antrian Kosong');
-
-        $.ajax({
-            url: "<?php echo base_url() . 'loket/antrian/refresh_antrian_sekarang_lab'; ?>",
-            success: function(hasil) {
-                var obj = JSON.parse(hasil);
-                let data = obj['result_data'];
-
-                if (data != '') {
-
-                    var id = data[0].kode_antrian_lab;
-                    var nama = data[0].nama;
-
-                    document.getElementById("antrian_lab").innerHTML = id + " (" + nama + ")";
-
-                    $("#kode_antrian_lab").val(data[0].kode_antrian_lab);
-
-                    refresh_tabel_antrian_lab();
-
-                }
             }
         });
     }
