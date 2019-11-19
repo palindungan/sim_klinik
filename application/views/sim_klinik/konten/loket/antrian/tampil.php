@@ -274,7 +274,7 @@
                 id: id
             },
             success: function(data) {
-                refresh_antrian_sekarang_bp();
+                refresh_tabel_antrian_bp();
             }
         });
     }
@@ -289,7 +289,7 @@
                 id: id
             },
             success: function(data) {
-                refresh_antrian_sekarang_lab();
+                refresh_tabel_antrian_lab();
             }
         });
     }
@@ -406,10 +406,6 @@
                             bg = "bg-gradient-warning text-white";
                         }
 
-                        if (kode_antrian_sekarang == kode_antrian) {
-                            bg = "bg-gradient-danger text-white";
-                        }
-
                         if (kode_antrian.length == 5) {
                             btn_aksi = `
 
@@ -424,15 +420,17 @@
                             `;
                         }
 
-                        $('#daftar_antrian_bp').append(`
+                        if (kode_antrian_sekarang != kode_antrian) {
+                            $('#daftar_antrian_bp').append(`
 
-                            <tr class="px-3 py-3 ` + bg + `">
-                                <td>` + kode_antrian + `</td>
-                                <td>` + nama + `</td>
-                                <td>` + btn_aksi + `</td>
-                            </tr>
+                                <tr class="px-3 py-3 ` + bg + `">
+                                    <td>` + kode_antrian + `</td>
+                                    <td>` + nama + `</td>
+                                    <td>` + btn_aksi + `</td>
+                                </tr>
 
-                        `);
+                            `);
+                        }
 
                     });
                 } else {
@@ -464,18 +462,16 @@
                         var bg = "";
                         var no = i + 1;
 
-                        if (kode_antrian_sekarang == kode_antrian) {
-                            bg = "bg-gradient-danger text-white";
+                        if (kode_antrian_sekarang != kode_antrian) {
+                            $('#daftar_antrian_kia').append(`
+
+                                <tr class="px-3 py-3 ` + bg + `">
+                                    <td>` + kode_antrian + `</td>
+                                    <td>` + nama + `</td>
+                                </tr>
+
+                            `);
                         }
-
-                        $('#daftar_antrian_kia').append(`
-
-                            <tr class="px-3 py-3 ` + bg + `">
-                                <td>` + kode_antrian + `</td>
-                                <td>` + nama + `</td>
-                            </tr>
-
-                        `);
 
                     });
                 } else {
@@ -515,10 +511,6 @@
                             bg = "bg-gradient-warning text-white";
                         }
 
-                        if (kode_antrian_sekarang == kode_antrian) {
-                            bg = "bg-gradient-danger text-white";
-                        }
-
                         if (kode_antrian.length == 5) {
                             btn_aksi = `
 
@@ -533,15 +525,17 @@
                             `;
                         }
 
-                        $('#daftar_antrian_lab').append(`
+                        if (kode_antrian_sekarang != kode_antrian) {
+                            $('#daftar_antrian_lab').append(`
 
-                            <tr class="px-3 py-3 ` + bg + `">
-                                <td>` + kode_antrian + `</td>
-                                <td>` + nama + `</td>
-                                <td>` + btn_aksi + `</td>
-                            </tr>
+                                <tr class="px-3 py-3 ` + bg + `">
+                                    <td>` + kode_antrian + `</td>
+                                    <td>` + nama + `</td>
+                                    <td>` + btn_aksi + `</td>
+                                </tr>
 
-                        `);
+                            `);
+                        }
 
                     });
                 } else {
