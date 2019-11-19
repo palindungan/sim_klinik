@@ -8,18 +8,32 @@
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Balai Pengobatan : </div>
-                            <div id="antrian_bp" class="h5 mb-0 font-weight-bold text-gray-800">Antrian Kosong</div>
+
+                            <div class="text-xs mb-1 font-weight-bold text-primary text-uppercase">
+                                Balai Pengobatan :
+                            </div>
+
+                            <div id="antrian_bp" class="h5 mb-10 font-weight-bold text-gray-800">
+                                Antrian Kosong
+                            </div>
+
                             <input type="hidden" id="kode_antrian_bp" name="kode_antrian_bp">
+
                         </div>
+
                         <div class="col-auto">
                             <i class="fas fa-clinic-medical fa-2x text-gray-300"></i>
                         </div>
+
                     </div>
                     <div class="row no-gutters align-items-center">
+
                         <div class="col mr-12">
-                            <button class="btn btn-google btn-block lanjut_bp"><i class="fas fa-forward"></i></i> lanjut</button>
+                            <button class="btn btn-google btn-block lanjut_bp">
+                                <i class="fas fa-forward"></i></i> lanjut
+                            </button>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -31,18 +45,31 @@
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Poli KIA : </div>
-                            <div id="antrian_kia" class="h5 mb-0 font-weight-bold text-gray-800">Antrian Kosong</div>
+
+                            <div class="text-xs mb-1 font-weight-bold text-primary text-uppercase">
+                                Poli KIA :
+                            </div>
+
+                            <div id="antrian_kia" class="h5 mb-10 font-weight-bold text-gray-800">
+                                Antrian Kosong
+                            </div>
+
                             <input type="hidden" id="kode_antrian_kia" name="kode_antrian_kia">
+
                         </div>
+
                         <div class="col-auto">
                             <i class="fas fa-baby-carriage fa-2x text-gray-300"></i>
                         </div>
                     </div>
                     <div class="row no-gutters align-items-center">
+
                         <div class="col mr-12">
-                            <button class="btn btn-google btn-block lanjut_kia"><i class="fas fa-forward"></i></i> lanjut</button>
+                            <button class="btn btn-google btn-block lanjut_kia">
+                                <i class="fas fa-forward"></i></i> lanjut
+                            </button>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -54,18 +81,28 @@
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Laboratorium : </div>
-                            <div id="antrian_lab" class="h5 mb-0 font-weight-bold text-gray-800">Antrian Kosong</div>
+                            <div class="text-xs mb-1 font-weight-bold text-primary text-uppercase">
+                                Laboratorium :
+                            </div>
+                            <div id="antrian_lab" class="h5 mb-10 font-weight-bold text-gray-800">
+                                Antrian Kosong
+                            </div>
                             <input type="hidden" id="kode_antrian_lab" name="kode_antrian_lab">
                         </div>
+
                         <div class="col-auto">
                             <i class="fas fa-flask fa-2x text-gray-300"></i>
                         </div>
+
                     </div>
                     <div class="row no-gutters align-items-center">
+
                         <a class="col mr-12">
-                            <button class="btn btn-google btn-block lanjut_lab"><i class="fas fa-forward"></i></i> lanjut</button>
+                            <button class="btn btn-google btn-block lanjut_lab">
+                                <i class="fas fa-forward"></i></i> lanjut
+                            </button>
                         </a>
+
                     </div>
                 </div>
             </div>
@@ -80,7 +117,7 @@
             <!-- Custom Text Color Utilities -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Custom Text Color Utilities</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Daftar Antrian Balai Pengobatan</h6>
                 </div>
                 <div class="card-body" id="daftar_antrian_bp">
 
@@ -94,7 +131,7 @@
             <!-- Custom Text Color Utilities -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Custom Text Color Utilities</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Daftar Antrian Poli KIA</h6>
                 </div>
                 <div class="card-body" id="daftar_antrian_kia">
 
@@ -108,7 +145,7 @@
             <!-- Custom Text Color Utilities -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Custom Text Color Utilities</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Daftar Antrian Laboratorium</h6>
                 </div>
                 <div class="card-body" id="daftar_antrian_lab">
 
