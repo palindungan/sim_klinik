@@ -83,7 +83,7 @@
                     <h6 class="m-0 font-weight-bold text-primary">Custom Text Color Utilities</h6>
                 </div>
                 <div class="card-body" id="daftar_antrian_bp">
-
+                    <h4>Data Antrian Kosong</h4>
                 </div>
             </div>
 
@@ -97,7 +97,7 @@
                     <h6 class="m-0 font-weight-bold text-primary">Custom Text Color Utilities</h6>
                 </div>
                 <div class="card-body" id="daftar_antrian_kia">
-
+                    <h4>Data Antrian Kosong</h4>
                 </div>
             </div>
 
@@ -111,7 +111,7 @@
                     <h6 class="m-0 font-weight-bold text-primary">Custom Text Color Utilities</h6>
                 </div>
                 <div class="card-body" id="daftar_antrian_lab">
-
+                    <h4>Data Antrian Kosong</h4>
                 </div>
             </div>
 
@@ -337,27 +337,35 @@
                         if (kode_antrian.length == 5) {
                             btn_aksi = `
 
-                                <button onclick="click_prioritas_bp('` + kode_antrian + `')" id="` + kode_antrian + `" class="btn text-white">` + button_val + `
-                                    <i class="far fa-hand-pointer"></i> 
-                                </button>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button onclick="click_prioritas_bp('` + kode_antrian + `')" id="` + kode_antrian + `" class="btn py-1 btn-light btn col-md-12">
+                                        ` + button_val + ` <i class="far fa-hand-pointer"></i>
+                                        </button>
+                                    </div>
+                                </div>
                             
                             `;
                         }
 
                         $('#daftar_antrian_bp').append(`
 
-                            <p class="px-3 py-4  ` + bg + `  text-white">
-                            ` + no + ` - ` + kode_antrian + ` - ` + nama + ` ` + btn_aksi + `
-                            </p>
-                            <br>
+                        <div class="px-3 py-3 ` + bg + ` text-white">
+
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                ` + no + `. ` + nama + ` (` + kode_antrian + `)
+                                </div>
+                            </div>
+
+                            ` + btn_aksi + `
+
+                        </div>
+                        <br>
 
                         `);
 
                     });
-                } else {
-
-                    document.getElementById("daftar_antrian_bp").innerHTML = "<h4>Data Antrian Kosong</h4>";
-
                 }
             }
         });
@@ -399,8 +407,6 @@
                         `);
 
                     });
-                } else {
-                    document.getElementById("daftar_antrian_kia").innerHTML = "<h4>Data Antrian Kosong</h4>";
                 }
             }
         });
@@ -443,27 +449,36 @@
                         if (kode_antrian.length == 5) {
                             btn_aksi = `
 
-                                <button onclick="click_prioritas_lab('` + kode_antrian + `')" id="` + kode_antrian + `" class="btn text-white">` + button_val + `
-                                    <i class="far fa-hand-pointer"></i> 
-                                </button>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button onclick="click_prioritas_lab('` + kode_antrian + `')" id="` + kode_antrian + `" class="btn py-1 btn-light btn col-md-12">
+                                        ` + button_val + ` <i class="far fa-hand-pointer"></i>
+                                        </button>
+                                    </div>
+                                </div>
                             
                             `;
                         }
 
                         $('#daftar_antrian_lab').append(`
 
-                            <p class="px-3 py-4  ` + bg + `  text-white">
-                            ` + no + ` - ` + kode_antrian + ` - ` + nama + ` ` + btn_aksi + `
-                            </p>
+                            <div class="px-3 py-3 ` + bg + ` text-white">
+
+                                <div class="row">
+                                    <div class="col-md-12 text-center">
+                                    ` + no + `. ` + nama + ` (` + kode_antrian + `)
+                                    </div>
+                                </div>
+
+                                ` + btn_aksi + `
+
+                            </div>
                             <br>
 
                         `);
 
                     });
-                } else {
-                    $('.daftar_antrian_lab').html('<h4>Data Antrian Kosong</h4>');
                 }
-
             }
         });
     }
