@@ -323,7 +323,6 @@
                         var status = data[i].status;
                         var button_val = "Normal";
                         var bg = "bg-gradient-primary";
-
                         var no = i + 1;
 
                         if (status == "Prioritas") {
@@ -377,23 +376,39 @@
 
                 if (data != '') {
 
+                    var kode_antrian_sekarang = $("#kode_antrian_kia").val();
+
                     $.each(data, function(i, item) {
 
+                        var kode_antrian = data[i].kode_antrian_kia;
+                        var nama = data[i].nama;
+                        var bg = "bg-gradient-primary";
+                        var no = i + 1;
 
+                        if (kode_antrian_sekarang == kode_antrian) {
+                            bg = "bg-gradient-danger";
+                        }
+
+                        $('#daftar_antrian_kia').append(`
+
+                            <p class="px-3 py-4  ` + bg + `  text-white">
+                            ` + no + ` - ` + kode_antrian + ` - ` + nama + `
+                            </p>
+                            <br>
+
+                        `);
 
                     });
                 } else {
-                    $('.daftar_antrian_kia').html('<h4>Data Antrian Kosong</h4>');
+                    document.getElementById("daftar_antrian_kia").innerHTML = "<h4>Data Antrian Kosong</h4>";
                 }
             }
         });
     }
 
     function refresh_tabel_antrian_lab() {
-        var table;
-        table = $('.table_lab').DataTable();
 
-        table.clear();
+        document.getElementById("daftar_antrian_lab").innerHTML = "";
 
         $.ajax({
             url: "<?php echo base_url() . 'loket/antrian/tampil_daftar_antrian_lab'; ?>",
@@ -404,23 +419,49 @@
 
                 if (data != '') {
 
+                    var kode_antrian_sekarang = $("#kode_antrian_lab").val();
+
                     $.each(data, function(i, item) {
 
                         var btn_aksi = "";
-                        if (data[i].kode_antrian_lab.length == 5) {
-                            var btn_aksi = `
+                        var kode_antrian = data[i].kode_antrian_lab;
+                        var nama = data[i].nama;
+                        var status = data[i].status;
+                        var button_val = "Normal";
+                        var bg = "bg-gradient-primary";
+                        var no = i + 1;
 
-                                <button onclick="click_prioritas_bp('` + data[i].kode_antrian_lab + `')" id="` + data[i].kode_antrian_lab + `" class="btn btn-block">
-                                    <i class="far fa-hand-pointer"></i> Prioritas
+                        if (status == "Prioritas") {
+                            button_val = "Prioritas";
+                            bg = "bg-gradient-warning";
+                        }
+
+                        if (kode_antrian_sekarang == kode_antrian) {
+                            bg = "bg-gradient-danger";
+                        }
+
+                        if (kode_antrian.length == 5) {
+                            btn_aksi = `
+
+                                <button onclick="click_prioritas_lab('` + kode_antrian + `')" id="` + kode_antrian + `" class="btn text-white">` + button_val + `
+                                    <i class="far fa-hand-pointer"></i> 
                                 </button>
                             
                             `;
                         }
 
+                        $('#daftar_antrian_lab').append(`
+
+                            <p class="px-3 py-4  ` + bg + `  text-white">
+                            ` + no + ` - ` + kode_antrian + ` - ` + nama + ` ` + btn_aksi + `
+                            </p>
+                            <br>
+
+                        `);
 
                     });
                 } else {
-                    $('.daftar_antrian_kia').html('<h4>Data Antrian Kosong</h4>');
+                    $('.daftar_antrian_lab').html('<h4>Data Antrian Kosong</h4>');
                 }
 
             }
