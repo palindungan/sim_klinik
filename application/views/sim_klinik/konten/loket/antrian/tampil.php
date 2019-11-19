@@ -146,8 +146,20 @@
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">Daftar Antrian Poli KIA</h6>
                 </div>
-                <div class="card-body" id="daftar_antrian_kia">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table_bp" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Kode</th>
+                                    <th>Nama</th>
+                                </tr>
+                            </thead>
+                            <tbody id="daftar_antrian_kia">
 
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
@@ -160,8 +172,21 @@
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">Daftar Antrian Laboratorium</h6>
                 </div>
-                <div class="card-body" id="daftar_antrian_lab">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table_bp" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Kode</th>
+                                    <th>Nama</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="daftar_antrian_lab">
 
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
@@ -436,24 +461,19 @@
 
                         var kode_antrian = data[i].kode_antrian_kia;
                         var nama = data[i].nama;
-                        var bg = "bg-gradient-primary";
+                        var bg = "";
                         var no = i + 1;
 
                         if (kode_antrian_sekarang == kode_antrian) {
-                            bg = "bg-gradient-danger";
+                            bg = "bg-gradient-danger text-white";
                         }
 
                         $('#daftar_antrian_kia').append(`
 
-                        <div class="px-3 py-3 ` + bg + ` text-white">
-
-                            <div class="row">
-                                <div class="col-md-12 ">
-                                ` + no + `. ` + nama + ` (` + kode_antrian + `)
-                                </div>
-                            </div>
-
-                        </div>
+                            <tr class="px-3 py-3 ` + bg + `">
+                                <td>` + kode_antrian + `</td>
+                                <td>` + nama + `</td>
+                            </tr>
 
                         `);
 
@@ -487,16 +507,16 @@
                         var nama = data[i].nama;
                         var status = data[i].status;
                         var button_val = "Normal";
-                        var bg = "bg-gradient-primary";
+                        var bg = "";
                         var no = i + 1;
 
                         if (status == "Prioritas") {
                             button_val = "Prioritas";
-                            bg = "bg-gradient-warning";
+                            bg = "bg-gradient-warning text-white";
                         }
 
                         if (kode_antrian_sekarang == kode_antrian) {
-                            bg = "bg-gradient-danger";
+                            bg = "bg-gradient-danger text-white";
                         }
 
                         if (kode_antrian.length == 5) {
@@ -505,7 +525,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <button onclick="click_prioritas_lab('` + kode_antrian + `')" id="` + kode_antrian + `" class="btn py-1 btn-light btn col-md-12">
-                                        ` + button_val + ` <i class="far fa-hand-pointer"></i>
+                                        ` + button_val + `
                                         </button>
                                     </div>
                                 </div>
@@ -515,17 +535,11 @@
 
                         $('#daftar_antrian_lab').append(`
 
-                            <div class="px-3 py-3 ` + bg + ` text-white">
-
-                                <div class="row">
-                                    <div class="col-md-12 ">
-                                    ` + no + `. ` + nama + ` (` + kode_antrian + `)
-                                    </div>
-                                </div>
-
-                                ` + btn_aksi + `
-
-                            </div>
+                            <tr class="px-3 py-3 ` + bg + `">
+                                <td>` + kode_antrian + `</td>
+                                <td>` + nama + `</td>
+                                <td>` + btn_aksi + `</td>
+                            </tr>
 
                         `);
 
