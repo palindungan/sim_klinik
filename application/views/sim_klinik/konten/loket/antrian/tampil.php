@@ -134,6 +134,7 @@
                             </tbody>
                         </table>
                     </div>
+                    <div id="bp_foot" ></div>
                 </div>
             </div>
 
@@ -160,6 +161,7 @@
                             </tbody>
                         </table>
                     </div>
+                    <div id="kia_foot" ></div>
                 </div>
             </div>
 
@@ -187,6 +189,7 @@
                             </tbody>
                         </table>
                     </div>
+                    <div id="lab_foot" ></div>
                 </div>
             </div>
 
@@ -434,7 +437,7 @@
 
                     });
                 } else {
-                    document.getElementById("daftar_antrian_bp").innerHTML = "<h5>Data Antrian Kosong</h5>";
+                    document.getElementById("bp_foot").innerHTML = "<h5>Data Antrian Kosong</h5>";
                 }
             }
         });
@@ -475,7 +478,7 @@
 
                     });
                 } else {
-                    document.getElementById("daftar_antrian_kia").innerHTML = "<h5>Data Antrian Kosong</h5>";
+                    document.getElementById("kia_foot").innerHTML = "<h5>Data Antrian Kosong</h5>";
                 }
             }
         });
@@ -539,7 +542,7 @@
 
                     });
                 } else {
-                    document.getElementById("daftar_antrian_kia").innerHTML = "<h5>Data Antrian Kosong</h5>";
+                    document.getElementById("lab_foot").innerHTML = "<h5>Data Antrian Kosong</h5>";
                 }
             }
         });
