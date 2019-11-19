@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 19 Nov 2019 pada 09.23
+-- Waktu pembuatan: 19 Nov 2019 pada 11.55
 -- Versi server: 10.1.37-MariaDB
 -- Versi PHP: 7.3.0
 
@@ -31,7 +31,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `antrian_balai_pengobatan_prioritas` (
 `kode_antrian_bp` char(5)
 ,`nama` varchar(50)
-,`status` enum('Antri','Prioritas','Selesai')
+,`status` enum('Antri','Prioritas','Diperiksa','Selesai')
 ,`no_antrian` varchar(3)
 );
 
@@ -44,7 +44,7 @@ CREATE TABLE `antrian_balai_pengobatan_prioritas` (
 CREATE TABLE `antrian_balai_pengobatan_semua` (
 `kode_antrian_bp` char(5)
 ,`nama` varchar(50)
-,`status` enum('Antri','Prioritas','Selesai')
+,`status` enum('Antri','Prioritas','Diperiksa','Selesai')
 ,`no_antrian` varchar(3)
 );
 
@@ -57,7 +57,7 @@ CREATE TABLE `antrian_balai_pengobatan_semua` (
 CREATE TABLE `antrian_balai_pengobatan_tersisa` (
 `kode_antrian_bp` char(5)
 ,`nama` varchar(50)
-,`status` enum('Antri','Prioritas','Selesai')
+,`status` enum('Antri','Prioritas','Diperiksa','Selesai')
 ,`no_antrian` varchar(3)
 );
 
@@ -70,7 +70,7 @@ CREATE TABLE `antrian_balai_pengobatan_tersisa` (
 CREATE TABLE `antrian_bp` (
   `kode_antrian_bp` char(5) NOT NULL,
   `no_ref_pelayanan` char(10) NOT NULL,
-  `status` enum('Antri','Prioritas','Selesai') NOT NULL
+  `status` enum('Antri','Prioritas','Diperiksa','Selesai') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -78,7 +78,7 @@ CREATE TABLE `antrian_bp` (
 --
 
 INSERT INTO `antrian_bp` (`kode_antrian_bp`, `no_ref_pelayanan`, `status`) VALUES
-('A001', '191112-005', 'Antri'),
+('A001', '191112-005', 'Diperiksa'),
 ('A003', '191112-007', 'Antri'),
 ('A004', '191112-008', 'Antri'),
 ('A007', '191119-014', 'Antri'),
@@ -95,7 +95,7 @@ INSERT INTO `antrian_bp` (`kode_antrian_bp`, `no_ref_pelayanan`, `status`) VALUE
 CREATE TABLE `antrian_kesehatan_ibu_dan_anak_semua` (
 `kode_antrian_kia` char(4)
 ,`nama` varchar(50)
-,`status` enum('Antri','Prioritas','Selesai')
+,`status` enum('Antri','Diperiksa','Selesai')
 ,`no_antrian` varchar(3)
 );
 
@@ -108,7 +108,7 @@ CREATE TABLE `antrian_kesehatan_ibu_dan_anak_semua` (
 CREATE TABLE `antrian_kesehatan_ibu_dan_anak_tersisa` (
 `kode_antrian_kia` char(4)
 ,`nama` varchar(50)
-,`status` enum('Antri','Prioritas','Selesai')
+,`status` enum('Antri','Diperiksa','Selesai')
 ,`no_antrian` varchar(3)
 );
 
@@ -121,7 +121,7 @@ CREATE TABLE `antrian_kesehatan_ibu_dan_anak_tersisa` (
 CREATE TABLE `antrian_kia` (
   `kode_antrian_kia` char(4) NOT NULL,
   `no_ref_pelayanan` char(10) NOT NULL,
-  `status` enum('Antri','Prioritas','Selesai') NOT NULL
+  `status` enum('Antri','Diperiksa','Selesai') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -129,7 +129,7 @@ CREATE TABLE `antrian_kia` (
 --
 
 INSERT INTO `antrian_kia` (`kode_antrian_kia`, `no_ref_pelayanan`, `status`) VALUES
-('1911', '191112-001', 'Antri'),
+('1911', '191112-001', 'Diperiksa'),
 ('B912', '191112-010', 'Antri'),
 ('B913', '191112-011', 'Antri'),
 ('B914', '191119-012', 'Antri');
@@ -143,7 +143,7 @@ INSERT INTO `antrian_kia` (`kode_antrian_kia`, `no_ref_pelayanan`, `status`) VAL
 CREATE TABLE `antrian_lab` (
   `kode_antrian_lab` char(5) NOT NULL,
   `no_ref_pelayanan` char(10) NOT NULL,
-  `status` enum('Antri','Prioritas','Selesai') NOT NULL
+  `status` enum('Antri','Prioritas','Diperiksa','Selesai') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -152,7 +152,7 @@ CREATE TABLE `antrian_lab` (
 
 INSERT INTO `antrian_lab` (`kode_antrian_lab`, `no_ref_pelayanan`, `status`) VALUES
 ('C003', '191112-004', 'Antri'),
-('CG001', '191112-002', 'Antri'),
+('CG001', '191112-002', 'Diperiksa'),
 ('CG002', '191112-003', 'Antri');
 
 -- --------------------------------------------------------
@@ -164,7 +164,7 @@ INSERT INTO `antrian_lab` (`kode_antrian_lab`, `no_ref_pelayanan`, `status`) VAL
 CREATE TABLE `antrian_laboratorium_prioritas` (
 `kode_antrian_lab` char(5)
 ,`nama` varchar(50)
-,`status` enum('Antri','Prioritas','Selesai')
+,`status` enum('Antri','Prioritas','Diperiksa','Selesai')
 ,`no_antrian` varchar(3)
 );
 
@@ -177,7 +177,7 @@ CREATE TABLE `antrian_laboratorium_prioritas` (
 CREATE TABLE `antrian_laboratorium_semua` (
 `kode_antrian_lab` char(5)
 ,`nama` varchar(50)
-,`status` enum('Antri','Prioritas','Selesai')
+,`status` enum('Antri','Prioritas','Diperiksa','Selesai')
 ,`no_antrian` varchar(3)
 );
 
@@ -190,7 +190,7 @@ CREATE TABLE `antrian_laboratorium_semua` (
 CREATE TABLE `antrian_laboratorium_tersisa` (
 `kode_antrian_lab` char(5)
 ,`nama` varchar(50)
-,`status` enum('Antri','Prioritas','Selesai')
+,`status` enum('Antri','Prioritas','Diperiksa','Selesai')
 ,`no_antrian` varchar(3)
 );
 
@@ -368,7 +368,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `antrian_balai_pengobatan_tersisa`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_balai_pengobatan_tersisa`  AS  select `abps`.`kode_antrian_bp` AS `kode_antrian_bp`,`abps`.`nama` AS `nama`,`abps`.`status` AS `status`,`abps`.`no_antrian` AS `no_antrian` from `antrian_balai_pengobatan_semua` `abps` where (`abps`.`status` <> 'Selesai') order by `abps`.`no_antrian` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_balai_pengobatan_tersisa`  AS  select `abps`.`kode_antrian_bp` AS `kode_antrian_bp`,`abps`.`nama` AS `nama`,`abps`.`status` AS `status`,`abps`.`no_antrian` AS `no_antrian` from `antrian_balai_pengobatan_semua` `abps` where ((`abps`.`status` <> 'Selesai') and (`abps`.`status` <> 'Diperiksa')) order by `abps`.`no_antrian` ;
 
 -- --------------------------------------------------------
 
@@ -386,7 +386,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `antrian_kesehatan_ibu_dan_anak_tersisa`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_kesehatan_ibu_dan_anak_tersisa`  AS  select `x`.`kode_antrian_kia` AS `kode_antrian_kia`,`x`.`nama` AS `nama`,`x`.`status` AS `status`,`x`.`no_antrian` AS `no_antrian` from `antrian_kesehatan_ibu_dan_anak_semua` `x` where (`x`.`status` <> 'Selesai') order by `x`.`no_antrian` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_kesehatan_ibu_dan_anak_tersisa`  AS  select `x`.`kode_antrian_kia` AS `kode_antrian_kia`,`x`.`nama` AS `nama`,`x`.`status` AS `status`,`x`.`no_antrian` AS `no_antrian` from `antrian_kesehatan_ibu_dan_anak_semua` `x` where ((`x`.`status` <> 'Selesai') and (`x`.`status` <> 'Diperiksa')) order by `x`.`no_antrian` ;
 
 -- --------------------------------------------------------
 
@@ -413,7 +413,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `antrian_laboratorium_tersisa`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_laboratorium_tersisa`  AS  select `lap`.`kode_antrian_lab` AS `kode_antrian_lab`,`lap`.`nama` AS `nama`,`lap`.`status` AS `status`,`lap`.`no_antrian` AS `no_antrian` from `antrian_laboratorium_semua` `lap` where (`lap`.`status` <> 'Selesai') order by `lap`.`no_antrian` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_laboratorium_tersisa`  AS  select `lap`.`kode_antrian_lab` AS `kode_antrian_lab`,`lap`.`nama` AS `nama`,`lap`.`status` AS `status`,`lap`.`no_antrian` AS `no_antrian` from `antrian_laboratorium_semua` `lap` where ((`lap`.`status` <> 'Selesai') and (`lap`.`status` <> 'Diperiksa')) order by `lap`.`no_antrian` ;
 
 --
 -- Indexes for dumped tables
