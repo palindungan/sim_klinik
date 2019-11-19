@@ -423,7 +423,7 @@
                         if (kode_antrian_sekarang != kode_antrian) {
                             $('#daftar_antrian_bp').append(`
 
-                                <tr class="px-3 py-3 ` + bg + `">
+                                <tr class="` + bg + `">
                                     <td>` + kode_antrian + `</td>
                                     <td>` + nama + `</td>
                                     <td>` + btn_aksi + `</td>
@@ -434,7 +434,7 @@
 
                     });
                 } else {
-                    document.getElementById("daftar_antrian_bp").innerHTML = "<h4>Data Antrian Kosong</h4>";
+                    document.getElementById("daftar_antrian_bp").innerHTML = "<h5>Data Antrian Kosong</h5>";
                 }
             }
         });
@@ -465,7 +465,7 @@
                         if (kode_antrian_sekarang != kode_antrian) {
                             $('#daftar_antrian_kia').append(`
 
-                                <tr class="px-3 py-3 ` + bg + `">
+                                <tr class="` + bg + `">
                                     <td>` + kode_antrian + `</td>
                                     <td>` + nama + `</td>
                                 </tr>
@@ -475,7 +475,7 @@
 
                     });
                 } else {
-                    document.getElementById("daftar_antrian_kia").innerHTML = "<h4>Data Antrian Kosong</h4>";
+                    document.getElementById("daftar_antrian_kia").innerHTML = "<h5>Data Antrian Kosong</h5>";
                 }
             }
         });
@@ -528,7 +528,7 @@
                         if (kode_antrian_sekarang != kode_antrian) {
                             $('#daftar_antrian_lab').append(`
 
-                                <tr class="px-3 py-3 ` + bg + `">
+                                <tr class="` + bg + `">
                                     <td>` + kode_antrian + `</td>
                                     <td>` + nama + `</td>
                                     <td>` + btn_aksi + `</td>
@@ -539,7 +539,7 @@
 
                     });
                 } else {
-                    document.getElementById("daftar_antrian_lab").innerHTML = "<h4>Data Antrian Kosong</h4>";
+                    document.getElementById("daftar_antrian_kia").innerHTML = "<h5>Data Antrian Kosong</h5>";
                 }
             }
         });
