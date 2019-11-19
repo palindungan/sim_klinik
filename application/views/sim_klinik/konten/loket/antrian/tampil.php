@@ -83,10 +83,7 @@
                     <h6 class="m-0 font-weight-bold text-primary">Custom Text Color Utilities</h6>
                 </div>
                 <div class="card-body" id="daftar_antrian_bp">
-                    <p class="px-3 py-4 bg-gradient-primary text-white">.text-gray-100</p>
-                    <p class="px-3 py-4 bg-gradient-primary text-white">.text-gray-100</p>
-                    <p class="px-3 py-4 bg-gradient-primary text-white">.text-gray-100</p>
-                    <p class="px-3 py-4 bg-gradient-primary text-white">.text-gray-100</p>
+
                 </div>
             </div>
 
@@ -100,10 +97,7 @@
                     <h6 class="m-0 font-weight-bold text-primary">Custom Text Color Utilities</h6>
                 </div>
                 <div class="card-body" id="daftar_antrian_kia">
-                    <p class="px-3 py-4 bg-gradient-primary text-white">.text-gray-100</p>
-                    <p class="px-3 py-4 bg-gradient-primary text-white">.text-gray-100</p>
-                    <p class="px-3 py-4 bg-gradient-primary text-white">.text-gray-100</p>
-                    <p class="px-3 py-4 bg-gradient-primary text-white">.text-gray-100</p>
+
                 </div>
             </div>
 
@@ -117,10 +111,7 @@
                     <h6 class="m-0 font-weight-bold text-primary">Custom Text Color Utilities</h6>
                 </div>
                 <div class="card-body" id="daftar_antrian_lab">
-                    <p class="px-3 py-4 bg-gradient-primary text-white">.text-gray-100</p>
-                    <p class="px-3 py-4 bg-gradient-primary text-white">.text-gray-100</p>
-                    <p class="px-3 py-4 bg-gradient-primary text-white">.text-gray-100</p>
-                    <p class="px-3 py-4 bg-gradient-primary text-white">.text-gray-100</p>
+
                 </div>
             </div>
 
@@ -311,10 +302,7 @@
 
     function refresh_tabel_antrian_bp() {
 
-        var table;
-        table = $('.table_bp').DataTable();
-
-        table.clear();
+        document.getElementById("daftar_antrian_bp").innerHTML = "";
 
         $.ajax({
             url: "<?php echo base_url() . 'loket/antrian/tampil_daftar_antrian_bp'; ?>",
@@ -325,36 +313,60 @@
 
                 if (data != '') {
 
+                    var kode_antrian_sekarang = $("#kode_antrian_bp").val();
+
                     $.each(data, function(i, item) {
 
                         var btn_aksi = "";
-                        if (data[i].kode_antrian_bp.length == 5) {
-                            var btn_aksi = `
+                        var kode_antrian = data[i].kode_antrian_bp;
+                        var nama = data[i].nama;
+                        var status = data[i].status;
+                        var button_val = "Normal";
+                        var bg = "bg-gradient-primary";
 
-                                <button onclick="click_prioritas_bp('` + data[i].kode_antrian_bp + `')" id="` + data[i].kode_antrian_bp + `" class="btn btn-block">
-                                    <i class="far fa-hand-pointer"></i> Prioritas
+                        var no = i + 1;
+
+                        if (status == "Prioritas") {
+                            button_val = "Prioritas";
+                            bg = "bg-gradient-warning";
+                        }
+
+                        if (kode_antrian_sekarang == kode_antrian) {
+                            bg = "bg-gradient-danger";
+                        }
+
+                        if (kode_antrian.length == 5) {
+                            btn_aksi = `
+
+                                <button onclick="click_prioritas_bp('` + kode_antrian + `')" id="` + kode_antrian + `" class="btn text-white">` + button_val + `
+                                    <i class="far fa-hand-pointer"></i> 
                                 </button>
                             
                             `;
                         }
 
-                        table.row.add([data[i].kode_antrian_bp, data[i].nama, btn_aksi]);
+                        $('#daftar_antrian_bp').append(`
+
+                            <p class="px-3 py-4  ` + bg + `  text-white">
+                            ` + no + ` - ` + kode_antrian + ` - ` + nama + ` ` + btn_aksi + `
+                            </p>
+                            <br>
+
+                        `);
 
                     });
                 } else {
-                    $('.table_bp').html('<h4>Data Antrian Kosong</h4>');
-                }
-                table.draw();
 
+                    document.getElementById("daftar_antrian_bp").innerHTML = "<h4>Data Antrian Kosong</h4>";
+
+                }
             }
         });
     }
 
     function refresh_tabel_antrian_kia() {
-        var table;
-        table = $('.table_kia').DataTable();
 
-        table.clear();
+        document.getElementById("daftar_antrian_kia").innerHTML = "";
 
         $.ajax({
             url: "<?php echo base_url() . 'loket/antrian/tampil_daftar_antrian_kia'; ?>",
@@ -367,14 +379,12 @@
 
                     $.each(data, function(i, item) {
 
-                        table.row.add([data[i].kode_antrian_kia, data[i].nama]);
+
 
                     });
                 } else {
-                    $('.table_kia').html('<h4>Data Antrian Kosong</h4>');
+                    $('.daftar_antrian_kia').html('<h4>Data Antrian Kosong</h4>');
                 }
-                table.draw();
-
             }
         });
     }
@@ -400,20 +410,18 @@
                         if (data[i].kode_antrian_lab.length == 5) {
                             var btn_aksi = `
 
-                                <button onclick="click_prioritas_lab('` + data[i].kode_antrian_lab + `')" id="` + data[i].kode_antrian_lab + `" class="btn btn-block">
+                                <button onclick="click_prioritas_bp('` + data[i].kode_antrian_lab + `')" id="` + data[i].kode_antrian_lab + `" class="btn btn-block">
                                     <i class="far fa-hand-pointer"></i> Prioritas
                                 </button>
                             
                             `;
                         }
 
-                        table.row.add([data[i].kode_antrian_lab, data[i].nama, btn_aksi]);
 
                     });
                 } else {
-                    $('.table_lab').html('<h4>Data Antrian Kosong</h4>');
+                    $('.daftar_antrian_kia').html('<h4>Data Antrian Kosong</h4>');
                 }
-                table.draw();
 
             }
         });
