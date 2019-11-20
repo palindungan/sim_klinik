@@ -30,7 +30,7 @@
 
 				<div class="form-row">
 					<div class="form-group col-md-12">
-						<label for="">Biodata Pasien</label>
+						<label>Biodata Pasien</label>
 						<div id="muncul">
 						</div>
 					</div>
@@ -38,7 +38,7 @@
 
 				<div class="form-row">
 
-					<div class="form-group col-md-2">
+					<div class="form-group col-md-12">
 						<a href="#" class="btn btn-success btn-icon-split">
 							<span class="icon text-white-50">
 								<i class="fas fa-check"></i>
@@ -47,6 +47,11 @@
 						</a>
 					</div>
 
+				</div>
+
+				<div class="form-row">
+					<label class=" col-md-5">Nama Tindakan</label>
+					<label class=" col-md-5">Biaya</label>
 				</div>
 
 				<div class="form-row">
@@ -67,7 +72,11 @@
 				</div>
 
 				<div class="form-row">
-					<div class="form-group col-md-10"> </div>
+					<div class="form-group col-md-5"> </div>
+
+					<div class="form-group col-md-5">
+						<input type="text" name="total" class="form-control rupiah" id="" placeholder="Total" required>
+					</div>
 
 					<div class="form-group col-md-2">
 						<button class="btn btn-primary btn-icon-split">
