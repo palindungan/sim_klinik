@@ -274,6 +274,7 @@
 			data: form_data,
 			success: function(data) {
 				$('#total_harga').val(data);
+				$('.rupiah').trigger('input'); // Will be display 
 			}
 		});
 
