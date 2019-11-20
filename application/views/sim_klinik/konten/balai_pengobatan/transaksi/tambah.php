@@ -232,7 +232,7 @@
 
 			<div id="row` + count1 + `" class="form-row">
 				<div class="form-group col-md-5">
-					<input type="text" name="nama[]" class="form-control karakter" id="nama` + count1 + `" placeholder="Nama" required value="` + nama + `">
+					<input type="text" readonly name="nama[]" class="form-control karakter" id="nama` + count1 + `" placeholder="Nama" required value="` + nama + `">
 					<input type="hidden" name="no_bp_t[]" class="form-control" id="no_bp_t` + count1 + `" value="` + kode + `">
 				</div>
 				<div class="form-group col-md-5">
