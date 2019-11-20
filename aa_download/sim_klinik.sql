@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 14 Nov 2019 pada 13.19
+-- Waktu pembuatan: 20 Nov 2019 pada 09.11
 -- Versi server: 10.4.6-MariaDB
 -- Versi PHP: 7.3.9
 
@@ -31,7 +31,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `antrian_balai_pengobatan_prioritas` (
 `kode_antrian_bp` char(5)
 ,`nama` varchar(50)
-,`status` enum('Antri','Prioritas','Selesai')
+,`status` enum('Antri','Prioritas','Diperiksa','Selesai')
 ,`no_antrian` varchar(3)
 );
 
@@ -44,7 +44,7 @@ CREATE TABLE `antrian_balai_pengobatan_prioritas` (
 CREATE TABLE `antrian_balai_pengobatan_semua` (
 `kode_antrian_bp` char(5)
 ,`nama` varchar(50)
-,`status` enum('Antri','Prioritas','Selesai')
+,`status` enum('Antri','Prioritas','Diperiksa','Selesai')
 ,`no_antrian` varchar(3)
 );
 
@@ -57,7 +57,7 @@ CREATE TABLE `antrian_balai_pengobatan_semua` (
 CREATE TABLE `antrian_balai_pengobatan_tersisa` (
 `kode_antrian_bp` char(5)
 ,`nama` varchar(50)
-,`status` enum('Antri','Prioritas','Selesai')
+,`status` enum('Antri','Prioritas','Diperiksa','Selesai')
 ,`no_antrian` varchar(3)
 );
 
@@ -70,7 +70,7 @@ CREATE TABLE `antrian_balai_pengobatan_tersisa` (
 CREATE TABLE `antrian_bp` (
   `kode_antrian_bp` char(5) NOT NULL,
   `no_ref_pelayanan` char(10) NOT NULL,
-  `status` enum('Antri','Prioritas','Selesai') NOT NULL
+  `status` enum('Antri','Prioritas','Diperiksa','Selesai') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -78,7 +78,13 @@ CREATE TABLE `antrian_bp` (
 --
 
 INSERT INTO `antrian_bp` (`kode_antrian_bp`, `no_ref_pelayanan`, `status`) VALUES
-('A001', '191113-005', 'Selesai');
+('A001', '191112-005', 'Selesai'),
+('A003', '191112-007', 'Antri'),
+('A004', '191112-008', 'Antri'),
+('A007', '191119-014', 'Antri'),
+('AG002', '191112-006', 'Diperiksa'),
+('AG005', '191112-009', 'Antri'),
+('AG006', '191119-013', 'Antri');
 
 -- --------------------------------------------------------
 
@@ -89,7 +95,7 @@ INSERT INTO `antrian_bp` (`kode_antrian_bp`, `no_ref_pelayanan`, `status`) VALUE
 CREATE TABLE `antrian_kesehatan_ibu_dan_anak_semua` (
 `kode_antrian_kia` char(4)
 ,`nama` varchar(50)
-,`status` enum('Antri','Prioritas','Selesai')
+,`status` enum('Antri','Diperiksa','Selesai')
 ,`no_antrian` varchar(3)
 );
 
@@ -102,7 +108,7 @@ CREATE TABLE `antrian_kesehatan_ibu_dan_anak_semua` (
 CREATE TABLE `antrian_kesehatan_ibu_dan_anak_tersisa` (
 `kode_antrian_kia` char(4)
 ,`nama` varchar(50)
-,`status` enum('Antri','Prioritas','Selesai')
+,`status` enum('Antri','Diperiksa','Selesai')
 ,`no_antrian` varchar(3)
 );
 
@@ -115,7 +121,7 @@ CREATE TABLE `antrian_kesehatan_ibu_dan_anak_tersisa` (
 CREATE TABLE `antrian_kia` (
   `kode_antrian_kia` char(4) NOT NULL,
   `no_ref_pelayanan` char(10) NOT NULL,
-  `status` enum('Antri','Prioritas','Selesai') NOT NULL
+  `status` enum('Antri','Diperiksa','Selesai') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -123,7 +129,10 @@ CREATE TABLE `antrian_kia` (
 --
 
 INSERT INTO `antrian_kia` (`kode_antrian_kia`, `no_ref_pelayanan`, `status`) VALUES
-('B001', '191113-006', 'Antri');
+('1911', '191112-001', 'Diperiksa'),
+('B912', '191112-010', 'Antri'),
+('B913', '191112-011', 'Antri'),
+('B914', '191119-012', 'Antri');
 
 -- --------------------------------------------------------
 
@@ -134,8 +143,17 @@ INSERT INTO `antrian_kia` (`kode_antrian_kia`, `no_ref_pelayanan`, `status`) VAL
 CREATE TABLE `antrian_lab` (
   `kode_antrian_lab` char(5) NOT NULL,
   `no_ref_pelayanan` char(10) NOT NULL,
-  `status` enum('Antri','Prioritas','Selesai') NOT NULL
+  `status` enum('Antri','Prioritas','Diperiksa','Selesai') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `antrian_lab`
+--
+
+INSERT INTO `antrian_lab` (`kode_antrian_lab`, `no_ref_pelayanan`, `status`) VALUES
+('C003', '191112-004', 'Antri'),
+('CG001', '191112-002', 'Diperiksa'),
+('CG002', '191112-003', 'Antri');
 
 -- --------------------------------------------------------
 
@@ -146,7 +164,7 @@ CREATE TABLE `antrian_lab` (
 CREATE TABLE `antrian_laboratorium_prioritas` (
 `kode_antrian_lab` char(5)
 ,`nama` varchar(50)
-,`status` enum('Antri','Prioritas','Selesai')
+,`status` enum('Antri','Prioritas','Diperiksa','Selesai')
 ,`no_antrian` varchar(3)
 );
 
@@ -159,7 +177,7 @@ CREATE TABLE `antrian_laboratorium_prioritas` (
 CREATE TABLE `antrian_laboratorium_semua` (
 `kode_antrian_lab` char(5)
 ,`nama` varchar(50)
-,`status` enum('Antri','Prioritas','Selesai')
+,`status` enum('Antri','Prioritas','Diperiksa','Selesai')
 ,`no_antrian` varchar(3)
 );
 
@@ -172,7 +190,7 @@ CREATE TABLE `antrian_laboratorium_semua` (
 CREATE TABLE `antrian_laboratorium_tersisa` (
 `kode_antrian_lab` char(5)
 ,`nama` varchar(50)
-,`status` enum('Antri','Prioritas','Selesai')
+,`status` enum('Antri','Prioritas','Diperiksa','Selesai')
 ,`no_antrian` varchar(3)
 );
 
@@ -193,10 +211,8 @@ CREATE TABLE `bp_tindakan` (
 --
 
 INSERT INTO `bp_tindakan` (`no_bp_t`, `nama`, `harga`) VALUES
-('B001', 'asdA', 111111111),
-('B002', 'asd', 100000),
-('B003', 'asd', 900000),
-('B004', 'xxx', 800000);
+('B001', 'asd', 90000),
+('B002', 'asd', 100000);
 
 -- --------------------------------------------------------
 
@@ -211,13 +227,6 @@ CREATE TABLE `kamar_rawat_inap` (
   `tipe` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `kamar_rawat_inap`
---
-
-INSERT INTO `kamar_rawat_inap` (`no_kamar_rawat_i`, `nama`, `harga_harian`, `tipe`) VALUES
-('K001', 'xxx', 9000009, 'xx');
-
 -- --------------------------------------------------------
 
 --
@@ -228,14 +237,6 @@ CREATE TABLE `kategori_obat` (
   `no_kat_obat` varchar(5) NOT NULL,
   `nama` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `kategori_obat`
---
-
-INSERT INTO `kategori_obat` (`no_kat_obat`, `nama`) VALUES
-('K001', 'asd'),
-('K002', 'www');
 
 -- --------------------------------------------------------
 
@@ -287,17 +288,8 @@ CREATE TABLE `obat` (
   `no_kat_obat` varchar(5) NOT NULL,
   `nama` varchar(50) NOT NULL,
   `min_stok` int(3) NOT NULL,
-  `harga_jual` int(6) NOT NULL
+  `harga_jual` int(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `obat`
---
-
-INSERT INTO `obat` (`kode_obat`, `no_kat_obat`, `nama`, `min_stok`, `harga_jual`) VALUES
-('O001', 'K001', 'asd', 11, 11),
-('O002', 'K002', 'asd 123', 12, 111),
-('O003', 'K001', 'asd 99', 119, 111199);
 
 -- --------------------------------------------------------
 
@@ -320,11 +312,20 @@ CREATE TABLE `pasien` (
 --
 
 INSERT INTO `pasien` (`no_rm`, `nama`, `nik`, `tempat_lahir`, `tgl_lahir`, `jenkel`, `alamat`) VALUES
-('asd', 'Ali', '1234567812345678', 'Jember', '1983-01-17', '', 'sukosari'),
-('asd123', 'asdx', '1234567812345678', 'Jember', '1980-01-01', '', 'asd'),
-('asd1234', 'asdx', '1234567812345678', 'Jember', '1980-01-01', 'Perempuan', 'sukosiar'),
-('asd12345', 'afriansyah', '1212121212121212', 'jember', '1980-01-01', 'Laki-Laki', 'jember'),
-('xxx', 'asdasd', '1212121212121211', 'asd', '1980-01-01', 'Laki-Laki', 'asd');
+('10387212387', 'asdas', '0987654321098765', 'asasd', '1980-01-01', 'Laki-Laki', 'assa'),
+('123123', 'dimas tuda', '1234567890123457', 'jember', '1980-11-19', 'Laki-Laki', '123123'),
+('12312312ew', 'dwqw', '0987654321098712', 'ee', '1980-01-01', 'Laki-Laki', '23wee1'),
+('123123222', 'dimas tuda', '1234567890123411', '123123', '1980-01-01', 'Laki-Laki', '12312'),
+('123123ed', 'rizal', '1234567890123458', 'jember', '1980-01-01', 'Laki-Laki', '123123'),
+('12312wd', 'rizkika', '1234567890123459', 'jember', '1980-01-01', 'Laki-Laki', '123123'),
+('123192838123', 'kika', '1234567890123888', 'jemebr', '1980-01-01', 'Laki-Laki', 'jember'),
+('12342gre', 'dimas tuda', '1234567890123443', '123', '1980-01-01', 'Laki-Laki', '12312'),
+('12345', 'rizkika zakka palindungan', '1234567890123456', 'jember', '1998-08-01', 'Laki-Laki', 'lumajang'),
+('123dq12', 'rizal', '1234567890123422', '123123', '1980-01-01', 'Laki-Laki', '123123'),
+('cadad1212', 'adsq12', '1234567890123488', '123123', '1980-01-01', 'Laki-Laki', '12312'),
+('cxcaa132', '123dd', '1234567890123477', '123d', '1980-01-01', 'Laki-Laki', '1212'),
+('qwdcqd1221', 'rizkika zakka palindungan', '1234567890123433', '123123', '1980-01-01', 'Laki-Laki', '123123'),
+('svffd324', 'asdasd', '1234567890123455', '12', '1980-01-01', 'Laki-Laki', '12312');
 
 -- --------------------------------------------------------
 
@@ -334,7 +335,7 @@ INSERT INTO `pasien` (`no_rm`, `nama`, `nik`, `tempat_lahir`, `tgl_lahir`, `jenk
 
 CREATE TABLE `pelayanan` (
   `no_ref_pelayanan` varchar(10) NOT NULL,
-  `no_rm` varchar(10) NOT NULL,
+  `no_rm` varchar(25) NOT NULL,
   `no_user_pegawai` varchar(5) NOT NULL,
   `layanan_tujuan` enum('Balai Pengobatan','Poli KIA','Laboratorium') NOT NULL,
   `tipe_antrian` enum('Dewasa','Anak-Anak') NOT NULL,
@@ -346,12 +347,20 @@ CREATE TABLE `pelayanan` (
 --
 
 INSERT INTO `pelayanan` (`no_ref_pelayanan`, `no_rm`, `no_user_pegawai`, `layanan_tujuan`, `tipe_antrian`, `tgl_pelayanan`) VALUES
-('191112-001', 'asd', 'P001', 'Balai Pengobatan', 'Anak-Anak', '2019-11-12'),
-('191112-002', 'asd123', 'P001', 'Balai Pengobatan', 'Anak-Anak', '2019-11-12'),
-('191112-003', 'asd123', 'P001', 'Balai Pengobatan', 'Anak-Anak', '2019-11-12'),
-('191112-004', 'asd1234', 'P001', 'Balai Pengobatan', 'Anak-Anak', '2019-11-12'),
-('191113-005', 'asd12345', 'P001', 'Balai Pengobatan', 'Dewasa', '2019-11-13'),
-('191113-006', 'xxx', 'P001', 'Poli KIA', 'Anak-Anak', '2019-11-13');
+('191112-001', '12345', 'P001', 'Poli KIA', 'Dewasa', '2019-11-12'),
+('191112-002', '123123', 'P001', 'Laboratorium', 'Anak-Anak', '2019-11-12'),
+('191112-003', '123123ed', 'P001', 'Laboratorium', 'Anak-Anak', '2019-11-12'),
+('191112-004', '12312wd', 'P001', 'Laboratorium', 'Dewasa', '2019-11-12'),
+('191112-005', '123123222', 'P001', 'Balai Pengobatan', 'Dewasa', '2019-11-12'),
+('191112-006', '123dq12', 'P001', 'Balai Pengobatan', 'Anak-Anak', '2019-11-12'),
+('191112-007', 'qwdcqd1221', 'P001', 'Balai Pengobatan', 'Dewasa', '2019-11-12'),
+('191112-008', 'svffd324', 'P001', 'Balai Pengobatan', 'Dewasa', '2019-11-12'),
+('191112-009', 'cxcaa132', 'P001', 'Balai Pengobatan', 'Anak-Anak', '2019-11-12'),
+('191112-010', 'cadad1212', 'P001', 'Poli KIA', 'Dewasa', '2019-11-12'),
+('191112-011', '12342gre', 'P001', 'Poli KIA', 'Dewasa', '2019-11-12'),
+('191119-012', '123192838123', 'P001', 'Poli KIA', 'Anak-Anak', '2019-11-19'),
+('191119-013', '10387212387', 'P001', 'Balai Pengobatan', 'Anak-Anak', '2019-11-19'),
+('191119-014', '12312312ew', 'P001', 'Balai Pengobatan', 'Dewasa', '2019-11-19');
 
 -- --------------------------------------------------------
 
@@ -362,18 +371,10 @@ INSERT INTO `pelayanan` (`no_ref_pelayanan`, `no_rm`, `no_user_pegawai`, `layana
 CREATE TABLE `supplier` (
   `no_supplier` varchar(5) NOT NULL,
   `nama` varchar(50) NOT NULL,
-  `cp` varchar(20) NOT NULL,
-  `email` varchar(50) NOT NULL,
+  `cp` varchar(15) NOT NULL,
+  `email` varchar(30) NOT NULL,
   `alamat` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `supplier`
---
-
-INSERT INTO `supplier` (`no_supplier`, `nama`, `cp`, `email`, `alamat`) VALUES
-('S001', 'kencana', '081212', '12', 'jaln cut mutiah'),
-('S002', 'adi', '082234641698', 'adi@gmail.com', 'jember');
 
 -- --------------------------------------------------------
 
@@ -393,6 +394,20 @@ CREATE TABLE `ugd_tindakan` (
 
 INSERT INTO `ugd_tindakan` (`no_ugd_t`, `nama`, `harga`) VALUES
 ('U001', 'Pemberian oksigens', 1000009);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `user_pegawai`
+--
+
+CREATE TABLE `user_pegawai` (
+  `no_user_pegawai` varchar(5) NOT NULL,
+  `nama` varchar(50) NOT NULL,
+  `jenis_akses` varchar(30) NOT NULL,
+  `username` varchar(30) NOT NULL,
+  `password` varchar(60) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -419,7 +434,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `antrian_balai_pengobatan_tersisa`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_balai_pengobatan_tersisa`  AS  select `abps`.`kode_antrian_bp` AS `kode_antrian_bp`,`abps`.`nama` AS `nama`,`abps`.`status` AS `status`,`abps`.`no_antrian` AS `no_antrian` from `antrian_balai_pengobatan_semua` `abps` where `abps`.`status` <> 'Selesai' order by `abps`.`no_antrian` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_balai_pengobatan_tersisa`  AS  select `abps`.`kode_antrian_bp` AS `kode_antrian_bp`,`abps`.`nama` AS `nama`,`abps`.`status` AS `status`,`abps`.`no_antrian` AS `no_antrian` from `antrian_balai_pengobatan_semua` `abps` where `abps`.`status` <> 'Selesai' and `abps`.`status` <> 'Diperiksa' order by `abps`.`no_antrian` ;
 
 -- --------------------------------------------------------
 
@@ -437,7 +452,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `antrian_kesehatan_ibu_dan_anak_tersisa`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_kesehatan_ibu_dan_anak_tersisa`  AS  select `x`.`kode_antrian_kia` AS `kode_antrian_kia`,`x`.`nama` AS `nama`,`x`.`status` AS `status`,`x`.`no_antrian` AS `no_antrian` from `antrian_kesehatan_ibu_dan_anak_semua` `x` where `x`.`status` <> 'Selesai' order by `x`.`no_antrian` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_kesehatan_ibu_dan_anak_tersisa`  AS  select `x`.`kode_antrian_kia` AS `kode_antrian_kia`,`x`.`nama` AS `nama`,`x`.`status` AS `status`,`x`.`no_antrian` AS `no_antrian` from `antrian_kesehatan_ibu_dan_anak_semua` `x` where `x`.`status` <> 'Selesai' and `x`.`status` <> 'Diperiksa' order by `x`.`no_antrian` ;
 
 -- --------------------------------------------------------
 
@@ -464,7 +479,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `antrian_laboratorium_tersisa`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_laboratorium_tersisa`  AS  select `lap`.`kode_antrian_lab` AS `kode_antrian_lab`,`lap`.`nama` AS `nama`,`lap`.`status` AS `status`,`lap`.`no_antrian` AS `no_antrian` from `antrian_laboratorium_semua` `lap` where `lap`.`status` <> 'Selesai' order by `lap`.`no_antrian` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_laboratorium_tersisa`  AS  select `lap`.`kode_antrian_lab` AS `kode_antrian_lab`,`lap`.`nama` AS `nama`,`lap`.`status` AS `status`,`lap`.`no_antrian` AS `no_antrian` from `antrian_laboratorium_semua` `lap` where `lap`.`status` <> 'Selesai' and `lap`.`status` <> 'Diperiksa' order by `lap`.`no_antrian` ;
 
 --
 -- Indexes for dumped tables
@@ -547,6 +562,12 @@ ALTER TABLE `supplier`
 --
 ALTER TABLE `ugd_tindakan`
   ADD PRIMARY KEY (`no_ugd_t`);
+
+--
+-- Indeks untuk tabel `user_pegawai`
+--
+ALTER TABLE `user_pegawai`
+  ADD PRIMARY KEY (`no_user_pegawai`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
