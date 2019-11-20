@@ -13,7 +13,7 @@
 			<h6 class="m-0 font-weight-bold text-primary">Balai Pengobatan</h6>
 		</div>
 		<div class="card-body">
-			<form action="" method="post" id="transaksi_form">
+			<form method="post" id="transaksi_form">
 				<div class="form-row">
 					<div class="form-group col-md-6">
 						<label for="inputEmail3">No Ref Pelayanan</label>
@@ -171,7 +171,7 @@
 
 		// tambah ke database
 		$.ajax({
-			url: "<?php echo base_url() . 'manager/pemasokan/input_transaksi_form'; ?>",
+			url: "<?php echo base_url() . 'balai_pengobatan/transaksi/input_transaksi_form'; ?>",
 			method: "POST",
 			data: form_data,
 			success: function(data) {

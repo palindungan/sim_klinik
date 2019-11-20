@@ -49,14 +49,34 @@ class M_transaksi extends CI_Model
         $q = $this->db->query("SELECT MAX(RIGHT($field,$digit)) AS kd_max FROM $tabel");
         $kd = "";
         if ($q->num_rows() > 0) {
-        foreach ($q->result() as $k) {
-        $tmp = ((int) $k->kd_max) + 1;
-        $kd = $kode . sprintf('%0' . $digit . 's', $tmp);
-        }
+            foreach ($q->result() as $k) {
+                $tmp = ((int) $k->kd_max) + 1;
+                $kd = $kode . sprintf('%0' . $digit . 's', $tmp);
+            }
         } else {
-        $kd = "B001";
+            $kd = "B001";
         }
         return $kd;
     }
-    
+
+    function get_no_transaksi()
+    {
+        $field = "no_bp_p";
+        $tabel = "bp_penangan";
+        $digit = "4";
+        $ymd = date('ymd');
+
+        $q = $this->db->query("SELECT MAX(RIGHT($field,$digit)) AS kd_max FROM $tabel WHERE SUBSTR($field, 3, 6) = $ymd LIMIT 1");
+        $kd = "";
+        if ($q->num_rows() > 0) {
+            foreach ($q->result() as $k) {
+                $tmp = ((int) $k->kd_max) + 1;
+                $kd = sprintf("%04s", $tmp);
+            }
+        } else {
+            $kd = "0001";
+        }
+        date_default_timezone_set('Asia/Jakarta');
+        return 'BP' . date('ymd') . '-' . $kd; // SELECT SUBSTR('BP191121-0001', 3, 6); dari digit ke 3 sampai 6 digit seanjutnya
+    }
 }
