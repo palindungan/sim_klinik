@@ -45,8 +45,15 @@
 							<div class="form-row">
 								<div class="form-group col-md-6">
 									<label for="inputEmail5">Jenis Akses</label>
-									<input type="text" name="jenis_akses" class="form-control karakter" id="inputEmail5"
-										placeholder="Masukan nama user" required>
+									<select name="jenis_akses" class="form-control" id="inputEmail5">
+										<option value="Loket">Loket</option>
+										<option value="Apotek">Apotek</option>
+										<option value="Administrasi">Administrasi</option>
+										<option value="Balai Pengobatan">Balai Pengobatan</option>
+										<option value="Laboratorium">Laboratorium</option>
+										<option value="KIA">KIA</option>
+										<option value="Rawat Inap">Rawat Inap</option>
+									</select>
 								</div>
 							</div>
 						</div>
@@ -131,8 +138,26 @@
 				<div class="form-row">
 					<div class="form-group col-md-6">
 						<label for="inputEmail5">Jenis Akses</label>
-						<input type="text" name="jenis_akses" value="<?= $data->jenis_akses ?>"
-							class="form-control karakter" id="inputEmail5" placeholder="Masukan nama user" required>
+						<select name="jenis_akses" class="form-control" id="inputEmail5">
+							<option value="Loket" <?php if($data->jenis_akses == "Loket") {echo'selected';} ?>>Loket
+							</option>
+							<option value="Apotek" <?php if($data->jenis_akses == "Apotek") {echo'selected';} ?>>Apotek
+							</option>
+							<option value="Administrasi"
+								<?php if($data->jenis_akses == "Administrasi") {echo'selected';} ?>>
+								Administrasi</option>
+							<option value="Balai Pengobatan"
+								<?php if($data->jenis_akses == "Balai Pengobatan") {echo'selected';} ?>>Balai Pengobatan
+							</option>
+							<option value="Laboratorium"
+								<?php if($data->jenis_akses == "Laboratorium") {echo'selected';} ?>>
+								Laboratorium</option>
+							<option value="KIA" <?php if($data->jenis_akses == "KIA") {echo'selected';} ?>>KIA
+							</option>
+							<option value="Rawat Inap"
+								<?php if($data->jenis_akses == "Rawat Inap") {echo'selected';} ?>>
+								Rawat Inap</option>
+						</select>
 					</div>
 				</div>
 			</div>

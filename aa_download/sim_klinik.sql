@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 20 Nov 2019 pada 09.11
+-- Waktu pembuatan: 20 Nov 2019 pada 10.50
 -- Versi server: 10.4.6-MariaDB
 -- Versi PHP: 7.3.9
 
@@ -404,10 +404,18 @@ INSERT INTO `ugd_tindakan` (`no_ugd_t`, `nama`, `harga`) VALUES
 CREATE TABLE `user_pegawai` (
   `no_user_pegawai` varchar(5) NOT NULL,
   `nama` varchar(50) NOT NULL,
-  `jenis_akses` varchar(30) NOT NULL,
+  `jenis_akses` enum('Loket','Apotek','Administrasi','Balai Pengobatan','Laboratorium','KIA','Rawat Inap') NOT NULL,
   `username` varchar(30) NOT NULL,
   `password` varchar(60) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `user_pegawai`
+--
+
+INSERT INTO `user_pegawai` (`no_user_pegawai`, `nama`, `jenis_akses`, `username`, `password`) VALUES
+('U001', 'afri', 'Rawat Inap', 'afri', '$2y$10$5rtXCrmfFXQlovbbXY/J6u3eplLbiSp3ls0nn9ERXG9gBGifxHiVO'),
+('U002', 'kika', 'Loket', 'kika', '$2y$10$gIQgZO4D5b8LUWDVvH5Q6.PjmLjM8gLwEtpzkK.6bsXHv1tczykoG');
 
 -- --------------------------------------------------------
 
