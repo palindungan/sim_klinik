@@ -66,7 +66,7 @@
 					<div class="form-group col-md-5"> </div>
 
 					<div class="form-group col-md-5">
-						<input type="text" name="total_harga" class="form-control rupiah" id="total_harga" placeholder="Total" required>
+						<input type="text" readonly name="total_harga" class="form-control rupiah" id="total_harga" placeholder="Total" required>
 					</div>
 
 					<div class="form-group col-md-2">
@@ -155,6 +155,11 @@
 		jumlah_detail_transaksi = jumlah_detail_transaksi - 1;
 
 		cekJumlahDataTransaksi();
+	});
+
+	// jika kita mengubah class inputan rupiah
+	$(document).on('keyup', '.rupiah', function() {
+		update_total();
 	});
 
 	// jika di click simpan / submit
