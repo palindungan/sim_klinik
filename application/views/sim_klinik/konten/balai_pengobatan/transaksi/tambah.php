@@ -54,22 +54,12 @@
 					<label class=" col-md-5">Biaya</label>
 				</div>
 
-				<div class="form-row">
-					<div class="form-group col-md-5">
-						<input type="text" name="nama" class="form-control karakter" id="" placeholder="Nama" required>
-					</div>
-					<div class="form-group col-md-5">
-						<input type="text" name="harga" class="form-control rupiah" id="" placeholder="Harga" required>
-					</div>
-					<div class="form-group col-md-2">
-						<a href="#" class="btn btn-success btn-icon-split">
-							<span class="icon text-white-50">
-								<i class="fas fa-trash-alt"></i>
-							</span>
-							<span class="text">Hapus</span>
-						</a>
-					</div>
+				<!-- start untuk keranjang tindakan -->
+				<div id="detail_list">
+					<!-- disini isi detail -->
+
 				</div>
+				<!-- end of untuk keranjang tindakan -->
 
 				<div class="form-row">
 					<div class="form-group col-md-5"> </div>
@@ -113,5 +103,34 @@
 				$("#muncul").html(data);
 			}
 		});
+	}
+</script>
+
+<script>
+	// Start add_row
+	function tampil_detail() {
+
+		$('#detail_list').append(`
+
+			<div class="form-row">
+				<div class="form-group col-md-5">
+					<input type="text" name="" class="form-control karakter" id="" placeholder="Nama" required>
+				</div>
+				<div class="form-group col-md-5">
+					<input type="text" name="" class="form-control rupiah" id="" placeholder="Harga" required>
+				</div>
+				<div class="form-group col-md-2">
+					<a href="#" class="btn btn-success btn-icon-split">
+						<span class="icon text-white-50">
+							<i class="fas fa-trash-alt"></i>
+						</span>
+						<span class="text">Hapus</span>
+					</a>
+				</div>
+			</div>
+
+		`);
+
+		count1 = count1 + 1;
 	}
 </script>
