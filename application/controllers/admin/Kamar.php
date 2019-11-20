@@ -21,6 +21,7 @@ class Kamar extends CI_Controller
             'harga_harian' => $harga,
             'tipe' => $this->input->post('tipe')
         );
+        $this->session->set_flashdata('success','Ditambahkan');
         $this->M_kamar->input_data('kamar_rawat_inap',$data);
         redirect('admin/kamar');
     }

@@ -6,7 +6,9 @@
 		<div class="card-body">
 			<button type="button" class="btn btn-primary mb-3" data-toggle="modal"
 				data-target=".bd-example-modal-lg">Tambah</button>
-
+			<?php if($this->session->flashdata('success')) : ?>
+			<div class="flash-data" data-flashdata="<?= $this->session->flashdata('success'); ?>"></div>
+			<?php endif; ?>
 			<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
 				aria-hidden="true">
 				<div class="modal-dialog modal-lg">
