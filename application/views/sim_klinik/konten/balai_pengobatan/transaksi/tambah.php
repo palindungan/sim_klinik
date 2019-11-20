@@ -41,7 +41,7 @@
 					<div class="form-group col-md-12">
 						<a href="#" class="btn btn-success btn-icon-split">
 							<span class="icon text-white-50">
-								<i class="fas fa-check"></i>
+								<i class="fas fa-search-plus"></i>
 							</span>
 							<span class="text">Cari Tindakan</span>
 						</a>
@@ -64,7 +64,7 @@
 					<div class="form-group col-md-2">
 						<a href="#" class="btn btn-success btn-icon-split">
 							<span class="icon text-white-50">
-								<i class="fas fa-check"></i>
+								<i class="fas fa-trash-alt"></i>
 							</span>
 							<span class="text">Hapus</span>
 						</a>
@@ -81,7 +81,7 @@
 					<div class="form-group col-md-2">
 						<button class="btn btn-primary btn-icon-split">
 							<span class="icon text-white-50">
-								<i class="fas fa-flag"></i>
+								<i class="fas fa-paper-plane"></i>
 							</span>
 							<span class="text">Simpan Data</span>
 						</button>
