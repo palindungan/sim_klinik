@@ -11,7 +11,7 @@
 			<div class="text-center">
 				<h1 class="h4 text-gray-900 mb-4">Login User</h1>
 			</div>
-			<?php $attribute = array('class' => 'user'); echo form_open('login/store',$attribute); ?>
+			<?php $attribute = array( 'class' => 'user'); echo form_open('login/store',$attribute); ?>
 			<div class="form-group">
 				<input type="text" name="username" class="form-control form-control-user" id="exampleInputEmail"
 					aria-describedby="emailHelp" placeholder="Masukan Username" required>

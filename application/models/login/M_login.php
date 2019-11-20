@@ -7,7 +7,7 @@ class M_login extends CI_Model
         $where = array(
             'username' => $this->input->post('username')
         );
-        $this->db->select('*'); // Select field
+        $this->db->select('*'); // Select fields
         $this->db->from('user_pegawai'); // from Table1
         $this->db->where($where);
         return $this->db->get();

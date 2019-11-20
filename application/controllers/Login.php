@@ -12,7 +12,6 @@ class Login extends CI_Controller
     }
     public function store()
     {
-
         $userpass = $this->input->post('password');
         $cek = $this->M_login->cek_login();
         if ($cek->num_rows() > 0) {
@@ -62,8 +61,8 @@ class Login extends CI_Controller
             }
         } else {
             echo "<script>
-            	alert('Username Atau Password Anda Salah');
-            	window.location = '" . base_url("/") . "';
+                alert('Username Atau Password Anda Salah');
+                window.location = '" . base_url("/") . "';
             </script>";
         }
     }
