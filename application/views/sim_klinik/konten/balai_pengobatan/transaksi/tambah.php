@@ -27,20 +27,60 @@
 						</select>
 					</div>
 				</div>
-			</form>
-			<div class="form-row">
-				<div class="form-group col-md-12">
-					<label for="">Biodata Pasien</label>
-					<div id="muncul">
+
+				<div class="form-row">
+					<div class="form-group col-md-12">
+						<label for="">Biodata Pasien</label>
+						<div id="muncul">
+						</div>
 					</div>
 				</div>
-			</div>
 
-			<div class="form-row">
+				<div class="form-row">
 
-			</div>
-			<button type="submit" class="btn btn-primary">Simpan</button>
-			<a href="" class="btn btn-link">Kembali</a>
+					<div class="form-group col-md-2">
+						<a href="#" class="btn btn-success btn-icon-split">
+							<span class="icon text-white-50">
+								<i class="fas fa-check"></i>
+							</span>
+							<span class="text">Cari Tindakan</span>
+						</a>
+					</div>
+
+				</div>
+
+				<div class="form-row">
+					<div class="form-group col-md-5">
+						<input type="text" name="nama" class="form-control karakter" id="" placeholder="Nama" required>
+					</div>
+					<div class="form-group col-md-5">
+						<input type="text" name="harga" class="form-control rupiah" id="" placeholder="Harga" required>
+					</div>
+					<div class="form-group col-md-2">
+						<a href="#" class="btn btn-success btn-icon-split">
+							<span class="icon text-white-50">
+								<i class="fas fa-check"></i>
+							</span>
+							<span class="text">Hapus</span>
+						</a>
+					</div>
+				</div>
+
+				<div class="form-row">
+					<div class="form-group col-md-10"> </div>
+
+					<div class="form-group col-md-2">
+						<button class="btn btn-primary btn-icon-split">
+							<span class="icon text-white-50">
+								<i class="fas fa-flag"></i>
+							</span>
+							<span class="text">Simpan Data</span>
+						</button>
+					</div>
+
+				</div>
+
+			</form>
 		</div>
 	</div>
 
