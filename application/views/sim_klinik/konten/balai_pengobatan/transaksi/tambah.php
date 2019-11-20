@@ -70,7 +70,7 @@
 					</div>
 
 					<div class="form-group col-md-2">
-						<button class="btn btn-primary btn-icon-split" onclick="return confirm('Lakukan Simpan Data ?')">
+						<button id="action" type="submit" class="btn btn-primary btn-icon-split" onclick="return confirm('Lakukan Simpan Data ?')">
 							<span class="icon text-white-50">
 								<i class="fas fa-paper-plane"></i>
 							</span>

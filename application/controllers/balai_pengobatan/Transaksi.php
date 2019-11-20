@@ -162,18 +162,18 @@ class Transaksi extends CI_Controller
                     );
 
                     $status = $this->M_transaksi->input_data('detail_bp_penangan', $data);
-
-                    if ($status) {
-                        echo "Data berhasil Ditambahkan";
-                    } else {
-                        echo "Gagal input ke dalam data detail transaksi !!";
-                    }
                 }
+
+                if ($status) {
+                    echo "Berhasil Menyimpan Data !!";
+                } else {
+                    echo "Gagal input ke dalam data detail transaksi !!";
+                }
+
             } else {
                 echo "Gagal input ke dalam data transaksi !!";
             }
         } else {
-
             echo "Harus Ada Barang Detail Transaksi !!";
         }
     }
