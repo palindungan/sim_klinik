@@ -6,7 +6,6 @@
 	.select2-selection {
 		height: 38px !important;
 	}
-
 </style>
 <div class="container-fluid">
 	<div class="card shadow mb-4">
@@ -20,10 +19,10 @@
 						<label for="inputEmail3">No Ref Pelayanan</label>
 						<select id="xx" class="form-control" name="no_ref_pelayanan" required>
 							<option value="">-- Pilih Data --</option>
-							<?php foreach($record as $data): ?>
-							<option value="<?= $data->no_ref_pelayanan ?>">
-								<?= $data->no_ref_pelayanan." || ".$data->nama ?>
-							</option>
+							<?php foreach ($record as $data) : ?>
+								<option value="<?= $data->no_ref_pelayanan ?>">
+									<?= $data->no_ref_pelayanan . " || " . $data->nama ?>
+								</option>
 							<?php endforeach; ?>
 						</select>
 					</div>
@@ -50,7 +49,7 @@
 
 <script>
 	hari_ini();
-	$(document).on('change', '#xx', function (event) {
+	$(document).on('change', '#xx', function(event) {
 		event.preventDefault();
 		hari_ini();
 	});
@@ -61,10 +60,9 @@
 			url: "<?php echo base_url(); ?>balai_pengobatan/transaksi/tampil",
 			method: "POST",
 			data: form_data,
-			success: function (data) {
+			success: function(data) {
 				$("#muncul").html(data);
 			}
 		});
 	}
-
 </script>

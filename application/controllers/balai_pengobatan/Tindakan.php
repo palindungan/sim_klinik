@@ -9,7 +9,7 @@ class Tindakan extends CI_Controller
     public function index()
     {
         $data['record'] = $this->M_tindakan->tampil_data('bp_tindakan')->result();
-        $this->template->load('sim_klinik/template/loket', 'sim_klinik/konten/balai_pengobatan/tindakan/tampil',$data);
+        $this->template->load('sim_klinik/template/balai_pengobatan', 'sim_klinik/konten/balai_pengobatan/tindakan/tampil', $data);
     }
     public function store()
     {
@@ -20,7 +20,7 @@ class Tindakan extends CI_Controller
             'nama' => $this->input->post('nama'),
             'harga' => $harga
         );
-        $this->M_tindakan->input_data('bp_tindakan',$data);
+        $this->M_tindakan->input_data('bp_tindakan', $data);
         redirect('balai_pengobatan/tindakan');
     }
     public function update()
@@ -33,7 +33,7 @@ class Tindakan extends CI_Controller
             'nama' => $this->input->post('nama'),
             'harga' => $harga
         );
-        $this->M_tindakan->update_data($where,'bp_tindakan',$data);
+        $this->M_tindakan->update_data($where, 'bp_tindakan', $data);
         redirect('balai_pengobatan/tindakan');
     }
     public function delete($id)
@@ -42,6 +42,4 @@ class Tindakan extends CI_Controller
         $this->M_tindakan->hapus_data($where, 'bp_tindakan');
         redirect('balai_pengobatan/tindakan');
     }
-    
-
 }

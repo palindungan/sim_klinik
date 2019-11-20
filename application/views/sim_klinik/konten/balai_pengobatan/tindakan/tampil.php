@@ -4,11 +4,9 @@
 			<h6 class="m-0 font-weight-bold text-primary">Tindakan Balai Pengobatan</h6>
 		</div>
 		<div class="card-body">
-			<button type="button" class="btn btn-primary mb-3" data-toggle="modal"
-				data-target=".bd-example-modal-lg">Tambah</button>
+			<button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target=".bd-example-modal-lg">Tambah</button>
 
-			<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-				aria-hidden="true">
+			<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 				<div class="modal-dialog modal-lg">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -22,13 +20,11 @@
 							<div class="form-row">
 								<div class="form-group col-md-6">
 									<label for="inputEmail2">Nama Tindakan</label>
-									<input type="text" name="nama" class="form-control karakter" id="inputEmail2"
-										placeholder="Masukan nama tindakan" required>
+									<input type="text" name="nama" class="form-control karakter" id="inputEmail2" placeholder="Masukan nama tindakan" required>
 								</div>
 								<div class="form-group col-md-6">
 									<label for="inputEmail1">Harga Tindakan</label>
-									<input type="text" name="harga" class="form-control rupiah" id="rupiah"
-										placeholder="Masukan harga tindakan" required>
+									<input type="text" name="harga" class="form-control rupiah" id="rupiah" placeholder="Masukan harga tindakan" required>
 								</div>
 							</div>
 						</div>
@@ -53,22 +49,19 @@
 					</thead>
 					<tbody>
 						<?php
-						$no=1;
-						foreach($record as $data):
-                        ?>
-						<tr>
-							<td class="text-center"><?= $no++ ?></td>
-							<td><?= $data->no_bp_t ?></td>
-							<td><?= $data->nama ?></td>
-							<td class="text-right"><?= rupiah($data->harga) ?></td>
-							<td class="text-center">
-								<a style="cursor:pointer" class="btn btn-warning text-white" data-toggle="modal"
-									data-target="#modal-edit<?= $data->no_bp_t ?>">Edit</a>
-								<a onclick="return confirm('Anda yakin ingin menghapus data?')"
-									href="<?= base_url('balai_pengobatan/tindakan/delete/'.$data->no_bp_t) ?>"
-									class="btn btn-danger">Hapus</a>
-							</td>
-						</tr>
+						$no = 1;
+						foreach ($record as $data) :
+							?>
+							<tr>
+								<td class="text-center"><?= $no++ ?></td>
+								<td><?= $data->no_bp_t ?></td>
+								<td><?= $data->nama ?></td>
+								<td class="text-right"><?= rupiah($data->harga) ?></td>
+								<td class="text-center">
+									<a style="cursor:pointer" class="btn btn-warning text-white" data-toggle="modal" data-target="#modal-edit<?= $data->no_bp_t ?>">Edit</a>
+									<a onclick="return confirm('Anda yakin ingin menghapus data?')" href="<?= base_url('balai_pengobatan/tindakan/delete/' . $data->no_bp_t) ?>" class="btn btn-danger">Hapus</a>
+								</td>
+							</tr>
 						<?php endforeach; ?>
 					</tbody>
 				</table>
@@ -78,40 +71,38 @@
 </div>
 
 <!-- Modal Edit -->
-<?php foreach($record as $data):  ?>
-<div id="modal-edit<?=$data->no_bp_t;?>" class="modal fade">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title">Edit Tindakan Balai Pengobatan</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<?php echo form_open('balai_pengobatan/tindakan/update'); ?>
-			<div class="modal-body">
-				<div class="form-row">
-					<div class="form-group col-md-6">
-						<input type="hidden" name="no_bp_t" value="<?= $data->no_bp_t ?>">
-						<label for="inputEmail2">Nama Tindakan</label>
-						<input type="text" name="nama" value="<?= $data->nama ?>" class="form-control karakter"
-							id="inputEmail2" placeholder="Masukan nama tindakan" required>
+<?php foreach ($record as $data) :  ?>
+	<div id="modal-edit<?= $data->no_bp_t; ?>" class="modal fade">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Edit Tindakan Balai Pengobatan</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<?php echo form_open('balai_pengobatan/tindakan/update'); ?>
+				<div class="modal-body">
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<input type="hidden" name="no_bp_t" value="<?= $data->no_bp_t ?>">
+							<label for="inputEmail2">Nama Tindakan</label>
+							<input type="text" name="nama" value="<?= $data->nama ?>" class="form-control karakter" id="inputEmail2" placeholder="Masukan nama tindakan" required>
 
-					</div>
-					<div class="form-group col-md-6">
-						<label for="inputEmail1">Harga Tindakan</label>
-						<input type="text" name="harga" value="<?= rupiah($data->harga) ?>" class="form-control rupiah"
-							id="inputEmail1" placeholder="Masukan harga tindakan" required>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="inputEmail1">Harga Tindakan</label>
+							<input type="text" name="harga" value="<?= rupiah($data->harga) ?>" class="form-control rupiah" id="inputEmail1" placeholder="Masukan harga tindakan" required>
 
+						</div>
 					</div>
 				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary">Simpan</button>
+					<button type="button" class="btn btn-link" data-dismiss="modal">Kembali</button>
+				</div>
+				<?php echo form_close(); ?>
 			</div>
-			<div class="modal-footer">
-				<button type="submit" class="btn btn-primary">Simpan</button>
-				<button type="button" class="btn btn-link" data-dismiss="modal">Kembali</button>
-			</div>
-			<?php echo form_close(); ?>
 		</div>
 	</div>
-</div>
 <?php endforeach; ?>
