@@ -7,6 +7,12 @@
 <?php if($this->session->flashdata('hapus')) : ?>
 <div class="pesan-hapus" data-flashdata="<?= $this->session->flashdata('hapus'); ?>"></div>
 <?php endif; ?>
+<?php if($this->session->flashdata('username')) : ?>
+<div class="cek-username" data-flashdata="<?= $this->session->flashdata('username'); ?>"></div>
+<?php endif; ?>
+<?php if($this->session->flashdata('password')) : ?>
+<div class="cek-password" data-flashdata="<?= $this->session->flashdata('password'); ?>"></div>
+<?php endif; ?>
 <div class="container-fluid">
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">

@@ -69,7 +69,21 @@
 	var pesan_update = $('.pesan-update').data(pesan_update);
 	var pesan_hapus = $('.pesan-hapus').data(pesan_hapus);
 	var pesan_pendaftaran = $('.pesan-pendaftaran').data(pesan_pendaftaran);
-	if (pesan_sukses) {
+	var cek_password = $('.cek-password').data(cek_password);
+	var cek_username = $('.cek-username').data(cek_username);
+	if (cek_username) {
+		Swal.fire({
+			icon: 'error',
+			title: 'Gagal',
+			text: 'Username tersebut sudah ada'
+		})
+	} else if (cek_password) {
+		Swal.fire({
+			icon: 'error',
+			title: 'Gagal',
+			text: 'Password Dan Konfirmasi Tidak Cocok'
+		})
+	} else if (pesan_sukses) {
 		Swal.fire(
 			'Success',
 			'Data Berhasil Ditambahkan',

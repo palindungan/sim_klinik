@@ -15,6 +15,7 @@ class User extends CI_Controller
     {
         $id = $this->M_user->get_no(); // generate
         $password = $this->input->post('password', true);
+        $username = $this->input->post('username');
         $data = array(
             'no_user_pegawai' => $id,
             'nama' => $this->input->post('nama'),
@@ -22,9 +23,24 @@ class User extends CI_Controller
             'username' => $this->input->post('username'),
             'password' => password_hash($password, PASSWORD_BCRYPT)
         );
-        $this->M_user->input_data('user_pegawai',$data);
-        $this->session->set_flashdata('success','Ditambahkan');
-        redirect('admin/user');
+        $ambil_db = $this->db->query("SELECT COUNT(*) as jml_user FROM user_pegawai WHERE username='$username'")->row();
+        $cek_username = $ambil_db->jml_user;
+        if($cek_username > 0)
+        {
+            $this->session->set_flashdata('username','Diusername');
+            redirect('admin/user');
+        }
+        else if($this->input->post('password') != $this->input->post('konfirmasi_password'))
+        {
+            $this->session->set_flashdata('password','Dipassword');
+            redirect('admin/user');
+
+        } else {
+            $this->M_user->input_data('user_pegawai',$data);
+            $this->session->set_flashdata('success','Ditambahkan');
+            redirect('admin/user');
+        }
+        
     }
     public function update()
     {
