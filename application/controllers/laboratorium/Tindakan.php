@@ -21,6 +21,7 @@ class Tindakan extends CI_Controller
             'harga' => $harga
         );
         $this->M_tindakan->input_data('lab_checkup',$data);
+        $this->session->set_flashdata('success','Ditambahkan');
         redirect('laboratorium/tindakan');
     }
     public function update()
@@ -34,12 +35,14 @@ class Tindakan extends CI_Controller
             'harga' => $harga
         );
         $this->M_tindakan->update_data($where,'lab_checkup',$data);
+        $this->session->set_flashdata('update','Diubah');
         redirect('laboratorium/tindakan');
     }
     public function delete($id)
     {
         $where = array('no_lab_c' => $id);
         $this->M_tindakan->hapus_data($where, 'lab_checkup');
+        $this->session->set_flashdata('hapus','Dihapus');
         redirect('laboratorium/tindakan');
     }
     

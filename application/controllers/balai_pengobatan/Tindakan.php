@@ -21,6 +21,7 @@ class Tindakan extends CI_Controller
             'harga' => $harga
         );
         $this->M_tindakan->input_data('bp_tindakan', $data);
+        $this->session->set_flashdata('success','Ditambahkan');
         redirect('balai_pengobatan/tindakan');
     }
     public function update()
@@ -34,12 +35,14 @@ class Tindakan extends CI_Controller
             'harga' => $harga
         );
         $this->M_tindakan->update_data($where, 'bp_tindakan', $data);
+        $this->session->set_flashdata('update','Diubah');
         redirect('balai_pengobatan/tindakan');
     }
     public function delete($id)
     {
         $where = array('no_bp_t' => $id);
         $this->M_tindakan->hapus_data($where, 'bp_tindakan');
+        $this->session->set_flashdata('hapus','Dihapus');
         redirect('balai_pengobatan/tindakan');
     }
 }

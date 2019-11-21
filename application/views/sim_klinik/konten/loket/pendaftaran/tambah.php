@@ -1,3 +1,6 @@
+<?php if($this->session->flashdata('pendaftaran')) : ?>
+<div class="pesan-pendaftaran" data-flashdata="<?= $this->session->flashdata('pendaftaran'); ?>"></div>
+<?php endif; ?>
 <div class="container-fluid">
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">
@@ -8,17 +11,6 @@
 			<!-- <h5 class="h3 mb-2 text-gray-800">No. Ref Pelayanan</h5> -->
 			<?php echo form_open('loket/pendaftaran/store'); ?>
 			<div class="form-row">
-				<!-- <div class="form-group col-md-4">
-			<label for="inputEmail2">No REF Pelayanan</label>
-			<input type="text" name="no_ref" value="<?= set_value('no_ref') ?>"
-				class="form-control <?php if (form_error('no_ref') == true) {
-										echo "is-invalid";
-									} ?>" id="inputEmail4"
-				placeholder="No Ref Pelayanan">
-			<div class="invalid-feedback">
-				<?= form_error('no_ref'); ?>
-			</div>
-		</div> -->
 				<div class="form-group col-md-4">
 					<label for="inputEmail2">No RM</label>
 					<input type="text" name="no_rm" value="<?= set_value('no_rm') ?>" class="form-control <?php if (form_error('no_rm') == true) {

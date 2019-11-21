@@ -116,7 +116,7 @@ class Pendaftaran extends CI_Controller
 
                 $this->M_pendaftaran->input_data('antrian_lab', $data);
             }
-
+            $this->session->set_flashdata('pendaftaran','Ditambahkan');
             redirect('loket/pendaftaran');
         }
     }

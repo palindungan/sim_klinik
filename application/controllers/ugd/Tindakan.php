@@ -21,6 +21,7 @@ class Tindakan extends CI_Controller
             'harga' => $harga
         );
         $this->M_tindakan->input_data('ugd_tindakan',$data);
+        $this->session->set_flashdata('success','Ditambahkan');
         redirect('ugd/tindakan');
     }
     public function update()
@@ -34,12 +35,14 @@ class Tindakan extends CI_Controller
             'harga' => $harga
         );
         $this->M_tindakan->update_data($where,'ugd_tindakan',$data);
+        $this->session->set_flashdata('update','Diubah');
         redirect('ugd/tindakan');
     }
     public function delete($id)
     {
         $where = array('no_ugd_t' => $id);
         $this->M_tindakan->hapus_data($where, 'ugd_tindakan');
+        $this->session->set_flashdata('hapus','Dihapus');
         redirect('ugd/tindakan');
     }
     

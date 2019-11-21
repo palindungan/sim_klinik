@@ -68,6 +68,7 @@
 	var pesan_sukses = $('.pesan-sukses').data(pesan_sukses);
 	var pesan_update = $('.pesan-update').data(pesan_update);
 	var pesan_hapus = $('.pesan-hapus').data(pesan_hapus);
+	var pesan_pendaftaran = $('.pesan-pendaftaran').data(pesan_pendaftaran);
 	if (pesan_sukses) {
 		Swal.fire(
 			'Success',
@@ -84,6 +85,12 @@
 		Swal.fire(
 			'Success',
 			'Data Berhasil Dihapus',
+			'success'
+		)
+	} else if (pesan_pendaftaran) {
+		Swal.fire(
+			'Success',
+			'Pendaftaran Pasien Berhasil',
 			'success'
 		)
 	}
