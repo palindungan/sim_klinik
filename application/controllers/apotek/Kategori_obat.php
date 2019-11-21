@@ -19,6 +19,7 @@ class Kategori_obat extends CI_Controller
             'nama' => $this->input->post('nama')
         );
         $this->M_kategoriObat->input_data('kategori_obat',$data);
+        $this->session->set_flashdata('success','Ditambahkan');
         redirect('apotek/kategori_obat');
     }
     public function update()
@@ -30,12 +31,14 @@ class Kategori_obat extends CI_Controller
             'nama' => $this->input->post('nama')
         );
         $this->M_kategoriObat->update_data($where,'kategori_obat',$data);
+        $this->session->set_flashdata('update','Diubah');
         redirect('apotek/kategori_obat');
     }
     public function delete($id)
     {
         $where = array('no_kat_obat' => $id);
         $this->M_kategoriObat->hapus_data($where, 'kategori_obat');
+        $this->session->set_flashdata('hapus','Dihapus');
         redirect('apotek/kategori_obat');
     }
     

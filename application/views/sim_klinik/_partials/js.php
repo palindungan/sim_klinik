@@ -65,11 +65,25 @@
 
 </script>
 <script type="text/javascript">
-	var flashdata = $('.flash-data').data(flashdata);
-	if (flashdata) {
+	var pesan_sukses = $('.pesan-sukses').data(pesan_sukses);
+	var pesan_update = $('.pesan-update').data(pesan_update);
+	var pesan_hapus = $('.pesan-hapus').data(pesan_hapus);
+	if (pesan_sukses) {
 		Swal.fire(
-			'Data Kamar',
-			'Berhasil Ditambahkan',
+			'Success',
+			'Data Berhasil Ditambahkan',
+			'success'
+		)
+	} else if (pesan_update) {
+		Swal.fire(
+			'Success',
+			'Data Berhasil Diubah',
+			'success'
+		)
+	} else if (pesan_hapus) {
+		Swal.fire(
+			'Success',
+			'Data Berhasil Dihapus',
 			'success'
 		)
 	}

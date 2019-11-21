@@ -21,8 +21,8 @@ class Kamar extends CI_Controller
             'harga_harian' => $harga,
             'tipe' => $this->input->post('tipe')
         );
-        $this->session->set_flashdata('success','Ditambahkan');
         $this->M_kamar->input_data('kamar_rawat_inap',$data);
+        $this->session->set_flashdata('success','Ditambahkan');
         redirect('admin/kamar');
     }
     public function update()
@@ -37,12 +37,14 @@ class Kamar extends CI_Controller
             'tipe' => $this->input->post('tipe')
         );
         $this->M_kamar->update_data($where,'kamar_rawat_inap',$data);
+        $this->session->set_flashdata('update','Diubah');
         redirect('admin/kamar');
     }
     public function delete($id)
     {
         $where = array('no_kamar_rawat_i' => $id);
         $this->M_kamar->hapus_data($where, 'kamar_rawat_inap');
+        $this->session->set_flashdata('hapus','Dihapus');
         redirect('admin/kamar');
     }
     

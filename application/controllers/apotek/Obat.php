@@ -24,6 +24,7 @@ class Obat extends CI_Controller
             'harga_jual' => $harga_jual
         );
         $this->M_obat->input_data('obat',$data);
+        $this->session->set_flashdata('success','Ditambahkan');
         redirect('apotek/obat');
     }
     public function update()
@@ -39,12 +40,14 @@ class Obat extends CI_Controller
             'harga_jual' => $harga_jual
         );
         $this->M_obat->update_data($where,'obat',$data);
+        $this->session->set_flashdata('update','Diubah');
         redirect('apotek/obat');
     }
     public function delete($id)
     {
         $where = array('kode_obat' => $id);
         $this->M_obat->hapus_data($where, 'obat');
+        $this->session->set_flashdata('hapus','Dihapus');
         redirect('apotek/obat');
     }
     

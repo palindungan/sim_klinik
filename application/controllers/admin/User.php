@@ -23,6 +23,7 @@ class User extends CI_Controller
             'password' => password_hash($password, PASSWORD_BCRYPT)
         );
         $this->M_user->input_data('user_pegawai',$data);
+        $this->session->set_flashdata('success','Ditambahkan');
         redirect('admin/user');
     }
     public function update()
@@ -36,12 +37,14 @@ class User extends CI_Controller
             'username' => $this->input->post('username')
         );
         $this->M_user->update_data($where,'user_pegawai',$data);
+        $this->session->set_flashdata('update','Diubah');
         redirect('admin/user');
     }
     public function delete($id)
     {
         $where = array('no_user_pegawai' => $id);
         $this->M_user->hapus_data($where, 'user_pegawai');
+        $this->session->set_flashdata('hapus','Dihapus');
         redirect('admin/user');
     }
     

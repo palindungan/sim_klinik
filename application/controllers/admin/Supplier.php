@@ -23,6 +23,7 @@ class Supplier extends CI_Controller
             'alamat' => $this->input->post('alamat')
         );
         $this->M_supplier->input_data('supplier',$data);
+        $this->session->set_flashdata('success','Ditambahkan');
         redirect('admin/supplier');
     }
     public function update()
@@ -38,12 +39,14 @@ class Supplier extends CI_Controller
             'alamat' => $this->input->post('alamat')
         );
         $this->M_supplier->update_data($where,'supplier',$data);
+        $this->session->set_flashdata('update','Diubah');
         redirect('admin/supplier');
     }
     public function delete($id)
     {
         $where = array('no_supplier' => $id);
         $this->M_supplier->hapus_data($where, 'supplier');
+        $this->session->set_flashdata('hapus','Dihapus');
         redirect('admin/supplier');
     }
     
