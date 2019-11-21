@@ -197,7 +197,7 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<?php echo form_open('admin/user/update'); ?>
+			<?php echo form_open('admin/user/update_password'); ?>
 			<div class="modal-body">
 				<div class="form-row">
 					<div class="form-group col-md-6">
@@ -207,20 +207,20 @@
 							class="form-control karakterAngka" id="inputEmail1" placeholder="Masukan username" readonly>
 					</div>
 					<div class="form-group col-md-6">
-						<label for="inputEmail2">Password Lama</label>
-						<input type="password" name="password_lama" class="form-control" id="inputEmail2"
-							placeholder="Masukan password lama" required>
+						<label for="inputEmail2">Akses</label>
+						<input type="text" name="akses" class="form-control" id="inputEmail2"
+							value=<?= $data->jenis_akses ?> placeholder="Masukan password lama" required readonly>
 					</div>
 				</div>
 				<div class="form-row">
 					<div class="form-group col-md-6">
 						<label for="inputEmail5">Password Baru</label>
-						<input type="text" name="password_baru" class="form-control" id="inputEmail5"
+						<input type="password" name="password_baru" class="form-control" id="inputEmail5"
 							placeholder="Masukan password" required>
 					</div>
 					<div class="form-group col-md-6">
 						<label for="inputEmail6">Konfirmasi Password Baru</label>
-						<input type="text" name="konfirmasi_password" class="form-control" id="inputEmail6"
+						<input type="password" name="konfirmasi_password" class="form-control" id="inputEmail6"
 							placeholder="Masukan konfirmasi password baru" required>
 					</div>
 				</div>

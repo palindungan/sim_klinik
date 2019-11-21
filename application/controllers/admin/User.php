@@ -23,8 +23,8 @@ class User extends CI_Controller
             'username' => $this->input->post('username'),
             'password' => password_hash($password, PASSWORD_BCRYPT)
         );
-        $ambil_db = $this->db->query("SELECT COUNT(*) as jml_user FROM user_pegawai WHERE username='$username'")->row();
-        $cek_username = $ambil_db->jml_user;
+        $count_user = $this->db->query("SELECT COUNT(*) as jml_user FROM user_pegawai WHERE username='$username'")->row();
+        $cek_username = $count_user->jml_user;
         if($cek_username > 0)
         {
             $this->session->set_flashdata('username','Diusername');
@@ -44,17 +44,61 @@ class User extends CI_Controller
     }
     public function update()
     {
+        $id = $this->input->post('no_user_pegawai');
+        $username = $this->input->post('username');
         $where = array(
-            'no_user_pegawai' => $this->input->post('no_user_pegawai')
+            'no_user_pegawai' => $id
         );
         $data = array(
             'nama' => $this->input->post('nama'),
             'jenis_akses' => $this->input->post('jenis_akses'),
-            'username' => $this->input->post('username')
+            'username' => $username
         );
-        $this->M_user->update_data($where,'user_pegawai',$data);
-        $this->session->set_flashdata('update','Diubah');
-        redirect('admin/user');
+        $ambil_username = $this->db->get_where('user_pegawai', array('no_user_pegawai' => $id))->row();
+        $username_db = $ambil_username->username;
+        $count_user = $this->db->query("SELECT COUNT(*) as jml_user FROM user_pegawai WHERE username='$username'")->row();
+        $cek_username = $count_user->jml_user;
+
+        // jika username db dan username post sama
+        if($username_db == $username)
+        {
+            $this->M_user->update_data($where,'user_pegawai',$data);
+            $this->session->set_flashdata('update','Diubah');
+            redirect('admin/user');
+        }
+        else if($cek_username > 0){
+            $this->session->set_flashdata('username','Diusername');
+            redirect('admin/user');
+        }
+        else {
+            $this->M_user->update_data($where,'user_pegawai',$data);
+            $this->session->set_flashdata('update','Diubah');
+            redirect('admin/user');
+        }
+        
+    }
+    public function update_password()
+    {
+        $id = $this->input->post('no_user_pegawai');
+        $password_baru = $this->input->post('password_baru');
+        $konfirmasi_password = $this->input->post('konfirmasi_password');
+        $where = array(
+            'no_user_pegawai' => $id
+        );
+        $data = array(
+            'password' => $password_baru
+        );
+        if($password_baru != $konfirmasi_password)
+        {
+            $this->session->set_flashdata('password','Dipassword');
+            redirect('admin/user');
+        }
+        else {
+            $this->M_user->update_data($where,'user_pegawai',$data);
+            $this->session->set_flashdata('update','Diubah');
+            redirect('admin/user');
+        }
+        
     }
     public function delete($id)
     {

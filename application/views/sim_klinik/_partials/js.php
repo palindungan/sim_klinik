@@ -65,10 +65,15 @@
 
 </script>
 <script type="text/javascript">
+	// crud sukses 
 	var pesan_sukses = $('.pesan-sukses').data(pesan_sukses);
 	var pesan_update = $('.pesan-update').data(pesan_update);
 	var pesan_hapus = $('.pesan-hapus').data(pesan_hapus);
+
+	// pendaftaran alert succes
 	var pesan_pendaftaran = $('.pesan-pendaftaran').data(pesan_pendaftaran);
+
+	// Validasi konfirmasi password dan Cek username yang ada
 	var cek_password = $('.cek-password').data(cek_password);
 	var cek_username = $('.cek-username').data(cek_username);
 	if (cek_username) {
