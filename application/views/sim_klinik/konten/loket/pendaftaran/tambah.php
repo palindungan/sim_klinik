@@ -1,5 +1,5 @@
-<?php if($this->session->flashdata('pendaftaran')) : ?>
-<div class="pesan-pendaftaran" data-flashdata="<?= $this->session->flashdata('pendaftaran'); ?>"></div>
+<?php if ($this->session->flashdata('pendaftaran')) : ?>
+	<div class="pesan-pendaftaran" data-flashdata="<?= $this->session->flashdata('pendaftaran'); ?>"></div>
 <?php endif; ?>
 <div class="container-fluid">
 	<div class="card shadow mb-4">
@@ -26,8 +26,8 @@
 				<div class="form-group col-md-6">
 					<label for="inputEmail2">NIK</label>
 					<input type="text" name="nik" value="<?= set_value('nik') ?>" class="form-control nik <?php if (form_error('nik') == true) {
-																											echo "is-invalid";
-																										} ?>" id="inputEmail2" placeholder="Masukan NIK pasien">
+																												echo "is-invalid";
+																											} ?>" id="inputEmail2" placeholder="Masukan NIK pasien">
 					<div class="invalid-feedback">
 						<?= form_error('nik'); ?>
 					</div>
@@ -35,8 +35,8 @@
 				<div class="form-group col-md-6">
 					<label for="inputEmail1">Nama</label>
 					<input type="text" name="nama" value="<?= set_value('nama') ?>" class="form-control karakter <?php if (form_error('nama') == true) {
-																											echo "is-invalid";
-																										} ?>" id="inputEmail1" placeholder="Masukan Nama">
+																														echo "is-invalid";
+																													} ?>" id="inputEmail1" placeholder="Masukan Nama">
 					<div class="invalid-feedback">
 						<?= form_error('nama'); ?>
 					</div>
@@ -46,8 +46,8 @@
 				<div class="form-group col-md-6">
 					<label for="inputEmail3">Tempat Lahir</label>
 					<input type="text" name="tempat_lahir" value="<?= set_value('tempat_lahir') ?>" class=" form-control karakter <?php if (form_error('tempat_lahir') == true) {
-																																echo "is-invalid";
-																															} ?>" id="inputEmail3" placeholder="Masukan tempat lahir">
+																																		echo "is-invalid";
+																																	} ?>" id="inputEmail3" placeholder="Masukan tempat lahir">
 					<div class="invalid-feedback">
 						<?= form_error('tempat_lahir'); ?>
 					</div>
@@ -65,7 +65,7 @@
 										$i = "0" . $i;
 									}
 									?>
-								<option value="<?= $i ?>" <?= set_select('hari', $i); ?>><?= $i; ?></option>
+									<option value="<?= $i ?>" <?= set_select('hari', $i); ?>><?= $i; ?></option>
 								<?php
 								}
 								?>
@@ -99,11 +99,11 @@
 								$tgl_fix = $tgl - 110;
 								for ($j = 0; $j <= 110; ++$j) {
 									?>
-								<option value="<?= $tgl_fix; ?>" <?php if ($tgl_fix == 1980) {
+									<option value="<?= $tgl_fix; ?>" <?php if ($tgl_fix == 1980) {
 																				echo 'selected';
 																			} ?> <?= set_select('tahun', $tgl_fix); ?>>
-									<?= $tgl_fix++ ?>
-								</option>
+										<?= $tgl_fix++ ?>
+									</option>
 								<?php
 								}
 								?>
@@ -119,21 +119,19 @@
 				<div class="form-group col-md-6">
 					<label for="inputEmail3">Jenis Kelamin</label><br><br>
 					<div class="custom-control custom-radio custom-control-inline">
-						<input type="radio" id="customRadioInline1" name="jenis_kelamin" class="custom-control-input"
-							value="Laki-Laki" checked>
+						<input type="radio" id="customRadioInline1" name="jenis_kelamin" class="custom-control-input" value="Laki-Laki" checked>
 						<label class="custom-control-label" for="customRadioInline1">Laki-Laki</label>
 					</div>
 					<div class="custom-control custom-radio custom-control-inline">
-						<input type="radio" id="customRadioInline2" name="jenis_kelamin" class="custom-control-input"
-							value="Perempuan">
+						<input type="radio" id="customRadioInline2" name="jenis_kelamin" class="custom-control-input" value="Perempuan">
 						<label class="custom-control-label" for="customRadioInline2">Perempuan</label>
 					</div>
 				</div>
 				<div class="form-group col-md-6">
 					<label for="exampleFormControlTextarea1">Alamat</label>
 					<textarea class="form-control karakterAngka <?php if (form_error('alamat') == true) {
-														echo "is-invalid";
-													} ?>" name="alamat" id="exampleFormControlTextarea1" rows="2"><?= set_value('alamat') ?></textarea>
+																	echo "is-invalid";
+																} ?>" name="alamat" id="exampleFormControlTextarea1" rows="2"><?= set_value('alamat') ?></textarea>
 					<div class="invalid-feedback">
 						<?= form_error('alamat'); ?>
 					</div>
@@ -149,6 +147,7 @@
 						<option value="Poli KIA" <?= set_select('layanan_tujuan', 'Poli KIA'); ?>>Poli KIA</option>
 						<option value="Laboratorium" <?= set_select('layanan_tujuan', 'Laboratorium'); ?>>Laboratorium
 						</option>
+						<option value="UGD" <?= set_select('layanan_tujuan', 'UGD'); ?>>UGD</option>
 					</select>
 				</div>
 				<div class="form-group col-md-6">

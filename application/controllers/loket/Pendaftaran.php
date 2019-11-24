@@ -97,7 +97,7 @@ class Pendaftaran extends CI_Controller
                 );
 
                 $this->M_pendaftaran->input_data('antrian_kia', $data);
-            } else {
+            } elseif ($layanan_tujuan == 'Laboratorium') {
 
                 $tipe_antrian =  $this->input->post('tipe_antrian');
                 $kode_antrian = '';
@@ -116,7 +116,7 @@ class Pendaftaran extends CI_Controller
 
                 $this->M_pendaftaran->input_data('antrian_lab', $data);
             }
-            $this->session->set_flashdata('pendaftaran','Ditambahkan');
+            $this->session->set_flashdata('pendaftaran', 'Ditambahkan');
             redirect('loket/pendaftaran');
         }
     }
