@@ -8,7 +8,11 @@ class Transaksi extends CI_Controller
     }
     public function index()
     {
-        $data['record'] = $this->M_transaksi->tampil_join()->result();
+        $where = array(
+            'layanan_tujuan' => 'Balai Pengobatan'
+        );
+
+        $data['record'] = $this->M_transaksi->get_data('data_pelayanan_pasien', $where)->result();
         $this->template->load('sim_klinik/template/balai_pengobatan', 'sim_klinik/konten/balai_pengobatan/transaksi/tambah', $data);
     }
     public function tampil()
@@ -169,7 +173,6 @@ class Transaksi extends CI_Controller
                 } else {
                     echo "Gagal input ke dalam data detail transaksi !!";
                 }
-
             } else {
                 echo "Gagal input ke dalam data transaksi !!";
             }
