@@ -177,7 +177,7 @@ class Transaksi extends CI_Controller
                 echo "Gagal input ke dalam data transaksi !!";
             }
         } else {
-            echo "Harus Ada Barang Detail Transaksi !!";
+            echo "Harus Ada Detail Transaksi !!";
         }
     }
 }
