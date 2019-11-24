@@ -9,7 +9,7 @@ class Tindakan extends CI_Controller
     public function index()
     {
         $data['record'] = $this->M_tindakan->tampil_data('kia_tindakan')->result();
-        $this->template->load('sim_klinik/template/loket', 'sim_klinik/konten/kia/tindakan/tampil',$data);
+        $this->template->load('sim_klinik/template/kia', 'sim_klinik/konten/kia/tindakan/tampil', $data);
     }
     public function store()
     {
@@ -20,8 +20,8 @@ class Tindakan extends CI_Controller
             'nama' => $this->input->post('nama'),
             'harga' => $harga
         );
-        $this->M_tindakan->input_data('kia_tindakan',$data);
-        $this->session->set_flashdata('success','Ditambahkan');
+        $this->M_tindakan->input_data('kia_tindakan', $data);
+        $this->session->set_flashdata('success', 'Ditambahkan');
         redirect('kia/tindakan');
     }
     public function update()
@@ -34,17 +34,15 @@ class Tindakan extends CI_Controller
             'nama' => $this->input->post('nama'),
             'harga' => $harga
         );
-        $this->M_tindakan->update_data($where,'kia_tindakan',$data);
-        $this->session->set_flashdata('update','Diubah');
+        $this->M_tindakan->update_data($where, 'kia_tindakan', $data);
+        $this->session->set_flashdata('update', 'Diubah');
         redirect('kia/tindakan');
     }
     public function delete($id)
     {
         $where = array('no_kia_t' => $id);
         $this->M_tindakan->hapus_data($where, 'kia_tindakan');
-        $this->session->set_flashdata('hapus','Dihapus');
+        $this->session->set_flashdata('hapus', 'Dihapus');
         redirect('kia/tindakan');
     }
-    
-
 }
