@@ -204,7 +204,7 @@
 
 					$.each(data, function(i, item) {
 
-						var kode = data[i].no_bp_t;
+						var kode = data[i].no_lab_c;
 						var nama = data[i].nama;
 						var harga = data[i].harga;
 						var button = `<a onclick="pilihTindakan('` + kode +
@@ -233,7 +233,7 @@
 			<div id="row` + count1 + `" class="form-row">
 				<div class="form-group col-md-5">
 					<input type="text" readonly name="nama[]" class="form-control karakter" id="nama` + count1 + `" placeholder="Nama" required value="` + nama + `">
-					<input type="hidden" name="no_bp_t[]" class="form-control" id="no_bp_t` + count1 + `" value="` + kode + `">
+					<input type="hidden" name="no_lab_c[]" class="form-control" id="no_lab_c` + count1 + `" value="` + kode + `">
 				</div>
 				<div class="form-group col-md-5">
 					<input type="text" name="harga[]" class="form-control rupiah" id="harga` + count1 + `" placeholder="Harga" required value="` + harga + `">
