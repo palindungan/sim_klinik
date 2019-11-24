@@ -5,7 +5,7 @@
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-laugh-wink"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">Balai Pengobatan<sup></sup></div>
+        <div class="sidebar-brand-text mx-3">Laboratorium<sup></sup></div>
     </a>
 
     <!-- Divider -->
@@ -18,7 +18,7 @@
 
     <!-- Nav Item - Charts -->
     <li class="nav-item">
-        <a class="nav-link" href="<?= base_url('balai_pengobatan/transaksi'); ?>">
+        <a class="nav-link" href="<?= base_url('laboratorium/transaksi'); ?>">
             <i class="far fa-address-card"></i>
             <span>Transaksi</span></a>
     </li>
@@ -30,9 +30,9 @@
 
     <!-- Nav Item - Tables -->
     <li class="nav-item">
-        <a class="nav-link" href="<?= base_url('balai_pengobatan/tindakan'); ?>">
+        <a class="nav-link" href="<?= base_url('laboratorium/checkup'); ?>">
             <i class="fas fa-sort-amount-down-alt"></i>
-            <span>Tindakan</span></a>
+            <span>Checkup</span></a>
     </li>
 
     <!-- Divider -->

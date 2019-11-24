@@ -1,5 +1,5 @@
 <?php
-class M_tindakan extends CI_Model
+class M_checkup extends CI_Model
 {
     function tampil_data($table)
     {
@@ -41,14 +41,13 @@ class M_tindakan extends CI_Model
         $q = $this->db->query("SELECT MAX(RIGHT($field,$digit)) AS kd_max FROM $tabel");
         $kd = "";
         if ($q->num_rows() > 0) {
-        foreach ($q->result() as $k) {
-        $tmp = ((int) $k->kd_max) + 1;
-        $kd = $kode . sprintf('%0' . $digit . 's', $tmp);
-        }
+            foreach ($q->result() as $k) {
+                $tmp = ((int) $k->kd_max) + 1;
+                $kd = $kode . sprintf('%0' . $digit . 's', $tmp);
+            }
         } else {
-        $kd = "L001";
+            $kd = "L001";
         }
         return $kd;
     }
-    
 }
