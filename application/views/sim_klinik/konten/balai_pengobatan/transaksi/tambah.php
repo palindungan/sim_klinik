@@ -17,7 +17,7 @@
 				<div class="form-row">
 					<div class="form-group col-md-6">
 						<label for="inputEmail3">No Ref Pelayanan</label>
-						<select id="xx" class="form-control" name="no_ref_pelayanan" required>
+						<select id="xx" class="form-control selectSearch" name="no_ref_pelayanan" required>
 							<option value="">-- Pilih Data --</option>
 							<?php foreach ($record as $data) : ?>
 								<option value="<?= $data->no_ref_pelayanan ?>">
