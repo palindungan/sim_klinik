@@ -9,7 +9,8 @@ class Transaksi extends CI_Controller
     public function index()
     {
         $where = array(
-            'layanan_tujuan' => 'UGD'
+            'layanan_tujuan' => 'UGD',
+            'status' => 'belum_finish'
         );
 
         $data['record'] = $this->M_transaksi->get_data('data_pelayanan_pasien', $where)->result();
