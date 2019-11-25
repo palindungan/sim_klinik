@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 24 Nov 2019 pada 21.37
+-- Waktu pembuatan: 25 Nov 2019 pada 04.03
 -- Versi server: 10.1.37-MariaDB
 -- Versi PHP: 7.3.0
 
@@ -245,6 +245,7 @@ CREATE TABLE `data_pelayanan_pasien` (
 ,`nama` varchar(50)
 ,`tgl_lahir` date
 ,`alamat` text
+,`status` enum('belum_finish','finish')
 );
 
 -- --------------------------------------------------------
@@ -494,33 +495,34 @@ CREATE TABLE `pelayanan` (
   `no_user_pegawai` varchar(5) NOT NULL,
   `layanan_tujuan` enum('Balai Pengobatan','Poli KIA','Laboratorium','UGD') NOT NULL,
   `tipe_antrian` enum('Dewasa','Anak-Anak') NOT NULL,
-  `tgl_pelayanan` date NOT NULL
+  `tgl_pelayanan` date NOT NULL,
+  `status` enum('belum_finish','finish') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `pelayanan`
 --
 
-INSERT INTO `pelayanan` (`no_ref_pelayanan`, `no_rm`, `no_user_pegawai`, `layanan_tujuan`, `tipe_antrian`, `tgl_pelayanan`) VALUES
-('191112-001', '12345', 'P001', 'Poli KIA', 'Dewasa', '2019-11-12'),
-('191112-002', '123123', 'P001', 'Laboratorium', 'Anak-Anak', '2019-11-12'),
-('191112-003', '123123ed', 'P001', 'Laboratorium', 'Anak-Anak', '2019-11-12'),
-('191112-004', '12312wd', 'P001', 'Laboratorium', 'Dewasa', '2019-11-12'),
-('191112-005', '123123222', 'P001', 'Balai Pengobatan', 'Dewasa', '2019-11-12'),
-('191112-006', '123dq12', 'P001', 'Balai Pengobatan', 'Anak-Anak', '2019-11-12'),
-('191112-007', 'qwdcqd1221', 'P001', 'Balai Pengobatan', 'Dewasa', '2019-11-12'),
-('191112-008', 'svffd324', 'P001', 'Balai Pengobatan', 'Dewasa', '2019-11-12'),
-('191112-009', 'cxcaa132', 'P001', 'Balai Pengobatan', 'Anak-Anak', '2019-11-12'),
-('191112-010', 'cadad1212', 'P001', 'Poli KIA', 'Dewasa', '2019-11-12'),
-('191112-011', '12342gre', 'P001', 'Poli KIA', 'Dewasa', '2019-11-12'),
-('191119-012', '123192838123', 'P001', 'Poli KIA', 'Anak-Anak', '2019-11-19'),
-('191119-013', '10387212387', 'P001', 'Balai Pengobatan', 'Anak-Anak', '2019-11-19'),
-('191119-014', '12312312ew', 'P001', 'Balai Pengobatan', 'Dewasa', '2019-11-19'),
-('191125-015', '01232322', 'P001', 'Balai Pengobatan', 'Dewasa', '2019-11-25'),
-('191125-016', 'tyu56756', 'P001', 'Laboratorium', 'Dewasa', '2019-11-25'),
-('191125-017', '60088879', 'P001', 'Poli KIA', 'Dewasa', '2019-11-25'),
-('191125-018', 'adsmkaskm', 'P001', 'Poli KIA', 'Dewasa', '2019-11-25'),
-('191125-019', '098128092', 'P001', 'UGD', 'Dewasa', '2019-11-25');
+INSERT INTO `pelayanan` (`no_ref_pelayanan`, `no_rm`, `no_user_pegawai`, `layanan_tujuan`, `tipe_antrian`, `tgl_pelayanan`, `status`) VALUES
+('191112-001', '12345', 'P001', 'Poli KIA', 'Dewasa', '2019-11-12', 'belum_finish'),
+('191112-002', '123123', 'P001', 'Laboratorium', 'Anak-Anak', '2019-11-12', 'belum_finish'),
+('191112-003', '123123ed', 'P001', 'Laboratorium', 'Anak-Anak', '2019-11-12', 'belum_finish'),
+('191112-004', '12312wd', 'P001', 'Laboratorium', 'Dewasa', '2019-11-12', 'belum_finish'),
+('191112-005', '123123222', 'P001', 'Balai Pengobatan', 'Dewasa', '2019-11-12', 'belum_finish'),
+('191112-006', '123dq12', 'P001', 'Balai Pengobatan', 'Anak-Anak', '2019-11-12', 'belum_finish'),
+('191112-007', 'qwdcqd1221', 'P001', 'Balai Pengobatan', 'Dewasa', '2019-11-12', 'belum_finish'),
+('191112-008', 'svffd324', 'P001', 'Balai Pengobatan', 'Dewasa', '2019-11-12', 'belum_finish'),
+('191112-009', 'cxcaa132', 'P001', 'Balai Pengobatan', 'Anak-Anak', '2019-11-12', 'belum_finish'),
+('191112-010', 'cadad1212', 'P001', 'Poli KIA', 'Dewasa', '2019-11-12', 'belum_finish'),
+('191112-011', '12342gre', 'P001', 'Poli KIA', 'Dewasa', '2019-11-12', 'belum_finish'),
+('191119-012', '123192838123', 'P001', 'Poli KIA', 'Anak-Anak', '2019-11-19', 'belum_finish'),
+('191119-013', '10387212387', 'P001', 'Balai Pengobatan', 'Anak-Anak', '2019-11-19', 'belum_finish'),
+('191119-014', '12312312ew', 'P001', 'Balai Pengobatan', 'Dewasa', '2019-11-19', 'belum_finish'),
+('191125-015', '01232322', 'P001', 'Balai Pengobatan', 'Dewasa', '2019-11-25', 'belum_finish'),
+('191125-016', 'tyu56756', 'P001', 'Laboratorium', 'Dewasa', '2019-11-25', 'belum_finish'),
+('191125-017', '60088879', 'P001', 'Poli KIA', 'Dewasa', '2019-11-25', 'belum_finish'),
+('191125-018', 'adsmkaskm', 'P001', 'Poli KIA', 'Dewasa', '2019-11-25', 'belum_finish'),
+('191125-019', '098128092', 'P001', 'UGD', 'Dewasa', '2019-11-25', 'belum_finish');
 
 -- --------------------------------------------------------
 
@@ -676,7 +678,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `data_pelayanan_pasien`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `data_pelayanan_pasien`  AS  select `pe`.`no_ref_pelayanan` AS `no_ref_pelayanan`,`pe`.`layanan_tujuan` AS `layanan_tujuan`,`pe`.`tipe_antrian` AS `tipe_antrian`,`pe`.`tgl_pelayanan` AS `tgl_pelayanan`,`pa`.`nama` AS `nama`,`pa`.`tgl_lahir` AS `tgl_lahir`,`pa`.`alamat` AS `alamat` from (`pelayanan` `pe` join `pasien` `pa` on((`pe`.`no_rm` = `pa`.`no_rm`))) where (`pe`.`tgl_pelayanan` = curdate()) order by `pe`.`no_ref_pelayanan` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `data_pelayanan_pasien`  AS  select `pe`.`no_ref_pelayanan` AS `no_ref_pelayanan`,`pe`.`layanan_tujuan` AS `layanan_tujuan`,`pe`.`tipe_antrian` AS `tipe_antrian`,`pe`.`tgl_pelayanan` AS `tgl_pelayanan`,`pa`.`nama` AS `nama`,`pa`.`tgl_lahir` AS `tgl_lahir`,`pa`.`alamat` AS `alamat`,`pe`.`status` AS `status` from (`pelayanan` `pe` join `pasien` `pa` on((`pe`.`no_rm` = `pa`.`no_rm`))) where (`pe`.`tgl_pelayanan` = curdate()) order by `pe`.`no_ref_pelayanan` ;
 
 --
 -- Indexes for dumped tables
