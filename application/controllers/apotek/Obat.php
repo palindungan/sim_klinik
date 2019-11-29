@@ -10,7 +10,7 @@ class Obat extends CI_Controller
     {
         $data['record'] = $this->M_obat->tampil_join()->result();
         $data['kategori'] = $this->M_obat->tampil_data('kategori_obat')->result();
-        $this->template->load('sim_klinik/template/loket', 'sim_klinik/konten/apotek/obat/tampil',$data);
+        $this->template->load('sim_klinik/template/apotek', 'sim_klinik/konten/apotek/obat/tampil', $data);
     }
     public function store()
     {
@@ -23,8 +23,8 @@ class Obat extends CI_Controller
             'min_stok' => $this->input->post('min_stok'),
             'harga_jual' => $harga_jual
         );
-        $this->M_obat->input_data('obat',$data);
-        $this->session->set_flashdata('success','Ditambahkan');
+        $this->M_obat->input_data('obat', $data);
+        $this->session->set_flashdata('success', 'Ditambahkan');
         redirect('apotek/obat');
     }
     public function update()
@@ -39,17 +39,15 @@ class Obat extends CI_Controller
             'min_stok' => $this->input->post('min_stok'),
             'harga_jual' => $harga_jual
         );
-        $this->M_obat->update_data($where,'obat',$data);
-        $this->session->set_flashdata('update','Diubah');
+        $this->M_obat->update_data($where, 'obat', $data);
+        $this->session->set_flashdata('update', 'Diubah');
         redirect('apotek/obat');
     }
     public function delete($id)
     {
         $where = array('kode_obat' => $id);
         $this->M_obat->hapus_data($where, 'obat');
-        $this->session->set_flashdata('hapus','Dihapus');
+        $this->session->set_flashdata('hapus', 'Dihapus');
         redirect('apotek/obat');
     }
-    
-
 }
