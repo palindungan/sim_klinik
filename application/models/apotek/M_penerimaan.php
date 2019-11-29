@@ -1,14 +1,6 @@
 <?php
 class M_penerimaan extends CI_Model
 {
-    function tampil_join()
-    {
-        $this->db->select('*');
-        $this->db->from('pelayanan');
-        $this->db->join('pasien', 'pasien.no_rm = pelayanan.no_rm');
-        $query = $this->db->get();
-        return $query;
-    }
     function tampil_data($table)
     {
         return $this->db->get($table);
