@@ -46,7 +46,7 @@ class M_user extends CI_Model
         $kd = $kode . sprintf('%0' . $digit . 's', $tmp);
         }
         } else {
-        $kd = "U001";
+        $kd = "P001";
         }
         return $kd;
     }
