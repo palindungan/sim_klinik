@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 25 Nov 2019 pada 04.03
+-- Waktu pembuatan: 29 Nov 2019 pada 10.37
 -- Versi server: 10.1.37-MariaDB
 -- Versi PHP: 7.3.0
 
@@ -79,13 +79,14 @@ CREATE TABLE `antrian_bp` (
 
 INSERT INTO `antrian_bp` (`kode_antrian_bp`, `no_ref_pelayanan`, `status`) VALUES
 ('A001', '191112-005', 'Selesai'),
-('A003', '191112-007', 'Selesai'),
-('A004', '191112-008', 'Selesai'),
-('A007', '191119-014', 'Selesai'),
-('A008', '191125-015', 'Selesai'),
+('A003', '191112-007', 'Diperiksa'),
+('A004', '191112-008', 'Antri'),
+('A007', '191119-014', 'Antri'),
+('A008', '191125-015', 'Antri'),
 ('AG002', '191112-006', 'Selesai'),
 ('AG005', '191112-009', 'Selesai'),
-('AG006', '191119-013', 'Selesai');
+('AG006', '191119-013', 'Antri'),
+('AG009', '191129-020', 'Selesai');
 
 -- --------------------------------------------------------
 
@@ -132,10 +133,10 @@ CREATE TABLE `antrian_kia` (
 INSERT INTO `antrian_kia` (`kode_antrian_kia`, `no_ref_pelayanan`, `status`) VALUES
 ('1911', '191112-001', 'Selesai'),
 ('B912', '191112-010', 'Selesai'),
-('B913', '191112-011', 'Selesai'),
-('B914', '191119-012', 'Selesai'),
-('B915', '191125-017', 'Selesai'),
-('B916', '191125-018', 'Diperiksa');
+('B913', '191112-011', 'Diperiksa'),
+('B914', '191119-012', 'Antri'),
+('B915', '191125-017', 'Antri'),
+('B916', '191125-018', 'Antri');
 
 -- --------------------------------------------------------
 
@@ -154,8 +155,8 @@ CREATE TABLE `antrian_lab` (
 --
 
 INSERT INTO `antrian_lab` (`kode_antrian_lab`, `no_ref_pelayanan`, `status`) VALUES
-('C003', '191112-004', 'Selesai'),
-('C004', '191125-016', 'Selesai'),
+('C003', '191112-004', 'Diperiksa'),
+('C004', '191125-016', 'Antri'),
 ('CG001', '191112-002', 'Selesai'),
 ('CG002', '191112-003', 'Selesai');
 
@@ -480,6 +481,7 @@ INSERT INTO `pasien` (`no_rm`, `nama`, `nik`, `tempat_lahir`, `tgl_lahir`, `jenk
 ('cadad1212', 'adsq12', '1234567890123488', '123123', '1980-01-01', 'Laki-Laki', '12312'),
 ('cxcaa132', '123dd', '1234567890123477', '123d', '1980-01-01', 'Laki-Laki', '1212'),
 ('qwdcqd1221', 'rizkika zakka palindungan', '1234567890123433', '123123', '1980-01-01', 'Laki-Laki', '123123'),
+('qweqwe', 'rizkika', '1234123412341234', 'jember', '1980-01-01', 'Laki-Laki', 'adasda'),
 ('svffd324', 'asdasd', '1234567890123455', '12', '1980-01-01', 'Laki-Laki', '12312'),
 ('tyu56756', 'asa', '1234567890098765', 'qwewq', '1980-01-01', 'Laki-Laki', 'qweqw');
 
@@ -522,7 +524,36 @@ INSERT INTO `pelayanan` (`no_ref_pelayanan`, `no_rm`, `no_user_pegawai`, `layana
 ('191125-016', 'tyu56756', 'P001', 'Laboratorium', 'Dewasa', '2019-11-25', 'belum_finish'),
 ('191125-017', '60088879', 'P001', 'Poli KIA', 'Dewasa', '2019-11-25', 'belum_finish'),
 ('191125-018', 'adsmkaskm', 'P001', 'Poli KIA', 'Dewasa', '2019-11-25', 'belum_finish'),
-('191125-019', '098128092', 'P001', 'UGD', 'Dewasa', '2019-11-25', 'belum_finish');
+('191125-019', '098128092', 'P001', 'UGD', 'Dewasa', '2019-11-25', 'belum_finish'),
+('191129-020', 'qweqwe', 'P001', 'Balai Pengobatan', 'Anak-Anak', '2019-11-29', 'belum_finish');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `penerimaan_obat`
+--
+
+CREATE TABLE `penerimaan_obat` (
+  `no_penerimaan_o` char(13) NOT NULL,
+  `no_supplier` char(4) NOT NULL,
+  `tgl_penerimaan_o` datetime NOT NULL,
+  `total_harga` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `stok_obat_apotik`
+--
+
+CREATE TABLE `stok_obat_apotik` (
+  `no_stok_obat_a` int(11) NOT NULL,
+  `no_penerimaan_o` char(13) NOT NULL,
+  `kode_obat` char(4) NOT NULL,
+  `harga_supplier` int(9) NOT NULL,
+  `qty_awal` mediumint(5) NOT NULL,
+  `qty_sekarang` mediumint(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -793,6 +824,18 @@ ALTER TABLE `pelayanan`
   ADD PRIMARY KEY (`no_ref_pelayanan`);
 
 --
+-- Indeks untuk tabel `penerimaan_obat`
+--
+ALTER TABLE `penerimaan_obat`
+  ADD PRIMARY KEY (`no_penerimaan_o`);
+
+--
+-- Indeks untuk tabel `stok_obat_apotik`
+--
+ALTER TABLE `stok_obat_apotik`
+  ADD PRIMARY KEY (`no_stok_obat_a`);
+
+--
 -- Indeks untuk tabel `supplier`
 --
 ALTER TABLE `supplier`
@@ -843,6 +886,12 @@ ALTER TABLE `detail_lab_transaksi`
 --
 ALTER TABLE `detail_ugd_penanganan`
   MODIFY `no_detail_ugd_p` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT untuk tabel `stok_obat_apotik`
+--
+ALTER TABLE `stok_obat_apotik`
+  MODIFY `no_stok_obat_a` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
