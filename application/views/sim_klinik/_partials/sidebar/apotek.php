@@ -18,6 +18,13 @@
 
     <!-- Nav Item - Charts -->
     <li class="nav-item">
+        <a class="nav-link" href="<?= base_url('apotek/penjualan_obat'); ?>">
+            <i class="far fa-address-card"></i>
+            <span>Penjualan Obat</span></a>
+    </li>
+
+    <!-- Nav Item - Charts -->
+    <li class="nav-item">
         <a class="nav-link" href="<?= base_url('apotek/penerimaan'); ?>">
             <i class="far fa-address-card"></i>
             <span>Penerimaan Obat</span></a>
