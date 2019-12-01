@@ -17,7 +17,7 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label>Cari No Ref</label>
-                        <select class="form-control selectSearch" name="no_ref_pelayanan" required>
+                        <select class="form-control" name="no_ref_pelayanan" id="xx" required>
                             <option value="">-- Pilih Data --</option>
                             <?php foreach ($record as $data) : ?>
                                 <option value="<?= $data->no_ref_pelayanan ?>">
@@ -36,7 +36,7 @@
                                 <h5>:</h5>
                             </td>
                             <td width="24%">
-                                <h5>' . $data->nama . '</h5>
+                                <h5 id="xx_nama"></h5>
                             </td>
                             <td width="6%">
                                 <h5>Umur</h5>
@@ -154,6 +154,12 @@
 <script>
     var count1 = 0;
     var jumlah_detail_penerimaan = 0;
+
+    $(document).on('change', '#xx', function(event) {
+        var nilai_value = $('#xx').val();
+
+        document.getElementById("xx_nama").innerHTML = nilai_value;
+    });
 
     // jika kita tekan / click button search-button
     $('#btn_search').on('click', function() {

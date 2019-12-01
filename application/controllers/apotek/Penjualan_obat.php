@@ -8,7 +8,11 @@ class Penjualan_obat extends CI_Controller
     }
     public function index()
     {
-        $data['record'] = $this->M_penjualan_obat->tampil_data('data_pelayanan_pasien')->result();
+        $where = array(
+            'status' => 'belum_finish'
+        );
+
+        $data['record'] = $this->M_penjualan_obat->get_data('data_pelayanan_pasien', $where)->result();
         $this->template->load('sim_klinik/template/apotek', 'sim_klinik/konten/apotek/penjualan_obat/tambah', $data);
     }
 
