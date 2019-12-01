@@ -8,13 +8,13 @@ class Penjualan_obat extends CI_Controller
     }
     public function index()
     {
-        $data['record'] = $this->M_penjualan_obat->tampil_data('supplier')->result();
+        $data['record'] = $this->M_penjualan_obat->tampil_data('data_pelayanan_pasien')->result();
         $this->template->load('sim_klinik/template/apotek', 'sim_klinik/konten/apotek/penjualan_obat/tambah', $data);
     }
 
     public function tampil_daftar_obat()
     {
-        $data_tbl['tbl_data'] = $this->M_penjualan_obat->tampil_data('data_obat')->result();
+        $data_tbl['tbl_data'] = $this->M_penjualan_obat->tampil_data('data_stok_obat_apotek')->result();
 
         $data = json_encode($data_tbl);
 
@@ -26,17 +26,17 @@ class Penjualan_obat extends CI_Controller
         $sub_total = 0;
         $total = 0;
 
-        if (isset($_POST['kode_obat']) && isset($_POST['harga_supplier']) && isset($_POST['qty_awal'])) {
+        if (isset($_POST['no_stok_obat_a']) && isset($_POST['harga_jual']) && isset($_POST['qty'])) {
 
-            for ($i = 0; $i < count($this->input->post('kode_obat')); $i++) {
+            for ($i = 0; $i < count($this->input->post('no_stok_obat_a')); $i++) {
 
-                $harga_supplier_temp = $this->input->post('harga_supplier')[$i];
-                $harga_supplier = (int) preg_replace("/[^0-9]/", "", $harga_supplier_temp);
+                $harga_jual_temp = $this->input->post('harga_jual')[$i];
+                $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
 
-                $qty_awal_temp = $this->input->post('qty_awal')[$i];
-                $qty_awal = (int) preg_replace("/[^0-9]/", "", $qty_awal_temp);
+                $qty_temp = $this->input->post('qty')[$i];
+                $qty = (int) preg_replace("/[^0-9]/", "", $qty_temp);
 
-                $perhitungan = $harga_supplier * $qty_awal;
+                $perhitungan = $harga_jual * $qty;
 
                 $sub_total = $sub_total + $perhitungan;
             }
@@ -51,7 +51,7 @@ class Penjualan_obat extends CI_Controller
     {
         $no_supplier = $this->input->post('no_supplier');
         $total_tmp = $this->input->post('total_harga');
-        if (isset($_POST['kode_obat'])) {
+        if (isset($_POST['no_stok_obat_a'])) {
 
             date_default_timezone_set('Asia/Jakarta');
 
@@ -74,20 +74,20 @@ class Penjualan_obat extends CI_Controller
 
             if ($status) {
                 // tambah detail transaksi
-                for ($i = 0; $i < count($this->input->post('kode_obat')); $i++) {
+                for ($i = 0; $i < count($this->input->post('no_stok_obat_a')); $i++) {
 
-                    $kode_obat = $this->input->post('kode_obat')[$i];
-                    $harga_temp = $this->input->post('harga_supplier')[$i];
-                    $harga_supplier = preg_replace("/[^0-9]/", "", $harga_temp);
-                    $qty_awal = $this->input->post('qty_awal')[$i];
+                    $no_stok_obat_a = $this->input->post('no_stok_obat_a')[$i];
+                    $harga_temp = $this->input->post('harga_jual')[$i];
+                    $harga_jual = preg_replace("/[^0-9]/", "", $harga_temp);
+                    $qty = $this->input->post('qty')[$i];
 
                     // proses pemasukan ke dalam database detail
                     $data = array(
                         'no_penerimaan_o' => $no_penerimaan_o,
-                        'kode_obat' => $kode_obat,
-                        'harga_supplier' => $harga_supplier,
-                        'qty_awal' => $qty_awal,
-                        'qty_sekarang' => $qty_awal
+                        'no_stok_obat_a' => $no_stok_obat_a,
+                        'harga_jual' => $harga_jual,
+                        'qty' => $qty,
+                        'qty_sekarang' => $qty
                     );
 
                     $status = $this->M_penjualan_obat->input_data('stok_obat_apotik', $data);

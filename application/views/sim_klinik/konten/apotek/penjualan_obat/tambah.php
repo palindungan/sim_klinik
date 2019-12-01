@@ -16,16 +16,48 @@
             <form method="post" id="penerimaan_form">
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label>Suplier</label>
-                        <select class="form-control" name="no_supplier" required>
+                        <label>Cari No Ref</label>
+                        <select class="form-control selectSearch" name="no_ref_pelayanan" required>
                             <option value="">-- Pilih Data --</option>
                             <?php foreach ($record as $data) : ?>
-                                <option value="<?= $data->no_supplier ?>">
-                                    <?= $data->no_supplier . " || " . $data->nama ?>
+                                <option value="<?= $data->no_ref_pelayanan ?>">
+                                    <?= $data->no_ref_pelayanan . " || " . $data->nama ?>
                                 </option>
                             <?php endforeach; ?>
                         </select>
                     </div>
+
+                    <table width="100%" class="responsive">
+                        <tr>
+                            <td width="6%">
+                                <h5>Nama</h5>
+                            </td>
+                            <td width="2%">
+                                <h5>:</h5>
+                            </td>
+                            <td width="24%">
+                                <h5>' . $data->nama . '</h5>
+                            </td>
+                            <td width="6%">
+                                <h5>Umur</h5>
+                            </td>
+                            <td width="2%">
+                                <h5>:</h5>
+                            </td>
+                            <td width="19%">
+                                <h5>' . $umur . ' Tahun</h5>
+                            </td>
+                            <td width="8%">
+                                <h5>Alamat</h5>
+                            </td>
+                            <td width="2%">
+                                <h5>:</h5>
+                            </td>
+                            <td width="22%">
+                                <h5>' . $data->alamat . '</h5>
+                            </td>
+                        </tr>
+                    </table>
 
                     <!-- <div class="form-group col-md-6">
                         <label>Tanggal</label>
@@ -48,14 +80,14 @@
 
                 <div class="form-row">
                     <label class=" col-md-5">Nama Obat</label>
-                    <label class=" col-md-4">Harga Supplier</label>
+                    <label class=" col-md-4">Harga Jual</label>
                     <label class=" col-md-1">QTY</label>
                 </div>
 
                 <!-- start untuk keranjang Obat -->
                 <div id="detail_list">
                     <!-- disini isi detail -->
-                    <h5 id="label_kosong">Detail Obat Masih Kosong Lakukan pilih Pencarian Obat !</h5>
+                    <h5 id="label_kosong">Detail Obat Masih Kosong Lakukan pilih Pencarian Data Obat !</h5>
 
                 </div>
                 <!-- end of untuk keranjang Obat -->
@@ -89,7 +121,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Daftar Obat</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">Stok Obat Apotek</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -100,8 +132,11 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Nama</th>
+                                <th>Nama Obat</th>
                                 <th>Kategori</th>
+                                <th>Tanggal Penerimaan</th>
+                                <th>Stok Saat Ini</th>
+                                <th>Harga Jual</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -149,7 +184,7 @@
 
         // tambah ke database
         $.ajax({
-            url: "<?php echo base_url() . 'apotek/penerimaan/input_penerimaan_form'; ?>",
+            url: "<?php echo base_url() . 'apotek/penjualan_obat/input_penerimaan_form'; ?>",
             method: "POST",
             data: form_data,
             success: function(data) {
@@ -170,7 +205,7 @@
         table.clear();
 
         $.ajax({
-            url: "<?php echo base_url() . 'apotek/penerimaan/tampil_daftar_obat'; ?>",
+            url: "<?php echo base_url() . 'apotek/penjualan_obat/tampil_daftar_obat'; ?>",
             success: function(hasil) {
 
                 var obj = JSON.parse(hasil);
@@ -182,14 +217,17 @@
 
                     $.each(data, function(i, item) {
 
-                        var kode = data[i].kode_obat;
+                        var kode = data[i].no_stok_obat_a;
                         var nama = data[i].nama_obat;
                         var nama_kategori = data[i].nama_kategori;
+                        var tgl_penerimaan_o = data[i].tgl_penerimaan_o;
+                        var qty_sekarang = data[i].qty_sekarang;
+                        var harga_jual = data[i].harga_jual;
 
                         var button = `<a onclick="pilihObat('` + kode +
-                            `','` + nama + `')" id="` + kode + `" class="btn btn-danger text-white">Pilih</a>`;
+                            `','` + nama + `','` + harga_jual + `')" id="` + kode + `" class="btn btn-danger text-white">Pilih</a>`;
 
-                        table.row.add([no, nama, nama_kategori, button]);
+                        table.row.add([no, nama, nama_kategori, tgl_penerimaan_o, qty_sekarang, harga_jual, button]);
 
                         no = no + 1;
                     });
@@ -205,20 +243,20 @@
     }
 
     // Start add_row
-    function pilihObat(kode, nama) {
+    function pilihObat(kode, nama, harga_jual) {
 
         $('#detail_list').append(`
 
 			<div id="row` + count1 + `" class="form-row">
 				<div class="form-group col-md-5">
 					<input type="text" readonly name="nama[]" class="form-control karakter" id="nama` + count1 + `" placeholder="Nama" required value="` + nama + `">
-					<input type="hidden" name="kode_obat[]" class="form-control" id="kode_obat` + count1 + `" value="` + kode + `">
+					<input type="hidden" name="no_stok_obat_a[]" class="form-control" id="no_stok_obat_a` + count1 + `" value="` + kode + `">
 				</div>
 				<div class="form-group col-md-4">
-					<input type="text" name="harga_supplier[]" class="form-control rupiah" id="harga_supplier` + count1 + `" placeholder="harga supplier" required>
+					<input type="text" name="harga_jual[]" class="form-control rupiah" id="harga_jual` + count1 + `" placeholder="harga supplier" required value="` + harga_jual + `">
 				</div>
                 <div class="form-group col-md-1">
-					<input type="text" name="qty_awal[]" class="form-control rupiah" id="qty_awal` + count1 + `" placeholder="QTY" value="1" required>
+					<input type="text" name="qty[]" class="form-control rupiah" id="qty` + count1 + `" placeholder="QTY" value="1" required>
 				</div>
 				<div class="form-group col-md-2">
 					<a id="` + count1 + `" href="#" class="btn btn-success btn-icon-split remove_baris">
@@ -256,7 +294,7 @@
         var form_data = $('#penerimaan_form').serialize()
 
         $.ajax({
-            url: "<?php echo base_url() . 'apotek/penerimaan/ambil_total'; ?>",
+            url: "<?php echo base_url() . 'apotek/penjualan_obat/ambil_total'; ?>",
             method: "POST",
             data: form_data,
             success: function(data) {
