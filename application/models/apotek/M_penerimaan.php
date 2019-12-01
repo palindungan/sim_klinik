@@ -53,8 +53,9 @@ class M_penerimaan extends CI_Model
 
     function get_no_transaksi()
     {
-        $field = "no_bp_p";
-        $tabel = "bp_penangan";
+        // PO191125-0001
+        $field = "no_penerimaan_o";
+        $tabel = "penerimaan_obat";
         $digit = "4";
         $ymd = date('ymd');
 
@@ -69,6 +70,6 @@ class M_penerimaan extends CI_Model
             $kd = "0001";
         }
         date_default_timezone_set('Asia/Jakarta');
-        return 'BP' . date('ymd') . '-' . $kd; // SELECT SUBSTR('BP191121-0001', 3, 6); dari digit ke 3 sampai 6 digit seanjutnya
+        return 'PO' . date('ymd') . '-' . $kd; // SELECT SUBSTR('BP191121-0001', 3, 6); dari digit ke 3 sampai 6 digit seanjutnya
     }
 }

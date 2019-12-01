@@ -46,4 +46,63 @@ class Penerimaan extends CI_Controller
 
         echo $total;
     }
+
+    public function input_penerimaan_form()
+    {
+        $no_supplier = $this->input->post('no_supplier');
+        $total_tmp = $this->input->post('total_harga');
+        if (isset($_POST['kode_obat'])) {
+
+            date_default_timezone_set('Asia/Jakarta');
+
+            // data transaksi 
+            $no_penerimaan_o = $this->M_penerimaan->get_no_transaksi(); // generate
+            $no_supplier = $this->input->post('no_supplier');
+            $tgl_penerimaan_o = date('Y-m-d H:i:s');
+            $total_tmp = $this->input->post('total_harga');
+            $total_harga = preg_replace("/[^0-9]/", "", $total_tmp);
+
+            $data = array(
+                'no_penerimaan_o' => $no_penerimaan_o,
+                'no_supplier' => $no_supplier,
+                'tgl_penerimaan_o' => $tgl_penerimaan_o,
+                'total_harga' => $total_harga
+            );
+
+            $status = $this->M_penerimaan->input_data('penerimaan_obat', $data);
+            // end of data transaksi 
+
+            if ($status) {
+                // tambah detail transaksi
+                for ($i = 0; $i < count($this->input->post('kode_obat')); $i++) {
+
+                    $kode_obat = $this->input->post('kode_obat')[$i];
+                    $harga_temp = $this->input->post('harga_supplier')[$i];
+                    $harga_supplier = preg_replace("/[^0-9]/", "", $harga_temp);
+                    $qty_awal = $this->input->post('qty_awal')[$i];
+
+                    // proses pemasukan ke dalam database detail
+                    $data = array(
+                        'no_penerimaan_o' => $no_penerimaan_o,
+                        'kode_obat' => $kode_obat,
+                        'harga_supplier' => $harga_supplier,
+                        'qty_awal' => $qty_awal,
+                        'qty_sekarang' => $qty_awal
+                    );
+
+                    $status = $this->M_penerimaan->input_data('stok_obat_apotik', $data);
+                }
+
+                if ($status) {
+                    echo "Berhasil Menyimpan Data !!";
+                } else {
+                    echo "Gagal input ke dalam data detail transaksi !!";
+                }
+            } else {
+                echo "Gagal input ke dalam data transaksi !!";
+            }
+        } else {
+            echo "Harus Ada Detail Transaksi !!";
+        }
+    }
 }

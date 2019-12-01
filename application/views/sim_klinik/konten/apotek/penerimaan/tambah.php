@@ -27,10 +27,10 @@
                         </select>
                     </div>
 
-                    <div class="form-group col-md-6">
+                    <!-- <div class="form-group col-md-6">
                         <label>Tanggal</label>
                         <input type="date" name="tgl_penerimaan_o" class="form-control" required>
-                    </div>
+                    </div> -->
                 </div>
 
                 <div class="form-row">
