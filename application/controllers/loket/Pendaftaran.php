@@ -16,7 +16,7 @@ class Pendaftaran extends CI_Controller
     {
 
         date_default_timezone_set("Asia/Jakarta");
-        $now = Date('Y-m-d');
+        $now = Date('Y-m-d H:i:s');
         $hari = $this->input->post('hari');
         $bulan = $this->input->post('bulan');
         $tahun = $this->input->post('tahun');
@@ -116,8 +116,51 @@ class Pendaftaran extends CI_Controller
 
                 $this->M_pendaftaran->input_data('antrian_lab', $data);
             }
+            $connector = new Escpos\PrintConnectors\WindowsPrintConnector("POS58");
+    
+            // membuat objek $printer agar dapat di lakukan fungsinya
+            $printer = new Escpos\Printer($connector);
+    
+            // Printer::MODE_EMPHASIZED
+            $printer->initialize();           
+            $printer->selectPrintMode(Escpos\Printer::MODE_EMPHASIZED);
+            $printer->setUnderline(Escpos\Printer::UNDERLINE_DOUBLE);
+            $printer->setJustification(Escpos\Printer::JUSTIFY_CENTER);
+            $printer -> setTextSize(1, 2);
+            $printer->text("Klinik Ampel Sehat \n");
+            $printer->text("\n");
+
+            $printer->initialize();
+            $printer->setJustification(Escpos\Printer::JUSTIFY_CENTER);
+            $printer -> setTextSize(1, 2);
+            $printer->text("Nomor Antrian Nomor \n");
+            $printer->text("\n");
+
+            $printer->initialize();           
+            $printer->selectPrintMode(Escpos\Printer::MODE_EMPHASIZED);
+            $printer->setJustification(Escpos\Printer::JUSTIFY_CENTER);
+            $printer -> setTextSize(3, 3);
+            $printer->text("A002 \n");
+            $printer->text("\n");
+
+            $printer->initialize();
+            $printer->setJustification(Escpos\Printer::JUSTIFY_CENTER);
+            $printer->text("No pelayanan :9012131221 \n");
+
+            $printer->initialize();
+            $printer->setFont(Escpos\Printer::FONT_B);
+            $printer->text("Senin,12 November 2019 23:12 \n");
+            
+    
+            /* ---------------------------------------------------------
+            * Menyelesaikan printer
+            */
+            $printer->feed(4); // mencetak 2 baris kosong, agar kertas terangkat ke atas
+            $printer->close();
+            
             $this->session->set_flashdata('pendaftaran', 'Ditambahkan');
             redirect('loket/pendaftaran');
+            
         }
     }
 }
