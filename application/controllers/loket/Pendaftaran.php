@@ -116,7 +116,7 @@ class Pendaftaran extends CI_Controller
                 );
 
                 $this->M_pendaftaran->input_data('antrian_lab', $data);
-            }
+            } 
 
             $connector = new Escpos\PrintConnectors\WindowsPrintConnector("POS58");
     
@@ -178,6 +178,14 @@ class Pendaftaran extends CI_Controller
                 $printer->setJustification(Escpos\Printer::JUSTIFY_CENTER);
                 $printer -> setTextSize(3, 3);
                 $printer->text($kode_antrian." \n");
+                $printer->text("\n");
+            }
+            elseif($layanan_tujuan == 'UGD') {
+                $printer->initialize();           
+                $printer->selectPrintMode(Escpos\Printer::MODE_EMPHASIZED);
+                $printer->setJustification(Escpos\Printer::JUSTIFY_CENTER);
+                $printer -> setTextSize(3, 3);
+                $printer->text("UGD \n");
                 $printer->text("\n");
             }
             
