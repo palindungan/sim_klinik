@@ -16,7 +16,8 @@ class Pendaftaran extends CI_Controller
     {
 
         date_default_timezone_set("Asia/Jakarta");
-        $now = Date('Y-m-d H:i:s');
+        $now = Date('Y-m-d');
+        $sekarang = Date('Y-m-d H:i:s');
         $hari = $this->input->post('hari');
         $bulan = $this->input->post('bulan');
         $tahun = $this->input->post('tahun');
@@ -49,7 +50,7 @@ class Pendaftaran extends CI_Controller
                 'no_user_pegawai' => "P001",
                 'layanan_tujuan' => $this->input->post('layanan_tujuan'),
                 'tipe_antrian' => $this->input->post('tipe_antrian'),
-                'tgl_pelayanan' => $now
+                'tgl_pelayanan' => $sekarang
             );
 
             $data_pasien = array(
@@ -116,6 +117,7 @@ class Pendaftaran extends CI_Controller
 
                 $this->M_pendaftaran->input_data('antrian_lab', $data);
             }
+
             $connector = new Escpos\PrintConnectors\WindowsPrintConnector("POS58");
     
             // membuat objek $printer agar dapat di lakukan fungsinya
@@ -136,28 +138,67 @@ class Pendaftaran extends CI_Controller
             $printer->text("Nomor Antrian Nomor \n");
             $printer->text("\n");
 
-            $printer->initialize();           
-            $printer->selectPrintMode(Escpos\Printer::MODE_EMPHASIZED);
-            $printer->setJustification(Escpos\Printer::JUSTIFY_CENTER);
-            $printer -> setTextSize(3, 3);
-            $printer->text("A002 \n");
-            $printer->text("\n");
+            if ($layanan_tujuan == 'Balai Pengobatan') {
+                $tipe_antrian =  $this->input->post('tipe_antrian');
+                $kode_antrian = '';
 
+                if ($tipe_antrian == 'Dewasa') {
+                    $kode_antrian = $this->M_pendaftaran->get_no_dewasa_bp(); // generate
+                } else {
+                    $kode_antrian = $this->M_pendaftaran->get_no_anak_anak_bp(); // generate
+                }
+                $printer->initialize();           
+                $printer->selectPrintMode(Escpos\Printer::MODE_EMPHASIZED);
+                $printer->setJustification(Escpos\Printer::JUSTIFY_CENTER);
+                $printer -> setTextSize(3, 3);
+                $printer->text($kode_antrian." \n");
+                $printer->text("\n");
+            }
+            elseif ($layanan_tujuan == 'Poli KIA') {
+                $kode_antrian = $this->M_pendaftaran->get_no_kia(); // generate
+                $printer->initialize();           
+                $printer->selectPrintMode(Escpos\Printer::MODE_EMPHASIZED);
+                $printer->setJustification(Escpos\Printer::JUSTIFY_CENTER);
+                $printer -> setTextSize(3, 3);
+                $printer->text($kode_antrian." \n");
+                $printer->text("\n");
+            }
+            elseif ($layanan_tujuan == 'Laboratorium') {
+
+                $tipe_antrian =  $this->input->post('tipe_antrian');
+                $kode_antrian = '';
+
+                if ($tipe_antrian == 'Dewasa') {
+                    $kode_antrian = $this->M_pendaftaran->get_no_dewasa_lab(); // generate
+                } else {
+                    $kode_antrian = $this->M_pendaftaran->get_no_anak_anak_lab(); // generate
+                }
+                $printer->initialize();           
+                $printer->selectPrintMode(Escpos\Printer::MODE_EMPHASIZED);
+                $printer->setJustification(Escpos\Printer::JUSTIFY_CENTER);
+                $printer -> setTextSize(3, 3);
+                $printer->text($kode_antrian." \n");
+                $printer->text("\n");
+            }
+            
+            $no_ref = $this->M_pendaftaran->get_no(); // generate
             $printer->initialize();
             $printer->setJustification(Escpos\Printer::JUSTIFY_CENTER);
-            $printer->text("No pelayanan :9012131221 \n");
+            $printer->text("No pelayanan : ".$no_ref." \n");
 
+            $hari = hari_ini();
+            $tgl_indo = tgl_indo($now);
+            $jam = date("H:i");
             $printer->initialize();
             $printer->setFont(Escpos\Printer::FONT_B);
-            $printer->text("Senin,12 November 2019 23:12 \n");
+            $printer->setJustification(Escpos\Printer::JUSTIFY_CENTER);
+            $printer->text($hari.",".$tgl_indo." ".$jam." \n");
             
-    
             /* ---------------------------------------------------------
             * Menyelesaikan printer
             */
             $printer->feed(4); // mencetak 2 baris kosong, agar kertas terangkat ke atas
             $printer->close();
-            
             $this->session->set_flashdata('pendaftaran', 'Ditambahkan');
             redirect('loket/pendaftaran');
             
