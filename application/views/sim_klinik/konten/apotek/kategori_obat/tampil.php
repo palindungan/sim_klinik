@@ -95,8 +95,9 @@
 					<div class="form-group col-sm-6">
 						<input type="hidden" name="no_kat_obat" value="<?= $data->no_kat_obat ?>">
 						<label for="inputEmail2">Nama Kategori Obat</label>
-						<input type="text" name="nama" value="<?= $data->nama ?>" class="form-control karakter"
-							id="inputEmail2" placeholder="Masukan nama kategori obat" required>
+						<input type="text" name="nama" value="<?= $data->nama ?>"
+							class="form-control form-control-sm karakter" id="inputEmail2"
+							placeholder="Masukan nama kategori obat" required>
 					</div>
 				</div>
 			</div>

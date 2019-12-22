@@ -98,7 +98,7 @@ class Penjualan_obat extends CI_Controller
                 }
 
                 if ($status) {
-                    echo "Berhasil Menyimpan Data !!";
+                    $this->session->set_flashdata('success', 'Ditambahkan');
                 } else {
                     echo "Gagal input ke dalam data detail transaksi !!";
                 }

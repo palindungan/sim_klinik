@@ -13,7 +13,7 @@
 			<h6 class="m-0 font-weight-bold text-primary">Data Obat</h6>
 		</div>
 		<div class="card-body">
-			<button type="button" class="btn btn-primary mb-3" data-toggle="modal"
+			<button type="button" class="btn btn-sm btn-primary mb-3" data-toggle="modal"
 				data-target=".bd-example-modal-lg">Tambah</button>
 
 			<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
@@ -29,14 +29,14 @@
 						<?php echo form_open('apotek/obat/store'); ?>
 						<div class="modal-body">
 							<div class="form-row">
-								<div class="form-group col-md-6">
+								<div class="form-group col-sm-6">
 									<label for="inputEmail2">Nama Obat</label>
-									<input type="text" name="nama" class="form-control karakterAngka" id="inputEmail2"
-										placeholder="Masukan nama kategori obat" required>
+									<input type="text" name="nama" class="form-control form-control-sm karakterAngka"
+										id="inputEmail2" placeholder="Masukan nama kategori obat" required>
 								</div>
-								<div class="form-group col-md-6">
+								<div class="form-group col-sm-6">
 									<label for="inputEmail3">Kategori Obat</label>
-									<select name="no_kat_obat" class="form-control" id="inputEmail3">
+									<select name="no_kat_obat" class="form-control form-control-sm" id="inputEmail3">
 										<?php foreach($kategori as $row):?>
 										<option value="<?= $row->no_kat_obat ?>"><?= $row->nama ?></option>
 										<?php endforeach; ?>
@@ -44,21 +44,21 @@
 								</div>
 							</div>
 							<div class="form-row">
-								<div class="form-group col-md-6">
+								<div class="form-group col-sm-6">
 									<label for="inputEmail4">Min Stok</label>
-									<input type="text" name="min_stok" class="form-control min_stok" id="inputEmail4"
-										placeholder="Masukan minimal stok" required>
+									<input type="text" name="min_stok" class="form-control form-control-sm min_stok"
+										id="inputEmail4" placeholder="Masukan minimal stok" required>
 								</div>
-								<div class="form-group col-md-6">
+								<div class="form-group col-sm-6">
 									<label for="inputEmail5">Harga Jual</label>
-									<input type="text" name="harga_jual" class="form-control rupiah" id="inputEmail5"
-										placeholder="Masukan harga jual" required>
+									<input type="text" name="harga_jual" class="form-control form-control-sm rupiah"
+										id="inputEmail5" placeholder="Masukan harga jual" required>
 								</div>
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="submit" class="btn btn-primary">Simpan</button>
-							<button type="button" class="btn btn-link" data-dismiss="modal">Kembali</button>
+							<button type="submit" class="btn btn-sm btn-success">Simpan</button>
+							<button type="button" class="btn btn-sm btn-link" data-dismiss="modal">Kembali</button>
 						</div>
 						<?php echo form_close(); ?>
 					</div>
@@ -90,10 +90,10 @@
 							<td><?= $data->min_stok ?></td>
 							<td class="text-right"><?= rupiah($data->harga_jual) ?></td>
 							<td class="text-center">
-								<a style="cursor:pointer" class="btn btn-warning text-white" data-toggle="modal"
+								<a style="cursor:pointer" class="btn btn-sm btn-warning text-white" data-toggle="modal"
 									data-target="#modal-edit<?= $data->kode_obat ?>">Edit</a>
 								<a href="<?= base_url('apotek/kategori_obat/delete/'.$data->kode_obat) ?>"
-									class="btn btn-danger tombol-hapus">Hapus</a>
+									class="btn btn-sm btn-danger tombol-hapus">Hapus</a>
 							</td>
 						</tr>
 						<?php endforeach; ?>
@@ -118,16 +118,16 @@
 			<?php echo form_open('apotek/obat/update'); ?>
 			<div class="modal-body">
 				<div class="form-row">
-					<div class="form-group col-md-6">
+					<div class="form-group col-sm-6">
 						<label for="inputEmail2">Nama Obat</label>
 						<input type="hidden" name="kode_obat" value="<?= $data->kode_obat ?>">
 						<input type="text" name="nama" value="<?= $data->nama_obat ?>"
-							class="form-control karakterAngka" id="inputEmail2" placeholder="Masukan nama kategori obat"
-							required>
+							class="form-control form-control-sm karakterAngka" id="inputEmail2"
+							placeholder="Masukan nama kategori obat" required>
 					</div>
-					<div class="form-group col-md-6">
+					<div class="form-group col-sm-6">
 						<label for="inputEmail3">Kategori Obat</label>
-						<select name="no_kat_obat" class="form-control" id="inputEmail3">
+						<select name="no_kat_obat" class="form-control form-control-sm" id="inputEmail3">
 							<?php foreach($kategori as $row):?>
 							<option value="<?= $row->no_kat_obat ?>"
 								<?php if($row->no_kat_obat == $data->no_kat){echo 'selected';} ?>>
@@ -137,21 +137,23 @@
 					</div>
 				</div>
 				<div class="form-row">
-					<div class="form-group col-md-6">
+					<div class="form-group col-sm-6">
 						<label for="inputEmail4">Min Stok</label>
-						<input type="text" name="min_stok" value="<?= $data->min_stok ?>" class="form-control min_stok"
-							id="inputEmail4" placeholder="Masukan minimal stok" required>
+						<input type="text" name="min_stok" value="<?= $data->min_stok ?>"
+							class="form-control form-control-sm min_stok" id="inputEmail4"
+							placeholder="Masukan minimal stok" required>
 					</div>
-					<div class="form-group col-md-6">
+					<div class="form-group col-sm-6">
 						<label for="inputEmail5">Harga Jual</label>
 						<input type="text" name="harga_jual" value="<?= rupiah($data->harga_jual) ?>"
-							class="form-control rupiah" id="inputEmail5" placeholder="Masukan harga jual" required>
+							class="form-control form-control-sm rupiah" id="inputEmail5"
+							placeholder="Masukan harga jual" required>
 					</div>
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="submit" class="btn btn-primary">Simpan</button>
-				<button type="button" class="btn btn-link" data-dismiss="modal">Kembali</button>
+				<button type="submit" class="btn btn-sm btn-success">Update</button>
+				<button type="button" class="btn btn-sm btn-link" data-dismiss="modal">Kembali</button>
 			</div>
 			<?php echo form_close(); ?>
 		</div>
@@ -168,9 +170,10 @@
 			text: "Data obat akan dihapus",
 			icon: 'warning',
 			showCancelButton: true,
-			confirmButtonColor: '#3085d6',
-			cancelButtonColor: '#d33',
-			confirmButtonText: 'Hapus'
+			confirmButtonColor: '#d33',
+			cancelButtonColor: '#7f8c8d',
+			confirmButtonText: 'Hapus',
+			cancelButtonText: 'Batal'
 		}).then((result) => {
 			if (result.value) {
 				document.location.href = href;

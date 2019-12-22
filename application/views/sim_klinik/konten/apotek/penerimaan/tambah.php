@@ -8,6 +8,9 @@
 	}
 
 </style>
+<?php if($this->session->flashdata('success')) : ?>
+<div class="pesan-sukses" data-flashdata="<?= $this->session->flashdata('success'); ?>"></div>
+<?php endif; ?>
 <div class="container-fluid">
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">
@@ -16,9 +19,9 @@
 		<div class="card-body">
 			<form method="post" id="penerimaan_form">
 				<div class="form-row">
-					<div class="form-group col-md-6">
+					<div class="form-group col-sm-4">
 						<label>Suplier</label>
-						<select class="form-control" name="no_supplier" required>
+						<select class="form-control form-control-sm" name="no_supplier" required>
 							<option value="">-- Pilih Data --</option>
 							<?php foreach ($record as $data) : ?>
 							<option value="<?= $data->no_supplier ?>">
@@ -28,16 +31,16 @@
 						</select>
 					</div>
 
-					<!-- <div class="form-group col-md-6">
+					<!-- <div class="form-group col-sm-6">
                         <label>Tanggal</label>
-                        <input type="date" name="tgl_penerimaan_o" class="form-control" required>
+                        <input type="date" name="tgl_penerimaan_o" class="form-control form-control-sm" required>
                     </div> -->
 				</div>
 
 				<div class="form-row">
 
-					<div class="form-group col-md-12">
-						<a href="#" id="btn_search" class="btn btn-success btn-icon-split" data-toggle="modal"
+					<div class="form-group col-sm-12">
+						<a href="#" id="btn_search" class="btn btn-sm btn-primary btn-icon-split" data-toggle="modal"
 							data-target="#exampleModalCenter">
 							<span class="icon text-white-50">
 								<i class="fas fa-search-plus"></i>
@@ -49,32 +52,33 @@
 				</div>
 
 				<div class="form-row">
-					<label class=" col-md-5">Nama Obat</label>
-					<label class=" col-md-4">Harga Supplier</label>
-					<label class=" col-md-1">QTY</label>
+					<label class=" col-sm-5"><b>Nama Obat</b></label>
+					<label class=" col-sm-4"><b>Harga Supplier</b></label>
+					<label class=" col-sm-1"><b>QTY</b></label>
 				</div>
 
 				<!-- start untuk keranjang Obat -->
 				<div id="detail_list">
 					<!-- disini isi detail -->
-					<h5 id="label_kosong">Detail Obat Masih Kosong Lakukan pilih Pencarian Obat !</h5>
+					<h6 id="label_kosong">Detail Obat Masih Kosong Lakukan pilih Pencarian Obat !</h6>
 
 				</div>
 				<!-- end of untuk keranjang Obat -->
 
 				<div class="form-row">
-					<div class="form-group col-md-5"> </div>
+					<div class="form-group col-sm-5"> </div>
 
-					<div class="form-group col-md-5">
-						<input type="text" readonly name="total_harga" class="form-control rupiah" id="total_harga"
-							placeholder="Total" required>
+					<div class="form-group col-sm-5">
+						<input type="text" readonly name="total_harga"
+							class="form-control form-control-sm rupiah text-right" id="total_harga" placeholder="Total"
+							required>
 					</div>
 
-					<div class="form-group col-md-2">
-						<button id="action" type="submit" class="btn btn-primary btn-icon-split"
+					<div class="form-group col-sm-2">
+						<button id="action" type="submit" class="btn btn-sm btn-success btn-icon-split"
 							onclick="return confirm('Lakukan Simpan Data ?')">
 							<span class="icon text-white-50">
-								<i class="fas fa-paper-plane"></i>
+								<i class="fas fa-save"></i>
 							</span>
 							<span class="text">Simpan Data</span>
 						</button>
@@ -104,10 +108,10 @@
 					<table class="table table-bordered table_1" width="100%" cellspacing="0">
 						<thead>
 							<tr>
-								<th>No</th>
-								<th>Nama</th>
-								<th>Kategori</th>
-								<th>Aksi</th>
+								<th width="10%">No</th>
+								<th width="45%">Nama</th>
+								<th width="40%">Kategori</th>
+								<th width="5%">Aksi</th>
 							</tr>
 						</thead>
 						<tbody id="daftar_barang">
@@ -193,7 +197,7 @@
 
 						var button = `<a onclick="pilihObat('` + kode +
 							`','` + nama + `')" id="` + kode +
-							`" class="btn btn-danger text-white">Pilih</a>`;
+							`" class="btn btn-sm btn-dark text-white text-center">Pilih</a>`;
 
 						table.row.add([no, nama, nama_kategori, button]);
 
@@ -216,19 +220,22 @@
 		$('#detail_list').append(`
 
 			<div id="row` + count1 + `" class="form-row">
-				<div class="form-group col-md-5">
-					<input type="text" readonly name="nama[]" class="form-control karakter" id="nama` + count1 +
+				<div class="form-group col-sm-5">
+					<input type="text" readonly name="nama[]" class="form-control form-control-sm karakter" id="nama` + count1 +
 			`" placeholder="Nama" required value="` + nama + `">
-					<input type="hidden" name="kode_obat[]" class="form-control" id="kode_obat` + count1 + `" value="` + kode + `">
+					<input type="hidden" name="kode_obat[]" class="form-control form-control-sm" id="kode_obat` + count1 +
+			`" value="` + kode +
+			`">
 				</div>
-				<div class="form-group col-md-4">
-					<input type="text" name="harga_supplier[]" class="form-control rupiah" id="harga_supplier` + count1 + `" placeholder="harga supplier" required>
+				<div class="form-group col-sm-4">
+					<input type="text" name="harga_supplier[]" class="form-control form-control-sm rupiah text-right" id="harga_supplier` +
+			count1 + `" placeholder="harga supplier" required>
 				</div>
-                <div class="form-group col-md-1">
-					<input type="text" name="qty_awal[]" class="form-control rupiah" id="qty_awal` + count1 + `" placeholder="QTY" value="1" required>
+                <div class="form-group col-sm-1">
+					<input type="text" name="qty_awal[]" class="form-control form-control-sm  rupiah" id="qty_awal` + count1 + `" placeholder="QTY" value="1" required>
 				</div>
-				<div class="form-group col-md-2">
-					<a id="` + count1 + `" href="#" class="btn btn-success btn-icon-split remove_baris">
+				<div class="form-group col-sm-2">
+					<a id="` + count1 + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris">
 						<span class="icon text-white-50">
 							<i class="fas fa-trash-alt"></i>
 						</span>

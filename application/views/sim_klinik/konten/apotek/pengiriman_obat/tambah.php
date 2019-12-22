@@ -1,3 +1,6 @@
+<?php if($this->session->flashdata('success')) : ?>
+<div class="pesan-sukses" data-flashdata="<?= $this->session->flashdata('success'); ?>"></div>
+<?php endif; ?>
 <div class="container-fluid">
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">
@@ -6,20 +9,19 @@
 		<div class="card-body">
 			<form method="post" id="pengiriman_form">
 				<div class="form-row">
-					<div class="form-group col-md-2">
+					<div class="form-group col-sm-2">
 						<label for="" class="mt-2">Tujuan Obat Dikirim :</label>
 					</div>
-					<div class="form-group col-md-4">
-						<select class="form-control" name="tujuan">
+					<div class="form-group col-sm-4">
+						<select class="form-control form-control-sm" name="tujuan">
 							<option value="Rawat Inap">Rawat Inap</option>
 						</select>
 					</div>
 				</div>
 
 				<div class="form-row">
-
-					<div class="form-group col-md-12">
-						<a href="#" id="btn_search" class="btn btn-success btn-icon-split" data-toggle="modal"
+					<div class="form-group col-sm-12">
+						<a href="#" id="btn_search" class="btn btn-sm btn-primary btn-icon-split" data-toggle="modal"
 							data-target="#exampleModalCenter">
 							<span class="icon text-white-50">
 								<i class="fas fa-search-plus"></i>
@@ -31,30 +33,30 @@
 				</div>
 
 				<div class="form-row">
-					<label class=" col-md-5">Nama Obat</label>
-					<label class=" col-md-4">Kategori</label>
-					<label class=" col-md-1">QTY</label>
+					<label class=" col-sm-5"><b>Nama Obat</b></label>
+					<label class=" col-sm-4"><b>Kategori</b></label>
+					<label class=" col-sm-1"><b>QTY</b></label>
 				</div>
 
 				<!-- start untuk keranjang Obat -->
 				<div id="detail_list">
 					<!-- disini isi detail -->
-					<h5 id="label_kosong">Detail Obat Masih Kosong Lakukan pilih Pencarian Obat !</h5>
+					<h6 id="label_kosong">Detail Obat Masih Kosong Lakukan pilih Pencarian Obat !</h6>
 
 				</div>
 				<!-- end of untuk keranjang Obat -->
 
 				<div class="form-row">
-					<div class="form-group col-md-5"> </div>
+					<div class="form-group col-sm-5"> </div>
 
-					<div class="form-group col-md-5">
+					<div class="form-group col-sm-5">
 					</div>
 
-					<div class="form-group col-md-2">
-						<button id="action" type="submit" class="btn btn-primary btn-icon-split"
+					<div class="form-group col-sm-2">
+						<button id="action" type="submit" class="btn btn-sm btn-success btn-icon-split"
 							onclick="return confirm('Lakukan Simpan Data ?')">
 							<span class="icon text-white-50">
-								<i class="fas fa-paper-plane"></i>
+								<i class="fas fa-save"></i>
 							</span>
 							<span class="text">Kirim Obat</span>
 						</button>
@@ -134,7 +136,7 @@
 
 						var button = `<a onclick="pilihObat('` + kode +
 							`','` + nama + `','` + nama_kategori + `')" id="` + kode +
-							`" class="btn btn-danger text-white">Pilih</a>`;
+							`" class="btn btn-sm btn-dark text-white">Pilih</a>`;
 
 						table.row.add([no, nama, nama_kategori, qty, button]);
 
@@ -157,23 +159,25 @@
 		$('#detail_list').append(`
 
         <div id="row` + count1 + `" class="form-row">
-            <div class="form-group col-md-5">
-                <input type="text" readonly name="nama[]" class="form-control karakter" id="nama` + count1 + `"
+            <div class="form-group col-sm-5">
+                <input type="text" readonly name="nama[]" class="form-control form-control-sm karakter" id="nama` +
+			count1 + `"
                     placeholder="Nama" required value="` + nama + `">
-                <input type="hidden" name="kode_obat[]" class="form-control" id="kode_obat` + count1 + `"
-                    value="` + kode + `">
+                <input type="hidden" name="kode_obat[]" class="form-control form-control-sm" id="kode_obat` + count1 + `"
+                    value="` + kode +
+			`">
             </div>
-            <div class="form-group col-md-4">
-                <input type="text" readonly name="nama_kategori[]" class="form-control rupiah" id="nama_kategori` +
+            <div class="form-group col-sm-4">
+                <input type="text" readonly name="nama_kategori[]" class="form-control form-control-sm rupiah" id="nama_kategori` +
 			count1 + `"
                     placeholder="harga supplier" value="` + nama_kategori + `" required>
             </div>
-            <div class="form-group col-md-1">
-                <input type="text" name="qty[]" class="form-control rupiah" id="qty` + count1 + `"
+            <div class="form-group col-sm-1">
+                <input type="text" name="qty[]" class="form-control form-control-sm rupiah" id="qty` + count1 + `"
                     placeholder="QTY" required>
             </div>
-            <div class="form-group col-md-2">
-                <a id="` + count1 + `" href="#" class="btn btn-success btn-icon-split remove_baris">
+            <div class="form-group col-sm-2">
+                <a id="` + count1 + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris">
                     <span class="icon text-white-50">
                         <i class="fas fa-trash-alt"></i>
                     </span>

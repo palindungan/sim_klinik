@@ -52,7 +52,7 @@ class Pengiriman_obat extends CI_Controller
                     $status = $this->M_pengiriman_obat->input_data('stok_obat_rawat_inap', $data);
                 }
                 if ($status) {
-                echo "Berhasil Menyimpan Data !!";
+                    $this->session->set_flashdata('success', 'Ditambahkan');
                 } else {
                 echo "Gagal input ke dalam data detail transaksi !!";
                 }

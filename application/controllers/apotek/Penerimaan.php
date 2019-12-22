@@ -91,10 +91,11 @@ class Penerimaan extends CI_Controller
                     );
 
                     $status = $this->M_penerimaan->input_data('stok_obat_apotik', $data);
+
                 }
 
                 if ($status) {
-                    echo "Berhasil Menyimpan Data !!";
+                    $this->session->set_flashdata('success', 'Ditambahkan');
                 } else {
                     echo "Gagal input ke dalam data detail transaksi !!";
                 }
