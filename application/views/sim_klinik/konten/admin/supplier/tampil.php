@@ -13,7 +13,7 @@
 			<h6 class="m-0 font-weight-bold text-primary">Data Supplier</h6>
 		</div>
 		<div class="card-body">
-			<button type="button" class="btn btn-primary mb-3" data-toggle="modal"
+			<button type="button" class="btn btn-sm btn-primary mb-3" data-toggle="modal"
 				data-target=".bd-example-modal-lg">Tambah</button>
 
 			<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
@@ -29,34 +29,34 @@
 						<?php echo form_open('admin/supplier/store'); ?>
 						<div class="modal-body">
 							<div class="form-row">
-								<div class="form-group col-md-6">
+								<div class="form-group col-sm-6">
 									<label for="inputEmail2">Nama Supplier</label>
-									<input type="text" name="nama" class="form-control karakterAngka" id="inputEmail2"
-										placeholder="Masukan nama supplier" required>
+									<input type="text" name="nama" class="form-control form-control-sm karakterAngka"
+										id="inputEmail2" placeholder="Masukan nama supplier" required>
 								</div>
-								<div class="form-group col-md-6">
+								<div class="form-group col-sm-6">
 									<label for="inputEmail2">Contact Person</label>
-									<input type="text" name="cp" class="form-control hp" id="inputEmail2"
-										placeholder="Contoh : 08xx-xxxx-xxxx" required>
+									<input type="text" name="cp" class="form-control form-control-sm hp"
+										id="inputEmail2" placeholder="Contoh : 08xx-xxxx-xxxx" required>
 								</div>
 							</div>
 							<div class="form-row">
-								<div class="form-group col-md-6">
+								<div class="form-group col-sm-6">
 									<label for="inputEmail2">Email</label>
-									<input type="email" name="email" class="form-control" id="inputEmail2"
-										placeholder="Masukan email" required>
+									<input type="email" name="email" class="form-control form-control-sm"
+										id="inputEmail2" placeholder="Masukan email" required>
 								</div>
-								<div class="form-group col-md-6">
+								<div class="form-group col-sm-6">
 									<label for="inputEmail2">Alamat</label>
-									<textarea class="form-control karakterAngka" name="alamat"
+									<textarea class="form-control form-control-sm karakterAngka" name="alamat"
 										placeholder="Masukan alamat" id="exampleFormControlTextarea1" rows="2"
 										required></textarea>
 								</div>
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="submit" class="btn btn-primary">Simpan</button>
-							<button type="button" class="btn btn-link" data-dismiss="modal">Kembali</button>
+							<button type="submit" class="btn btn-sm btn-success">Simpan</button>
+							<button type="button" class="btn btn-sm btn-link" data-dismiss="modal">Kembali</button>
 						</div>
 						<?php echo form_close(); ?>
 					</div>
@@ -88,10 +88,10 @@
 							<td><?= $data->email ?></td>
 							<td><?= $data->alamat ?></td>
 							<td class="text-center">
-								<a style="cursor:pointer" class="btn btn-warning text-white" data-toggle="modal"
+								<a style="cursor:pointer" class="btn btn-sm btn-warning text-white" data-toggle="modal"
 									data-target="#modal-edit<?= $data->no_supplier ?>">Edit</a>
 								<a href="<?= base_url('admin/supplier/delete/'.$data->no_supplier) ?>"
-									class="btn btn-danger tombol-hapus">Hapus</a>
+									class="btn btn-sm btn-danger tombol-hapus">Hapus</a>
 							</td>
 						</tr>
 						<?php endforeach; ?>
@@ -116,36 +116,39 @@
 			<?php echo form_open('admin/supplier/update'); ?>
 			<div class="modal-body">
 				<div class="form-row">
-					<div class="form-group col-md-6">
+					<div class="form-group col-sm-6">
 						<input type="hidden" name="no_supplier" value="<?= $data->no_supplier ?>">
 						<label for="inputEmail2">Nama Supplier</label>
-						<input type="text" name="nama" value="<?= $data->nama ?>" class="form-control karakterAngka"
-							id="inputEmail2" placeholder="Masukan nama supplier" required>
+						<input type="text" name="nama" value="<?= $data->nama ?>"
+							class="form-control form-control-sm karakterAngka" id="inputEmail2"
+							placeholder="Masukan nama supplier" required>
 
 					</div>
-					<div class="form-group col-md-6">
+					<div class="form-group col-sm-6">
 						<label for="inputEmail2">Contact Person</label>
-						<input type="text" name="cp" value="<?= noHp($data->cp) ?>" class="form-control hp"
-							id="inputEmail2" placeholder="Masukan contact person" required>
+						<input type="text" name="cp" value="<?= noHp($data->cp) ?>"
+							class="form-control form-control-sm hp" id="inputEmail2"
+							placeholder="Masukan contact person" required>
 					</div>
 				</div>
 				<div class="form-row">
-					<div class="form-group col-md-6">
+					<div class="form-group col-sm-6">
 						<label for="inputEmail2">Email</label>
-						<input type="email" name="email" value="<?= $data->email ?>" class="form-control"
-							id="inputEmail2" placeholder="Masukan email" required>
+						<input type="email" name="email" value="<?= $data->email ?>"
+							class="form-control form-control-sm" id="inputEmail2" placeholder="Masukan email" required>
 
 					</div>
-					<div class="form-group col-md-6">
+					<div class="form-group col-sm-6">
 						<label for="inputEmail2">Alamat</label>
-						<textarea class="form-control karakterAngka" placeholder="Masukan alamat" name="alamat"
-							id="exampleFormControlTextarea1" rows="2" required><?= $data->alamat ?></textarea>
+						<textarea class="form-control form-control-sm karakterAngka" placeholder="Masukan alamat"
+							name="alamat" id="exampleFormControlTextarea1" rows="2"
+							required><?= $data->alamat ?></textarea>
 					</div>
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="submit" class="btn btn-primary">Simpan</button>
-				<button type="button" class="btn btn-link" data-dismiss="modal">Kembali</button>
+				<button type="submit" class="btn btn-sm btn-success">Update</button>
+				<button type="button" class="btn btn-sm btn-link" data-dismiss="modal">Kembali</button>
 			</div>
 			<?php echo form_close(); ?>
 		</div>
@@ -162,9 +165,10 @@
 			text: "Data supplier akan dihapus",
 			icon: 'warning',
 			showCancelButton: true,
-			confirmButtonColor: '#3085d6',
-			cancelButtonColor: '#d33',
-			confirmButtonText: 'Hapus'
+			confirmButtonColor: '#d33',
+			cancelButtonColor: '#7f8c8d',
+			confirmButtonText: 'Hapus',
+			cancelButtonText: 'Batal'
 		}).then((result) => {
 			if (result.value) {
 				document.location.href = href;

@@ -13,7 +13,7 @@
 			<h6 class="m-0 font-weight-bold text-primary">Kategori Obat</h6>
 		</div>
 		<div class="card-body">
-			<button type="button" class="btn btn-primary mb-3" data-toggle="modal"
+			<button type="button" class="btn btn-sm btn-primary mb-3" data-toggle="modal"
 				data-target=".bd-example-modal-lg">Tambah</button>
 
 			<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
@@ -29,16 +29,16 @@
 						<?php echo form_open('apotek/kategori_obat/store'); ?>
 						<div class="modal-body">
 							<div class="form-row">
-								<div class="form-group col-md-8">
+								<div class="form-group col-sm-6">
 									<label for="inputEmail2">Nama Kategori Obat</label>
-									<input type="text" name="nama" class="form-control karakter" id="inputEmail2"
-										placeholder="Masukan nama kategori obat" required>
+									<input type="text" name="nama" class="form-control form-control-sm karakter"
+										id="inputEmail2" placeholder="Masukan nama kategori obat" required>
 								</div>
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="submit" class="btn btn-primary">Simpan</button>
-							<button type="button" class="btn btn-link" data-dismiss="modal">Kembali</button>
+							<button type="submit" class="btn btn-sm btn-success">Simpan</button>
+							<button type="button" class="btn btn-sm btn-link" data-dismiss="modal">Kembali</button>
 						</div>
 						<?php echo form_close(); ?>
 					</div>
@@ -51,7 +51,7 @@
 							<th width="5%" class="text-center">No</th>
 							<th width="20%">Kode</th>
 							<th width="50%">Nama Kategori Obat</th>
-							<th width="25%" class="text-center">Aksi</th>
+							<th width="15%" class="text-center">Aksi</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -64,10 +64,10 @@
 							<td><?= $data->no_kat_obat ?></td>
 							<td><?= $data->nama ?></td>
 							<td class="text-center">
-								<a style="cursor:pointer" class="btn btn-warning text-white" data-toggle="modal"
+								<a style="cursor:pointer" class="btn btn-sm btn-warning text-white" data-toggle="modal"
 									data-target="#modal-edit<?= $data->no_kat_obat ?>">Edit</a>
 								<a href="<?= base_url('apotek/kategori_obat/delete/'.$data->no_kat_obat) ?>"
-									class="btn btn-danger tombol-hapus">Hapus</a>
+									class="btn btn-sm btn-danger tombol-hapus">Hapus</a>
 							</td>
 						</tr>
 						<?php endforeach; ?>
@@ -92,7 +92,7 @@
 			<?php echo form_open('apotek/kategori_obat/update'); ?>
 			<div class="modal-body">
 				<div class="form-row">
-					<div class="form-group col-md-8">
+					<div class="form-group col-sm-6">
 						<input type="hidden" name="no_kat_obat" value="<?= $data->no_kat_obat ?>">
 						<label for="inputEmail2">Nama Kategori Obat</label>
 						<input type="text" name="nama" value="<?= $data->nama ?>" class="form-control karakter"
@@ -101,7 +101,7 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="submit" class="btn btn-primary">Simpan</button>
+				<button type="submit" class="btn btn-sm btn-success">Update</button>
 				<button type="button" class="btn btn-link" data-dismiss="modal">Kembali</button>
 			</div>
 			<?php echo form_close(); ?>
@@ -119,9 +119,10 @@
 			text: "Data kategori obat akan dihapus",
 			icon: 'warning',
 			showCancelButton: true,
-			confirmButtonColor: '#3085d6',
-			cancelButtonColor: '#d33',
-			confirmButtonText: 'Hapus'
+			confirmButtonColor: '#d33',
+			cancelButtonColor: '#7f8c8d',
+			confirmButtonText: 'Hapus',
+			cancelButtonText: 'Batal'
 		}).then((result) => {
 			if (result.value) {
 				document.location.href = href;

@@ -34,33 +34,35 @@
 						<?php echo form_open('admin/user/store'); ?>
 						<div class="modal-body">
 							<div class="form-row">
-								<div class="form-group col-md-6">
+								<div class="form-group col-sm-6">
 									<label for="inputEmail1">Nama</label>
-									<input type="text" name="nama" class="form-control karakterAngka" id="inputEmail1"
-										placeholder="Masukan nama user" required>
+									<input type="text" name="nama" class="form-control form-control-sm karakterAngka"
+										id="inputEmail1" placeholder="Masukan nama user" required>
 								</div>
-								<div class="form-group col-md-6">
+								<div class="form-group col-sm-6">
 									<label for="inputEmail2">Username</label>
-									<input type="text" name="username" class="form-control karakterAngka"
-										id="inputEmail2" placeholder="Masukan username" required>
+									<input type="text" name="username"
+										class="form-control form-control-sm karakterAngka" id="inputEmail2"
+										placeholder="Masukan username" required>
 								</div>
 							</div>
 							<div class="form-row">
-								<div class="form-group col-md-6">
+								<div class="form-group col-sm-6">
 									<label for="inputEmail3">Password</label>
-									<input type="password" name="password" class="form-control" id="inputEmail3"
-										placeholder="Masukan password" required>
+									<input type="password" name="password" class="form-control form-control-sm"
+										id="inputEmail3" placeholder="Masukan password" required>
 								</div>
-								<div class="form-group col-md-6">
+								<div class="form-group col-sm-6">
 									<label for="inputEmail4">Konfirmasi Password</label>
-									<input type="password" name="konfirmasi_password" class="form-control"
-										id="inputEmail4" placeholder="Masukan konfirmasi password" required>
+									<input type="password" name="konfirmasi_password"
+										class="form-control form-control-sm" id="inputEmail4"
+										placeholder="Masukan konfirmasi password" required>
 								</div>
 							</div>
 							<div class="form-row">
-								<div class="form-group col-md-6">
+								<div class="form-group col-sm-6">
 									<label for="inputEmail5">Jenis Akses</label>
-									<select name="jenis_akses" class="form-control" id="inputEmail5">
+									<select name="jenis_akses" class="form-control form-control-sm" id="inputEmail5">
 										<option value="Loket">Loket</option>
 										<option value="Apotek">Apotek</option>
 										<option value="Administrasi">Administrasi</option>
@@ -73,8 +75,8 @@
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="submit" class="btn btn-primary">Simpan</button>
-							<button type="button" class="btn btn-link" data-dismiss="modal">Kembali</button>
+							<button type="submit" class="btn btn-sm btn-success">Simpan</button>
+							<button type="button" class="btn btn-sm btn-link" data-dismiss="modal">Kembali</button>
 						</div>
 						<?php echo form_close(); ?>
 					</div>
@@ -105,14 +107,15 @@
 							<td><?= $data->jenis_akses ?></td>
 							<td><?= $data->username ?></td>
 							<td class="text-center">
-								<a style="cursor:pointer" class="btn btn-secondary text-white" data-toggle="modal"
-									data-target="#modal-edit2<?= $data->no_user_pegawai ?>">Ganti Password</a>
+								<a style="cursor:pointer" class="btn btn-sm btn-secondary text-white"
+									data-toggle="modal" data-target="#modal-edit2<?= $data->no_user_pegawai ?>">Ganti
+									Password</a>
 							</td>
 							<td class="text-center">
-								<a style="cursor:pointer" class="btn btn-warning text-white" data-toggle="modal"
+								<a style="cursor:pointer" class="btn btn-sm btn-warning text-white" data-toggle="modal"
 									data-target="#modal-edit<?= $data->no_user_pegawai ?>">Edit</a>
 								<a href="<?= base_url('admin/user/delete/'.$data->no_user_pegawai) ?>"
-									class="btn btn-danger tombol-hapus">Hapus</a>
+									class="btn btn-sm btn-danger tombol-hapus">Hapus</a>
 							</td>
 						</tr>
 						<?php endforeach; ?>
@@ -137,22 +140,24 @@
 			<?php echo form_open('admin/user/update'); ?>
 			<div class="modal-body">
 				<div class="form-row">
-					<div class="form-group col-md-6">
+					<div class="form-group col-sm-6">
 						<label for="inputEmail1">Nama</label>
 						<input type="hidden" name="no_user_pegawai" value="<?= $data->no_user_pegawai ?>">
-						<input type="text" name="nama" value="<?= $data->nama ?>" class="form-control karakterAngka"
-							id="inputEmail1" placeholder="Masukan nama user" required>
+						<input type="text" name="nama" value="<?= $data->nama ?>"
+							class="form-control form-control-sm karakterAngka" id="inputEmail1"
+							placeholder="Masukan nama user" required>
 					</div>
-					<div class="form-group col-md-6">
+					<div class="form-group col-sm-6">
 						<label for="inputEmail2">Username</label>
 						<input type="text" name="username" value="<?= $data->username ?>"
-							class="form-control karakterAngka" id="inputEmail2" placeholder="Masukan username" required>
+							class="form-control form-control-sm karakterAngka" id="inputEmail2"
+							placeholder="Masukan username" required>
 					</div>
 				</div>
 				<div class="form-row">
-					<div class="form-group col-md-6">
+					<div class="form-group col-sm-6">
 						<label for="inputEmail5">Jenis Akses</label>
-						<select name="jenis_akses" class="form-control" id="inputEmail5">
+						<select name="jenis_akses" class="form-control form-control-sm" id="inputEmail5">
 							<option value="Loket" <?php if($data->jenis_akses == "Loket") {echo'selected';} ?>>Loket
 							</option>
 							<option value="Apotek" <?php if($data->jenis_akses == "Apotek") {echo'selected';} ?>>Apotek
@@ -176,8 +181,8 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="submit" class="btn btn-primary">Simpan</button>
-				<button type="button" class="btn btn-link" data-dismiss="modal">Kembali</button>
+				<button type="submit" class="btn btn-sm btn-success">Update</button>
+				<button type="button" class="btn btn-sm btn-link" data-dismiss="modal">Kembali</button>
 			</div>
 			<?php echo form_close(); ?>
 		</div>
@@ -200,34 +205,35 @@
 			<?php echo form_open('admin/user/update_password'); ?>
 			<div class="modal-body">
 				<div class="form-row">
-					<div class="form-group col-md-6">
+					<div class="form-group col-sm-6">
 						<label for="inputEmail1">Username</label>
 						<input type="hidden" name="no_user_pegawai" value="<?= $data->no_user_pegawai ?>">
 						<input type="text" name="username" value="<?= $data->username ?>"
-							class="form-control karakterAngka" id="inputEmail1" placeholder="Masukan username" readonly>
+							class="form-control form-control-sm karakterAngka" id="inputEmail1"
+							placeholder="Masukan username" readonly>
 					</div>
-					<div class="form-group col-md-6">
+					<div class="form-group col-sm-6">
 						<label for="inputEmail2">Akses</label>
-						<input type="text" name="akses" class="form-control" id="inputEmail2"
+						<input type="text" name="akses" class="form-control form-control-sm" id="inputEmail2"
 							value=<?= $data->jenis_akses ?> placeholder="Masukan password lama" required readonly>
 					</div>
 				</div>
 				<div class="form-row">
-					<div class="form-group col-md-6">
+					<div class="form-group col-sm-6">
 						<label for="inputEmail5">Password Baru</label>
-						<input type="password" name="password_baru" class="form-control" id="inputEmail5"
-							placeholder="Masukan password" required>
+						<input type="password" name="password_baru" class="form-control form-control-sm"
+							id="inputEmail5" placeholder="Masukan password" required>
 					</div>
-					<div class="form-group col-md-6">
+					<div class="form-group col-sm-6">
 						<label for="inputEmail6">Konfirmasi Password Baru</label>
-						<input type="password" name="konfirmasi_password" class="form-control" id="inputEmail6"
-							placeholder="Masukan konfirmasi password baru" required>
+						<input type="password" name="konfirmasi_password" class="form-control form-control-sm"
+							id="inputEmail6" placeholder="Masukan konfirmasi password baru" required>
 					</div>
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="submit" class="btn btn-primary">Simpan</button>
-				<button type="button" class="btn btn-link" data-dismiss="modal">Kembali</button>
+				<button type="submit" class="btn btn-sm btn-success">Ganti</button>
+				<button type="button" class="btn btn-sm btn-link" data-dismiss="modal">Kembali</button>
 			</div>
 			<?php echo form_close(); ?>
 		</div>
@@ -244,9 +250,10 @@
 			text: "Data user akan dihapus",
 			icon: 'warning',
 			showCancelButton: true,
-			confirmButtonColor: '#3085d6',
-			cancelButtonColor: '#d33',
-			confirmButtonText: 'Hapus'
+			confirmButtonColor: '#d33',
+			cancelButtonColor: '#7f8c8d',
+			confirmButtonText: 'Hapus',
+			cancelButtonText: 'Batal'
 		}).then((result) => {
 			if (result.value) {
 				document.location.href = href;
