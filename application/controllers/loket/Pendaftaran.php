@@ -222,4 +222,19 @@ class Pendaftaran extends CI_Controller
             }
         }
     }
+
+    function get_pasien_by_no_rm()
+    {
+        $nilai = $this->input->post('nilai');
+        if (isset($nilai)) {
+
+            $where = array(
+                'no_rm' => $nilai
+            );
+
+            $data_tbl['tbl_data'] = $this->M_pendaftaran->get_data('pasien', $where)->result();
+            $data = json_encode($data_tbl);
+            echo $data;
+        }
+    }
 }

@@ -27,7 +27,7 @@
 					<label for="inputEmail2">NIK</label>
 					<input type="text" name="nik" value="<?= set_value('nik') ?>" class="form-control form-control-sm nik <?php if (form_error('nik') == true) {
 																																echo "is-invalid";
-																															} ?>" id="inputEmail2" placeholder="Masukan NIK pasien">
+																															} ?>" id="nik" placeholder="Masukan NIK pasien">
 					<div class="invalid-feedback">
 						<?= form_error('nik'); ?>
 					</div>
@@ -36,7 +36,7 @@
 					<label for="inputEmail1">Nama</label>
 					<input type="text" name="nama" value="<?= set_value('nama') ?>" class="form-control form-control-sm karakter <?php if (form_error('nama') == true) {
 																																		echo "is-invalid";
-																																	} ?>" id="inputEmail1" placeholder="Masukan Nama">
+																																	} ?>" id="nama" placeholder="Masukan Nama">
 					<div class="invalid-feedback">
 						<?= form_error('nama'); ?>
 					</div>
@@ -47,7 +47,7 @@
 					<label for="inputEmail3">Tempat Lahir</label>
 					<input type="text" name="tempat_lahir" value="<?= set_value('tempat_lahir') ?>" class=" form-control form-control-sm karakter <?php if (form_error('tempat_lahir') == true) {
 																																						echo "is-invalid";
-																																					} ?>" id="inputEmail3" placeholder="Masukan tempat lahir">
+																																					} ?>" id="tempat_lahir" placeholder="Masukan tempat lahir">
 					<div class="invalid-feedback">
 						<?= form_error('tempat_lahir'); ?>
 					</div>
@@ -58,7 +58,7 @@
 						<div class="col-sm-3">
 							<select name="hari" class="form-control form-control-sm <?php if (form_error('hari') == true) {
 																						echo "is-invalid";
-																					} ?>" id="exampleFormControlSelect1">
+																					} ?>" id="hari">
 								<?php
 								for ($i = 1; $i < 32; ++$i) {
 									if ($i < 10) {
@@ -75,7 +75,7 @@
 						<div class="col-sm-6">
 							<select name="bulan" class="form-control form-control-sm <?php if (form_error('hari') == true) {
 																							echo "is-invalid";
-																						} ?>" id="exampleFormControlSelect1">
+																						} ?>" id="bulan">
 								<option value="01" <?= set_select('bulan', '01'); ?>>Januari</option>
 								<option value="02" <?= set_select('bulan', '02'); ?>>Februari</option>
 								<option value="03" <?= set_select('bulan', '03'); ?>>Maret</option>
@@ -93,7 +93,7 @@
 						<div class="col-sm-3">
 							<select name="tahun" class="form-control form-control-sm <?php if (form_error('hari') == true) {
 																							echo "is-invalid";
-																						} ?>" id="exampleFormControlSelect1">
+																						} ?>" id="tahun">
 								<?php
 								$tgl = date("Y");
 								$tgl_fix = $tgl - 110;
@@ -119,19 +119,19 @@
 				<div class="form-group col-sm-6">
 					<label for="inputEmail3">Jenis Kelamin</label><br><br>
 					<div class="custom-control custom-radio custom-control-inline">
-						<input type="radio" id="customRadioInline1" name="jenis_kelamin" class="custom-control-input" value="Laki-Laki" checked>
-						<label class="custom-control-label" for="customRadioInline1">Laki-Laki</label>
+						<input type="radio" id="jenis_kelamin" name="jenis_kelamin" class="custom-control-input" value="Laki-Laki" checked>
+						<label class="custom-control-label" for="jenis_kelamin">Laki-Laki</label>
 					</div>
 					<div class="custom-control custom-radio custom-control-inline">
-						<input type="radio" id="customRadioInline2" name="jenis_kelamin" class="custom-control-input" value="Perempuan">
-						<label class="custom-control-label" for="customRadioInline2">Perempuan</label>
+						<input type="radio" id="jenis_kelamin2" name="jenis_kelamin" class="custom-control-input" value="Perempuan">
+						<label class="custom-control-label" for="jenis_kelamin2">Perempuan</label>
 					</div>
 				</div>
 				<div class="form-group col-sm-6">
-					<label for="exampleFormControlTextarea1">Alamat</label>
+					<label for="alamat">Alamat</label>
 					<textarea class="form-control form-control-sm karakterAngka <?php if (form_error('alamat') == true) {
 																					echo "is-invalid";
-																				} ?>" name="alamat" id="exampleFormControlTextarea1" rows="2"><?= set_value('alamat') ?></textarea>
+																				} ?>" name="alamat" id="alamat" rows="2"><?= set_value('alamat') ?></textarea>
 					<div class="invalid-feedback">
 						<?= form_error('alamat'); ?>
 					</div>
@@ -180,6 +180,7 @@
 
 		$(function() {
 
+			// untuk no_rm
 			$(".no_rmnya").autocomplete({
 				source: function(request, response) {
 					// Fetch data
@@ -199,8 +200,48 @@
 			});
 
 			$(".no_rmnya").on("autocompleteselect", function(event, ui) {
-				alert(ui.item.value);
+
+				var id = ui.item.value
+
+				// Fetch data
+				$.ajax({
+					url: "<?php echo base_url() . 'loket/pendaftaran/get_pasien_by_no_rm'; ?>",
+					type: 'post',
+					data: {
+						nilai: id
+					},
+					success: function(hasil) {
+
+						// parse
+						var obj = JSON.parse(hasil);
+						let data = obj['tbl_data'];
+
+						if (data != '') {
+
+							$.each(data, function(i, item) {
+
+								var nik = data[i].nik;
+								var nama = data[i].nama;
+								var tempat_lahir = data[i].tempat_lahir;
+								var tgl_lahir = data[i].tgl_lahir;
+								var jenkel = data[i].jenkel;
+								var alamat = data[i].alamat;
+
+								$("#nik").val(nik);
+								$("#nama").val(nama);
+								$("#tempat_lahir").val(tempat_lahir);
+								$("#alamat").val(alamat);
+
+							});
+						} else {
+
+							alert("Data Dengan Kode : " + id + " Tidak Ditemukan");
+
+						}
+					}
+				});
 			});
+			// end of untuk no_rm
 
 		});
 
