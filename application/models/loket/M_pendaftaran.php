@@ -151,11 +151,11 @@ class M_pendaftaran extends CI_Model
         return $kd;
     }
 
-    function search_autocomplete($field, $data)
+    function search_autocomplete($table, $field, $data)
     {
         $this->db->like($field, $data, 'both');
         $this->db->order_by($field, 'ASC');
         $this->db->limit(10);
-        return $this->db->get('pasien')->result();
+        return $this->db->get($table)->result();
     }
 }

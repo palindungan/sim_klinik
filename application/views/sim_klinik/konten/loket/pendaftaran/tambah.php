@@ -15,7 +15,7 @@
 					<label for="inputEmail2">No RM</label>
 					<input type="text" name="no_rm" value="<?= set_value('no_rm') ?>" class="no_rmnya form-control form-control-sm <?php if (form_error('no_rm') == true) {
 																																		echo "is-invalid";
-																																	} ?>" id="inputEmail4" placeholder="No RM">
+																																	} ?>" id="no_rm" placeholder="No RM">
 					<div class="invalid-feedback">
 						<?= form_error('no_rm'); ?>
 					</div>
@@ -25,9 +25,9 @@
 			<div class="form-row">
 				<div class="form-group col-sm-6">
 					<label for="inputEmail2">NIK</label>
-					<input type="text" name="nik" value="<?= set_value('nik') ?>" class="form-control form-control-sm nik <?php if (form_error('nik') == true) {
-																																echo "is-invalid";
-																															} ?>" id="nik" placeholder="Masukan NIK pasien">
+					<input type="text" name="nik" value="<?= set_value('nik') ?>" class="niknya form-control form-control-sm nik <?php if (form_error('nik') == true) {
+																																		echo "is-invalid";
+																																	} ?>" id="nik" placeholder="Masukan NIK pasien">
 					<div class="invalid-feedback">
 						<?= form_error('nik'); ?>
 					</div>
@@ -261,6 +261,88 @@
 				});
 			});
 			// end of untuk no_rm
+
+			// untuk NIK 
+			$(".niknya").autocomplete({
+				source: function(request, response) {
+					// Fetch data
+					$.ajax({
+						url: "<?php echo base_url() . 'loket/pendaftaran/get_autocomplete_nik'; ?>",
+						type: 'post',
+						dataType: "json",
+						data: {
+							nilai: request.term
+						},
+						success: function(data) {
+							response(data);
+						}
+					});
+				},
+				select: function(event, ui) {},
+			});
+
+			$(".niknya").on("autocompleteselect", function(event, ui) {
+
+				var id = ui.item.value
+
+				// Fetch data
+				$.ajax({
+					url: "<?php echo base_url() . 'loket/pendaftaran/get_pasien_by_nik'; ?>",
+					type: 'post',
+					data: {
+						nilai: id
+					},
+					success: function(hasil) {
+
+						// parse
+						var obj = JSON.parse(hasil);
+						let data = obj['tbl_data'];
+
+						if (data != '') {
+
+							$.each(data, function(i, item) {
+
+								var no_rm = data[i].no_rm;
+								var nama = data[i].nama;
+								var tempat_lahir = data[i].tempat_lahir;
+								var alamat = data[i].alamat;
+
+								$("#no_rm").val(no_rm);
+								$("#nama").val(nama);
+								$("#tempat_lahir").val(tempat_lahir);
+								$("#alamat").val(alamat);
+
+								var tgl_lahir = data[i].tgl_lahir;
+
+								// parse
+								var hari = tgl_lahir.substring(8);
+								var bulan = tgl_lahir.substring(5, 7);
+								var tahun = tgl_lahir.substring(0, 4);
+
+								$("#hari").val(hari).change();
+								$("#bulan").val(bulan).change();
+								$("#tahun").val(tahun).change();
+
+								var jenkel = data[i].jenkel;
+
+								if (jenkel == "Laki-Laki") {
+									$("#jenis_kelamin").prop("checked", true);
+									$("#jenis_kelamin2").prop("checked", false);
+								} else {
+									$("#jenis_kelamin").prop("checked", false);
+									$("#jenis_kelamin2").prop("checked", true);
+								}
+
+							});
+						} else {
+
+							alert("Data Dengan Kode : " + id + " Tidak Ditemukan !");
+
+						}
+					}
+				});
+			});
+			// end of untuk NIK
 
 		});
 
