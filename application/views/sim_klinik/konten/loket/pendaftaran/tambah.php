@@ -205,11 +205,5 @@
 		});
 
 	}
-
-	$('.no_rmnya').on('input propertychange paste autocompleteselect', function() {
-		var s = this.value.indexOf(" ");
-		var n = this.value.substr(0, s);
-		console.log(n);
-	});
 	// codingan untuk autocomplete end
 </script>
