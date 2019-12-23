@@ -10,21 +10,9 @@
 			<form method="post" id="transaksi_form">
 				<div class="form-row">
 					<div class="form-group col-sm-4">
-						<label for="">asd</label>
-						<input type="text" class="form-control form-control-sm nama_nya">
-					</div>
-				</div>
-				<div class="form-row">
-					<div class="form-group col-sm-4">
-						<label for="inputEmail3">No Ref Pelayanan</label>
-						<select id="xx" class="form-control form-control-sm" name="no_ref_pelayanan" required>
-							<option value="">-- Pilih Data --</option>
-							<?php foreach ($record as $data) : ?>
-							<option value="<?= $data->no_ref_pelayanan ?>">
-								<?= $data->no_ref_pelayanan . " || " . $data->nama ?>
-							</option>
-							<?php endforeach; ?>
-						</select>
+						<label for="">No Ref Pelayanan</label>
+						<input type="text" name="no_ref_pelayanan" class="form-control form-control-sm nama_nya"
+							required>
 					</div>
 				</div>
 

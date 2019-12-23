@@ -83,7 +83,6 @@ class M_transaksi extends CI_Model
     {
         $this->db->like($field, $data, 'both');
         $this->db->order_by($field, 'ASC');
-        $this->db->limit(10);
-        return $this->db->get('pelayanan')->result();
+        return $this->db->get_where('pelayanan',array('layanan_tujuan' => 'UGD'))->result();
     }
 }

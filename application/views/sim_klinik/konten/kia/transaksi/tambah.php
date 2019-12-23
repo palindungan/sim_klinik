@@ -1,13 +1,3 @@
-<style>
-	.select2-selection__rendered {
-		line-height: 36px !important;
-	}
-
-	.select2-selection {
-		height: 38px !important;
-	}
-
-</style>
 <?php if($this->session->flashdata('success')) : ?>
 <div class="pesan-sukses" data-flashdata="<?= $this->session->flashdata('success'); ?>"></div>
 <?php endif; ?>
@@ -19,16 +9,10 @@
 		<div class="card-body">
 			<form method="post" id="transaksi_form">
 				<div class="form-row">
-					<div class="form-group col-sm-6">
-						<label for="inputEmail3">No Ref Pelayanan</label>
-						<select id="xx" class="form-control form-control-sm" name="no_ref_pelayanan" required>
-							<option value="">-- Pilih Data --</option>
-							<?php foreach ($record as $data) : ?>
-							<option value="<?= $data->no_ref_pelayanan ?>">
-								<?= $data->no_ref_pelayanan . " || " . $data->nama ?>
-							</option>
-							<?php endforeach; ?>
-						</select>
+					<div class="form-group col-sm-4">
+						<label for="">No Ref Pelayanan</label>
+						<input type="text" name="no_ref_pelayanan" class="form-control form-control-sm nama_nya"
+							required>
 					</div>
 				</div>
 
@@ -125,8 +109,36 @@
 	</div>
 </div>
 
-<script src="<?= base_url(); ?>assets/sb_admin_2/vendor/jquery/jquery.min.js"></script>
+<script src="<?= base_url(); ?>assets/sb_admin_2/vendor/jquery/jquery-3.4.1.min.js"></script>
 
+<script>
+	$(document).ready(function () {
+		auto_complete();
+
+	});
+
+	function auto_complete() {
+		$(function () {
+			$(".nama_nya").autocomplete({
+				source: function (request, response) {
+					// Fetch data
+					$.ajax({
+						url: "<?php echo base_url() . 'kia/transaksi/get_autocomplete'; ?>",
+						type: 'post',
+						dataType: "json",
+						data: {
+							nilai: request.term
+						},
+						success: function (data) {
+							response(data);
+						}
+					});
+				}
+			});
+		});
+	}
+
+</script>
 <script>
 	hari_ini();
 	$(document).on('change', '#xx', function (event) {
