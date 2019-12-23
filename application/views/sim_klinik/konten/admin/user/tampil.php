@@ -36,14 +36,13 @@
 							<div class="form-row">
 								<div class="form-group col-sm-6">
 									<label for="inputEmail1">Nama</label>
-									<input type="text" name="nama" class="form-control form-control-sm karakterAngka"
+									<input type="text" name="nama" class="form-control form-control-sm karakter"
 										id="inputEmail1" placeholder="Masukan nama user" required>
 								</div>
 								<div class="form-group col-sm-6">
 									<label for="inputEmail2">Username</label>
-									<input type="text" name="username"
-										class="form-control form-control-sm karakterAngka" id="inputEmail2"
-										placeholder="Masukan username" required>
+									<input type="text" name="username" class="form-control form-control-sm"
+										id="inputEmail2" placeholder="Masukan username" required>
 								</div>
 							</div>
 							<div class="form-row">
@@ -144,14 +143,14 @@
 						<label for="inputEmail1">Nama</label>
 						<input type="hidden" name="no_user_pegawai" value="<?= $data->no_user_pegawai ?>">
 						<input type="text" name="nama" value="<?= $data->nama ?>"
-							class="form-control form-control-sm karakterAngka" id="inputEmail1"
+							class="form-control form-control-sm karakter" id="inputEmail1"
 							placeholder="Masukan nama user" required>
 					</div>
 					<div class="form-group col-sm-6">
 						<label for="inputEmail2">Username</label>
 						<input type="text" name="username" value="<?= $data->username ?>"
-							class="form-control form-control-sm karakterAngka" id="inputEmail2"
-							placeholder="Masukan username" required>
+							class="form-control form-control-sm" id="inputEmail2" placeholder="Masukan username"
+							required>
 					</div>
 				</div>
 				<div class="form-row">

@@ -14,7 +14,7 @@
 <div class="container-fluid">
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">
-			<h6 class="m-0 font-weight-bold text-primary">Penerimaan Obat</h6>
+			<h6 class="m-0 font-weight-bold text-primary">Penjualan Obat</h6>
 		</div>
 		<div class="card-body">
 			<form method="post" id="penerimaan_form">
@@ -274,7 +274,8 @@
 			kode + `">
 				</div>
 				<div class="form-group col-sm-4">
-					<input type="text" name="harga_jual[]" class="form-control form-control-sm rupiah text-right" id="harga_jual` + count1 +
+					<input type="text" name="harga_jual[]" class="form-control form-control-sm rupiah text-right" id="harga_jual` +
+			count1 +
 			`" placeholder="harga supplier" required value="` + harga_jual + `">
 				</div>
                 <div class="form-group col-sm-1">

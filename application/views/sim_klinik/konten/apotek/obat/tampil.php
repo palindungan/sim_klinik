@@ -31,8 +31,8 @@
 							<div class="form-row">
 								<div class="form-group col-sm-6">
 									<label for="inputEmail2">Nama Obat</label>
-									<input type="text" name="nama" class="form-control form-control-sm karakterAngka"
-										id="inputEmail2" placeholder="Masukan nama kategori obat" required>
+									<input type="text" name="nama" class="form-control form-control-sm" id="inputEmail2"
+										placeholder="Masukan nama kategori obat" required>
 								</div>
 								<div class="form-group col-sm-6">
 									<label for="inputEmail3">Kategori Obat</label>
@@ -92,7 +92,7 @@
 							<td class="text-center">
 								<a style="cursor:pointer" class="btn btn-sm btn-warning text-white" data-toggle="modal"
 									data-target="#modal-edit<?= $data->kode_obat ?>">Edit</a>
-								<a href="<?= base_url('apotek/kategori_obat/delete/'.$data->kode_obat) ?>"
+								<a href="<?= base_url('apotek/obat/delete/'.$data->kode_obat) ?>"
 									class="btn btn-sm btn-danger tombol-hapus">Hapus</a>
 							</td>
 						</tr>
@@ -122,7 +122,7 @@
 						<label for="inputEmail2">Nama Obat</label>
 						<input type="hidden" name="kode_obat" value="<?= $data->kode_obat ?>">
 						<input type="text" name="nama" value="<?= $data->nama_obat ?>"
-							class="form-control form-control-sm karakterAngka" id="inputEmail2"
+							class="form-control form-control-sm" id="inputEmail2"
 							placeholder="Masukan nama kategori obat" required>
 					</div>
 					<div class="form-group col-sm-6">

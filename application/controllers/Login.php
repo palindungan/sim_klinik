@@ -36,23 +36,23 @@ class Login extends CI_Controller
                 } 
                 else if ($row->jenis_akses == 'Apotek') 
                 {
-                    redirect(base_url("loket/pendaftaran"));
+                    redirect(base_url("apotek/penjualan_obat"));
                 }
                 else if ($row->jenis_akses == 'Administrasi')
                 {
-                    redirect(base_url("loket/pendaftaran"));
+                    redirect(base_url("admin/kamar"));
                 }
                 else if ($row->jenis_akses == 'Balai Pengobatan')
                 {
-                    redirect(base_url("loket/pendaftaran"));
+                    redirect(base_url("balai_pengobatan/transaksi"));
                 }
                 else if ($row->jenis_akses == 'Laboratorium')
                 {
-                    redirect(base_url("loket/pendaftaran"));
+                    redirect(base_url("laboratorium/checkup"));
                 }
                 else if ($row->jenis_akses == 'KIA')
                 {
-                    redirect(base_url("loket/pendaftaran"));
+                    redirect(base_url("kia/transaksi"));
                 }
                 else if ($row->jenis_akses == 'Rawat Inap')
                 {
@@ -60,10 +60,8 @@ class Login extends CI_Controller
                 }
             }
         } else {
-            echo "<script>
-                alert('Username Atau Password Anda Salah');
-                window.location = '" . base_url("/") . "';
-            </script>";
+            $this->session->set_flashdata('username','Dilogin');
+
         }
     }
 

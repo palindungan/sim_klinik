@@ -1,3 +1,6 @@
+<?php if($this->session->flashdata('username')) : ?>
+<div class="cek-username" data-flashdata="<?= $this->session->flashdata('username'); ?>"></div>
+<?php endif; ?>
 <div class="row">
 	<div class="col-lg-6 d-none d-lg-block">
 		<div class="text-center mt-2">
