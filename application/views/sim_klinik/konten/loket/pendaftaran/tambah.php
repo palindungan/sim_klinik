@@ -223,8 +223,6 @@
 								var nik = data[i].nik;
 								var nama = data[i].nama;
 								var tempat_lahir = data[i].tempat_lahir;
-								var tgl_lahir = data[i].tgl_lahir;
-								var jenkel = data[i].jenkel;
 								var alamat = data[i].alamat;
 
 								$("#nik").val(nik);
@@ -232,10 +230,31 @@
 								$("#tempat_lahir").val(tempat_lahir);
 								$("#alamat").val(alamat);
 
+								var tgl_lahir = data[i].tgl_lahir;
+
+								// parse
+								var hari = tgl_lahir.substring(8);
+								var bulan = tgl_lahir.substring(5, 7);
+								var tahun = tgl_lahir.substring(0, 4);
+
+								$("#hari").val(hari).change();
+								$("#bulan").val(bulan).change();
+								$("#tahun").val(tahun).change();
+
+								var jenkel = data[i].jenkel;
+
+								if (jenkel == "Laki-Laki") {
+									$("#jenis_kelamin").prop("checked", true);
+									$("#jenis_kelamin2").prop("checked", false);
+								} else {
+									$("#jenis_kelamin").prop("checked", false);
+									$("#jenis_kelamin2").prop("checked", true);
+								}
+
 							});
 						} else {
 
-							alert("Data Dengan Kode : " + id + " Tidak Ditemukan");
+							alert("Data Dengan Kode : " + id + " Tidak Ditemukan !");
 
 						}
 					}
