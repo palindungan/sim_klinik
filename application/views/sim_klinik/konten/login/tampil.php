@@ -1,5 +1,5 @@
-<?php if($this->session->flashdata('username')) : ?>
-<div class="cek-username" data-flashdata="<?= $this->session->flashdata('username'); ?>"></div>
+<?php if($this->session->flashdata('login')) : ?>
+<div class="cek-login" data-flashdata="<?= $this->session->flashdata('login'); ?>"></div>
 <?php endif; ?>
 <div class="row">
 	<div class="col-lg-6 d-none d-lg-block">

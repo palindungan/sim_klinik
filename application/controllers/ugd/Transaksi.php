@@ -126,6 +126,19 @@ class Transaksi extends CI_Controller
         echo $total;
     }
 
+    public function get_autocomplete()
+    {
+        $nilai = $this->input->post('nilai');
+            if (isset($nilai)) {
+            $result = $this->M_transaksi->search_autocomplete('no_ref_pelayanan', $nilai);
+            if (count($result) > 0) {
+            foreach ($result as $row)
+            $arr_result[] = $row->no_ref_pelayanan;
+            echo json_encode($arr_result);
+            }
+        }
+    }
+
     public function input_transaksi_form()
     {
         $no_ref_pelayanan = $this->input->post('no_ref_pelayanan');

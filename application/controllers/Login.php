@@ -58,10 +58,13 @@ class Login extends CI_Controller
                 {
                     redirect(base_url("loket/pendaftaran"));
                 }
+            } else {
+                $this->session->set_flashdata('login','Dilogin');
+                redirect('/');
             }
         } else {
-            $this->session->set_flashdata('username','Dilogin');
-
+            $this->session->set_flashdata('login','Dilogin');
+            redirect('/');
         }
     }
 

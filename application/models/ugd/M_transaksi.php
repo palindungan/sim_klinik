@@ -79,4 +79,11 @@ class M_transaksi extends CI_Model
         date_default_timezone_set('Asia/Jakarta');
         return 'UP' . date('ymd') . '-' . $kd; // SELECT SUBSTR('BP191121-0001', 3, 6); dari digit ke 3 sampai 6 digit seanjutnya
     }
+    function search_autocomplete($field, $data)
+    {
+        $this->db->like($field, $data, 'both');
+        $this->db->order_by($field, 'ASC');
+        $this->db->limit(10);
+        return $this->db->get('pelayanan')->result();
+    }
 }
