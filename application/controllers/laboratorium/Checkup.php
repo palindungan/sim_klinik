@@ -9,7 +9,7 @@ class Checkup extends CI_Controller
     public function index()
     {
         $data['record'] = $this->M_checkup->tampil_data('lab_checkup')->result();
-        $this->template->load('sim_klinik/template/laboratorium', 'sim_klinik/konten/laboratorium/checkup/tampil', $data);
+        $this->template->load('sim_klinik/template/admin', 'sim_klinik/konten/laboratorium/checkup/tampil', $data);
     }
     public function store()
     {
