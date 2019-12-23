@@ -116,25 +116,25 @@ class Pendaftaran extends CI_Controller
                 );
 
                 $this->M_pendaftaran->input_data('antrian_lab', $data);
-            } 
+            }
 
             $connector = new Escpos\PrintConnectors\WindowsPrintConnector("POS58");
-    
+
             // membuat objek $printer agar dapat di lakukan fungsinya
             $printer = new Escpos\Printer($connector);
-    
+
             // Printer::MODE_EMPHASIZED
-            $printer->initialize();           
+            $printer->initialize();
             $printer->selectPrintMode(Escpos\Printer::MODE_EMPHASIZED);
             $printer->setUnderline(Escpos\Printer::UNDERLINE_DOUBLE);
             $printer->setJustification(Escpos\Printer::JUSTIFY_CENTER);
-            $printer -> setTextSize(1, 2);
+            $printer->setTextSize(1, 2);
             $printer->text("Klinik Ampel Sehat \n");
             $printer->text("\n");
 
             $printer->initialize();
             $printer->setJustification(Escpos\Printer::JUSTIFY_CENTER);
-            $printer -> setTextSize(1, 2);
+            $printer->setTextSize(1, 2);
             $printer->text("Nomor Antrian Nomor \n");
             $printer->text("\n");
 
@@ -147,23 +147,21 @@ class Pendaftaran extends CI_Controller
                 } else {
                     $kode_antrian = $this->M_pendaftaran->get_no_anak_anak_bp(); // generate
                 }
-                $printer->initialize();           
+                $printer->initialize();
                 $printer->selectPrintMode(Escpos\Printer::MODE_EMPHASIZED);
                 $printer->setJustification(Escpos\Printer::JUSTIFY_CENTER);
-                $printer -> setTextSize(3, 3);
-                $printer->text($kode_antrian." \n");
+                $printer->setTextSize(3, 3);
+                $printer->text($kode_antrian . " \n");
                 $printer->text("\n");
-            }
-            elseif ($layanan_tujuan == 'Poli KIA') {
+            } elseif ($layanan_tujuan == 'Poli KIA') {
                 $kode_antrian = $this->M_pendaftaran->get_no_kia(); // generate
-                $printer->initialize();           
+                $printer->initialize();
                 $printer->selectPrintMode(Escpos\Printer::MODE_EMPHASIZED);
                 $printer->setJustification(Escpos\Printer::JUSTIFY_CENTER);
-                $printer -> setTextSize(3, 3);
-                $printer->text($kode_antrian." \n");
+                $printer->setTextSize(3, 3);
+                $printer->text($kode_antrian . " \n");
                 $printer->text("\n");
-            }
-            elseif ($layanan_tujuan == 'Laboratorium') {
+            } elseif ($layanan_tujuan == 'Laboratorium') {
 
                 $tipe_antrian =  $this->input->post('tipe_antrian');
                 $kode_antrian = '';
@@ -173,26 +171,25 @@ class Pendaftaran extends CI_Controller
                 } else {
                     $kode_antrian = $this->M_pendaftaran->get_no_anak_anak_lab(); // generate
                 }
-                $printer->initialize();           
+                $printer->initialize();
                 $printer->selectPrintMode(Escpos\Printer::MODE_EMPHASIZED);
                 $printer->setJustification(Escpos\Printer::JUSTIFY_CENTER);
-                $printer -> setTextSize(3, 3);
-                $printer->text($kode_antrian." \n");
+                $printer->setTextSize(3, 3);
+                $printer->text($kode_antrian . " \n");
                 $printer->text("\n");
-            }
-            elseif($layanan_tujuan == 'UGD') {
-                $printer->initialize();           
+            } elseif ($layanan_tujuan == 'UGD') {
+                $printer->initialize();
                 $printer->selectPrintMode(Escpos\Printer::MODE_EMPHASIZED);
                 $printer->setJustification(Escpos\Printer::JUSTIFY_CENTER);
-                $printer -> setTextSize(3, 3);
+                $printer->setTextSize(3, 3);
                 $printer->text("UGD \n");
                 $printer->text("\n");
             }
-            
+
             $no_ref = $this->M_pendaftaran->get_no(); // generate
             $printer->initialize();
             $printer->setJustification(Escpos\Printer::JUSTIFY_CENTER);
-            $printer->text("No pelayanan : ".$no_ref." \n");
+            $printer->text("No pelayanan : " . $no_ref . " \n");
 
             $hari = hari_ini();
             $tgl_indo = tgl_indo($now);
@@ -200,8 +197,8 @@ class Pendaftaran extends CI_Controller
             $printer->initialize();
             $printer->setFont(Escpos\Printer::FONT_B);
             $printer->setJustification(Escpos\Printer::JUSTIFY_CENTER);
-            $printer->text($hari.",".$tgl_indo." ".$jam." \n");
-            
+            $printer->text($hari . "," . $tgl_indo . " " . $jam . " \n");
+
             /* ---------------------------------------------------------
             * Menyelesaikan printer
             */
@@ -209,7 +206,20 @@ class Pendaftaran extends CI_Controller
             $printer->close();
             $this->session->set_flashdata('pendaftaran', 'Ditambahkan');
             redirect('loket/pendaftaran');
-            
+        }
+    }
+
+    function get_autocomplete_no_rm()
+    {
+        $nilai = $this->input->post('nilai');
+
+        if (isset($nilai)) {
+            $result = $this->M_pendaftaran->search_autocomplete('no_rm', $nilai);
+            if (count($result) > 0) {
+                foreach ($result as $row)
+                    $arr_result[] = $row->no_rm;
+                echo json_encode($arr_result);
+            }
         }
     }
 }
