@@ -16,83 +16,6 @@ class Transaksi extends CI_Controller
         $data['record'] = $this->M_transaksi->get_data('data_pelayanan_pasien', $where)->result();
         $this->template->load('sim_klinik/template/balai_pengobatan', 'sim_klinik/konten/balai_pengobatan/transaksi/tambah', $data);
     }
-    public function tampil()
-    {
-        $select = $this->input->post('no_ref_pelayanan');
-        $record = $this->M_transaksi->tampil_join()->result();
-        $now = date('Y');
-        if ($select == "") {
-            echo '<table width="100%" class="responsive">
-                <tr>
-                    <td width="6%">
-                        <h5>Nama</h5>
-                    </td>
-                    <td width="2%">
-                        <h5>:</h5>
-                    </td>
-                    <td width="24%">
-                        <h5>-</h5>
-                    </td>
-                    <td width="6%">
-                        <h5>Umur</h5>
-                    </td>
-                    <td width="2%">
-                        <h5>:</h5>
-                    </td>
-                    <td width="19%">
-                        <h5>-</h5>
-                    </td>
-                    <td width="8%">
-                        <h5>Alamat</h5>
-                    </td>
-                    <td width="2%">
-                        <h5>:</h5>
-                    </td>
-                    <td width="22%">
-                        <h5>-</h5>
-                    </td>
-                </tr>
-            </table>';
-        }
-        foreach ($record as $data) {
-            $tahun_lahir = date('Y', strtotime($data->tgl_lahir));
-            $umur = $now - $tahun_lahir;
-
-            if ($select == $data->no_ref_pelayanan) {
-                echo '<table width="100%" class="responsive">
-                    <tr>
-                        <td width="6%">
-                            <h5>Nama</h5>
-                        </td>
-                        <td width="2%">
-                            <h5>:</h5>
-                        </td>
-                        <td width="24%">
-                            <h5>' . $data->nama . '</h5>
-                        </td>
-                        <td width="6%">
-                            <h5>Umur</h5>
-                        </td>
-                        <td width="2%">
-                            <h5>:</h5>
-                        </td>
-                        <td width="19%">
-                            <h5>' . $umur . ' Tahun</h5>
-                        </td>
-                        <td width="8%">
-                            <h5>Alamat</h5>
-                        </td>
-                        <td width="2%">
-                            <h5>:</h5>
-                        </td>
-                        <td width="22%">
-                            <h5>' . $data->alamat . '</h5>
-                        </td>
-                    </tr>
-                </table>';
-            }
-        }
-    }
 
     public function tampil_daftar_tindakan()
     {
@@ -124,19 +47,6 @@ class Transaksi extends CI_Controller
         }
 
         echo $total;
-    }
-
-    public function get_autocomplete()
-    {
-        $nilai = $this->input->post('nilai');
-        if (isset($nilai)) {
-        $result = $this->M_transaksi->search_autocomplete('no_ref_pelayanan', $nilai);
-        if (count($result) > 0) {
-        foreach ($result as $row)
-        $arr_result[] = $row->no_ref_pelayanan;
-        echo json_encode($arr_result);
-            }
-        }
     }
 
     public function input_transaksi_form()
@@ -192,6 +102,34 @@ class Transaksi extends CI_Controller
             }
         } else {
             echo "Harus Ada Detail Transaksi !!";
+        }
+    }
+
+    public function get_autocomplete()
+    {
+        $nilai = $this->input->post('nilai');
+        if (isset($nilai)) {
+            $result = $this->M_transaksi->search_autocomplete('pelayanan_tujuan_bp', 'no_ref_pelayanan', $nilai);
+            if (count($result) > 0) {
+                foreach ($result as $row)
+                    $arr_result[] = $row->no_ref_pelayanan;
+                echo json_encode($arr_result);
+            }
+        }
+    }
+
+    function get_pasien_by_no_ref_pelayanan()
+    {
+        $nilai = $this->input->post('nilai');
+        if (isset($nilai)) {
+
+            $where = array(
+                'no_ref_pelayanan' => $nilai
+            );
+
+            $data_tbl['tbl_data'] = $this->M_transaksi->get_data('data_pelayanan_pasien', $where)->result();
+            $data = json_encode($data_tbl);
+            echo $data;
         }
     }
 }
