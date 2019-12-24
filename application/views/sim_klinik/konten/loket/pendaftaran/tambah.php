@@ -260,6 +260,20 @@
 					}
 				});
 			});
+
+			$(".no_rmnya").on("autocompletesearch", function(event, ui) {
+				$("#nik").val("");
+				//$("#no_rm").val("");
+				$("#nama").val("");
+				$("#tempat_lahir").val("");
+				$("#alamat").val("");
+				$("#hari").val("01").change();
+				$("#bulan").val("01").change();
+				$("#tahun").val("1980").change();
+				$("#jenis_kelamin").prop("checked", true);
+				$("#jenis_kelamin2").prop("checked", false);
+			});
+
 			// end of untuk no_rm
 
 			// untuk NIK 
@@ -341,6 +355,19 @@
 						}
 					}
 				});
+			});
+
+			$(".niknya").on("autocompletesearch", function(event, ui) {
+				// $("#nik").val("");
+				// $("#no_rm").val("");
+				$("#nama").val("");
+				$("#tempat_lahir").val("");
+				$("#alamat").val("");
+				$("#hari").val("01").change();
+				$("#bulan").val("01").change();
+				$("#tahun").val("1980").change();
+				$("#jenis_kelamin").prop("checked", true);
+				$("#jenis_kelamin2").prop("checked", false);
 			});
 			// end of untuk NIK
 
