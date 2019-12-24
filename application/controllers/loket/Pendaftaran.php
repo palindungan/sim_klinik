@@ -204,8 +204,7 @@ class Pendaftaran extends CI_Controller
             */
             $printer->feed(4); // mencetak 2 baris kosong, agar kertas terangkat ke atas
             $printer->close();
-            $this->session->set_flashdata('pendaftaran', 'Ditambahkan');
-            redirect('loket/pendaftaran');
+            header('Location: loket/pendaftaran');
         }
     }
 
