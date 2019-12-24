@@ -37,7 +37,7 @@ class M_user extends CI_Model
         $field = "no_user_pegawai";
         $tabel = "user_pegawai";
         $digit = "3";
-        $kode = "U";
+        $kode = "P";
         $q = $this->db->query("SELECT MAX(RIGHT($field,$digit)) AS kd_max FROM $tabel");
         $kd = "";
         if ($q->num_rows() > 0) {

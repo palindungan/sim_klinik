@@ -37,7 +37,7 @@ class M_kamar extends CI_Model
         $field = "no_kamar_rawat_i";
         $tabel = "kamar_rawat_inap";
         $digit = "3";
-        $kode = "K";
+        $kode = "R";
         $q = $this->db->query("SELECT MAX(RIGHT($field,$digit)) AS kd_max FROM $tabel");
         $kd = "";
         if ($q->num_rows() > 0) {
@@ -46,7 +46,7 @@ class M_kamar extends CI_Model
         $kd = $kode . sprintf('%0' . $digit . 's', $tmp);
         }
         } else {
-        $kd = "K001";
+        $kd = "R001";
         }
         return $kd;
     }

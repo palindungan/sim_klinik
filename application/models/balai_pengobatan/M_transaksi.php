@@ -45,7 +45,7 @@ class M_transaksi extends CI_Model
         $field = "no_bp_t";
         $tabel = "bp_tindakan";
         $digit = "3";
-        $kode = "B";
+        $kode = "L";
         $q = $this->db->query("SELECT MAX(RIGHT($field,$digit)) AS kd_max FROM $tabel");
         $kd = "";
         if ($q->num_rows() > 0) {
@@ -54,7 +54,7 @@ class M_transaksi extends CI_Model
                 $kd = $kode . sprintf('%0' . $digit . 's', $tmp);
             }
         } else {
-            $kd = "B001";
+            $kd = "L001";
         }
         return $kd;
     }
