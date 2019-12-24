@@ -20,6 +20,11 @@
 						<?= form_error('no_rm'); ?>
 					</div>
 				</div>
+
+				<div class="form-group col-sm-1">
+					<input type="text" id="pilih_rm" class="form-control form-control-sm" value="no"></input>
+				</div>
+
 			</div>
 			<!-- <h5 class="h3 mb-2 text-gray-800">Biodata Pasien</h5> -->
 			<div class="form-row">
@@ -252,6 +257,8 @@
 								}
 
 							});
+
+							$("#pilih_rm").val("yes");
 						} else {
 
 							alert("Data Dengan Kode : " + id + " Tidak Ditemukan !");
@@ -262,6 +269,7 @@
 			});
 
 			$(".no_rmnya").on("autocompletesearch", function(event, ui) {
+				$("#pilih_rm").val("no");
 				$("#nik").val("");
 				//$("#no_rm").val("");
 				$("#nama").val("");
@@ -348,6 +356,8 @@
 								}
 
 							});
+
+							$("#pilih_rm").val("yes");
 						} else {
 
 							alert("Data Dengan Kode : " + id + " Tidak Ditemukan !");
@@ -360,6 +370,14 @@
 			$(".niknya").on("autocompletesearch", function(event, ui) {
 				// $("#nik").val("");
 				// $("#no_rm").val("");
+
+				if ($("#pilih_rm").val() == "yes") {
+
+					$("#no_rm").val("");
+					$("#pilih_rm").val("no");
+
+				}
+
 				$("#nama").val("");
 				$("#tempat_lahir").val("");
 				$("#alamat").val("");
@@ -368,6 +386,7 @@
 				$("#tahun").val("1980").change();
 				$("#jenis_kelamin").prop("checked", true);
 				$("#jenis_kelamin2").prop("checked", false);
+
 			});
 			// end of untuk NIK
 
