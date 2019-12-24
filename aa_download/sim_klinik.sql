@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 4.8.4
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Waktu pembuatan: 22 Des 2019 pada 13.21
--- Versi server: 10.4.6-MariaDB
--- Versi PHP: 7.3.9
+-- Host: 127.0.0.1
+-- Waktu pembuatan: 24 Des 2019 pada 23.12
+-- Versi server: 10.1.37-MariaDB
+-- Versi PHP: 7.3.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -682,6 +682,70 @@ CREATE TABLE `pelayanan_ambulan` (
 -- --------------------------------------------------------
 
 --
+-- Stand-in struktur untuk tampilan `pelayanan_tujuan_bp`
+-- (Lihat di bawah untuk tampilan aktual)
+--
+CREATE TABLE `pelayanan_tujuan_bp` (
+`no_ref_pelayanan` char(10)
+,`no_rm` varchar(25)
+,`no_user_pegawai` char(4)
+,`layanan_tujuan` enum('Balai Pengobatan','Poli KIA','Laboratorium','UGD')
+,`tipe_antrian` enum('Dewasa','Anak-Anak')
+,`tgl_pelayanan` datetime
+,`status` enum('belum_finish','finish')
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in struktur untuk tampilan `pelayanan_tujuan_kia`
+-- (Lihat di bawah untuk tampilan aktual)
+--
+CREATE TABLE `pelayanan_tujuan_kia` (
+`no_ref_pelayanan` char(10)
+,`no_rm` varchar(25)
+,`no_user_pegawai` char(4)
+,`layanan_tujuan` enum('Balai Pengobatan','Poli KIA','Laboratorium','UGD')
+,`tipe_antrian` enum('Dewasa','Anak-Anak')
+,`tgl_pelayanan` datetime
+,`status` enum('belum_finish','finish')
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in struktur untuk tampilan `pelayanan_tujuan_lab`
+-- (Lihat di bawah untuk tampilan aktual)
+--
+CREATE TABLE `pelayanan_tujuan_lab` (
+`no_ref_pelayanan` char(10)
+,`no_rm` varchar(25)
+,`no_user_pegawai` char(4)
+,`layanan_tujuan` enum('Balai Pengobatan','Poli KIA','Laboratorium','UGD')
+,`tipe_antrian` enum('Dewasa','Anak-Anak')
+,`tgl_pelayanan` datetime
+,`status` enum('belum_finish','finish')
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in struktur untuk tampilan `pelayanan_tujuan_ugd`
+-- (Lihat di bawah untuk tampilan aktual)
+--
+CREATE TABLE `pelayanan_tujuan_ugd` (
+`no_ref_pelayanan` char(10)
+,`no_rm` varchar(25)
+,`no_user_pegawai` char(4)
+,`layanan_tujuan` enum('Balai Pengobatan','Poli KIA','Laboratorium','UGD')
+,`tipe_antrian` enum('Dewasa','Anak-Anak')
+,`tgl_pelayanan` datetime
+,`status` enum('belum_finish','finish')
+);
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `penerimaan_obat`
 --
 
@@ -876,7 +940,7 @@ INSERT INTO `user_pegawai` (`no_user_pegawai`, `nama`, `jenis_akses`, `username`
 --
 DROP TABLE IF EXISTS `antrian_balai_pengobatan_prioritas`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_balai_pengobatan_prioritas`  AS  select `abps`.`kode_antrian_bp` AS `kode_antrian_bp`,`abps`.`nama` AS `nama`,`abps`.`status` AS `status`,`abps`.`no_antrian` AS `no_antrian` from `antrian_balai_pengobatan_semua` `abps` where `abps`.`status` = 'Prioritas' order by `abps`.`no_antrian` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_balai_pengobatan_prioritas`  AS  select `abps`.`kode_antrian_bp` AS `kode_antrian_bp`,`abps`.`nama` AS `nama`,`abps`.`status` AS `status`,`abps`.`no_antrian` AS `no_antrian` from `antrian_balai_pengobatan_semua` `abps` where (`abps`.`status` = 'Prioritas') order by `abps`.`no_antrian` ;
 
 -- --------------------------------------------------------
 
@@ -885,7 +949,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `antrian_balai_pengobatan_semua`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_balai_pengobatan_semua`  AS  select `ab`.`kode_antrian_bp` AS `kode_antrian_bp`,`pa`.`nama` AS `nama`,`ab`.`status` AS `status`,right(`ab`.`kode_antrian_bp`,3) AS `no_antrian` from ((`antrian_bp` `ab` join `pelayanan` `pe` on(`ab`.`no_ref_pelayanan` = `pe`.`no_ref_pelayanan`)) join `pasien` `pa` on(`pe`.`no_rm` = `pa`.`no_rm`)) order by right(`ab`.`kode_antrian_bp`,3) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_balai_pengobatan_semua`  AS  select `ab`.`kode_antrian_bp` AS `kode_antrian_bp`,`pa`.`nama` AS `nama`,`ab`.`status` AS `status`,right(`ab`.`kode_antrian_bp`,3) AS `no_antrian` from ((`antrian_bp` `ab` join `pelayanan` `pe` on((`ab`.`no_ref_pelayanan` = `pe`.`no_ref_pelayanan`))) join `pasien` `pa` on((`pe`.`no_rm` = `pa`.`no_rm`))) order by right(`ab`.`kode_antrian_bp`,3) ;
 
 -- --------------------------------------------------------
 
@@ -894,7 +958,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `antrian_balai_pengobatan_tersisa`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_balai_pengobatan_tersisa`  AS  select `abps`.`kode_antrian_bp` AS `kode_antrian_bp`,`abps`.`nama` AS `nama`,`abps`.`status` AS `status`,`abps`.`no_antrian` AS `no_antrian` from `antrian_balai_pengobatan_semua` `abps` where `abps`.`status` <> 'Selesai' and `abps`.`status` <> 'Diperiksa' order by `abps`.`no_antrian` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_balai_pengobatan_tersisa`  AS  select `abps`.`kode_antrian_bp` AS `kode_antrian_bp`,`abps`.`nama` AS `nama`,`abps`.`status` AS `status`,`abps`.`no_antrian` AS `no_antrian` from `antrian_balai_pengobatan_semua` `abps` where ((`abps`.`status` <> 'Selesai') and (`abps`.`status` <> 'Diperiksa')) order by `abps`.`no_antrian` ;
 
 -- --------------------------------------------------------
 
@@ -903,7 +967,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `antrian_kesehatan_ibu_dan_anak_semua`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_kesehatan_ibu_dan_anak_semua`  AS  select `kia`.`kode_antrian_kia` AS `kode_antrian_kia`,`pa`.`nama` AS `nama`,`kia`.`status` AS `status`,right(`kia`.`kode_antrian_kia`,3) AS `no_antrian` from ((`antrian_kia` `kia` join `pelayanan` `pe` on(`kia`.`no_ref_pelayanan` = `pe`.`no_ref_pelayanan`)) join `pasien` `pa` on(`pe`.`no_rm` = `pa`.`no_rm`)) order by right(`kia`.`kode_antrian_kia`,3) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_kesehatan_ibu_dan_anak_semua`  AS  select `kia`.`kode_antrian_kia` AS `kode_antrian_kia`,`pa`.`nama` AS `nama`,`kia`.`status` AS `status`,right(`kia`.`kode_antrian_kia`,3) AS `no_antrian` from ((`antrian_kia` `kia` join `pelayanan` `pe` on((`kia`.`no_ref_pelayanan` = `pe`.`no_ref_pelayanan`))) join `pasien` `pa` on((`pe`.`no_rm` = `pa`.`no_rm`))) order by right(`kia`.`kode_antrian_kia`,3) ;
 
 -- --------------------------------------------------------
 
@@ -912,7 +976,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `antrian_kesehatan_ibu_dan_anak_tersisa`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_kesehatan_ibu_dan_anak_tersisa`  AS  select `x`.`kode_antrian_kia` AS `kode_antrian_kia`,`x`.`nama` AS `nama`,`x`.`status` AS `status`,`x`.`no_antrian` AS `no_antrian` from `antrian_kesehatan_ibu_dan_anak_semua` `x` where `x`.`status` <> 'Selesai' and `x`.`status` <> 'Diperiksa' order by `x`.`no_antrian` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_kesehatan_ibu_dan_anak_tersisa`  AS  select `x`.`kode_antrian_kia` AS `kode_antrian_kia`,`x`.`nama` AS `nama`,`x`.`status` AS `status`,`x`.`no_antrian` AS `no_antrian` from `antrian_kesehatan_ibu_dan_anak_semua` `x` where ((`x`.`status` <> 'Selesai') and (`x`.`status` <> 'Diperiksa')) order by `x`.`no_antrian` ;
 
 -- --------------------------------------------------------
 
@@ -921,7 +985,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `antrian_laboratorium_prioritas`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_laboratorium_prioritas`  AS  select `lap`.`kode_antrian_lab` AS `kode_antrian_lab`,`lap`.`nama` AS `nama`,`lap`.`status` AS `status`,`lap`.`no_antrian` AS `no_antrian` from `antrian_laboratorium_semua` `lap` where `lap`.`status` = 'Prioritas' order by `lap`.`no_antrian` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_laboratorium_prioritas`  AS  select `lap`.`kode_antrian_lab` AS `kode_antrian_lab`,`lap`.`nama` AS `nama`,`lap`.`status` AS `status`,`lap`.`no_antrian` AS `no_antrian` from `antrian_laboratorium_semua` `lap` where (`lap`.`status` = 'Prioritas') order by `lap`.`no_antrian` ;
 
 -- --------------------------------------------------------
 
@@ -930,7 +994,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `antrian_laboratorium_semua`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_laboratorium_semua`  AS  select `lab`.`kode_antrian_lab` AS `kode_antrian_lab`,`pa`.`nama` AS `nama`,`lab`.`status` AS `status`,right(`lab`.`kode_antrian_lab`,3) AS `no_antrian` from ((`antrian_lab` `lab` join `pelayanan` `pe` on(`lab`.`no_ref_pelayanan` = `pe`.`no_ref_pelayanan`)) join `pasien` `pa` on(`pe`.`no_rm` = `pa`.`no_rm`)) order by right(`lab`.`kode_antrian_lab`,3) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_laboratorium_semua`  AS  select `lab`.`kode_antrian_lab` AS `kode_antrian_lab`,`pa`.`nama` AS `nama`,`lab`.`status` AS `status`,right(`lab`.`kode_antrian_lab`,3) AS `no_antrian` from ((`antrian_lab` `lab` join `pelayanan` `pe` on((`lab`.`no_ref_pelayanan` = `pe`.`no_ref_pelayanan`))) join `pasien` `pa` on((`pe`.`no_rm` = `pa`.`no_rm`))) order by right(`lab`.`kode_antrian_lab`,3) ;
 
 -- --------------------------------------------------------
 
@@ -939,7 +1003,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `antrian_laboratorium_tersisa`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_laboratorium_tersisa`  AS  select `lap`.`kode_antrian_lab` AS `kode_antrian_lab`,`lap`.`nama` AS `nama`,`lap`.`status` AS `status`,`lap`.`no_antrian` AS `no_antrian` from `antrian_laboratorium_semua` `lap` where `lap`.`status` <> 'Selesai' and `lap`.`status` <> 'Diperiksa' order by `lap`.`no_antrian` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_laboratorium_tersisa`  AS  select `lap`.`kode_antrian_lab` AS `kode_antrian_lab`,`lap`.`nama` AS `nama`,`lap`.`status` AS `status`,`lap`.`no_antrian` AS `no_antrian` from `antrian_laboratorium_semua` `lap` where ((`lap`.`status` <> 'Selesai') and (`lap`.`status` <> 'Diperiksa')) order by `lap`.`no_antrian` ;
 
 -- --------------------------------------------------------
 
@@ -948,7 +1012,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `data_obat`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `data_obat`  AS  select `o`.`kode_obat` AS `kode_obat`,`o`.`nama` AS `nama_obat`,`o`.`min_stok` AS `min_stok`,`o`.`harga_jual` AS `harga_jual`,`ko`.`no_kat_obat` AS `no_kat_obat`,`ko`.`nama` AS `nama_kategori` from (`obat` `o` join `kategori_obat` `ko` on(`o`.`no_kat_obat` = `ko`.`no_kat_obat`)) order by `o`.`nama` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `data_obat`  AS  select `o`.`kode_obat` AS `kode_obat`,`o`.`nama` AS `nama_obat`,`o`.`min_stok` AS `min_stok`,`o`.`harga_jual` AS `harga_jual`,`ko`.`no_kat_obat` AS `no_kat_obat`,`ko`.`nama` AS `nama_kategori` from (`obat` `o` join `kategori_obat` `ko` on((`o`.`no_kat_obat` = `ko`.`no_kat_obat`))) order by `o`.`nama` ;
 
 -- --------------------------------------------------------
 
@@ -957,7 +1021,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `data_pelayanan_pasien`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `data_pelayanan_pasien`  AS  select `pe`.`no_ref_pelayanan` AS `no_ref_pelayanan`,`pe`.`layanan_tujuan` AS `layanan_tujuan`,`pe`.`tipe_antrian` AS `tipe_antrian`,`pe`.`tgl_pelayanan` AS `tgl_pelayanan`,`pa`.`nama` AS `nama`,`pa`.`tgl_lahir` AS `tgl_lahir`,`pa`.`alamat` AS `alamat`,`pe`.`status` AS `status` from (`pelayanan` `pe` join `pasien` `pa` on(`pe`.`no_rm` = `pa`.`no_rm`)) where `pe`.`tgl_pelayanan` = curdate() order by `pe`.`no_ref_pelayanan` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `data_pelayanan_pasien`  AS  select `pe`.`no_ref_pelayanan` AS `no_ref_pelayanan`,`pe`.`layanan_tujuan` AS `layanan_tujuan`,`pe`.`tipe_antrian` AS `tipe_antrian`,`pe`.`tgl_pelayanan` AS `tgl_pelayanan`,`pa`.`nama` AS `nama`,`pa`.`tgl_lahir` AS `tgl_lahir`,`pa`.`alamat` AS `alamat`,`pe`.`status` AS `status` from (`pelayanan` `pe` join `pasien` `pa` on((`pe`.`no_rm` = `pa`.`no_rm`))) where (`pe`.`status` = 'belum_finish') order by `pe`.`no_ref_pelayanan` ;
 
 -- --------------------------------------------------------
 
@@ -966,7 +1030,43 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `data_stok_obat_apotek`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `data_stok_obat_apotek`  AS  select `soa`.`no_stok_obat_a` AS `no_stok_obat_a`,`soa`.`harga_supplier` AS `harga_supplier`,`soa`.`qty_sekarang` AS `qty_sekarang`,`po`.`tgl_penerimaan_o` AS `tgl_penerimaan_o`,`o`.`kode_obat` AS `kode_obat`,`o`.`nama` AS `nama_obat`,`o`.`harga_jual` AS `harga_jual`,`ko`.`no_kat_obat` AS `no_kat_obat`,`ko`.`nama` AS `nama_kategori` from (((`stok_obat_apotik` `soa` join `penerimaan_obat` `po` on(`soa`.`no_penerimaan_o` = `po`.`no_penerimaan_o`)) join `obat` `o` on(`soa`.`kode_obat` = `o`.`kode_obat`)) join `kategori_obat` `ko` on(`o`.`no_kat_obat` = `ko`.`no_kat_obat`)) order by `po`.`tgl_penerimaan_o` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `data_stok_obat_apotek`  AS  select `soa`.`no_stok_obat_a` AS `no_stok_obat_a`,`soa`.`harga_supplier` AS `harga_supplier`,`soa`.`qty_sekarang` AS `qty_sekarang`,`po`.`tgl_penerimaan_o` AS `tgl_penerimaan_o`,`o`.`kode_obat` AS `kode_obat`,`o`.`nama` AS `nama_obat`,`o`.`harga_jual` AS `harga_jual`,`ko`.`no_kat_obat` AS `no_kat_obat`,`ko`.`nama` AS `nama_kategori` from (((`stok_obat_apotik` `soa` join `penerimaan_obat` `po` on((`soa`.`no_penerimaan_o` = `po`.`no_penerimaan_o`))) join `obat` `o` on((`soa`.`kode_obat` = `o`.`kode_obat`))) join `kategori_obat` `ko` on((`o`.`no_kat_obat` = `ko`.`no_kat_obat`))) order by `po`.`tgl_penerimaan_o` ;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur untuk view `pelayanan_tujuan_bp`
+--
+DROP TABLE IF EXISTS `pelayanan_tujuan_bp`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `pelayanan_tujuan_bp`  AS  select `p`.`no_ref_pelayanan` AS `no_ref_pelayanan`,`p`.`no_rm` AS `no_rm`,`p`.`no_user_pegawai` AS `no_user_pegawai`,`p`.`layanan_tujuan` AS `layanan_tujuan`,`p`.`tipe_antrian` AS `tipe_antrian`,`p`.`tgl_pelayanan` AS `tgl_pelayanan`,`p`.`status` AS `status` from `pelayanan` `p` where ((`p`.`layanan_tujuan` = 'Balai Pengobatan') and (`p`.`status` = 'belum_finish')) order by `p`.`no_ref_pelayanan` ;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur untuk view `pelayanan_tujuan_kia`
+--
+DROP TABLE IF EXISTS `pelayanan_tujuan_kia`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `pelayanan_tujuan_kia`  AS  select `p`.`no_ref_pelayanan` AS `no_ref_pelayanan`,`p`.`no_rm` AS `no_rm`,`p`.`no_user_pegawai` AS `no_user_pegawai`,`p`.`layanan_tujuan` AS `layanan_tujuan`,`p`.`tipe_antrian` AS `tipe_antrian`,`p`.`tgl_pelayanan` AS `tgl_pelayanan`,`p`.`status` AS `status` from `pelayanan` `p` where ((`p`.`layanan_tujuan` = 'Poli KIA') and (`p`.`status` = 'belum_finish')) order by `p`.`no_ref_pelayanan` ;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur untuk view `pelayanan_tujuan_lab`
+--
+DROP TABLE IF EXISTS `pelayanan_tujuan_lab`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `pelayanan_tujuan_lab`  AS  select `p`.`no_ref_pelayanan` AS `no_ref_pelayanan`,`p`.`no_rm` AS `no_rm`,`p`.`no_user_pegawai` AS `no_user_pegawai`,`p`.`layanan_tujuan` AS `layanan_tujuan`,`p`.`tipe_antrian` AS `tipe_antrian`,`p`.`tgl_pelayanan` AS `tgl_pelayanan`,`p`.`status` AS `status` from `pelayanan` `p` where ((`p`.`layanan_tujuan` = 'Laboratorium') and (`p`.`status` = 'belum_finish')) order by `p`.`no_ref_pelayanan` ;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur untuk view `pelayanan_tujuan_ugd`
+--
+DROP TABLE IF EXISTS `pelayanan_tujuan_ugd`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `pelayanan_tujuan_ugd`  AS  select `p`.`no_ref_pelayanan` AS `no_ref_pelayanan`,`p`.`no_rm` AS `no_rm`,`p`.`no_user_pegawai` AS `no_user_pegawai`,`p`.`layanan_tujuan` AS `layanan_tujuan`,`p`.`tipe_antrian` AS `tipe_antrian`,`p`.`tgl_pelayanan` AS `tgl_pelayanan`,`p`.`status` AS `status` from `pelayanan` `p` where ((`p`.`layanan_tujuan` = 'UGD') and (`p`.`status` = 'belum_finish')) order by `p`.`no_ref_pelayanan` ;
 
 --
 -- Indexes for dumped tables
