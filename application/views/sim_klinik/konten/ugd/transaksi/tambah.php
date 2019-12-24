@@ -1,5 +1,5 @@
-<?php if($this->session->flashdata('success')) : ?>
-<div class="pesan-sukses" data-flashdata="<?= $this->session->flashdata('success'); ?>"></div>
+<?php if ($this->session->flashdata('success')) : ?>
+	<div class="pesan-sukses" data-flashdata="<?= $this->session->flashdata('success'); ?>"></div>
 <?php endif; ?>
 <div class="container-fluid">
 	<div class="card shadow mb-4">
@@ -11,8 +11,7 @@
 				<div class="form-row">
 					<div class="form-group col-sm-4">
 						<label for="">No Ref Pelayanan</label>
-						<input type="text" name="no_ref_pelayanan" class="form-control form-control-sm nama_nya"
-							required>
+						<input type="text" name="no_ref_pelayanan" class="form-control form-control-sm no_refnya" required>
 					</div>
 				</div>
 
@@ -20,6 +19,38 @@
 					<div class="form-group col-sm-12">
 						<label>Biodata Pasien</label>
 						<div id="muncul">
+
+							<table width="100%" class="responsive">
+								<tr>
+									<td width="6%">
+										<h5>Nama</h5>
+									</td>
+									<td width="2%">
+										<h5>:</h5>
+									</td>
+									<td width="24%">
+										<h5 id="txt_nama"></h5>
+									</td>
+									<td width="6%">
+										<h5>Umur</h5>
+									</td>
+									<td width="2%">
+										<h5>:</h5>
+									</td>
+									<td width="19%">
+										<h5 id="txt_umur"></h5>
+									</td>
+									<td width="8%">
+										<h5>Alamat</h5>
+									</td>
+									<td width="2%">
+										<h5>:</h5>
+									</td>
+									<td width="22%">
+										<h5 id="txt_alamat"></h5>
+									</td>
+								</tr>
+							</table>
 						</div>
 					</div>
 				</div>
@@ -27,8 +58,7 @@
 				<div class="form-row">
 
 					<div class="form-group col-sm-12">
-						<a href="#" id="btn_search" class="btn btn-sm btn-primary btn-icon-split" data-toggle="modal"
-							data-target="#exampleModalCenter">
+						<a href="#" id="btn_search" class="btn btn-sm btn-primary btn-icon-split" data-toggle="modal" data-target="#exampleModalCenter">
 							<span class="icon text-white-50">
 								<i class="fas fa-search-plus"></i>
 							</span>
@@ -55,14 +85,11 @@
 					<div class="form-group col-sm-5"> </div>
 
 					<div class="form-group col-sm-5">
-						<input type="text" readonly name="total_harga"
-							class="form-control form-control-sm rupiah text-right" id="total_harga" placeholder="Total"
-							required>
+						<input type="text" readonly name="total_harga" class="form-control form-control-sm rupiah text-right" id="total_harga" placeholder="Total" required>
 					</div>
 
 					<div class="form-group col-sm-2">
-						<button id="action" type="submit" class="btn btn-sm btn-success btn-icon-split"
-							onclick="return confirm('Lakukan Simpan Data ?')">
+						<button id="action" type="submit" class="btn btn-sm btn-success btn-icon-split" onclick="return confirm('Lakukan Simpan Data ?')">
 							<span class="icon text-white-50">
 								<i class="fas fa-save"></i>
 							</span>
@@ -79,8 +106,7 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade  bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog"
-	aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade  bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -112,15 +138,15 @@
 <script src="<?= base_url(); ?>assets/sb_admin_2/vendor/jquery/jquery-3.4.1.min.js"></script>
 
 <script>
-	$(document).ready(function () {
+	$(document).ready(function() {
 		auto_complete();
 
 	});
 
 	function auto_complete() {
-		$(function () {
-			$(".nama_nya").autocomplete({
-				source: function (request, response) {
+		$(function() {
+			$(".no_refnya").autocomplete({
+				source: function(request, response) {
 					// Fetch data
 					$.ajax({
 						url: "<?php echo base_url() . 'ugd/transaksi/get_autocomplete'; ?>",
@@ -129,35 +155,67 @@
 						data: {
 							nilai: request.term
 						},
-						success: function (data) {
+						success: function(data) {
 							response(data);
 						}
 					});
-				}
+				},
+				select: function(event, ui) {},
+			});
+
+			$(".no_refnya").on("autocompleteselect", function(event, ui) {
+
+				var id = ui.item.value
+
+				// Fetch data
+				$.ajax({
+					url: "<?php echo base_url() . 'ugd/transaksi/get_pasien_by_no_ref_pelayanan'; ?>",
+					type: 'post',
+					data: {
+						nilai: id
+					},
+					success: function(hasil) {
+
+						// parse
+						var obj = JSON.parse(hasil);
+						let data = obj['tbl_data'];
+
+						if (data != '') {
+
+							$.each(data, function(i, item) {
+
+								var nama = data[i].nama;
+								var alamat = data[i].alamat;
+								var tgl_lahir = data[i].tgl_lahir;
+
+								// parse
+								var tahun = tgl_lahir.substring(0, 4);
+
+								var date = new Date();
+								var year = date.getFullYear();
+
+								var umur = year - tahun;
+
+								$("#txt_nama").html(nama);
+								$("#txt_alamat").html(alamat);
+								$("#txt_umur").html(umur);
+							});
+						} else {
+
+							alert("Data Dengan Kode : " + id + " Tidak Ditemukan !");
+
+						}
+					}
+				});
+			});
+
+			$(".no_refnya").on("autocompletesearch", function(event, ui) {
+				$("#txt_nama").html("");
+				$("#txt_alamat").html("");
+				$("#txt_umur").html("");
 			});
 		});
 	}
-
-</script>
-<script>
-	hari_ini();
-	$(document).on('change', '#xx', function (event) {
-		event.preventDefault();
-		hari_ini();
-	});
-
-	function hari_ini() {
-		var form_data = $("#transaksi_form").serialize();
-		$.ajax({
-			url: "<?php echo base_url(); ?>ugd/transaksi/tampil",
-			method: "POST",
-			data: form_data,
-			success: function (data) {
-				$("#muncul").html(data);
-			}
-		});
-	}
-
 </script>
 
 <script>
@@ -165,12 +223,12 @@
 	var jumlah_detail_transaksi = 0;
 
 	// jika kita tekan / click button search-button
-	$('#btn_search').on('click', function () {
+	$('#btn_search').on('click', function() {
 		search_proses();
 	});
 
 	// jika kita tekan hapus / click button
-	$(document).on('click', '.remove_baris', function () {
+	$(document).on('click', '.remove_baris', function() {
 		var row_no = $(this).attr("id");
 		$('#row' + row_no).remove();
 
@@ -180,12 +238,12 @@
 	});
 
 	// jika kita mengubah class inputan rupiah
-	$(document).on('keyup', '.rupiah', function () {
+	$(document).on('keyup', '.rupiah', function() {
 		update_total();
 	});
 
 	// jika di click simpan / submit
-	$(document).on('submit', '#transaksi_form', function (event) {
+	$(document).on('submit', '#transaksi_form', function(event) {
 		event.preventDefault();
 
 		// mengambil nilai di dalam form
@@ -196,7 +254,7 @@
 			url: "<?php echo base_url() . 'ugd/transaksi/input_transaksi_form'; ?>",
 			method: "POST",
 			data: form_data,
-			success: function (data) {
+			success: function(data) {
 				alert(data);
 				location.reload();
 			}
@@ -215,7 +273,7 @@
 
 		$.ajax({
 			url: "<?php echo base_url() . 'ugd/transaksi/tampil_daftar_tindakan'; ?>",
-			success: function (hasil) {
+			success: function(hasil) {
 
 				var obj = JSON.parse(hasil);
 				let data = obj['tbl_data'];
@@ -224,7 +282,7 @@
 
 					var no = 1;
 
-					$.each(data, function (i, item) {
+					$.each(data, function(i, item) {
 
 						var kode = data[i].no_ugd_t;
 						var nama = data[i].nama;
@@ -303,7 +361,7 @@
 			url: "<?php echo base_url() . 'ugd/transaksi/ambil_total'; ?>",
 			method: "POST",
 			data: form_data,
-			success: function (data) {
+			success: function(data) {
 				$('#total_harga').val(data);
 				$('.rupiah').trigger('input'); // Will be display 
 			}
@@ -317,5 +375,4 @@
 			reverse: true
 		});
 	}
-
 </script>
