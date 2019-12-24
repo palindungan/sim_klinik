@@ -24,15 +24,9 @@ class Pendaftaran extends CI_Controller
         $tgl_lahir = $tahun . "-" . $bulan . "-" . $hari;
         $lama = selisihHari($tgl_lahir, $now);
         $this->form_validation->set_message('cek_umur', 'Umur pasien kurang dari 1 hari');
-        $this->form_validation->set_message('cek_rm', 'No.Rm tersebut sudah ada');
         $this->form_validation->set_rules('no_rm', 'No. RM', 'required');
 
         $no_rm = $this->input->post('no_rm');
-        $db = $this->db->query("SELECT COUNT(*) as jml_rm FROM pasien WHERE no_rm='$no_rm'")->row();
-        $rm_db = $db->jml_rm;
-        if ($rm_db > 0) {
-            $this->form_validation->set_rules('no_rm', 'No. Rm tersebut sudah ada', 'cek_rm');
-        }
         if ($lama < 0) {
             $this->form_validation->set_rules('hari', 'Error aja', 'cek_umur');
         }
@@ -52,7 +46,6 @@ class Pendaftaran extends CI_Controller
                 'tipe_antrian' => $this->input->post('tipe_antrian'),
                 'tgl_pelayanan' => $sekarang
             );
-
             $data_pasien = array(
                 'no_rm' => $this->input->post('no_rm'),
                 'nama' => $this->input->post('nama'),
@@ -63,8 +56,18 @@ class Pendaftaran extends CI_Controller
                 'alamat' => $this->input->post('alamat')
             );
 
-            $this->M_pendaftaran->input_data('pelayanan', $data_pelayanan);
-            $this->M_pendaftaran->input_data('pasien', $data_pasien);
+            $db = $this->db->query("SELECT COUNT(*) as jml_rm FROM pasien WHERE no_rm='$no_rm'")->row();
+            $rm_db = $db->jml_rm;
+            if ($rm_db > 0) {
+                $this->M_pendaftaran->input_data('pelayanan', $data_pelayanan);
+                
+            } 
+            else {
+                $this->M_pendaftaran->input_data('pelayanan', $data_pelayanan);
+                $this->M_pendaftaran->input_data('pasien', $data_pasien);
+            }
+            
+
 
             // logic antrian
             $layanan_tujuan = $this->input->post('layanan_tujuan');

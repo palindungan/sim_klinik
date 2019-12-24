@@ -16,13 +16,13 @@
 					<input type="text" name="no_rm" value="<?= set_value('no_rm') ?>" class="no_rmnya form-control form-control-sm <?php if (form_error('no_rm') == true) {
 																																		echo "is-invalid";
 																																	} ?>" id="no_rm" placeholder="No RM">
-					<div class="invalid-feedback">
-						<?= form_error('no_rm'); ?>
-					</div>
+																																	<div class="invalid-feedback">
+									<?= form_error('no_rm'); ?>
+								</div>
 				</div>
 
 				<div class="form-group col-sm-1">
-					<input type="text" id="pilih_rm" class="form-control form-control-sm" value="no"></input>
+					<input type="hidden" id="pilih_rm" class="form-control form-control-sm" value="no"></input>
 				</div>
 
 			</div>
