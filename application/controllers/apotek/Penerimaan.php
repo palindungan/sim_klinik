@@ -91,7 +91,6 @@ class Penerimaan extends CI_Controller
                     );
 
                     $status = $this->M_penerimaan->input_data('stok_obat_apotik', $data);
-
                 }
 
                 if ($status) {
@@ -105,5 +104,27 @@ class Penerimaan extends CI_Controller
         } else {
             echo "Harus Ada Detail Transaksi !!";
         }
+    }
+
+    public function tampil_daftar_penerimaan_obat()
+    {
+        $data['record'] = $this->M_penerimaan->tampil_data('daftar_penerimaan_obat_apotek')->result();
+
+        $this->template->load('sim_klinik/template/apotek', 'sim_klinik/konten/apotek/history/penerimaan/tampil', $data);
+    }
+
+    public function tampil_detail_daftar_penerimaan_obat()
+    {
+        $no_penerimaan_obat_a = $this->input->get('no_penerimaan_obat_a');
+
+        $where = array(
+            'no_penerimaan_obat_a' => $no_penerimaan_obat_a
+        );
+
+        $data['record'] = $this->M_penerimaan->get_data('daftar_penerimaan_obat_apotek', $where)->result();
+
+        $data['detail_record'] = $this->M_penerimaan->get_data('daftar_penerimaan_obat_apotek_detail', $where)->result();
+
+        $this->template->load('sim_klinik/template/apotek', 'sim_klinik/konten/apotek/history/penerimaan/detail', $data);
     }
 }

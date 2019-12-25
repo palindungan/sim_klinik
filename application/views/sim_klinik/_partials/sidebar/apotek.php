@@ -58,8 +58,8 @@
 		<div id="collapseTwo2" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 			<div class="bg-white py-2 collapse-inner rounded">
 				<a class="collapse-item " href="<?= base_url('apotek/penjualan_obat/tampil_daftar_penjualan_obat'); ?>">Penjualan Obat</a>
-				<a class="collapse-item" href="<?= base_url('apotek/kategori_obat'); ?>">Penerimaan Obat</a>
-				<a class="collapse-item" href="<?= base_url('apotek/kategori_obat'); ?>">Transfer Obat</a>
+				<a class="collapse-item" href="<?= base_url('apotek/penerimaan/tampil_daftar_penerimaan_obat'); ?>">Penerimaan Obat</a>
+				<a class="collapse-item" href="<?= base_url('apotek/pengiriman_obat/tampil_daftar_pengiriman_obat'); ?>">Transfer Obat</a>
 			</div>
 		</div>
 	</li>
