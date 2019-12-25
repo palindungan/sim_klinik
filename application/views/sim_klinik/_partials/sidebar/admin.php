@@ -15,22 +15,10 @@
 	<div class="sidebar-heading">
 		Sistem Informasi Klinik
 	</div>
-
-	<!-- Nav Item - Charts -->
 	<li class="nav-item">
-		<a class="nav-link" href="<?= base_url('admin/kamar'); ?>">
+		<a class="nav-link" href="<?= base_url('admin/pasien'); ?>">
 			<i class="far fa-address-card"></i>
-			<span>Kamar</span></a>
-	</li>
-	<li class="nav-item">
-		<a class="nav-link" href="<?= base_url('admin/supplier'); ?>">
-			<i class="far fa-address-card"></i>
-			<span>Supplier</span></a>
-	</li>
-	<li class="nav-item">
-		<a class="nav-link" href="<?= base_url('admin/user'); ?>">
-			<i class="far fa-address-card"></i>
-			<span>User</span></a>
+			<span>Pasien</span></a>
 	</li>
 
 	<!-- Heading -->
@@ -58,6 +46,26 @@
 		<a class="nav-link" href="<?= base_url('laboratorium/checkup'); ?>">
 			<i class="fas fa-sort-amount-down-alt"></i>
 			<span>Tindakan Laboratorium</span></a>
+	</li>
+
+	<div class="sidebar-heading">
+		Data Master
+	</div>
+	<!-- Nav Item - Charts -->
+	<li class="nav-item">
+		<a class="nav-link" href="<?= base_url('admin/kamar'); ?>">
+			<i class="far fa-address-card"></i>
+			<span>Kamar</span></a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="<?= base_url('admin/supplier'); ?>">
+			<i class="far fa-address-card"></i>
+			<span>Supplier</span></a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="<?= base_url('admin/user'); ?>">
+			<i class="far fa-address-card"></i>
+			<span>User</span></a>
 	</li>
 
 	<!-- Divider -->

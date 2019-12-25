@@ -155,7 +155,8 @@
 			<div class="form-row">
 				<div class="form-group col-sm-6">
 					<label for="inputEmail3">Layanan Tujuan</label>
-					<select name="layanan_tujuan" class="form-control form-control-sm" id="exampleFormControlSelect1">
+					<select name="layanan_tujuan" class="form-control form-control-sm" id="exampleFormControlSelect1" required>
+						<option value="">---Pilih Layanan Tujuan--</option>
 						<option value="Balai Pengobatan" <?= set_select('layanan_tujuan', 'Balai Pengobatan'); ?>>Balai
 							Pengobatan
 						</option>
@@ -167,7 +168,8 @@
 				</div>
 				<div class="form-group col-sm-6">
 					<label for="inputEmail4">Tipe Antrian</label>
-					<select name="tipe_antrian" class="form-control form-control-sm" id="exampleFormControlSelect1">
+					<select name="tipe_antrian" class="form-control form-control-sm" id="exampleFormControlSelect1" required>
+						<option value="">---Pilih Tipe Antrian--</option>
 						<option value="Dewasa" <?= set_select('tipe_antrian', 'Dewasa'); ?>>Dewasa</option>
 						<option value="Anak-Anak" <?= set_select('tipe_antrian', 'Anak-Anak'); ?>>Anak-Anak</option>
 					</select>
