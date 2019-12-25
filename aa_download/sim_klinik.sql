@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 25 Des 2019 pada 23.16
+-- Waktu pembuatan: 25 Des 2019 pada 23.19
 -- Versi server: 10.1.37-MariaDB
 -- Versi PHP: 7.3.0
 
@@ -440,6 +440,13 @@ CREATE TABLE `detail_penjualan_obat_apotik` (
   `harga_jual` int(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `detail_penjualan_obat_apotik`
+--
+
+INSERT INTO `detail_penjualan_obat_apotik` (`no_detail_penjualan_obat_a`, `no_penjualan_obat_a`, `no_stok_obat_a`, `qty`, `harga_jual`) VALUES
+(1, 'PA191226-0001', 3, 2, 25000);
+
 -- --------------------------------------------------------
 
 --
@@ -860,6 +867,13 @@ CREATE TABLE `penjualan_obat_apotik` (
   `total_harga` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `penjualan_obat_apotik`
+--
+
+INSERT INTO `penjualan_obat_apotik` (`no_penjualan_obat_a`, `no_ref_pelayanan`, `tanggal_penjualan`, `total_harga`) VALUES
+('PA191226-0001', '191112-004', '2019-12-26 05:18:28', 50000);
+
 -- --------------------------------------------------------
 
 --
@@ -894,7 +908,7 @@ CREATE TABLE `stok_obat_apotik` (
 INSERT INTO `stok_obat_apotik` (`no_stok_obat_a`, `no_penerimaan_o`, `kode_obat`, `harga_supplier`, `qty_awal`, `qty_sekarang`) VALUES
 (1, 'PO191201-0001', 'O002', 60000, 1, 1),
 (2, 'PO191201-0001', 'O001', 40000, 2, 2),
-(3, 'PO191202-0001', 'O002', 8000, 2, 2),
+(3, 'PO191202-0001', 'O002', 8000, 2, 0),
 (4, 'PO191202-0001', 'O001', 9000, 3, 3);
 
 -- --------------------------------------------------------
@@ -1013,7 +1027,7 @@ CREATE TABLE `user_pegawai` (
 --
 
 INSERT INTO `user_pegawai` (`no_user_pegawai`, `nama`, `jenis_akses`, `username`, `password`) VALUES
-('U001', 'afri', 'Rawat Inap', 'afri', '$2y$10$5rtXCrmfFXQlovbbXY/J6u3eplLbiSp3ls0nn9ERXG9gBGifxHiVO'),
+('P001', 'afri', 'Rawat Inap', 'afri', '$2y$10$5rtXCrmfFXQlovbbXY/J6u3eplLbiSp3ls0nn9ERXG9gBGifxHiVO'),
 ('U002', 'kika', 'Loket', 'kika', '$2y$10$gIQgZO4D5b8LUWDVvH5Q6.PjmLjM8gLwEtpzkK.6bsXHv1tczykoG');
 
 -- --------------------------------------------------------
@@ -1430,7 +1444,7 @@ ALTER TABLE `detail_lab_transaksi`
 -- AUTO_INCREMENT untuk tabel `detail_penjualan_obat_apotik`
 --
 ALTER TABLE `detail_penjualan_obat_apotik`
-  MODIFY `no_detail_penjualan_obat_a` int(7) NOT NULL AUTO_INCREMENT;
+  MODIFY `no_detail_penjualan_obat_a` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_transaksi_rawat_inap_kamar`
