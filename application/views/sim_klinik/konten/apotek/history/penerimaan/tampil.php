@@ -23,12 +23,12 @@
                         ?>
                             <tr>
                                 <td class="text-center"><?= $no++ ?></td>
-                                <td class="text-center"><?= $data->no_penjualan_obat_a ?></td>
-                                <td><?= $data->tanggal_penjualan ?></td>
-                                <td><?= $data->nama_pasien ?></td>
+                                <td class="text-center"><?= $data->no_penerimaan_o ?></td>
+                                <td><?= $data->tgl_penerimaan_o ?></td>
+                                <td><?= $data->nama ?></td>
                                 <td class="text-right"><?= rupiah($data->total_harga) ?></td>
                                 <td class="text-center">
-                                    <a href="<?= base_url('apotek/penjualan_obat/tampil_detail_daftar_penjualan_obat?no_penjualan_obat_a=' . $data->no_penjualan_obat_a) ?>" class="btn btn-sm btn-danger">Lihat</a>
+                                    <a href="<?= base_url('apotek/penerimaan/tampil_detail_daftar_penerimaan_obat?no_penerimaan_o=' . $data->no_penerimaan_o) ?>" class="btn btn-sm btn-danger">Lihat</a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

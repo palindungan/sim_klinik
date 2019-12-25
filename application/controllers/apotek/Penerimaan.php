@@ -115,10 +115,10 @@ class Penerimaan extends CI_Controller
 
     public function tampil_detail_daftar_penerimaan_obat()
     {
-        $no_penerimaan_obat_a = $this->input->get('no_penerimaan_obat_a');
+        $no_penerimaan_o = $this->input->get('no_penerimaan_o');
 
         $where = array(
-            'no_penerimaan_obat_a' => $no_penerimaan_obat_a
+            'no_penerimaan_o' => $no_penerimaan_o
         );
 
         $data['record'] = $this->M_penerimaan->get_data('daftar_penerimaan_obat_apotek', $where)->result();
