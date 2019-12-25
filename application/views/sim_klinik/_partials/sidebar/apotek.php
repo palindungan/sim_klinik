@@ -32,13 +32,12 @@
 	<li class="nav-item">
 		<a class="nav-link" href="<?= base_url('apotek/pengiriman_obat'); ?>">
 			<i class="far fa-address-card"></i>
-			<span>Pengiriman Obat</span></a>
+			<span>Transfer Obat</span></a>
 	</li>
 
 	<!-- Nav Item - Pages Collapse Menu -->
 	<li class="nav-item">
-		<a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
-			aria-controls="collapseTwo">
+		<a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
 			<i class="fas fa-fw fa-cog"></i>
 			<span>Data Master Apotek</span>
 		</a>
@@ -46,6 +45,21 @@
 			<div class="bg-white py-2 collapse-inner rounded">
 				<a class="collapse-item " href="<?= base_url('apotek/obat'); ?>">Obat</a>
 				<a class="collapse-item" href="<?= base_url('apotek/kategori_obat'); ?>">Kategori Obat</a>
+			</div>
+		</div>
+	</li>
+
+	<!-- Nav Item - Pages Collapse Menu -->
+	<li class="nav-item">
+		<a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseTwo2" aria-expanded="true" aria-controls="collapseTwo">
+			<i class="fas fa-fw fa-cog"></i>
+			<span>History Transaksi</span>
+		</a>
+		<div id="collapseTwo2" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+			<div class="bg-white py-2 collapse-inner rounded">
+				<a class="collapse-item " href="<?= base_url('apotek/penjualan_obat/tampil_daftar_penjualan_obat'); ?>">Penjualan Obat</a>
+				<a class="collapse-item" href="<?= base_url('apotek/kategori_obat'); ?>">Penerimaan Obat</a>
+				<a class="collapse-item" href="<?= base_url('apotek/kategori_obat'); ?>">Transfer Obat</a>
 			</div>
 		</div>
 	</li>

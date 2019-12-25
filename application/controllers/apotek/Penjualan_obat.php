@@ -132,4 +132,26 @@ class Penjualan_obat extends CI_Controller
             echo $data;
         }
     }
+
+    public function tampil_daftar_penjualan_obat()
+    {
+        $data['record'] = $this->M_penjualan_obat->tampil_data('daftar_penjualan_obat_apotek')->result();
+
+        $this->template->load('sim_klinik/template/apotek', 'sim_klinik/konten/apotek/history/penjualan/tampil', $data);
+    }
+
+    public function tampil_detail_daftar_penjualan_obat()
+    {
+        $no_penjualan_obat_a = $this->input->get('no_penjualan_obat_a');
+
+        $where = array(
+            'no_penjualan_obat_a' => $no_penjualan_obat_a
+        );
+
+        $data['record'] = $this->M_penjualan_obat->get_data('daftar_penjualan_obat_apotek', $where)->result();
+
+        $data['detail_record'] = $this->M_penjualan_obat->get_data('daftar_penjualan_obat_apotek_detail', $where)->result();
+
+        $this->template->load('sim_klinik/template/apotek', 'sim_klinik/konten/apotek/history/penjualan/detail', $data);
+    }
 }
