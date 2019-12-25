@@ -220,7 +220,20 @@
 
 	// jika kita mengubah class inputan rupiah
 	$(document).on('keyup', '.rupiah', function() {
-		update_total();
+
+		var row_id = $(this).attr("id"); // qty1++
+		var row_no = row_id.substring(3); // 1++
+
+		var val_qty = $('#' + row_id).val();
+		var val_qty_sekarang = $('#qty_sekarang' + row_no).val();
+
+		if (val_qty <= val_qty_sekarang) {
+			update_total();
+		} else {
+			alert("Maaf Qty Tidak Boleh Detail Obat Melebihi Stok Apotek");
+			$('#' + row_id).val("1");
+			update_total();
+		}
 	});
 
 	// jika di click simpan / submit
@@ -315,7 +328,7 @@
 				</div>
                 <div class="form-group col-sm-1">
 					<input type="text" name="qty[]" class="form-control form-control-sm rupiah" id="qty` + count1 + `" placeholder="QTY" value="1" required>
-					<input type="text" name="qty_sekarang[]" id="qty_sekarang` + count1 + `" class="form-control form-control-sm" value="` + qty_sekarang + `"></input>
+					<input type="hidden" name="qty_sekarang[]" id="qty_sekarang` + count1 + `" class="form-control form-control-sm" value="` + qty_sekarang + `"></input>
 				</div>
 				<div class="form-group col-sm-2">
 					<a id="` + count1 + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris">
