@@ -13,7 +13,7 @@
 			<div class="form-row">
 				<div class="form-group col-sm-4">
 					<label for="inputEmail2">No RM</label>
-					<input type="text" name="no_rm" value="<?= set_value('no_rm') ?>" class="no_rmnya form-control form-control-sm <?php if (form_error('no_rm') == true) {
+					<input type="text" name="no_rm" id="no_rm" value="<?= set_value('no_rm') ?>" class="no_rmnya form-control form-control-sm <?php if (form_error('no_rm') == true) {
 																																		echo "is-invalid";
 																																	} ?>" id="no_rm" placeholder="No RM">
 																																	<div class="invalid-feedback">
@@ -204,7 +204,7 @@
 								<th class="text-center">Aksi</th>
 							</tr>
 						</thead>
-						<tbody id="daftar_barang">
+						<tbody id="daftar_pasien">
 						</tbody>
 					</table>
 				</div>
@@ -436,4 +436,85 @@
 
 	}
 	// codingan untuk autocomplete end
+</script>
+<script>
+// jika kita tekan / click button search-button
+$('#btn_search').on('click', function() {
+		search_proses();
+	});
+
+	function search_proses() {
+
+	var table;
+	table = $('.table_1').DataTable();
+
+	table.clear();
+
+	$.ajax({
+		url: "<?php echo base_url() . 'loket/pendaftaran/tampil_daftar_pasien'; ?>",
+		success: function(hasil) {
+
+			var obj = JSON.parse(hasil);
+			let data = obj['tbl_data'];
+
+			if (data != '') {
+
+				var no = 1;
+
+				$.each(data, function(i, item) {
+
+					var kode = data[i].no_rm;
+					var nama = data[i].nama;
+					var nik = data[i].nik;
+					var tempat_lahir = data[i].tempat_lahir;
+					var tgl_lahir = data[i].tgl_lahir;
+					var jenkel = data[i].jenkel;
+					var alamat = data[i].alamat;
+					var button = `<a onclick="pilihTindakan('` + kode +
+						`','` + nik +`','` + nama +`','` + tempat_lahir +`','` + tgl_lahir +`','` + jenkel +`','` + alamat +`')" id="` + kode +
+						`" class="btn btn-sm btn-dark text-white">Pilih</a>`;
+
+					table.row.add([no,kode, nama, alamat, button]);
+
+					no = no + 1;
+				});
+			} else {
+
+				$('.table_1').html('<h3>No data are available</h3>');
+
+			}
+			table.draw();
+
+		}
+	});
+	}
+	function pilihTindakan(kode,nik,nama,tempat_lahir,tgl_lahir,jenkel,alamat) {
+
+	document.getElementById("no_rm").value= kode;
+	$("#pilih_rm").val("yes");
+	$("#no_rm").val(kode);
+	$("#nik").val(nik);
+	$("#nama").val(nama);
+	$("#tempat_lahir").val(tempat_lahir);
+	$("#alamat").val(alamat);
+
+
+	// parse
+	var hari = tgl_lahir.substring(8);
+	var bulan = tgl_lahir.substring(5, 7);
+	var tahun = tgl_lahir.substring(0, 4);
+
+	$("#hari").val(hari).change();
+	$("#bulan").val(bulan).change();
+	$("#tahun").val(tahun).change();
+
+	if (jenkel == "Laki-Laki") {
+		$("#jenis_kelamin").prop("checked", true);
+		$("#jenis_kelamin2").prop("checked", false);
+	} else {
+		$("#jenis_kelamin").prop("checked", false);
+		$("#jenis_kelamin2").prop("checked", true);
+	}
+	$('#exampleModalCenter').modal('hide');
+	}
 </script>

@@ -12,6 +12,15 @@ class Pendaftaran extends CI_Controller
         $this->template->load('sim_klinik/template/loket', 'sim_klinik/konten/loket/pendaftaran/tambah');
     }
 
+    public function tampil_daftar_pasien()
+    {
+        $data_tbl['tbl_data'] =  $this->db->get_where('data_pelayanan_pasien', array('status =' => 'finish'))->result();
+
+        $data = json_encode($data_tbl);
+
+        echo $data;
+    }
+
     public function store()
     {
 
