@@ -268,7 +268,18 @@
 	function search_proses() {
 
 		var table;
-		table = $('.table_1').DataTable();
+		table = $('.table_1').DataTable({
+			"columnDefs": [{
+				"targets": [0,3],
+				"className" : "text-center"
+			},
+		{
+			"targets": 2,
+				"className" : "text-right"
+		}
+		],
+			"bDestroy": true
+		});
 
 		table.clear();
 
@@ -288,11 +299,13 @@
 						var kode = data[i].no_kia_t;
 						var nama = data[i].nama;
 						var harga = data[i].harga;
+						var	reverse = harga.toString().split('').reverse().join(''),ribuan 	= reverse.match(/\d{1,3}/g);
+						ribuan	= ribuan.join('.').split('').reverse().join('');
 						var button = `<a onclick="pilihTindakan('` + kode +
 							`','` + nama + `','` + harga + `')" id="` + kode +
 							`" class="btn btn-sm btn-dark text-white">Pilih</a>`;
 
-						table.row.add([no, nama, harga, button]);
+						table.row.add([no, nama, ribuan, button]);
 
 						no = no + 1;
 					});

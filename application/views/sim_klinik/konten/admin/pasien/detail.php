@@ -5,30 +5,35 @@
 		</div>
 		<div class="card-body">
         <a href="<?= base_url('admin/pasien') ?>" class="btn btn-sm btn-dark">Kembali</a>
-        <!-- <?php 
+        <?php 
         foreach($pelayanan as $data_pelayanan):
+            $no_ref = $data_pelayanan->no_ref_pelayanan; 
+            $no_rm = $data_pelayanan->no_rm;    
+            $tgl_pelayanan = $data_pelayanan->tgl_pelayanan;
         ?>
-            <h5><?= $data_pelayanan->tipe_antrian ?></h5>
-            <h5><?= $data_pelayanan->layanan_tujuan ?></h5>
-
-        <?php endforeach; ?> -->
+        <?php endforeach; ?>
+        <?php 
+        foreach($pasien as $data_pasien):
+            $nama = $data_pasien->nama; 
+        ?>
+        <?php endforeach; ?>
         <h5 class="text-center">Rekening Pasien</h5>
         <table width="100%">
             <tr>
                 <td width="14%">Nama Pasien</td>
                 <td width="1%">:</td>
-                <td width="40%">Safri</td>
+                <td width="40%"><?= $nama ?></td>
                 <td width="19%">No Ref Pelayanan</td>
                 <td width="1%">:</td>
-                <td width="25%">199123-123:0</td>
+                <td width="25%"><?= $no_ref ?></td>
             </tr>
             <tr>
                 <td width="14%">Nomor RM</td>
                 <td width="1%">:</td>
-                <td width="40%">Safri</td>
+                <td width="40%"><?= $no_rm ?></td>
                 <td width="19%">Tanggal Masuk</td>
                 <td width="1%">:</td>
-                <td width="25%">20-12-2019</td>
+                <td width="25%"><?= date('d-m-Y H:i',strtotime($tgl_pelayanan)) ?></td>
             </tr>
             <tr>
                 <td width="14%">Ruangan</td>
@@ -41,7 +46,7 @@
             <tr>
                 <td width="14%">Keterangan</td>
                 <td width="1%">:</td>
-                <td width="40%">Balai pengobatan</td>
+                <td width="40%">asd</td>
             </tr>
         </table>
         <hr>
