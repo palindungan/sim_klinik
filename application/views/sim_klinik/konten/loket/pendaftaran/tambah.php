@@ -20,10 +20,20 @@
 									<?= form_error('no_rm'); ?>
 								</div>
 				</div>
-
-				<div class="form-group col-sm-1">
+				<div class="form-group col-sm-2">
 					<input type="hidden" id="pilih_rm" class="form-control form-control-sm" value="no"></input>
 				</div>
+				<div class="form-group col-sm-2">
+					<label for="inputEmail2">&nbsp</label>
+					<a style="display:block" href="#" id="btn_search" class="btn btn-sm btn-primary btn-icon-split" data-toggle="modal" data-target="#exampleModalCenter">
+							<span class="icon text-white-50">
+								<i class="fas fa-search-plus"></i>
+							</span>
+							<span class="text">Pencarian Pasien</span>
+						</a>
+				</div>
+
+				
 
 			</div>
 			<!-- <h5 class="h3 mb-2 text-gray-800">Biodata Pasien</h5> -->
@@ -171,6 +181,38 @@
 	</div>
 
 </div>
+
+<!-- Modal -->
+<div class="modal fade  bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Daftar Pasien</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="table-responsive">
+					<table class="table table-bordered table_1" width="100%" cellspacing="0">
+						<thead>
+							<tr>
+								<th class="text-center">No</th>
+								<th class="text-center">No RM</th>
+								<th class="text-center">Nama</th>
+								<th class="text-center">Alamat</th>
+								<th class="text-center">Aksi</th>
+							</tr>
+						</thead>
+						<tbody id="daftar_barang">
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
 
 <script src="<?= base_url(); ?>assets/sb_admin_2/vendor/jquery/jquery-3.4.1.min.js"></script>
 
