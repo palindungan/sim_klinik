@@ -1,5 +1,5 @@
-<?php if($this->session->flashdata('success')) : ?>
-<div class="pesan-sukses" data-flashdata="<?= $this->session->flashdata('success'); ?>"></div>
+<?php if ($this->session->flashdata('success')) : ?>
+	<div class="pesan-sukses" data-flashdata="<?= $this->session->flashdata('success'); ?>"></div>
 <?php endif; ?>
 <div class="container-fluid">
 	<div class="card shadow mb-4">
@@ -21,8 +21,7 @@
 
 				<div class="form-row">
 					<div class="form-group col-sm-12">
-						<a href="#" id="btn_search" class="btn btn-sm btn-primary btn-icon-split" data-toggle="modal"
-							data-target="#exampleModalCenter">
+						<a href="#" id="btn_search" class="btn btn-sm btn-primary btn-icon-split" data-toggle="modal" data-target="#exampleModalCenter">
 							<span class="icon text-white-50">
 								<i class="fas fa-search-plus"></i>
 							</span>
@@ -53,8 +52,7 @@
 					</div>
 
 					<div class="form-group col-sm-2">
-						<button id="action" type="submit" class="btn btn-sm btn-success btn-icon-split"
-							onclick="return confirm('Lakukan Simpan Data ?')">
+						<button id="action" type="submit" class="btn btn-sm btn-success btn-icon-split" onclick="return confirm('Lakukan Simpan Data ?')">
 							<span class="icon text-white-50">
 								<i class="fas fa-save"></i>
 							</span>
@@ -69,8 +67,7 @@
 	</div>
 
 </div>
-<div class="modal fade  bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog"
-	aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade  bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -105,7 +102,7 @@
 	var count1 = 0;
 	var jumlah_detail_pengiriman = 0;
 	// jika kita tekan / click button search-button
-	$('#btn_search').on('click', function () {
+	$('#btn_search').on('click', function() {
 		search_proses();
 	});
 
@@ -118,7 +115,7 @@
 
 		$.ajax({
 			url: "<?php echo base_url() . 'apotek/pengiriman_obat/tampil_daftar_obat'; ?>",
-			success: function (hasil) {
+			success: function(hasil) {
 
 				var obj = JSON.parse(hasil);
 				let data = obj['tbl_data'];
@@ -127,7 +124,7 @@
 
 					var no = 1;
 
-					$.each(data, function (i, item) {
+					$.each(data, function(i, item) {
 
 						var kode = data[i].no_stok_obat_a;
 						var nama = data[i].nama_obat;
@@ -206,7 +203,7 @@
 
 	}
 
-	$(document).on('click', '.remove_baris', function () {
+	$(document).on('click', '.remove_baris', function() {
 		var row_no = $(this).attr("id");
 		$('#row' + row_no).remove();
 
@@ -215,7 +212,7 @@
 		cekJumlahDataPenerimaan();
 	});
 
-	$(document).on('submit', '#pengiriman_form', function (event) {
+	$(document).on('submit', '#pengiriman_form', function(event) {
 		event.preventDefault();
 
 		// mengambil nilai di dalam form
@@ -226,13 +223,14 @@
 			url: "<?php echo base_url() . 'apotek/pengiriman_obat/input_pengiriman_obat'; ?>",
 			method: "POST",
 			data: form_data,
-			success: function (data) {
-				alert(data);
+			success: function(data) {
+				if (data != "") {
+					alert(data);
+				}
 				location.reload();
 			}
 		});
 		// tambah ke database
 
 	});
-
 </script>

@@ -54,8 +54,8 @@ class M_penjualan_obat extends CI_Model
     function get_no_transaksi()
     {
         // PO191125-0001
-        $field = "no_penerimaan_o";
-        $tabel = "penerimaan_obat";
+        $field = "no_penjualan_obat_a";
+        $tabel = "penjualan_obat_apotik";
         $digit = "4";
         $ymd = date('ymd');
 
@@ -70,6 +70,6 @@ class M_penjualan_obat extends CI_Model
             $kd = "0001";
         }
         date_default_timezone_set('Asia/Jakarta');
-        return 'PO' . date('ymd') . '-' . $kd; // SELECT SUBSTR('BP191121-0001', 3, 6); dari digit ke 3 sampai 6 digit seanjutnya
+        return 'PA' . date('ymd') . '-' . $kd; // SELECT SUBSTR('BP191121-0001', 3, 6); dari digit ke 3 sampai 6 digit seanjutnya
     }
 }

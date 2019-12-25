@@ -6,10 +6,9 @@
 	.select2-selection {
 		height: 38px !important;
 	}
-
 </style>
-<?php if($this->session->flashdata('success')) : ?>
-<div class="pesan-sukses" data-flashdata="<?= $this->session->flashdata('success'); ?>"></div>
+<?php if ($this->session->flashdata('success')) : ?>
+	<div class="pesan-sukses" data-flashdata="<?= $this->session->flashdata('success'); ?>"></div>
 <?php endif; ?>
 <div class="container-fluid">
 	<div class="card shadow mb-4">
@@ -17,16 +16,16 @@
 			<h6 class="m-0 font-weight-bold text-primary">Penjualan Obat</h6>
 		</div>
 		<div class="card-body">
-			<form method="post" id="penerimaan_form">
+			<form method="post" id="transaksi_form">
 				<div class="form-row">
 					<div class="form-group col-sm-6">
 						<label>Cari No Ref</label>
 						<select class="form-control form-control-sm" name="no_ref_pelayanan" id="xx" required>
 							<option value="">-- Pilih Data --</option>
 							<?php foreach ($record as $data) : ?>
-							<option value="<?= $data->no_ref_pelayanan ?>">
-								<?= $data->no_ref_pelayanan . " || " . $data->nama ?>
-							</option>
+								<option value="<?= $data->no_ref_pelayanan ?>">
+									<?= $data->no_ref_pelayanan . " || " . $data->nama ?>
+								</option>
 							<?php endforeach; ?>
 						</select>
 					</div>
@@ -40,7 +39,7 @@
 								<h5>:</h5>
 							</td>
 							<td width="24%">
-								<h5 id="xx_nama"></h5>
+								<h5 id="txt_nama"></h5>
 							</td>
 							<td width="6%">
 								<h5>Umur</h5>
@@ -49,7 +48,7 @@
 								<h5>:</h5>
 							</td>
 							<td width="19%">
-								<h5>' . $umur . ' Tahun</h5>
+								<h5 id="txt_umur"></h5>
 							</td>
 							<td width="8%">
 								<h5>Alamat</h5>
@@ -58,7 +57,7 @@
 								<h5>:</h5>
 							</td>
 							<td width="22%">
-								<h5>' . $data->alamat . '</h5>
+								<h5 id="txt_alamat"></h5>
 							</td>
 						</tr>
 					</table>
@@ -72,8 +71,7 @@
 				<div class="form-row">
 
 					<div class="form-group col-sm-12">
-						<a href="#" id="btn_search" class="btn btn-sm btn-primary btn-icon-split" data-toggle="modal"
-							data-target="#exampleModalCenter">
+						<a href="#" id="btn_search" class="btn btn-sm btn-primary btn-icon-split" data-toggle="modal" data-target="#exampleModalCenter">
 							<span class="icon text-white-50">
 								<i class="fas fa-search-plus"></i>
 							</span>
@@ -101,14 +99,11 @@
 					<div class="form-group col-sm-5"> </div>
 
 					<div class="form-group col-sm-5">
-						<input type="text" readonly name="total_harga"
-							class="form-control form-control-sm rupiah text-right" id="total_harga" placeholder="Total"
-							required>
+						<input type="text" readonly name="total_harga" class="form-control form-control-sm rupiah text-right" id="total_harga" placeholder="Total" required>
 					</div>
 
 					<div class="form-group col-sm-2">
-						<button id="action" type="submit" class="btn btn-sm btn-success btn-icon-split"
-							onclick="return confirm('Lakukan Simpan Data ?')">
+						<button id="action" type="submit" class="btn btn-sm btn-success btn-icon-split" onclick="return confirm('Lakukan Simpan Data ?')">
 							<span class="icon text-white-50">
 								<i class="fas fa-save"></i>
 							</span>
@@ -125,8 +120,7 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade  bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog"
-	aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade  bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -164,19 +158,58 @@
 	var count1 = 0;
 	var jumlah_detail_penerimaan = 0;
 
-	$(document).on('change', '#xx', function (event) {
+	$(document).on('change', '#xx', function(event) {
 		var nilai_value = $('#xx').val();
 
-		document.getElementById("xx_nama").innerHTML = nilai_value;
+		// Fetch data
+		$.ajax({
+			url: "<?php echo base_url() . 'apotek/penjualan_obat/get_pasien_by_no_ref_pelayanan'; ?>",
+			type: 'post',
+			data: {
+				nilai: nilai_value
+			},
+			success: function(hasil) {
+
+				// parse
+				var obj = JSON.parse(hasil);
+				let data = obj['tbl_data'];
+
+				if (data != '') {
+
+					$.each(data, function(i, item) {
+
+						var nama = data[i].nama;
+						var alamat = data[i].alamat;
+						var tgl_lahir = data[i].tgl_lahir;
+
+						// parse
+						var tahun = tgl_lahir.substring(0, 4);
+
+						var date = new Date();
+						var year = date.getFullYear();
+
+						var umur = year - tahun;
+
+						$("#txt_nama").html(nama);
+						$("#txt_alamat").html(alamat);
+						$("#txt_umur").html(umur);
+					});
+				} else {
+
+					alert("Data Dengan Kode : " + nilai_value + " Tidak Ditemukan !");
+
+				}
+			}
+		});
 	});
 
 	// jika kita tekan / click button search-button
-	$('#btn_search').on('click', function () {
+	$('#btn_search').on('click', function() {
 		search_proses();
 	});
 
 	// jika kita tekan hapus / click button
-	$(document).on('click', '.remove_baris', function () {
+	$(document).on('click', '.remove_baris', function() {
 		var row_no = $(this).attr("id");
 		$('#row' + row_no).remove();
 
@@ -186,12 +219,12 @@
 	});
 
 	// jika kita mengubah class inputan rupiah
-	$(document).on('keyup', '.rupiah', function () {
+	$(document).on('keyup', '.rupiah', function() {
 		update_total();
 	});
 
 	// jika di click simpan / submit
-	$(document).on('submit', '#penerimaan_form', function (event) {
+	$(document).on('submit', '#transaksi_form', function(event) {
 		event.preventDefault();
 
 		// mengambil nilai di dalam form
@@ -199,11 +232,13 @@
 
 		// tambah ke database
 		$.ajax({
-			url: "<?php echo base_url() . 'apotek/penjualan_obat/input_penerimaan_form'; ?>",
+			url: "<?php echo base_url() . 'apotek/penjualan_obat/input_transaksi_form'; ?>",
 			method: "POST",
 			data: form_data,
-			success: function (data) {
-				alert(data);
+			success: function(data) {
+				if (data != "") {
+					alert(data);
+				}
 				location.reload();
 			}
 		});
@@ -221,7 +256,7 @@
 
 		$.ajax({
 			url: "<?php echo base_url() . 'apotek/penjualan_obat/tampil_daftar_obat'; ?>",
-			success: function (hasil) {
+			success: function(hasil) {
 
 				var obj = JSON.parse(hasil);
 				let data = obj['tbl_data'];
@@ -230,7 +265,7 @@
 
 					var no = 1;
 
-					$.each(data, function (i, item) {
+					$.each(data, function(i, item) {
 
 						var kode = data[i].no_stok_obat_a;
 						var nama = data[i].nama_obat;
@@ -314,13 +349,13 @@
 
 	function update_total() {
 		// mengambil nilai di dalam form
-		var form_data = $('#penerimaan_form').serialize()
+		var form_data = $('#transaksi_form').serialize()
 
 		$.ajax({
 			url: "<?php echo base_url() . 'apotek/penjualan_obat/ambil_total'; ?>",
 			method: "POST",
 			data: form_data,
-			success: function (data) {
+			success: function(data) {
 				$('#total_harga').val(data);
 				$('.rupiah').trigger('input'); // Will be display 
 			}
@@ -334,5 +369,4 @@
 			reverse: true
 		});
 	}
-
 </script>

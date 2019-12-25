@@ -5,14 +5,11 @@ class Penjualan_obat extends CI_Controller
     {
         parent::__construct();
         $this->load->model('apotek/M_penjualan_obat');
+        date_default_timezone_set('Asia/Jakarta');
     }
     public function index()
     {
-        $where = array(
-            'status' => 'belum_finish'
-        );
-
-        $data['record'] = $this->M_penjualan_obat->get_data('data_pelayanan_pasien', $where)->result();
+        $data['record'] = $this->M_penjualan_obat->tampil_data('data_pelayanan_pasien')->result();
         $this->template->load('sim_klinik/template/apotek', 'sim_klinik/konten/apotek/penjualan_obat/tambah', $data);
     }
 
@@ -51,29 +48,26 @@ class Penjualan_obat extends CI_Controller
         echo $total;
     }
 
-    public function input_penerimaan_form()
+    public function input_transaksi_form()
     {
-        $no_supplier = $this->input->post('no_supplier');
-        $total_tmp = $this->input->post('total_harga');
         if (isset($_POST['no_stok_obat_a'])) {
 
-            date_default_timezone_set('Asia/Jakarta');
-
             // data transaksi 
-            $no_penerimaan_o = $this->M_penjualan_obat->get_no_transaksi(); // generate
-            $no_supplier = $this->input->post('no_supplier');
-            $tgl_penerimaan_o = date('Y-m-d H:i:s');
+            $no_penjualan_obat_a = $this->M_penjualan_obat->get_no_transaksi(); // generate
+            $no_ref_pelayanan = $this->input->post('no_ref_pelayanan');
+            $tanggal_penjualan = date('Y-m-d H:i:s');
+
             $total_tmp = $this->input->post('total_harga');
             $total_harga = preg_replace("/[^0-9]/", "", $total_tmp);
 
             $data = array(
-                'no_penerimaan_o' => $no_penerimaan_o,
-                'no_supplier' => $no_supplier,
-                'tgl_penerimaan_o' => $tgl_penerimaan_o,
+                'no_penjualan_obat_a' => $no_penjualan_obat_a,
+                'no_ref_pelayanan' => $no_ref_pelayanan,
+                'tanggal_penjualan' => $tanggal_penjualan,
                 'total_harga' => $total_harga
             );
 
-            $status = $this->M_penjualan_obat->input_data('penerimaan_obat', $data);
+            $status = $this->M_penjualan_obat->input_data('penjualan_obat_apotik', $data);
             // end of data transaksi 
 
             if ($status) {
@@ -87,14 +81,13 @@ class Penjualan_obat extends CI_Controller
 
                     // proses pemasukan ke dalam database detail
                     $data = array(
-                        'no_penerimaan_o' => $no_penerimaan_o,
+                        'no_penjualan_obat_a' => $no_penjualan_obat_a,
                         'no_stok_obat_a' => $no_stok_obat_a,
-                        'harga_jual' => $harga_jual,
                         'qty' => $qty,
-                        'qty_sekarang' => $qty
+                        'harga_jual' => $harga_jual
                     );
 
-                    $status = $this->M_penjualan_obat->input_data('stok_obat_apotik', $data);
+                    $status = $this->M_penjualan_obat->input_data('detail_penjualan_obat_apotik', $data);
                 }
 
                 if ($status) {
@@ -107,6 +100,21 @@ class Penjualan_obat extends CI_Controller
             }
         } else {
             echo "Harus Ada Detail Transaksi !!";
+        }
+    }
+
+    function get_pasien_by_no_ref_pelayanan()
+    {
+        $nilai = $this->input->post('nilai');
+        if (isset($nilai)) {
+
+            $where = array(
+                'no_ref_pelayanan' => $nilai
+            );
+
+            $data_tbl['tbl_data'] = $this->M_penjualan_obat->get_data('data_pelayanan_pasien', $where)->result();
+            $data = json_encode($data_tbl);
+            echo $data;
         }
     }
 }
