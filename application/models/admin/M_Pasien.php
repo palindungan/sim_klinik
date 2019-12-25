@@ -30,5 +30,15 @@ class M_pasien extends CI_Model
         $status = $this->db->update($table, $data);
         return $status;
     }
+
+    function detail_pelayanan($table,$id)
+    {
+        return $this->db->order_by('tgl_pelayanan', 'DESC')->get_where($table, array('no_rm' => $id), 1);
+    }
+
+    function detail_pasien($table,$id)
+    {
+        return $this->db->get_where($table,array('no_rm' => $id));
+    }
     
 }

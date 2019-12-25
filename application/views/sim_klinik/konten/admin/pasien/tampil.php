@@ -29,7 +29,10 @@
 							<td><?= $data->nama ?></td>
 							<td><?= $data->jenkel ?></td>
 							<td><?= $data->alamat ?></td>
-                            <td><a href="" class="btn btn-sm btn-info">Detail</a></td>
+                            <td>
+                            <a href="<?= base_url('admin/pasien/detail/'.$data->no_rm) ?>"
+									class="btn btn-sm btn-info">Detail</a>
+                            </td>
 							
 						</tr>
 						<?php endforeach; ?>
