@@ -41,9 +41,9 @@
 							</div>
 							<div class="form-row">
 								<div class="form-group col-sm-6">
-									<label for="inputEmail2">Harga</label>
+									<label for="inputEmail2">Biaya/hari</label>
 									<input type="text" name="harga" class="form-control form-control-sm rupiah"
-										id="inputEmail2" placeholder="Masukan harga/hari" required>
+										id="inputEmail2" placeholder="Masukan biaya/hari" required>
 								</div>
 							</div>
 						</div>
@@ -63,7 +63,7 @@
 							<th width="10%">Kode</th>
 							<th width="25%">Nama Kamar</th>
 							<th width="20%">Tipe</th>
-							<th width="15%" class="text-center">Harga</th>
+							<th width="15%" class="text-center">Biaya</th>
 							<th width="15%" class="text-center">Aksi</th>
 						</tr>
 					</thead>
@@ -123,10 +123,10 @@
 				</div>
 				<div class="form-row">
 					<div class="form-group col-sm-6">
-						<label for="inputEmail2">Harga</label>
+						<label for="inputEmail2">Biaya/hari</label>
 						<input type="text" name="harga" value="<?= rupiah($data->harga_harian) ?>"
 							class="form-control form-control-sm rupiah" id="inputEmail2"
-							placeholder="Masukan harga/hari" required>
+							placeholder="Masukan biaya/hari" required>
 					</div>
 				</div>
 			</div>

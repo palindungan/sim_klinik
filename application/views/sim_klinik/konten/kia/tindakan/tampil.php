@@ -10,7 +10,7 @@
 <div class="container-fluid">
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">
-			<h6 class="m-0 font-weight-bold text-primary">Tindakan Lab KIA</h6>
+			<h6 class="m-0 font-weight-bold text-primary">Tindakan KIA</h6>
 		</div>
 		<div class="card-body">
 			<button type="button" class="btn btn-sm btn-primary mb-3" data-toggle="modal"
@@ -21,7 +21,7 @@
 				<div class="modal-dialog modal-lg">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title">Tambah Tindakan Lab KIA</h5>
+							<h5 class="modal-title">Tambah Tindakan KIA</h5>
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
@@ -35,9 +35,9 @@
 										id="inputEmail2" placeholder="Masukan nama tindakan" required>
 								</div>
 								<div class="form-group col-sm-6">
-									<label for="inputEmail1">Harga Tindakan</label>
+									<label for="inputEmail1">Biaya Tindakan</label>
 									<input type="text" name="harga" class="form-control form-control-sm rupiah"
-										id="inputEmail1" placeholder="Masukan harga tindakan" required>
+										id="inputEmail1" placeholder="Masukan biaya tindakan" required>
 								</div>
 							</div>
 						</div>
@@ -56,7 +56,7 @@
 							<th width="5%" class="text-center">No</th>
 							<th width="20%">Kode</th>
 							<th width="40%">Nama Tindakan</th>
-							<th width="15%" class="text-center">Harga</th>
+							<th width="15%" class="text-center">Biaya</th>
 							<th width="20%" class="text-center">Aksi</th>
 						</tr>
 					</thead>
@@ -91,7 +91,7 @@
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">Edit Tindakan Lab KIA</h5>
+				<h5 class="modal-title">Edit Tindakan KIA</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -108,10 +108,10 @@
 
 					</div>
 					<div class="form-group col-sm-6">
-						<label for="inputEmail1">Harga Tindakan</label>
+						<label for="inputEmail1">Biaya Tindakan</label>
 						<input type="text" name="harga" value="<?= rupiah($data->harga) ?>"
 							class="form-control form-control-sm rupiah" id="inputEmail1"
-							placeholder="Masukan harga tindakan" required>
+							placeholder="Masukan biaya tindakan" required>
 
 					</div>
 				</div>

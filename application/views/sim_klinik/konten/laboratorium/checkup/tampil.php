@@ -35,9 +35,9 @@
 										id="inputEmail2" placeholder="Masukan nama Checkup" required>
 								</div>
 								<div class="form-group col-sm-6">
-									<label for="inputEmail1">Harga Checkup</label>
+									<label for="inputEmail1">Biaya Checkup</label>
 									<input type="text" name="harga" class="form-control form-control-sm rupiah"
-										id="inputEmail1" placeholder="Masukan harga Checkup" required>
+										id="inputEmail1" placeholder="Masukan biaya Checkup" required>
 								</div>
 							</div>
 						</div>
@@ -56,7 +56,7 @@
 							<th width="5%" class="text-center">No</th>
 							<th width="20%">Kode</th>
 							<th width="40%">Nama Checkup</th>
-							<th width="15%" class="text-center">Harga</th>
+							<th width="15%" class="text-center">Biaya</th>
 							<th width="20%" class="text-center">Aksi</th>
 						</tr>
 					</thead>
@@ -108,10 +108,10 @@
 
 					</div>
 					<div class="form-group col-sm-6">
-						<label for="inputEmail1">Harga Checkup</label>
+						<label for="inputEmail1">Biaya Checkup</label>
 						<input type="text" name="harga" value="<?= rupiah($data->harga) ?>"
 							class="form-control form-control-sm rupiah" id="inputEmail1"
-							placeholder="Masukan harga Checkup" required>
+							placeholder="Masukan biaya Checkup" required>
 
 					</div>
 				</div>

@@ -120,10 +120,10 @@
 					<table class="table table-bordered table_1" width="100%" cellspacing="0">
 						<thead>
 							<tr>
-								<th>No</th>
-								<th>Nama</th>
-								<th>Harga</th>
-								<th>Aksi</th>
+								<th class="text-center">No</th>
+								<th class="text-center">Nama</th>
+								<th class="text-center">Biaya</th>
+								<th class="text-center">Aksi</th>
 							</tr>
 						</thead>
 						<tbody id="daftar_barang">
