@@ -78,6 +78,7 @@ class Penjualan_obat extends CI_Controller
                     $harga_temp = $this->input->post('harga_jual')[$i];
                     $harga_jual = preg_replace("/[^0-9]/", "", $harga_temp);
                     $qty = $this->input->post('qty')[$i];
+                    $qty_sekarang = $this->input->post('qty_sekarang')[$i];
 
                     // proses pemasukan ke dalam database detail
                     $data = array(
@@ -97,7 +98,7 @@ class Penjualan_obat extends CI_Controller
                         );
 
                         $data = array(
-                            'qty_sekarang' => $qty
+                            'qty_sekarang' => $qty_sekarang -  $qty
                         );
 
                         $status_update = $this->M_penjualan_obat->update_data($where, 'stok_obat_apotik', $data);
