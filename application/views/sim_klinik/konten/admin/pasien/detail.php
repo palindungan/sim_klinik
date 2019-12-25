@@ -4,25 +4,20 @@
 			<h6 class="m-0 font-weight-bold text-primary">Detail Pasien</h6>
 		</div>
 		<div class="card-body">
-        <a href="<?= base_url('admin/pasien') ?>" class="btn btn-sm btn-dark">Kembali</a>
         <?php 
-        foreach($pelayanan as $data_pelayanan):
-            $no_ref = $data_pelayanan->no_ref_pelayanan; 
-            $no_rm = $data_pelayanan->no_rm;    
-            $tgl_pelayanan = $data_pelayanan->tgl_pelayanan;
+            $no_ref = $pelayanan->no_ref_pelayanan; 
+            $no_rm = $pelayanan->no_rm;    
+            $tgl_pelayanan = $pelayanan->tgl_pelayanan;
+            $layanan_tujuan = $pelayanan->layanan_tujuan;
+            $nama_pasien = $pasien->nama;
         ?>
-        <?php endforeach; ?>
-        <?php 
-        foreach($pasien as $data_pasien):
-            $nama = $data_pasien->nama; 
-        ?>
-        <?php endforeach; ?>
+            <a href="<?= base_url('admin/pasien/list/'.$no_rm) ?>" class="btn btn-sm btn-dark">Kembali</a>
         <h5 class="text-center">Rekening Pasien</h5>
         <table width="100%">
             <tr>
                 <td width="14%">Nama Pasien</td>
                 <td width="1%">:</td>
-                <td width="40%"><?= $nama ?></td>
+                <td width="40%"><?= $nama_pasien ?></td>
                 <td width="19%">No Ref Pelayanan</td>
                 <td width="1%">:</td>
                 <td width="25%"><?= $no_ref ?></td>
@@ -38,15 +33,15 @@
             <tr>
                 <td width="14%">Ruangan</td>
                 <td width="1%">:</td>
-                <td width="40%">Melati 2</td>
+                <td width="40%">-</td>
                 <td width="19%">Tanggal Keluar</td>
                 <td width="1%">:</td>
                 <td width="25%">20-12-2019</td>
             </tr>
             <tr>
-                <td width="14%">Keterangan</td>
+                <td width="14%">Tujuan</td>
                 <td width="1%">:</td>
-                <td width="40%">asd</td>
+                <td width="40%"><?= $layanan_tujuan ?></td>
             </tr>
         </table>
         <hr>
@@ -57,14 +52,16 @@
         <tr>
             <td><i>Biaya Tindakan</i></td>
         </tr>
+        <?php 
+        foreach($tindakan_kia as $data_kia):
+            ?>
         <tr>
-            <td class=""><h6 class="ml-4">Tindakan asd</h6></td>
-            <td class="text-right">90.000</td>
+            <td class=""><h6 class="ml-4"><?= $data_kia->nama ?></h6></td>
+            <td class="text-right"><?= rupiah($data_kia->harga) ?></td>
         </tr>
-        <tr>
-            <td class=""><h6 class="ml-4">Tindakan Pemeriksaan kadar gula</h6></td>
-            <td class="text-right">140.000</td>
-        </tr>
+        <?php 
+        endforeach;
+        ?>
         <tr>
             <td><i>Biaya Ruang Perawatan</i></td>
         </tr>
