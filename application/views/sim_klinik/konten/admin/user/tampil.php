@@ -19,7 +19,7 @@
 			<h6 class="m-0 font-weight-bold text-primary">Data User</h6>
 		</div>
 		<div class="card-body">
-			<button type="button" class="btn btn-primary mb-3" data-toggle="modal"
+			<button type="button" class="btn btn-sm btn-primary mb-3" data-toggle="modal"
 				data-target=".bd-example-modal-lg">Tambah</button>
 			<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
 				aria-hidden="true">
