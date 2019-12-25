@@ -105,7 +105,7 @@ class Penjualan_obat extends CI_Controller
                     }
                 }
 
-                if ($status_detail) {
+                if ($status_update) {
                     $this->session->set_flashdata('success', 'Ditambahkan');
                 } else {
                     echo "Gagal input ke dalam data detail transaksi !!";

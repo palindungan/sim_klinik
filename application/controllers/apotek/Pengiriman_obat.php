@@ -22,8 +22,7 @@ class Pengiriman_obat extends CI_Controller
     public function input_pengiriman_obat()
     {
         $tujuan = $this->input->post('tujuan');
-        if(isset($_POST['kode_obat']))
-        {
+        if (isset($_POST['kode_obat'])) {
             date_default_timezone_set('Asia/Jakarta');
             $no_obat_keluar_i = $this->M_pengiriman_obat->get_no_transaksi(); // generate
             $tgl_obat_keluar_i = date('Y-m-d H:i:s');
@@ -33,35 +32,46 @@ class Pengiriman_obat extends CI_Controller
                 'tgl_obat_keluar_i' => $tgl_obat_keluar_i
             );
             $status = $this->M_pengiriman_obat->input_data('obat_keluar_internal', $obat_keluar_internal);
-            if($status)
-            {
+            if ($status) {
                 for ($i = 0; $i < count($this->input->post('kode_obat')); $i++) {
 
                     $no_stok_obat_a = $this->input->post('kode_obat')[$i];
-                    $harga_temp = $this->input->post('harga_supplier')[$i];
                     $qty = $this->input->post('qty')[$i];
+                    $qty_sekarang = $this->input->post('qty_sekarang')[$i];
 
                     // proses pemasukan ke dalam database detail
                     $data = array(
-                    'no_obat_keluar_i' => $no_obat_keluar_i,
-                    'no_stok_obat_a' => $no_stok_obat_a,
-                    'qty_awal' => $qty,
-                    'qty_sekarang' => $qty
+                        'no_obat_keluar_i' => $no_obat_keluar_i,
+                        'no_stok_obat_a' => $no_stok_obat_a,
+                        'qty_awal' => $qty,
+                        'qty_sekarang' => $qty
                     );
 
-                    $status = $this->M_pengiriman_obat->input_data('stok_obat_rawat_inap', $data);
+                    $status_detail = $this->M_pengiriman_obat->input_data('stok_obat_rawat_inap', $data);
+
+                    // update stok di penyimpanan
+                    if ($status_detail) {
+
+                        $where = array(
+                            'no_stok_obat_a' => $no_stok_obat_a
+                        );
+
+                        $data = array(
+                            'qty_sekarang' => $qty_sekarang -  $qty
+                        );
+
+                        $status_update = $this->M_pengiriman_obat->update_data($where, 'stok_obat_apotik', $data);
+                    }
                 }
-                if ($status) {
+                if ($status_update) {
                     $this->session->set_flashdata('success', 'Ditambahkan');
                 } else {
-                echo "Gagal input ke dalam data detail transaksi !!";
+                    echo "Gagal input ke dalam data detail transaksi !!";
                 }
             } else {
-            echo "Gagal input ke dalam data transaksi !!";
+                echo "Gagal input ke dalam data transaksi !!";
             }
-            
-        }
-        else {
+        } else {
             echo "Harus Ada Detail Transaksi !!";
         }
     }
