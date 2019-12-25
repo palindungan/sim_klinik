@@ -156,7 +156,7 @@
 
 <script>
 	var count1 = 0;
-	var jumlah_detail_penerimaan = 0;
+	var jumlah_detail_transaksi = 0;
 
 	$(document).on('change', '#xx', function(event) {
 		var nilai_value = $('#xx').val();
@@ -213,9 +213,9 @@
 		var row_no = $(this).attr("id");
 		$('#row' + row_no).remove();
 
-		jumlah_detail_penerimaan = jumlah_detail_penerimaan - 1;
+		jumlah_detail_transaksi = jumlah_detail_transaksi - 1;
 
-		cekJumlahDatapenerimaan();
+		cekJumlahDataDetailTransaksi();
 	});
 
 	// jika kita mengubah class inputan rupiah
@@ -275,7 +275,7 @@
 						var harga_jual = data[i].harga_jual;
 
 						var button = `<a onclick="pilihObat('` + kode +
-							`','` + nama + `','` + harga_jual + `')" id="` + kode +
+							`','` + nama + `','` + harga_jual + `','` + qty_sekarang + `')" id="` + kode +
 							`" class="btn btn-sm btn-dark text-white">Pilih</a>`;
 
 						table.row.add([no, nama, nama_kategori, tgl_penerimaan_o, qty_sekarang,
@@ -296,7 +296,7 @@
 	}
 
 	// Start add_row
-	function pilihObat(kode, nama, harga_jual) {
+	function pilihObat(kode, nama, harga_jual, qty_sekarang) {
 
 		$('#detail_list').append(`
 
@@ -315,6 +315,7 @@
 				</div>
                 <div class="form-group col-sm-1">
 					<input type="text" name="qty[]" class="form-control form-control-sm rupiah" id="qty` + count1 + `" placeholder="QTY" value="1" required>
+					<input type="text" name="qty_sekarang[]" id="qty_sekarang` + count1 + `" class="form-control form-control-sm" value="` + qty_sekarang + `"></input>
 				</div>
 				<div class="form-group col-sm-2">
 					<a id="` + count1 + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris">
@@ -329,16 +330,16 @@
 		`);
 
 		count1 = count1 + 1;
-		jumlah_detail_penerimaan = jumlah_detail_penerimaan + 1;
+		jumlah_detail_transaksi = jumlah_detail_transaksi + 1;
 		$('#exampleModalCenter').modal('hide');
 
-		cekJumlahDatapenerimaan();
+		cekJumlahDataDetailTransaksi();
 	}
 
-	function cekJumlahDatapenerimaan() {
+	function cekJumlahDataDetailTransaksi() {
 
 		var x = document.getElementById("label_kosong");
-		if (jumlah_detail_penerimaan > 0) {
+		if (jumlah_detail_transaksi > 0) {
 			x.style.display = "none"; // hidden
 		} else {
 			x.style.display = "block"; // show

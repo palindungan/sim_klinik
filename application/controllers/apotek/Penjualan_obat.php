@@ -87,10 +87,24 @@ class Penjualan_obat extends CI_Controller
                         'harga_jual' => $harga_jual
                     );
 
-                    $status = $this->M_penjualan_obat->input_data('detail_penjualan_obat_apotik', $data);
+                    $status_detail = $this->M_penjualan_obat->input_data('detail_penjualan_obat_apotik', $data);
+
+                    // update stok di penyimpanan
+                    if ($status_detail) {
+
+                        $where = array(
+                            'no_stok_obat_a' => $no_stok_obat_a
+                        );
+
+                        $data = array(
+                            'qty_sekarang' => $qty
+                        );
+
+                        $status_update = $this->M_penjualan_obat->update_data($where, 'stok_obat_apotik', $data);
+                    }
                 }
 
-                if ($status) {
+                if ($status_detail) {
                     $this->session->set_flashdata('success', 'Ditambahkan');
                 } else {
                     echo "Gagal input ke dalam data detail transaksi !!";
