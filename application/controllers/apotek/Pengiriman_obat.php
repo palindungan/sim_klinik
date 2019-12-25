@@ -5,6 +5,7 @@ class Pengiriman_obat extends CI_Controller
     {
         parent::__construct();
         $this->load->model('apotek/M_pengiriman_obat');
+        date_default_timezone_set('Asia/Jakarta');
     }
     public function index()
     {
@@ -23,7 +24,6 @@ class Pengiriman_obat extends CI_Controller
     {
         $tujuan = $this->input->post('tujuan');
         if (isset($_POST['kode_obat'])) {
-            date_default_timezone_set('Asia/Jakarta');
             $no_obat_keluar_i = $this->M_pengiriman_obat->get_no_transaksi(); // generate
             $tgl_obat_keluar_i = date('Y-m-d H:i:s');
             $obat_keluar_internal = array(
@@ -78,20 +78,20 @@ class Pengiriman_obat extends CI_Controller
 
     public function tampil_daftar_pengiriman_obat()
     {
-        $data['record'] = $this->M_pengiriman_obat->tampil_data('daftar_pengiriman_obat_apotek')->result();
+        $data['record'] = $this->M_pengiriman_obat->tampil_data('obat_keluar_internal')->result();
 
         $this->template->load('sim_klinik/template/apotek', 'sim_klinik/konten/apotek/history/pengiriman/tampil', $data);
     }
 
     public function tampil_detail_daftar_pengiriman_obat()
     {
-        $no_pengiriman_obat_a = $this->input->get('no_pengiriman_obat_a');
+        $no_obat_keluar_i = $this->input->get('no_obat_keluar_i');
 
         $where = array(
-            'no_pengiriman_obat_a' => $no_pengiriman_obat_a
+            'no_obat_keluar_i' => $no_obat_keluar_i
         );
 
-        $data['record'] = $this->M_pengiriman_obat->get_data('daftar_pengiriman_obat_apotek', $where)->result();
+        $data['record'] = $this->M_pengiriman_obat->get_data('obat_keluar_internal', $where)->result();
 
         $data['detail_record'] = $this->M_pengiriman_obat->get_data('daftar_pengiriman_obat_apotek_detail', $where)->result();
 

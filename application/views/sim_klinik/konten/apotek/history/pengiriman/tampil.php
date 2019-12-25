@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Data Penjualan Obat</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Data Transfer Obat</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -10,9 +10,8 @@
                         <tr>
                             <th width="5%" class="text-center">No</th>
                             <th width="15%" class="text-center">Kode</th>
-                            <th width="10%">Tanggal</th>
-                            <th width="20%">Nama Pasien</th>
-                            <th width="15%" class="text-center">Total Harga</th>
+                            <th width="10%">Tujuan</th>
+                            <th width="20%">Tanggal</th>
                             <th width="15%" class="text-center">Aksi</th>
                         </tr>
                     </thead>
@@ -23,12 +22,11 @@
                         ?>
                             <tr>
                                 <td class="text-center"><?= $no++ ?></td>
-                                <td class="text-center"><?= $data->no_penjualan_obat_a ?></td>
-                                <td><?= $data->tanggal_penjualan ?></td>
-                                <td><?= $data->nama_pasien ?></td>
-                                <td class="text-right"><?= rupiah($data->total_harga) ?></td>
+                                <td class="text-center"><?= $data->no_obat_keluar_i ?></td>
+                                <td><?= $data->tujuan ?></td>
+                                <td><?= $data->tgl_obat_keluar_i ?></td>
                                 <td class="text-center">
-                                    <a href="<?= base_url('apotek/penjualan_obat/tampil_detail_daftar_penjualan_obat?no_penjualan_obat_a=' . $data->no_penjualan_obat_a) ?>" class="btn btn-sm btn-danger">Lihat</a>
+                                    <a href="<?= base_url('apotek/pengiriman_obat/tampil_detail_daftar_pengiriman_obat?no_obat_keluar_i=' . $data->no_obat_keluar_i) ?>" class="btn btn-sm btn-danger">Lihat</a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
