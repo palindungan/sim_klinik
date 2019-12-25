@@ -132,7 +132,7 @@
 						var qty = data[i].qty_sekarang;
 
 						var button = `<a onclick="pilihObat('` + kode +
-							`','` + nama + `','` + nama_kategori + `')" id="` + kode +
+							`','` + nama + `','` + nama_kategori + `','` + qty + `')" id="` + kode +
 							`" class="btn btn-sm btn-dark text-white">Pilih</a>`;
 
 						table.row.add([no, nama, nama_kategori, qty, button]);
@@ -151,7 +151,7 @@
 	}
 
 	// Start add_row
-	function pilihObat(kode, nama, nama_kategori) {
+	function pilihObat(kode, nama, nama_kategori, qty_sekarang) {
 
 		$('#detail_list').append(`
 
@@ -172,7 +172,8 @@
             <div class="form-group col-sm-1">
                 <input type="text" name="qty[]" class="form-control form-control-sm rupiah" id="qty` + count1 + `"
                     placeholder="QTY" required>
-            </div>
+					<input type="hidden" name="qty_sekarang[]" id="qty_sekarang` + count1 + `" class="form-control form-control-sm" value="` + qty_sekarang + `"></input>
+			</div>
             <div class="form-group col-sm-2">
                 <a id="` + count1 + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris">
                     <span class="icon text-white-50">
@@ -202,6 +203,24 @@
 		}
 
 	}
+
+	// jika kita mengubah class inputan rupiah
+	$(document).on('keyup', '.rupiah', function() {
+
+		var row_id = $(this).attr("id"); // qty1++
+		var row_no = row_id.substring(3); // 1++
+
+		var val_qty = $('#' + row_id).val();
+		var val_qty_sekarang = $('#qty_sekarang' + row_no).val();
+
+		if (val_qty <= val_qty_sekarang) {
+			update_total();
+		} else {
+			alert("Maaf Qty Tidak Boleh Detail Obat Melebihi Stok Apotek");
+			$('#' + row_id).val("");
+		}
+	});
+
 
 	$(document).on('click', '.remove_baris', function() {
 		var row_no = $(this).attr("id");
