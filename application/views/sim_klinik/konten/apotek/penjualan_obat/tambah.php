@@ -224,8 +224,8 @@
 		var row_id = $(this).attr("id"); // qty1++
 		var row_no = row_id.substring(3); // 1++
 
-		var val_qty = $('#' + row_id).val();
-		var val_qty_sekarang = $('#qty_sekarang' + row_no).val();
+		var val_qty = parseInt($('#' + row_id).val());
+		var val_qty_sekarang = parseInt($('#qty_sekarang' + row_no).val());
 
 		if (val_qty <= val_qty_sekarang) {
 			update_total();
