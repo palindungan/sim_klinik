@@ -236,7 +236,9 @@
 			method: "POST",
 			data: form_data,
 			success: function(data) {
-				alert(data);
+				if (data != "") {
+					alert(data);
+				}
 				location.reload();
 			}
 		});
