@@ -53,7 +53,8 @@ class Pendaftaran extends CI_Controller
                 'no_user_pegawai' => "P001",
                 'layanan_tujuan' => $this->input->post('layanan_tujuan'),
                 'tipe_antrian' => $this->input->post('tipe_antrian'),
-                'tgl_pelayanan' => $sekarang
+                'tgl_pelayanan' => $sekarang,
+                'status' => 'belum_finish'
             );
             $data_pasien = array(
                 'no_rm' => $this->input->post('no_rm'),
@@ -69,7 +70,7 @@ class Pendaftaran extends CI_Controller
             $rm_db = $db->jml_rm;
             if ($rm_db > 0) {
                 $this->M_pendaftaran->input_data('pelayanan', $data_pelayanan);
-                
+
             } 
             else {
                 $this->M_pendaftaran->input_data('pelayanan', $data_pelayanan);

@@ -28,7 +28,7 @@
                                 <td><?= $data->nama ?></td>
                                 <td class="text-right"><?= rupiah($data->total_harga) ?></td>
                                 <td class="text-center">
-                                    <a href="<?= base_url('apotek/penerimaan/tampil_detail_daftar_penerimaan_obat?no_penerimaan_o=' . $data->no_penerimaan_o) ?>" class="btn btn-sm btn-danger">Lihat</a>
+                                    <a href="<?= base_url('apotek/penerimaan/tampil_detail_daftar_penerimaan_obat?no_penerimaan_o=' . $data->no_penerimaan_o) ?>" class="btn btn-sm btn-info">Lihat</a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

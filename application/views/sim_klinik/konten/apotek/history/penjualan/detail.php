@@ -22,7 +22,7 @@ foreach ($record as $row) {
         </div>
         <div class="card-body">
             <div style="margin-bottom: 20px;">
-                <button onclick="window.history.back();" type="button" class="btn btn-sm btn-primary mb-3">Kembali</button>
+                <button onclick="window.history.back();" type="button" class="btn btn-sm btn-dark mb-3">Kembali</button>
             </div>
             <table class="table table-borderless" width="100">
                 <tr>

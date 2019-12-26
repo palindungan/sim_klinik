@@ -31,7 +31,7 @@
 							<td><?= $data->alamat ?></td>
                             <td>
                             <a href="<?= base_url('admin/pasien/list/'.$data->no_rm) ?>"
-									class="btn btn-sm btn-info">Detail</a>
+									class="btn btn-sm btn-info">Lihat</a>
                             </td>
 							
 						</tr>

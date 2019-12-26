@@ -26,7 +26,7 @@
                                 <td><?= $data->tujuan ?></td>
                                 <td><?= $data->tgl_obat_keluar_i ?></td>
                                 <td class="text-center">
-                                    <a href="<?= base_url('apotek/pengiriman_obat/tampil_detail_daftar_pengiriman_obat?no_obat_keluar_i=' . $data->no_obat_keluar_i) ?>" class="btn btn-sm btn-danger">Lihat</a>
+                                    <a href="<?= base_url('apotek/pengiriman_obat/tampil_detail_daftar_pengiriman_obat?no_obat_keluar_i=' . $data->no_obat_keluar_i) ?>" class="btn btn-sm btn-info">Lihat</a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
