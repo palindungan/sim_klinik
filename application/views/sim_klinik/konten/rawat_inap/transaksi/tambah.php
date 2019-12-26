@@ -271,7 +271,7 @@
             `" placeholder="harga supplier" required value="` + harga_jual + `">
 				</div>
                 <div class="form-group col-sm-1">
-					<input type="text" name="qty[]" class="form-control form-control-sm rupiah" id="qty` + count1 + `" placeholder="QTY" value="1" required>
+					<input type="text" name="qty[]" class="form-control form-control-sm rupiah qty_val" id="qty` + count1 + `" placeholder="QTY" value="1" required>
 					<input type="hidden" name="qty_sekarang[]" id="qty_sekarang` + count1 + `" class="form-control form-control-sm" value="` + qty_sekarang + `"></input>
 				</div>
 				<div class="form-group col-sm-2">
@@ -336,6 +336,11 @@
 
     // jika kita mengubah class inputan rupiah
     $(document).on('keyup', '.rupiah', function() {
+        update_total();
+    });
+
+    // jika kita mengubah class inputan 
+    $(document).on('keyup', '.qty_val', function() {
 
         var row_id = $(this).attr("id"); // qty1++
         var row_no = row_id.substring(3); // 1++
