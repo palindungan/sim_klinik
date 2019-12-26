@@ -54,6 +54,10 @@ class Pasien extends CI_Controller
             $no_ugd_p = $ugd_penanganan->no_ugd_p;
             $data['tindakan_ugd'] = $this->M_pasien->detail_tindakan_ugd($no_ugd_p)->result();
         }
+
+            $obat_penanganan =  $this->M_pasien->ambil_no_obat('penjualan_obat_apotik',$id)->row();
+            $no_obat = $obat_penanganan->no_penjualan_obat_a;
+            $data['detail_obat'] = $this->M_pasien->detail_obat($no_obat)->result();
         
         
         $this->template->load('sim_klinik/template/admin', 'sim_klinik/konten/admin/pasien/detail',$data);

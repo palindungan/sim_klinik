@@ -62,7 +62,7 @@ class M_transaksi extends CI_Model
     function get_no_transaksi()
     {
         $field = "no_bp_p";
-        $tabel = "bp_penangan";
+        $tabel = "bp_penanganan";
         $digit = "4";
         $ymd = date('ymd');
 

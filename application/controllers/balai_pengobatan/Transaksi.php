@@ -71,7 +71,7 @@ class Transaksi extends CI_Controller
                 'total_harga' => $total_harga
             );
 
-            $status = $this->M_transaksi->input_data('bp_penangananan', $data);
+            $status = $this->M_transaksi->input_data('bp_penanganan', $data);
             // end of data transaksi 
 
             if ($status) {
@@ -89,7 +89,7 @@ class Transaksi extends CI_Controller
                         'harga' => $harga
                     );
 
-                    $status = $this->M_transaksi->input_data('detail_bp_penangananan', $data);
+                    $status = $this->M_transaksi->input_data('detail_bp_penanganan', $data);
                 }
 
                 if ($status) {

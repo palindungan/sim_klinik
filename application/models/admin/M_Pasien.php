@@ -110,4 +110,18 @@ class M_pasien extends CI_Model
         return $this->db->get();
     }
     
+    function ambil_no_obat($table,$id)
+    {
+        return $this->db->get_where($table,array('no_ref_pelayanan' => $id));
+
+    }
+    function detail_obat($no_obat)
+    {
+        $this->db->select('*');
+        $this->db->from('detail_penjualan_obat_apotik');
+        $this->db->join('stok_obat_apotik', 'detail_penjualan_obat_apotik.no_stok_obat_a = stok_obat_apotik.no_stok_obat_a');
+        $this->db->join('obat', 'stok_obat_apotik.kode_obat = obat.kode_obat');
+        $this->db->where('detail_penjualan_obat_apotik.no_penjualan_obat_a', $no_obat);
+        return $this->db->get();
+    }
 }

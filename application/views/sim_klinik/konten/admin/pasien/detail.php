@@ -37,7 +37,7 @@
                 <td width="40%">-</td>
                 <td width="19%">Tanggal Keluar</td>
                 <td width="1%">:</td>
-                <td width="25%">20-12-2019</td>
+                <td width="25%">-</td>
             </tr>
             <tr>
                 <td width="14%">Tujuan</td>
@@ -54,9 +54,11 @@
             <td><i>Biaya Tindakan</i></td>
         </tr>
         <?php 
+        $total_tindakan = 0;
         if($layanan_tujuan == "Poli KIA") 
         {
             foreach($tindakan_kia as $data_kia):
+                $total_tindakan += $data_kia->harga;
                 echo '
                 <tr>
                     <td class=""><h6 class="ml-4">'.$data_kia->nama.'</h6></td>
@@ -67,6 +69,7 @@
         else if($layanan_tujuan == "Balai Pengobatan")
         {
             foreach($tindakan_bp as $data_bp):
+                $total_tindakan += $data_bp->harga;
                 echo '
                 <tr>
                     <td class=""><h6 class="ml-4">'.$data_bp->nama.'</h6></td>
@@ -77,6 +80,7 @@
         else if($layanan_tujuan == "Laboratorium")
         {
             foreach($tindakan_lab as $data_lab):
+                $total_tindakan += $data_lab->harga;
                 echo '
                 <tr>
                     <td class=""><h6 class="ml-4">'.$data_lab->nama.'</h6></td>
@@ -87,6 +91,7 @@
         else if($layanan_tujuan == "UGD")
         {
             foreach($tindakan_ugd as $data_ugd):
+                $total_tindakan += $data_ugd->harga;
                 echo '
                 <tr>
                     <td class=""><h6 class="ml-4">'.$data_ugd->nama.'</h6></td>
@@ -95,26 +100,32 @@
                 endforeach;
         }
         ?>
-        
-        <tr>
-            <td><i>Biaya Ruang Perawatan</i></td>
-        </tr>
-        <tr>
-            <td class=""><h6 class="ml-4">Tindakan asd</h6></td>
-            <td class="text-right">90.000</td>
-        </tr>
-        <tr>
-            <td class=""><h6 class="ml-4">Tindakan Pemeriksaan kadar gula</h6></td>
-            <td class="text-right">140.000</td>
-        </tr>
         <tr>
             <td><i>Biaya Obat-obatan</i></td>
         </tr>
         <tr>
-            <td class=""><h6 class="ml-4">Apotek</h6></td>
-            <td class="text-right">90.000</td>
+            <?php
+            $total_obat = 0; 
+            foreach($detail_obat as $data_obat):
+            $total_obat += $data_obat->harga_jual;
+                echo '
+                <tr>
+                    <td class=""><h6 class="ml-4">'.$data_obat->nama.'</h6></td>
+                    <td class="text-right">'.rupiah($data_obat->harga_jual).'</td>
+                </tr>';
+                endforeach;
+            ?>
         </tr>
         </table>
+        <?php 
+        $grand_total = $total_tindakan + $total_obat;
+        ?>
+        <div style="clear:left;clear:right">
+        <hr>
+        <span style="float:left">Jumlah Yang Harus Dibayar</span>
+        <span style="float:right"><?= rupiah($grand_total) ?></span>
+        </div>
+
         </div>
 		</div>
 	</div>
