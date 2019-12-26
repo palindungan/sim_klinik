@@ -252,7 +252,7 @@ class Pendaftaran extends CI_Controller
                 $printer->initialize();
                 $printer->setJustification(Escpos\Printer::JUSTIFY_CENTER);
                 $printer->setTextSize(1, 2);
-                $printer->text("Nomor Antrian Nomor \n");
+                $printer->text("Nomor Antrian \n");
                 $printer->text("\n");
 
                 $printer->initialize();
