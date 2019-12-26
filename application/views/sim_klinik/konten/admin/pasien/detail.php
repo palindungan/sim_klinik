@@ -76,11 +76,23 @@
         }
         else if($layanan_tujuan == "Laboratorium")
         {
-
+            foreach($tindakan_lab as $data_lab):
+                echo '
+                <tr>
+                    <td class=""><h6 class="ml-4">'.$data_lab->nama.'</h6></td>
+                    <td class="text-right">'.rupiah($data_lab->harga).'</td>
+                </tr>';
+                endforeach;
         }
         else if($layanan_tujuan == "UGD")
         {
-
+            foreach($tindakan_ugd as $data_ugd):
+                echo '
+                <tr>
+                    <td class=""><h6 class="ml-4">'.$data_ugd->nama.'</h6></td>
+                    <td class="text-right">'.rupiah($data_ugd->harga).'</td>
+                </tr>';
+                endforeach;
         }
         ?>
         

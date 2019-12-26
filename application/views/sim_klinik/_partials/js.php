@@ -117,3 +117,8 @@
 	}
 
 </script>
+<script>
+	$('#dataTable').DataTable({
+		ordering: false
+	});
+</script>

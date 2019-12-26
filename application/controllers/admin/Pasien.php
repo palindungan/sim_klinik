@@ -8,7 +8,7 @@ class Pasien extends CI_Controller
     }
     public function index()
     {
-        $data['record'] = $this->M_pasien->tampil_data('pasien')->result();
+        $data['record'] = $this->M_pasien->tampil_pasien('data_pelayanan_pasien_default')->result();
         $this->template->load('sim_klinik/template/admin', 'sim_klinik/konten/admin/pasien/tampil',$data);
     }
     public function list($id)
@@ -43,6 +43,16 @@ class Pasien extends CI_Controller
         else if($tujuan_pelayanan == "Laboratorium")
         {
             // ambil detail penanganan lab
+            $lab_transaksi =  $this->M_pasien->ambil_lab_transaksi('lab_transaksi',$id)->row();
+            $no_lab_t = $lab_transaksi->no_lab_t;
+            $data['tindakan_lab'] = $this->M_pasien->detail_lab_transaksi($no_lab_t)->result();
+        }
+        else if($tujuan_pelayanan == "UGD")
+        {
+            // ambil detail penanganan UGD
+            $ugd_penanganan =  $this->M_pasien->ambil_no_ugd('ugd_penanganan',$id)->row();
+            $no_ugd_p = $ugd_penanganan->no_ugd_p;
+            $data['tindakan_ugd'] = $this->M_pasien->detail_tindakan_ugd($no_ugd_p)->result();
         }
         
         

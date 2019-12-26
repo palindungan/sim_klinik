@@ -36,6 +36,11 @@ class M_pasien extends CI_Model
         return $this->db->order_by('tgl_pelayanan', 'DESC')->get_where($table, array('no_rm' => $id),10);
     }
 
+    function tampil_pasien($table)
+    {
+        return $this->db->order_by('tgl_pelayanan','DESC')->get_where($table,array('status' => 'finish'));
+    }
+
     function ambil_nama($table,$no_rm)
     {
         return $this->db->get_where($table,array('no_rm' => $no_rm));
@@ -71,9 +76,37 @@ class M_pasien extends CI_Model
     function detail_tindakan_bp($no_bp_p)
     {
         $this->db->select('*');
-        $this->db->from('detail_bp_penangan');
-        $this->db->join('bp_tindakan', 'detail_bp_penangan.no_bp_t = bp_tindakan.no_bp_t');
-        $this->db->where('detail_bp_penangan.no_bp_p', $no_bp_p);
+        $this->db->from('detail_bp_penanganan');
+        $this->db->join('bp_tindakan', 'detail_bp_penanganan.no_bp_t = bp_tindakan.no_bp_t');
+        $this->db->where('detail_bp_penanganan.no_bp_p', $no_bp_p);
+        return $this->db->get();
+    }
+
+    function ambil_lab_transaksi($table,$id)
+    {
+        return $this->db->get_where($table,array('no_ref_pelayanan' => $id));
+
+    }
+    function detail_lab_transaksi($no_lab_t)
+    {
+        $this->db->select('*');
+        $this->db->from('detail_lab_transaksi');
+        $this->db->join('lab_checkup', 'detail_lab_transaksi.no_lab_c = lab_checkup.no_lab_c');
+        $this->db->where('detail_lab_transaksi.no_lab_t', $no_lab_t);
+        return $this->db->get();
+    }
+
+    function ambil_no_ugd($table,$id)
+    {
+        return $this->db->get_where($table,array('no_ref_pelayanan' => $id));
+
+    }
+    function detail_tindakan_ugd($no_ugd_p)
+    {
+        $this->db->select('*');
+        $this->db->from('detail_ugd_penanganan');
+        $this->db->join('ugd_tindakan', 'detail_ugd_penanganan.no_ugd_t = ugd_tindakan.no_ugd_t');
+        $this->db->where('detail_ugd_penanganan.no_ugd_p', $no_ugd_p);
         return $this->db->get();
     }
     
