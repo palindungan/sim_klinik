@@ -529,7 +529,7 @@ if ( ! function_exists('redirect'))
 	 * @param	int	$code	HTTP Response status code
 	 * @return	void
 	 */
-	function redirect($uri = '', $method = 'auto', $code = NULL)
+	function redirect($uri = '', $method = 'auto', $wait_time = 1, $code = NULL)
 	{
 		if ( ! preg_match('#^(\w+:)?//#i', $uri))
 		{
@@ -558,7 +558,7 @@ if ( ! function_exists('redirect'))
 		switch ($method)
 		{
 			case 'refresh':
-				header('Refresh:0;url='.$uri);
+				header('Refresh:'.$wait_time.';url='.$uri);
 				break;
 			default:
 				header('Location: '.$uri, TRUE, $code);

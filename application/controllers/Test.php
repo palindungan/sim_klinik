@@ -21,7 +21,7 @@
             $printer->text("Klinik Ampel Sehat \n");
 
             $printer->initialize();
-            $printer->setUnderline(Escpos\Printer::UNDERLINE_DOUBLE);
+            // $printer->setUnderline(Escpos\Printer::UNDERLINE_DOUBLE);
             $printer->setJustification(Escpos\Printer::JUSTIFY_CENTER);
             $printer->text("Melayani dengan sepenuh hati \n");
             $printer->text("\n");
@@ -53,6 +53,7 @@
             */
             $printer->feed(4); // mencetak 2 baris kosong, agar kertas terangkat ke atas
             $printer->close();
+            redirect('loket/pendaftaran','refresh');
         }
     
         public function cetak_struk() {
