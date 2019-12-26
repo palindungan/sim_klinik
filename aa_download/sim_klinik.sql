@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.4
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 25 Des 2019 pada 23.19
--- Versi server: 10.1.37-MariaDB
--- Versi PHP: 7.3.0
+-- Generation Time: Dec 26, 2019 at 04:51 AM
+-- Server version: 10.1.36-MariaDB
+-- PHP Version: 7.2.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,7 +25,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `ambulan`
+-- Table structure for table `ambulan`
 --
 
 CREATE TABLE `ambulan` (
@@ -38,8 +38,8 @@ CREATE TABLE `ambulan` (
 -- --------------------------------------------------------
 
 --
--- Stand-in struktur untuk tampilan `antrian_balai_pengobatan_prioritas`
--- (Lihat di bawah untuk tampilan aktual)
+-- Stand-in structure for view `antrian_balai_pengobatan_prioritas`
+-- (See below for the actual view)
 --
 CREATE TABLE `antrian_balai_pengobatan_prioritas` (
 `kode_antrian_bp` char(5)
@@ -51,8 +51,8 @@ CREATE TABLE `antrian_balai_pengobatan_prioritas` (
 -- --------------------------------------------------------
 
 --
--- Stand-in struktur untuk tampilan `antrian_balai_pengobatan_semua`
--- (Lihat di bawah untuk tampilan aktual)
+-- Stand-in structure for view `antrian_balai_pengobatan_semua`
+-- (See below for the actual view)
 --
 CREATE TABLE `antrian_balai_pengobatan_semua` (
 `kode_antrian_bp` char(5)
@@ -64,8 +64,8 @@ CREATE TABLE `antrian_balai_pengobatan_semua` (
 -- --------------------------------------------------------
 
 --
--- Stand-in struktur untuk tampilan `antrian_balai_pengobatan_tersisa`
--- (Lihat di bawah untuk tampilan aktual)
+-- Stand-in structure for view `antrian_balai_pengobatan_tersisa`
+-- (See below for the actual view)
 --
 CREATE TABLE `antrian_balai_pengobatan_tersisa` (
 `kode_antrian_bp` char(5)
@@ -77,7 +77,7 @@ CREATE TABLE `antrian_balai_pengobatan_tersisa` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `antrian_bp`
+-- Table structure for table `antrian_bp`
 --
 
 CREATE TABLE `antrian_bp` (
@@ -87,7 +87,7 @@ CREATE TABLE `antrian_bp` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `antrian_bp`
+-- Dumping data for table `antrian_bp`
 --
 
 INSERT INTO `antrian_bp` (`kode_antrian_bp`, `no_ref_pelayanan`, `status`) VALUES
@@ -104,8 +104,8 @@ INSERT INTO `antrian_bp` (`kode_antrian_bp`, `no_ref_pelayanan`, `status`) VALUE
 -- --------------------------------------------------------
 
 --
--- Stand-in struktur untuk tampilan `antrian_kesehatan_ibu_dan_anak_semua`
--- (Lihat di bawah untuk tampilan aktual)
+-- Stand-in structure for view `antrian_kesehatan_ibu_dan_anak_semua`
+-- (See below for the actual view)
 --
 CREATE TABLE `antrian_kesehatan_ibu_dan_anak_semua` (
 `kode_antrian_kia` char(4)
@@ -117,8 +117,8 @@ CREATE TABLE `antrian_kesehatan_ibu_dan_anak_semua` (
 -- --------------------------------------------------------
 
 --
--- Stand-in struktur untuk tampilan `antrian_kesehatan_ibu_dan_anak_tersisa`
--- (Lihat di bawah untuk tampilan aktual)
+-- Stand-in structure for view `antrian_kesehatan_ibu_dan_anak_tersisa`
+-- (See below for the actual view)
 --
 CREATE TABLE `antrian_kesehatan_ibu_dan_anak_tersisa` (
 `kode_antrian_kia` char(4)
@@ -130,7 +130,7 @@ CREATE TABLE `antrian_kesehatan_ibu_dan_anak_tersisa` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `antrian_kia`
+-- Table structure for table `antrian_kia`
 --
 
 CREATE TABLE `antrian_kia` (
@@ -140,7 +140,7 @@ CREATE TABLE `antrian_kia` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `antrian_kia`
+-- Dumping data for table `antrian_kia`
 --
 
 INSERT INTO `antrian_kia` (`kode_antrian_kia`, `no_ref_pelayanan`, `status`) VALUES
@@ -154,7 +154,7 @@ INSERT INTO `antrian_kia` (`kode_antrian_kia`, `no_ref_pelayanan`, `status`) VAL
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `antrian_lab`
+-- Table structure for table `antrian_lab`
 --
 
 CREATE TABLE `antrian_lab` (
@@ -164,7 +164,7 @@ CREATE TABLE `antrian_lab` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `antrian_lab`
+-- Dumping data for table `antrian_lab`
 --
 
 INSERT INTO `antrian_lab` (`kode_antrian_lab`, `no_ref_pelayanan`, `status`) VALUES
@@ -176,8 +176,8 @@ INSERT INTO `antrian_lab` (`kode_antrian_lab`, `no_ref_pelayanan`, `status`) VAL
 -- --------------------------------------------------------
 
 --
--- Stand-in struktur untuk tampilan `antrian_laboratorium_prioritas`
--- (Lihat di bawah untuk tampilan aktual)
+-- Stand-in structure for view `antrian_laboratorium_prioritas`
+-- (See below for the actual view)
 --
 CREATE TABLE `antrian_laboratorium_prioritas` (
 `kode_antrian_lab` char(5)
@@ -189,8 +189,8 @@ CREATE TABLE `antrian_laboratorium_prioritas` (
 -- --------------------------------------------------------
 
 --
--- Stand-in struktur untuk tampilan `antrian_laboratorium_semua`
--- (Lihat di bawah untuk tampilan aktual)
+-- Stand-in structure for view `antrian_laboratorium_semua`
+-- (See below for the actual view)
 --
 CREATE TABLE `antrian_laboratorium_semua` (
 `kode_antrian_lab` char(5)
@@ -202,8 +202,8 @@ CREATE TABLE `antrian_laboratorium_semua` (
 -- --------------------------------------------------------
 
 --
--- Stand-in struktur untuk tampilan `antrian_laboratorium_tersisa`
--- (Lihat di bawah untuk tampilan aktual)
+-- Stand-in structure for view `antrian_laboratorium_tersisa`
+-- (See below for the actual view)
 --
 CREATE TABLE `antrian_laboratorium_tersisa` (
 `kode_antrian_lab` char(5)
@@ -215,20 +215,27 @@ CREATE TABLE `antrian_laboratorium_tersisa` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `bp_penangan`
+-- Table structure for table `bp_penanganan`
 --
 
-CREATE TABLE `bp_penangan` (
+CREATE TABLE `bp_penanganan` (
   `no_bp_p` char(13) NOT NULL,
   `no_ref_pelayanan` char(10) NOT NULL,
   `tgl_penanganan` datetime NOT NULL,
   `total_harga` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `bp_penanganan`
+--
+
+INSERT INTO `bp_penanganan` (`no_bp_p`, `no_ref_pelayanan`, `tgl_penanganan`, `total_harga`) VALUES
+('BP191226-0001', '191125-015', '2019-12-26 09:24:04', 190000);
+
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `bp_tindakan`
+-- Table structure for table `bp_tindakan`
 --
 
 CREATE TABLE `bp_tindakan` (
@@ -238,7 +245,7 @@ CREATE TABLE `bp_tindakan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `bp_tindakan`
+-- Dumping data for table `bp_tindakan`
 --
 
 INSERT INTO `bp_tindakan` (`no_bp_t`, `nama`, `harga`) VALUES
@@ -248,8 +255,8 @@ INSERT INTO `bp_tindakan` (`no_bp_t`, `nama`, `harga`) VALUES
 -- --------------------------------------------------------
 
 --
--- Stand-in struktur untuk tampilan `daftar_penerimaan_obat_apotek`
--- (Lihat di bawah untuk tampilan aktual)
+-- Stand-in structure for view `daftar_penerimaan_obat_apotek`
+-- (See below for the actual view)
 --
 CREATE TABLE `daftar_penerimaan_obat_apotek` (
 `no_penerimaan_o` char(13)
@@ -261,8 +268,8 @@ CREATE TABLE `daftar_penerimaan_obat_apotek` (
 -- --------------------------------------------------------
 
 --
--- Stand-in struktur untuk tampilan `daftar_penerimaan_obat_apotek_detail`
--- (Lihat di bawah untuk tampilan aktual)
+-- Stand-in structure for view `daftar_penerimaan_obat_apotek_detail`
+-- (See below for the actual view)
 --
 CREATE TABLE `daftar_penerimaan_obat_apotek_detail` (
 `no_penerimaan_o` char(13)
@@ -277,8 +284,8 @@ CREATE TABLE `daftar_penerimaan_obat_apotek_detail` (
 -- --------------------------------------------------------
 
 --
--- Stand-in struktur untuk tampilan `daftar_pengiriman_obat_apotek_detail`
--- (Lihat di bawah untuk tampilan aktual)
+-- Stand-in structure for view `daftar_pengiriman_obat_apotek_detail`
+-- (See below for the actual view)
 --
 CREATE TABLE `daftar_pengiriman_obat_apotek_detail` (
 `no_obat_keluar_i` char(13)
@@ -289,8 +296,8 @@ CREATE TABLE `daftar_pengiriman_obat_apotek_detail` (
 -- --------------------------------------------------------
 
 --
--- Stand-in struktur untuk tampilan `daftar_penjualan_obat_apotek`
--- (Lihat di bawah untuk tampilan aktual)
+-- Stand-in structure for view `daftar_penjualan_obat_apotek`
+-- (See below for the actual view)
 --
 CREATE TABLE `daftar_penjualan_obat_apotek` (
 `no_penjualan_obat_a` char(13)
@@ -306,8 +313,8 @@ CREATE TABLE `daftar_penjualan_obat_apotek` (
 -- --------------------------------------------------------
 
 --
--- Stand-in struktur untuk tampilan `daftar_penjualan_obat_apotek_detail`
--- (Lihat di bawah untuk tampilan aktual)
+-- Stand-in structure for view `daftar_penjualan_obat_apotek_detail`
+-- (See below for the actual view)
 --
 CREATE TABLE `daftar_penjualan_obat_apotek_detail` (
 `no_detail_penjualan_obat_a` int(7)
@@ -320,8 +327,8 @@ CREATE TABLE `daftar_penjualan_obat_apotek_detail` (
 -- --------------------------------------------------------
 
 --
--- Stand-in struktur untuk tampilan `data_obat`
--- (Lihat di bawah untuk tampilan aktual)
+-- Stand-in structure for view `data_obat`
+-- (See below for the actual view)
 --
 CREATE TABLE `data_obat` (
 `kode_obat` char(4)
@@ -335,8 +342,8 @@ CREATE TABLE `data_obat` (
 -- --------------------------------------------------------
 
 --
--- Stand-in struktur untuk tampilan `data_pelayanan_pasien`
--- (Lihat di bawah untuk tampilan aktual)
+-- Stand-in structure for view `data_pelayanan_pasien`
+-- (See below for the actual view)
 --
 CREATE TABLE `data_pelayanan_pasien` (
 `no_ref_pelayanan` char(10)
@@ -356,8 +363,30 @@ CREATE TABLE `data_pelayanan_pasien` (
 -- --------------------------------------------------------
 
 --
--- Stand-in struktur untuk tampilan `data_stok_obat_apotek`
--- (Lihat di bawah untuk tampilan aktual)
+-- Stand-in structure for view `data_pelayanan_pasien_default`
+-- (See below for the actual view)
+--
+CREATE TABLE `data_pelayanan_pasien_default` (
+`no_rm` varchar(25)
+,`no_ref_pelayanan` char(10)
+,`no_user_pegawai` char(4)
+,`layanan_tujuan` enum('Balai Pengobatan','Poli KIA','Laboratorium','UGD')
+,`tipe_antrian` enum('Dewasa','Anak-Anak')
+,`tgl_pelayanan` datetime
+,`status` enum('belum_finish','finish')
+,`nama` varchar(50)
+,`nik` char(20)
+,`tempat_lahir` varchar(50)
+,`tgl_lahir` date
+,`jenkel` enum('Laki-Laki','Perempuan')
+,`alamat` text
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `data_stok_obat_apotek`
+-- (See below for the actual view)
 --
 CREATE TABLE `data_stok_obat_apotek` (
 `no_stok_obat_a` int(7)
@@ -374,20 +403,28 @@ CREATE TABLE `data_stok_obat_apotek` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `detail_bp_penangan`
+-- Table structure for table `detail_bp_penanganan`
 --
 
-CREATE TABLE `detail_bp_penangan` (
+CREATE TABLE `detail_bp_penanganan` (
   `no_detail_bp_p` int(7) NOT NULL,
   `no_bp_p` char(13) NOT NULL,
   `no_bp_t` char(4) NOT NULL,
   `harga` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `detail_bp_penanganan`
+--
+
+INSERT INTO `detail_bp_penanganan` (`no_detail_bp_p`, `no_bp_p`, `no_bp_t`, `harga`) VALUES
+(1, 'BP191226-0001', 'B001', 90000),
+(2, 'BP191226-0001', 'B002', 100000);
+
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `detail_kia_penanganan`
+-- Table structure for table `detail_kia_penanganan`
 --
 
 CREATE TABLE `detail_kia_penanganan` (
@@ -398,17 +435,18 @@ CREATE TABLE `detail_kia_penanganan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `detail_kia_penanganan`
+-- Dumping data for table `detail_kia_penanganan`
 --
 
 INSERT INTO `detail_kia_penanganan` (`no_detail_kia_p`, `no_kia_p`, `no_kia_t`, `harga`) VALUES
 (1, 'KP191125-0001', 'K001', 1000000),
-(2, 'KP191125-0001', 'K002', 70000);
+(2, 'KP191125-0001', 'K002', 70000),
+(3, 'KP191226-0001', 'K002', 70000);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `detail_lab_transaksi`
+-- Table structure for table `detail_lab_transaksi`
 --
 
 CREATE TABLE `detail_lab_transaksi` (
@@ -419,7 +457,7 @@ CREATE TABLE `detail_lab_transaksi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `detail_lab_transaksi`
+-- Dumping data for table `detail_lab_transaksi`
 --
 
 INSERT INTO `detail_lab_transaksi` (`no_detail_lab_t`, `no_lab_t`, `no_lab_c`, `harga`) VALUES
@@ -429,7 +467,7 @@ INSERT INTO `detail_lab_transaksi` (`no_detail_lab_t`, `no_lab_t`, `no_lab_c`, `
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `detail_penjualan_obat_apotik`
+-- Table structure for table `detail_penjualan_obat_apotik`
 --
 
 CREATE TABLE `detail_penjualan_obat_apotik` (
@@ -441,7 +479,7 @@ CREATE TABLE `detail_penjualan_obat_apotik` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `detail_penjualan_obat_apotik`
+-- Dumping data for table `detail_penjualan_obat_apotik`
 --
 
 INSERT INTO `detail_penjualan_obat_apotik` (`no_detail_penjualan_obat_a`, `no_penjualan_obat_a`, `no_stok_obat_a`, `qty`, `harga_jual`) VALUES
@@ -450,7 +488,7 @@ INSERT INTO `detail_penjualan_obat_apotik` (`no_detail_penjualan_obat_a`, `no_pe
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `detail_transaksi_rawat_inap_kamar`
+-- Table structure for table `detail_transaksi_rawat_inap_kamar`
 --
 
 CREATE TABLE `detail_transaksi_rawat_inap_kamar` (
@@ -465,7 +503,7 @@ CREATE TABLE `detail_transaksi_rawat_inap_kamar` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `detail_transaksi_rawat_inap_obat`
+-- Table structure for table `detail_transaksi_rawat_inap_obat`
 --
 
 CREATE TABLE `detail_transaksi_rawat_inap_obat` (
@@ -478,7 +516,7 @@ CREATE TABLE `detail_transaksi_rawat_inap_obat` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `detail_transaksi_rawat_inap_tindakan`
+-- Table structure for table `detail_transaksi_rawat_inap_tindakan`
 --
 
 CREATE TABLE `detail_transaksi_rawat_inap_tindakan` (
@@ -491,7 +529,7 @@ CREATE TABLE `detail_transaksi_rawat_inap_tindakan` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `detail_ugd_penanganan`
+-- Table structure for table `detail_ugd_penanganan`
 --
 
 CREATE TABLE `detail_ugd_penanganan` (
@@ -502,7 +540,7 @@ CREATE TABLE `detail_ugd_penanganan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `detail_ugd_penanganan`
+-- Dumping data for table `detail_ugd_penanganan`
 --
 
 INSERT INTO `detail_ugd_penanganan` (`no_detail_ugd_p`, `no_ugd_p`, `no_ugd_t`, `harga`) VALUES
@@ -512,7 +550,7 @@ INSERT INTO `detail_ugd_penanganan` (`no_detail_ugd_p`, `no_ugd_p`, `no_ugd_t`, 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `kamar_rawat_inap`
+-- Table structure for table `kamar_rawat_inap`
 --
 
 CREATE TABLE `kamar_rawat_inap` (
@@ -523,7 +561,7 @@ CREATE TABLE `kamar_rawat_inap` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `kamar_rawat_inap`
+-- Dumping data for table `kamar_rawat_inap`
 --
 
 INSERT INTO `kamar_rawat_inap` (`no_kamar_rawat_i`, `nama`, `harga_harian`, `tipe`) VALUES
@@ -532,7 +570,7 @@ INSERT INTO `kamar_rawat_inap` (`no_kamar_rawat_i`, `nama`, `harga_harian`, `tip
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `kategori_obat`
+-- Table structure for table `kategori_obat`
 --
 
 CREATE TABLE `kategori_obat` (
@@ -541,7 +579,7 @@ CREATE TABLE `kategori_obat` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `kategori_obat`
+-- Dumping data for table `kategori_obat`
 --
 
 INSERT INTO `kategori_obat` (`no_kat_obat`, `nama`) VALUES
@@ -554,7 +592,7 @@ INSERT INTO `kategori_obat` (`no_kat_obat`, `nama`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `kia_penanganan`
+-- Table structure for table `kia_penanganan`
 --
 
 CREATE TABLE `kia_penanganan` (
@@ -565,16 +603,17 @@ CREATE TABLE `kia_penanganan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `kia_penanganan`
+-- Dumping data for table `kia_penanganan`
 --
 
 INSERT INTO `kia_penanganan` (`no_kia_p`, `no_ref_pelayanan`, `tgl_penanganan`, `total_harga`) VALUES
-('KP191125-0001', '191125-017', '2019-11-25 03:10:51', 1070000);
+('KP191125-0001', '191125-017', '2019-11-25 03:10:51', 1070000),
+('KP191226-0001', '191112-001', '2019-12-26 09:14:13', 70000);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `kia_tindakan`
+-- Table structure for table `kia_tindakan`
 --
 
 CREATE TABLE `kia_tindakan` (
@@ -584,7 +623,7 @@ CREATE TABLE `kia_tindakan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `kia_tindakan`
+-- Dumping data for table `kia_tindakan`
 --
 
 INSERT INTO `kia_tindakan` (`no_kia_t`, `nama`, `harga`) VALUES
@@ -594,7 +633,7 @@ INSERT INTO `kia_tindakan` (`no_kia_t`, `nama`, `harga`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `lab_checkup`
+-- Table structure for table `lab_checkup`
 --
 
 CREATE TABLE `lab_checkup` (
@@ -604,7 +643,7 @@ CREATE TABLE `lab_checkup` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `lab_checkup`
+-- Dumping data for table `lab_checkup`
 --
 
 INSERT INTO `lab_checkup` (`no_lab_c`, `nama`, `harga`) VALUES
@@ -614,7 +653,7 @@ INSERT INTO `lab_checkup` (`no_lab_c`, `nama`, `harga`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `lab_transaksi`
+-- Table structure for table `lab_transaksi`
 --
 
 CREATE TABLE `lab_transaksi` (
@@ -625,7 +664,7 @@ CREATE TABLE `lab_transaksi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `lab_transaksi`
+-- Dumping data for table `lab_transaksi`
 --
 
 INSERT INTO `lab_transaksi` (`no_lab_t`, `no_ref_pelayanan`, `tgl_transaksi`, `total_harga`) VALUES
@@ -634,7 +673,7 @@ INSERT INTO `lab_transaksi` (`no_lab_t`, `no_ref_pelayanan`, `tgl_transaksi`, `t
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `obat`
+-- Table structure for table `obat`
 --
 
 CREATE TABLE `obat` (
@@ -646,7 +685,7 @@ CREATE TABLE `obat` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `obat`
+-- Dumping data for table `obat`
 --
 
 INSERT INTO `obat` (`kode_obat`, `no_kat_obat`, `nama`, `min_stok`, `harga_jual`) VALUES
@@ -656,7 +695,7 @@ INSERT INTO `obat` (`kode_obat`, `no_kat_obat`, `nama`, `min_stok`, `harga_jual`
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `obat_keluar_internal`
+-- Table structure for table `obat_keluar_internal`
 --
 
 CREATE TABLE `obat_keluar_internal` (
@@ -666,7 +705,7 @@ CREATE TABLE `obat_keluar_internal` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `obat_keluar_internal`
+-- Dumping data for table `obat_keluar_internal`
 --
 
 INSERT INTO `obat_keluar_internal` (`no_obat_keluar_i`, `tujuan`, `tgl_obat_keluar_i`) VALUES
@@ -675,7 +714,7 @@ INSERT INTO `obat_keluar_internal` (`no_obat_keluar_i`, `tujuan`, `tgl_obat_kelu
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pasien`
+-- Table structure for table `pasien`
 --
 
 CREATE TABLE `pasien` (
@@ -689,7 +728,7 @@ CREATE TABLE `pasien` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `pasien`
+-- Dumping data for table `pasien`
 --
 
 INSERT INTO `pasien` (`no_rm`, `nama`, `nik`, `tempat_lahir`, `tgl_lahir`, `jenkel`, `alamat`) VALUES
@@ -717,7 +756,7 @@ INSERT INTO `pasien` (`no_rm`, `nama`, `nik`, `tempat_lahir`, `tgl_lahir`, `jenk
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pelayanan`
+-- Table structure for table `pelayanan`
 --
 
 CREATE TABLE `pelayanan` (
@@ -731,7 +770,7 @@ CREATE TABLE `pelayanan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `pelayanan`
+-- Dumping data for table `pelayanan`
 --
 
 INSERT INTO `pelayanan` (`no_ref_pelayanan`, `no_rm`, `no_user_pegawai`, `layanan_tujuan`, `tipe_antrian`, `tgl_pelayanan`, `status`) VALUES
@@ -741,7 +780,7 @@ INSERT INTO `pelayanan` (`no_ref_pelayanan`, `no_rm`, `no_user_pegawai`, `layana
 ('191112-004', '12312wd', 'P001', 'Laboratorium', 'Dewasa', '2019-11-12 00:00:00', 'belum_finish'),
 ('191112-005', '123123222', 'P001', 'Balai Pengobatan', 'Dewasa', '2019-11-12 00:00:00', 'belum_finish'),
 ('191112-006', '123dq12', 'P001', 'Balai Pengobatan', 'Anak-Anak', '2019-11-12 00:00:00', 'belum_finish'),
-('191112-007', 'qwdcqd1221', 'P001', 'Balai Pengobatan', 'Dewasa', '2019-11-12 00:00:00', 'belum_finish'),
+('191112-007', 'qwdcqd1221', 'P001', 'Balai Pengobatan', 'Dewasa', '2019-11-12 00:00:00', 'finish'),
 ('191112-008', 'svffd324', 'P001', 'Balai Pengobatan', 'Dewasa', '2019-11-12 00:00:00', 'belum_finish'),
 ('191112-009', 'cxcaa132', 'P001', 'Balai Pengobatan', 'Anak-Anak', '2019-11-12 00:00:00', 'belum_finish'),
 ('191112-010', 'cadad1212', 'P001', 'Poli KIA', 'Dewasa', '2019-11-12 00:00:00', 'belum_finish'),
@@ -759,7 +798,7 @@ INSERT INTO `pelayanan` (`no_ref_pelayanan`, `no_rm`, `no_user_pegawai`, `layana
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pelayanan_ambulan`
+-- Table structure for table `pelayanan_ambulan`
 --
 
 CREATE TABLE `pelayanan_ambulan` (
@@ -772,8 +811,8 @@ CREATE TABLE `pelayanan_ambulan` (
 -- --------------------------------------------------------
 
 --
--- Stand-in struktur untuk tampilan `pelayanan_tujuan_bp`
--- (Lihat di bawah untuk tampilan aktual)
+-- Stand-in structure for view `pelayanan_tujuan_bp`
+-- (See below for the actual view)
 --
 CREATE TABLE `pelayanan_tujuan_bp` (
 `no_ref_pelayanan` char(10)
@@ -788,8 +827,8 @@ CREATE TABLE `pelayanan_tujuan_bp` (
 -- --------------------------------------------------------
 
 --
--- Stand-in struktur untuk tampilan `pelayanan_tujuan_kia`
--- (Lihat di bawah untuk tampilan aktual)
+-- Stand-in structure for view `pelayanan_tujuan_kia`
+-- (See below for the actual view)
 --
 CREATE TABLE `pelayanan_tujuan_kia` (
 `no_ref_pelayanan` char(10)
@@ -804,8 +843,8 @@ CREATE TABLE `pelayanan_tujuan_kia` (
 -- --------------------------------------------------------
 
 --
--- Stand-in struktur untuk tampilan `pelayanan_tujuan_lab`
--- (Lihat di bawah untuk tampilan aktual)
+-- Stand-in structure for view `pelayanan_tujuan_lab`
+-- (See below for the actual view)
 --
 CREATE TABLE `pelayanan_tujuan_lab` (
 `no_ref_pelayanan` char(10)
@@ -820,8 +859,8 @@ CREATE TABLE `pelayanan_tujuan_lab` (
 -- --------------------------------------------------------
 
 --
--- Stand-in struktur untuk tampilan `pelayanan_tujuan_ugd`
--- (Lihat di bawah untuk tampilan aktual)
+-- Stand-in structure for view `pelayanan_tujuan_ugd`
+-- (See below for the actual view)
 --
 CREATE TABLE `pelayanan_tujuan_ugd` (
 `no_ref_pelayanan` char(10)
@@ -836,7 +875,7 @@ CREATE TABLE `pelayanan_tujuan_ugd` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `penerimaan_obat`
+-- Table structure for table `penerimaan_obat`
 --
 
 CREATE TABLE `penerimaan_obat` (
@@ -847,7 +886,7 @@ CREATE TABLE `penerimaan_obat` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `penerimaan_obat`
+-- Dumping data for table `penerimaan_obat`
 --
 
 INSERT INTO `penerimaan_obat` (`no_penerimaan_o`, `no_supplier`, `tgl_penerimaan_o`, `total_harga`) VALUES
@@ -857,7 +896,7 @@ INSERT INTO `penerimaan_obat` (`no_penerimaan_o`, `no_supplier`, `tgl_penerimaan
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `penjualan_obat_apotik`
+-- Table structure for table `penjualan_obat_apotik`
 --
 
 CREATE TABLE `penjualan_obat_apotik` (
@@ -868,7 +907,7 @@ CREATE TABLE `penjualan_obat_apotik` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `penjualan_obat_apotik`
+-- Dumping data for table `penjualan_obat_apotik`
 --
 
 INSERT INTO `penjualan_obat_apotik` (`no_penjualan_obat_a`, `no_ref_pelayanan`, `tanggal_penjualan`, `total_harga`) VALUES
@@ -877,7 +916,7 @@ INSERT INTO `penjualan_obat_apotik` (`no_penjualan_obat_a`, `no_ref_pelayanan`, 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `rawat_inap_tindakan`
+-- Table structure for table `rawat_inap_tindakan`
 --
 
 CREATE TABLE `rawat_inap_tindakan` (
@@ -889,7 +928,7 @@ CREATE TABLE `rawat_inap_tindakan` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `stok_obat_apotik`
+-- Table structure for table `stok_obat_apotik`
 --
 
 CREATE TABLE `stok_obat_apotik` (
@@ -902,7 +941,7 @@ CREATE TABLE `stok_obat_apotik` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `stok_obat_apotik`
+-- Dumping data for table `stok_obat_apotik`
 --
 
 INSERT INTO `stok_obat_apotik` (`no_stok_obat_a`, `no_penerimaan_o`, `kode_obat`, `harga_supplier`, `qty_awal`, `qty_sekarang`) VALUES
@@ -914,7 +953,7 @@ INSERT INTO `stok_obat_apotik` (`no_stok_obat_a`, `no_penerimaan_o`, `kode_obat`
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `stok_obat_rawat_inap`
+-- Table structure for table `stok_obat_rawat_inap`
 --
 
 CREATE TABLE `stok_obat_rawat_inap` (
@@ -926,7 +965,7 @@ CREATE TABLE `stok_obat_rawat_inap` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `stok_obat_rawat_inap`
+-- Dumping data for table `stok_obat_rawat_inap`
 --
 
 INSERT INTO `stok_obat_rawat_inap` (`no_stok_obat_rawat_i`, `no_obat_keluar_i`, `no_stok_obat_a`, `qty_awal`, `qty_sekarang`) VALUES
@@ -936,7 +975,7 @@ INSERT INTO `stok_obat_rawat_inap` (`no_stok_obat_rawat_i`, `no_obat_keluar_i`, 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `supplier`
+-- Table structure for table `supplier`
 --
 
 CREATE TABLE `supplier` (
@@ -948,7 +987,7 @@ CREATE TABLE `supplier` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `supplier`
+-- Dumping data for table `supplier`
 --
 
 INSERT INTO `supplier` (`no_supplier`, `nama`, `cp`, `email`, `alamat`) VALUES
@@ -958,7 +997,7 @@ INSERT INTO `supplier` (`no_supplier`, `nama`, `cp`, `email`, `alamat`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `transaksi_rawat_inap`
+-- Table structure for table `transaksi_rawat_inap`
 --
 
 CREATE TABLE `transaksi_rawat_inap` (
@@ -972,7 +1011,7 @@ CREATE TABLE `transaksi_rawat_inap` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `ugd_penanganan`
+-- Table structure for table `ugd_penanganan`
 --
 
 CREATE TABLE `ugd_penanganan` (
@@ -983,7 +1022,7 @@ CREATE TABLE `ugd_penanganan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `ugd_penanganan`
+-- Dumping data for table `ugd_penanganan`
 --
 
 INSERT INTO `ugd_penanganan` (`no_ugd_p`, `no_ref_pelayanan`, `tgl_penanganan`, `total_harga`) VALUES
@@ -992,7 +1031,7 @@ INSERT INTO `ugd_penanganan` (`no_ugd_p`, `no_ref_pelayanan`, `tgl_penanganan`, 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `ugd_tindakan`
+-- Table structure for table `ugd_tindakan`
 --
 
 CREATE TABLE `ugd_tindakan` (
@@ -1002,7 +1041,7 @@ CREATE TABLE `ugd_tindakan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `ugd_tindakan`
+-- Dumping data for table `ugd_tindakan`
 --
 
 INSERT INTO `ugd_tindakan` (`no_ugd_t`, `nama`, `harga`) VALUES
@@ -1011,7 +1050,7 @@ INSERT INTO `ugd_tindakan` (`no_ugd_t`, `nama`, `harga`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `user_pegawai`
+-- Table structure for table `user_pegawai`
 --
 
 CREATE TABLE `user_pegawai` (
@@ -1023,7 +1062,7 @@ CREATE TABLE `user_pegawai` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `user_pegawai`
+-- Dumping data for table `user_pegawai`
 --
 
 INSERT INTO `user_pegawai` (`no_user_pegawai`, `nama`, `jenis_akses`, `username`, `password`) VALUES
@@ -1033,7 +1072,7 @@ INSERT INTO `user_pegawai` (`no_user_pegawai`, `nama`, `jenis_akses`, `username`
 -- --------------------------------------------------------
 
 --
--- Struktur untuk view `antrian_balai_pengobatan_prioritas`
+-- Structure for view `antrian_balai_pengobatan_prioritas`
 --
 DROP TABLE IF EXISTS `antrian_balai_pengobatan_prioritas`;
 
@@ -1042,7 +1081,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Struktur untuk view `antrian_balai_pengobatan_semua`
+-- Structure for view `antrian_balai_pengobatan_semua`
 --
 DROP TABLE IF EXISTS `antrian_balai_pengobatan_semua`;
 
@@ -1051,7 +1090,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Struktur untuk view `antrian_balai_pengobatan_tersisa`
+-- Structure for view `antrian_balai_pengobatan_tersisa`
 --
 DROP TABLE IF EXISTS `antrian_balai_pengobatan_tersisa`;
 
@@ -1060,7 +1099,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Struktur untuk view `antrian_kesehatan_ibu_dan_anak_semua`
+-- Structure for view `antrian_kesehatan_ibu_dan_anak_semua`
 --
 DROP TABLE IF EXISTS `antrian_kesehatan_ibu_dan_anak_semua`;
 
@@ -1069,7 +1108,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Struktur untuk view `antrian_kesehatan_ibu_dan_anak_tersisa`
+-- Structure for view `antrian_kesehatan_ibu_dan_anak_tersisa`
 --
 DROP TABLE IF EXISTS `antrian_kesehatan_ibu_dan_anak_tersisa`;
 
@@ -1078,7 +1117,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Struktur untuk view `antrian_laboratorium_prioritas`
+-- Structure for view `antrian_laboratorium_prioritas`
 --
 DROP TABLE IF EXISTS `antrian_laboratorium_prioritas`;
 
@@ -1087,7 +1126,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Struktur untuk view `antrian_laboratorium_semua`
+-- Structure for view `antrian_laboratorium_semua`
 --
 DROP TABLE IF EXISTS `antrian_laboratorium_semua`;
 
@@ -1096,7 +1135,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Struktur untuk view `antrian_laboratorium_tersisa`
+-- Structure for view `antrian_laboratorium_tersisa`
 --
 DROP TABLE IF EXISTS `antrian_laboratorium_tersisa`;
 
@@ -1105,7 +1144,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Struktur untuk view `daftar_penerimaan_obat_apotek`
+-- Structure for view `daftar_penerimaan_obat_apotek`
 --
 DROP TABLE IF EXISTS `daftar_penerimaan_obat_apotek`;
 
@@ -1114,7 +1153,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Struktur untuk view `daftar_penerimaan_obat_apotek_detail`
+-- Structure for view `daftar_penerimaan_obat_apotek_detail`
 --
 DROP TABLE IF EXISTS `daftar_penerimaan_obat_apotek_detail`;
 
@@ -1123,7 +1162,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Struktur untuk view `daftar_pengiriman_obat_apotek_detail`
+-- Structure for view `daftar_pengiriman_obat_apotek_detail`
 --
 DROP TABLE IF EXISTS `daftar_pengiriman_obat_apotek_detail`;
 
@@ -1132,7 +1171,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Struktur untuk view `daftar_penjualan_obat_apotek`
+-- Structure for view `daftar_penjualan_obat_apotek`
 --
 DROP TABLE IF EXISTS `daftar_penjualan_obat_apotek`;
 
@@ -1141,7 +1180,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Struktur untuk view `daftar_penjualan_obat_apotek_detail`
+-- Structure for view `daftar_penjualan_obat_apotek_detail`
 --
 DROP TABLE IF EXISTS `daftar_penjualan_obat_apotek_detail`;
 
@@ -1150,7 +1189,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Struktur untuk view `data_obat`
+-- Structure for view `data_obat`
 --
 DROP TABLE IF EXISTS `data_obat`;
 
@@ -1159,7 +1198,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Struktur untuk view `data_pelayanan_pasien`
+-- Structure for view `data_pelayanan_pasien`
 --
 DROP TABLE IF EXISTS `data_pelayanan_pasien`;
 
@@ -1168,7 +1207,16 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Struktur untuk view `data_stok_obat_apotek`
+-- Structure for view `data_pelayanan_pasien_default`
+--
+DROP TABLE IF EXISTS `data_pelayanan_pasien_default`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `data_pelayanan_pasien_default`  AS  select `pelayanan`.`no_rm` AS `no_rm`,`pelayanan`.`no_ref_pelayanan` AS `no_ref_pelayanan`,`pelayanan`.`no_user_pegawai` AS `no_user_pegawai`,`pelayanan`.`layanan_tujuan` AS `layanan_tujuan`,`pelayanan`.`tipe_antrian` AS `tipe_antrian`,`pelayanan`.`tgl_pelayanan` AS `tgl_pelayanan`,`pelayanan`.`status` AS `status`,`pasien`.`nama` AS `nama`,`pasien`.`nik` AS `nik`,`pasien`.`tempat_lahir` AS `tempat_lahir`,`pasien`.`tgl_lahir` AS `tgl_lahir`,`pasien`.`jenkel` AS `jenkel`,`pasien`.`alamat` AS `alamat` from (`pelayanan` join `pasien` on((`pelayanan`.`no_rm` = `pasien`.`no_rm`))) ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `data_stok_obat_apotek`
 --
 DROP TABLE IF EXISTS `data_stok_obat_apotek`;
 
@@ -1177,7 +1225,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Struktur untuk view `pelayanan_tujuan_bp`
+-- Structure for view `pelayanan_tujuan_bp`
 --
 DROP TABLE IF EXISTS `pelayanan_tujuan_bp`;
 
@@ -1186,7 +1234,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Struktur untuk view `pelayanan_tujuan_kia`
+-- Structure for view `pelayanan_tujuan_kia`
 --
 DROP TABLE IF EXISTS `pelayanan_tujuan_kia`;
 
@@ -1195,7 +1243,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Struktur untuk view `pelayanan_tujuan_lab`
+-- Structure for view `pelayanan_tujuan_lab`
 --
 DROP TABLE IF EXISTS `pelayanan_tujuan_lab`;
 
@@ -1204,7 +1252,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Struktur untuk view `pelayanan_tujuan_ugd`
+-- Structure for view `pelayanan_tujuan_ugd`
 --
 DROP TABLE IF EXISTS `pelayanan_tujuan_ugd`;
 
@@ -1215,269 +1263,269 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 
 --
--- Indeks untuk tabel `ambulan`
+-- Indexes for table `ambulan`
 --
 ALTER TABLE `ambulan`
   ADD PRIMARY KEY (`no_ambulan`);
 
 --
--- Indeks untuk tabel `antrian_bp`
+-- Indexes for table `antrian_bp`
 --
 ALTER TABLE `antrian_bp`
   ADD PRIMARY KEY (`kode_antrian_bp`);
 
 --
--- Indeks untuk tabel `antrian_kia`
+-- Indexes for table `antrian_kia`
 --
 ALTER TABLE `antrian_kia`
   ADD PRIMARY KEY (`kode_antrian_kia`);
 
 --
--- Indeks untuk tabel `antrian_lab`
+-- Indexes for table `antrian_lab`
 --
 ALTER TABLE `antrian_lab`
   ADD PRIMARY KEY (`kode_antrian_lab`);
 
 --
--- Indeks untuk tabel `bp_penangan`
+-- Indexes for table `bp_penanganan`
 --
-ALTER TABLE `bp_penangan`
+ALTER TABLE `bp_penanganan`
   ADD PRIMARY KEY (`no_bp_p`);
 
 --
--- Indeks untuk tabel `bp_tindakan`
+-- Indexes for table `bp_tindakan`
 --
 ALTER TABLE `bp_tindakan`
   ADD PRIMARY KEY (`no_bp_t`);
 
 --
--- Indeks untuk tabel `detail_bp_penangan`
+-- Indexes for table `detail_bp_penanganan`
 --
-ALTER TABLE `detail_bp_penangan`
+ALTER TABLE `detail_bp_penanganan`
   ADD PRIMARY KEY (`no_detail_bp_p`);
 
 --
--- Indeks untuk tabel `detail_kia_penanganan`
+-- Indexes for table `detail_kia_penanganan`
 --
 ALTER TABLE `detail_kia_penanganan`
   ADD PRIMARY KEY (`no_detail_kia_p`);
 
 --
--- Indeks untuk tabel `detail_lab_transaksi`
+-- Indexes for table `detail_lab_transaksi`
 --
 ALTER TABLE `detail_lab_transaksi`
   ADD PRIMARY KEY (`no_detail_lab_t`);
 
 --
--- Indeks untuk tabel `detail_penjualan_obat_apotik`
+-- Indexes for table `detail_penjualan_obat_apotik`
 --
 ALTER TABLE `detail_penjualan_obat_apotik`
   ADD PRIMARY KEY (`no_detail_penjualan_obat_a`);
 
 --
--- Indeks untuk tabel `detail_transaksi_rawat_inap_kamar`
+-- Indexes for table `detail_transaksi_rawat_inap_kamar`
 --
 ALTER TABLE `detail_transaksi_rawat_inap_kamar`
   ADD PRIMARY KEY (`no_detail_transaksi_rawat_inap_k`);
 
 --
--- Indeks untuk tabel `detail_transaksi_rawat_inap_obat`
+-- Indexes for table `detail_transaksi_rawat_inap_obat`
 --
 ALTER TABLE `detail_transaksi_rawat_inap_obat`
   ADD PRIMARY KEY (`no_detail_transaksi_rawat_inap_o`);
 
 --
--- Indeks untuk tabel `detail_transaksi_rawat_inap_tindakan`
+-- Indexes for table `detail_transaksi_rawat_inap_tindakan`
 --
 ALTER TABLE `detail_transaksi_rawat_inap_tindakan`
   ADD PRIMARY KEY (`no_detail_transaksi_rawat_inap_t`);
 
 --
--- Indeks untuk tabel `detail_ugd_penanganan`
+-- Indexes for table `detail_ugd_penanganan`
 --
 ALTER TABLE `detail_ugd_penanganan`
   ADD PRIMARY KEY (`no_detail_ugd_p`);
 
 --
--- Indeks untuk tabel `kamar_rawat_inap`
+-- Indexes for table `kamar_rawat_inap`
 --
 ALTER TABLE `kamar_rawat_inap`
   ADD PRIMARY KEY (`no_kamar_rawat_i`);
 
 --
--- Indeks untuk tabel `kategori_obat`
+-- Indexes for table `kategori_obat`
 --
 ALTER TABLE `kategori_obat`
   ADD PRIMARY KEY (`no_kat_obat`);
 
 --
--- Indeks untuk tabel `kia_penanganan`
+-- Indexes for table `kia_penanganan`
 --
 ALTER TABLE `kia_penanganan`
   ADD PRIMARY KEY (`no_kia_p`);
 
 --
--- Indeks untuk tabel `kia_tindakan`
+-- Indexes for table `kia_tindakan`
 --
 ALTER TABLE `kia_tindakan`
   ADD PRIMARY KEY (`no_kia_t`);
 
 --
--- Indeks untuk tabel `lab_checkup`
+-- Indexes for table `lab_checkup`
 --
 ALTER TABLE `lab_checkup`
   ADD PRIMARY KEY (`no_lab_c`);
 
 --
--- Indeks untuk tabel `lab_transaksi`
+-- Indexes for table `lab_transaksi`
 --
 ALTER TABLE `lab_transaksi`
   ADD PRIMARY KEY (`no_lab_t`);
 
 --
--- Indeks untuk tabel `obat`
+-- Indexes for table `obat`
 --
 ALTER TABLE `obat`
   ADD PRIMARY KEY (`kode_obat`);
 
 --
--- Indeks untuk tabel `obat_keluar_internal`
+-- Indexes for table `obat_keluar_internal`
 --
 ALTER TABLE `obat_keluar_internal`
   ADD PRIMARY KEY (`no_obat_keluar_i`);
 
 --
--- Indeks untuk tabel `pasien`
+-- Indexes for table `pasien`
 --
 ALTER TABLE `pasien`
   ADD PRIMARY KEY (`no_rm`);
 
 --
--- Indeks untuk tabel `pelayanan`
+-- Indexes for table `pelayanan`
 --
 ALTER TABLE `pelayanan`
   ADD PRIMARY KEY (`no_ref_pelayanan`);
 
 --
--- Indeks untuk tabel `pelayanan_ambulan`
+-- Indexes for table `pelayanan_ambulan`
 --
 ALTER TABLE `pelayanan_ambulan`
   ADD PRIMARY KEY (`no_pelayanan_a`);
 
 --
--- Indeks untuk tabel `penerimaan_obat`
+-- Indexes for table `penerimaan_obat`
 --
 ALTER TABLE `penerimaan_obat`
   ADD PRIMARY KEY (`no_penerimaan_o`);
 
 --
--- Indeks untuk tabel `penjualan_obat_apotik`
+-- Indexes for table `penjualan_obat_apotik`
 --
 ALTER TABLE `penjualan_obat_apotik`
   ADD PRIMARY KEY (`no_penjualan_obat_a`);
 
 --
--- Indeks untuk tabel `stok_obat_apotik`
+-- Indexes for table `stok_obat_apotik`
 --
 ALTER TABLE `stok_obat_apotik`
   ADD PRIMARY KEY (`no_stok_obat_a`);
 
 --
--- Indeks untuk tabel `stok_obat_rawat_inap`
+-- Indexes for table `stok_obat_rawat_inap`
 --
 ALTER TABLE `stok_obat_rawat_inap`
   ADD PRIMARY KEY (`no_stok_obat_rawat_i`);
 
 --
--- Indeks untuk tabel `supplier`
+-- Indexes for table `supplier`
 --
 ALTER TABLE `supplier`
   ADD PRIMARY KEY (`no_supplier`);
 
 --
--- Indeks untuk tabel `transaksi_rawat_inap`
+-- Indexes for table `transaksi_rawat_inap`
 --
 ALTER TABLE `transaksi_rawat_inap`
   ADD PRIMARY KEY (`no_transaksi_rawat_i`);
 
 --
--- Indeks untuk tabel `ugd_penanganan`
+-- Indexes for table `ugd_penanganan`
 --
 ALTER TABLE `ugd_penanganan`
   ADD PRIMARY KEY (`no_ugd_p`);
 
 --
--- Indeks untuk tabel `ugd_tindakan`
+-- Indexes for table `ugd_tindakan`
 --
 ALTER TABLE `ugd_tindakan`
   ADD PRIMARY KEY (`no_ugd_t`);
 
 --
--- Indeks untuk tabel `user_pegawai`
+-- Indexes for table `user_pegawai`
 --
 ALTER TABLE `user_pegawai`
   ADD PRIMARY KEY (`no_user_pegawai`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `detail_bp_penangan`
+-- AUTO_INCREMENT for table `detail_bp_penanganan`
 --
-ALTER TABLE `detail_bp_penangan`
-  MODIFY `no_detail_bp_p` int(7) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `detail_bp_penanganan`
+  MODIFY `no_detail_bp_p` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `detail_kia_penanganan`
+-- AUTO_INCREMENT for table `detail_kia_penanganan`
 --
 ALTER TABLE `detail_kia_penanganan`
-  MODIFY `no_detail_kia_p` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `no_detail_kia_p` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `detail_lab_transaksi`
+-- AUTO_INCREMENT for table `detail_lab_transaksi`
 --
 ALTER TABLE `detail_lab_transaksi`
   MODIFY `no_detail_lab_t` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `detail_penjualan_obat_apotik`
+-- AUTO_INCREMENT for table `detail_penjualan_obat_apotik`
 --
 ALTER TABLE `detail_penjualan_obat_apotik`
   MODIFY `no_detail_penjualan_obat_a` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT untuk tabel `detail_transaksi_rawat_inap_kamar`
+-- AUTO_INCREMENT for table `detail_transaksi_rawat_inap_kamar`
 --
 ALTER TABLE `detail_transaksi_rawat_inap_kamar`
   MODIFY `no_detail_transaksi_rawat_inap_k` int(7) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `detail_transaksi_rawat_inap_obat`
+-- AUTO_INCREMENT for table `detail_transaksi_rawat_inap_obat`
 --
 ALTER TABLE `detail_transaksi_rawat_inap_obat`
   MODIFY `no_detail_transaksi_rawat_inap_o` int(7) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `detail_transaksi_rawat_inap_tindakan`
+-- AUTO_INCREMENT for table `detail_transaksi_rawat_inap_tindakan`
 --
 ALTER TABLE `detail_transaksi_rawat_inap_tindakan`
   MODIFY `no_detail_transaksi_rawat_inap_t` int(7) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `detail_ugd_penanganan`
+-- AUTO_INCREMENT for table `detail_ugd_penanganan`
 --
 ALTER TABLE `detail_ugd_penanganan`
   MODIFY `no_detail_ugd_p` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `stok_obat_apotik`
+-- AUTO_INCREMENT for table `stok_obat_apotik`
 --
 ALTER TABLE `stok_obat_apotik`
   MODIFY `no_stok_obat_a` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT untuk tabel `stok_obat_rawat_inap`
+-- AUTO_INCREMENT for table `stok_obat_rawat_inap`
 --
 ALTER TABLE `stok_obat_rawat_inap`
   MODIFY `no_stok_obat_rawat_i` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
