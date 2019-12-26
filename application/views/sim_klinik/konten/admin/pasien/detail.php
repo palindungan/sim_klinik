@@ -4,6 +4,7 @@
 			<h6 class="m-0 font-weight-bold text-primary">Detail Pasien</h6>
 		</div>
 		<div class="card-body">
+        <div class="container">
         <?php 
             $no_ref = $pelayanan->no_ref_pelayanan; 
             $no_rm = $pelayanan->no_rm;    
@@ -53,15 +54,36 @@
             <td><i>Biaya Tindakan</i></td>
         </tr>
         <?php 
-        foreach($tindakan_kia as $data_kia):
-            ?>
-        <tr>
-            <td class=""><h6 class="ml-4"><?= $data_kia->nama ?></h6></td>
-            <td class="text-right"><?= rupiah($data_kia->harga) ?></td>
-        </tr>
-        <?php 
-        endforeach;
+        if($layanan_tujuan == "Poli KIA") 
+        {
+            foreach($tindakan_kia as $data_kia):
+                echo '
+                <tr>
+                    <td class=""><h6 class="ml-4">'.$data_kia->nama.'</h6></td>
+                    <td class="text-right">'.rupiah($data_kia->harga).'</td>
+                </tr>';
+                endforeach;
+        }
+        else if($layanan_tujuan == "Balai Pengobatan")
+        {
+            foreach($tindakan_bp as $data_bp):
+                echo '
+                <tr>
+                    <td class=""><h6 class="ml-4">'.$data_bp->nama.'</h6></td>
+                    <td class="text-right">'.rupiah($data_bp->harga).'</td>
+                </tr>';
+                endforeach;
+        }
+        else if($layanan_tujuan == "Laboratorium")
+        {
+
+        }
+        else if($layanan_tujuan == "UGD")
+        {
+
+        }
         ?>
+        
         <tr>
             <td><i>Biaya Ruang Perawatan</i></td>
         </tr>
@@ -81,7 +103,7 @@
             <td class="text-right">90.000</td>
         </tr>
         </table>
-
+        </div>
 		</div>
 	</div>
 </div>

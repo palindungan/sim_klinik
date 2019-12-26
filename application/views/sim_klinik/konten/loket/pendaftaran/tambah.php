@@ -448,7 +448,14 @@ $('#btn_search').on('click', function() {
 	function search_proses() {
 
 	var table;
-	table = $('.table_1').DataTable();
+	table = $('.table_1').DataTable({
+			"columnDefs": [{
+				"targets": [0,4],
+				"className" : "text-center"
+			}
+		],
+			"bDestroy": true
+		});
 
 	table.clear();
 

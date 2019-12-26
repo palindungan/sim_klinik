@@ -62,5 +62,19 @@ class M_pasien extends CI_Model
         $this->db->where('detail_kia_penanganan.no_kia_p', $no_kia_p);
         return $this->db->get();
     }
+
+    function ambil_no_bp($table,$id)
+    {
+        return $this->db->get_where($table,array('no_ref_pelayanan' => $id));
+
+    }
+    function detail_tindakan_bp($no_bp_p)
+    {
+        $this->db->select('*');
+        $this->db->from('detail_bp_penangan');
+        $this->db->join('bp_tindakan', 'detail_bp_penangan.no_bp_t = bp_tindakan.no_bp_t');
+        $this->db->where('detail_bp_penangan.no_bp_p', $no_bp_p);
+        return $this->db->get();
+    }
     
 }

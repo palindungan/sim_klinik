@@ -14,7 +14,7 @@ class Pendaftaran extends CI_Controller
 
     public function tampil_daftar_pasien()
     {
-        $data_tbl['tbl_data'] =  $this->db->get_where('data_pelayanan_pasien', array('status =' => 'finish'))->result();
+        $data_tbl['tbl_data'] =  $this->db->get_where('data_pelayanan_pasien_default', array('status =' => 'finish'))->result();
 
         $data = json_encode($data_tbl);
 

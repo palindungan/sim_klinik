@@ -5,7 +5,7 @@
 		</div>
 		<div class="card-body">
             <div class="container">
-            <a href="<?= base_url('admin/pasien') ?>" class="btn btn-link">Kembali</a>
+            <a href="<?= base_url('admin/pasien') ?>" class="btn btn-sm btn-dark mb-3">Kembali</a><br>
                 <div class="row">
                 <?php 
                 foreach($list as $list_detail):
