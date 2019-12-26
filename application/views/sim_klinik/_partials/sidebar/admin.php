@@ -16,6 +16,11 @@
 		Sistem Informasi Klinik
 	</div>
 	<li class="nav-item">
+		<a class="nav-link" href="<?= base_url('admin/transaksi'); ?>">
+			<i class="far fa-address-card"></i>
+			<span>Transaksi</span></a>
+	</li>
+	<li class="nav-item">
 		<a class="nav-link" href="<?= base_url('admin/pasien'); ?>">
 			<i class="far fa-address-card"></i>
 			<span>Pasien</span></a>
