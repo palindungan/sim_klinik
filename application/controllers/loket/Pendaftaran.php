@@ -280,7 +280,7 @@ class Pendaftaran extends CI_Controller
                 $printer->feed(4); // mencetak 2 baris kosong, agar kertas terangkat ke atas
                 $printer->close();
             }
-            header('Location: loket/pendaftaran');
+            redirect('loket/pendaftaran','refresh');
         }
     }
 
