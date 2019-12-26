@@ -68,14 +68,160 @@
                     </div> -->
                 </div>
 
+                <!-- start of balai pengobatan -->
                 <div class="form-row">
-
+                    <label>Balai Pengobatan</label>
                     <div class="form-group col-sm-12">
                         <a href="#" id="btn_search" class="btn btn-sm btn-primary btn-icon-split" data-toggle="modal" data-target="#exampleModalCenter">
                             <span class="icon text-white-50">
                                 <i class="fas fa-search-plus"></i>
                             </span>
-                            <span class="text">Cari Data Obat</span>
+                            <span class="text">Tambah Tindakan BP</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <label class=" col-sm-5"><b>Nama Tindakan</b></label>
+                    <label class=" col-sm-5"><b>Biaya</b></label>
+                </div>
+
+                <!-- start untuk keranjang tindakan -->
+                <div id="detail_list">
+                    <!-- disini isi detail -->
+                    <h6 id="label_kosong">Detail Tindakan Masih Kosong Lakukan pilih Pencarian Tindakan !</h6>
+
+                </div>
+                <!-- end of untuk keranjang tindakan -->
+
+                <div class="form-row">
+                    <div class="form-group col-sm-5"> </div>
+                    <div class="form-group col-sm-5">
+                        <input type="text" readonly name="total_harga" class="form-control form-control-sm rupiah text-right" id="total_harga" placeholder="Total" required>
+                    </div>
+
+                </div>
+                <!-- end of untuk balai pengobatan -->
+
+                <!-- start untuk kia -->
+                <div class="form-row">
+                    <label>KIA</label>
+                    <div class="form-group col-sm-12">
+                        <a href="#" id="btn_search" class="btn btn-sm btn-primary btn-icon-split" data-toggle="modal" data-target="#exampleModalCenter">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-search-plus"></i>
+                            </span>
+                            <span class="text">Tambah Tindakan KIA</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <label class=" col-sm-5"><b>Nama Tindakan</b></label>
+                    <label class=" col-sm-5"><b>Biaya</b></label>
+                </div>
+
+                <!-- start untuk keranjang tindakan -->
+                <div id="detail_list">
+                    <!-- disini isi detail -->
+                    <h6 id="label_kosong">Detail Tindakan Masih Kosong Lakukan pilih Pencarian Tindakan !</h6>
+
+                </div>
+                <!-- end of untuk keranjang tindakan -->
+
+                <div class="form-row">
+                    <div class="form-group col-sm-5"> </div>
+                    <div class="form-group col-sm-5">
+                        <input type="text" readonly name="total_harga" class="form-control form-control-sm rupiah text-right" id="total_harga" placeholder="Total" required>
+                    </div>
+
+                </div>
+                <!-- end of kia -->
+
+                <!-- start ugd -->
+                <div class="form-row">
+                    <label>UGD</label>
+                    <div class="form-group col-sm-12">
+                        <a href="#" id="btn_search" class="btn btn-sm btn-primary btn-icon-split" data-toggle="modal" data-target="#exampleModalCenter">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-search-plus"></i>
+                            </span>
+                            <span class="text">Tambah Tindakan UGD</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <label class=" col-sm-5"><b>Nama Tindakan</b></label>
+                    <label class=" col-sm-5"><b>Biaya</b></label>
+                </div>
+
+                <!-- start untuk keranjang tindakan -->
+                <div id="detail_list">
+                    <!-- disini isi detail -->
+                    <h6 id="label_kosong">Detail Tindakan Masih Kosong Lakukan pilih Pencarian Tindakan !</h6>
+
+                </div>
+                <!-- end of untuk keranjang tindakan -->
+
+                <div class="form-row">
+                    <div class="form-group col-sm-5"> </div>
+                    <div class="form-group col-sm-5">
+                        <input type="text" readonly name="total_harga" class="form-control form-control-sm rupiah text-right" id="total_harga" placeholder="Total" required>
+                    </div>
+
+                </div>
+                <!-- end of ugd -->
+
+                <!-- start laboratorium -->
+                <div class="form-row">
+                    <label>Laboratorium</label>
+                    <div class="form-group col-sm-12">
+                        <a href="#" id="btn_search" class="btn btn-sm btn-primary btn-icon-split" data-toggle="modal" data-target="#exampleModalCenter">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-search-plus"></i>
+                            </span>
+                            <span class="text">Tambah Ceckup</span>
+                        </a>
+                    </div>
+
+                </div>
+
+                <div class="form-row">
+                    <label class=" col-sm-5"><b>Nama Checkup</b></label>
+                    <label class=" col-sm-5"><b>Biaya</b></label>
+                </div>
+
+                <!-- start untuk keranjang Checkup -->
+                <div id="detail_list">
+                    <!-- disini isi detail -->
+                    <h6 id="label_kosong">Detail Checkup Masih Kosong Lakukan pilih Pencarian Checkup !</h6>
+
+                </div>
+                <!-- end of untuk keranjang Checkup -->
+
+                <div class="form-row">
+                    <div class="form-group col-sm-5"> </div>
+
+                    <div class="form-group col-sm-5">
+                        <input type="text" readonly name="total_harga" class="form-control form-control-sm rupiah text-right" id="total_harga" placeholder="Total" required>
+                    </div>
+
+                </div>
+                <!-- end of laboratorium -->
+
+                <!-- start rawat inap -->
+                <!-- end of rawat inap -->
+
+                <!-- start penjualan obat apotek -->
+                <div class="form-row">
+                    <label>Apotek</label>
+                    <div class="form-group col-sm-12">
+                        <a href="#" id="btn_search" class="btn btn-sm btn-primary btn-icon-split" data-toggle="modal" data-target="#exampleModalCenter">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-search-plus"></i>
+                            </span>
+                            <span class="text">Tambah Data Obat</span>
                         </a>
                     </div>
 
@@ -102,6 +248,23 @@
                         <input type="text" readonly name="total_harga" class="form-control form-control-sm rupiah text-right" id="total_harga" placeholder="Total" required>
                     </div>
 
+                </div>
+                <!-- end of untuk penjualan obat apotek -->
+
+                <div class="form-row">
+                    <div class="form-group col-sm-5">
+                        <input type="text" readonly name="total_harga" class="form-control form-control-sm rupiah text-right" id="total_harga" placeholder="Grand Total" required>
+                    </div>
+                </div>
+
+                <!-- start submit -->
+                <div class="form-row">
+                    <div class="form-group col-sm-5">
+                    </div>
+
+                    <div class="form-group col-sm-5">
+                    </div>
+
                     <div class="form-group col-sm-2">
                         <button id="action" type="submit" class="btn btn-sm btn-success btn-icon-split" onclick="return confirm('Lakukan Simpan Data ?')">
                             <span class="icon text-white-50">
@@ -112,6 +275,7 @@
                     </div>
 
                 </div>
+                <!-- end of sibmit -->
 
             </form>
         </div>
