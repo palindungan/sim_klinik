@@ -4,7 +4,6 @@
     class Test extends CI_Controller {
 
         public function index() {
-            $data['txt'] = "wkwkwkw";
             $html = $this->load->view('sim_klinik/konten/administrasi/cetak_struk/tampil',$data,true);
             $this->dompdf->PdfGenerator($html, 'coba', 'A4', 'potrait');
         }
