@@ -120,8 +120,9 @@ class Transaksi extends CI_Controller
     }
     function tampil_select()
     {
-        $kec = $this->input->get('kec');
-        $query = $this->M_transaksi->get_select($kec,'no_ref_pelayanan');
+        $no_ref = $this->input->get('no_ref');
+        $nama = $this->input->get('nama');
+        $query = $this->M_transaksi->get_select($no_ref,$nama,'no_ref_pelayanan');
         echo json_encode($query);
     }
 }

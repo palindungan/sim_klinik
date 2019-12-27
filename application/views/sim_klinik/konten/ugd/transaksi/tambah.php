@@ -11,59 +11,8 @@
 				<div class="form-row">
 					<div class="form-group col-sm-5">
 						<label>Cari No Ref</label>
-						<select class="form-control form-control-sm" name="no_ref_pelayanan" id="xx" required>
-							<option value="">-- Pilih Data --</option>
-							<?php foreach ($record as $data) : ?>
-								<option value="<?= $data->no_ref_pelayanan ?>">
-									<?= $data->no_ref_pelayanan . " || " . $data->nama ?>
-								</option>
-							<?php endforeach; ?>
-						</select>
-					</div>
-					<div class="form-group col-sm-5">
-						<label>Cari No Ref</label>
 						<select class="form-control form-control-sm itemName" name="no_ref_pelayanan" required>
 						</select>
-					</div>
-				</div>
-
-				<div class="form-row">
-					<div class="form-group col-sm-12">
-						<label>Biodata Pasien</label>
-						<div id="muncul">
-
-							<table width="100%" class="responsive">
-								<tr>
-									<td width="6%">
-										<h5>Nama</h5>
-									</td>
-									<td width="2%">
-										<h5>:</h5>
-									</td>
-									<td width="24%">
-										<h5 id="txt_nama"></h5>
-									</td>
-									<td width="6%">
-										<h5>Umur</h5>
-									</td>
-									<td width="2%">
-										<h5>:</h5>
-									</td>
-									<td width="19%">
-										<h5 id="txt_umur"></h5>
-									</td>
-									<td width="8%">
-										<h5>Alamat</h5>
-									</td>
-									<td width="2%">
-										<h5>:</h5>
-									</td>
-									<td width="22%">
-										<h5 id="txt_alamat"></h5>
-									</td>
-								</tr>
-							</table>
-						</div>
 					</div>
 				</div>
 
@@ -157,7 +106,8 @@ $('.itemName').select2({
 		delay : 250,
 		data : function(params){
 			return {
-				kec : params.term
+				no_ref : params.term,
+				nama : params.term
 			};
 		},
 		processResults : function(data) {
@@ -166,7 +116,7 @@ $('.itemName').select2({
 			$.each(data,function(index,item){
 				results.push({
 					id : item.no_ref_pelayanan,
-					text : item.no_ref_pelayanan + " || " + item.nama
+					text : item.no_ref_pelayanan + " || " + item.nama					
 				});
 			});
 			return {
@@ -174,56 +124,11 @@ $('.itemName').select2({
 			}
 		}
 	}
-});
+})
 </script>
 <script>
 	var count1 = 0;
 	var jumlah_detail_transaksi = 0;
-
-	$(document).on('change', '#xx', function(event) {
-		var nilai_value = $('#xx').val();
-
-		// Fetch data
-		$.ajax({
-			url: "<?php echo base_url() . 'kia/transaksi/get_pasien_by_no_ref_pelayanan'; ?>",
-			type: 'post',
-			data: {
-				nilai: nilai_value
-			},
-			success: function(hasil) {
-
-				// parse
-				var obj = JSON.parse(hasil);
-				let data = obj['tbl_data'];
-
-				if (data != '') {
-
-					$.each(data, function(i, item) {
-
-						var nama = data[i].nama;
-						var alamat = data[i].alamat;
-						var tgl_lahir = data[i].tgl_lahir;
-
-						// parse
-						var tahun = tgl_lahir.substring(0, 4);
-
-						var date = new Date();
-						var year = date.getFullYear();
-
-						var umur = year - tahun;
-
-						$("#txt_nama").html(nama);
-						$("#txt_alamat").html(alamat);
-						$("#txt_umur").html(umur);
-					});
-				} else {
-						$("#txt_nama").html("");
-						$("#txt_alamat").html("");
-						$("#txt_umur").html("");
-				}
-			}
-		});
-	});
 
 	// jika kita tekan / click button search-button
 	$('#btn_search').on('click', function() {
