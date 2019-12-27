@@ -226,27 +226,6 @@
         update_sub_harga_kamar();
     });
 
-    // jika di click simpan / submit
-    $(document).on('submit', '#transaksi_form', function(event) {
-        event.preventDefault();
-
-        // mengambil nilai di dalam form
-        var form_data = $(this).serialize();
-
-        // tambah ke database
-        $.ajax({
-            url: "<?php echo base_url() . 'kia/transaksi/input_transaksi_form'; ?>",
-            method: "POST",
-            data: form_data,
-            success: function(data) {
-                alert(data);
-                location.reload();
-            }
-        });
-        // tambah ke database
-
-    });
-
     // Start pencarian
     function search_proses_kamar() {
 
@@ -267,7 +246,7 @@
         table.clear();
 
         $.ajax({
-            url: "<?php echo base_url() . 'kia/transaksi/tampil_daftar_tindakan'; ?>",
+            url: "<?php echo base_url() . 'rawat_inap/transaksi/tampil_daftar_kamar'; ?>",
             success: function(hasil) {
 
                 var obj = JSON.parse(hasil);
@@ -314,14 +293,17 @@
 
 			<div id="row_kamar` + count1 + `" class="form-row">
 				<div class="form-group col-sm-5">
-					<input type="text" readonly name="nama[]" class="form-control form-control-sm karakter" id="nama` + count1 +
-            `" placeholder="Nama" required value="` + nama_kamar + `">
-					<input type="hidden" name="no_kia_t[]" class="form-control form-control-sm" id="no_kia_t` + count1 + `" value="` +
+					<input type="text" readonly name="nama_kamar[]" class="form-control form-control-sm karakter" id="nama_kamar` + count1 +
+            `" placeholder="Nama_kamar" required value="` + nama_kamar + `">
+					<input type="hidden" name="no_kamar_rawat_i[]" class="form-control form-control-sm" id="no_kamar_rawat_i` + count1 + `" value="` +
             kode_kamar + `">
 				</div>
-				<div class="form-group col-sm-5">
-					<input type="text" name="harga[]" class="form-control form-control-sm rupiah_kamar text-right" id="harga` + count1 +
-            `" placeholder="Harga" required value="` + harga + `">
+				<div class="form-group col-sm-4">
+					<input type="text" name="harga_harian_kamar[]" class="form-control form-control-sm rupiah_kamar text-right" id="harga_harian_kamar` + count1 +
+            `" placeholder="harga_harian_kamar" required value="` + harga_harian_kamar + `">
+				</div>
+                <div class="form-group col-sm-1">
+					<input type="text" name="tipe_kamar[]" class="readonly form-control form-control-sm rupiah" id="tipe_kamar` + count1 + `" placeholder="Tipe Kamar" value="` + tipe_kamar + `" required>
 				</div>
 				<div class="form-group col-sm-2">
 					<a id="` + count1 + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris_kamar">
@@ -359,7 +341,7 @@
         var form_data = $('#transaksi_form').serialize()
 
         $.ajax({
-            url: "<?php echo base_url() . 'kia/transaksi/ambil_total'; ?>",
+            url: "<?php echo base_url() . 'rawat_inap/transaksi/ambil_sub_total_kamar'; ?>",
             method: "POST",
             data: form_data,
             success: function(data) {
@@ -371,11 +353,32 @@
         validasi();
     }
 
+    // jika di click simpan / submit
+    $(document).on('submit', '#transaksi_form', function(event) {
+        event.preventDefault();
+
+        // mengambil nilai di dalam form
+        var form_data = $(this).serialize();
+
+        // tambah ke database
+        $.ajax({
+            url: "<?php echo base_url() . 'rawat_inap/transaksi/input_transaksi_form'; ?>",
+            method: "POST",
+            data: form_data,
+            success: function(data) {
+                alert(data);
+                location.reload();
+            }
+        });
+        // tambah ke database
+
+    });
+
+    // End of Obat///////////////////
+
     function validasi() {
         $('.rupiah_kamar').mask('000.000.000', {
             reverse: true
         });
     }
-
-    // End of Obat///////////////////
 </script>
