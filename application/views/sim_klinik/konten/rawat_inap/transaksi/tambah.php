@@ -97,7 +97,7 @@
 
                 <!-- Start of tindakan /////////// -->
                 <div class="form-row">
-                    <label>tindakan Rawat Inap</label>
+                    <label>Tindakan Rawat Inap</label>
                     <div class="form-group col-sm-12">
                         <a href="#" id="btn_search_tindakan" class="btn btn-sm btn-primary btn-icon-split" data-toggle="modal" data-target="#exampleModalCenter_tindakan">
                             <span class="icon text-white-50">
@@ -133,7 +133,7 @@
 
                 <!-- Start of obat /////////// -->
                 <div class="form-row">
-                    <label>obat Rawat Inap</label>
+                    <label>Obat Rawat Inap</label>
                     <div class="form-group col-sm-12">
                         <a href="#" id="btn_search_obat" class="btn btn-sm btn-primary btn-icon-split" data-toggle="modal" data-target="#exampleModalCenter_obat">
                             <span class="icon text-white-50">
@@ -170,7 +170,7 @@
 
                 <div class="form-row">
                     <div class="form-group col-sm-5">
-                        <input type="text" readonly name="total_harga" class="form-control form-control-sm rupiah_kamar text-right" id="total_harga" placeholder="Total" required>
+                        <input type="text" readonly name="total_harga" class="rupiah_grant_total form-control form-control-sm rupiah_kamar text-right" id="total_harga" placeholder="Total" required>
                     </div>
 
                     <div class="form-group col-sm-2">
@@ -870,5 +870,24 @@
         $('.rupiah_obat').mask('000.000.000', {
             reverse: true
         });
+        $('.rupiah_grant_total').mask('000.000.000', {
+            reverse: true
+        });
+
+        grandTotal();
+    }
+
+    function grandTotal() {
+        var sub_total_harga_tindakan = $('#sub_total_harga_tindakan').val();
+        var sub_total_harga_tindakan_v = parseInt(sub_total_harga_tindakan);
+
+        var sub_total_harga_kamar = $('#sub_total_harga_kamar').val();
+        var sub_total_harga_kamar_v = parseInt(sub_total_harga_kamar);
+
+        var sub_total_harga_obat = $('#sub_total_harga_obat').val();
+        var sub_total_harga_obat_v = parseInt(sub_total_harga_obat);
+
+        $('.rupiah_grant_total').val(sub_total_harga_tindakan_v + sub_total_harga_kamar_v + sub_total_harga_obat_v);
+        $('.rupiah_grant_total').trigger('input'); // Will be display 
     }
 </script>
