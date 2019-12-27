@@ -1,7 +1,10 @@
 <?php 
 Class Dompdf {
+    
     function PdfGenerator($html,$filename,$paper,$orientation)
+    
     {
+        require_once 'vendor/autoload.php';
         // instantiate and use the dompdf class
         $dompdf = new Dompdf\Dompdf();
         $dompdf->loadHtml($html);

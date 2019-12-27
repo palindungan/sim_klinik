@@ -4,56 +4,9 @@
     class Test extends CI_Controller {
 
         public function index() {
-            // me-load library escpos
-    // nomor antrian,noref,nama,tujuan,
-            // membuat connector printer ke shared printer bernama "printer_a" (yang telah disetting sebelumnya)
-            $connector = new Escpos\PrintConnectors\WindowsPrintConnector("POS58");
-    
-            // membuat objek $printer agar dapat di lakukan fungsinya
-            $printer = new Escpos\Printer($connector);
-
-    
-            // Printer::MODE_EMPHASIZED
-            $printer->initialize();           
-            $printer->selectPrintMode(Escpos\Printer::MODE_EMPHASIZED);
-            $printer->setJustification(Escpos\Printer::JUSTIFY_CENTER);
-            $printer -> setTextSize(1, 2);
-            $printer->text("Klinik Ampel Sehat \n");
-
-            $printer->initialize();
-            // $printer->setUnderline(Escpos\Printer::UNDERLINE_DOUBLE);
-            $printer->setJustification(Escpos\Printer::JUSTIFY_CENTER);
-            $printer->text("Melayani dengan sepenuh hati \n");
-            $printer->text("\n");
-
-            $printer->initialize();
-            $printer->setJustification(Escpos\Printer::JUSTIFY_CENTER);
-            $printer -> setTextSize(1, 2);
-            $printer->text("Nomor Antrian Nomor \n");
-            $printer->text("\n");
-
-            $printer->initialize();           
-            $printer->selectPrintMode(Escpos\Printer::MODE_EMPHASIZED);
-            $printer->setJustification(Escpos\Printer::JUSTIFY_CENTER);
-            $printer -> setTextSize(3, 3);
-            $printer->text("A002 \n");
-            $printer->text("\n");
-
-            $printer->initialize();
-            $printer->setJustification(Escpos\Printer::JUSTIFY_CENTER);
-            $printer->text("No pelayanan :9012131221 \n");
-
-            $printer->initialize();
-            $printer->setFont(Escpos\Printer::FONT_B);
-            $printer->text("Senin,12 November 2019 23:12 \n");
-            
-    
-            /* ---------------------------------------------------------
-            * Menyelesaikan printer
-            */
-            $printer->feed(4); // mencetak 2 baris kosong, agar kertas terangkat ke atas
-            $printer->close();
-            redirect('loket/pendaftaran','refresh');
+            $data['txt'] = "wkwkwkw";
+            $html = $this->load->view('sim_klinik/konten/administrasi/cetak_struk/tampil',$data,true);
+            $this->dompdf->PdfGenerator($html, 'coba', 'A4', 'potrait');
         }
     
         public function cetak_struk() {
