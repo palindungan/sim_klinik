@@ -303,7 +303,7 @@
             `" placeholder="Harga Harian Kamar" required value="` + harga_harian_kamar + `">
 				</div>
                 <div class="form-group col-sm-1">
-					<input type="text" name="tipe_kamar[]" class="readonly form-control form-control-sm rupiah" id="tipe_kamar` + count1 + `" placeholder="Tipe Kamar" value="` + tipe_kamar + `" required>
+					<input type="text" name="tipe_kamar[]" readonly class="form-control form-control-sm rupiah" id="tipe_kamar` + count1 + `" placeholder="Tipe Kamar" value="` + tipe_kamar + `" required>
 				</div>
 				<div class="form-group col-sm-2">
 					<a id="` + count1 + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris_kamar">
