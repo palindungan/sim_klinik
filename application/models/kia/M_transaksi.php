@@ -80,11 +80,15 @@ class M_transaksi extends CI_Model
         return 'KP' . date('ymd') . '-' . $kd; // SELECT SUBSTR('BP191121-0001', 3, 6); dari digit ke 3 sampai 6 digit seanjutnya
     }
 
-    function search_autocomplete($table, $field, $data)
+    function get_select($no_ref,$nama,$kolom)
     {
-        $this->db->like($field, $data, 'both');
-        $this->db->order_by($field, 'ASC');
-        $this->db->limit(10);
-        return $this->db->get($table)->result();
+        $this->db->select('*');
+        $this->db->from('data_pelayanan_pasien');
+        $this->db->where('layanan_tujuan', 'Poli KIA');
+        $this->db->group_start();
+        $this->db->or_like('no_ref_pelayanan', $no_ref);
+        $this->db->or_like('nama', $nama);
+        $this->db->group_end();
+        return $this->db->get()->result_array();
     }
 }

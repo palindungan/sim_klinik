@@ -80,14 +80,6 @@ class M_transaksi extends CI_Model
         return 'UP' . date('ymd') . '-' . $kd; // SELECT SUBSTR('BP191121-0001', 3, 6); dari digit ke 3 sampai 6 digit seanjutnya
     }
 
-    function search_autocomplete($table, $field, $data)
-    {
-        $this->db->like($field, $data, 'both');
-        $this->db->order_by($field, 'ASC');
-        $this->db->limit(10);
-        return $this->db->get($table)->result();
-    }
-
     function get_select($no_ref,$nama,$kolom)
     {
         $this->db->select('*');

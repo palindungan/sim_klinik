@@ -9,8 +9,7 @@ class Penjualan_obat extends CI_Controller
     }
     public function index()
     {
-        $data['record'] = $this->M_penjualan_obat->tampil_data('data_pelayanan_pasien')->result();
-        $this->template->load('sim_klinik/template/apotek', 'sim_klinik/konten/apotek/penjualan_obat/tambah', $data);
+        $this->template->load('sim_klinik/template/apotek', 'sim_klinik/konten/apotek/penjualan_obat/tambah');
     }
 
     public function tampil_daftar_obat()
@@ -118,19 +117,12 @@ class Penjualan_obat extends CI_Controller
         }
     }
 
-    function get_pasien_by_no_ref_pelayanan()
+    function tampil_select()
     {
-        $nilai = $this->input->post('nilai');
-        if (isset($nilai)) {
-
-            $where = array(
-                'no_ref_pelayanan' => $nilai
-            );
-
-            $data_tbl['tbl_data'] = $this->M_penjualan_obat->get_data('data_pelayanan_pasien', $where)->result();
-            $data = json_encode($data_tbl);
-            echo $data;
-        }
+        $no_ref = $this->input->get('no_ref');
+        $nama = $this->input->get('nama');
+        $query = $this->M_penjualan_obat->get_select($no_ref,$nama,'no_ref_pelayanan');
+        echo json_encode($query);
     }
 
     public function tampil_daftar_penjualan_obat()

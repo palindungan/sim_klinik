@@ -8,12 +8,7 @@ class Transaksi extends CI_Controller
     }
     public function index()
     {
-        $where = array(
-            'layanan_tujuan' => 'UGD'
-        );
-
-        $data['record'] = $this->M_transaksi->get_data('data_pelayanan_pasien', $where)->result();
-        $this->template->load('sim_klinik/template/ugd', 'sim_klinik/konten/ugd/transaksi/tambah', $data);
+        $this->template->load('sim_klinik/template/ugd', 'sim_klinik/konten/ugd/transaksi/tambah');
     }
 
     public function tampil_daftar_tindakan()
@@ -104,20 +99,6 @@ class Transaksi extends CI_Controller
         }
     }
 
-    function get_pasien_by_no_ref_pelayanan()
-    {
-        $nilai = $this->input->post('nilai');
-        if (isset($nilai)) {
-
-            $where = array(
-                'no_ref_pelayanan' => $nilai
-            );
-
-            $data_tbl['tbl_data'] = $this->M_transaksi->get_data('data_pelayanan_pasien', $where)->result();
-            $data = json_encode($data_tbl);
-            echo $data;
-        }
-    }
     function tampil_select()
     {
         $no_ref = $this->input->get('no_ref');
