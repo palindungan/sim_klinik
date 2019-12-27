@@ -63,86 +63,46 @@
                     </div>
                 </div>
 
-                <!-- Start Obat Rawat Inap ////////////// -->
+                <!-- Start of Kamar /////////// -->
                 <div class="form-row">
-                    <label>Obat Rawat Inap</label>
+                    <label>Kamar Rawat Inap</label>
                     <div class="form-group col-sm-12">
-                        <a href="#" id="btn_search1" class="btn btn-sm btn-primary btn-icon-split" data-toggle="modal" data-target="#exampleModalCenter1">
+                        <a href="#" id="btn_search_kamar" class="btn btn-sm btn-primary btn-icon-split" data-toggle="modal" data-target="#exampleModalCenter_kamar">
                             <span class="icon text-white-50">
                                 <i class="fas fa-search-plus"></i>
                             </span>
-                            <span class="text">Tambah Data Obat</span>
+                            <span class="text">Cari Kamar</span>
                         </a>
                     </div>
 
                 </div>
 
                 <div class="form-row">
-                    <label class=" col-sm-5"><b>Nama Obat</b></label>
-                    <label class=" col-sm-4"><b>Harga Jual</b></label>
-                    <label class=" col-sm-1"><b>QTY</b></label>
+                    <label class=" col-sm-5"><b>Nama Kamar</b></label>
+                    <label class=" col-sm-4"><b>Harga Harian</b></label>
+                    <label class=" col-sm-1"><b>Tipe</b></label>
                 </div>
 
-                <!-- start untuk keranjang Obat -->
-                <div id="detail_list1">
-                    <!-- disini isi detail -->
-                    <h6 id="label_kosong1">Detail Obat Masih Kosong Lakukan pilih Pencarian Data Obat !</h6>
-
-                </div>
-                <!-- end of untuk keranjang Obat -->
-
-                <div class="form-row">
-                    <div class="form-group col-sm-5"> </div>
-
-                    <div class="form-group col-sm-5">
-                        <input type="text" readonly name="total_harga1" class="form-control form-control-sm rupiah text-right" id="total_harga1" placeholder="Total" required>
-                    </div>
-
-                </div>
-                <!-- End if Obat Rawat Inap ///////////// -->
-
-                <!-- Start Tindakan Rawat Inap ////////////// -->
-                <div class="form-row">
-                    <label>Tindakan Rawat Inap</label>
-                    <div class="form-group col-sm-12">
-                        <a href="#" id="btn_search" class="btn btn-sm btn-primary btn-icon-split" data-toggle="modal" data-target="#exampleModalCenter">
-                            <span class="icon text-white-50">
-                                <i class="fas fa-search-plus"></i>
-                            </span>
-                            <span class="text">Tambah Tindakan</span>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <label class=" col-sm-5"><b>Nama Tindakan</b></label>
-                    <label class=" col-sm-5"><b>Biaya</b></label>
-                </div>
-
-                <!-- start untuk keranjang tindakan -->
+                <!-- start untuk keranjang Kamar -->
                 <div id="detail_list">
                     <!-- disini isi detail -->
-                    <h6 id="label_kosong">Detail Tindakan Masih Kosong Lakukan pilih Pencarian Tindakan !</h6>
+                    <h6 id="label_kosong_kamar">Detail Kamar Masih Kosong Lakukan pilih Pencarian Kamar !</h6>
 
                 </div>
-                <!-- end of untuk keranjang tindakan -->
+                <!-- end of untuk keranjang Kamar -->
 
                 <div class="form-row">
                     <div class="form-group col-sm-5"> </div>
                     <div class="form-group col-sm-5">
-                        <input type="text" readonly name="total_harga" class="form-control form-control-sm rupiah text-right" id="total_harga" placeholder="Total" required>
+                        <input type="text" readonly name="sub_sub_total_harga_kamar" class="form-control form-control-sm rupiah_kamar text-right" id="sub_sub_total_harga_kamar" placeholder="Sub Total" required>
                     </div>
 
                 </div>
-                <!-- End of Tindakan Rawat inap /////////////// -->
+                <!-- End of Kamar ////////// -->
 
                 <div class="form-row">
                     <div class="form-group col-sm-5">
-                        <input type="text" readonly name="total_harga" class="form-control form-control-sm rupiah text-right" id="total_harga" placeholder="Total" required>
-                    </div>
-
-                    <div class="form-group col-sm-5">
-
+                        <input type="text" readonly name="total_harga" class="form-control form-control-sm rupiah_kamar text-right" id="total_harga" placeholder="Total" required>
                     </div>
 
                     <div class="form-group col-sm-2">
@@ -163,7 +123,7 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade  bd-example-modal-lg" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade  bd-example-modal-lg" id="exampleModalCenter_kamar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -174,15 +134,13 @@
             </div>
             <div class="modal-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered table_1" width="100%" cellspacing="0">
+                    <table class="table table-bordered table_kamar" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Nama Obat</th>
-                                <th>Kategori</th>
-                                <th>Tanggal Transfer</th>
-                                <th>Stok Saat Ini</th>
-                                <th>Harga Jual</th>
+                                <th>Nama Kamar</th>
+                                <th>Harga Harian</th>
+                                <th>Tipe</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -199,7 +157,7 @@
 
 <script>
     var count1 = 0;
-    var jumlah_detail_transaksi = 0;
+    var jumlah_detail_transaksi_kamar = 0;
 
     $(document).on('change', '#xx', function(event) {
         var nilai_value = $('#xx').val();
@@ -246,310 +204,27 @@
         });
     });
 
-    // start of tambah obat /////////////////
+    // Start of kamar////////////////
 
     // jika kita tekan / click button search-button
-    $('#btn_search1').on('click', function() {
-        search_proses();
+    $('#btn_search_kamar').on('click', function() {
+        search_proses_kamar();
     });
-
-    function search_proses() {
-
-        var table;
-        table = $('.table_1').DataTable();
-
-        table.clear();
-
-        $.ajax({
-            url: "<?php echo base_url() . 'rawat_inap/transaksi/tampil_daftar_obat'; ?>",
-            success: function(hasil) {
-
-                var obj = JSON.parse(hasil);
-                let data = obj['tbl_data'];
-
-                if (data != '') {
-
-                    var no = 1;
-
-                    $.each(data, function(i, item) {
-
-                        var kode = data[i].no_stok_obat_rawat_i;
-                        var nama = data[i].nama_obat;
-                        var nama_kategori = data[i].nama_kategori;
-                        var tgl_obat_keluar_i = data[i].tgl_obat_keluar_i;
-                        var qty_sekarang = data[i].qty_sekarang;
-                        var harga_jual = data[i].harga_jual;
-
-                        var button = `<a onclick="pilihObat('` + kode +
-                            `','` + nama + `','` + harga_jual + `','` + qty_sekarang + `')" id="` + kode +
-                            `" class="btn btn-sm btn-dark text-white">Pilih</a>`;
-
-                        table.row.add([no, nama, nama_kategori, tgl_obat_keluar_i, qty_sekarang,
-                            harga_jual, button
-                        ]);
-
-                        no = no + 1;
-                    });
-                } else {
-
-                    $('.table_1').html('<h3>No data are available</h3>');
-
-                }
-                table.draw();
-
-            }
-        });
-    }
-
-    // Start add_row
-    function pilihObat(kode, nama, harga_jual, qty_sekarang) {
-
-        $('#detail_list1').append(`
-
-			<div id="row` + count1 + `" class="form-row">
-				<div class="form-group col-sm-5">
-					<input type="text" readonly name="nama[]" class="form-control form-control-sm karakter" id="nama` + count1 +
-            `" placeholder="Nama" required value="` + nama + `">
-					<input type="hidden" name="no_stok_obat_a[]" class="form-control form-control-sm" id="no_stok_obat_a` + count1 +
-            `" value="` +
-            kode + `">
-				</div>
-				<div class="form-group col-sm-4">
-					<input type="text" name="harga_jual[]" class="form-control form-control-sm rupiah text-right" id="harga_jual` +
-            count1 +
-            `" placeholder="harga supplier" required value="` + harga_jual + `">
-				</div>
-                <div class="form-group col-sm-1">
-					<input type="text" name="qty[]" class="form-control form-control-sm rupiah qty_val" id="qty` + count1 + `" placeholder="QTY" value="1" required>
-					<input type="hidden" name="qty_sekarang[]" id="qty_sekarang` + count1 + `" class="form-control form-control-sm" value="` + qty_sekarang + `"></input>
-				</div>
-				<div class="form-group col-sm-2">
-					<a id="` + count1 + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris">
-						<span class="icon text-white-50">
-							<i class="fas fa-trash-alt"></i>
-						</span>
-						<span class="text">Hapus</span>
-					</a>
-				</div>
-			</div>
-
-		`);
-
-        count1 = count1 + 1;
-        jumlah_detail_transaksi = jumlah_detail_transaksi + 1;
-        $('#exampleModalCenter1').modal('hide');
-
-        cekJumlahDataDetailTransaksi1();
-    }
-
-    function cekJumlahDataDetailTransaksi1() {
-
-        var x = document.getElementById("label_kosong");
-        if (jumlah_detail_transaksi > 0) {
-            x.style.display = "none"; // hidden
-        } else {
-            x.style.display = "block"; // show
-        }
-
-        update_total1();
-    }
-
-    function update_total1() {
-        // mengambil nilai di dalam form
-        var form_data = $('#transaksi_form').serialize()
-
-        $.ajax({
-            url: "<?php echo base_url() . 'apotek/penjualan_obat/ambil_total'; ?>",
-            method: "POST",
-            data: form_data,
-            success: function(data) {
-                $('#total_harga1').val(data);
-                $('.rupiah').trigger('input'); // Will be display 
-            }
-        });
-
-        validasi();
-    }
 
     // jika kita tekan hapus / click button
-    $(document).on('click', '.remove_baris', function() {
+    $(document).on('click', '.remove_baris_kamar', function() {
         var row_no = $(this).attr("id");
-        $('#row' + row_no).remove();
+        $('#row_kamar' + row_no).remove();
 
-        jumlah_detail_transaksi = jumlah_detail_transaksi - 1;
+        jumlah_detail_transaksi_kamar = jumlah_detail_transaksi_kamar - 1;
 
-        cekJumlahDataDetailTransaksi1();
+        cekJumlahDataTransaksi_kamar();
     });
 
-    // jika kita mengubah class inputan rupiah
-    $(document).on('keyup', '.rupiah', function() {
-        update_total1();
+    // jika kita mengubah class inputan rupiah_kamar
+    $(document).on('keyup', '.rupiah_kamar', function() {
+        update_sub_harga_kamar();
     });
-
-    // jika kita mengubah class inputan 
-    $(document).on('keyup', '.qty_val', function() {
-
-        var row_id = $(this).attr("id"); // qty1++
-        var row_no = row_id.substring(3); // 1++
-
-        var val_qty = parseInt($('#' + row_id).val());
-        var val_qty_sekarang = parseInt($('#qty_sekarang' + row_no).val());
-
-        if (val_qty <= val_qty_sekarang) {
-            update_total1();
-        } else {
-            alert("Maaf Qty Tidak Boleh Detail Obat Melebihi Stok Apotek");
-            $('#' + row_id).val("1");
-            update_total1();
-        }
-    });
-    // end of tambah obat ////////
-
-    // start of tambah Kamar /////////////////
-    // jika kita tekan / click button search-button
-    $('#btn_search_tindakan').on('click', function() {
-        search_proses_tindakan();
-    });
-
-    function search_proses_tindakan() {
-
-        var table;
-        table = $('.table_2').DataTable();
-
-        table.clear();
-
-        $.ajax({
-            url: "<?php echo base_url() . 'rawat_inap/transaksi/tampil_daftar_tindakan'; ?>",
-            success: function(hasil) {
-
-                var obj = JSON.parse(hasil);
-                let data = obj['tbl_data'];
-
-                if (data != '') {
-
-                    var no = 1;
-
-                    $.each(data, function(i, item) {
-
-                        var kode = data[i].no_rawat_inap_t;
-                        var nama = data[i].nama;
-                        var harga = data[i].harga;
-
-                        var button = `<a onclick="pilihTindakan('` + kode +
-                            `','` + nama + `','` + harga + `')" id="` + kode +
-                            `" class="btn btn-sm btn-dark text-white">Pilih</a>`;
-
-                        table.row.add([no, nama, harga, button]);
-
-                        no = no + 1;
-                    });
-                } else {
-
-                    $('.table_2').html('<h3>No data are available</h3>');
-
-                }
-                table.draw();
-
-            }
-        });
-    }
-
-    // Start add_row
-    function pilihTindakan(kode, nama, harga) {
-
-        $('#detail_list').append(`
-
-        <div id="row` + count1 + `" class="form-row">
-				<div class="form-group col-sm-5">
-					<input type="text" readonly name="nama[]" class="form-control form-control-sm karakter" id="nama` + count1 +
-            `" placeholder="Nama" required value="` + nama + `">
-					<input type="hidden" name="no_rawat_inap_t[]" class="form-control form-control-sm" id="no_rawat_inap_t` + count1 + `" value="` +
-            kode + `">
-				</div>
-				<div class="form-group col-sm-5">
-					<input type="text" name="harga[]" class="form-control form-control-sm rupiah text-right" id="harga` + count1 +
-            `" placeholder="Harga" required value="` + harga + `">
-				</div>
-				<div class="form-group col-sm-2">
-					<a id="` + count1 + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris">
-						<span class="icon text-white-50">
-							<i class="fas fa-trash-alt"></i>
-						</span>
-						<span class="text">Hapus</span>
-					</a>
-				</div>
-			</div>
-
-		`);
-
-        count1 = count1 + 1;
-        jumlah_detail_transaksi = jumlah_detail_transaksi + 1;
-        $('#exampleModalCenter2').modal('hide');
-
-        cekJumlahDataDetailTransaksi2();
-    }
-
-    function cekJumlahDataDetailTransaksi2() {
-
-        var x = document.getElementById("label_kosong");
-        if (jumlah_detail_transaksi > 0) {
-            x.style.display = "none"; // hidden
-        } else {
-            x.style.display = "block"; // show
-        }
-
-        update_total2();
-    }
-
-    function update_total2() {
-        // mengambil nilai di dalam form
-        var form_data = $('#transaksi_form').serialize()
-
-        $.ajax({
-            url: "<?php echo base_url() . 'apotek/penjualan_obat/ambil_total'; ?>",
-            method: "POST",
-            data: form_data,
-            success: function(data) {
-                $('#total_harga').val(data);
-                $('.rupiah').trigger('input'); // Will be display 
-            }
-        });
-
-        validasi();
-    }
-
-    // jika kita tekan hapus / click button
-    $(document).on('click', '.remove_baris', function() {
-        var row_no = $(this).attr("id");
-        $('#row' + row_no).remove();
-
-        jumlah_detail_transaksi = jumlah_detail_transaksi - 1;
-
-        cekJumlahDataDetailTransaksi2();
-    });
-    // jika kita mengubah class inputan rupiah
-    $(document).on('keyup', '.rupiah', function() {
-        update_total2();
-    });
-
-    // jika kita mengubah class inputan 
-    $(document).on('keyup', '.qty_val', function() {
-
-        var row_id = $(this).attr("id"); // qty1++
-        var row_no = row_id.substring(3); // 1++
-
-        var val_qty = parseInt($('#' + row_id).val());
-        var val_qty_sekarang = parseInt($('#qty_sekarang' + row_no).val());
-
-        if (val_qty <= val_qty_sekarang) {
-            update_total2();
-        } else {
-            alert("Maaf Qty Tidak Boleh Detail Obat Melebihi Stok Apotek");
-            $('#' + row_id).val("1");
-            update_total2();
-        }
-    });
-    // end of tambah Kamar ////////
 
     // jika di click simpan / submit
     $(document).on('submit', '#transaksi_form', function(event) {
@@ -560,13 +235,11 @@
 
         // tambah ke database
         $.ajax({
-            url: "<?php echo base_url() . 'apotek/penjualan_obat/input_transaksi_form'; ?>",
+            url: "<?php echo base_url() . 'kia/transaksi/input_transaksi_form'; ?>",
             method: "POST",
             data: form_data,
             success: function(data) {
-                if (data != "") {
-                    alert(data);
-                }
+                alert(data);
                 location.reload();
             }
         });
@@ -574,9 +247,135 @@
 
     });
 
+    // Start pencarian
+    function search_proses_kamar() {
+
+        var table;
+        table = $('.table_kamar').DataTable({
+            "columnDefs": [{
+                    "targets": [0, 3],
+                    "className": "text-center"
+                },
+                {
+                    "targets": 2,
+                    "className": "text-right"
+                }
+            ],
+            "bDestroy": true
+        });
+
+        table.clear();
+
+        $.ajax({
+            url: "<?php echo base_url() . 'kia/transaksi/tampil_daftar_tindakan'; ?>",
+            success: function(hasil) {
+
+                var obj = JSON.parse(hasil);
+                let data = obj['tbl_data'];
+
+                if (data != '') {
+
+                    var no = 1;
+
+                    $.each(data, function(i, item) {
+
+                        var kode_kamar = data[i].no_kamar_rawat_i;
+                        var nama_kamar = data[i].nama;
+                        var harga_harian_kamar = data[i].harga_harian;
+                        var tipe_kamar = data[i].tipe;
+
+                        var reverse = harga_harian_kamar.toString().split('').reverse().join(''),
+                            ribuan = reverse.match(/\d{1,3}/g);
+                        ribuan = ribuan.join('.').split('').reverse().join('');
+
+                        var button = `<a onclick="pilihKamar('` + kode_kamar +
+                            `','` + nama_kamar + `','` + harga_harian_kamar + `','` + tipe_kamar + `')" id="` + kode_kamar +
+                            `" class="btn btn-sm btn-dark text-white">Pilih</a>`;
+
+                        table.row.add([no, nama_kamar, ribuan, tipe_kamar, button]);
+
+                        no = no + 1;
+                    });
+                } else {
+
+                    $('.table_kamar').html('<h3>No data are available</h3>');
+
+                }
+                table.draw();
+
+            }
+        });
+    }
+
+    // Start add_row
+    function pilihKamar(kode_kamar, nama_kamar, harga_harian_kamar, tipe_kamar) {
+
+        $('#detail_list').append(`
+
+			<div id="row_kamar` + count1 + `" class="form-row">
+				<div class="form-group col-sm-5">
+					<input type="text" readonly name="nama[]" class="form-control form-control-sm karakter" id="nama` + count1 +
+            `" placeholder="Nama" required value="` + nama_kamar + `">
+					<input type="hidden" name="no_kia_t[]" class="form-control form-control-sm" id="no_kia_t` + count1 + `" value="` +
+            kode_kamar + `">
+				</div>
+				<div class="form-group col-sm-5">
+					<input type="text" name="harga[]" class="form-control form-control-sm rupiah_kamar text-right" id="harga` + count1 +
+            `" placeholder="Harga" required value="` + harga + `">
+				</div>
+				<div class="form-group col-sm-2">
+					<a id="` + count1 + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris_kamar">
+						<span class="icon text-white-50">
+							<i class="fas fa-trash-alt"></i>
+						</span>
+						<span class="text">Hapus</span>
+					</a>
+				</div>
+			</div>
+
+		`);
+
+        count1 = count1 + 1;
+        jumlah_detail_transaksi_kamar = jumlah_detail_transaksi_kamar + 1;
+        $('#exampleModalCenter_kamar').modal('hide');
+
+        cekJumlahDataTransaksi_kamar();
+    }
+
+    function cekJumlahDataTransaksi_kamar() {
+
+        var x = document.getElementById("label_kosong_kamar");
+        if (jumlah_detail_transaksi_kamar > 0) {
+            x.style.display = "none"; // hidden
+        } else {
+            x.style.display = "block"; // show
+        }
+
+        update_sub_harga_kamar();
+    }
+
+    function update_sub_harga_kamar() {
+        // mengambil nilai di dalam form
+        var form_data = $('#transaksi_form').serialize()
+
+        $.ajax({
+            url: "<?php echo base_url() . 'kia/transaksi/ambil_total'; ?>",
+            method: "POST",
+            data: form_data,
+            success: function(data) {
+                $('#sub_total_harga_kamar').val(data);
+                $('.rupiah_kamar').trigger('input'); // Will be display 
+            }
+        });
+
+        validasi();
+    }
+
     function validasi() {
-        $('.rupiah').mask('000.000.000', {
+        $('.rupiah_kamar').mask('000.000.000', {
             reverse: true
         });
     }
+
+    // End of Obat///////////////////
 </script>
