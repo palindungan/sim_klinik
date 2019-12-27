@@ -11,7 +11,7 @@
 				<div class="form-row">
 					<div class="form-group col-sm-5">
 						<label>Cari No Ref</label>
-						<select class="form-control form-control-sm itemName" name="no_ref_pelayanan" required>
+						<select class="form-control form-control-sm noRef" name="no_ref_pelayanan" required>
 						</select>
 					</div>
 					<div class="form-group col-sm-1">
@@ -222,7 +222,7 @@
 <script src="<?= base_url(); ?>assets/sb_admin_2/vendor/jquery/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
 <script type="text/javascript">
-$('.itemName').select2({
+$('.noRef').select2({
 	ajax:{
 		url : "<?= base_url('administrasi/tagihan/tampil_select') ?>",
 		dataType : "json",
