@@ -31,6 +31,7 @@
 					</div>
 				</div>
 
+				<div>
 					<table width="100%" class="responsive">
 						<tr>
 							<td width="6%">
@@ -196,9 +197,9 @@
 						$("#txt_umur").html(umur);
 					});
 				} else {
-						$("#txt_nama").html("");
-						$("#txt_alamat").html("");
-						$("#txt_umur").html("");
+					$("#txt_nama").html("");
+					$("#txt_alamat").html("");
+					$("#txt_umur").html("");
 				}
 			}
 		});
