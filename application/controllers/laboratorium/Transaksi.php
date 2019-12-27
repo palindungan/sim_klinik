@@ -9,8 +9,7 @@ class Transaksi extends CI_Controller
     public function index()
     {
         $where = array(
-            'layanan_tujuan' => 'Laboratorium',
-            'status' => 'belum_finish'
+            'layanan_tujuan' => 'Laboratorium'
         );
 
         $data['record'] = $this->M_transaksi->get_data('data_pelayanan_pasien', $where)->result();
@@ -102,19 +101,6 @@ class Transaksi extends CI_Controller
             }
         } else {
             echo "Harus Ada Detail Transaksi !!";
-        }
-    }
-
-    public function get_autocomplete()
-    {
-        $nilai = $this->input->post('nilai');
-        if (isset($nilai)) {
-            $result = $this->M_transaksi->search_autocomplete('pelayanan_tujuan_lab', 'no_ref_pelayanan', $nilai);
-            if (count($result) > 0) {
-                foreach ($result as $row)
-                    $arr_result[] = $row->no_ref_pelayanan;
-                echo json_encode($arr_result);
-            }
         }
     }
 
