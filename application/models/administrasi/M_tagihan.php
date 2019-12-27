@@ -35,11 +35,8 @@ class M_tagihan extends CI_Model
     {
         $this->db->select('*');
         $this->db->from('data_pelayanan_pasien');
-        $this->db->where('layanan_tujuan', 'Poli KIA');
-        $this->db->group_start();
         $this->db->or_like('no_ref_pelayanan', $no_ref);
         $this->db->or_like('nama', $nama);
-        $this->db->group_end();
         return $this->db->get()->result_array();
     }
 }

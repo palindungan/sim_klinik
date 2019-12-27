@@ -1,12 +1,3 @@
-<style>
-	.select2-selection__rendered {
-		line-height: 36px !important;
-	}
-
-	.select2-selection {
-		height: 38px !important;
-	}
-</style>
 <?php if ($this->session->flashdata('success')) : ?>
 	<div class="pesan-sukses" data-flashdata="<?= $this->session->flashdata('success'); ?>"></div>
 <?php endif; ?>
