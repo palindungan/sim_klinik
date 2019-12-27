@@ -165,12 +165,12 @@
 			`">
             </div>
             <div class="form-group col-sm-4">
-                <input type="text" readonly name="nama_kategori[]" class="form-control form-control-sm rupiah" id="nama_kategori` +
+                <input type="text" readonly name="nama_kategori[]" class="form-control form-control-sm" id="nama_kategori` +
 			count1 + `"
                     placeholder="harga supplier" value="` + nama_kategori + `" required>
             </div>
             <div class="form-group col-sm-1">
-                <input type="text" name="qty[]" class="form-control form-control-sm rupiah" id="qty` + count1 + `"
+                <input type="text" name="qty[]" class="form-control form-control-sm qty_format" id="qty` + count1 + `"
                     placeholder="QTY" required>
 					<input type="hidden" name="qty_sekarang[]" id="qty_sekarang` + count1 + `" class="form-control form-control-sm" value="` + qty_sekarang + `"></input>
 			</div>
@@ -205,7 +205,7 @@
 	}
 
 	// jika kita mengubah class inputan rupiah
-	$(document).on('keyup', '.rupiah', function() {
+	$(document).on('keyup', '.qty_format', function() {
 
 		var row_id = $(this).attr("id"); // qty1++
 		var row_no = row_id.substring(3); // 1++
@@ -214,13 +214,12 @@
 		var val_qty_sekarang = parseInt($('#qty_sekarang' + row_no).val());
 
 		if (val_qty <= val_qty_sekarang) {
-			update_total();
+
 		} else {
 			alert("Maaf Qty Tidak Boleh Detail Obat Melebihi Stok Apotek");
 			$('#' + row_id).val("");
 		}
 	});
-
 
 	$(document).on('click', '.remove_baris', function() {
 		var row_no = $(this).attr("id");

@@ -94,7 +94,7 @@
                 <div class="form-row">
                     <div class="form-group col-sm-5"> </div>
                     <div class="form-group col-sm-5">
-                        <input type="text" readonly name="sub_sub_total_harga_kamar" class="form-control form-control-sm rupiah_kamar text-right" id="sub_sub_total_harga_kamar" placeholder="Sub Total" required>
+                        <input type="text" readonly name="sub_total_harga_kamar" class="form-control form-control-sm rupiah_kamar text-right" id="sub_total_harga_kamar" placeholder="Sub Total" required>
                     </div>
 
                 </div>
@@ -300,7 +300,7 @@
 				</div>
 				<div class="form-group col-sm-4">
 					<input type="text" name="harga_harian_kamar[]" class="form-control form-control-sm rupiah_kamar text-right" id="harga_harian_kamar` + count1 +
-            `" placeholder="harga_harian_kamar" required value="` + harga_harian_kamar + `">
+            `" placeholder="Harga Harian Kamar" required value="` + harga_harian_kamar + `">
 				</div>
                 <div class="form-group col-sm-1">
 					<input type="text" name="tipe_kamar[]" class="readonly form-control form-control-sm rupiah" id="tipe_kamar` + count1 + `" placeholder="Tipe Kamar" value="` + tipe_kamar + `" required>
