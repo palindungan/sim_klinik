@@ -100,14 +100,7 @@ class Penjualan_obat extends CI_Controller
                         $data = array(
                             'qty_sekarang' => $qty_sekarang -  $qty
                         );
-                        $where_status = array(
-                            'no_ref_pelayanan' => $no_ref_pelayanan
-                        );
-                        $data_status_pelayanan = array(
-                            'status' => 'finish'
-                        );
                         $status_update = $this->M_penjualan_obat->update_data($where, 'stok_obat_apotik', $data);
-                        $this->M_penjualan_obat->update_data($where_status,'pelayanan',$data_status_pelayanan);
 
                     }
                 }
