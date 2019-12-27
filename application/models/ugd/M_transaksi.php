@@ -87,4 +87,13 @@ class M_transaksi extends CI_Model
         $this->db->limit(10);
         return $this->db->get($table)->result();
     }
+
+    function get_select($kec,$kolom)
+    {
+        $this->db->select('*');
+        $this->db->from('data_pelayanan_pasien');
+        $this->db->like('no_ref_pelayanan',$kec);
+        $this->db->where('layanan_tujuan','UGD');
+        return $this->db->get()->result_array();
+    }
 }

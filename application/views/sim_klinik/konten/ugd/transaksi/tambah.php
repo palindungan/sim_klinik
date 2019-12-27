@@ -20,6 +20,11 @@
 							<?php endforeach; ?>
 						</select>
 					</div>
+					<div class="form-group col-sm-5">
+						<label>Cari No Ref</label>
+						<select class="form-control form-control-sm itemName" name="no_ref_pelayanan" required>
+						</select>
+					</div>
 				</div>
 
 				<div class="form-row">
@@ -143,6 +148,34 @@
 </div>
 
 <script src="<?= base_url(); ?>assets/sb_admin_2/vendor/jquery/jquery-3.4.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+<script type="text/javascript">
+$('.itemName').select2({
+	ajax:{
+		url : "<?= base_url('ugd/transaksi/tampil_select') ?>",
+		dataType : "json",
+		delay : 250,
+		data : function(params){
+			return {
+				kec : params.term
+			};
+		},
+		processResults : function(data) {
+			var results = [];
+
+			$.each(data,function(index,item){
+				results.push({
+					id : item.no_ref_pelayanan,
+					text : item.no_ref_pelayanan + " || " + item.nama
+				});
+			});
+			return {
+				results : results
+			}
+		}
+	}
+});
+</script>
 <script>
 	var count1 = 0;
 	var jumlah_detail_transaksi = 0;

@@ -118,4 +118,10 @@ class Transaksi extends CI_Controller
             echo $data;
         }
     }
+    function tampil_select()
+    {
+        $kec = $this->input->get('kec');
+        $query = $this->M_transaksi->get_select($kec,'no_ref_pelayanan');
+        echo json_encode($query);
+    }
 }
