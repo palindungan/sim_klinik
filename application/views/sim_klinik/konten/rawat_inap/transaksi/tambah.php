@@ -506,6 +506,7 @@
             data: form_data,
             success: function(data) {
                 $('#sub_total_harga_kamar').val(data);
+                grandTotal();
                 $('.rupiah_kamar').trigger('input'); // Will be display 
             }
         });
@@ -654,6 +655,7 @@
             data: form_data,
             success: function(data) {
                 $('#sub_total_harga_tindakan').val(data);
+                grandTotal();
                 $('.rupiah_tindakan').trigger('input'); // Will be display 
             }
         });
@@ -773,7 +775,7 @@
 
         $('#detail_list_obat').append(`
 
-            <div id="row` + count3 + `" class="form-row">
+            <div id="row_obat` + count3 + `" class="form-row">
 				<div class="form-group col-sm-5">
 					<input type="text" readonly name="nama_obat[]" class="form-control form-control-sm karakter" id="nama_obat` + count3 +
             `" placeholder="Nama_obat" required value="` + nama_obat + `">
@@ -791,7 +793,7 @@
 					<input type="hidden" name="qty_sekarang[]" id="qty_sekarang` + count3 + `" class="form-control form-control-sm" value="` + qty_sekarang + `"></input>
 				</div>
 				<div class="form-group col-sm-2">
-					<a id="` + count3 + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris">
+					<a id="` + count3 + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris_obat">
 						<span class="icon text-white-50">
 							<i class="fas fa-trash-alt"></i>
 						</span>
@@ -831,6 +833,7 @@
             data: form_data,
             success: function(data) {
                 $('#sub_total_harga_obat').val(data);
+                grandTotal();
                 $('.rupiah_obat').trigger('input'); // Will be display 
             }
         });
@@ -873,19 +876,27 @@
         $('.rupiah_grant_total').mask('000.000.000', {
             reverse: true
         });
-
-        grandTotal();
     }
 
     function grandTotal() {
         var sub_total_harga_tindakan = $('#sub_total_harga_tindakan').val();
-        var sub_total_harga_tindakan_v = parseInt(sub_total_harga_tindakan);
+        var sub_total_harga_tindakan_v = 0;
+        if (sub_total_harga_tindakan != "") {
+            sub_total_harga_tindakan_v = parseInt(sub_total_harga_tindakan.split('.').join(''));
+        }
+
 
         var sub_total_harga_kamar = $('#sub_total_harga_kamar').val();
-        var sub_total_harga_kamar_v = parseInt(sub_total_harga_kamar);
+        var sub_total_harga_kamar_v = 0;
+        if (sub_total_harga_kamar != "") {
+            sub_total_harga_kamar_v = parseInt(sub_total_harga_kamar.split('.').join(''));
+        }
 
         var sub_total_harga_obat = $('#sub_total_harga_obat').val();
-        var sub_total_harga_obat_v = parseInt(sub_total_harga_obat);
+        var sub_total_harga_obat_v = 0;
+        if (sub_total_harga_obat != "") {
+            sub_total_harga_obat_v = parseInt(sub_total_harga_obat.split('.').join(''));
+        }
 
         $('.rupiah_grant_total').val(sub_total_harga_tindakan_v + sub_total_harga_kamar_v + sub_total_harga_obat_v);
         $('.rupiah_grant_total').trigger('input'); // Will be display 
