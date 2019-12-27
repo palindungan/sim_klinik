@@ -9,9 +9,16 @@
 		<div class="card-body">
 			<form method="post" id="transaksi_form">
 				<div class="form-row">
-					<div class="form-group col-sm-4">
-						<label for="">No Ref Pelayanan</label>
-						<input type="text" name="no_ref_pelayanan" class="form-control form-control-sm no_refnya" required>
+					<div class="form-group col-sm-5">
+						<label>Cari No Ref</label>
+						<select class="form-control form-control-sm" name="no_ref_pelayanan" id="xx" required>
+							<option value="">-- Pilih Data --</option>
+							<?php foreach ($record as $data) : ?>
+								<option value="<?= $data->no_ref_pelayanan ?>">
+									<?= $data->no_ref_pelayanan . " || " . $data->nama ?>
+								</option>
+							<?php endforeach; ?>
+						</select>
 					</div>
 				</div>
 
@@ -137,91 +144,54 @@
 </div>
 
 <script src="<?= base_url(); ?>assets/sb_admin_2/vendor/jquery/jquery-3.4.1.min.js"></script>
-
-<script>
-	$(document).ready(function() {
-		auto_complete();
-
-	});
-
-	function auto_complete() {
-		$(function() {
-			$(".no_refnya").autocomplete({
-				source: function(request, response) {
-					// Fetch data
-					$.ajax({
-						url: "<?php echo base_url() . 'laboratorium/transaksi/get_autocomplete'; ?>",
-						type: 'post',
-						dataType: "json",
-						data: {
-							nilai: request.term
-						},
-						success: function(data) {
-							response(data);
-						}
-					});
-				},
-				select: function(event, ui) {},
-			});
-
-			$(".no_refnya").on("autocompleteselect", function(event, ui) {
-
-				var id = ui.item.value
-
-				// Fetch data
-				$.ajax({
-					url: "<?php echo base_url() . 'laboratorium/transaksi/get_pasien_by_no_ref_pelayanan'; ?>",
-					type: 'post',
-					data: {
-						nilai: id
-					},
-					success: function(hasil) {
-
-						// parse
-						var obj = JSON.parse(hasil);
-						let data = obj['tbl_data'];
-
-						if (data != '') {
-
-							$.each(data, function(i, item) {
-
-								var nama = data[i].nama;
-								var alamat = data[i].alamat;
-								var tgl_lahir = data[i].tgl_lahir;
-
-								// parse
-								var tahun = tgl_lahir.substring(0, 4);
-
-								var date = new Date();
-								var year = date.getFullYear();
-
-								var umur = year - tahun;
-
-								$("#txt_nama").html(nama);
-								$("#txt_alamat").html(alamat);
-								$("#txt_umur").html(umur);
-							});
-						} else {
-
-							alert("Data Dengan Kode : " + id + " Tidak Ditemukan !");
-
-						}
-					}
-				});
-			});
-
-			$(".no_refnya").on("autocompletesearch", function(event, ui) {
-				$("#txt_nama").html("");
-				$("#txt_alamat").html("");
-				$("#txt_umur").html("");
-			});
-		});
-	}
-</script>
-
 <script>
 	var count1 = 0;
 	var jumlah_detail_transaksi = 0;
+
+	$(document).on('change', '#xx', function(event) {
+		var nilai_value = $('#xx').val();
+
+		// Fetch data
+		$.ajax({
+			url: "<?php echo base_url() . 'kia/transaksi/get_pasien_by_no_ref_pelayanan'; ?>",
+			type: 'post',
+			data: {
+				nilai: nilai_value
+			},
+			success: function(hasil) {
+
+				// parse
+				var obj = JSON.parse(hasil);
+				let data = obj['tbl_data'];
+
+				if (data != '') {
+
+					$.each(data, function(i, item) {
+
+						var nama = data[i].nama;
+						var alamat = data[i].alamat;
+						var tgl_lahir = data[i].tgl_lahir;
+
+						// parse
+						var tahun = tgl_lahir.substring(0, 4);
+
+						var date = new Date();
+						var year = date.getFullYear();
+
+						var umur = year - tahun;
+
+						$("#txt_nama").html(nama);
+						$("#txt_alamat").html(alamat);
+						$("#txt_umur").html(umur);
+					});
+				} else {
+						$("#txt_nama").html("");
+						$("#txt_alamat").html("");
+						$("#txt_umur").html("");
+				}
+			}
+		});
+	});
 
 	// jika kita tekan / click button search-button
 	$('#btn_search').on('click', function() {

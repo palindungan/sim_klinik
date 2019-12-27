@@ -18,7 +18,7 @@
 		<div class="card-body">
 			<form method="post" id="transaksi_form">
 				<div class="form-row">
-					<div class="form-group col-sm-6">
+					<div class="form-group col-sm-5">
 						<label>Cari No Ref</label>
 						<select class="form-control form-control-sm" name="no_ref_pelayanan" id="xx" required>
 							<option value="">-- Pilih Data --</option>
@@ -29,6 +29,7 @@
 							<?php endforeach; ?>
 						</select>
 					</div>
+				</div>
 
 					<table width="100%" class="responsive">
 						<tr>
@@ -195,9 +196,9 @@
 						$("#txt_umur").html(umur);
 					});
 				} else {
-
-					alert("Data Dengan Kode : " + nilai_value + " Tidak Ditemukan !");
-
+						$("#txt_nama").html("");
+						$("#txt_alamat").html("");
+						$("#txt_umur").html("");
 				}
 			}
 		});
