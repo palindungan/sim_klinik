@@ -89,7 +89,7 @@
                 <div class="form-row">
                     <div class="form-group col-sm-5"> </div>
                     <div class="form-group col-sm-5">
-                        <input type="text" readonly name="sub_total_harga_kamar" class="form-control form-control-sm rupiah_kamar text-right" id="sub_total_harga_kamar" placeholder="Sub Total" required>
+                        <input type="text" readonly name="sub_total_harga_kamar" class="form-control form-control-sm rupiah_kamar text-right" id="sub_total_harga_kamar" placeholder="Sub Total">
                     </div>
 
                 </div>
@@ -125,7 +125,7 @@
                 <div class="form-row">
                     <div class="form-group col-sm-5"> </div>
                     <div class="form-group col-sm-5">
-                        <input type="text" readonly name="sub_total_harga_tindakan" class="form-control form-control-sm rupiah_tindakan text-right" id="sub_total_harga_tindakan" placeholder="Sub Total" required>
+                        <input type="text" readonly name="sub_total_harga_tindakan" class="form-control form-control-sm rupiah_tindakan text-right" id="sub_total_harga_tindakan" placeholder="Sub Total">
                     </div>
 
                 </div>
@@ -162,7 +162,7 @@
                 <div class="form-row">
                     <div class="form-group col-sm-5"> </div>
                     <div class="form-group col-sm-5">
-                        <input type="text" readonly name="sub_total_harga_obat" class="form-control form-control-sm rupiah_obat text-right" id="sub_total_harga_obat" placeholder="Sub Total" required>
+                        <input type="text" readonly name="sub_total_harga_obat" class="form-control form-control-sm rupiah_obat text-right" id="sub_total_harga_obat" placeholder="Sub Total">
                     </div>
 
                 </div>
