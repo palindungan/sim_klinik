@@ -85,4 +85,30 @@ class Transaksi extends CI_Controller
 
         echo $total;
     }
+
+    public function ambil_sub_total_obat()
+    {
+        $sub_total = 0;
+        $total = 0;
+
+        if (isset($_POST['no_stok_obat_rawat_i']) && isset($_POST['harga_obat']) && isset($_POST['qty'])) {
+
+            for ($i = 0; $i < count($this->input->post('no_stok_obat_rawat_i')); $i++) {
+
+                $harga_temp = $this->input->post('harga_obat')[$i];
+                $harga = (int) preg_replace("/[^0-9]/", "", $harga_temp);
+
+                $qty_temp = $this->input->post('qty')[$i];
+                $qty = (int) preg_replace("/[^0-9]/", "", $qty_temp);
+
+                $perhitungan = $harga * $qty;
+
+                $sub_total = $sub_total + $perhitungan;
+            }
+
+            $total = $sub_total;
+        }
+
+        echo $total;
+    }
 }
