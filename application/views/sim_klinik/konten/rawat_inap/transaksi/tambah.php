@@ -701,13 +701,12 @@
                         var kode_obat = data[i].no_stok_obat_rawat_i;
                         var nama_obat = data[i].nama_obat;
                         var nama_kategori = data[i].nama_kategori;
+                        var tgl_obat_keluar_i = data[i].tgl_obat_keluar_i;
                         var qty_sekarang = data[i].qty_sekarang;
                         var harga_obat = data[i].harga_jual;
-                        var tgl_obat_keluar_i = data[i].tgl_obat_keluar_i;
 
                         var reverse = harga_obat.toString().split('').reverse().join(''),
                             ribuan = reverse.match(/\d{1,3}/g);
-
                         ribuan = ribuan.join('.').split('').reverse().join('');
 
                         var button = `<a onclick="pilihobat('` + kode_obat +

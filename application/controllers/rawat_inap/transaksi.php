@@ -171,6 +171,70 @@ class Transaksi extends CI_Controller
             }
             // start of Kamar //////////
 
+            // start of insert Tindakan //////////
+            if (isset($_POST['no_rawat_inap_t'])) {
+
+                // tambah detail transaksi
+                for ($i = 0; $i < count($this->input->post('no_rawat_inap_t')); $i++) {
+
+                    $no_rawat_inap_t = $this->input->post('no_rawat_inap_t')[$i];
+                    $harga_temp = $this->input->post('harga_tindakan')[$i];
+                    $harga = preg_replace("/[^0-9]/", "", $harga_temp);
+
+                    // proses pemasukan ke dalam database detail
+                    $data = array(
+                        'no_transaksi_rawat_i' => $no_transaksi_rawat_i,
+                        'no_rawat_inap_t' => $no_rawat_inap_t,
+                        'harga' => $harga
+                    );
+
+                    $status = $this->M_transaksi->input_data('detail_transaksi_rawat_inap_tindakan', $data);
+                }
+
+                if ($status) {
+                    $this->session->set_flashdata('success', 'Ditambahkan');
+                } else {
+                    echo "Gagal input ke dalam data detail transaksi !!";
+                }
+            } else {
+                echo "Harus Ada Detail Transaksi !!";
+            }
+            // start of Tindakan //////////
+
+            // start of insert Obat //////////
+            if (isset($_POST['no_stok_obat_rawat_i'])) {
+
+                // tambah detail transaksi
+                for ($i = 0; $i < count($this->input->post('no_stok_obat_rawat_i')); $i++) {
+
+                    $no_stok_obat_rawat_i = $this->input->post('no_stok_obat_rawat_i')[$i];
+                    $harga_temp = $this->input->post('harga_obat')[$i];
+                    $harga_jual = preg_replace("/[^0-9]/", "", $harga_temp);
+                    $qty = $this->input->post('qty')[$i];
+                    $sub_total_harga = $harga_jual * $qty;
+
+                    // proses pemasukan ke dalam database detail
+                    $data = array(
+                        'no_transaksi_rawat_i' => $no_transaksi_rawat_i,
+                        'no_stok_obat_rawat_i' => $no_stok_obat_rawat_i,
+                        'qty' => $qty,
+                        'harga_jual' => $harga_jual,
+                        'sub_total_harga' => $sub_total_harga
+                    );
+
+                    $status = $this->M_transaksi->input_data('detail_transaksi_rawat_inap_obat', $data);
+                }
+
+                if ($status) {
+                    $this->session->set_flashdata('success', 'Ditambahkan');
+                } else {
+                    echo "Gagal input ke dalam data detail transaksi !!";
+                }
+            } else {
+                echo "Harus Ada Detail Transaksi !!";
+            }
+            // start of Obat //////////
+
         } else {
             echo "Gagal input ke dalam data transaksi !!";
         }
