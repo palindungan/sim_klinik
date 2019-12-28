@@ -814,7 +814,9 @@
             method: "POST",
             data: form_data,
             success: function(data) {
-                alert(data);
+                if (data != "") {
+                    alert(data);
+                }
                 location.reload();
             }
         });
@@ -843,7 +845,6 @@
         if (sub_total_harga_tindakan != "") {
             sub_total_harga_tindakan_v = parseInt(sub_total_harga_tindakan.split('.').join(''));
         }
-
 
         var sub_total_harga_kamar = $('#sub_total_harga_kamar').val();
         var sub_total_harga_kamar_v = 0;

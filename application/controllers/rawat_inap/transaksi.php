@@ -117,46 +117,48 @@ class Transaksi extends CI_Controller
 
     public function input_transaksi_form()
     {
-        // start of 
+        date_default_timezone_set('Asia/Jakarta');
+        $no_transaksi_rawat_i = $this->M_transaksi->get_no_transaksi_rawat_inap(); // generate
         $no_ref_pelayanan = $this->input->post('no_ref_pelayanan');
-        $total_tmp = $this->input->post('total_harga');
-        if (isset($_POST['no_bp_t'])) {
+        $atas_nama = "kkk"; // datadumb
+        $tgl_transaksi = date('Y-m-d H:i:s');
+        $total_temp = $this->input->post('total_harga');
+        $total_harga = preg_replace("/[^0-9]/", "", $total_temp);
 
-            date_default_timezone_set('Asia/Jakarta');
+        $data = array(
+            'no_transaksi_rawat_i' => $no_transaksi_rawat_i,
+            'no_ref_pelayanan' => $no_ref_pelayanan,
+            'atas_nama' => $atas_nama,
+            'tgl_transaksi' => $tgl_transaksi,
+            'total_harga' => $total_harga
+        );
 
-            // data transaksi 
-            $no_bp_p = $this->M_transaksi->get_no_transaksi(); // generate
-            $no_ref_pelayanan = $this->input->post('no_ref_pelayanan');
-            $tgl_penanganan = date('Y-m-d H:i:s');
-            $total_tmp = $this->input->post('total_harga');
-            $total_harga = preg_replace("/[^0-9]/", "", $total_tmp);
+        $status = $this->M_transaksi->input_data('transaksi_rawat_inap', $data);
 
-            $data = array(
-                'no_bp_p' => $no_bp_p,
-                'no_ref_pelayanan' => $no_ref_pelayanan,
-                'tgl_penanganan' => $tgl_penanganan,
-                'total_harga' => $total_harga
-            );
+        if ($status) {
 
-            $status = $this->M_transaksi->input_data('bp_penanganan', $data);
-            // end of data transaksi 
+            // start of insert Kamar //////////
+            if (isset($_POST['no_kamar_rawat_i'])) {
 
-            if ($status) {
                 // tambah detail transaksi
-                for ($i = 0; $i < count($this->input->post('no_bp_t')); $i++) {
+                for ($i = 0; $i < count($this->input->post('no_kamar_rawat_i')); $i++) {
 
-                    $no_bp_t = $this->input->post('no_bp_t')[$i];
-                    $harga_temp = $this->input->post('harga')[$i];
-                    $harga = preg_replace("/[^0-9]/", "", $harga_temp);
+                    $no_kamar_rawat_i = $this->input->post('no_kamar_rawat_i')[$i];
+                    $harga_temp = $this->input->post('harga_harian_kamar')[$i];
+                    $harga_harian = preg_replace("/[^0-9]/", "", $harga_temp);
+                    $jumlah_hari = $this->input->post('jumlah_hari')[$i];
+                    $sub_total_harga = $harga_harian * $jumlah_hari;
 
                     // proses pemasukan ke dalam database detail
                     $data = array(
-                        'no_bp_p' => $no_bp_p,
-                        'no_bp_t' => $no_bp_t,
-                        'harga' => $harga
+                        'no_transaksi_rawat_i' => $no_transaksi_rawat_i,
+                        'no_kamar_rawat_i' => $no_kamar_rawat_i,
+                        'harga_harian' => $harga_harian,
+                        'jumlah_hari' => $jumlah_hari,
+                        'sub_total_harga' => $sub_total_harga
                     );
 
-                    $status = $this->M_transaksi->input_data('detail_bp_penanganan', $data);
+                    $status = $this->M_transaksi->input_data('detail_transaksi_rawat_inap_kamar', $data);
                 }
 
                 if ($status) {
@@ -165,10 +167,12 @@ class Transaksi extends CI_Controller
                     echo "Gagal input ke dalam data detail transaksi !!";
                 }
             } else {
-                echo "Gagal input ke dalam data transaksi !!";
+                echo "Harus Ada Detail Transaksi !!";
             }
+            // start of Kamar //////////
+
         } else {
-            echo "Harus Ada Detail Transaksi !!";
+            echo "Gagal input ke dalam data transaksi !!";
         }
     }
 }

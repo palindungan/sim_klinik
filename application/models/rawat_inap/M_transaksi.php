@@ -39,30 +39,10 @@ class M_transaksi extends CI_Model
         return $status;
     }
 
-    // autogenerate kode / ID
-    function get_no()
+    function get_no_transaksi_rawat_inap()
     {
-        $field = "no_lab_c";
-        $tabel = "lab_checkup";
-        $digit = "3";
-        $kode = "L";
-        $q = $this->db->query("SELECT MAX(RIGHT($field,$digit)) AS kd_max FROM $tabel");
-        $kd = "";
-        if ($q->num_rows() > 0) {
-            foreach ($q->result() as $k) {
-                $tmp = ((int) $k->kd_max) + 1;
-                $kd = $kode . sprintf('%0' . $digit . 's', $tmp);
-            }
-        } else {
-            $kd = "L001";
-        }
-        return $kd;
-    }
-
-    function get_no_transaksi()
-    {
-        $field = "no_lab_t";
-        $tabel = "lab_transaksi";
+        $field = "no_transaksi_rawat_i";
+        $tabel = "transaksi_rawat_inap";
         $digit = "4";
         $ymd = date('ymd');
 
@@ -71,13 +51,13 @@ class M_transaksi extends CI_Model
         if ($q->num_rows() > 0) {
             foreach ($q->result() as $k) {
                 $tmp = ((int) $k->kd_max) + 1;
-                $kd = sprintf("%04s", $tmp);
+                $kd = sprintf('%0' . $digit . 's', $tmp);
             }
         } else {
             $kd = "0001";
         }
         date_default_timezone_set('Asia/Jakarta');
-        return 'LB' . date('ymd') . '-' . $kd; // SELECT SUBSTR('LB191121-0001', 3, 6); dari digit ke 3 sampai 6 digit seanjutnya
+        return 'RI' . date('ymd') . '-' . $kd; // SELECT SUBSTR('RI191121-0001', 3, 6); dari digit ke 3 sampai 6 digit seanjutnya
     }
 
     function search_autocomplete($table, $field, $data)
