@@ -73,9 +73,10 @@
                 </div>
 
                 <div class="form-row">
-                    <label class=" col-sm-5"><b>Nama Kamar</b></label>
+                    <label class=" col-sm-4"><b>Nama Kamar</b></label>
                     <label class=" col-sm-4"><b>Harga Harian</b></label>
                     <label class=" col-sm-1"><b>Tipe</b></label>
+                    <label class=" col-sm-1"><b>Jumlah Hari</b></label>
                 </div>
 
                 <!-- start untuk keranjang Kamar -->
@@ -317,51 +318,6 @@
 </script>
 
 <script>
-    // $(document).on('change', '#xx', function(event) {
-    //     var nilai_value = $('#xx').val();
-
-    //     // Fetch data
-    //     $.ajax({
-    //         url: "<?php echo base_url() . 'rawat_inap/transaksi/get_pasien_by_no_ref_pelayanan'; ?>",
-    //         type: 'post',
-    //         data: {
-    //             nilai: nilai_value
-    //         },
-    //         success: function(hasil) {
-
-    //             // parse
-    //             var obj = JSON.parse(hasil);
-    //             let data = obj['tbl_data'];
-
-    //             if (data != '') {
-
-    //                 $.each(data, function(i, item) {
-
-    //                     var nama = data[i].nama;
-    //                     var alamat = data[i].alamat;
-    //                     var tgl_lahir = data[i].tgl_lahir;
-
-    //                     // parse
-    //                     var tahun = tgl_lahir.substring(0, 4);
-
-    //                     var date = new Date();
-    //                     var year = date.getFullYear();
-
-    //                     var umur = year - tahun;
-
-    //                     $("#txt_nama").html(nama);
-    //                     $("#txt_alamat").html(alamat);
-    //                     $("#txt_umur").html(umur);
-    //                 });
-    //             } else {
-
-    //                 alert("Data Dengan Kode : " + nilai_value + " Tidak Ditemukan !");
-
-    //             }
-    //         }
-    //     });
-    // });
-
     var count1 = 0;
     var jumlah_detail_transaksi_kamar = 0;
 
@@ -452,7 +408,7 @@
         $('#detail_list_kamar').append(`
 
 			<div id="row_kamar` + count1 + `" class="form-row">
-				<div class="form-group col-sm-5">
+				<div class="form-group col-sm-4">
 					<input type="text" readonly name="nama_kamar[]" class="form-control form-control-sm karakter" id="nama_kamar` + count1 +
             `" placeholder="Nama_kamar" required value="` + nama_kamar + `">
 					<input type="hidden" name="no_kamar_rawat_i[]" class="form-control form-control-sm" id="no_kamar_rawat_i` + count1 + `" value="` +
@@ -464,6 +420,9 @@
 				</div>
                 <div class="form-group col-sm-1">
 					<input type="text" name="tipe_kamar[]" readonly class="form-control form-control-sm rupiah" id="tipe_kamar` + count1 + `" placeholder="Tipe Kamar" value="` + tipe_kamar + `" required>
+				</div>
+                <div class="form-group col-sm-1">
+					<input type="text" name="jumlah_hari[]" class="form-control form-control-sm rupiah_kamar" id="jumlah_hari` + count1 + `" placeholder="Jumlah Hari" value="1" required>
 				</div>
 				<div class="form-group col-sm-2">
 					<a id="` + count1 + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris_kamar">
