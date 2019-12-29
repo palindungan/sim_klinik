@@ -40,7 +40,7 @@ class Login extends CI_Controller
                 }
                 else if ($row->jenis_akses == 'Administrasi')
                 {
-                    redirect(base_url("admin/kamar"));
+                    redirect(base_url("administrasi/tagihan"));
                 }
                 else if ($row->jenis_akses == 'Balai Pengobatan')
                 {
@@ -56,7 +56,7 @@ class Login extends CI_Controller
                 }
                 else if ($row->jenis_akses == 'Rawat Inap')
                 {
-                    redirect(base_url("loket/pendaftaran"));
+                    redirect(base_url("rawat_inap/transaksi"));
                 }
             } else {
                 $this->session->set_flashdata('login','Dilogin');
