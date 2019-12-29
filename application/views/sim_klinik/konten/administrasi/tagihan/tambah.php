@@ -182,43 +182,170 @@
                     </div>
                 </div>
 
-                <!-- Start of Kamar /////////// -->
+                <!-- Start of rawat inap view fix -->
                 <div class="form-row">
-                    <label>Kamar Rawat Inap</label>
-                    <div class="form-group col-sm-12">
-                        <a href="#" id="btn_search_kamar" class="btn btn-sm btn-primary btn-icon-split" data-toggle="modal" data-target="#exampleModalCenter_kamar">
-                            <span class="icon text-white-50">
-                                <i class="fas fa-search-plus"></i>
-                            </span>
-                            <span class="text">Cari Kamar</span>
-                        </a>
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <h5>* Rawat Inap</h5>
+                                <a href="#" id="btn_search_kamar" class="btn btn-sm btn-primary btn-icon-split" data-toggle="modal" data-target="#exampleModalCenter_kamar">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-search-plus"></i>
+                                    </span>
+                                    <span class="text">Cari Kamar</span>
+                                </a>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <h5>* Poli Kia</h5>
+                                <a href="#" id="btn_search_kia" class="btn btn-sm btn-primary btn-icon-split" data-toggle="modal" data-target="#exampleModalCenterKIA">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-search-plus"></i>
+                                    </span>
+                                    <span class="text">Cari Tindakan KIA</span>
+                                </a>
+                            </div>
+                        </div>
                     </div>
-
                 </div>
-
                 <div class="form-row">
-                    <label class=" col-sm-4"><b>Nama Kamar</b></label>
-                    <label class=" col-sm-4"><b>Harga Harian</b></label>
-                    <label class=" col-sm-1"><b>Tipe</b></label>
-                    <label class=" col-sm-1"><b>Jumlah Hari</b></label>
-                </div>
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <div class="row">
+                                    <label class=" col-sm-3"><b>Nama Kamar</b></label>
+                                    <label class=" col-sm-3"><b>Harga Harian</b></label>
+                                    <label class=" col-sm-2"><b>Tipe</b></label>
+                                    <label class=" col-sm-2"><b>@Hari</b></label>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
 
-                <!-- start untuk keranjang Kamar -->
-                <div id="detail_list_kamar">
-                    <!-- disini isi detail -->
-                    <h6 id="label_kosong_kamar">Detail Kamar Masih Kosong Lakukan pilih Pencarian Kamar !</h6>
+                                        <!-- start untuk keranjang Kamar -->
+                                        <div id="detail_list_kamar">
+                                            <!-- disini isi detail -->
+                                            <h6 id="label_kosong_kamar">Detail Kamar Masih Kosong Lakukan pilih Pencarian Kamar !</h6>
 
-                </div>
-                <!-- end of untuk keranjang Kamar -->
+                                        </div>
+                                        <!-- end of untuk keranjang Kamar -->
 
-                <div class="form-row">
-                    <div class="form-group col-sm-5"> </div>
-                    <div class="form-group col-sm-5">
-                        <input type="text" readonly name="sub_total_harga_kamar" class="form-control form-control-sm rupiah_kamar text-right" id="sub_total_harga_kamar" placeholder="Sub Total">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <input type="text" readonly name="sub_total_harga_kamar" class="form-control form-control-sm rupiah_kamar text-right" id="sub_total_harga_kamar" placeholder="Sub Total">
+                                    </div>
+                                    <div class="col-sm-2">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <div class="row">
+                                    <div class="col-sm-6">Nama Tindakan KIA</div>
+                                    <div class="col-sm-6">Biaya</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <!-- start untuk keranjang tindakan -->
+                                        <div id="detail_list_kia">
+                                            <!-- disini isi detail -->
+                                            <h6 id="label_kosong_kia">Detail Tindakan Masih Kosong!</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <input type="text" readonly name="total_harga_kia" class="form-control form-control-sm rupiah_kia text-right" id="total_harga_kia" placeholder="0" required>
+                                    </div>
+                                    <div class="col-sm-2">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
                 </div>
-                <!-- End of Kamar ////////// -->
+                <div class="form-row">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <h5>* Laboratorium</h5>
+                                <a href="#" id="btn_search_lab" class="btn btn-sm btn-primary btn-icon-split" data-toggle="modal" data-target="#exampleModalCenterLAB">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-search-plus"></i>
+                                    </span>
+                                    <span class="text">Cari Tindakan Lab</span>
+                                </a>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <h5>* UGD</h5>
+                                <a href="#" id="btn_search_ugd" class="btn btn-sm btn-primary btn-icon-split" data-toggle="modal" data-target="#exampleModalCenterUGD">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-search-plus"></i>
+                                    </span>
+                                    <span class="text">Cari Tindakan UGD</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <div class="row">
+                                    <div class="col-sm-6">Nama Tindakan Lab</div>
+                                    <div class="col-sm-6">Biaya</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <!-- start untuk keranjang tindakan -->
+                                        <div id="detail_list_lab">
+                                            <!-- disini isi detail -->
+                                            <h6 id="label_kosong_lab">Detail Tindakan Masih Kosong!</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <input type="text" readonly name="total_harga_lab" class="form-control form-control-sm rupiah_lab text-right" id="total_harga_lab" placeholder="0" required>
+                                    </div>
+                                    <div class="col-sm-2">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <div class="row">
+                                    <div class="col-sm-6">Nama Tindakan UGD</div>
+                                    <div class="col-sm-6">Biaya</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <!-- start untuk keranjang tindakan -->
+                                        <div id="detail_list_ugd">
+                                            <!-- disini isi detail -->
+                                            <h6 id="label_kosong_ugd">Detail Tindakan Masih Kosong!</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <input type="text" readonly name="total_harga_ugd" class="form-control form-control-sm rupiah_ugd text-right" id="total_harga_ugd" placeholder="0" required>
+                                    </div>
+                                    <div class="col-sm-2">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End of rawat inap view fix -->
 
                 <!-- Start of tindakan /////////// -->
                 <div class="form-row">
@@ -1291,20 +1418,20 @@
         $('#detail_list_kamar').append(`
 
 			<div id="row_kamar` + count1 + `" class="form-row">
-				<div class="form-group col-sm-4">
+				<div class="form-group col-sm-3">
 					<input type="text" readonly name="nama_kamar[]" class="form-control form-control-sm karakter" id="nama_kamar` + count1 +
             `" placeholder="Nama_kamar" required value="` + nama_kamar + `">
 					<input type="hidden" name="no_kamar_rawat_i[]" class="form-control form-control-sm" id="no_kamar_rawat_i` + count1 + `" value="` +
             kode_kamar + `">
 				</div>
-				<div class="form-group col-sm-4">
+				<div class="form-group col-sm-3">
 					<input type="text" name="harga_harian_kamar[]" class="form-control form-control-sm rupiah_kamar text-right" id="harga_harian_kamar` + count1 +
             `" placeholder="Harga Harian Kamar" required value="` + harga_harian_kamar + `">
 				</div>
-                <div class="form-group col-sm-1">
+                <div class="form-group col-sm-2">
 					<input type="text" name="tipe_kamar[]" readonly class="form-control form-control-sm rupiah" id="tipe_kamar` + count1 + `" placeholder="Tipe Kamar" value="` + tipe_kamar + `" required>
 				</div>
-                <div class="form-group col-sm-1">
+                <div class="form-group col-sm-2">
 					<input type="text" name="jumlah_hari[]" class="form-control form-control-sm rupiah_kamar" id="jumlah_hari` + count1 + `" placeholder="Jumlah Hari" value="1" required>
 				</div>
 				<div class="form-group col-sm-2">
