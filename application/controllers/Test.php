@@ -4,8 +4,105 @@
     class Test extends CI_Controller {
 
         public function index() {
-            $html = $this->load->view('sim_klinik/konten/administrasi/cetak_struk/tampil',$data,true);
-            $this->dompdf->PdfGenerator($html, 'coba', 'A4', 'potrait');
+            $this->load->view('sim_klinik/konten/administrasi/cetak_struk/tampil');
+        }
+
+        public function cetak() {
+            $html = '
+                <h4 style="text-align:center">Rekening Pasien</h4>
+                <table width="100%">
+                <tr>
+                    <td width="14%">Nama Pasien</td>
+                    <td width="1%">:</td>
+                    <td width="35%">asd</td>
+                    <td width="19%">No Ref Pelayanan</td>
+                    <td width="1%">:</td>
+                    <td width="30%">123123</td>
+                </tr>
+                <tr>
+                    <td width="14%">Nomor RM</td>
+                    <td width="1%">:</td>
+                    <td width="40%">asd123</td>
+                    <td width="19%">Tanggal Masuk</td>
+                    <td width="1%">:</td>
+                    <td width="25%">asd</td>
+                </tr>
+                <tr>
+                    <td width="14%">Ruangan</td>
+                    <td width="1%">:</td>
+                    <td width="40%">-</td>
+                    <td width="19%">Tanggal Keluar</td>
+                    <td width="1%">:</td>
+                    <td width="25%">-</td>
+                </tr>
+            </table>
+            <hr>
+            <table width="100%">
+                <tr>
+                    <td style="text-align:left">Rincian Transaksi</td>
+                    <td style="text-align:right">Biaya</td>
+                </tr>
+                <tr>
+                    <td style="text-align:left;padding-left:10px"><i>Biaya Tindakan Balai Pengobatan</i></td>
+                </tr>
+                <tr>
+                    <td style="text-align:left;padding-left:20px">Pemberian Infus</td>
+                    <td style="text-align:right">90.000</td>
+                </tr>
+                <tr>
+                    <td style="text-align:left;padding-left:20px">Pemberian Darah</td>
+                    <td style="text-align:right">90.000</td>
+                </tr>
+                <tr>
+                    <td style="text-align:left;padding-left:10px"><i>Biaya Tindakan Poli KIA</i></td>
+                </tr>
+                <tr>
+                    <td style="text-align:left;padding-left:20px">Pemberian Infus</td>
+                    <td style="text-align:right">90.000</td>
+                </tr>
+                <tr>
+                    <td style="text-align:left;padding-left:20px">Pemberian Darah</td>
+                    <td style="text-align:right">90.000</td>
+                </tr>
+                <tr>
+                    <td style="text-align:left;padding-left:10px"><i>Biaya Tindakan Laboratorium</i></td>
+                </tr>
+                <tr>
+                    <td style="text-align:left;padding-left:20px">Pemberian Infus</td>
+                    <td style="text-align:right">90.000</td>
+                </tr>
+                <tr>
+                    <td style="text-align:left;padding-left:20px">Pemberian Darah</td>
+                    <td style="text-align:right">90.000</td>
+                </tr>
+                <tr>
+                    <td style="text-align:left;padding-left:10px"><i>Biaya Tindakan UGD</i></td>
+                </tr>
+                <tr>
+                    <td style="text-align:left;padding-left:20px">Pemberian Infus</td>
+                    <td style="text-align:right">90.000</td>
+                </tr>
+                <tr>
+                    <td style="text-align:left;padding-left:20px">Pemberian Darah</td>
+                    <td style="text-align:right">90.000</td>
+                </tr>
+                <tr>
+                    <td style="text-align:left;padding-left:10px"><i>Biaya Rawat inap</i></td>
+                </tr>
+                <tr>
+                    <td style="text-align:left;padding-left:20px">Pemberian Infus</td>
+                    <td style="text-align:right">90.000</td>
+                </tr>
+                <tr>
+                    <td style="text-align:left;padding-left:10px"><i>Biaya Obat-obatan</i></td>
+                </tr>
+                <tr>
+                    <td style="text-align:left;padding-left:20px">Apotek</td>
+                    <td style="text-align:right">90.000</td>
+                </tr>
+            </table>
+                ';
+                $this->dompdf->PdfGenerator($html, 'coba', 'A4', 'potrait',true);
         }
     
         public function cetak_struk() {

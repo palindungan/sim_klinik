@@ -17,5 +17,8 @@ Class Dompdf {
 
         // Output the generated PDF to Browser
         $dompdf->stream($filename,array('Attachment' => 0));
+
+        // Jika ingin preview pdf setelah $filename kasih script bawah ini
+        // ,array('Attachment' => 0)
     }
 }
