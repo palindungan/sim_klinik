@@ -187,21 +187,21 @@
                     <div class="col-sm-12">
                         <div class="row">
                             <div class="form-group col-sm-6">
-                                <h5>* Rawat Inap</h5>
+                                <h5>* Rawat Inap Kamar</h5>
                                 <a href="#" id="btn_search_kamar" class="btn btn-sm btn-primary btn-icon-split" data-toggle="modal" data-target="#exampleModalCenter_kamar">
                                     <span class="icon text-white-50">
                                         <i class="fas fa-search-plus"></i>
                                     </span>
-                                    <span class="text">Cari Kamar</span>
+                                    <span class="text">Cari Kamar Rawat Inap</span>
                                 </a>
                             </div>
                             <div class="form-group col-sm-6">
-                                <h5>* Poli Kia</h5>
-                                <a href="#" id="btn_search_kia" class="btn btn-sm btn-primary btn-icon-split" data-toggle="modal" data-target="#exampleModalCenterKIA">
+                                <h5>* Rawat Inap Tindakan</h5>
+                                <a href="#" id="btn_search_tindakan" class="btn btn-sm btn-primary btn-icon-split" data-toggle="modal" data-target="#exampleModalCenter_tindakan">
                                     <span class="icon text-white-50">
                                         <i class="fas fa-search-plus"></i>
                                     </span>
-                                    <span class="text">Cari Tindakan KIA</span>
+                                    <span class="text">Cari tindakan Rawat Inap</span>
                                 </a>
                             </div>
                         </div>
@@ -242,23 +242,25 @@
                             </div>
                             <div class="form-group col-sm-6">
                                 <div class="row">
-                                    <div class="col-sm-6">Nama Tindakan KIA</div>
-                                    <div class="col-sm-6">Biaya</div>
+                                    <label class=" col-sm-5"><b>Nama tindakan</b></label>
+                                    <label class=" col-sm-4"><b>Harga</b></label>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <!-- start untuk keranjang tindakan -->
-                                        <div id="detail_list_kia">
+                                        <div id="detail_list_tindakan">
                                             <!-- disini isi detail -->
-                                            <h6 id="label_kosong_kia">Detail Tindakan Masih Kosong!</h6>
+                                            <h6 id="label_kosong_tindakan">Detail tindakan Masih Kosong Lakukan pilih Pencarian tindakan !</h6>
+
                                         </div>
+                                        <!-- end of untuk keranjang tindakan -->
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-6">
                                     </div>
                                     <div class="col-sm-4">
-                                        <input type="text" readonly name="total_harga_kia" class="form-control form-control-sm rupiah_kia text-right" id="total_harga_kia" placeholder="0" required>
+                                        <input type="text" readonly name="sub_total_harga_tindakan" class="form-control form-control-sm rupiah_tindakan text-right" id="sub_total_harga_tindakan" placeholder="Sub Total">
                                     </div>
                                     <div class="col-sm-2">
                                     </div>
@@ -271,21 +273,12 @@
                     <div class="col-sm-12">
                         <div class="row">
                             <div class="form-group col-sm-6">
-                                <h5>* Laboratorium</h5>
-                                <a href="#" id="btn_search_lab" class="btn btn-sm btn-primary btn-icon-split" data-toggle="modal" data-target="#exampleModalCenterLAB">
+                                <h5>* Rawat Inap Obat</h5>
+                                <a href="#" id="btn_search_obat" class="btn btn-sm btn-primary btn-icon-split" data-toggle="modal" data-target="#exampleModalCenter_obat">
                                     <span class="icon text-white-50">
                                         <i class="fas fa-search-plus"></i>
                                     </span>
-                                    <span class="text">Cari Tindakan Lab</span>
-                                </a>
-                            </div>
-                            <div class="form-group col-sm-6">
-                                <h5>* UGD</h5>
-                                <a href="#" id="btn_search_ugd" class="btn btn-sm btn-primary btn-icon-split" data-toggle="modal" data-target="#exampleModalCenterUGD">
-                                    <span class="icon text-white-50">
-                                        <i class="fas fa-search-plus"></i>
-                                    </span>
-                                    <span class="text">Cari Tindakan UGD</span>
+                                    <span class="text">Cari obat rawat inap</span>
                                 </a>
                             </div>
                         </div>
@@ -296,47 +289,26 @@
                         <div class="row">
                             <div class="form-group col-sm-6">
                                 <div class="row">
-                                    <div class="col-sm-6">Nama Tindakan Lab</div>
-                                    <div class="col-sm-6">Biaya</div>
+                                    <label class=" col-sm-4"><b>Nama Obat</b></label>
+                                    <label class=" col-sm-4"><b>Harga Jual</b></label>
+                                    <label class=" col-sm-2"><b>QTY</b></label>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <!-- start untuk keranjang tindakan -->
-                                        <div id="detail_list_lab">
+                                        <!-- start untuk keranjang obat -->
+                                        <div id="detail_list_obat">
                                             <!-- disini isi detail -->
-                                            <h6 id="label_kosong_lab">Detail Tindakan Masih Kosong!</h6>
+                                            <h6 id="label_kosong_obat">Detail obat Masih Kosong Lakukan pilih Pencarian obat !</h6>
+
                                         </div>
+                                        <!-- end of untuk keranjang obat -->
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-6">
                                     </div>
                                     <div class="col-sm-4">
-                                        <input type="text" readonly name="total_harga_lab" class="form-control form-control-sm rupiah_lab text-right" id="total_harga_lab" placeholder="0" required>
-                                    </div>
-                                    <div class="col-sm-2">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group col-sm-6">
-                                <div class="row">
-                                    <div class="col-sm-6">Nama Tindakan UGD</div>
-                                    <div class="col-sm-6">Biaya</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <!-- start untuk keranjang tindakan -->
-                                        <div id="detail_list_ugd">
-                                            <!-- disini isi detail -->
-                                            <h6 id="label_kosong_ugd">Detail Tindakan Masih Kosong!</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <input type="text" readonly name="total_harga_ugd" class="form-control form-control-sm rupiah_ugd text-right" id="total_harga_ugd" placeholder="0" required>
+                                        <input type="text" readonly name="sub_total_harga_obat" class="form-control form-control-sm rupiah_obat text-right" id="sub_total_harga_obat" placeholder="Sub Total">
                                     </div>
                                     <div class="col-sm-2">
                                     </div>
@@ -347,84 +319,11 @@
                 </div>
                 <!-- End of rawat inap view fix -->
 
-                <!-- Start of tindakan /////////// -->
-                <div class="form-row">
-                    <label>Tindakan Rawat Inap</label>
-                    <div class="form-group col-sm-12">
-                        <a href="#" id="btn_search_tindakan" class="btn btn-sm btn-primary btn-icon-split" data-toggle="modal" data-target="#exampleModalCenter_tindakan">
-                            <span class="icon text-white-50">
-                                <i class="fas fa-search-plus"></i>
-                            </span>
-                            <span class="text">Cari tindakan</span>
-                        </a>
-                    </div>
-
-                </div>
-
-                <div class="form-row">
-                    <label class=" col-sm-5"><b>Nama tindakan</b></label>
-                    <label class=" col-sm-4"><b>Harga</b></label>
-                </div>
-
-                <!-- start untuk keranjang tindakan -->
-                <div id="detail_list_tindakan">
-                    <!-- disini isi detail -->
-                    <h6 id="label_kosong_tindakan">Detail tindakan Masih Kosong Lakukan pilih Pencarian tindakan !</h6>
-
-                </div>
-                <!-- end of untuk keranjang tindakan -->
-
-                <div class="form-row">
-                    <div class="form-group col-sm-5"> </div>
-                    <div class="form-group col-sm-5">
-                        <input type="text" readonly name="sub_total_harga_tindakan" class="form-control form-control-sm rupiah_tindakan text-right" id="sub_total_harga_tindakan" placeholder="Sub Total">
-                    </div>
-
-                </div>
-                <!-- End of tindakan ////////// -->
-
-                <!-- Start of obat /////////// -->
-                <div class="form-row">
-                    <label>Obat Rawat Inap</label>
-                    <div class="form-group col-sm-12">
-                        <a href="#" id="btn_search_obat" class="btn btn-sm btn-primary btn-icon-split" data-toggle="modal" data-target="#exampleModalCenter_obat">
-                            <span class="icon text-white-50">
-                                <i class="fas fa-search-plus"></i>
-                            </span>
-                            <span class="text">Cari obat</span>
-                        </a>
-                    </div>
-
-                </div>
-
-                <div class="form-row">
-                    <label class=" col-sm-5"><b>Nama Obat</b></label>
-                    <label class=" col-sm-4"><b>Harga Jual</b></label>
-                    <label class=" col-sm-1"><b>QTY</b></label>
-                </div>
-
-                <!-- start untuk keranjang obat -->
-                <div id="detail_list_obat">
-                    <!-- disini isi detail -->
-                    <h6 id="label_kosong_obat">Detail obat Masih Kosong Lakukan pilih Pencarian obat !</h6>
-
-                </div>
-                <!-- end of untuk keranjang obat -->
-
-                <div class="form-row">
-                    <div class="form-group col-sm-5"> </div>
-                    <div class="form-group col-sm-5">
-                        <input type="text" readonly name="sub_total_harga_obat" class="form-control form-control-sm rupiah_obat text-right" id="sub_total_harga_obat" placeholder="Sub Total">
-                    </div>
-
-                </div>
-                <!-- End of obat ////////// -->
-
-                <!-- start of total_harga //// -->
+                <!-- start of total_harga rawat inap //// -->
                 <div class="form-group col-sm-5">
                     <input type="hidden" readonly name="total_harga" class="rupiah_grant_total form-control form-control-sm text-right" id="total_harga" placeholder="Total" required>
                 </div>
-                <!-- end of total_harga //// -->
+                <!-- end of total_harga rawat inap //// -->
 
                 <div class="form-row">
                     <div class="col-sm-2">
@@ -1439,7 +1338,7 @@
 						<span class="icon text-white-50">
 							<i class="fas fa-trash-alt"></i>
 						</span>
-						<span class="text">Hapus</span>
+						
 					</a>
 				</div>
 			</div>
@@ -1588,7 +1487,7 @@
 						<span class="icon text-white-50">
 							<i class="fas fa-trash-alt"></i>
 						</span>
-						<span class="text">Hapus</span>
+						
 					</a>
 				</div>
 			</div>
@@ -1744,7 +1643,7 @@
         $('#detail_list_obat').append(`
 
             <div id="row_obat` + count3 + `" class="form-row">
-				<div class="form-group col-sm-5">
+				<div class="form-group col-sm-4">
 					<input type="text" readonly name="nama_obat[]" class="form-control form-control-sm karakter" id="nama_obat` + count3 +
             `" placeholder="Nama_obat" required value="` + nama_obat + `">
 					<input type="hidden" name="no_stok_obat_rawat_i[]" class="form-control form-control-sm" id="no_stok_obat_rawat_i` + count3 +
@@ -1756,7 +1655,7 @@
             count3 +
             `" placeholder="harga Obar" required value="` + harga_obat + `">
 				</div>
-                <div class="form-group col-sm-1">
+                <div class="form-group col-sm-2">
 					<input type="text" name="qty[]" class="form-control form-control-sm qty_format" id="qty` + count3 + `" placeholder="QTY" value="1" required>
 					<input type="hidden" name="qty_sekarang[]" id="qty_sekarang` + count3 + `" class="form-control form-control-sm" value="` + qty_sekarang + `"></input>
 				</div>
@@ -1765,7 +1664,7 @@
 						<span class="icon text-white-50">
 							<i class="fas fa-trash-alt"></i>
 						</span>
-						<span class="text">Hapus</span>
+						
 					</a>
 				</div>
 			</div>
