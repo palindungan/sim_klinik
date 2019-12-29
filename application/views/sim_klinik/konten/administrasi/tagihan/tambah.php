@@ -1,30 +1,30 @@
 <?php if ($this->session->flashdata('success')) : ?>
-	<div class="pesan-sukses" data-flashdata="<?= $this->session->flashdata('success'); ?>"></div>
+    <div class="pesan-sukses" data-flashdata="<?= $this->session->flashdata('success'); ?>"></div>
 <?php endif; ?>
 <div class="container-fluid">
-	<div class="card shadow mb-4">
-		<div class="card-header py-3">
-			<h6 class="m-0 font-weight-bold text-primary">Tagihan</h6>
-		</div>
-		<div class="card-body">
-			<form method="post" id="transaksi_form" action="<?= base_url('administrasi/tagihan/input_transaksi_form') ?>">
-				<div class="form-row">
-					<div class="form-group col-sm-5">
-						<label>Cari No Ref</label>
-						<select class="form-control form-control-sm noRef" name="no_ref_pelayanan" required>
-						</select>
-					</div>
-					<div class="form-group col-sm-1">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Tagihan</h6>
+        </div>
+        <div class="card-body">
+            <form method="post" id="transaksi_form" action="<?= base_url('administrasi/tagihan/input_transaksi_form') ?>">
+                <div class="form-row">
+                    <div class="form-group col-sm-5">
+                        <label>Cari No Ref</label>
+                        <select class="form-control form-control-sm noRef" name="no_ref_pelayanan" required>
+                        </select>
+                    </div>
+                    <div class="form-group col-sm-1">
                     </div>
                     <div class="form-group col-sm-3">
                         <label>Grand Total</label>
-						<input type="text" id="grand_total" name="grand_total" class="form-control form-control-sm rupiah_grand_total text-right" placeholder="0" readonly>
+                        <input type="text" id="grand_total" name="grand_total" class="form-control form-control-sm rupiah_grand_total text-right" placeholder="0" readonly>
                     </div>
 
 
-				</div>
+                </div>
 
-				<div class="form-row">
+                <div class="form-row">
                     <div class="col-sm-12">
                         <div class="row">
                             <div class="form-group col-sm-6">
@@ -35,19 +35,19 @@
                                     </span>
                                     <span class="text">Cari Tindakan BP</span>
                                 </a>
-					        </div>
+                            </div>
                             <div class="form-group col-sm-6">
                                 <h5>* Poli Kia</h5>
-                                    <a href="#" id="btn_search_kia" class="btn btn-sm btn-primary btn-icon-split" data-toggle="modal" data-target="#exampleModalCenterKIA">
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-search-plus"></i>
-                                        </span>
-                                        <span class="text">Cari Tindakan KIA</span>
-                                    </a>
+                                <a href="#" id="btn_search_kia" class="btn btn-sm btn-primary btn-icon-split" data-toggle="modal" data-target="#exampleModalCenterKIA">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-search-plus"></i>
+                                    </span>
+                                    <span class="text">Cari Tindakan KIA</span>
+                                </a>
                             </div>
                         </div>
                     </div>
-				</div>
+                </div>
                 <div class="form-row">
                     <div class="col-sm-12">
                         <div class="row">
@@ -58,12 +58,12 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12">
-                                    
+
                                         <!-- start untuk keranjang tindakan -->
                                         <div id="detail_list_bp">
                                             <!-- disini isi detail -->
                                             <h6 id="label_kosong_bp">Detail Tindakan Masih Kosong!</h6>
-                                        </div> 
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -75,7 +75,7 @@
                                     <div class="col-sm-2">
                                     </div>
                                 </div>
-					        </div>
+                            </div>
                             <div class="form-group col-sm-6">
                                 <div class="row">
                                     <div class="col-sm-6">Nama Tindakan KIA</div>
@@ -99,10 +99,10 @@
                                     <div class="col-sm-2">
                                     </div>
                                 </div>
-					        </div>
+                            </div>
                         </div>
                     </div>
-				</div>
+                </div>
                 <div class="form-row">
                     <div class="col-sm-12">
                         <div class="row">
@@ -114,19 +114,19 @@
                                     </span>
                                     <span class="text">Cari Tindakan Lab</span>
                                 </a>
-					        </div>
+                            </div>
                             <div class="form-group col-sm-6">
                                 <h5>* UGD</h5>
-                                    <a href="#" id="btn_search_ugd" class="btn btn-sm btn-primary btn-icon-split" data-toggle="modal" data-target="#exampleModalCenterUGD">
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-search-plus"></i>
-                                        </span>
-                                        <span class="text">Cari Tindakan UGD</span>
-                                    </a>
+                                <a href="#" id="btn_search_ugd" class="btn btn-sm btn-primary btn-icon-split" data-toggle="modal" data-target="#exampleModalCenterUGD">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-search-plus"></i>
+                                    </span>
+                                    <span class="text">Cari Tindakan UGD</span>
+                                </a>
                             </div>
                         </div>
                     </div>
-				</div>
+                </div>
                 <div class="form-row">
                     <div class="col-sm-12">
                         <div class="row">
@@ -153,7 +153,7 @@
                                     <div class="col-sm-2">
                                     </div>
                                 </div>
-					        </div>
+                            </div>
                             <div class="form-group col-sm-6">
                                 <div class="row">
                                     <div class="col-sm-6">Nama Tindakan UGD</div>
@@ -177,456 +177,670 @@
                                     <div class="col-sm-2">
                                     </div>
                                 </div>
-					        </div>
+                            </div>
                         </div>
                     </div>
-				</div>
+                </div>
+
+                <!-- Start of Kamar /////////// -->
+                <div class="form-row">
+                    <label>Kamar Rawat Inap</label>
+                    <div class="form-group col-sm-12">
+                        <a href="#" id="btn_search_kamar" class="btn btn-sm btn-primary btn-icon-split" data-toggle="modal" data-target="#exampleModalCenter_kamar">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-search-plus"></i>
+                            </span>
+                            <span class="text">Cari Kamar</span>
+                        </a>
+                    </div>
+
+                </div>
+
+                <div class="form-row">
+                    <label class=" col-sm-4"><b>Nama Kamar</b></label>
+                    <label class=" col-sm-4"><b>Harga Harian</b></label>
+                    <label class=" col-sm-1"><b>Tipe</b></label>
+                    <label class=" col-sm-1"><b>Jumlah Hari</b></label>
+                </div>
+
+                <!-- start untuk keranjang Kamar -->
+                <div id="detail_list_kamar">
+                    <!-- disini isi detail -->
+                    <h6 id="label_kosong_kamar">Detail Kamar Masih Kosong Lakukan pilih Pencarian Kamar !</h6>
+
+                </div>
+                <!-- end of untuk keranjang Kamar -->
+
+                <div class="form-row">
+                    <div class="form-group col-sm-5"> </div>
+                    <div class="form-group col-sm-5">
+                        <input type="text" readonly name="sub_total_harga_kamar" class="form-control form-control-sm rupiah_kamar text-right" id="sub_total_harga_kamar" placeholder="Sub Total">
+                    </div>
+
+                </div>
+                <!-- End of Kamar ////////// -->
+
+                <!-- Start of tindakan /////////// -->
+                <div class="form-row">
+                    <label>Tindakan Rawat Inap</label>
+                    <div class="form-group col-sm-12">
+                        <a href="#" id="btn_search_tindakan" class="btn btn-sm btn-primary btn-icon-split" data-toggle="modal" data-target="#exampleModalCenter_tindakan">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-search-plus"></i>
+                            </span>
+                            <span class="text">Cari tindakan</span>
+                        </a>
+                    </div>
+
+                </div>
+
+                <div class="form-row">
+                    <label class=" col-sm-5"><b>Nama tindakan</b></label>
+                    <label class=" col-sm-4"><b>Harga</b></label>
+                </div>
+
+                <!-- start untuk keranjang tindakan -->
+                <div id="detail_list_tindakan">
+                    <!-- disini isi detail -->
+                    <h6 id="label_kosong_tindakan">Detail tindakan Masih Kosong Lakukan pilih Pencarian tindakan !</h6>
+
+                </div>
+                <!-- end of untuk keranjang tindakan -->
+
+                <div class="form-row">
+                    <div class="form-group col-sm-5"> </div>
+                    <div class="form-group col-sm-5">
+                        <input type="text" readonly name="sub_total_harga_tindakan" class="form-control form-control-sm rupiah_tindakan text-right" id="sub_total_harga_tindakan" placeholder="Sub Total">
+                    </div>
+
+                </div>
+                <!-- End of tindakan ////////// -->
+
+                <!-- Start of obat /////////// -->
+                <div class="form-row">
+                    <label>Obat Rawat Inap</label>
+                    <div class="form-group col-sm-12">
+                        <a href="#" id="btn_search_obat" class="btn btn-sm btn-primary btn-icon-split" data-toggle="modal" data-target="#exampleModalCenter_obat">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-search-plus"></i>
+                            </span>
+                            <span class="text">Cari obat</span>
+                        </a>
+                    </div>
+
+                </div>
+
+                <div class="form-row">
+                    <label class=" col-sm-5"><b>Nama Obat</b></label>
+                    <label class=" col-sm-4"><b>Harga Jual</b></label>
+                    <label class=" col-sm-1"><b>QTY</b></label>
+                </div>
+
+                <!-- start untuk keranjang obat -->
+                <div id="detail_list_obat">
+                    <!-- disini isi detail -->
+                    <h6 id="label_kosong_obat">Detail obat Masih Kosong Lakukan pilih Pencarian obat !</h6>
+
+                </div>
+                <!-- end of untuk keranjang obat -->
+
+                <div class="form-row">
+                    <div class="form-group col-sm-5"> </div>
+                    <div class="form-group col-sm-5">
+                        <input type="text" readonly name="sub_total_harga_obat" class="form-control form-control-sm rupiah_obat text-right" id="sub_total_harga_obat" placeholder="Sub Total">
+                    </div>
+
+                </div>
+                <!-- End of obat ////////// -->
+
+                <!-- start of total_harga //// -->
+                <div class="form-group col-sm-5">
+                    <input type="hidden" readonly name="total_harga" class="rupiah_grant_total form-control form-control-sm text-right" id="total_harga" placeholder="Total" required>
+                </div>
+                <!-- end of total_harga //// -->
+
                 <div class="form-row">
                     <div class="col-sm-2">
-                    <button id="action" type="submit" class="btn btn-sm btn-success btn-icon-split" onclick="return confirm('Lakukan Simpan Data ?')">
-							<span class="icon text-white-50">
-								<i class="fas fa-save"></i>
-							</span>
-							<span class="text">Simpan Data</span>
-						</button>
+                        <button id="action" type="submit" class="btn btn-sm btn-success btn-icon-split" onclick="return confirm('Lakukan Simpan Data ?')">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-save"></i>
+                            </span>
+                            <span class="text">Simpan Data</span>
+                        </button>
                     </div>
                 </div>
-			</form>
-		</div>
-	</div>
+            </form>
+        </div>
+    </div>
 
 </div>
 
 <!-- Modal Tindakan BP -->
 <div class="modal fade  bd-example-modal-lg" id="exampleModalCenterBP" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-	<div class="modal-dialog modal-lg" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLongTitle">Daftar Tindakan Balai Pengobatan</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<div class="table-responsive">
-					<table class="table table-bordered table_tindakan_bp" width="100%" cellspacing="0">
-						<thead>
-							<tr>
-								<th class="text-center">No</th>
-								<th class="text-center">Nama</th>
-								<th class="text-center">Biaya</th>
-								<th class="text-center">Aksi</th>
-							</tr>
-						</thead>
-						<tbody id="tindakan_bp">
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Daftar Tindakan Balai Pengobatan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table_tindakan_bp" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th class="text-center">No</th>
+                                <th class="text-center">Nama</th>
+                                <th class="text-center">Biaya</th>
+                                <th class="text-center">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tindakan_bp">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- Modal Tindakan KIA -->
 <div class="modal fade  bd-example-modal-lg" id="exampleModalCenterKIA" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-	<div class="modal-dialog modal-lg" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLongTitle">Daftar Tindakan Poli KIA</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<div class="table-responsive">
-					<table class="table table-bordered table_tindakan_kia" width="100%" cellspacing="0">
-						<thead>
-							<tr>
-								<th class="text-center">No</th>
-								<th class="text-center">Nama</th>
-								<th class="text-center">Biaya</th>
-								<th class="text-center">Aksi</th>
-							</tr>
-						</thead>
-						<tbody id="tindakan_kia">
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Daftar Tindakan Poli KIA</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table_tindakan_kia" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th class="text-center">No</th>
+                                <th class="text-center">Nama</th>
+                                <th class="text-center">Biaya</th>
+                                <th class="text-center">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tindakan_kia">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- Modal Tindakan LAB -->
 <div class="modal fade  bd-example-modal-lg" id="exampleModalCenterLAB" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-	<div class="modal-dialog modal-lg" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLongTitle">Daftar Tindakan Laboratorium</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<div class="table-responsive">
-					<table class="table table-bordered table_tindakan_lab" width="100%" cellspacing="0">
-						<thead>
-							<tr>
-								<th class="text-center">No</th>
-								<th class="text-center">Nama</th>
-								<th class="text-center">Biaya</th>
-								<th class="text-center">Aksi</th>
-							</tr>
-						</thead>
-						<tbody id="tindakan_lab">
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Daftar Tindakan Laboratorium</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table_tindakan_lab" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th class="text-center">No</th>
+                                <th class="text-center">Nama</th>
+                                <th class="text-center">Biaya</th>
+                                <th class="text-center">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tindakan_lab">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- Modal Tindakan UGD -->
 <div class="modal fade  bd-example-modal-lg" id="exampleModalCenterUGD" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-	<div class="modal-dialog modal-lg" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLongTitle">Daftar Tindakan UGD</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<div class="table-responsive">
-					<table class="table table-bordered table_tindakan_ugd" width="100%" cellspacing="0">
-						<thead>
-							<tr>
-								<th class="text-center">No</th>
-								<th class="text-center">Nama</th>
-								<th class="text-center">Biaya</th>
-								<th class="text-center">Aksi</th>
-							</tr>
-						</thead>
-						<tbody id="tindakan_ugd">
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Daftar Tindakan UGD</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table_tindakan_ugd" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th class="text-center">No</th>
+                                <th class="text-center">Nama</th>
+                                <th class="text-center">Biaya</th>
+                                <th class="text-center">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tindakan_ugd">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<!-- start of modal rawat inap -->
+<!-- Modal -->
+<div class="modal fade  bd-example-modal-lg" id="exampleModalCenter_kamar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Daftar Obat Rawat Inap</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table_kamar" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama Kamar</th>
+                                <th>Harga Harian</th>
+                                <th>Tipe</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="daftar_kamar">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade  bd-example-modal-lg" id="exampleModalCenter_tindakan" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Daftar Obat Rawat Inap</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table_tindakan" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama tindakan</th>
+                                <th>Harga</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="daftar_tindakan">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade  bd-example-modal-lg" id="exampleModalCenter_obat" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Daftar Obat Rawat Inap</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table_obat" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama Obat</th>
+                                <th>Kategori</th>
+                                <th>Tanggal Penerimaan</th>
+                                <th>Stok Saat Ini</th>
+                                <th>Harga Jual</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="daftar_obat">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end of modal rawat inap -->
 
 <script src="<?= base_url(); ?>assets/sb_admin_2/vendor/jquery/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
 <script type="text/javascript">
-$('.noRef').select2({
-	ajax:{
-		url : "<?= base_url('administrasi/tagihan/tampil_select') ?>",
-		dataType : "json",
-		delay : 250,
-		data : function(params){
-			return {
-				no_ref : params.term,
-				nama : params.term
-			};
-		},
-		processResults : function(data) {
-			var results = [];
+    $('.noRef').select2({
+        ajax: {
+            url: "<?= base_url('administrasi/tagihan/tampil_select') ?>",
+            dataType: "json",
+            delay: 250,
+            data: function(params) {
+                return {
+                    no_ref: params.term,
+                    nama: params.term
+                };
+            },
+            processResults: function(data) {
+                var results = [];
 
-			$.each(data,function(index,item){
-				results.push({
-					id : item.no_ref_pelayanan,
-					text : item.no_ref_pelayanan + " || " + item.nama					
-				});
-			});
-			return {
-				results : results
-			}
-		}
-	}
-})
+                $.each(data, function(index, item) {
+                    results.push({
+                        id: item.no_ref_pelayanan,
+                        text: item.no_ref_pelayanan + " || " + item.nama
+                    });
+                });
+                return {
+                    results: results
+                }
+            }
+        }
+    })
 </script>
 <script>
     var count_bp = 0;
-	var jumlah_detail_transaksi_bp = 0;
+    var jumlah_detail_transaksi_bp = 0;
 
     var count_kia = 0;
-	var jumlah_detail_transaksi_kia = 0;
+    var jumlah_detail_transaksi_kia = 0;
 
     var count_lab = 0;
-	var jumlah_detail_transaksi_lab = 0;
+    var jumlah_detail_transaksi_lab = 0;
 
     var count_ugd = 0;
-	var jumlah_detail_transaksi_ugd = 0;
+    var jumlah_detail_transaksi_ugd = 0;
 
     //Pencarian Tindakan BP 
     // jika kita tekan / click button search-button
     $('#btn_search_bp').on('click', function() {
-            search_proses_bp();
+        search_proses_bp();
     });
 
     // Start pencarian
     function search_proses_bp() {
 
-    var table;
-    table = $('.table_tindakan_bp').DataTable({
-        "columnDefs": [{
-                "targets": [0, 3],
-                "className": "text-center"
-            },
-            {
-                "targets": 2,
-                "className": "text-right"
+        var table;
+        table = $('.table_tindakan_bp').DataTable({
+            "columnDefs": [{
+                    "targets": [0, 3],
+                    "className": "text-center"
+                },
+                {
+                    "targets": 2,
+                    "className": "text-right"
+                }
+            ],
+            "bDestroy": true
+        });
+
+        table.clear();
+
+        $.ajax({
+            url: "<?php echo base_url() . 'administrasi/tagihan/tampil_tindakan_bp'; ?>",
+            success: function(hasil) {
+
+                var obj = JSON.parse(hasil);
+                let data = obj['tbl_data_bp'];
+
+                if (data != '') {
+
+                    var no = 1;
+
+                    $.each(data, function(i, item) {
+
+                        var kode = data[i].no_bp_t;
+                        var nama = data[i].nama;
+                        var harga = data[i].harga;
+                        var reverse = harga.toString().split('').reverse().join(''),
+                            ribuan = reverse.match(/\d{1,3}/g);
+                        ribuan = ribuan.join('.').split('').reverse().join('');
+                        var button = `<a onclick="pilihTindakanBp('` + kode +
+                            `','` + nama + `','` + harga + `')" id="` + kode +
+                            `" class="btn btn-sm btn-dark text-white">Pilih</a>`;
+
+                        table.row.add([no, nama, ribuan, button]);
+
+                        no = no + 1;
+                    });
+                } else {
+
+                    $('.table_tindakan_bp').html('<h3>No data are available</h3>');
+
+                }
+                table.draw();
+
             }
-        ],
-        "bDestroy": true
-    });
-
-    table.clear();
-
-    $.ajax({
-        url: "<?php echo base_url() . 'administrasi/tagihan/tampil_tindakan_bp'; ?>",
-        success: function(hasil) {
-
-            var obj = JSON.parse(hasil);
-            let data = obj['tbl_data_bp'];
-
-            if (data != '') {
-
-                var no = 1;
-
-                $.each(data, function(i, item) {
-
-                    var kode = data[i].no_bp_t;
-                    var nama = data[i].nama;
-                    var harga = data[i].harga;
-                    var reverse = harga.toString().split('').reverse().join(''),
-                        ribuan = reverse.match(/\d{1,3}/g);
-                    ribuan = ribuan.join('.').split('').reverse().join('');
-                    var button = `<a onclick="pilihTindakanBp('` + kode +
-                        `','` + nama + `','` + harga + `')" id="` + kode +
-                        `" class="btn btn-sm btn-dark text-white">Pilih</a>`;
-
-                    table.row.add([no, nama, ribuan, button]);
-
-                    no = no + 1;
-                });
-            } else {
-
-                $('.table_tindakan_bp').html('<h3>No data are available</h3>');
-
-            }
-            table.draw();
-
-        }
-    });
+        });
     }
 
     //Pencarian Tindakan KIA
     // jika kita tekan / click button search-button
     $('#btn_search_kia').on('click', function() {
-            search_proses_kia();
+        search_proses_kia();
     });
 
     // Start pencarian
     function search_proses_kia() {
 
-    var table;
-    table = $('.table_tindakan_kia').DataTable({
-        "columnDefs": [{
-                "targets": [0, 3],
-                "className": "text-center"
-            },
-            {
-                "targets": 2,
-                "className": "text-right"
+        var table;
+        table = $('.table_tindakan_kia').DataTable({
+            "columnDefs": [{
+                    "targets": [0, 3],
+                    "className": "text-center"
+                },
+                {
+                    "targets": 2,
+                    "className": "text-right"
+                }
+            ],
+            "bDestroy": true
+        });
+
+        table.clear();
+
+        $.ajax({
+            url: "<?php echo base_url() . 'administrasi/tagihan/tampil_tindakan_kia'; ?>",
+            success: function(hasil) {
+
+                var obj = JSON.parse(hasil);
+                let data = obj['tbl_data_kia'];
+
+                if (data != '') {
+
+                    var no = 1;
+
+                    $.each(data, function(i, item) {
+
+                        var kode = data[i].no_kia_t;
+                        var nama = data[i].nama;
+                        var harga = data[i].harga;
+                        var reverse = harga.toString().split('').reverse().join(''),
+                            ribuan = reverse.match(/\d{1,3}/g);
+                        ribuan = ribuan.join('.').split('').reverse().join('');
+                        var button = `<a onclick="pilihTindakanKia('` + kode +
+                            `','` + nama + `','` + harga + `')" id="` + kode +
+                            `" class="btn btn-sm btn-dark text-white">Pilih</a>`;
+
+                        table.row.add([no, nama, ribuan, button]);
+
+                        no = no + 1;
+                    });
+                } else {
+
+                    $('.table_tindakan_kia').html('<h3>No data are available</h3>');
+
+                }
+                table.draw();
+
             }
-        ],
-        "bDestroy": true
-    });
-
-    table.clear();
-
-    $.ajax({
-        url: "<?php echo base_url() . 'administrasi/tagihan/tampil_tindakan_kia'; ?>",
-        success: function(hasil) {
-
-            var obj = JSON.parse(hasil);
-            let data = obj['tbl_data_kia'];
-
-            if (data != '') {
-
-                var no = 1;
-
-                $.each(data, function(i, item) {
-
-                    var kode = data[i].no_kia_t;
-                    var nama = data[i].nama;
-                    var harga = data[i].harga;
-                    var reverse = harga.toString().split('').reverse().join(''),
-                        ribuan = reverse.match(/\d{1,3}/g);
-                    ribuan = ribuan.join('.').split('').reverse().join('');
-                    var button = `<a onclick="pilihTindakanKia('` + kode +
-                        `','` + nama + `','` + harga + `')" id="` + kode +
-                        `" class="btn btn-sm btn-dark text-white">Pilih</a>`;
-
-                    table.row.add([no, nama, ribuan, button]);
-
-                    no = no + 1;
-                });
-            } else {
-
-                $('.table_tindakan_kia').html('<h3>No data are available</h3>');
-
-            }
-            table.draw();
-
-        }
-    });
+        });
     }
 
     //Pencarian Tindakan Lab
     // jika kita tekan / click button search-button
     $('#btn_search_lab').on('click', function() {
-            search_proses_lab();
+        search_proses_lab();
     });
 
     // Start pencarian
     function search_proses_lab() {
 
-    var table;
-    table = $('.table_tindakan_lab').DataTable({
-        "columnDefs": [{
-                "targets": [0, 3],
-                "className": "text-center"
-            },
-            {
-                "targets": 2,
-                "className": "text-right"
+        var table;
+        table = $('.table_tindakan_lab').DataTable({
+            "columnDefs": [{
+                    "targets": [0, 3],
+                    "className": "text-center"
+                },
+                {
+                    "targets": 2,
+                    "className": "text-right"
+                }
+            ],
+            "bDestroy": true
+        });
+
+        table.clear();
+
+        $.ajax({
+            url: "<?php echo base_url() . 'administrasi/tagihan/tampil_tindakan_lab'; ?>",
+            success: function(hasil) {
+
+                var obj = JSON.parse(hasil);
+                let data = obj['tbl_data_lab'];
+
+                if (data != '') {
+
+                    var no = 1;
+
+                    $.each(data, function(i, item) {
+
+                        var kode = data[i].no_lab_c;
+                        var nama = data[i].nama;
+                        var harga = data[i].harga;
+                        var reverse = harga.toString().split('').reverse().join(''),
+                            ribuan = reverse.match(/\d{1,3}/g);
+                        ribuan = ribuan.join('.').split('').reverse().join('');
+                        var button = `<a onclick="pilihTindakanLab('` + kode +
+                            `','` + nama + `','` + harga + `')" id="` + kode +
+                            `" class="btn btn-sm btn-dark text-white">Pilih</a>`;
+
+                        table.row.add([no, nama, ribuan, button]);
+
+                        no = no + 1;
+                    });
+                } else {
+
+                    $('.table_tindakan_lab').html('<h3>No data are available</h3>');
+
+                }
+                table.draw();
+
             }
-        ],
-        "bDestroy": true
-    });
-
-    table.clear();
-
-    $.ajax({
-        url: "<?php echo base_url() . 'administrasi/tagihan/tampil_tindakan_lab'; ?>",
-        success: function(hasil) {
-
-            var obj = JSON.parse(hasil);
-            let data = obj['tbl_data_lab'];
-
-            if (data != '') {
-
-                var no = 1;
-
-                $.each(data, function(i, item) {
-
-                    var kode = data[i].no_lab_c;
-                    var nama = data[i].nama;
-                    var harga = data[i].harga;
-                    var reverse = harga.toString().split('').reverse().join(''),
-                        ribuan = reverse.match(/\d{1,3}/g);
-                    ribuan = ribuan.join('.').split('').reverse().join('');
-                    var button = `<a onclick="pilihTindakanLab('` + kode +
-                        `','` + nama + `','` + harga + `')" id="` + kode +
-                        `" class="btn btn-sm btn-dark text-white">Pilih</a>`;
-
-                    table.row.add([no, nama, ribuan, button]);
-
-                    no = no + 1;
-                });
-            } else {
-
-                $('.table_tindakan_lab').html('<h3>No data are available</h3>');
-
-            }
-            table.draw();
-
-        }
-    });
+        });
     }
 
     //Pencarian Tindakan UGD
     // jika kita tekan / click button search-button
     $('#btn_search_ugd').on('click', function() {
-            search_proses_ugd();
+        search_proses_ugd();
     });
 
     // Start pencarian
     function search_proses_ugd() {
 
-    var table;
-    table = $('.table_tindakan_ugd').DataTable({
-        "columnDefs": [{
-                "targets": [0, 3],
-                "className": "text-center"
-            },
-            {
-                "targets": 2,
-                "className": "text-right"
+        var table;
+        table = $('.table_tindakan_ugd').DataTable({
+            "columnDefs": [{
+                    "targets": [0, 3],
+                    "className": "text-center"
+                },
+                {
+                    "targets": 2,
+                    "className": "text-right"
+                }
+            ],
+            "bDestroy": true
+        });
+
+        table.clear();
+
+        $.ajax({
+            url: "<?php echo base_url() . 'administrasi/tagihan/tampil_tindakan_ugd'; ?>",
+            success: function(hasil) {
+
+                var obj = JSON.parse(hasil);
+                let data = obj['tbl_data_ugd'];
+
+                if (data != '') {
+
+                    var no = 1;
+
+                    $.each(data, function(i, item) {
+
+                        var kode = data[i].no_ugd_t;
+                        var nama = data[i].nama;
+                        var harga = data[i].harga;
+                        var reverse = harga.toString().split('').reverse().join(''),
+                            ribuan = reverse.match(/\d{1,3}/g);
+                        ribuan = ribuan.join('.').split('').reverse().join('');
+                        var button = `<a onclick="pilihTindakanUgd('` + kode +
+                            `','` + nama + `','` + harga + `')" id="` + kode +
+                            `" class="btn btn-sm btn-dark text-white">Pilih</a>`;
+
+                        table.row.add([no, nama, ribuan, button]);
+
+                        no = no + 1;
+                    });
+                } else {
+
+                    $('.table_tindakan_ugd').html('<h3>No data are available</h3>');
+
+                }
+                table.draw();
+
             }
-        ],
-        "bDestroy": true
-    });
-
-    table.clear();
-
-    $.ajax({
-        url: "<?php echo base_url() . 'administrasi/tagihan/tampil_tindakan_ugd'; ?>",
-        success: function(hasil) {
-
-            var obj = JSON.parse(hasil);
-            let data = obj['tbl_data_ugd'];
-
-            if (data != '') {
-
-                var no = 1;
-
-                $.each(data, function(i, item) {
-
-                    var kode = data[i].no_ugd_t;
-                    var nama = data[i].nama;
-                    var harga = data[i].harga;
-                    var reverse = harga.toString().split('').reverse().join(''),
-                        ribuan = reverse.match(/\d{1,3}/g);
-                    ribuan = ribuan.join('.').split('').reverse().join('');
-                    var button = `<a onclick="pilihTindakanUgd('` + kode +
-                        `','` + nama + `','` + harga + `')" id="` + kode +
-                        `" class="btn btn-sm btn-dark text-white">Pilih</a>`;
-
-                    table.row.add([no, nama, ribuan, button]);
-
-                    no = no + 1;
-                });
-            } else {
-
-                $('.table_tindakan_ugd').html('<h3>No data are available</h3>');
-
-            }
-            table.draw();
-
-        }
-    });
+        });
     }
 
     // Ketika diklik button pilih di BP
     // Start add_row
-	function pilihTindakanBp(kode, nama, harga) {
+    function pilihTindakanBp(kode, nama, harga) {
 
-    $('#detail_list_bp').append(`
-        <div id="row_bp`+count_bp+`" class="row">
+        $('#detail_list_bp').append(`
+        <div id="row_bp` + count_bp + `" class="row">
             <div class="form-group col-sm-6">
             <input type="text" readonly name="nama_bp[]" class="form-control form-control-sm karakter" id="nama_bp"` + count_bp +
-        `" placeholder="Nama" required value="` + nama + `">
+            `" placeholder="Nama" required value="` + nama + `">
                 <input type="hidden" name="no_bp_t[]" class="form-control form-control-sm" id="no_bp_t` + count_bp + `" value="` +
-        kode + `">
+            kode + `">
             </div>
             <div class="form-group col-sm-4">
             <input type="text" name="harga_bp[]" class="form-control form-control-sm rupiah_bp text-right" id="harga_bp` + count_bp +
-        `" placeholder="Harga" required value="` + harga + `">
+            `" placeholder="Harga" required value="` + harga + `">
             </div>
             <div class="form-group col-sm-2">
             <a id="` + count_bp + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris_bp">
@@ -642,9 +856,10 @@ $('.noRef').select2({
         count_bp = count_bp + 1;
         jumlah_detail_transaksi_bp = jumlah_detail_transaksi_bp + 1;
         $('#exampleModalCenterBP').modal('hide');
-		cekJumlahDataTransaksiBp();
+        cekJumlahDataTransaksiBp();
 
     }
+
     function cekJumlahDataTransaksiBp() {
 
         var x = document.getElementById("label_kosong_bp");
@@ -658,50 +873,58 @@ $('.noRef').select2({
     }
 
     // jika kita tekan hapus / click button
-	$(document).on('click', '.remove_baris_bp', function() {
-		var row_no = $(this).attr("id");
-		$('#row_bp' + row_no).remove();
-		jumlah_detail_transaksi_bp = jumlah_detail_transaksi_bp - 1;
-		cekJumlahDataTransaksiBp();
-	});
+    $(document).on('click', '.remove_baris_bp', function() {
+        var row_no = $(this).attr("id");
+        $('#row_bp' + row_no).remove();
+        jumlah_detail_transaksi_bp = jumlah_detail_transaksi_bp - 1;
+        cekJumlahDataTransaksiBp();
+    });
 
     function update_total_bp() {
-		// mengambil nilai di dalam form
-		var form_data = $('#transaksi_form').serialize()
+        // mengambil nilai di dalam form
+        var form_data = $('#transaksi_form').serialize()
 
-		$.ajax({
-			url: "<?php echo base_url() . 'administrasi/tagihan/ambil_total_bp'; ?>",
-			method: "POST",
-			data: form_data,
-			success: function(data) {
-				$('#total_harga_bp').val(data);
-				$('.rupiah_bp').trigger('input'); // Will be display 
-			}
-		});
+        $.ajax({
+            url: "<?php echo base_url() . 'administrasi/tagihan/ambil_total_bp'; ?>",
+            method: "POST",
+            data: form_data,
+            success: function(data) {
+                $('#total_harga_bp').val(data);
+                $('.rupiah_bp').trigger('input'); // Will be display 
+            }
+        });
 
-		validasi();
-	}
+        validasi();
+    }
 
-	function validasi() {
-		$('.rupiah_bp').mask('000.000.000', {
-			reverse: true
-		});
+    function validasi() {
+        $('.rupiah_bp').mask('000.000.000', {
+            reverse: true
+        });
         $('.rupiah_kia').mask('000.000.000', {
-			reverse: true
-		});
+            reverse: true
+        });
         $('.rupiah_lab').mask('000.000.000', {
-			reverse: true
-		});
+            reverse: true
+        });
         $('.rupiah_ugd').mask('000.000.000', {
-			reverse: true
-		});
+            reverse: true
+        });
         $('.rupiah_grand_total').mask('000.000.000', {
-			reverse: true
-		});
-	}
+            reverse: true
+        });
+        $('.rupiah_kamar').mask('000.000.000', {
+            reverse: true
+        });
+        $('.rupiah_tindakan').mask('000.000.000', {
+            reverse: true
+        });
+        $('.rupiah_obat').mask('000.000.000', {
+            reverse: true
+        });
+    }
 
-    function grand_total()
-    {
+    function grand_total() {
         var form_data = $('#transaksi_form').serialize()
 
         $.ajax({
@@ -709,7 +932,13 @@ $('.noRef').select2({
             method: "POST",
             data: form_data,
             success: function(data) {
-                $('#grand_total').val(data);
+
+                grandTotal();
+                var total_rawat_inap = $('.rupiah_grant_total').val();
+
+                var total_temp = parseInt(total_rawat_inap) + parseInt(data);
+
+                $('#grand_total').val(total_temp);
                 $('.rupiah_grand_total').trigger('input'); // Will be display 
             }
         });
@@ -718,19 +947,19 @@ $('.noRef').select2({
 
     // Ketika diklik button pilih di KIA
     // Start add_row
-	function pilihTindakanKia(kode, nama, harga) {
+    function pilihTindakanKia(kode, nama, harga) {
 
-    $('#detail_list_kia').append(`
-        <div id="row_kia`+count_kia+`" class="row">
+        $('#detail_list_kia').append(`
+        <div id="row_kia` + count_kia + `" class="row">
             <div class="form-group col-sm-6">
             <input type="text" readonly name="nama_kia[]" class="form-control form-control-sm karakter" id="nama_kia"` + count_kia +
-        `" placeholder="Nama" required value="` + nama + `">
+            `" placeholder="Nama" required value="` + nama + `">
                 <input type="hidden" name="no_kia_t[]" class="form-control form-control-sm" id="no_kia_t` + count_kia + `" value="` +
-        kode + `">
+            kode + `">
             </div>
             <div class="form-group col-sm-4">
             <input type="text" name="harga_kia[]" class="form-control form-control-sm rupiah_kia text-right" id="harga_kia` + count_kia +
-        `" placeholder="Harga" required value="` + harga + `">
+            `" placeholder="Harga" required value="` + harga + `">
             </div>
             <div class="form-group col-sm-2">
             <a id="` + count_kia + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris_kia">
@@ -749,6 +978,7 @@ $('.noRef').select2({
         cekJumlahDataTransaksiKia();
 
     }
+
     function cekJumlahDataTransaksiKia() {
 
         var x = document.getElementById("label_kosong_kia");
@@ -787,19 +1017,19 @@ $('.noRef').select2({
 
     // Ketika diklik button pilih di LAB
     // Start add_row
-	function pilihTindakanLab(kode, nama, harga) {
+    function pilihTindakanLab(kode, nama, harga) {
 
-    $('#detail_list_lab').append(`
-        <div id="row_lab`+count_lab+`" class="row">
+        $('#detail_list_lab').append(`
+        <div id="row_lab` + count_lab + `" class="row">
             <div class="form-group col-sm-6">
             <input type="text" readonly name="nama_lab[]" class="form-control form-control-sm karakter" id="nama_lab"` + count_lab +
-        `" placeholder="Nama" required value="` + nama + `">
+            `" placeholder="Nama" required value="` + nama + `">
                 <input type="hidden" name="no_lab_c[]" class="form-control form-control-sm" id="no_lab_c` + count_lab + `" value="` +
-        kode + `">
+            kode + `">
             </div>
             <div class="form-group col-sm-4">
             <input type="text" name="harga_lab[]" class="form-control form-control-sm rupiah_lab text-right" id="harga_lab` + count_lab +
-        `" placeholder="Harga" required value="` + harga + `">
+            `" placeholder="Harga" required value="` + harga + `">
             </div>
             <div class="form-group col-sm-2">
             <a id="` + count_lab + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris_lab">
@@ -818,6 +1048,7 @@ $('.noRef').select2({
         cekJumlahDataTransaksiLab();
 
     }
+
     function cekJumlahDataTransaksiLab() {
 
         var x = document.getElementById("label_kosong_lab");
@@ -856,19 +1087,19 @@ $('.noRef').select2({
 
     // Ketika diklik button pilih di UGD
     // Start add_row
-	function pilihTindakanUgd(kode, nama, harga) {
+    function pilihTindakanUgd(kode, nama, harga) {
 
-    $('#detail_list_ugd').append(`
-        <div id="row_ugd`+count_ugd+`" class="row">
+        $('#detail_list_ugd').append(`
+        <div id="row_ugd` + count_ugd + `" class="row">
             <div class="form-group col-sm-6">
             <input type="text" readonly name="nama_ugd[]" class="form-control form-control-sm karakter" id="nama_ugd"` + count_ugd +
-        `" placeholder="Nama" required value="` + nama + `">
+            `" placeholder="Nama" required value="` + nama + `">
                 <input type="hidden" name="no_ugd_t[]" class="form-control form-control-sm" id="no_ugd_t` + count_ugd + `" value="` +
-        kode + `">
+            kode + `">
             </div>
             <div class="form-group col-sm-4">
             <input type="text" name="harga_ugd[]" class="form-control form-control-sm rupiah_ugd text-right" id="harga_ugd` + count_ugd +
-        `" placeholder="Harga" required value="` + harga + `">
+            `" placeholder="Harga" required value="` + harga + `">
             </div>
             <div class="form-group col-sm-2">
             <a id="` + count_ugd + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris_ugd">
@@ -887,6 +1118,7 @@ $('.noRef').select2({
         cekJumlahDataTransaksiUgd();
 
     }
+
     function cekJumlahDataTransaksiUgd() {
 
         var x = document.getElementById("label_kosong_ugd");
@@ -925,47 +1157,575 @@ $('.noRef').select2({
     }
 
     // jika kita mengubah class inputan rupiah
-	$(document).on('keyup', '.rupiah_bp', function() {
-		update_total_bp();
+    $(document).on('keyup', '.rupiah_bp', function() {
+        update_total_bp();
         grand_total();
-	});
+    });
 
     $(document).on('keyup', '.rupiah_kia', function() {
-		update_total_kia();
+        update_total_kia();
         grand_total();
-	});
+    });
 
     $(document).on('keyup', '.rupiah_lab', function() {
-		update_total_lab();
+        update_total_lab();
         grand_total();
-	});
+    });
 
     $(document).on('keyup', '.rupiah_ugd', function() {
-		update_total_ugd();
+        update_total_ugd();
         grand_total();
-	});
+    });
 
 
     // // jika di click simpan / submit
-	// $(document).on('submit', '#transaksi_form', function(event) {
-	// 	event.preventDefault();
+    // $(document).on('submit', '#transaksi_form', function(event) {
+    // 	event.preventDefault();
 
-	// 	// mengambil nilai di dalam form
-	// 	var form_data = $(this).serialize();
+    // 	// mengambil nilai di dalam form
+    // 	var form_data = $(this).serialize();
 
-	// 	// tambah ke database
-	// 	$.ajax({
-	// 		url: "<?php echo base_url() . 'administrasi/tagihan/input_transaksi_form'; ?>",
-	// 		method: "POST",
-	// 		data: form_data,
-	// 		success: function(data) {
-	// 			alert(data);
-	// 			location.reload();
-	// 		}
-	// 	});
-	// 	// tambah ke database
+    // 	// tambah ke database
+    // 	$.ajax({
+    // 		url: "<?php echo base_url() . 'administrasi/tagihan/input_transaksi_form'; ?>",
+    // 		method: "POST",
+    // 		data: form_data,
+    // 		success: function(data) {
+    // 			alert(data);
+    // 			location.reload();
+    // 		}
+    // 	});
+    // 	// tambah ke database
 
-	// });
+    // });
+</script>
+
+<script>
+    var count1 = 0;
+    var jumlah_detail_transaksi_kamar = 0;
+
+    // Start of kamar////////////////
+    // jika kita tekan / click button search-button
+    $('#btn_search_kamar').on('click', function() {
+        search_proses_kamar();
+    });
+
+    // jika kita tekan hapus / click button
+    $(document).on('click', '.remove_baris_kamar', function() {
+        var row_no = $(this).attr("id");
+        $('#row_kamar' + row_no).remove();
+
+        jumlah_detail_transaksi_kamar = jumlah_detail_transaksi_kamar - 1;
+
+        cekJumlahDataTransaksi_kamar();
+    });
+
+    // jika kita mengubah class inputan rupiah_kamar
+    $(document).on('keyup', '.rupiah_kamar', function() {
+        update_sub_harga_kamar();
+    });
+
+    // Start pencarian
+    function search_proses_kamar() {
+
+        var table;
+        table = $('.table_kamar').DataTable({
+            "columnDefs": [{
+                    "targets": [0, 3],
+                    "className": "text-center"
+                },
+                {
+                    "targets": 2,
+                    "className": "text-right"
+                }
+            ],
+            "bDestroy": true
+        });
+
+        table.clear();
+
+        $.ajax({
+            url: "<?php echo base_url() . 'rawat_inap/transaksi/tampil_daftar_kamar'; ?>",
+            success: function(hasil) {
+
+                var obj = JSON.parse(hasil);
+                let data = obj['tbl_data'];
+
+                if (data != '') {
+
+                    var no = 1;
+
+                    $.each(data, function(i, item) {
+
+                        var kode_kamar = data[i].no_kamar_rawat_i;
+                        var nama_kamar = data[i].nama;
+                        var harga_harian_kamar = data[i].harga_harian;
+                        var tipe_kamar = data[i].tipe;
+
+                        var reverse = harga_harian_kamar.toString().split('').reverse().join(''),
+                            ribuan = reverse.match(/\d{1,3}/g);
+                        ribuan = ribuan.join('.').split('').reverse().join('');
+
+                        var button = `<a onclick="pilihKamar('` + kode_kamar +
+                            `','` + nama_kamar + `','` + harga_harian_kamar + `','` + tipe_kamar + `')" id="` + kode_kamar +
+                            `" class="btn btn-sm btn-dark text-white">Pilih</a>`;
+
+                        table.row.add([no, nama_kamar, ribuan, tipe_kamar, button]);
+
+                        no = no + 1;
+                    });
+                } else {
+
+                    $('.table_kamar').html('<h3>No data are available</h3>');
+
+                }
+                table.draw();
+
+            }
+        });
+    }
+
+    // Start add_row
+    function pilihKamar(kode_kamar, nama_kamar, harga_harian_kamar, tipe_kamar) {
+
+        $('#detail_list_kamar').append(`
+
+			<div id="row_kamar` + count1 + `" class="form-row">
+				<div class="form-group col-sm-4">
+					<input type="text" readonly name="nama_kamar[]" class="form-control form-control-sm karakter" id="nama_kamar` + count1 +
+            `" placeholder="Nama_kamar" required value="` + nama_kamar + `">
+					<input type="hidden" name="no_kamar_rawat_i[]" class="form-control form-control-sm" id="no_kamar_rawat_i` + count1 + `" value="` +
+            kode_kamar + `">
+				</div>
+				<div class="form-group col-sm-4">
+					<input type="text" name="harga_harian_kamar[]" class="form-control form-control-sm rupiah_kamar text-right" id="harga_harian_kamar` + count1 +
+            `" placeholder="Harga Harian Kamar" required value="` + harga_harian_kamar + `">
+				</div>
+                <div class="form-group col-sm-1">
+					<input type="text" name="tipe_kamar[]" readonly class="form-control form-control-sm rupiah" id="tipe_kamar` + count1 + `" placeholder="Tipe Kamar" value="` + tipe_kamar + `" required>
+				</div>
+                <div class="form-group col-sm-1">
+					<input type="text" name="jumlah_hari[]" class="form-control form-control-sm rupiah_kamar" id="jumlah_hari` + count1 + `" placeholder="Jumlah Hari" value="1" required>
+				</div>
+				<div class="form-group col-sm-2">
+					<a id="` + count1 + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris_kamar">
+						<span class="icon text-white-50">
+							<i class="fas fa-trash-alt"></i>
+						</span>
+						<span class="text">Hapus</span>
+					</a>
+				</div>
+			</div>
+
+		`);
+
+        count1 = count1 + 1;
+        jumlah_detail_transaksi_kamar = jumlah_detail_transaksi_kamar + 1;
+        $('#exampleModalCenter_kamar').modal('hide');
+
+        cekJumlahDataTransaksi_kamar();
+    }
+
+    function cekJumlahDataTransaksi_kamar() {
+
+        var x = document.getElementById("label_kosong_kamar");
+        if (jumlah_detail_transaksi_kamar > 0) {
+            x.style.display = "none"; // hidden
+        } else {
+            x.style.display = "block"; // show
+        }
+
+        update_sub_harga_kamar();
+    }
+
+    function update_sub_harga_kamar() {
+        // mengambil nilai di dalam form
+        var form_data = $('#transaksi_form').serialize()
+
+        $.ajax({
+            url: "<?php echo base_url() . 'rawat_inap/transaksi/ambil_sub_total_kamar'; ?>",
+            method: "POST",
+            data: form_data,
+            success: function(data) {
+                $('#sub_total_harga_kamar').val(data);
+                grand_total();
+                $('.rupiah_kamar').trigger('input'); // Will be display 
+            }
+        });
+
+        validasi();
+    }
+    // End of Kamar///////////////////
+
+    var count2 = 0;
+    var jumlah_detail_transaksi_tindakan = 0;
+
+    // Start of tindakan////////////////
+    // jika kita tekan / click button search-button
+    $('#btn_search_tindakan').on('click', function() {
+        search_proses_tindakan();
+    });
+
+    // jika kita tekan hapus / click button
+    $(document).on('click', '.remove_baris_tindakan', function() {
+        var row_no = $(this).attr("id");
+        $('#row_tindakan' + row_no).remove();
+
+        jumlah_detail_transaksi_tindakan = jumlah_detail_transaksi_tindakan - 1;
+
+        cekJumlahDataTransaksi_tindakan();
+    });
+
+    // jika kita mengubah class inputan rupiah_tindakan
+    $(document).on('keyup', '.rupiah_tindakan', function() {
+        update_sub_harga_tindakan();
+    });
+
+    // Start pencarian
+    function search_proses_tindakan() {
+
+        var table;
+        table = $('.table_tindakan').DataTable({
+            "columnDefs": [{
+                    "targets": [0, 3],
+                    "className": "text-center"
+                },
+                {
+                    "targets": 2,
+                    "className": "text-right"
+                }
+            ],
+            "bDestroy": true
+        });
+
+        table.clear();
+
+        $.ajax({
+            url: "<?php echo base_url() . 'rawat_inap/transaksi/tampil_daftar_tindakan'; ?>",
+            success: function(hasil) {
+
+                var obj = JSON.parse(hasil);
+                let data = obj['tbl_data'];
+
+                if (data != '') {
+
+                    var no = 1;
+
+                    $.each(data, function(i, item) {
+
+                        var kode_tindakan = data[i].no_rawat_inap_t;
+                        var nama_tindakan = data[i].nama;
+                        var harga_tindakan = data[i].harga;
+
+                        var reverse = harga_tindakan.toString().split('').reverse().join(''),
+                            ribuan = reverse.match(/\d{1,3}/g);
+                        ribuan = ribuan.join('.').split('').reverse().join('');
+
+                        var button = `<a onclick="pilihtindakan('` + kode_tindakan +
+                            `','` + nama_tindakan + `','` + harga_tindakan + `')" id="` + kode_tindakan +
+                            `" class="btn btn-sm btn-dark text-white">Pilih</a>`;
+
+                        table.row.add([no, nama_tindakan, ribuan, button]);
+
+                        no = no + 1;
+                    });
+                } else {
+
+                    $('.table_tindakan').html('<h3>No data are available</h3>');
+
+                }
+                table.draw();
+
+            }
+        });
+    }
+
+    // Start add_row
+    function pilihtindakan(kode_tindakan, nama_tindakan, harga_tindakan) {
+
+        $('#detail_list_tindakan').append(`
+
+			<div id="row_tindakan` + count2 + `" class="form-row">
+				<div class="form-group col-sm-5">
+					<input type="text" readonly name="nama_tindakan[]" class="form-control form-control-sm karakter" id="nama_tindakan` + count2 +
+            `" placeholder="Nama_tindakan" required value="` + nama_tindakan + `">
+					<input type="hidden" name="no_rawat_inap_t[]" class="form-control form-control-sm" id="no_rawat_inap_t` + count2 + `" value="` +
+            kode_tindakan + `">
+				</div>
+				<div class="form-group col-sm-5">
+					<input type="text" name="harga_tindakan[]" class="form-control form-control-sm rupiah_tindakan text-right" id="harga_tindakan` + count2 +
+            `" placeholder="Harga Harian tindakan" required value="` + harga_tindakan + `">
+				</div>
+				<div class="form-group col-sm-2">
+					<a id="` + count2 + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris_tindakan">
+						<span class="icon text-white-50">
+							<i class="fas fa-trash-alt"></i>
+						</span>
+						<span class="text">Hapus</span>
+					</a>
+				</div>
+			</div>
+
+		`);
+
+        count2 = count2 + 1;
+        jumlah_detail_transaksi_tindakan = jumlah_detail_transaksi_tindakan + 1;
+        $('#exampleModalCenter_tindakan').modal('hide');
+
+        cekJumlahDataTransaksi_tindakan();
+    }
+
+    function cekJumlahDataTransaksi_tindakan() {
+
+        var x = document.getElementById("label_kosong_tindakan");
+        if (jumlah_detail_transaksi_tindakan > 0) {
+            x.style.display = "none"; // hidden
+        } else {
+            x.style.display = "block"; // show
+        }
+
+        update_sub_harga_tindakan();
+    }
+
+    function update_sub_harga_tindakan() {
+        // mengambil nilai di dalam form
+        var form_data = $('#transaksi_form').serialize()
+
+        $.ajax({
+            url: "<?php echo base_url() . 'rawat_inap/transaksi/ambil_sub_total_tindakan'; ?>",
+            method: "POST",
+            data: form_data,
+            success: function(data) {
+                $('#sub_total_harga_tindakan').val(data);
+                grand_total();
+                $('.rupiah_tindakan').trigger('input'); // Will be display 
+            }
+        });
+
+        validasi();
+    }
+    // End of Tindakan///////////////////
 
 
+    var count3 = 0;
+    var jumlah_detail_transaksi_obat = 0;
+
+    // Start of obat////////////////
+    // jika kita tekan / click button search-button
+    $('#btn_search_obat').on('click', function() {
+        search_proses_obat();
+    });
+
+    // jika kita tekan hapus / click button
+    $(document).on('click', '.remove_baris_obat', function() {
+        var row_no = $(this).attr("id");
+        $('#row_obat' + row_no).remove();
+
+        jumlah_detail_transaksi_obat = jumlah_detail_transaksi_obat - 1;
+
+        cekJumlahDataTransaksi_obat();
+    });
+
+    // jika kita mengubah class inputan rupiah_obat
+    $(document).on('keyup', '.rupiah_obat', function() {
+        update_sub_harga_obat();
+    });
+
+    // jika kita mengubah class inputan rupiah
+    $(document).on('keyup', '.qty_format', function() {
+
+        var row_id = $(this).attr("id"); // qty1++
+        var row_no = row_id.substring(3); // 1++
+
+        var val_qty = parseInt($('#' + row_id).val());
+        var val_qty_sekarang = parseInt($('#qty_sekarang' + row_no).val());
+
+        if (val_qty <= val_qty_sekarang) {
+            cekJumlahDataTransaksi_obat();
+        } else {
+            alert("Maaf Qty Tidak Boleh Detail Obat Melebihi Stok Apotek");
+            $('#' + row_id).val("1");
+            cekJumlahDataTransaksi_obat();
+        }
+    });
+
+    // Start pencarian
+    function search_proses_obat() {
+
+        var table;
+        table = $('.table_obat').DataTable({
+            "columnDefs": [{
+                    "targets": [0, 3],
+                    "className": "text-center"
+                },
+                {
+                    "targets": 2,
+                    "className": "text-right"
+                }
+            ],
+            "bDestroy": true
+        });
+
+        table.clear();
+
+        $.ajax({
+            url: "<?php echo base_url() . 'rawat_inap/transaksi/tampil_daftar_obat'; ?>",
+            success: function(hasil) {
+
+                var obj = JSON.parse(hasil);
+                let data = obj['tbl_data'];
+
+                if (data != '') {
+
+                    var no = 1;
+
+                    $.each(data, function(i, item) {
+
+                        var kode_obat = data[i].no_stok_obat_rawat_i;
+                        var nama_obat = data[i].nama_obat;
+                        var nama_kategori = data[i].nama_kategori;
+                        var tgl_obat_keluar_i = data[i].tgl_obat_keluar_i;
+                        var qty_sekarang = data[i].qty_sekarang;
+                        var harga_obat = data[i].harga_jual;
+
+                        var reverse = harga_obat.toString().split('').reverse().join(''),
+                            ribuan = reverse.match(/\d{1,3}/g);
+                        ribuan = ribuan.join('.').split('').reverse().join('');
+
+                        var button = `<a onclick="pilihobat('` + kode_obat +
+                            `','` + nama_obat + `','` + nama_kategori + `','` + qty_sekarang + `','` + harga_obat + `')" id="` + kode_obat +
+                            `" class="btn btn-sm btn-dark text-white">Pilih</a>`;
+
+                        table.row.add([no, nama_obat, nama_kategori, tgl_obat_keluar_i, qty_sekarang, ribuan, button]);
+
+                        no = no + 1;
+                    });
+                } else {
+
+                    $('.table_obat').html('<h3>No data are available</h3>');
+
+                }
+                table.draw();
+
+            }
+        });
+    }
+
+    // Start add_row
+    function pilihobat(kode_obat, nama_obat, nama_kategori, qty_sekarang, harga_obat) {
+
+        $('#detail_list_obat').append(`
+
+            <div id="row_obat` + count3 + `" class="form-row">
+				<div class="form-group col-sm-5">
+					<input type="text" readonly name="nama_obat[]" class="form-control form-control-sm karakter" id="nama_obat` + count3 +
+            `" placeholder="Nama_obat" required value="` + nama_obat + `">
+					<input type="hidden" name="no_stok_obat_rawat_i[]" class="form-control form-control-sm" id="no_stok_obat_rawat_i` + count3 +
+            `" value="` +
+            kode_obat + `">
+				</div>
+				<div class="form-group col-sm-4">
+					<input type="text" name="harga_obat[]" class="form-control form-control-sm rupiah_obat text-right" id="harga_obat` +
+            count3 +
+            `" placeholder="harga Obar" required value="` + harga_obat + `">
+				</div>
+                <div class="form-group col-sm-1">
+					<input type="text" name="qty[]" class="form-control form-control-sm qty_format" id="qty` + count3 + `" placeholder="QTY" value="1" required>
+					<input type="hidden" name="qty_sekarang[]" id="qty_sekarang` + count3 + `" class="form-control form-control-sm" value="` + qty_sekarang + `"></input>
+				</div>
+				<div class="form-group col-sm-2">
+					<a id="` + count3 + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris_obat">
+						<span class="icon text-white-50">
+							<i class="fas fa-trash-alt"></i>
+						</span>
+						<span class="text">Hapus</span>
+					</a>
+				</div>
+			</div>
+
+		`);
+
+        count3 = count3 + 1;
+        jumlah_detail_transaksi_obat = jumlah_detail_transaksi_obat + 1;
+        $('#exampleModalCenter_obat').modal('hide');
+
+        cekJumlahDataTransaksi_obat();
+    }
+
+    function cekJumlahDataTransaksi_obat() {
+
+        var x = document.getElementById("label_kosong_obat");
+        if (jumlah_detail_transaksi_obat > 0) {
+            x.style.display = "none"; // hidden
+        } else {
+            x.style.display = "block"; // show
+        }
+
+        update_sub_harga_obat();
+    }
+
+    function update_sub_harga_obat() {
+        // mengambil nilai di dalam form
+        var form_data = $('#transaksi_form').serialize()
+
+        $.ajax({
+            url: "<?php echo base_url() . 'rawat_inap/transaksi/ambil_sub_total_obat'; ?>",
+            method: "POST",
+            data: form_data,
+            success: function(data) {
+                $('#sub_total_harga_obat').val(data);
+                grand_total();
+                $('.rupiah_obat').trigger('input'); // Will be display 
+            }
+        });
+
+        validasi();
+    }
+    // End of obat///////////////////
+
+    // jika di click simpan / submit
+    $(document).on('submit', '#transaksi_form', function(event) {
+        event.preventDefault();
+
+        // mengambil nilai di dalam form
+        var form_data = $(this).serialize();
+
+        // tambah ke database
+        $.ajax({
+            url: "<?php echo base_url() . 'rawat_inap/transaksi/input_transaksi_form'; ?>",
+            method: "POST",
+            data: form_data,
+            success: function(data) {
+                if (data != "") {
+                    alert(data);
+                }
+                location.reload();
+            }
+        });
+        // tambah ke database
+
+    });
+
+    function grandTotal() {
+        var sub_total_harga_tindakan = $('#sub_total_harga_tindakan').val();
+        var sub_total_harga_tindakan_v = 0;
+        if (sub_total_harga_tindakan != "") {
+            sub_total_harga_tindakan_v = parseInt(sub_total_harga_tindakan.split('.').join(''));
+        }
+
+        var sub_total_harga_kamar = $('#sub_total_harga_kamar').val();
+        var sub_total_harga_kamar_v = 0;
+        if (sub_total_harga_kamar != "") {
+            sub_total_harga_kamar_v = parseInt(sub_total_harga_kamar.split('.').join(''));
+        }
+
+        var sub_total_harga_obat = $('#sub_total_harga_obat').val();
+        var sub_total_harga_obat_v = 0;
+        if (sub_total_harga_obat != "") {
+            sub_total_harga_obat_v = parseInt(sub_total_harga_obat.split('.').join(''));
+        }
+
+        $('.rupiah_grant_total').val(sub_total_harga_tindakan_v + sub_total_harga_kamar_v + sub_total_harga_obat_v);
+        $('.rupiah_grant_total').trigger('input'); // Will be display 
+    }
 </script>
