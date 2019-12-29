@@ -20,6 +20,10 @@
                         <label>Grand Total</label>
 						<input type="text" id="grand_total" name="grand_total" class="form-control form-control-sm rupiah_grand_total text-right" placeholder="0" readonly>
                     </div>
+                    <div class="form-group col-sm-2">
+                        <label>&nbsp</label>
+						<button type="submit" onclick="return confirm('Lakukan Simpan Data ?')" class="btn btn-sm btn-success form-control form-control-sm"><i class="fas fa-save"></i> Simpan Data</button>
+                    </div>
 
 
 				</div>
@@ -914,7 +918,28 @@ $('.noRef').select2({
         validasi();
     }
 
-    
+    // jika di click simpan / submit
+	$(document).on('submit', '#transaksi_form', function(event) {
+		event.preventDefault();
+
+		// mengambil nilai di dalam form
+		var form_data = $(this).serialize();
+
+		// tambah ke database
+		$.ajax({
+			url: "<?php echo base_url() . 'administrasi/tagihan/input_transaksi_form'; ?>",
+			method: "POST",
+			data: form_data,
+			success: function(data) {
+				if (data != "") {
+					alert(data);
+				}
+				location.reload();
+			}
+		});
+		// tambah ke database
+
+	});
 
 
 </script>

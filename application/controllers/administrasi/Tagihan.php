@@ -223,4 +223,46 @@ class Tagihan extends CI_Controller
         echo $total;
     }
 
+    public function input_transaksi_form()
+    {
+
+        $no_ref_pelayanan = $this->input->post('no_ref_pelayanan');
+        if(isset($_POST['no_bp_t']))
+        {
+            
+        }
+        else if (isset($_POST['no_kia_t'])) {
+            date_default_timezone_set('Asia/Jakarta');
+            // data transaksi 
+            $no_kia_p = $this->M_tagihan->get_no_transaksi_kia(); // generate
+            $tgl_penanganan = date('Y-m-d H:i:s');
+            $total_tmp = $this->input->post('total_harga_kia');
+            $total_harga = preg_replace("/[^0-9]/", "", $total_tmp);
+            $data_kia = array(
+                'no_kia_p' => $no_kia_p,
+                'no_ref_pelayanan' => $no_ref_pelayanan,
+                'tgl_penanganan' => $tgl_penanganan,
+                'total_harga' => $total_harga
+            );
+
+            $this->M_tagihan->input_data('kia_penanganan', $data);
+            // end of data transaksi 
+                // tambah detail transaksi
+                for ($i = 0; $i < count($this->input->post('no_kia_t')); $i++) {
+
+                    $no_kia_t = $this->input->post('no_kia_t')[$i];
+                    $harga_temp = $this->input->post('harga_kia')[$i];
+                    $harga = preg_replace("/[^0-9]/", "", $harga_temp);
+
+                    // proses pemasukan ke dalam database detail
+                    $detail_kia = array(
+                        'no_kia_p' => $no_kia_p,
+                        'no_kia_t' => $no_kia_t,
+                        'harga' => $harga
+                    );
+                    $this->M_tagihan->input_data('detail_kia_penanganan', $detail_kia);
+                }
+        }
+    }
+
 }
