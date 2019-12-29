@@ -7,7 +7,7 @@
 			<h6 class="m-0 font-weight-bold text-primary">Tagihan</h6>
 		</div>
 		<div class="card-body">
-			<form method="post" id="transaksi_form">
+			<form method="post" id="transaksi_form" action="<?= base_url('administrasi/tagihan/input_transaksi_form') ?>">
 				<div class="form-row">
 					<div class="form-group col-sm-5">
 						<label>Cari No Ref</label>
@@ -461,7 +461,7 @@ $('.noRef').select2({
 
                 $.each(data, function(i, item) {
 
-                    var kode = data[i].no_bp_t;
+                    var kode = data[i].no_kia_t;
                     var nama = data[i].nama;
                     var harga = data[i].harga;
                     var reverse = harga.toString().split('').reverse().join(''),
@@ -524,7 +524,7 @@ $('.noRef').select2({
 
                 $.each(data, function(i, item) {
 
-                    var kode = data[i].no_bp_t;
+                    var kode = data[i].no_lab_c;
                     var nama = data[i].nama;
                     var harga = data[i].harga;
                     var reverse = harga.toString().split('').reverse().join(''),
@@ -587,7 +587,7 @@ $('.noRef').select2({
 
                 $.each(data, function(i, item) {
 
-                    var kode = data[i].no_bp_t;
+                    var kode = data[i].no_ugd_t;
                     var nama = data[i].nama;
                     var harga = data[i].harga;
                     var reverse = harga.toString().split('').reverse().join(''),
@@ -946,26 +946,26 @@ $('.noRef').select2({
 	});
 
 
-    // jika di click simpan / submit
-	$(document).on('submit', '#transaksi_form', function(event) {
-		event.preventDefault();
+    // // jika di click simpan / submit
+	// $(document).on('submit', '#transaksi_form', function(event) {
+	// 	event.preventDefault();
 
-		// mengambil nilai di dalam form
-		var form_data = $(this).serialize();
+	// 	// mengambil nilai di dalam form
+	// 	var form_data = $(this).serialize();
 
-		// tambah ke database
-		$.ajax({
-			url: "<?php echo base_url() . 'administrasi/tagihan/input_transaksi_form'; ?>",
-			method: "POST",
-			data: form_data,
-			success: function(data) {
-				alert(data);
-				location.reload();
-			}
-		});
-		// tambah ke database
+	// 	// tambah ke database
+	// 	$.ajax({
+	// 		url: "<?php echo base_url() . 'administrasi/tagihan/input_transaksi_form'; ?>",
+	// 		method: "POST",
+	// 		data: form_data,
+	// 		success: function(data) {
+	// 			alert(data);
+	// 			location.reload();
+	// 		}
+	// 	});
+	// 	// tambah ke database
 
-	});
+	// });
 
 
 </script>

@@ -236,6 +236,12 @@ class Tagihan extends CI_Controller
             $cek_jumlah_bp = $this->M_tagihan->jumlah_baris($where,'bp_penanganan');;
             if($cek_jumlah_bp > 0)
             {
+
+                $where = array(
+                    'no_ref_pelayanan' => $no_ref_pelayanan
+                );
+                $ambil_data_bp = $this->M_tagihan->get_data('bp_penanganan',$where)->row();
+                $no_bp_p = $ambil_data_bp->no_bp_p;
                 // tambah detail transaksi
                 for ($i = 0; $i < count($this->input->post('no_bp_t')); $i++) {
 
@@ -288,7 +294,7 @@ class Tagihan extends CI_Controller
                 }
             }
         }
-        else if (isset($_POST['no_kia_t'])) {
+        if (isset($_POST['no_kia_t'])) {
             date_default_timezone_set('Asia/Jakarta');
             // data transaksi 
             $where = array(
@@ -297,6 +303,11 @@ class Tagihan extends CI_Controller
             $cek_jumlah_kia = $this->M_tagihan->jumlah_baris($where,'kia_penanganan');
             if($cek_jumlah_kia > 0)
             {
+                $where = array(
+                    'no_ref_pelayanan' => $no_ref_pelayanan
+                );
+                $ambil_data_kia = $this->M_tagihan->get_data('kia_penanganan',$where)->row();
+                $no_kia_p = $ambil_data_kia->no_kia_p;
                 for ($i = 0; $i < count($this->input->post('no_kia_t')); $i++) {
 
                     $no_kia_t = $this->input->post('no_kia_t')[$i];
@@ -343,7 +354,7 @@ class Tagihan extends CI_Controller
                     }
             }
         }
-        else if (isset($_POST['no_lab_c'])) {
+        if (isset($_POST['no_lab_c'])) {
 
             date_default_timezone_set('Asia/Jakarta');
             $where = array(
@@ -352,6 +363,11 @@ class Tagihan extends CI_Controller
             $cek_jumlah_lab = $this->M_tagihan->jumlah_baris($where,'lab_transaksi');
             if($cek_jumlah_lab > 0)
             {
+                $where = array(
+                    'no_ref_pelayanan' => $no_ref_pelayanan
+                );
+                $ambil_data_lab = $this->M_tagihan->get_data('lab_transaksi',$where)->row();
+                $no_lab_t = $ambil_data_lab->no_lab_t;
                 // tambah detail transaksi
                 for ($i = 0; $i < count($this->input->post('no_lab_c')); $i++) {
 
@@ -405,16 +421,21 @@ class Tagihan extends CI_Controller
             }
             
         }
-        else if (isset($_POST['no_ugd_t'])) {
+        if (isset($_POST['no_ugd_t'])) {
 
             date_default_timezone_set('Asia/Jakarta');
 
             $where = array(
                 'no_ref_pelayanan' => $no_ref_pelayanan
             );
-            $this->M_tagihan->jumlah_baris($where,'ugd_penanganan');
+            $cek_jumlah_ugd = $this->M_tagihan->jumlah_baris($where,'ugd_penanganan');
             if($cek_jumlah_ugd > 0)
             {
+                $where = array(
+                    'no_ref_pelayanan' => $no_ref_pelayanan
+                );
+                $ambil_data_ugd = $this->M_tagihan->get_data('ugd_penanganan',$where)->row();
+                $no_ugd_p = $ambil_data_ugd->no_ugd_p;
                 // tambah detail transaksi
                 for ($i = 0; $i < count($this->input->post('no_ugd_t')); $i++) {
 
@@ -435,7 +456,7 @@ class Tagihan extends CI_Controller
             else 
             {
                 // data transaksi 
-                $no_ugd_p = $this->M_tagihan->get_no_transaksi(); // generate
+                $no_ugd_p = $this->M_tagihan->get_no_transaksi_ugd(); // generate
                 $tgl_penanganan = date('Y-m-d H:i:s');
                 $total_tmp = $this->input->post('total_harga_ugd');
                 $total_harga = preg_replace("/[^0-9]/", "", $total_tmp);
