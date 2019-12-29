@@ -469,6 +469,7 @@ class Tagihan extends CI_Controller
             }
 
         } 
+        redirect('administrasi/tagihan');
     }
 
 }

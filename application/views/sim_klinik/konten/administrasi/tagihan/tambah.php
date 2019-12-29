@@ -20,10 +20,6 @@
                         <label>Grand Total</label>
 						<input type="text" id="grand_total" name="grand_total" class="form-control form-control-sm rupiah_grand_total text-right" placeholder="0" readonly>
                     </div>
-                    <div class="form-group col-sm-2">
-                        <label>&nbsp</label>
-						<button type="submit" onclick="return confirm('Lakukan Simpan Data ?')" class="btn btn-sm btn-success form-control form-control-sm"><i class="fas fa-save"></i> Simpan Data</button>
-                    </div>
 
 
 				</div>
@@ -185,6 +181,16 @@
                         </div>
                     </div>
 				</div>
+                <div class="form-row">
+                    <div class="col-sm-2">
+                    <button id="action" type="submit" class="btn btn-sm btn-success btn-icon-split" onclick="return confirm('Lakukan Simpan Data ?')">
+							<span class="icon text-white-50">
+								<i class="fas fa-save"></i>
+							</span>
+							<span class="text">Simpan Data</span>
+						</button>
+                    </div>
+                </div>
 			</form>
 		</div>
 	</div>
@@ -918,6 +924,28 @@ $('.noRef').select2({
         validasi();
     }
 
+    // jika kita mengubah class inputan rupiah
+	$(document).on('keyup', '.rupiah_bp', function() {
+		update_total_bp();
+        grand_total();
+	});
+
+    $(document).on('keyup', '.rupiah_kia', function() {
+		update_total_kia();
+        grand_total();
+	});
+
+    $(document).on('keyup', '.rupiah_lab', function() {
+		update_total_lab();
+        grand_total();
+	});
+
+    $(document).on('keyup', '.rupiah_ugd', function() {
+		update_total_ugd();
+        grand_total();
+	});
+
+
     // jika di click simpan / submit
 	$(document).on('submit', '#transaksi_form', function(event) {
 		event.preventDefault();
@@ -931,9 +959,7 @@ $('.noRef').select2({
 			method: "POST",
 			data: form_data,
 			success: function(data) {
-				if (data != "") {
-					alert(data);
-				}
+				alert(data);
 				location.reload();
 			}
 		});
