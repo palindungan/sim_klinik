@@ -373,7 +373,7 @@
 
                 <!-- start of total_harga rawat inap //// -->
                 <div class="form-group col-sm-5">
-                    <input type="text" readonly name="total_harga" class="rupiah_grant_total form-control form-control-sm text-right" id="total_harga" placeholder="Total" required>
+                    <input type="hidden" readonly name="total_harga" class="rupiah_grant_total form-control form-control-sm text-right" id="total_harga" placeholder="Total" required>
                 </div>
                 <!-- end of total_harga rawat inap //// -->
 
@@ -1757,7 +1757,7 @@
 				</div>
                 <div class="form-group col-sm-2">
 					<input type="text" name="qty[]" class="form-control form-control-sm qty_format_rawat_i" id="qty` + count3 + `" placeholder="QTY" value="1" required>
-					<input type="text" name="qty_sekarang[]" id="qty_sekarang` + count3 + `" class="form-control form-control-sm" value="` + qty_sekarang + `"></input>
+					<input type="hidden" name="qty_sekarang[]" id="qty_sekarang` + count3 + `" class="form-control form-control-sm" value="` + qty_sekarang + `"></input>
 				</div>
 				<div class="form-group col-sm-2">
 					<a id="` + count3 + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris_obat">
@@ -1808,29 +1808,6 @@
         validasi();
     }
     // End of obat///////////////////
-
-    // jika di click simpan / submit
-    $(document).on('submit', '#transaksi_form', function(event) {
-        event.preventDefault();
-
-        // mengambil nilai di dalam form
-        var form_data = $(this).serialize();
-
-        // tambah ke database
-        $.ajax({
-            url: "<?php echo base_url() . 'rawat_inap/transaksi/input_transaksi_form'; ?>",
-            method: "POST",
-            data: form_data,
-            success: function(data) {
-                if (data != "") {
-                    alert(data);
-                }
-                location.reload();
-            }
-        });
-        // tambah ke database
-
-    });
 
     function grandTotal() {
         var sub_total_harga_tindakan = $('#sub_total_harga_tindakan').val();
@@ -1897,29 +1874,6 @@
     // jika kita mengubah class inputan rupiah
     $(document).on('keyup', '.rupiah', function() {
         update_total_apotek_jual();
-    });
-
-    // jika di click simpan / submit
-    $(document).on('submit', '#transaksi_form', function(event) {
-        event.preventDefault();
-
-        // mengambil nilai di dalam form
-        var form_data = $(this).serialize();
-
-        // tambah ke database
-        $.ajax({
-            url: "<?php echo base_url() . 'apotek/penjualan_obat/input_transaksi_form'; ?>",
-            method: "POST",
-            data: form_data,
-            success: function(data) {
-                if (data != "") {
-                    alert(data);
-                }
-                location.reload();
-            }
-        });
-        // tambah ke database
-
     });
 
     // Start pencarian
