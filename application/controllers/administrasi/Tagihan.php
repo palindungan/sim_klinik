@@ -811,8 +811,8 @@ class Tagihan extends CI_Controller
             $ambil_kamar_rawat_inap = $this->M_tagihan->get_data('detail_transaksi_rawat_inap_kamar', $where_rawat_inap)->row();
             $harga_kamar = $ambil_kamar_rawat_inap->sub_total_harga;
 
-            $ambil_tindakan_rawat_inap = $this->M_tagihan->get_data('detail_transaksi_rawat_inap_tindakan', $where_rawat_inap)->row();
-            $harga_tindakan = $ambil_tindakan_rawat_inap->harga;
+            $ambil_tindakan_rawat_inap = $this->M_tagihan->get_data('detail_transaksi_rawat_inap_tindakan', $where_rawat_inap)->result();
+            $harga_tindakan = 0;
 
             $obat_rawat_inap = $this->M_tagihan->get_data('transaksi_rawat_inap', $where)->row();
             $no_transaksi_rawat_i = $obat_rawat_inap->no_transaksi_rawat_i;
@@ -829,8 +829,11 @@ class Tagihan extends CI_Controller
                 <tr>
                     <td style="text-align:left;padding-left:20px">Kamar</td>
                     <td style="text-align:right">' . rupiah($harga_kamar) . '</td>
-                </tr>
-                <tr>
+                </tr>';
+                foreach ($ambil_tindakan_rawat_inap as $data_tindakan) {
+                    $harga_tindakan += $data_tindakan->harga;
+                }
+            $html .= '<tr>
                     <td style="text-align:left;padding-left:20px">Tindakan Rawat Inap</td>
                     <td style="text-align:right">' . rupiah($harga_tindakan) . '</td>
                 </tr>';
