@@ -223,7 +223,7 @@
                                     <div class="col-sm-6">
                                     </div>
                                     <div class="col-sm-4">
-                                        <input type="text" readonly name="sub_total_harga_apotek_jual" class="form-control form-control-sm rupiah text-right sub_total_harga_apotek_jual" id="sub_total_harga_apotek_jual" placeholder="Total" required>
+                                        <input type="text" readonly name="sub_total_harga_apotek_jual" class="form-control form-control-sm rupiah text-right sub_total_harga_apotek_jual" value="0" id="sub_total_harga_apotek_jual" placeholder="Total" required>
                                     </div>
                                     <div class="col-sm-2">
                                     </div>
@@ -286,7 +286,7 @@
                                     <div class="col-sm-6">
                                     </div>
                                     <div class="col-sm-4">
-                                        <input type="text" readonly name="sub_total_harga_kamar" class="form-control form-control-sm rupiah_kamar text-right" id="sub_total_harga_kamar" placeholder="Sub Total">
+                                        <input type="text" readonly name="sub_total_harga_kamar" class="form-control form-control-sm rupiah_kamar text-right" id="sub_total_harga_kamar" value="0" placeholder="Sub Total">
                                     </div>
                                     <div class="col-sm-2">
                                     </div>
@@ -312,7 +312,7 @@
                                     <div class="col-sm-6">
                                     </div>
                                     <div class="col-sm-4">
-                                        <input type="text" readonly name="sub_total_harga_tindakan" class="form-control form-control-sm rupiah_tindakan text-right" id="sub_total_harga_tindakan" placeholder="Sub Total">
+                                        <input type="text" readonly name="sub_total_harga_tindakan" class="form-control form-control-sm rupiah_tindakan text-right" id="sub_total_harga_tindakan" value="0" placeholder="Sub Total">
                                     </div>
                                     <div class="col-sm-2">
                                     </div>
@@ -360,7 +360,7 @@
                                     <div class="col-sm-6">
                                     </div>
                                     <div class="col-sm-4">
-                                        <input type="text" readonly name="sub_total_harga_obat" class="form-control form-control-sm rupiah_obat text-right" id="sub_total_harga_obat" placeholder="Sub Total">
+                                        <input type="text" readonly name="sub_total_harga_obat" class="form-control form-control-sm rupiah_obat text-right" id="sub_total_harga_obat" value="0" placeholder="Sub Total">
                                     </div>
                                     <div class="col-sm-2">
                                     </div>
@@ -373,7 +373,7 @@
 
                 <!-- start of total_harga rawat inap //// -->
                 <div class="form-group col-sm-5">
-                    <input type="hidden" readonly name="total_harga" class="rupiah_grant_total form-control form-control-sm text-right" id="total_harga" placeholder="Total" required>
+                    <input type="text" readonly name="total_harga" class="rupiah_grant_total form-control form-control-sm text-right" id="total_harga" placeholder="Total" required>
                 </div>
                 <!-- end of total_harga rawat inap //// -->
 
@@ -1041,6 +1041,7 @@
     }
 
     function grand_total() {
+
         var form_data = $('#transaksi_form').serialize()
 
         $.ajax({
@@ -1050,10 +1051,16 @@
             success: function(data) {
 
                 grandTotal();
-                var total_rawat_inap = $('.rupiah_grant_total').val();
-                var total_apotek_jual = $('.sub_total_harga_apotek_jual').val().split('.').join('');
 
-                var total_temp = parseInt(total_rawat_inap) + parseInt(total_apotek_jual) + parseInt(data);
+                var total_rawat_inap = $('.rupiah_grant_total').val();
+
+                var total_apotek_jual = $('.sub_total_harga_apotek_jual').val();
+                var total_apotek_jual_v = 0;
+                if (total_apotek_jual != "") {
+                    total_apotek_jual_v = parseInt(total_apotek_jual.split('.').join(''));
+                }
+
+                var total_temp = parseInt(total_rawat_inap) + parseInt(total_apotek_jual_v) + parseInt(data);
 
                 $('#grand_total').val(total_temp);
                 $('.rupiah_grand_total').trigger('input'); // Will be display 
@@ -1713,9 +1720,11 @@
                             `','` + nama_obat + `','` + nama_kategori + `','` + qty_sekarang + `','` + harga_obat + `')" id="` + kode_obat +
                             `" class="btn btn-sm btn-dark text-white">Pilih</a>`;
 
-                        table.row.add([no, nama_obat, nama_kategori, tgl_obat_keluar_i, qty_sekarang, ribuan, button]);
+                        if (parseInt(qty_sekarang) > 0) {
+                            table.row.add([no, nama_obat, nama_kategori, tgl_obat_keluar_i, qty_sekarang, ribuan, button]);
 
-                        no = no + 1;
+                            no = no + 1;
+                        }
                     });
                 } else {
 
@@ -1945,11 +1954,12 @@
                             `','` + nama + `','` + harga_jual + `','` + qty_sekarang + `')" id="` + kode +
                             `" class="btn btn-sm btn-dark text-white">Pilih</a>`;
 
-                        table.row.add([no, nama, nama_kategori, tgl_penerimaan_o, qty_sekarang,
-                            harga_jual, button
-                        ]);
-
-                        no = no + 1;
+                        if (parseInt(qty_sekarang) > 0) {
+                            table.row.add([no, nama, nama_kategori, tgl_penerimaan_o, qty_sekarang,
+                                harga_jual, button
+                            ]);
+                            no = no + 1;
+                        }
                     });
                 } else {
 
