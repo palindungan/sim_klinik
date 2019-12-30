@@ -16,7 +16,7 @@ class Tagihan extends CI_Controller
     {
         $no_ref = $this->input->get('no_ref');
         $nama = $this->input->get('nama');
-        $query = $this->M_tagihan->get_select($no_ref,$nama,'no_ref_pelayanan');
+        $query = $this->M_tagihan->get_select($no_ref, $nama, 'no_ref_pelayanan');
         echo json_encode($query);
     }
 
@@ -227,20 +227,18 @@ class Tagihan extends CI_Controller
     {
 
         $no_ref_pelayanan = $this->input->post('no_ref_pelayanan');
-        if(isset($_POST['no_bp_t']))
-        {
+        if (isset($_POST['no_bp_t'])) {
             date_default_timezone_set('Asia/Jakarta');
             $where = array(
                 'no_ref_pelayanan' => $no_ref_pelayanan
             );
-            $cek_jumlah_bp = $this->M_tagihan->jumlah_baris($where,'bp_penanganan');;
-            if($cek_jumlah_bp > 0)
-            {
+            $cek_jumlah_bp = $this->M_tagihan->jumlah_baris($where, 'bp_penanganan');;
+            if ($cek_jumlah_bp > 0) {
 
                 $where = array(
                     'no_ref_pelayanan' => $no_ref_pelayanan
                 );
-                $ambil_data_bp = $this->M_tagihan->get_data('bp_penanganan',$where)->row();
+                $ambil_data_bp = $this->M_tagihan->get_data('bp_penanganan', $where)->row();
                 $no_bp_p = $ambil_data_bp->no_bp_p;
                 // tambah detail transaksi
                 for ($i = 0; $i < count($this->input->post('no_bp_t')); $i++) {
@@ -258,20 +256,19 @@ class Tagihan extends CI_Controller
 
                     $this->M_tagihan->input_data('detail_bp_penanganan', $detail_bp);
                 }
-            } 
-            else {
+            } else {
                 // data transaksi 
-            $no_bp_p = $this->M_tagihan->get_no_transaksi_bp(); // generate
-            $tgl_penanganan = date('Y-m-d H:i:s');
-            $total_tmp = $this->input->post('total_harga_bp');
-            $total_harga = preg_replace("/[^0-9]/", "", $total_tmp);
+                $no_bp_p = $this->M_tagihan->get_no_transaksi_bp(); // generate
+                $tgl_penanganan = date('Y-m-d H:i:s');
+                $total_tmp = $this->input->post('total_harga_bp');
+                $total_harga = preg_replace("/[^0-9]/", "", $total_tmp);
 
-            $data_bp = array(
-                'no_bp_p' => $no_bp_p,
-                'no_ref_pelayanan' => $no_ref_pelayanan,
-                'tgl_penanganan' => $tgl_penanganan,
-                'total_harga' => $total_harga
-            );
+                $data_bp = array(
+                    'no_bp_p' => $no_bp_p,
+                    'no_ref_pelayanan' => $no_ref_pelayanan,
+                    'tgl_penanganan' => $tgl_penanganan,
+                    'total_harga' => $total_harga
+                );
 
                 $this->M_tagihan->input_data('bp_penanganan', $data_bp);
                 // end of data transaksi 
@@ -300,13 +297,12 @@ class Tagihan extends CI_Controller
             $where = array(
                 'no_ref_pelayanan' => $no_ref_pelayanan
             );
-            $cek_jumlah_kia = $this->M_tagihan->jumlah_baris($where,'kia_penanganan');
-            if($cek_jumlah_kia > 0)
-            {
+            $cek_jumlah_kia = $this->M_tagihan->jumlah_baris($where, 'kia_penanganan');
+            if ($cek_jumlah_kia > 0) {
                 $where = array(
                     'no_ref_pelayanan' => $no_ref_pelayanan
                 );
-                $ambil_data_kia = $this->M_tagihan->get_data('kia_penanganan',$where)->row();
+                $ambil_data_kia = $this->M_tagihan->get_data('kia_penanganan', $where)->row();
                 $no_kia_p = $ambil_data_kia->no_kia_p;
                 for ($i = 0; $i < count($this->input->post('no_kia_t')); $i++) {
 
@@ -322,8 +318,7 @@ class Tagihan extends CI_Controller
                     );
                     $this->M_tagihan->input_data('detail_kia_penanganan', $detail_kia);
                 }
-            }
-            else {
+            } else {
                 $no_kia_p = $this->M_tagihan->get_no_transaksi_kia(); // generate
                 $tgl_penanganan = date('Y-m-d H:i:s');
                 $total_tmp = $this->input->post('total_harga_kia');
@@ -334,24 +329,24 @@ class Tagihan extends CI_Controller
                     'tgl_penanganan' => $tgl_penanganan,
                     'total_harga' => $total_harga
                 );
-    
+
                 $this->M_tagihan->input_data('kia_penanganan', $data_kia);
                 // end of data transaksi 
-                    // tambah detail transaksi
-                    for ($i = 0; $i < count($this->input->post('no_kia_t')); $i++) {
-    
-                        $no_kia_t = $this->input->post('no_kia_t')[$i];
-                        $harga_temp = $this->input->post('harga_kia')[$i];
-                        $harga = preg_replace("/[^0-9]/", "", $harga_temp);
-    
-                        // proses pemasukan ke dalam database detail
-                        $detail_kia = array(
-                            'no_kia_p' => $no_kia_p,
-                            'no_kia_t' => $no_kia_t,
-                            'harga' => $harga
-                        );
-                        $this->M_tagihan->input_data('detail_kia_penanganan', $detail_kia);
-                    }
+                // tambah detail transaksi
+                for ($i = 0; $i < count($this->input->post('no_kia_t')); $i++) {
+
+                    $no_kia_t = $this->input->post('no_kia_t')[$i];
+                    $harga_temp = $this->input->post('harga_kia')[$i];
+                    $harga = preg_replace("/[^0-9]/", "", $harga_temp);
+
+                    // proses pemasukan ke dalam database detail
+                    $detail_kia = array(
+                        'no_kia_p' => $no_kia_p,
+                        'no_kia_t' => $no_kia_t,
+                        'harga' => $harga
+                    );
+                    $this->M_tagihan->input_data('detail_kia_penanganan', $detail_kia);
+                }
             }
         }
         if (isset($_POST['no_lab_c'])) {
@@ -360,13 +355,12 @@ class Tagihan extends CI_Controller
             $where = array(
                 'no_ref_pelayanan' => $no_ref_pelayanan
             );
-            $cek_jumlah_lab = $this->M_tagihan->jumlah_baris($where,'lab_transaksi');
-            if($cek_jumlah_lab > 0)
-            {
+            $cek_jumlah_lab = $this->M_tagihan->jumlah_baris($where, 'lab_transaksi');
+            if ($cek_jumlah_lab > 0) {
                 $where = array(
                     'no_ref_pelayanan' => $no_ref_pelayanan
                 );
-                $ambil_data_lab = $this->M_tagihan->get_data('lab_transaksi',$where)->row();
+                $ambil_data_lab = $this->M_tagihan->get_data('lab_transaksi', $where)->row();
                 $no_lab_t = $ambil_data_lab->no_lab_t;
                 // tambah detail transaksi
                 for ($i = 0; $i < count($this->input->post('no_lab_c')); $i++) {
@@ -384,10 +378,8 @@ class Tagihan extends CI_Controller
 
                     $this->M_tagihan->input_data('detail_lab_transaksi', $detail_lab);
                 }
-            }
-            else 
-            {
-                    // data transaksi 
+            } else {
+                // data transaksi 
                 $no_lab_t = $this->M_tagihan->get_no_transaksi_lab(); // generate
                 $tgl_transaksi = date('Y-m-d H:i:s');
                 $total_tmp = $this->input->post('total_harga_lab');
@@ -402,7 +394,7 @@ class Tagihan extends CI_Controller
 
                 $this->M_tagihan->input_data('lab_transaksi', $data_lab);
                 // end of data transaksi 
-                    // tambah detail transaksi
+                // tambah detail transaksi
                 for ($i = 0; $i < count($this->input->post('no_lab_c')); $i++) {
 
                     $no_lab_c = $this->input->post('no_lab_c')[$i];
@@ -419,7 +411,6 @@ class Tagihan extends CI_Controller
                     $this->M_tagihan->input_data('detail_lab_transaksi', $detail_lab);
                 }
             }
-            
         }
         if (isset($_POST['no_ugd_t'])) {
 
@@ -428,13 +419,12 @@ class Tagihan extends CI_Controller
             $where = array(
                 'no_ref_pelayanan' => $no_ref_pelayanan
             );
-            $cek_jumlah_ugd = $this->M_tagihan->jumlah_baris($where,'ugd_penanganan');
-            if($cek_jumlah_ugd > 0)
-            {
+            $cek_jumlah_ugd = $this->M_tagihan->jumlah_baris($where, 'ugd_penanganan');
+            if ($cek_jumlah_ugd > 0) {
                 $where = array(
                     'no_ref_pelayanan' => $no_ref_pelayanan
                 );
-                $ambil_data_ugd = $this->M_tagihan->get_data('ugd_penanganan',$where)->row();
+                $ambil_data_ugd = $this->M_tagihan->get_data('ugd_penanganan', $where)->row();
                 $no_ugd_p = $ambil_data_ugd->no_ugd_p;
                 // tambah detail transaksi
                 for ($i = 0; $i < count($this->input->post('no_ugd_t')); $i++) {
@@ -452,9 +442,7 @@ class Tagihan extends CI_Controller
 
                     $this->M_tagihan->input_data('detail_ugd_penanganan', $detail_ugd);
                 }
-            }
-            else 
-            {
+            } else {
                 // data transaksi 
                 $no_ugd_p = $this->M_tagihan->get_no_transaksi_ugd(); // generate
                 $tgl_penanganan = date('Y-m-d H:i:s');
@@ -488,33 +476,32 @@ class Tagihan extends CI_Controller
                     $this->M_tagihan->input_data('detail_ugd_penanganan', $detail_ugd);
                 }
             }
-
-        } 
+        }
         // Print
         $where = array(
             'no_ref_pelayanan' => $no_ref_pelayanan
         );
-        $ambil_nama = $this->M_tagihan->get_data('data_pelayanan_pasien',$where)->row();
+        $ambil_nama = $this->M_tagihan->get_data('data_pelayanan_pasien', $where)->row();
         $nama_pasien = $ambil_nama->nama;
         $no_rm = $ambil_nama->no_rm;
 
-        $ambil_data_bp = $this->M_tagihan->get_data('bp_penanganan',$where)->row();
+        $ambil_data_bp = $this->M_tagihan->get_data('bp_penanganan', $where)->row();
         $no_bp_p = $ambil_data_bp->no_bp_p;
 
-        $ambil_data_kia = $this->M_tagihan->get_data('kia_penanganan',$where)->row();
+        $ambil_data_kia = $this->M_tagihan->get_data('kia_penanganan', $where)->row();
         $no_kia_p = $ambil_data_kia->no_kia_p;
 
-        $ambil_data_lab = $this->M_tagihan->get_data('lab_transaksi',$where)->row();
+        $ambil_data_lab = $this->M_tagihan->get_data('lab_transaksi', $where)->row();
         $no_lab_t = $ambil_data_lab->no_lab_t;
 
-        $ambil_data_ugd = $this->M_tagihan->get_data('ugd_penanganan',$where)->row();
+        $ambil_data_ugd = $this->M_tagihan->get_data('ugd_penanganan', $where)->row();
         $no_ugd_p = $ambil_data_ugd->no_ugd_p;
 
-        $ambil_data_apotek = $this->M_tagihan->get_data('penjualan_obat_apotik',$where)->row();
+        $ambil_data_apotek = $this->M_tagihan->get_data('penjualan_obat_apotik', $where)->row();
         $no_penjualan_obat_a = $ambil_data_apotek->no_penjualan_obat_a;
         $harga_apotek = $ambil_data_apotek->total_harga;
 
-        $ambil_data_rawat_inap = $this->M_tagihan->get_data('transaksi_rawat_inap',$where)->row();
+        $ambil_data_rawat_inap = $this->M_tagihan->get_data('transaksi_rawat_inap', $where)->row();
         $no_transaksi_rawat_i = $ambil_data_rawat_inap->no_transaksi_rawat_i;
 
         $html = '
@@ -523,15 +510,15 @@ class Tagihan extends CI_Controller
                 <tr>
                     <td width="14%">Nama Pasien</td>
                     <td width="1%">:</td>
-                    <td width="35%">'.$nama_pasien.'</td>
+                    <td width="35%">' . $nama_pasien . '</td>
                     <td width="19%">No Ref Pelayanan</td>
                     <td width="1%">:</td>
-                    <td width="30%">'.$no_ref_pelayanan.'</td>
+                    <td width="30%">' . $no_ref_pelayanan . '</td>
                 </tr>
                 <tr>
                     <td width="14%">Nomor RM</td>
                     <td width="1%">:</td>
-                    <td width="40%">'.$no_rm.'</td>
+                    <td width="40%">' . $no_rm . '</td>
                     <td width="19%">Tanggal Masuk</td>
                     <td width="1%">:</td>
                     <td width="25%">asd</td>
@@ -551,118 +538,153 @@ class Tagihan extends CI_Controller
                     <td style="text-align:left">Rincian Transaksi</td>
                     <td style="text-align:right">Biaya</td>
                 </tr>';
-                
-                if(isset($no_bp_p)) {
-                    $where_bp = array(
-                        'no_bp_p' => $no_bp_p
-                    );
-                    $ambil_detail_bp = $this->M_tagihan->get_data('detail_tindakan_bp_penanganan',$where_bp)->result();
-                    
-                    $html.= '<tr>
+
+        if (isset($no_bp_p)) {
+            $where_bp = array(
+                'no_bp_p' => $no_bp_p
+            );
+            $ambil_detail_bp = $this->M_tagihan->get_data('detail_tindakan_bp_penanganan', $where_bp)->result();
+
+            $html .= '<tr>
                     <td style="text-align:left;padding-left:10px"><i>Biaya Tindakan Balai Pengobatan</i></td>
                 </tr>';
-                foreach($ambil_detail_bp as $data_bp){
-                $html.='<tr>
-                    <td style="text-align:left;padding-left:20px">'.$data_bp->nama.'</td>
-                    <td style="text-align:right">'.rupiah($data_bp->harga).'</td>
-                </tr>';}}
-                
-                if(isset($no_kia_p)) {
-                    $where_kia = array(
-                        'no_kia_p' => $no_kia_p
-                    );
-                    $ambil_detail_kia = $this->M_tagihan->get_data('detail_tindakan_kia_penanganan',$where_kia)->result();
-                $html.='<tr>
+            foreach ($ambil_detail_bp as $data_bp) {
+                $html .= '<tr>
+                    <td style="text-align:left;padding-left:20px">' . $data_bp->nama . '</td>
+                    <td style="text-align:right">' . rupiah($data_bp->harga) . '</td>
+                </tr>';
+            }
+        }
+
+        if (isset($no_kia_p)) {
+            $where_kia = array(
+                'no_kia_p' => $no_kia_p
+            );
+            $ambil_detail_kia = $this->M_tagihan->get_data('detail_tindakan_kia_penanganan', $where_kia)->result();
+            $html .= '<tr>
                     <td style="text-align:left;padding-left:10px"><i>Biaya Tindakan Poli KIA</i></td>
                 </tr>';
-                foreach($ambil_detail_kia as $data_kia){
-                $html.='<tr>
-                    <td style="text-align:left;padding-left:20px">'.$data_kia->nama.'</td>
-                    <td style="text-align:right">'.rupiah($data_kia->harga).'</td>
-                </tr>';}}
-                
-                if(isset($no_lab_t)) {
-                    $where_lab = array(
-                        'no_lab_t' => $no_lab_t
-                    );
-                    $ambil_detail_lab = $this->M_tagihan->get_data('detail_tindakan_lab_transaksi',$where_lab)->result();
-                $html.='<tr>
+            foreach ($ambil_detail_kia as $data_kia) {
+                $html .= '<tr>
+                    <td style="text-align:left;padding-left:20px">' . $data_kia->nama . '</td>
+                    <td style="text-align:right">' . rupiah($data_kia->harga) . '</td>
+                </tr>';
+            }
+        }
+
+        if (isset($no_lab_t)) {
+            $where_lab = array(
+                'no_lab_t' => $no_lab_t
+            );
+            $ambil_detail_lab = $this->M_tagihan->get_data('detail_tindakan_lab_transaksi', $where_lab)->result();
+            $html .= '<tr>
                     <td style="text-align:left;padding-left:10px"><i>Biaya Tindakan Laboratorium</i></td>
                 </tr>';
-                foreach($ambil_detail_lab as $data_lab){
-                $html.='<tr>
-                    <td style="text-align:left;padding-left:20px">'.$data_lab->nama.'</td>
-                    <td style="text-align:right">'.rupiah($data_lab->harga).'</td>
-                </tr>';}}
+            foreach ($ambil_detail_lab as $data_lab) {
+                $html .= '<tr>
+                    <td style="text-align:left;padding-left:20px">' . $data_lab->nama . '</td>
+                    <td style="text-align:right">' . rupiah($data_lab->harga) . '</td>
+                </tr>';
+            }
+        }
 
-                if(isset($no_ugd_p)) {
-                    $where_ugd = array(
-                        'no_ugd_p' => $no_ugd_p
-                    );
-                    $ambil_detail_ugd = $this->M_tagihan->get_data('detail_tindakan_ugd_penanganan',$where_ugd)->result();
-                $html.='<tr>
+        if (isset($no_ugd_p)) {
+            $where_ugd = array(
+                'no_ugd_p' => $no_ugd_p
+            );
+            $ambil_detail_ugd = $this->M_tagihan->get_data('detail_tindakan_ugd_penanganan', $where_ugd)->result();
+            $html .= '<tr>
                     <td style="text-align:left;padding-left:10px"><i>Biaya Tindakan UGD</i></td>
                 </tr>';
-                foreach($ambil_detail_ugd as $data_ugd){
-                $html.='<tr>
-                    <td style="text-align:left;padding-left:20px">'.$data_ugd->nama.'</td>
-                    <td style="text-align:right">'.rupiah($data_ugd->harga).'</td>
-                </tr>';}}
+            foreach ($ambil_detail_ugd as $data_ugd) {
+                $html .= '<tr>
+                    <td style="text-align:left;padding-left:20px">' . $data_ugd->nama . '</td>
+                    <td style="text-align:right">' . rupiah($data_ugd->harga) . '</td>
+                </tr>';
+            }
+        }
 
-                
-                
-                if(isset($no_penjualan_obat_a)) {
-                $html.='<tr>
+
+
+        if (isset($no_penjualan_obat_a)) {
+            $html .= '<tr>
                     <td style="text-align:left;padding-left:10px"><i>Biaya Obat-obatan</i></td>
                 </tr>';
-                $html.='<tr>
+            $html .= '<tr>
                     <td style="text-align:left;padding-left:20px">Apotek</td>
-                    <td style="text-align:right">'.rupiah($harga_apotek).'</td>
-                </tr>';}
+                    <td style="text-align:right">' . rupiah($harga_apotek) . '</td>
+                </tr>';
+        }
 
-                if(isset($no_transaksi_rawat_i)) {
-                    $where_rawat_inap = array(
-                        'no_transaksi_rawat_i' => $no_transaksi_rawat_i
-                    );
-                    $ambil_kamar_rawat_inap = $this->M_tagihan->get_data('detail_transaksi_rawat_inap_kamar',$where_rawat_inap)->row();
-                    $harga_kamar = $ambil_kamar_rawat_inap->sub_total_harga;
+        if (isset($no_transaksi_rawat_i)) {
+            $where_rawat_inap = array(
+                'no_transaksi_rawat_i' => $no_transaksi_rawat_i
+            );
+            $ambil_kamar_rawat_inap = $this->M_tagihan->get_data('detail_transaksi_rawat_inap_kamar', $where_rawat_inap)->row();
+            $harga_kamar = $ambil_kamar_rawat_inap->sub_total_harga;
 
-                    $ambil_tindakan_rawat_inap = $this->M_tagihan->get_data('detail_transaksi_rawat_inap_tindakan',$where_rawat_inap)->row();
-                    $harga_tindakan = $ambil_tindakan_rawat_inap->harga;
+            $ambil_tindakan_rawat_inap = $this->M_tagihan->get_data('detail_transaksi_rawat_inap_tindakan', $where_rawat_inap)->row();
+            $harga_tindakan = $ambil_tindakan_rawat_inap->harga;
 
-                    $obat_rawat_inap = $this->M_tagihan->get_data('transaksi_rawat_inap',$where)->row();
-                    $no_transaksi_rawat_i = $obat_rawat_inap->no_transaksi_rawat_i;
-                    $harga_obat = 0;
+            $obat_rawat_inap = $this->M_tagihan->get_data('transaksi_rawat_inap', $where)->row();
+            $no_transaksi_rawat_i = $obat_rawat_inap->no_transaksi_rawat_i;
+            $harga_obat = 0;
 
-                    $where_transaksi_rawat_i = array(
-                        'no_transaksi_rawat_i' => $no_transaksi_rawat_i
-                    );
+            $where_transaksi_rawat_i = array(
+                'no_transaksi_rawat_i' => $no_transaksi_rawat_i
+            );
 
-                    $ambil_obat_kamar_rawat_inap = $this->M_tagihan->get_data('detail_transaksi_rawat_inap_obat',$where_transaksi_rawat_i)->result();
-                $html.='<tr>
+            $ambil_obat_kamar_rawat_inap = $this->M_tagihan->get_data('detail_transaksi_rawat_inap_obat', $where_transaksi_rawat_i)->result();
+            $html .= '<tr>
                     <td style="text-align:left;padding-left:10px"><i>Biaya Rawat inap</i></td>
                 </tr>
                 <tr>
                     <td style="text-align:left;padding-left:20px">Kamar</td>
-                    <td style="text-align:right">'.rupiah($harga_kamar).'</td>
+                    <td style="text-align:right">' . rupiah($harga_kamar) . '</td>
                 </tr>
                 <tr>
                     <td style="text-align:left;padding-left:20px">Tindakan Rawat Inap</td>
-                    <td style="text-align:right">'.rupiah($harga_tindakan).'</td>
+                    <td style="text-align:right">' . rupiah($harga_tindakan) . '</td>
                 </tr>';
 
-                foreach($ambil_obat_kamar_rawat_inap as $data_obat){
-                    $harga_obat += $data_obat->sub_total_harga;
-                }
-                    $html.='<tr>
+            foreach ($ambil_obat_kamar_rawat_inap as $data_obat) {
+                $harga_obat += $data_obat->sub_total_harga;
+            }
+            $html .= '<tr>
                         <td style="text-align:left;padding-left:20px">Obat Rawat Inap</td>
-                        <td style="text-align:right">'.rupiah($harga_obat).'</td>
+                        <td style="text-align:right">' . rupiah($harga_obat) . '</td>
                     </tr>
-                <tr>';}
-            $html.='</table>
+                <tr>';
+        }
+        $html .= '</table>
                 ';
-        $this->dompdf->PdfGenerator($html, 'coba', 'A4', 'potrait',true);
+        $this->dompdf->PdfGenerator($html, 'coba', 'A4', 'potrait', true);
         redirect('administrasi/tagihan');
     }
 
+    public function ambil_total_apotek_jual()
+    {
+        $sub_total = 0;
+        $total = 0;
+
+        if (isset($_POST['no_stok_obat_a']) && isset($_POST['harga_jual_apotek_jual']) && isset($_POST['qty_apotek_jual'])) {
+
+            for ($i = 0; $i < count($this->input->post('no_stok_obat_a')); $i++) {
+
+                $harga_jual_temp = $this->input->post('harga_jual_apotek_jual')[$i];
+                $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
+
+                $qty_temp = $this->input->post('qty_apotek_jual')[$i];
+                $qty = (int) preg_replace("/[^0-9]/", "", $qty_temp);
+
+                $perhitungan = $harga_jual * $qty;
+
+                $sub_total = $sub_total + $perhitungan;
+            }
+
+            $total = $sub_total;
+        }
+
+        echo $total;
+    }
 }
