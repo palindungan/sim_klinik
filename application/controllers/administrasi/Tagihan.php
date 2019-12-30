@@ -478,42 +478,23 @@ class Tagihan extends CI_Controller
             }
         }
 
-        if (isset($_POST['no_kamar_rawat_i'])) {
+        if (isset($_POST['no_kamar_rawat_i']) || isset($_POST['no_rawat_inap_t']) || isset($_POST['no_stok_obat_rawat_i'])) {
 
-            date_default_timezone_set('Asia/Jakarta');
+            $status_transaksi = true;
+            $no_transaksi_rawat_i = '';
 
             $where = array(
                 'no_ref_pelayanan' => $no_ref_pelayanan
             );
-            $cek_jumlah_kamar_ri = $this->M_tagihan->jumlah_baris($where, 'transaksi_rawat_inap');
-            if ($cek_jumlah_kamar_ri > 0) {
-                $where = array(
-                    'no_ref_pelayanan' => $no_ref_pelayanan
-                );
+            $cek_jumlah_transaksi = $this->M_tagihan->jumlah_baris($where, 'transaksi_rawat_inap');
+            if ($cek_jumlah_transaksi > 0) {
+
                 $ambil_data_transaksi = $this->M_tagihan->get_data('transaksi_rawat_inap', $where)->row();
                 $no_transaksi_rawat_i = $ambil_data_transaksi->no_transaksi_rawat_i;
                 // tambah detail transaksi
-                for ($i = 0; $i < count($this->input->post('no_kamar_rawat_i')); $i++) {
 
-                    $no_kamar_rawat_i = $this->input->post('no_kamar_rawat_i')[$i];
-                    $harga_temp = $this->input->post('harga_harian_kamar')[$i];
-                    $harga = preg_replace("/[^0-9]/", "", $harga_temp);
-
-                    $jumlah_hari = $this->input->post('jumlah_hari')[$i];
-                    $sub_total_harga =  $harga * $jumlah_hari;
-
-                    // proses pemasukan ke dalam database detail
-                    $detail_transaksi = array(
-                        'no_transaksi_rawat_i' => $no_transaksi_rawat_i,
-                        'no_kamar_rawat_i' => $no_kamar_rawat_i,
-                        'harga_harian' => $harga,
-                        'jumlah_hari' => $jumlah_hari,
-                        'sub_total_harga' => $sub_total_harga
-                    );
-
-                    $this->M_tagihan->input_data('detail_transaksi_rawat_inap_kamar', $detail_transaksi);
-                }
             } else {
+
                 // data transaksi 
                 $no_transaksi_rawat_i = $this->M_tagihan->get_no_transaksi_rawat_inap(); // generate
                 $atas_nama = "kkk"; // datadumb
@@ -521,7 +502,7 @@ class Tagihan extends CI_Controller
                 $total_tmp = $this->input->post('sub_total_harga_kamar');
                 $total_harga = preg_replace("/[^0-9]/", "", $total_tmp);
 
-                $data_transaksi = array(
+                $data = array(
                     'no_transaksi_rawat_i' => $no_transaksi_rawat_i,
                     'no_ref_pelayanan' => $no_ref_pelayanan,
                     'atas_nama' => $atas_nama,
@@ -529,29 +510,157 @@ class Tagihan extends CI_Controller
                     'total_harga' => $total_harga
                 );
 
-                $this->M_tagihan->input_data('transaksi_rawat_inap', $data_transaksi);
+                $status_transaksi = $this->M_tagihan->input_data('transaksi_rawat_inap', $data);
+            }
+
+            if ($status_transaksi) {
+
+                // start of insert Kamar //////////
+                if (isset($_POST['no_kamar_rawat_i'])) {
+
+                    // tambah detail transaksi
+                    for ($i = 0; $i < count($this->input->post('no_kamar_rawat_i')); $i++) {
+
+                        $no_kamar_rawat_i = $this->input->post('no_kamar_rawat_i')[$i];
+                        $harga_temp = $this->input->post('harga_harian_kamar')[$i];
+                        $harga_harian = preg_replace("/[^0-9]/", "", $harga_temp);
+                        $jumlah_hari = $this->input->post('jumlah_hari')[$i];
+                        $sub_total_harga = $harga_harian * $jumlah_hari;
+
+                        // proses pemasukan ke dalam database detail
+                        $data = array(
+                            'no_transaksi_rawat_i' => $no_transaksi_rawat_i,
+                            'no_kamar_rawat_i' => $no_kamar_rawat_i,
+                            'harga_harian' => $harga_harian,
+                            'jumlah_hari' => $jumlah_hari,
+                            'sub_total_harga' => $sub_total_harga
+                        );
+
+                        $status = $this->M_tagihan->input_data('detail_transaksi_rawat_inap_kamar', $data);
+                    }
+                }
+                // start of Kamar //////////
+
+                // start of insert Tindakan //////////
+                if (isset($_POST['no_rawat_inap_t'])) {
+
+                    // tambah detail transaksi
+                    for ($i = 0; $i < count($this->input->post('no_rawat_inap_t')); $i++) {
+
+                        $no_rawat_inap_t = $this->input->post('no_rawat_inap_t')[$i];
+                        $harga_temp = $this->input->post('harga_tindakan')[$i];
+                        $harga = preg_replace("/[^0-9]/", "", $harga_temp);
+
+                        // proses pemasukan ke dalam database detail
+                        $data = array(
+                            'no_transaksi_rawat_i' => $no_transaksi_rawat_i,
+                            'no_rawat_inap_t' => $no_rawat_inap_t,
+                            'harga' => $harga
+                        );
+
+                        $status = $this->M_tagihan->input_data('detail_transaksi_rawat_inap_tindakan', $data);
+                    }
+                }
+                // start of Tindakan //////////
+
+                // start of insert Obat //////////
+                if (isset($_POST['no_stok_obat_rawat_i'])) {
+
+                    // tambah detail transaksi
+                    for ($i = 0; $i < count($this->input->post('no_stok_obat_rawat_i')); $i++) {
+
+                        $no_stok_obat_rawat_i = $this->input->post('no_stok_obat_rawat_i')[$i];
+                        $harga_temp = $this->input->post('harga_obat')[$i];
+                        $harga_jual = preg_replace("/[^0-9]/", "", $harga_temp);
+                        $qty = $this->input->post('qty')[$i];
+                        $sub_total_harga = $harga_jual * $qty;
+
+                        // proses pemasukan ke dalam database detail
+                        $data = array(
+                            'no_transaksi_rawat_i' => $no_transaksi_rawat_i,
+                            'no_stok_obat_rawat_i' => $no_stok_obat_rawat_i,
+                            'qty' => $qty,
+                            'harga_jual' => $harga_jual,
+                            'sub_total_harga' => $sub_total_harga
+                        );
+
+                        $status = $this->M_tagihan->input_data('detail_transaksi_rawat_inap_obat', $data);
+                    }
+                }
+                // start of Obat //////////
+            }
+        }
+
+        if (isset($_POST['no_stok_obat_a'])) {
+
+            date_default_timezone_set('Asia/Jakarta');
+
+            $where = array(
+                'no_ref_pelayanan' => $no_ref_pelayanan
+            );
+            $cek_jumlah_transaksi = $this->M_tagihan->jumlah_baris($where, 'penjualan_obat_apotik');
+            if ($cek_jumlah_transaksi > 0) {
+                $where = array(
+                    'no_ref_pelayanan' => $no_ref_pelayanan
+                );
+                $ambil_data_transaksi = $this->M_tagihan->get_data('penjualan_obat_apotik', $where)->row();
+                $no_penjualan_obat_a = $ambil_data_transaksi->no_penjualan_obat_a;
+                // tambah detail transaksi
+                for ($i = 0; $i < count($this->input->post('no_stok_obat_a')); $i++) {
+
+                    $no_stok_obat_a = $this->input->post('no_stok_obat_a')[$i];
+                    $harga_temp = $this->input->post('harga_jual_apotek_jual')[$i];
+                    $harga = preg_replace("/[^0-9]/", "", $harga_temp);
+
+                    $qty_temp = $this->input->post('qty_apotek_jual')[$i];
+                    $qty = preg_replace("/[^0-9]/", "", $qty_temp);
+
+                    // proses pemasukan ke dalam database detail
+                    $detail_ugd = array(
+                        'no_penjualan_obat_a' => $no_penjualan_obat_a,
+                        'no_stok_obat_a' => $no_stok_obat_a,
+                        'qty' => $qty,
+                        'harga_jual' => $harga
+                    );
+
+                    $this->M_tagihan->input_data('detail_penjualan_obat_apotik', $detail_ugd);
+                }
+            } else {
+                // data transaksi 
+                $no_penjualan_obat_a = $this->M_tagihan->get_no_transaksi(); // generate
+                $tgl_penanganan = date('Y-m-d H:i:s');
+                $total_tmp = $this->input->post('sub_total_harga_apotek_jual');
+                $total_harga = preg_replace("/[^0-9]/", "", $total_tmp);
+
+                $data_transaksi = array(
+                    'no_penjualan_obat_a' => $no_penjualan_obat_a,
+                    'no_ref_pelayanan' => $no_ref_pelayanan,
+                    'tanggal_penjualan' => $tgl_penanganan,
+                    'total_harga' => $total_harga
+                );
+
+                $this->M_tagihan->input_data('penjualan_obat_apotik', $data_transaksi);
                 // end of data transaksi 
 
                 // tambah detail transaksi
-                for ($i = 0; $i < count($this->input->post('no_kamar_rawat_i')); $i++) {
+                for ($i = 0; $i < count($this->input->post('no_stok_obat_a')); $i++) {
 
-                    $no_kamar_rawat_i = $this->input->post('no_kamar_rawat_i')[$i];
-                    $harga_temp = $this->input->post('harga_harian_kamar')[$i];
+                    $no_stok_obat_a = $this->input->post('no_stok_obat_a')[$i];
+                    $harga_temp = $this->input->post('harga_jual_apotek_jual')[$i];
                     $harga = preg_replace("/[^0-9]/", "", $harga_temp);
 
-                    $jumlah_hari = $this->input->post('jumlah_hari')[$i];
-                    $sub_total_harga =  $harga * $jumlah_hari;
+                    $qty_temp = $this->input->post('qty_apotek_jual')[$i];
+                    $qty = preg_replace("/[^0-9]/", "", $qty_temp);
 
                     // proses pemasukan ke dalam database detail
-                    $detail_transaksi = array(
-                        'no_transaksi_rawat_i' => $no_transaksi_rawat_i,
-                        'no_kamar_rawat_i' => $no_kamar_rawat_i,
-                        'harga_harian' => $harga,
-                        'jumlah_hari' => $jumlah_hari,
-                        'sub_total_harga' => $sub_total_harga
+                    $detail_ugd = array(
+                        'no_penjualan_obat_a' => $no_penjualan_obat_a,
+                        'no_stok_obat_a' => $no_stok_obat_a,
+                        'qty' => $qty,
+                        'harga_jual' => $harga
                     );
 
-                    $this->M_tagihan->input_data('detail_transaksi_rawat_inap_kamar', $detail_transaksi);
+                    $this->M_tagihan->input_data('detail_penjualan_obat_apotik', $detail_ugd);
                 }
             }
         }
