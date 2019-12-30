@@ -477,6 +477,85 @@ class Tagihan extends CI_Controller
                 }
             }
         }
+
+        if (isset($_POST['no_kamar_rawat_i'])) {
+
+            date_default_timezone_set('Asia/Jakarta');
+
+            $where = array(
+                'no_ref_pelayanan' => $no_ref_pelayanan
+            );
+            $cek_jumlah_kamar_ri = $this->M_tagihan->jumlah_baris($where, 'transaksi_rawat_inap');
+            if ($cek_jumlah_kamar_ri > 0) {
+                $where = array(
+                    'no_ref_pelayanan' => $no_ref_pelayanan
+                );
+                $ambil_data_transaksi = $this->M_tagihan->get_data('transaksi_rawat_inap', $where)->row();
+                $no_transaksi_rawat_i = $ambil_data_transaksi->no_transaksi_rawat_i;
+                // tambah detail transaksi
+                for ($i = 0; $i < count($this->input->post('no_kamar_rawat_i')); $i++) {
+
+                    $no_kamar_rawat_i = $this->input->post('no_kamar_rawat_i')[$i];
+                    $harga_temp = $this->input->post('harga_harian_kamar')[$i];
+                    $harga = preg_replace("/[^0-9]/", "", $harga_temp);
+
+                    $jumlah_hari = $this->input->post('jumlah_hari')[$i];
+                    $sub_total_harga =  $harga * $jumlah_hari;
+
+                    // proses pemasukan ke dalam database detail
+                    $detail_transaksi = array(
+                        'no_transaksi_rawat_i' => $no_transaksi_rawat_i,
+                        'no_kamar_rawat_i' => $no_kamar_rawat_i,
+                        'harga_harian' => $harga,
+                        'jumlah_hari' => $jumlah_hari,
+                        'sub_total_harga' => $sub_total_harga
+                    );
+
+                    $this->M_tagihan->input_data('detail_transaksi_rawat_inap_kamar', $detail_transaksi);
+                }
+            } else {
+                // data transaksi 
+                $no_transaksi_rawat_i = $this->M_tagihan->get_no_transaksi_rawat_inap(); // generate
+                $atas_nama = "kkk"; // datadumb
+                $tgl_transaksi = date('Y-m-d H:i:s');
+                $total_tmp = $this->input->post('sub_total_harga_kamar');
+                $total_harga = preg_replace("/[^0-9]/", "", $total_tmp);
+
+                $data_transaksi = array(
+                    'no_transaksi_rawat_i' => $no_transaksi_rawat_i,
+                    'no_ref_pelayanan' => $no_ref_pelayanan,
+                    'atas_nama' => $atas_nama,
+                    'tgl_transaksi' => $tgl_transaksi,
+                    'total_harga' => $total_harga
+                );
+
+                $this->M_tagihan->input_data('transaksi_rawat_inap', $data_transaksi);
+                // end of data transaksi 
+
+                // tambah detail transaksi
+                for ($i = 0; $i < count($this->input->post('no_kamar_rawat_i')); $i++) {
+
+                    $no_kamar_rawat_i = $this->input->post('no_kamar_rawat_i')[$i];
+                    $harga_temp = $this->input->post('harga_harian_kamar')[$i];
+                    $harga = preg_replace("/[^0-9]/", "", $harga_temp);
+
+                    $jumlah_hari = $this->input->post('jumlah_hari')[$i];
+                    $sub_total_harga =  $harga * $jumlah_hari;
+
+                    // proses pemasukan ke dalam database detail
+                    $detail_transaksi = array(
+                        'no_transaksi_rawat_i' => $no_transaksi_rawat_i,
+                        'no_kamar_rawat_i' => $no_kamar_rawat_i,
+                        'harga_harian' => $harga,
+                        'jumlah_hari' => $jumlah_hari,
+                        'sub_total_harga' => $sub_total_harga
+                    );
+
+                    $this->M_tagihan->input_data('detail_transaksi_rawat_inap_kamar', $detail_transaksi);
+                }
+            }
+        }
+
         // Print
         $where = array(
             'no_ref_pelayanan' => $no_ref_pelayanan
