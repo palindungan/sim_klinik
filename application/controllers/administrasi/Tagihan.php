@@ -711,14 +711,6 @@ class Tagihan extends CI_Controller
                     <td width="1%">:</td>
                     <td width="25%">asd</td>
                 </tr>
-                <tr>
-                    <td width="14%">Ruangan</td>
-                    <td width="1%">:</td>
-                    <td width="40%">-</td>
-                    <td width="19%">Tanggal Keluar</td>
-                    <td width="1%">:</td>
-                    <td width="25%">-</td>
-                </tr>
             </table>
             <hr>
             <table width="100%">
