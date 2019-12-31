@@ -15,11 +15,11 @@
 	<div class="sidebar-heading">
 		Sistem Informasi Klinik
 	</div>
-	<li class="nav-item">
+	<!-- <li class="nav-item">
 		<a class="nav-link" href="<?= base_url('admin/transaksi'); ?>">
 			<i class="far fa-address-card"></i>
 			<span>Transaksi</span></a>
-	</li>
+	</li> -->
 	<li class="nav-item">
 		<a class="nav-link" href="<?= base_url('admin/pasien'); ?>">
 			<i class="far fa-address-card"></i>
@@ -51,6 +51,11 @@
 		<a class="nav-link" href="<?= base_url('laboratorium/checkup'); ?>">
 			<i class="fas fa-sort-amount-down-alt"></i>
 			<span>Tindakan Laboratorium</span></a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="<?= base_url('rawat_inap/tindakan'); ?>">
+			<i class="fas fa-sort-amount-down-alt"></i>
+			<span>Tindakan Rawat Inap</span></a>
 	</li>
 
 	<div class="sidebar-heading">
