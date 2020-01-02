@@ -19,8 +19,8 @@
 	<!-- Nav Item - Charts -->
 	<li class="nav-item">
 		<a class="nav-link" href="<?= base_url('administrasi/tagihan'); ?>">
-			<i class="far fa-address-card"></i>
-			<span>Tagihan</span></a>
+			<i class="fas fa-address-card <?php if($this->uri->segment(1)=="administrasi" && $this->uri->segment(2)=="tagihan"){echo "text-white";}?>"></i>
+			<span class="<?php if($this->uri->segment(1)=="administrasi" && $this->uri->segment(2)=="tagihan"){echo "text-white";}?>">Tagihan</span></a>
 	</li>
 
 	<!-- Divider -->

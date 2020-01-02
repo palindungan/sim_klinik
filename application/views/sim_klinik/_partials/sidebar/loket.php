@@ -19,15 +19,15 @@
 	<!-- Nav Item - Charts -->
 	<li class="nav-item">
 		<a class="nav-link" href="<?= base_url('loket/pendaftaran'); ?>">
-			<i class="far fa-address-card"></i>
-			<span>Pendaftaran</span></a>
+			<i class="fas fa-edit <?php if($this->uri->segment(1)=="loket" && $this->uri->segment(2)=="pendaftaran"){echo "text-white";}?>"></i>
+			<span class="<?php if($this->uri->segment(1)=="loket" && $this->uri->segment(2)=="pendaftaran"){echo "text-white";}?>">Pendaftaran</span></a>
 	</li>
 
 	<!-- Nav Item - Tables -->
 	<li class="nav-item">
 		<a class="nav-link" href="<?= base_url('loket/antrian'); ?>">
-			<i class="fas fa-sort-amount-down-alt"></i>
-			<span>Antrian</span></a>
+			<i class="fas fa-user-clock <?php if($this->uri->segment(1)=="loket" && $this->uri->segment(2)=="antrian"){echo "text-white";}?>"></i>
+			<span class="<?php if($this->uri->segment(1)=="loket" && $this->uri->segment(2)=="antrian"){echo "text-white";}?>">Antrian</span></a>
 	</li>
 
 	<!-- Divider -->

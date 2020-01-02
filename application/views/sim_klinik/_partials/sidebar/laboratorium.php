@@ -19,8 +19,8 @@
 	<!-- Nav Item - Charts -->
 	<li class="nav-item">
 		<a class="nav-link" href="<?= base_url('laboratorium/transaksi'); ?>">
-			<i class="far fa-address-card"></i>
-			<span>Transaksi</span></a>
+			<i class="fas fa-user-edit <?php if($this->uri->segment(1)=="laboratorium" && $this->uri->segment(2)=="transaksi"){echo "text-white";} ?>"></i>
+			<span class="<?php if($this->uri->segment(1)=="laboratorium" && $this->uri->segment(2)=="transaksi"){echo "text-white";} ?>">Transaksi</span></a>
 	</li>
 
 	<!-- Divider -->
