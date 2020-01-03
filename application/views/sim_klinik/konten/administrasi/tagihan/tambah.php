@@ -736,7 +736,7 @@
                     });
                 }
 
-                // ambil data detail transaksi penjualan obat rawat inap
+                // ambil data detail transaksi tindakan rawat inap
                 let data_detail_tindakan_rawat_inap = obj['daftar_detail_tindakan_rawat_inap'];
                 if (data_detail_tindakan_rawat_inap != '') {
 
@@ -747,6 +747,22 @@
                         var harga_tindakan = data_detail_tindakan_rawat_inap[i].harga;
 
                         pilihtindakan(kode_tindakan, nama_tindakan, harga_tindakan);
+                    });
+                }
+
+                // ambil data detail transaksi kamar rawat inap
+                let data_detail_kamar_rawat_inap = obj['daftar_detail_kamar_rawat_inap'];
+                if (data_detail_kamar_rawat_inap != '') {
+
+                    $.each(data_detail_kamar_rawat_inap, function(i, item) {
+
+                        var kode_kamar = data_detail_kamar_rawat_inap[i].no_kamar_rawat_i;
+                        var nama_kamar = data_detail_kamar_rawat_inap[i].nama;
+                        var harga_harian_kamar = data_detail_kamar_rawat_inap[i].harga_harian;
+                        var jumlah_hari = data_detail_kamar_rawat_inap[i].jumlah_hari;
+                        var tipe_kamar = data_detail_kamar_rawat_inap[i].tipe;
+
+                        pilihKamar(kode_kamar, nama_kamar, harga_harian_kamar, jumlah_hari, tipe_kamar);
                     });
                 }
 
@@ -1458,7 +1474,7 @@
                         ribuan = ribuan.join('.').split('').reverse().join('');
 
                         var button = `<a onclick="pilihKamar('` + kode_kamar +
-                            `','` + nama_kamar + `','` + harga_harian_kamar + `','` + tipe_kamar + `')" id="` + kode_kamar +
+                            `','` + nama_kamar + `','` + harga_harian_kamar + `','1','` + tipe_kamar + `')" id="` + kode_kamar +
                             `" class="btn btn-sm btn-dark text-white">Pilih</a>`;
 
                         table.row.add([no, nama_kamar, ribuan, tipe_kamar, button]);
@@ -1477,7 +1493,7 @@
     }
 
     // Start add_row
-    function pilihKamar(kode_kamar, nama_kamar, harga_harian_kamar, tipe_kamar) {
+    function pilihKamar(kode_kamar, nama_kamar, harga_harian_kamar, jumlah_hari, tipe_kamar) {
 
         $('#detail_list_kamar').append(`
 
@@ -1496,7 +1512,7 @@
 					<input type="text" name="tipe_kamar[]" readonly class="form-control form-control-sm rupiah" id="tipe_kamar` + count1 + `" placeholder="Tipe Kamar" value="` + tipe_kamar + `" required>
 				</div>
                 <div class="form-group col-sm-2">
-					<input type="text" name="jumlah_hari[]" class="form-control form-control-sm rupiah_kamar" id="jumlah_hari` + count1 + `" placeholder="Jumlah Hari" value="1" required>
+					<input type="text" name="jumlah_hari[]" class="form-control form-control-sm rupiah_kamar" id="jumlah_hari` + count1 + `" placeholder="Jumlah Hari" value="` + jumlah_hari + `" required>
 				</div>
 				<div class="form-group col-sm-2">
 					<a id="` + count1 + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris_kamar">
