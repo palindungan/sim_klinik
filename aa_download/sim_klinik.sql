@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 29, 2019 at 04:15 PM
+-- Generation Time: Jan 03, 2020 at 03:55 PM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.11
 
@@ -490,7 +490,9 @@ CREATE TABLE `detail_penjualan_obat_apotik` (
 INSERT INTO `detail_penjualan_obat_apotik` (`no_detail_penjualan_obat_a`, `no_penjualan_obat_a`, `no_stok_obat_a`, `qty`, `harga_jual`) VALUES
 (2, 'PA191226-0002', 4, 1, 20000),
 (3, 'PA191226-0002', 2, 1, 20000),
-(4, 'PA191229-0001', 1, 1, 25000);
+(4, 'PA191229-0001', 1, 1, 25000),
+(5, 'PA191229-0001', 1, 1, 25000),
+(6, 'PA191229-0001', 2, 1, 20000);
 
 -- --------------------------------------------------------
 
@@ -566,7 +568,8 @@ CREATE TABLE `detail_transaksi_rawat_inap_kamar` (
 
 INSERT INTO `detail_transaksi_rawat_inap_kamar` (`no_detail_transaksi_rawat_inap_k`, `no_transaksi_rawat_i`, `no_kamar_rawat_i`, `harga_harian`, `jumlah_hari`, `sub_total_harga`) VALUES
 (1, 'RI191229-0001', 'R001', 300000, 2, 600000),
-(2, 'RI191229-0002', 'R001', 300000, 1, 300000);
+(2, 'RI191229-0002', 'R001', 300000, 1, 300000),
+(3, 'RI191229-0002', 'R001', 300000, 1, 300000);
 
 -- --------------------------------------------------------
 
@@ -591,7 +594,9 @@ INSERT INTO `detail_transaksi_rawat_inap_obat` (`no_detail_transaksi_rawat_inap_
 (1, 'RI191229-0001', 1, 2, 20000, 40000),
 (2, 'RI191229-0001', 3, 1, 20000, 20000),
 (3, 'RI191229-0002', 1, 1, 20000, 20000),
-(4, 'RI191229-0002', 3, 1, 20000, 20000);
+(4, 'RI191229-0002', 3, 1, 20000, 20000),
+(5, 'RI191229-0002', 1, 1, 20000, 20000),
+(6, 'RI191229-0002', 3, 1, 20000, 20000);
 
 -- --------------------------------------------------------
 
@@ -611,8 +616,10 @@ CREATE TABLE `detail_transaksi_rawat_inap_tindakan` (
 --
 
 INSERT INTO `detail_transaksi_rawat_inap_tindakan` (`no_detail_transaksi_rawat_inap_t`, `no_transaksi_rawat_i`, `no_rawat_inap_t`, `harga`) VALUES
-(1, 'RI191229-0001', 'RI02', 20000),
-(2, 'RI191229-0002', 'RI02', 20000);
+(1, 'RI191229-0001', 'T001', 20000),
+(2, 'RI191229-0002', 'T001', 20000),
+(3, 'RI191229-0002', 'T001', 20000),
+(4, 'RI191229-0002', 'T001', 20000);
 
 -- --------------------------------------------------------
 
@@ -862,7 +869,7 @@ CREATE TABLE `pelayanan` (
 --
 
 INSERT INTO `pelayanan` (`no_ref_pelayanan`, `no_rm`, `no_user_pegawai`, `layanan_tujuan`, `tipe_antrian`, `tgl_pelayanan`, `status`) VALUES
-('191112-001', '12345', 'P001', 'Poli KIA', 'Dewasa', '2019-12-02 00:00:00', 'belum_finish'),
+('191112-001', '12345', 'P001', 'Poli KIA', 'Dewasa', '2019-12-02 00:00:00', 'finish'),
 ('191112-002', '123123', 'P001', 'Laboratorium', 'Anak-Anak', '2019-12-02 00:00:00', 'belum_finish'),
 ('191112-003', '123123ed', 'P001', 'Laboratorium', 'Anak-Anak', '2019-12-02 00:00:00', 'belum_finish'),
 ('191112-004', '12312wd', 'P001', 'Laboratorium', 'Dewasa', '2019-11-12 00:00:00', 'belum_finish'),
@@ -1021,7 +1028,7 @@ CREATE TABLE `rawat_inap_tindakan` (
 --
 
 INSERT INTO `rawat_inap_tindakan` (`no_rawat_inap_t`, `nama`, `harga`) VALUES
-('RI02', 'ukyhgk', 20000);
+('T001', 'asdx', 20000);
 
 -- --------------------------------------------------------
 
@@ -1043,8 +1050,8 @@ CREATE TABLE `stok_obat_apotik` (
 --
 
 INSERT INTO `stok_obat_apotik` (`no_stok_obat_a`, `no_penerimaan_o`, `kode_obat`, `harga_supplier`, `qty_awal`, `qty_sekarang`) VALUES
-(1, 'PO191201-0001', 'O002', 60000, 1, 0),
-(2, 'PO191201-0001', 'O001', 40000, 2, 0),
+(1, 'PO191201-0001', 'O002', 60000, 1, 5),
+(2, 'PO191201-0001', 'O001', 40000, 2, 5),
 (3, 'PO191202-0001', 'O002', 8000, 2, 0),
 (4, 'PO191202-0001', 'O001', 9000, 3, 0);
 
@@ -1569,6 +1576,12 @@ ALTER TABLE `penjualan_obat_apotik`
   ADD PRIMARY KEY (`no_penjualan_obat_a`);
 
 --
+-- Indexes for table `rawat_inap_tindakan`
+--
+ALTER TABLE `rawat_inap_tindakan`
+  ADD PRIMARY KEY (`no_rawat_inap_t`);
+
+--
 -- Indexes for table `stok_obat_apotik`
 --
 ALTER TABLE `stok_obat_apotik`
@@ -1636,25 +1649,25 @@ ALTER TABLE `detail_lab_transaksi`
 -- AUTO_INCREMENT for table `detail_penjualan_obat_apotik`
 --
 ALTER TABLE `detail_penjualan_obat_apotik`
-  MODIFY `no_detail_penjualan_obat_a` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `no_detail_penjualan_obat_a` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `detail_transaksi_rawat_inap_kamar`
 --
 ALTER TABLE `detail_transaksi_rawat_inap_kamar`
-  MODIFY `no_detail_transaksi_rawat_inap_k` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `no_detail_transaksi_rawat_inap_k` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `detail_transaksi_rawat_inap_obat`
 --
 ALTER TABLE `detail_transaksi_rawat_inap_obat`
-  MODIFY `no_detail_transaksi_rawat_inap_o` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `no_detail_transaksi_rawat_inap_o` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `detail_transaksi_rawat_inap_tindakan`
 --
 ALTER TABLE `detail_transaksi_rawat_inap_tindakan`
-  MODIFY `no_detail_transaksi_rawat_inap_t` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `no_detail_transaksi_rawat_inap_t` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `detail_ugd_penanganan`
