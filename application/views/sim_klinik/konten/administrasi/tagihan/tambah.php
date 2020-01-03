@@ -720,6 +720,26 @@
                         pilihObat_apotek_jual(kode, nama, harga_jual, qty, qty_sekarang);
                     });
                 }
+
+                // ambil data detail transaksi penjualan obat rawat inap
+                let data_penjualan_rawat_inap = obj['daftar_penjualan_obat_rawat_inap_detail'];
+                if (data_penjualan_rawat_inap != '') {
+
+                    $.each(data_penjualan_rawat_inap, function(i, item) {
+
+                        // pilihobat(kode_obat, nama_obat, nama_kategori, qty, qty_sekarang, harga_obat)
+
+                        var kode_obat = data_penjualan_rawat_inap[i].no_stok_obat_rawat_i;
+                        var nama_obat = data_penjualan_rawat_inap[i].nama_obat;
+                        var nama_kategori = data_penjualan_rawat_inap[i].nama_kategori;
+                        var qty = data_penjualan_rawat_inap[i].qty;
+                        var qty_sekarang = data_penjualan_rawat_inap[i].qty_sekarang;
+                        var harga_obat = data_penjualan_rawat_inap[i].harga_jual;
+
+                        pilihobat(kode_obat, nama_obat, nama_kategori, qty, qty_sekarang, harga_obat);
+                    });
+                }
+
             }
         });
     });
@@ -1754,7 +1774,7 @@
                         ribuan = ribuan.join('.').split('').reverse().join('');
 
                         var button = `<a onclick="pilihobat('` + kode_obat +
-                            `','` + nama_obat + `','` + nama_kategori + `','` + qty_sekarang + `','` + harga_obat + `')" id="` + kode_obat +
+                            `','` + nama_obat + `','` + nama_kategori + `','1',,'` + qty_sekarang + `','` + harga_obat + `')" id="` + kode_obat +
                             `" class="btn btn-sm btn-dark text-white">Pilih</a>`;
 
                         if (parseInt(qty_sekarang) > 0) {
@@ -1775,7 +1795,7 @@
     }
 
     // Start add_row
-    function pilihobat(kode_obat, nama_obat, nama_kategori, qty_sekarang, harga_obat) {
+    function pilihobat(kode_obat, nama_obat, nama_kategori, qty, qty_sekarang, harga_obat) {
 
         $('#detail_list_obat').append(`
 
@@ -1793,7 +1813,7 @@
             `" placeholder="harga Obar" required value="` + harga_obat + `">
 				</div>
                 <div class="form-group col-sm-2">
-					<input type="text" name="qty[]" class="form-control form-control-sm qty_format_rawat_i" id="qty` + count3 + `" placeholder="QTY" value="1" required>
+					<input type="text" name="qty[]" class="form-control form-control-sm qty_format_rawat_i" id="qty` + count3 + `" placeholder="QTY" value="` + qty + `" required>
 					<input type="hidden" name="qty_sekarang[]" id="qty_sekarang` + count3 + `" class="form-control form-control-sm" value="` + qty_sekarang + `"></input>
 				</div>
 				<div class="form-group col-sm-2">
@@ -1942,7 +1962,7 @@
                         var harga_jual = data[i].harga_jual;
 
                         var button = `<a onclick="pilihObat_apotek_jual('` + kode +
-                            `','` + nama + `','` + harga_jual + `','','` + qty_sekarang + `')" id="` + kode +
+                            `','` + nama + `','` + harga_jual + `','1','` + qty_sekarang + `')" id="` + kode +
                             `" class="btn btn-sm btn-dark text-white">Pilih</a>`;
 
                         if (parseInt(qty_sekarang) > 0) {
