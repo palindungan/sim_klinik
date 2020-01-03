@@ -696,11 +696,11 @@ class Tagihan extends CI_Controller
         $ambil_data_rawat_inap = $this->M_tagihan->get_data('transaksi_rawat_inap', $where)->row();
         $no_transaksi_rawat_i = $ambil_data_rawat_inap->no_transaksi_rawat_i;
 
-        $harga_bp = 0; 
-        $harga_kia = 0; 
-        $harga_lab = 0; 
-        $harga_ugd = 0; 
-        $harga_obat_apotik = 0; 
+        $harga_bp = 0;
+        $harga_kia = 0;
+        $harga_lab = 0;
+        $harga_ugd = 0;
+        $harga_obat_apotik = 0;
 
         $html = '
         <h4 style="text-align:center">Rekening Pasien</h4>
@@ -802,11 +802,11 @@ class Tagihan extends CI_Controller
 
         if (isset($no_penjualan_obat_a)) {
             $where_no_ref = array(
-                'no_ref_pelayanan' => $where_no_ref
+                'no_ref_pelayanan' => $no_ref_pelayanan
             );
             $ambil_detail_apotek = $this->M_tagihan->get_data('penjualan_obat_apotik', $where_no_ref)->result();
             foreach ($ambil_detail_apotek as $data_obat_apotek) {
-            $harga_obat_apotek += $data_obat_apotek->total_harga;
+                $harga_obat_apotek += $data_obat_apotek->total_harga;
             }
             $html .= '<tr>
                     <td style="text-align:left;padding-left:10px"><i>Biaya Obat-obatan</i></td>
@@ -843,9 +843,9 @@ class Tagihan extends CI_Controller
                     <td style="text-align:left;padding-left:20px">Kamar</td>
                     <td style="text-align:right">' . rupiah($harga_kamar) . '</td>
                 </tr>';
-                foreach ($ambil_tindakan_rawat_inap as $data_tindakan) {
-                    $harga_tindakan += $data_tindakan->harga;
-                }
+            foreach ($ambil_tindakan_rawat_inap as $data_tindakan) {
+                $harga_tindakan += $data_tindakan->harga;
+            }
             $html .= '<tr>
                     <td style="text-align:left;padding-left:20px">Tindakan Rawat Inap</td>
                     <td style="text-align:right">' . rupiah($harga_tindakan) . '</td>
@@ -862,7 +862,7 @@ class Tagihan extends CI_Controller
                     </tr>
                 <tr style="line-height:50px;">
                         <td style="text-align:left;">Jumlah Yang Harus Dibayar</td>
-                        <td style="text-align:right">'.rupiah($grand_total).'</td>
+                        <td style="text-align:right">' . rupiah($grand_total) . '</td>
                     </tr>
                 ';
         }
