@@ -14,8 +14,7 @@
                     <div class="col-sm-3">
                         <div class="card">
                             <div class="card-body">
-                                <h6><?= tgl_indo($tgl); ?></h6>
-                                <h6><?= $list_detail->layanan_tujuan ?></h6>
+                                <h5><?= tgl_indo($tgl); ?></h5>
                                 <a href="<?= base_url('admin/pasien/detail/'.$list_detail->no_ref_pelayanan) ?>" class="btn btn-sm btn-info">Detail</a>
                             </div>
                         </div>

@@ -669,6 +669,14 @@ class Tagihan extends CI_Controller
         $where = array(
             'no_ref_pelayanan' => $no_ref_pelayanan
         );
+
+        // Update status ke finish
+        // $data_update_status = array(
+        //     'status' => 'finish'
+        // );
+
+        // $this->M_tagihan->update_data($where,'pelayanan',$data_update_status);
+
         $ambil_nama = $this->M_tagihan->get_data('data_pelayanan_pasien', $where)->row();
         $nama_pasien = $ambil_nama->nama;
         $no_rm = $ambil_nama->no_rm;
@@ -685,12 +693,14 @@ class Tagihan extends CI_Controller
         $ambil_data_ugd = $this->M_tagihan->get_data('ugd_penanganan', $where)->row();
         $no_ugd_p = $ambil_data_ugd->no_ugd_p;
 
-        $ambil_data_apotek = $this->M_tagihan->get_data('penjualan_obat_apotik', $where)->row();
-        $no_penjualan_obat_a = $ambil_data_apotek->no_penjualan_obat_a;
-        $harga_apotek = $ambil_data_apotek->total_harga;
-
         $ambil_data_rawat_inap = $this->M_tagihan->get_data('transaksi_rawat_inap', $where)->row();
         $no_transaksi_rawat_i = $ambil_data_rawat_inap->no_transaksi_rawat_i;
+
+        $harga_bp = 0; 
+        $harga_kia = 0; 
+        $harga_lab = 0; 
+        $harga_ugd = 0; 
+        $harga_obat_apotik = 0; 
 
         $html = '
         <h4 style="text-align:center">Rekening Pasien</h4>
@@ -729,6 +739,7 @@ class Tagihan extends CI_Controller
                     <td style="text-align:left;padding-left:10px"><i>Biaya Tindakan Balai Pengobatan</i></td>
                 </tr>';
             foreach ($ambil_detail_bp as $data_bp) {
+                $harga_bp += $data_bp->harga;
                 $html .= '<tr>
                     <td style="text-align:left;padding-left:20px">' . $data_bp->nama . '</td>
                     <td style="text-align:right">' . rupiah($data_bp->harga) . '</td>
@@ -745,6 +756,7 @@ class Tagihan extends CI_Controller
                     <td style="text-align:left;padding-left:10px"><i>Biaya Tindakan Poli KIA</i></td>
                 </tr>';
             foreach ($ambil_detail_kia as $data_kia) {
+                $harga_kia += $data_kia->harga;
                 $html .= '<tr>
                     <td style="text-align:left;padding-left:20px">' . $data_kia->nama . '</td>
                     <td style="text-align:right">' . rupiah($data_kia->harga) . '</td>
@@ -761,6 +773,7 @@ class Tagihan extends CI_Controller
                     <td style="text-align:left;padding-left:10px"><i>Biaya Tindakan Laboratorium</i></td>
                 </tr>';
             foreach ($ambil_detail_lab as $data_lab) {
+                $harga_lab += $data_lab->harga;
                 $html .= '<tr>
                     <td style="text-align:left;padding-left:20px">' . $data_lab->nama . '</td>
                     <td style="text-align:right">' . rupiah($data_lab->harga) . '</td>
@@ -777,6 +790,7 @@ class Tagihan extends CI_Controller
                     <td style="text-align:left;padding-left:10px"><i>Biaya Tindakan UGD</i></td>
                 </tr>';
             foreach ($ambil_detail_ugd as $data_ugd) {
+                $harga_ugd += $data_ugd->harga;
                 $html .= '<tr>
                     <td style="text-align:left;padding-left:20px">' . $data_ugd->nama . '</td>
                     <td style="text-align:right">' . rupiah($data_ugd->harga) . '</td>
@@ -787,12 +801,19 @@ class Tagihan extends CI_Controller
 
 
         if (isset($no_penjualan_obat_a)) {
+            $where_no_ref = array(
+                'no_ref_pelayanan' => $where_no_ref
+            );
+            $ambil_detail_apotek = $this->M_tagihan->get_data('penjualan_obat_apotik', $where_no_ref)->result();
+            foreach ($ambil_detail_apotek as $data_obat_apotek) {
+            $harga_obat_apotek += $data_obat_apotek->total_harga;
+            }
             $html .= '<tr>
                     <td style="text-align:left;padding-left:10px"><i>Biaya Obat-obatan</i></td>
                 </tr>';
             $html .= '<tr>
                     <td style="text-align:left;padding-left:20px">Apotek</td>
-                    <td style="text-align:right">' . rupiah($harga_apotek) . '</td>
+                    <td style="text-align:right">' . rupiah($harga_obat_apotek) . '</td>
                 </tr>';
         }
 
@@ -808,7 +829,7 @@ class Tagihan extends CI_Controller
 
             $obat_rawat_inap = $this->M_tagihan->get_data('transaksi_rawat_inap', $where)->row();
             $no_transaksi_rawat_i = $obat_rawat_inap->no_transaksi_rawat_i;
-            $harga_obat = 0;
+            $harga_obat_ri = 0;
 
             $where_transaksi_rawat_i = array(
                 'no_transaksi_rawat_i' => $no_transaksi_rawat_i
@@ -831,13 +852,19 @@ class Tagihan extends CI_Controller
                 </tr>';
 
             foreach ($ambil_obat_kamar_rawat_inap as $data_obat) {
-                $harga_obat += $data_obat->sub_total_harga;
+                $harga_obat_ri += $data_obat->sub_total_harga;
             }
+            $grand_total = 0;
+            $grand_total = $harga_bp + $harga_kia + $harga_lab + $harga_ugd + $harga_obat_apotik + $harga_kamar + $harga_tindakan + $harga_obat_ri;
             $html .= '<tr>
                         <td style="text-align:left;padding-left:20px">Obat Rawat Inap</td>
-                        <td style="text-align:right">' . rupiah($harga_obat) . '</td>
+                        <td style="text-align:right">' . rupiah($harga_obat_ri) . '</td>
                     </tr>
-                <tr>';
+                <tr style="line-height:50px;">
+                        <td style="text-align:left;">Jumlah Yang Harus Dibayar</td>
+                        <td style="text-align:right">'.rupiah($grand_total).'</td>
+                    </tr>
+                ';
         }
         $html .= '</table>
                 ';
