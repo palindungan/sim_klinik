@@ -709,8 +709,6 @@
 
                     $.each(data_penjualan_apotek, function(i, item) {
 
-                        // pilihObat_apotek_jual(kode, nama, harga_jual, qty, qty_sekarang)
-
                         var kode = data_penjualan_apotek[i].no_stok_obat_a;
                         var nama = data_penjualan_apotek[i].nama;
                         var harga_jual = data_penjualan_apotek[i].harga_jual;
@@ -727,8 +725,6 @@
 
                     $.each(data_penjualan_rawat_inap, function(i, item) {
 
-                        // pilihobat(kode_obat, nama_obat, nama_kategori, qty, qty_sekarang, harga_obat)
-
                         var kode_obat = data_penjualan_rawat_inap[i].no_stok_obat_rawat_i;
                         var nama_obat = data_penjualan_rawat_inap[i].nama_obat;
                         var nama_kategori = data_penjualan_rawat_inap[i].nama_kategori;
@@ -737,6 +733,20 @@
                         var harga_obat = data_penjualan_rawat_inap[i].harga_jual;
 
                         pilihobat(kode_obat, nama_obat, nama_kategori, qty, qty_sekarang, harga_obat);
+                    });
+                }
+
+                // ambil data detail transaksi penjualan obat rawat inap
+                let data_detail_tindakan_rawat_inap = obj['daftar_detail_tindakan_rawat_inap'];
+                if (data_detail_tindakan_rawat_inap != '') {
+
+                    $.each(data_detail_tindakan_rawat_inap, function(i, item) {
+
+                        var kode_tindakan = data_detail_tindakan_rawat_inap[i].no_rawat_inap_t;
+                        var nama_tindakan = data_detail_tindakan_rawat_inap[i].nama;
+                        var harga_tindakan = data_detail_tindakan_rawat_inap[i].harga;
+
+                        pilihtindakan(kode_tindakan, nama_tindakan, harga_tindakan);
                     });
                 }
 

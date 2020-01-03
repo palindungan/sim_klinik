@@ -166,10 +166,8 @@ class Transaksi extends CI_Controller
                 } else {
                     echo "Gagal input ke dalam data detail transaksi !!";
                 }
-            } else {
-                echo "Harus Ada Detail Transaksi !!";
             }
-            // start of Kamar //////////
+            // end of Kamar //////////
 
             // start of insert Tindakan //////////
             if (isset($_POST['no_rawat_inap_t'])) {
@@ -196,8 +194,6 @@ class Transaksi extends CI_Controller
                 } else {
                     echo "Gagal input ke dalam data detail transaksi !!";
                 }
-            } else {
-                echo "Harus Ada Detail Transaksi !!";
             }
             // start of Tindakan //////////
 
@@ -230,8 +226,6 @@ class Transaksi extends CI_Controller
                 } else {
                     echo "Gagal input ke dalam data detail transaksi !!";
                 }
-            } else {
-                echo "Harus Ada Detail Transaksi !!";
             }
             // start of Obat //////////
 
