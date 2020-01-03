@@ -11,7 +11,7 @@
                 <div class="form-row">
                     <div class="form-group col-sm-5">
                         <label>Cari No Ref</label>
-                        <select class="form-control form-control-sm noRef" name="no_ref_pelayanan" required>
+                        <select id="xx" class="form-control form-control-sm noRef" name="no_ref_pelayanan" required>
                         </select>
                     </div>
                     <div class="form-group col-sm-1">
@@ -686,6 +686,43 @@
 
     var count_ugd = 0;
     var jumlah_detail_transaksi_ugd = 0;
+
+    // ketika memilih pasien yang dilayani
+    $(document).on('change', '#xx', function(event) {
+        var nilai_value = $('#xx').val();
+
+        // Fetch data
+        $.ajax({
+            url: "<?php echo base_url() . 'administrasi/tagihan/get_transaksi_pasien'; ?>",
+            type: 'post',
+            data: {
+                nilai: nilai_value
+            },
+            success: function(hasil) {
+
+                // parse
+                var obj = JSON.parse(hasil);
+
+                // ambil data detail transaksi penjualan obat apotek
+                let data_penjualan_apotek = obj['daftar_penjualan_obat_apotek_detail'];
+                if (data_penjualan_apotek != '') {
+
+                    $.each(data_penjualan_apotek, function(i, item) {
+
+                        // pilihObat_apotek_jual(kode, nama, harga_jual, qty, qty_sekarang)
+
+                        var kode = data_penjualan_apotek[i].no_stok_obat_a;
+                        var nama = data_penjualan_apotek[i].nama;
+                        var harga_jual = data_penjualan_apotek[i].harga_jual;
+                        var qty = data_penjualan_apotek[i].qty;
+                        var qty_sekarang = data_penjualan_apotek[i].qty_sekarang;
+
+                        pilihObat_apotek_jual(kode, nama, harga_jual, qty, qty_sekarang);
+                    });
+                }
+            }
+        });
+    });
 
     //Pencarian Tindakan BP 
     // jika kita tekan / click button search-button
@@ -1905,7 +1942,7 @@
                         var harga_jual = data[i].harga_jual;
 
                         var button = `<a onclick="pilihObat_apotek_jual('` + kode +
-                            `','` + nama + `','` + harga_jual + `','` + qty_sekarang + `')" id="` + kode +
+                            `','` + nama + `','` + harga_jual + `','','` + qty_sekarang + `')" id="` + kode +
                             `" class="btn btn-sm btn-dark text-white">Pilih</a>`;
 
                         if (parseInt(qty_sekarang) > 0) {
@@ -1927,7 +1964,7 @@
     }
 
     // Start add_row
-    function pilihObat_apotek_jual(kode, nama, harga_jual, qty_sekarang) {
+    function pilihObat_apotek_jual(kode, nama, harga_jual, qty, qty_sekarang) {
 
         $('#detail_list_apotek_jual').append(`
 
@@ -1945,7 +1982,7 @@
             `" placeholder="harga supplier" required value="` + harga_jual + `">
 				</div>
                 <div class="form-group col-sm-1">
-					<input type="text" name="qty_apotek_jual[]" class="form-control form-control-sm qty_format" id="qty_apotek_jual` + count1_apotek_jual + `" placeholder="QTY" value="1" required>
+					<input type="text" name="qty_apotek_jual[]" class="form-control form-control-sm qty_format" id="qty_apotek_jual` + count1_apotek_jual + `" placeholder="QTY" value="` + qty + `" required>
 					<input type="hidden" name="qty_sekarang_apotek_jual[]" id="qty_sekarang_apotek_jual` + count1_apotek_jual + `" class="form-control form-control-sm" value="` + qty_sekarang + `"></input>
 				</div>
 				<div class="form-group col-sm-2">

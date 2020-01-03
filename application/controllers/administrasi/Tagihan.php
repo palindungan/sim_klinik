@@ -12,6 +12,21 @@ class Tagihan extends CI_Controller
         $this->template->load('sim_klinik/template/administrasi', 'sim_klinik/konten/administrasi/tagihan/tambah');
     }
 
+    public function get_transaksi_pasien()
+    {
+        $nilai = $this->input->post('nilai');
+
+        $where = array(
+            'no_ref_pelayanan' => $nilai
+        );
+
+        $data_tbl['daftar_penjualan_obat_apotek_detail'] =  $this->M_tagihan->get_data('daftar_penjualan_obat_apotek_detail', $where)->result();
+
+        $data = json_encode($data_tbl);
+
+        echo $data;
+    }
+
     function tampil_select()
     {
         $no_ref = $this->input->get('no_ref');
@@ -232,7 +247,7 @@ class Tagihan extends CI_Controller
             $where = array(
                 'no_ref_pelayanan' => $no_ref_pelayanan
             );
-            $cek_jumlah_bp = $this->M_tagihan->jumlah_baris($where, 'bp_penanganan');;
+            $cek_jumlah_bp = $this->M_tagihan->jumlah_baris($where, 'bp_penanganan');
             if ($cek_jumlah_bp > 0) {
 
                 $where = array(
