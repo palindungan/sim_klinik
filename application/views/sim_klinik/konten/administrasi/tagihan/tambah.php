@@ -794,6 +794,20 @@
                     });
                 }
 
+                // ambil data detail transaksi tindakan ugd
+                let data_detail_tindakan_ugd = obj['daftar_detail_tindakan_ugd'];
+                if (data_detail_tindakan_ugd != '') {
+
+                    $.each(data_detail_tindakan_ugd, function(i, item) {
+
+                        var kode = data_detail_tindakan_ugd[i].no_ugd_t;
+                        var nama = data_detail_tindakan_ugd[i].nama;
+                        var harga = data_detail_tindakan_ugd[i].harga;
+
+                        pilihTindakanUgd(kode, nama, harga);
+                    });
+                }
+
             }
         });
     });

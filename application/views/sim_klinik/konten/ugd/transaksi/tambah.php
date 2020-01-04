@@ -99,32 +99,32 @@
 <script src="<?= base_url(); ?>assets/sb_admin_2/vendor/jquery/jquery-3.4.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
 <script type="text/javascript">
-$('.itemName').select2({
-	ajax:{
-		url : "<?= base_url('ugd/transaksi/tampil_select') ?>",
-		dataType : "json",
-		delay : 250,
-		data : function(params){
-			return {
-				no_ref : params.term,
-				nama : params.term
-			};
-		},
-		processResults : function(data) {
-			var results = [];
+	$('.itemName').select2({
+		ajax: {
+			url: "<?= base_url('ugd/transaksi/tampil_select') ?>",
+			dataType: "json",
+			delay: 250,
+			data: function(params) {
+				return {
+					no_ref: params.term,
+					nama: params.term
+				};
+			},
+			processResults: function(data) {
+				var results = [];
 
-			$.each(data,function(index,item){
-				results.push({
-					id : item.no_ref_pelayanan,
-					text : item.no_ref_pelayanan + " || " + item.nama					
+				$.each(data, function(index, item) {
+					results.push({
+						id: item.no_ref_pelayanan,
+						text: item.no_ref_pelayanan + " || " + item.nama
+					});
 				});
-			});
-			return {
-				results : results
+				return {
+					results: results
+				}
 			}
 		}
-	}
-})
+	})
 </script>
 <script>
 	var count1 = 0;
@@ -163,7 +163,9 @@ $('.itemName').select2({
 			method: "POST",
 			data: form_data,
 			success: function(data) {
-				alert(data);
+				if (data != "") {
+					alert(data);
+				}
 				location.reload();
 			}
 		});
@@ -177,14 +179,14 @@ $('.itemName').select2({
 		var table;
 		table = $('.table_1').DataTable({
 			"columnDefs": [{
-				"targets": [0,3],
-				"className" : "text-center"
-			},
-		{
-			"targets": 2,
-				"className" : "text-right"
-		}
-		],
+					"targets": [0, 3],
+					"className": "text-center"
+				},
+				{
+					"targets": 2,
+					"className": "text-right"
+				}
+			],
 			"bDestroy": true
 		});
 
@@ -206,8 +208,9 @@ $('.itemName').select2({
 						var kode = data[i].no_ugd_t;
 						var nama = data[i].nama;
 						var harga = data[i].harga;
-						var	reverse = harga.toString().split('').reverse().join(''),ribuan 	= reverse.match(/\d{1,3}/g);
-						ribuan	= ribuan.join('.').split('').reverse().join('');
+						var reverse = harga.toString().split('').reverse().join(''),
+							ribuan = reverse.match(/\d{1,3}/g);
+						ribuan = ribuan.join('.').split('').reverse().join('');
 						var button = `<a onclick="pilihTindakan('` + kode +
 							`','` + nama + `','` + harga + `')" id="` + kode +
 							`" class="btn btn-sm btn-dark text-white">Pilih</a>`;
