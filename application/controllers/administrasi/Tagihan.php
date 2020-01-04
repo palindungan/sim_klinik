@@ -919,4 +919,79 @@ class Tagihan extends CI_Controller
 
         echo $total;
     }
+
+    public function ambil_sub_total_kamar_ri()
+    {
+        $sub_total = 0;
+        $total = 0;
+
+        if (isset($_POST['no_kamar_rawat_i']) && isset($_POST['harga_harian_kamar']) && isset($_POST['jumlah_hari'])) {
+
+            for ($i = 0; $i < count($this->input->post('no_kamar_rawat_i')); $i++) {
+
+                $harga_temp = $this->input->post('harga_harian_kamar')[$i];
+                $harga = (int) preg_replace("/[^0-9]/", "", $harga_temp);
+
+                $jumlah_hari_temp = $this->input->post('jumlah_hari')[$i];
+                $jumlah_hari = (int) preg_replace("/[^0-9]/", "", $jumlah_hari_temp);
+
+                $perhitungan = $harga * $jumlah_hari;
+
+                $sub_total = $sub_total + $perhitungan;
+            }
+
+            $total = $sub_total;
+        }
+
+        echo $total;
+    }
+
+    public function ambil_sub_total_tindakan_ri()
+    {
+        $sub_total = 0;
+        $total = 0;
+
+        if (isset($_POST['no_rawat_inap_t']) && isset($_POST['harga_tindakan'])) {
+
+            for ($i = 0; $i < count($this->input->post('no_rawat_inap_t')); $i++) {
+
+                $harga_temp = $this->input->post('harga_tindakan')[$i];
+                $harga = (int) preg_replace("/[^0-9]/", "", $harga_temp);
+
+                $perhitungan = $harga;
+
+                $sub_total = $sub_total + $perhitungan;
+            }
+
+            $total = $sub_total;
+        }
+
+        echo $total;
+    }
+
+    public function ambil_sub_total_obat_ri()
+    {
+        $sub_total = 0;
+        $total = 0;
+
+        if (isset($_POST['no_stok_obat_rawat_i']) && isset($_POST['harga_obat']) && isset($_POST['qty'])) {
+
+            for ($i = 0; $i < count($this->input->post('no_stok_obat_rawat_i')); $i++) {
+
+                $harga_temp = $this->input->post('harga_obat')[$i];
+                $harga = (int) preg_replace("/[^0-9]/", "", $harga_temp);
+
+                $qty_temp = $this->input->post('qty')[$i];
+                $qty = (int) preg_replace("/[^0-9]/", "", $qty_temp);
+
+                $perhitungan = $harga * $qty;
+
+                $sub_total = $sub_total + $perhitungan;
+            }
+
+            $total = $sub_total;
+        }
+
+        echo $total;
+    }
 }

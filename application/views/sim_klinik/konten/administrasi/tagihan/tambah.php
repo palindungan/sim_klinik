@@ -712,15 +712,6 @@
         count_ugd = 0;
         count_kia = 0;
 
-        cekJumlahDataTransaksiBp();
-        cekJumlahDataTransaksiKia();
-        cekJumlahDataTransaksiLab();
-        cekJumlahDataTransaksiUgd();
-        cekJumlahDataTransaksi_kamar();
-        cekJumlahDataTransaksi_tindakan();
-        cekJumlahDataTransaksi_obat();
-        cekJumlahDataDetailTransaksi_apotek_jual();
-
         // Fetch data
         $.ajax({
             url: "<?php echo base_url() . 'administrasi/tagihan/get_transaksi_pasien'; ?>",
@@ -854,6 +845,15 @@
 
             }
         });
+
+        cekJumlahDataTransaksiBp();
+        cekJumlahDataTransaksiKia();
+        cekJumlahDataTransaksiLab();
+        cekJumlahDataTransaksiUgd();
+        cekJumlahDataTransaksi_kamar();
+        cekJumlahDataTransaksi_tindakan();
+        cekJumlahDataTransaksi_obat();
+        cekJumlahDataDetailTransaksi_apotek_jual();
     });
 
     //Pencarian Tindakan BP 
@@ -1636,7 +1636,7 @@
         var form_data = $('#transaksi_form').serialize()
 
         $.ajax({
-            url: "<?php echo base_url() . 'rawat_inap/transaksi/ambil_sub_total_kamar'; ?>",
+            url: "<?php echo base_url() . 'administrasi/tagihan/ambil_sub_total_kamar_ri'; ?>",
             method: "POST",
             data: form_data,
             success: function(data) {
@@ -1785,7 +1785,7 @@
         var form_data = $('#transaksi_form').serialize()
 
         $.ajax({
-            url: "<?php echo base_url() . 'rawat_inap/transaksi/ambil_sub_total_tindakan'; ?>",
+            url: "<?php echo base_url() . 'administrasi/tagihan/ambil_sub_total_tindakan_ri'; ?>",
             method: "POST",
             data: form_data,
             success: function(data) {
@@ -1964,7 +1964,7 @@
         var form_data = $('#transaksi_form').serialize()
 
         $.ajax({
-            url: "<?php echo base_url() . 'rawat_inap/transaksi/ambil_sub_total_obat'; ?>",
+            url: "<?php echo base_url() . 'administrasi/tagihan/ambil_sub_total_obat_ri'; ?>",
             method: "POST",
             data: form_data,
             success: function(data) {
