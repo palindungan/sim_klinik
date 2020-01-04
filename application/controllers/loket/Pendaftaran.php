@@ -131,6 +131,25 @@ class Pendaftaran extends CI_Controller
                 $this->M_pendaftaran->input_data('antrian_lab', $data);
             }
 
+            if($_POST['status_pakai_ambulan'] == "Pakai")
+            {
+                $harga = $this->input->post('harga_ambulan');
+                $tujuan_ambulan = $this->input->post('tujuan_ambulan');
+                $where_no_ambulan = array(
+                    'tujuan' => $tujuan_ambulan
+                );
+                $ambil_ambulan = $this->M_pendaftaran->get_data('ambulan',$where_no_ambulan)->row();
+                $no_ambulan = $ambil_ambulan->no_ambulan;
+                $harga_ambulan = preg_replace("/[^0-9]/", "", $harga);
+                $data_ambulan = array(
+                    'no_pelayanan_a' => $this->M_pendaftaran->get_no_transaksi_ambulan(),
+                    'no_ref_pelayanan' =>  $no_ref,
+                    'no_ambulan' => $no_ambulan,
+                    'harga' => $harga_ambulan
+                );
+                $this->M_pendaftaran->input_data('pelayanan_ambulan', $data_ambulan);
+            }
+
             $connector = new Escpos\PrintConnectors\WindowsPrintConnector("POS58");
 
             // membuat objek $printer agar dapat di lakukan fungsinya
@@ -340,5 +359,15 @@ class Pendaftaran extends CI_Controller
             $data = json_encode($data_tbl);
             echo $data;
         }
+    }
+    public function ambil_harga_ambulan()
+    {
+        $id = $this->input->post('id');
+        $where = array(
+            'tujuan' => $id
+        );
+        $ambil = $this->M_pendaftaran->get_data('ambulan',$where)->row();
+        $data = (int)$ambil->harga;
+        echo json_encode($data);
     }
 }

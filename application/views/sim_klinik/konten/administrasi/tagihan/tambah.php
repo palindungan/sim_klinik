@@ -334,7 +334,7 @@
                                 </a>
                             </div>
                             <div class="form-group col-sm-6">
-                                <h5>* Biaya Ambulance</h5>
+                                <h5>* Fasilitas Ambulance</h5>
                             </div>
                         </div>
                     </div>

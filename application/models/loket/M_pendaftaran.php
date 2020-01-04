@@ -38,8 +38,7 @@ class M_pendaftaran extends CI_Model
         $tabel = "pelayanan";
         $digit = "3";
         $ymd = date('ymd');
-
-        $q = $this->db->query("SELECT MAX(RIGHT($field,$digit)) AS kd_max FROM $tabel WHERE SUBSTR($field, 3, 6) = $ymd LIMIT 1");
+        $q = $this->db->query("SELECT MAX(RIGHT($field,$digit)) AS kd_max FROM $tabel WHERE SUBSTR($field, 1, 6) = $ymd LIMIT 1");
         $kd = "";
         if ($q->num_rows() > 0) {
             foreach ($q->result() as $k) {
@@ -159,5 +158,23 @@ class M_pendaftaran extends CI_Model
         $this->db->order_by($field, 'ASC');
         $this->db->limit(10);
         return $this->db->get($table)->result();
+    }
+    function get_no_transaksi_ambulan()
+    {
+        $field = "no_pelayanan_a";
+        $tabel = "pelayanan_ambulan";
+        $digit = "3";
+        $kode = "T";
+        $q = $this->db->query("SELECT MAX(RIGHT($field,$digit)) AS kd_max FROM $tabel");
+        $kd = "";
+        if ($q->num_rows() > 0) {
+        foreach ($q->result() as $k) {
+        $tmp = ((int) $k->kd_max) + 1;
+        $kd = $kode . sprintf('%0' . $digit . 's', $tmp);
+        }
+        } else {
+        $kd = "T001";
+        }
+        return $kd;
     }
 }
