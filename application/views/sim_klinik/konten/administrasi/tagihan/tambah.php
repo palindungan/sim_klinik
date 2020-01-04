@@ -691,6 +691,16 @@
     $(document).on('change', '#xx', function(event) {
         var nilai_value = $('#xx').val();
 
+        // kosongkan semua detail
+        // $('#detail_list_bp').html('');
+        // $('#detail_list_kia').html('');
+        // $('#detail_list_lab').html('');
+        // $('#detail_list_ugd').html('');
+        // $('#detail_list_apotek_jual').html('');
+        // $('#detail_list_kamar').html('');
+        // $('#detail_list_tindakan').html('');
+        // $('#detail_list_obat').html('');
+
         // Fetch data
         $.ajax({
             url: "<?php echo base_url() . 'administrasi/tagihan/get_transaksi_pasien'; ?>",
@@ -805,6 +815,20 @@
                         var harga = data_detail_tindakan_ugd[i].harga;
 
                         pilihTindakanUgd(kode, nama, harga);
+                    });
+                }
+
+                // ambil data detail transaksi tindakan kia
+                let data_detail_tindakan_kia = obj['daftar_detail_tindakan_kia'];
+                if (data_detail_tindakan_kia != '') {
+
+                    $.each(data_detail_tindakan_kia, function(i, item) {
+
+                        var kode = data_detail_tindakan_kia[i].no_kia_t;
+                        var nama = data_detail_tindakan_kia[i].nama;
+                        var harga = data_detail_tindakan_kia[i].harga;
+
+                        pilihTindakanKia(kode, nama, harga);
                     });
                 }
 
