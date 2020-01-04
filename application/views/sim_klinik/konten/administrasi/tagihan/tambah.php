@@ -692,14 +692,34 @@
         var nilai_value = $('#xx').val();
 
         // kosongkan semua detail
-        // $('#detail_list_bp').html('');
-        // $('#detail_list_kia').html('');
-        // $('#detail_list_lab').html('');
-        // $('#detail_list_ugd').html('');
-        // $('#detail_list_apotek_jual').html('');
-        // $('#detail_list_kamar').html('');
-        // $('#detail_list_tindakan').html('');
-        // $('#detail_list_obat').html('');
+        $('.kelas_row').remove();
+
+        jumlah_detail_transaksi_bp = 0;
+        jumlah_detail_transaksi_kia = 0;
+        jumlah_detail_transaksi_lab = 0;
+        jumlah_detail_transaksi_ugd = 0;
+        jumlah_detail_transaksi_kamar = 0;
+        jumlah_detail_transaksi_tindakan = 0;
+        jumlah_detail_transaksi_obat = 0;
+        jumlah_detail_transaksi_apotek_jual = 0;
+
+        count1_apotek_jual = 0;
+        count3 = 0;
+        count2 = 0;
+        count1 = 0;
+        count_lab = 0;
+        count_bp = 0;
+        count_ugd = 0;
+        count_kia = 0;
+
+        cekJumlahDataTransaksiBp();
+        cekJumlahDataTransaksiKia();
+        cekJumlahDataTransaksiLab();
+        cekJumlahDataTransaksiUgd();
+        cekJumlahDataTransaksi_kamar();
+        cekJumlahDataTransaksi_tindakan();
+        cekJumlahDataTransaksi_obat();
+        cekJumlahDataDetailTransaksi_apotek_jual();
 
         // Fetch data
         $.ajax({
@@ -1093,7 +1113,7 @@
     function pilihTindakanBp(kode, nama, harga) {
 
         $('#detail_list_bp').append(`
-        <div id="row_bp` + count_bp + `" class="row">
+        <div id="row_bp` + count_bp + `" class="row kelas_row">
             <div class="form-group col-sm-6">
             <input type="text" readonly name="nama_bp[]" class="form-control form-control-sm karakter" id="nama_bp"` + count_bp +
             `" placeholder="Nama" required value="` + nama + `">
@@ -1223,7 +1243,7 @@
     function pilihTindakanKia(kode, nama, harga) {
 
         $('#detail_list_kia').append(`
-        <div id="row_kia` + count_kia + `" class="row">
+        <div id="row_kia` + count_kia + `" class="row kelas_row">
             <div class="form-group col-sm-6">
             <input type="text" readonly name="nama_kia[]" class="form-control form-control-sm karakter" id="nama_kia"` + count_kia +
             `" placeholder="Nama" required value="` + nama + `">
@@ -1293,7 +1313,7 @@
     function pilihTindakanLab(kode, nama, harga) {
 
         $('#detail_list_lab').append(`
-        <div id="row_lab` + count_lab + `" class="row">
+        <div id="row_lab` + count_lab + `" class="row kelas_row">
             <div class="form-group col-sm-6">
             <input type="text" readonly name="nama_lab[]" class="form-control form-control-sm karakter" id="nama_lab"` + count_lab +
             `" placeholder="Nama" required value="` + nama + `">
@@ -1363,7 +1383,7 @@
     function pilihTindakanUgd(kode, nama, harga) {
 
         $('#detail_list_ugd').append(`
-        <div id="row_ugd` + count_ugd + `" class="row">
+        <div id="row_ugd` + count_ugd + `" class="row kelas_row">
             <div class="form-group col-sm-6">
             <input type="text" readonly name="nama_ugd[]" class="form-control form-control-sm karakter" id="nama_ugd"` + count_ugd +
             `" placeholder="Nama" required value="` + nama + `">
@@ -1563,7 +1583,7 @@
 
         $('#detail_list_kamar').append(`
 
-			<div id="row_kamar` + count1 + `" class="form-row">
+			<div id="row_kamar` + count1 + `" class="form-row kelas_row">
 				<div class="form-group col-sm-3">
 					<input type="text" readonly name="nama_kamar[]" class="form-control form-control-sm karakter" id="nama_kamar` + count1 +
             `" placeholder="Nama_kamar" required value="` + nama_kamar + `">
@@ -1718,7 +1738,7 @@
 
         $('#detail_list_tindakan').append(`
 
-			<div id="row_tindakan` + count2 + `" class="form-row">
+			<div id="row_tindakan` + count2 + `" class="form-row kelas_row">
 				<div class="form-group col-sm-5">
 					<input type="text" readonly name="nama_tindakan[]" class="form-control form-control-sm karakter" id="nama_tindakan` + count2 +
             `" placeholder="Nama_tindakan" required value="` + nama_tindakan + `">
@@ -1891,7 +1911,7 @@
 
         $('#detail_list_obat').append(`
 
-            <div id="row_obat` + count3 + `" class="form-row">
+            <div id="row_obat` + count3 + `" class="form-row kelas_row">
 				<div class="form-group col-sm-4">
 					<input type="text" readonly name="nama_obat[]" class="form-control form-control-sm karakter" id="nama_obat` + count3 +
             `" placeholder="Nama_obat" required value="` + nama_obat + `">
@@ -2080,7 +2100,7 @@
 
         $('#detail_list_apotek_jual').append(`
 
-			<div id="row_apotek_jual` + count1_apotek_jual + `" class="form-row">
+			<div id="row_apotek_jual` + count1_apotek_jual + `" class="form-row kelas_row">
 				<div class="form-group col-sm-5">
 					<input type="text" readonly name="nama[]" class="form-control form-control-sm karakter" id="nama` + count1_apotek_jual +
             `" placeholder="Nama" required value="` + nama + `">
