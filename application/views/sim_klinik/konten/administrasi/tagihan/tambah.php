@@ -333,6 +333,9 @@
                                     <span class="text">Cari obat rawat inap</span>
                                 </a>
                             </div>
+                            <div class="form-group col-sm-6">
+                                <h5>* Biaya Ambulance</h5>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -366,6 +369,29 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="form-group col-sm-6">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <label>Status Pakai</label>
+                                            <select class="form-control form-control-sm status_pakai" required>
+                                                <option value="">--Pilih Status--</option>
+                                                <option value="Pakai">Pakai</option>
+                                                <option value="Tidak">Tidak</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-4" id="tujuan_ambulan">
+                                            <label>Tujuan</label>
+                                            <select class="form-control form-control-sm tujuan_ambulan" name="tujuan_ambulan">
+                                                <option value="Dalam Kota">Dalam Kota</option>
+                                                <option value="Luar Kota">Luar Kota</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-4" id="harga_ambulan">
+                                            <label>Harga</label>
+                                            <input type="text" readonly name="harga_ambulan" id="harga_ambulans" class="form-control form-control-sm rupiah_ambulan text-right harga_ambulan" placeholder="Sub Total">
+                                        </div>
+                                    </div>
+                                </div>
                         </div>
                     </div>
                 </div>
@@ -1204,6 +1230,9 @@
             reverse: true
         });
         $('.rupiah').mask('000.000.000', {
+            reverse: true
+        });
+        $('.rupiah_ambulan').mask('000.000.000', {
             reverse: true
         });
     }
@@ -2149,4 +2178,49 @@
 
         validasi();
     }
+</script>
+<script>
+    $("#tujuan_ambulan").hide();
+    $("#harga_ambulan").hide();
+    $('.status_pakai').on('change', function() {
+        if(this.value == "")
+        {
+            $("#tujuan_ambulan").hide();
+            $("#harga_ambulan").hide();
+        }
+        else if(this.value == "Pakai")
+        {
+            $("#tujuan_ambulan").show();
+            $("#harga_ambulan").show();
+            var id = $('.tujuan_ambulan').find(":selected").text();
+            $.ajax({
+            url: "<?php echo base_url() . 'administrasi/tagihan/ambil_harga_ambulan'; ?>",
+            method: "POST",
+            data: {id: id},
+            success: function(data) {
+                $('#harga_ambulans').val(data);
+                $('.rupiah_ambulan').trigger('input'); // Will be display 
+            }
+            });
+            validasi();
+        }
+        else if(this.value == "Tidak")
+        {
+            $("#tujuan_ambulan").hide();
+            $("#harga_ambulan").hide();
+        }
+    });
+    $('.tujuan_ambulan').change(function(){
+            var id = this.value;
+            $.ajax({
+            url: "<?php echo base_url() . 'administrasi/tagihan/ambil_harga_ambulan'; ?>",
+            method: "POST",
+            data: {id: id},
+            success: function(data) {
+                $('#harga_ambulans').val(data);
+                $('.rupiah_ambulan').trigger('input'); // Will be display 
+            }
+            });
+            validasi();
+        });
 </script>

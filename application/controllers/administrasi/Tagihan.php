@@ -790,12 +790,31 @@ class Tagihan extends CI_Controller
                 }
             }
         }
-
+        if(isset($_POST['tujuan_ambulan']))
+        {
+            $harga = $this->input->post('harga_ambulan');
+            $tujuan_ambulan = $this->input->post('tujuan_ambulan');
+            $where_no_ambulan = array(
+                'tujuan' => $tujuan_ambulan
+            );
+            $ambil_ambulan = $this->M_tagihan->get_data('ambulan',$where_no_ambulan)->row();
+            $no_ambulan = $ambil_ambulan->no_ambulan;
+            $harga_ambulan = preg_replace("/[^0-9]/", "", $harga);
+            $data_ambulan = array(
+                'no_pelayanan_a' => $this->M_tagihan->get_no_transaksi_ambulan(),
+                'no_ref_pelayanan' =>  $no_ref_pelayanan,
+                'no_ambulan' => $no_ambulan,
+                'harga' => $harga_ambulan
+            );
+            $this->M_tagihan->input_data('pelayanan_ambulan', $data_ambulan);
+        }
         // Print
 
         $ambil_nama = $this->M_tagihan->get_data('data_pelayanan_pasien', $where)->row();
         $nama_pasien = $ambil_nama->nama;
         $no_rm = $ambil_nama->no_rm;
+        $tgl_pelayanan = $ambil_nama->tgl_pelayanan;
+        $tgl_indo = date('Y-m-d',strtotime($tgl_pelayanan));
 
         $ambil_data_bp = $this->M_tagihan->get_data('bp_penanganan', $where)->row();
         $no_bp_p = $ambil_data_bp->no_bp_p;
@@ -835,7 +854,7 @@ class Tagihan extends CI_Controller
                     <td width="40%">' . $no_rm . '</td>
                     <td width="19%">Tanggal Masuk</td>
                     <td width="1%">:</td>
-                    <td width="25%">asd</td>
+                    <td width="25%">'.tgl_indo($tgl_indo).'</td>
                 </tr>
             </table>
             <hr>
@@ -977,13 +996,31 @@ class Tagihan extends CI_Controller
             foreach ($ambil_obat_kamar_rawat_inap as $data_obat) {
                 $harga_obat_ri += $data_obat->sub_total_harga;
             }
-            $grand_total = 0;
-            $grand_total = $harga_bp + $harga_kia + $harga_lab + $harga_ugd + $harga_obat_apotik + $harga_kamar + $harga_tindakan + $harga_obat_ri;
+           
             $html .= '<tr>
                         <td style="text-align:left;padding-left:20px">Obat Rawat Inap</td>
                         <td style="text-align:right">' . rupiah($harga_obat_ri) . '</td>
-                    </tr>
-                <tr style="line-height:50px;">
+                    </tr>';
+                    $where_no_ref = array(
+                        'no_ref_pelayanan' => $no_ref_pelayanan
+                    );
+                    $harga_ambulan = 0;
+                    $ambil_pelayanan_ambulan = $this->M_tagihan->get_data('pelayanan_ambulan',$where_no_ref)->row();
+                    $no_pelayanan_a = $ambil_pelayanan_ambulan->no_pelayanan_a;
+                    $harga_ambulan = $ambil_pelayanan_ambulan->harga;
+                    if (isset($no_pelayanan_a)) {
+                        $html .= '<tr>
+                                <td style="text-align:left;padding-left:10px"><i>Biaya Lain Lain</i></td>
+                            </tr>';
+                            $html .= '<tr>
+                                <td style="text-align:left;padding-left:20px">Biaya Ambulance</td>
+                                <td style="text-align:right">' . rupiah($harga_ambulan) . '</td>
+                            </tr>';
+                        
+                    }
+                    $grand_total = 0;
+                    $grand_total = $harga_bp + $harga_kia + $harga_lab + $harga_ugd + $harga_obat_apotik + $harga_kamar + $harga_tindakan + $harga_obat_ri + $harga_ambulan;
+                    $html .='<tr style="line-height:50px;">
                         <td style="text-align:left;">Jumlah yang harus dibayar</td>
                         <td style="text-align:right">' . rupiah($grand_total) . '</td>
                     </tr>
@@ -1103,5 +1140,15 @@ class Tagihan extends CI_Controller
         }
 
         echo $total;
+    }
+    public function ambil_harga_ambulan()
+    {
+        $id = $this->input->post('id');
+        $where = array(
+            'tujuan' => $id
+        );
+        $ambil = $this->M_tagihan->get_data('ambulan',$where)->row();
+        $data = (int)$ambil->harga;
+        echo json_encode($data);
     }
 }
