@@ -729,16 +729,6 @@ class Tagihan extends CI_Controller
         }
 
         // Print
-        $where = array(
-            'no_ref_pelayanan' => $no_ref_pelayanan
-        );
-
-        // Update status ke finish
-        $data_update_status = array(
-            'status' => 'finish'
-        );
-
-        $this->M_tagihan->update_data($where, 'pelayanan', $data_update_status);
 
         $ambil_nama = $this->M_tagihan->get_data('data_pelayanan_pasien', $where)->row();
         $nama_pasien = $ambil_nama->nama;
@@ -867,9 +857,16 @@ class Tagihan extends CI_Controller
             $where_no_ref = array(
                 'no_ref_pelayanan' => $no_ref_pelayanan
             );
-            $ambil_detail_apotek = $this->M_tagihan->get_data('penjualan_obat_apotik', $where_no_ref)->result();
-            foreach ($ambil_detail_apotek as $data_obat_apotek) {
-                $harga_obat_apotek += $data_obat_apotek->total_harga;
+            $ambil_detail_apotek = $this->M_tagihan->get_data('penjualan_obat_apotik', $where_no_ref)->row();
+            $id_penjualan_obat_a = $ambil_detail_apotek->no_penjualan_obat_a;
+            $where_id_penjualan = array(
+                'no_penjualan_obat_a' => $id_penjualan_obat_a
+            );
+            $ambil_detail_obat_apotek = $this->M_tagihan->get_data('detail_penjualan_obat_apotik',$where_id_penjualan)->result();
+            $harga_obat_apotek = 0;
+            foreach($ambil_detail_obat_apotek as $data_apotek)
+            {
+                $harga_obat_apotek += $data_apotek->qty * $data_apotek->harga_jual;
             }
             $html .= '<tr>
                     <td style="text-align:left;padding-left:10px"><i>Biaya Obat-obatan</i></td>
@@ -924,13 +921,22 @@ class Tagihan extends CI_Controller
                         <td style="text-align:right">' . rupiah($harga_obat_ri) . '</td>
                     </tr>
                 <tr style="line-height:50px;">
-                        <td style="text-align:left;">Jumlah Yang Harus Dibayar</td>
+                        <td style="text-align:left;">Jumlah yang harus dibayar</td>
                         <td style="text-align:right">' . rupiah($grand_total) . '</td>
                     </tr>
                 ';
         }
-        $html .= '</table>
-                ';
+        $html .= '</table>';
+        // $where = array(
+        //     'no_ref_pelayanan' => $no_ref_pelayanan
+        // );
+
+        // // Update status ke finish
+        // $data_update_status = array(
+        //     'status' => 'finish'
+        // );
+
+        // $this->M_tagihan->update_data($where, 'pelayanan', $data_update_status);
         $this->dompdf->PdfGenerator($html, 'coba', 'A4', 'potrait', true);
         redirect('administrasi/tagihan');
     }
