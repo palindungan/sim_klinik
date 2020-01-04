@@ -780,6 +780,20 @@
                     });
                 }
 
+                // ambil data detail transaksi tindakan bp
+                let data_detail_tindakan_bp = obj['daftar_detail_tindakan_bp'];
+                if (data_detail_tindakan_bp != '') {
+
+                    $.each(data_detail_tindakan_bp, function(i, item) {
+
+                        var kode = data_detail_tindakan_bp[i].no_bp_t;
+                        var nama = data_detail_tindakan_bp[i].nama;
+                        var harga = data_detail_tindakan_bp[i].harga;
+
+                        pilihTindakanBp(kode, nama, harga);
+                    });
+                }
+
             }
         });
     });
@@ -1814,7 +1828,7 @@
                         ribuan = ribuan.join('.').split('').reverse().join('');
 
                         var button = `<a onclick="pilihobat('` + kode_obat +
-                            `','` + nama_obat + `','` + nama_kategori + `','1',,'` + qty_sekarang + `','` + harga_obat + `')" id="` + kode_obat +
+                            `','` + nama_obat + `','` + nama_kategori + `','1','` + qty_sekarang + `','` + harga_obat + `')" id="` + kode_obat +
                             `" class="btn btn-sm btn-dark text-white">Pilih</a>`;
 
                         if (parseInt(qty_sekarang) > 0) {
