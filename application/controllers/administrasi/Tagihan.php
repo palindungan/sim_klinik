@@ -262,6 +262,13 @@ class Tagihan extends CI_Controller
                 );
                 $ambil_data_bp = $this->M_tagihan->get_data('bp_penanganan', $where)->row();
                 $no_bp_p = $ambil_data_bp->no_bp_p;
+
+                // hapus detail yang lama 
+                $where_delete = array(
+                    'no_bp_p' => $no_bp_p
+                );
+                $hapus = $this->M_tagihan->hapus_data($where_delete, 'detail_bp_penanganan');
+
                 // tambah detail transaksi
                 for ($i = 0; $i < count($this->input->post('no_bp_t')); $i++) {
 
@@ -326,6 +333,13 @@ class Tagihan extends CI_Controller
                 );
                 $ambil_data_kia = $this->M_tagihan->get_data('kia_penanganan', $where)->row();
                 $no_kia_p = $ambil_data_kia->no_kia_p;
+
+                // hapus detail yang lama 
+                $where_delete = array(
+                    'no_kia_p' => $no_kia_p
+                );
+                $hapus = $this->M_tagihan->hapus_data($where_delete, 'detail_kia_penanganan');
+
                 for ($i = 0; $i < count($this->input->post('no_kia_t')); $i++) {
 
                     $no_kia_t = $this->input->post('no_kia_t')[$i];
@@ -384,6 +398,13 @@ class Tagihan extends CI_Controller
                 );
                 $ambil_data_lab = $this->M_tagihan->get_data('lab_transaksi', $where)->row();
                 $no_lab_t = $ambil_data_lab->no_lab_t;
+
+                // hapus detail yang lama 
+                $where_delete = array(
+                    'no_lab_t' => $no_lab_t
+                );
+                $hapus = $this->M_tagihan->hapus_data($where_delete, 'detail_lab_transaksi');
+
                 // tambah detail transaksi
                 for ($i = 0; $i < count($this->input->post('no_lab_c')); $i++) {
 
@@ -448,6 +469,13 @@ class Tagihan extends CI_Controller
                 );
                 $ambil_data_ugd = $this->M_tagihan->get_data('ugd_penanganan', $where)->row();
                 $no_ugd_p = $ambil_data_ugd->no_ugd_p;
+
+                // hapus detail yang lama 
+                $where_delete = array(
+                    'no_ugd_p' => $no_ugd_p
+                );
+                $hapus = $this->M_tagihan->hapus_data($where_delete, 'detail_ugd_penanganan');
+
                 // tambah detail transaksi
                 for ($i = 0; $i < count($this->input->post('no_ugd_t')); $i++) {
 
@@ -513,8 +541,6 @@ class Tagihan extends CI_Controller
 
                 $ambil_data_transaksi = $this->M_tagihan->get_data('transaksi_rawat_inap', $where)->row();
                 $no_transaksi_rawat_i = $ambil_data_transaksi->no_transaksi_rawat_i;
-                // tambah detail transaksi
-
             } else {
 
                 // data transaksi 
@@ -536,6 +562,14 @@ class Tagihan extends CI_Controller
             }
 
             if ($status_transaksi) {
+
+                // hapus detail yang lama 
+                $where_delete = array(
+                    'no_transaksi_rawat_i' => $no_transaksi_rawat_i
+                );
+                $hapus = $this->M_tagihan->hapus_data($where_delete, 'detail_transaksi_rawat_inap_kamar');
+                $hapus = $this->M_tagihan->hapus_data($where_delete, 'detail_transaksi_rawat_inap_tindakan');
+                $hapus = $this->M_tagihan->hapus_data($where_delete, 'detail_transaksi_rawat_inap_obat');
 
                 // start of insert Kamar //////////
                 if (isset($_POST['no_kamar_rawat_i'])) {
@@ -627,6 +661,13 @@ class Tagihan extends CI_Controller
                 );
                 $ambil_data_transaksi = $this->M_tagihan->get_data('penjualan_obat_apotik', $where)->row();
                 $no_penjualan_obat_a = $ambil_data_transaksi->no_penjualan_obat_a;
+
+                // hapus detail yang lama 
+                $where_delete = array(
+                    'no_penjualan_obat_a' => $no_penjualan_obat_a
+                );
+                $hapus = $this->M_tagihan->hapus_data($where_delete, 'detail_penjualan_obat_apotik');
+
                 // tambah detail transaksi
                 for ($i = 0; $i < count($this->input->post('no_stok_obat_a')); $i++) {
 
@@ -697,7 +738,7 @@ class Tagihan extends CI_Controller
         //     'status' => 'finish'
         // );
 
-        // $this->M_tagihan->update_data($where,'pelayanan',$data_update_status);
+        // $this->M_tagihan->update_data($where, 'pelayanan', $data_update_status);
 
         $ambil_nama = $this->M_tagihan->get_data('data_pelayanan_pasien', $where)->row();
         $nama_pasien = $ambil_nama->nama;
