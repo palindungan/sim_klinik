@@ -734,11 +734,11 @@ class Tagihan extends CI_Controller
         );
 
         // Update status ke finish
-        // $data_update_status = array(
-        //     'status' => 'finish'
-        // );
+        $data_update_status = array(
+            'status' => 'finish'
+        );
 
-        // $this->M_tagihan->update_data($where, 'pelayanan', $data_update_status);
+        $this->M_tagihan->update_data($where, 'pelayanan', $data_update_status);
 
         $ambil_nama = $this->M_tagihan->get_data('data_pelayanan_pasien', $where)->row();
         $nama_pasien = $ambil_nama->nama;
