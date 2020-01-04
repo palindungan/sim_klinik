@@ -285,6 +285,22 @@ class Tagihan extends CI_Controller
 
                     $this->M_tagihan->input_data('detail_bp_penanganan', $detail_bp);
                 }
+                $where_no_bp_p = array(
+                    'no_bp_p' => $no_bp_p
+                );
+                $ambil_detail_bp = $this->M_tagihan->get_data('detail_bp_penanganan',$where_no_bp_p)->result();
+                $sub_total_harga = 0;
+                foreach($ambil_detail_bp as $row_bp)
+                {
+                    $sub_total_harga += $row_bp->harga;
+                }
+
+                $data_total_harga = array(
+                    'total_harga' => $sub_total_harga
+                );
+
+                $this->M_tagihan->update_data($where,'bp_penanganan',$data_total_harga);
+
             } else {
                 // data transaksi 
                 $no_bp_p = $this->M_tagihan->get_no_transaksi_bp(); // generate
@@ -354,6 +370,23 @@ class Tagihan extends CI_Controller
                     );
                     $this->M_tagihan->input_data('detail_kia_penanganan', $detail_kia);
                 }
+
+                $where_no_kia_p = array(
+                    'no_kia_p' => $no_kia_p
+                );
+                $ambil_detail_kia = $this->M_tagihan->get_data('detail_kia_penanganan',$where_no_kia_p)->result();
+                $sub_total_harga = 0;
+                foreach($ambil_detail_kia as $row_kia)
+                {
+                    $sub_total_harga += $row_kia->harga;
+                }
+
+                $data_total_harga = array(
+                    'total_harga' => $sub_total_harga
+                );
+
+                $this->M_tagihan->update_data($where,'kia_penanganan',$data_total_harga);
+
             } else {
                 $no_kia_p = $this->M_tagihan->get_no_transaksi_kia(); // generate
                 $tgl_penanganan = date('Y-m-d H:i:s');
@@ -421,6 +454,21 @@ class Tagihan extends CI_Controller
 
                     $this->M_tagihan->input_data('detail_lab_transaksi', $detail_lab);
                 }
+                $where_no_lab_t = array(
+                    'no_lab_t' => $no_lab_t
+                );
+                $ambil_detail_lab = $this->M_tagihan->get_data('detail_lab_transaksi',$where_no_lab_t)->result();
+                $sub_total_harga = 0;
+                foreach($ambil_detail_lab as $row_lab)
+                {
+                    $sub_total_harga += $row_lab->harga;
+                }
+
+                $data_total_harga = array(
+                    'total_harga' => $sub_total_harga
+                );
+
+                $this->M_tagihan->update_data($where,'lab_transaksi',$data_total_harga);
             } else {
                 // data transaksi 
                 $no_lab_t = $this->M_tagihan->get_no_transaksi_lab(); // generate
@@ -492,6 +540,21 @@ class Tagihan extends CI_Controller
 
                     $this->M_tagihan->input_data('detail_ugd_penanganan', $detail_ugd);
                 }
+                $where_no_ugd_p = array(
+                    'no_ugd_p' => $no_ugd_p
+                );
+                $ambil_detail_ugd = $this->M_tagihan->get_data('detail_ugd_penanganan',$where_no_ugd_p)->result();
+                $sub_total_harga = 0;
+                foreach($ambil_detail_ugd as $row_ugd)
+                {
+                    $sub_total_harga += $row_ugd->harga;
+                }
+
+                $data_total_harga = array(
+                    'total_harga' => $sub_total_harga
+                );
+
+                $this->M_tagihan->update_data($where,'ugd_penanganan',$data_total_harga);
             } else {
                 // data transaksi 
                 $no_ugd_p = $this->M_tagihan->get_no_transaksi_ugd(); // generate
