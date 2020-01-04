@@ -948,7 +948,7 @@ class Tagihan extends CI_Controller
                 $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
 
                 $qty_temp = $this->input->post('qty_apotek_jual')[$i];
-                $qty = (int) preg_replace("/[^0-9]/", "", $qty_temp);
+                $qty = (int) $qty_temp;
 
                 $perhitungan = $harga_jual * $qty;
 

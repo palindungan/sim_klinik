@@ -1115,10 +1115,9 @@
         $('#detail_list_bp').append(`
         <div id="row_bp` + count_bp + `" class="row kelas_row">
             <div class="form-group col-sm-6">
-            <input type="text" readonly name="nama_bp[]" class="form-control form-control-sm karakter" id="nama_bp"` + count_bp +
+            <input type="text" readonly name="nama_bp[]" class="form-control form-control-sm karakter" id="nama_bp` + count_bp +
             `" placeholder="Nama" required value="` + nama + `">
-                <input type="hidden" name="no_bp_t[]" class="form-control form-control-sm" id="no_bp_t` + count_bp + `" value="` +
-            kode + `">
+                <input type="hidden" name="no_bp_t[]" class="form-control form-control-sm" id="no_bp_t` + count_bp + `" value="` + kode + `">
             </div>
             <div class="form-group col-sm-4">
             <input type="text" name="harga_bp[]" class="form-control form-control-sm rupiah_bp text-right" id="harga_bp` + count_bp +
@@ -1245,10 +1244,9 @@
         $('#detail_list_kia').append(`
         <div id="row_kia` + count_kia + `" class="row kelas_row">
             <div class="form-group col-sm-6">
-            <input type="text" readonly name="nama_kia[]" class="form-control form-control-sm karakter" id="nama_kia"` + count_kia +
+            <input type="text" readonly name="nama_kia[]" class="form-control form-control-sm karakter" id="nama_kia` + count_kia +
             `" placeholder="Nama" required value="` + nama + `">
-                <input type="hidden" name="no_kia_t[]" class="form-control form-control-sm" id="no_kia_t` + count_kia + `" value="` +
-            kode + `">
+                <input type="hidden" name="no_kia_t[]" class="form-control form-control-sm" id="no_kia_t` + count_kia + `" value="` + kode + `">
             </div>
             <div class="form-group col-sm-4">
             <input type="text" name="harga_kia[]" class="form-control form-control-sm rupiah_kia text-right" id="harga_kia` + count_kia +
@@ -1315,10 +1313,9 @@
         $('#detail_list_lab').append(`
         <div id="row_lab` + count_lab + `" class="row kelas_row">
             <div class="form-group col-sm-6">
-            <input type="text" readonly name="nama_lab[]" class="form-control form-control-sm karakter" id="nama_lab"` + count_lab +
+            <input type="text" readonly name="nama_lab[]" class="form-control form-control-sm karakter" id="nama_lab` + count_lab +
             `" placeholder="Nama" required value="` + nama + `">
-                <input type="hidden" name="no_lab_c[]" class="form-control form-control-sm" id="no_lab_c` + count_lab + `" value="` +
-            kode + `">
+                <input type="hidden" name="no_lab_c[]" class="form-control form-control-sm" id="no_lab_c` + count_lab + `" value="` + kode + `">
             </div>
             <div class="form-group col-sm-4">
             <input type="text" name="harga_lab[]" class="form-control form-control-sm rupiah_lab text-right" id="harga_lab` + count_lab +
@@ -1385,10 +1382,9 @@
         $('#detail_list_ugd').append(`
         <div id="row_ugd` + count_ugd + `" class="row kelas_row">
             <div class="form-group col-sm-6">
-            <input type="text" readonly name="nama_ugd[]" class="form-control form-control-sm karakter" id="nama_ugd"` + count_ugd +
+            <input type="text" readonly name="nama_ugd[]" class="form-control form-control-sm karakter" id="nama_ugd` + count_ugd +
             `" placeholder="Nama" required value="` + nama + `">
-                <input type="hidden" name="no_ugd_t[]" class="form-control form-control-sm" id="no_ugd_t` + count_ugd + `" value="` +
-            kode + `">
+                <input type="hidden" name="no_ugd_t[]" class="form-control form-control-sm" id="no_ugd_t` + count_ugd + `" value="` + kode + `">
             </div>
             <div class="form-group col-sm-4">
             <input type="text" name="harga_ugd[]" class="form-control form-control-sm rupiah_ugd text-right" id="harga_ugd` + count_ugd +
@@ -1587,8 +1583,7 @@
 				<div class="form-group col-sm-3">
 					<input type="text" readonly name="nama_kamar[]" class="form-control form-control-sm karakter" id="nama_kamar` + count1 +
             `" placeholder="Nama_kamar" required value="` + nama_kamar + `">
-					<input type="hidden" name="no_kamar_rawat_i[]" class="form-control form-control-sm" id="no_kamar_rawat_i` + count1 + `" value="` +
-            kode_kamar + `">
+					<input type="hidden" name="no_kamar_rawat_i[]" class="form-control form-control-sm" id="no_kamar_rawat_i` + count1 + `" value="` + kode_kamar + `">
 				</div>
 				<div class="form-group col-sm-3">
 					<input type="text" name="harga_harian_kamar[]" class="form-control form-control-sm rupiah_kamar text-right" id="harga_harian_kamar` + count1 +
@@ -1742,8 +1737,7 @@
 				<div class="form-group col-sm-5">
 					<input type="text" readonly name="nama_tindakan[]" class="form-control form-control-sm karakter" id="nama_tindakan` + count2 +
             `" placeholder="Nama_tindakan" required value="` + nama_tindakan + `">
-					<input type="hidden" name="no_rawat_inap_t[]" class="form-control form-control-sm" id="no_rawat_inap_t` + count2 + `" value="` +
-            kode_tindakan + `">
+					<input type="hidden" name="no_rawat_inap_t[]" class="form-control form-control-sm" id="no_rawat_inap_t` + count2 + `" value="` + kode_tindakan + `">
 				</div>
 				<div class="form-group col-sm-5">
 					<input type="text" name="harga_tindakan[]" class="form-control form-control-sm rupiah_tindakan text-right" id="harga_tindakan` + count2 +
@@ -1913,16 +1907,11 @@
 
             <div id="row_obat` + count3 + `" class="form-row kelas_row">
 				<div class="form-group col-sm-4">
-					<input type="text" readonly name="nama_obat[]" class="form-control form-control-sm karakter" id="nama_obat` + count3 +
-            `" placeholder="Nama_obat" required value="` + nama_obat + `">
-					<input type="hidden" name="no_stok_obat_rawat_i[]" class="form-control form-control-sm" id="no_stok_obat_rawat_i` + count3 +
-            `" value="` +
-            kode_obat + `">
+					<input type="text" readonly name="nama_obat[]" class="form-control form-control-sm karakter" id="nama_obat` + count3 + `" placeholder="Nama_obat" required value="` + nama_obat + `">
+					<input type="hidden" name="no_stok_obat_rawat_i[]" class="form-control form-control-sm" id="no_stok_obat_rawat_i` + count3 + `" value="` + kode_obat + `">
 				</div>
 				<div class="form-group col-sm-4">
-					<input type="text" name="harga_obat[]" class="form-control form-control-sm rupiah_obat text-right" id="harga_obat` +
-            count3 +
-            `" placeholder="harga Obar" required value="` + harga_obat + `">
+					<input type="text" name="harga_obat[]" class="form-control form-control-sm rupiah_obat text-right" id="harga_obat` + count3 + `" placeholder="harga Obar" required value="` + harga_obat + `">
 				</div>
                 <div class="form-group col-sm-2">
 					<input type="text" name="qty[]" class="form-control form-control-sm qty_format_rawat_i" id="qty` + count3 + `" placeholder="QTY" value="` + qty + `" required>
@@ -2102,16 +2091,11 @@
 
 			<div id="row_apotek_jual` + count1_apotek_jual + `" class="form-row kelas_row">
 				<div class="form-group col-sm-5">
-					<input type="text" readonly name="nama[]" class="form-control form-control-sm karakter" id="nama` + count1_apotek_jual +
-            `" placeholder="Nama" required value="` + nama + `">
-					<input type="hidden" name="no_stok_obat_a[]" class="form-control form-control-sm" id="no_stok_obat_a` + count1_apotek_jual +
-            `" value="` +
-            kode + `">
+					<input type="text" readonly name="nama[]" class="form-control form-control-sm karakter" id="nama` + count1_apotek_jual + `" placeholder="Nama" required value="` + nama + `">
+					<input type="hidden" name="no_stok_obat_a[]" class="form-control form-control-sm" id="no_stok_obat_a` + count1_apotek_jual + `" value="` + kode + `">
 				</div>
 				<div class="form-group col-sm-4">
-					<input type="text" name="harga_jual_apotek_jual[]" class="form-control form-control-sm rupiah text-right" id="harga_jual_apotek_jual` +
-            count1_apotek_jual +
-            `" placeholder="harga supplier" required value="` + harga_jual + `">
+					<input type="text" name="harga_jual_apotek_jual[]" class="form-control form-control-sm rupiah text-right" id="harga_jual_apotek_jual` + count1_apotek_jual + `" placeholder="harga supplier" required value="` + harga_jual + `">
 				</div>
                 <div class="form-group col-sm-1">
 					<input type="text" name="qty_apotek_jual[]" class="form-control form-control-sm qty_format" id="qty_apotek_jual` + count1_apotek_jual + `" placeholder="QTY" value="` + qty + `" required>
