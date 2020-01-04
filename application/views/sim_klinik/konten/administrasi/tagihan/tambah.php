@@ -766,6 +766,20 @@
                     });
                 }
 
+                // ambil data detail transaksi tindakan laboratorium
+                let data_detail_tindakan_lab = obj['daftar_detail_tindakan_lab'];
+                if (data_detail_tindakan_lab != '') {
+
+                    $.each(data_detail_tindakan_lab, function(i, item) {
+
+                        var kode = data_detail_tindakan_lab[i].no_lab_c;
+                        var nama = data_detail_tindakan_lab[i].nama;
+                        var harga = data_detail_tindakan_lab[i].harga;
+
+                        pilihTindakanLab(kode, nama, harga);
+                    });
+                }
+
             }
         });
     });
