@@ -790,7 +790,7 @@ class Tagihan extends CI_Controller
                 }
             }
         }
-        if(isset($_POST['tujuan_ambulan']))
+        if($_POST['status_pakai_ambulan'] == "Pakai")
         {
             $harga = $this->input->post('harga_ambulan');
             $tujuan_ambulan = $this->input->post('tujuan_ambulan');
@@ -1005,10 +1005,11 @@ class Tagihan extends CI_Controller
                         'no_ref_pelayanan' => $no_ref_pelayanan
                     );
                     $harga_ambulan = 0;
-                    $ambil_pelayanan_ambulan = $this->M_tagihan->get_data('pelayanan_ambulan',$where_no_ref)->row();
-                    $no_pelayanan_a = $ambil_pelayanan_ambulan->no_pelayanan_a;
-                    $harga_ambulan = $ambil_pelayanan_ambulan->harga;
-                    if (isset($no_pelayanan_a)) {
+                    $cek_ambulan = $this->M_tagihan->jumlah_baris($where, 'pelayanan_ambulan');
+                    
+                    if ($cek_ambulan > 0) {
+                        $ambil_pelayanan_ambulan = $this->M_tagihan->get_data('pelayanan_ambulan',$where_no_ref)->row();
+                        $harga_ambulan = $ambil_pelayanan_ambulan->harga;
                         $html .= '<tr>
                                 <td style="text-align:left;padding-left:10px"><i>Biaya Lain Lain</i></td>
                             </tr>';

@@ -373,7 +373,7 @@
                                     <div class="row">
                                         <div class="col-sm-4">
                                             <label>Status Pakai</label>
-                                            <select class="form-control form-control-sm status_pakai" required>
+                                            <select class="form-control form-control-sm status_pakai" name="status_pakai_ambulan" required>
                                                 <option value="">--Pilih Status--</option>
                                                 <option value="Pakai">Pakai</option>
                                                 <option value="Tidak">Tidak</option>
@@ -382,8 +382,8 @@
                                         <div class="col-sm-4" id="tujuan_ambulan">
                                             <label>Tujuan</label>
                                             <select class="form-control form-control-sm tujuan_ambulan" name="tujuan_ambulan">
-                                                <option value="Dalam Kota">Dalam Kota</option>
-                                                <option value="Luar Kota">Luar Kota</option>
+                                                <option value="RS Ambulu">RS Ambulu</option>
+                                                <option value="Kota Jember">Kota Jember</option>
                                             </select>
                                         </div>
                                         <div class="col-sm-4" id="harga_ambulan">
