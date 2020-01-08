@@ -11,3 +11,8 @@
 - transaksi rawat inap (hapus atas nama)
 - detail transaksi rawat inap kamar (penambahan field tgl check in checkout dan hapus jumlah_hari)
 
+
+#Yang belum
+- No User Pegawai Masih data dummie saat pendaftaran
+- No RM format gimana?
+

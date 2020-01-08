@@ -9,12 +9,10 @@
 					<thead>
 						<tr>
 							<th width="5%" class="text-center">No</th>
-							<th width="10%">No RM</th>
-							<th width="20%">NIK</th>
-							<th width="25%">Nama</th>
-							<th width="10%">Jenkel</th>
-							<th width="20%">Alamat</th>
-							<th width="15%">Detail</th>
+							<th width="15%">No RM</th>
+							<th width="45%">Nama</th>
+							<th width="25%">Alamat</th>
+							<th width="10%">Detail</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -25,15 +23,13 @@
 						<tr>
 							<td class="text-center"><?= $no++ ?></td>
 							<td><?= $data->no_rm ?></td>
-							<td><?= $data->nik ?></td>
 							<td><?= $data->nama ?></td>
-							<td><?= $data->jenkel ?></td>
 							<td><?= $data->alamat ?></td>
-                            <td>
-                            <a href="<?= base_url('admin/pasien/list/'.$data->no_rm) ?>"
+							<td>
+								<a href="<?= base_url('admin/pasien/list/'.$data->no_rm) ?>"
 									class="btn btn-sm btn-info">Lihat</a>
-                            </td>
-							
+							</td>
+
 						</tr>
 						<?php endforeach; ?>
 					</tbody>
