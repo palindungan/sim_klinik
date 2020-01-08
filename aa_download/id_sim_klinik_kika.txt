@@ -1,0 +1,22 @@
+kode_antrian_bp A001 , A002, A003 , AG004 , A005
+kode_antrian_kia B001 ,B002,B003
+kode_antiran_lab C001 , C002 , CG003 , C004
+no_user_pegawai XX001
+
+tindakan 
+
+no_bp_p = BP191121-0001
+no_kia_p = KP191125-0001
+no_lab_t = LB191125-0001
+no_ugd_p = UP191125-0001
+
+no_penerimaan_o = PO191125-0001
+no_penjualan_obat_a = PA191125-0001
+transaksi_rawat_inap = RI191125-0001
+
+mengubah data master pasien
+tambah tipe pelayanan = untuk membedakan pelayanan rawat inap rawat jalan
+tipe pada obat untuk membagi obat dengan alkes (data master obat)
+
+
+kamar kayak hotel
