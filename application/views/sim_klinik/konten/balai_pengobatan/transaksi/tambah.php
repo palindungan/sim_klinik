@@ -1,5 +1,5 @@
 <?php if ($this->session->flashdata('success')) : ?>
-	<div class="pesan-sukses" data-flashdata="<?= $this->session->flashdata('success'); ?>"></div>
+<div class="pesan-sukses" data-flashdata="<?= $this->session->flashdata('success'); ?>"></div>
 <?php endif; ?>
 <div class="container-fluid">
 	<div class="card shadow mb-4">
@@ -19,7 +19,8 @@
 				<div class="form-row">
 
 					<div class="form-group col-sm-12">
-						<a href="#" id="btn_search" class="btn btn-sm btn-primary btn-icon-split" data-toggle="modal" data-target="#exampleModalCenter">
+						<a href="#" id="btn_search" class="btn btn-sm btn-primary btn-icon-split" data-toggle="modal"
+							data-target="#exampleModalCenter">
 							<span class="icon text-white-50">
 								<i class="fas fa-search-plus"></i>
 							</span>
@@ -46,11 +47,14 @@
 					<div class="form-group col-sm-5"> </div>
 
 					<div class="form-group col-sm-5">
-						<input type="text" readonly name="total_harga" class="form-control form-control-sm rupiah text-right" id="total_harga" placeholder="Total" required>
+						<input type="text" readonly name="total_harga"
+							class="form-control form-control-sm rupiah text-right" id="total_harga" placeholder="Total"
+							required>
 					</div>
 
 					<div class="form-group col-sm-2">
-						<button id="action" type="submit" class="btn btn-sm btn-success btn-icon-split" onclick="return confirm('Lakukan Simpan Data ?')">
+						<button id="action" type="submit" class="btn btn-sm btn-success btn-icon-split"
+							onclick="return confirm('Lakukan Simpan Data ?')">
 							<span class="icon text-white-50">
 								<i class="fas fa-save"></i>
 							</span>
@@ -67,7 +71,8 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade  bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade  bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog"
+	aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -104,16 +109,16 @@
 			url: "<?= base_url('balai_pengobatan/transaksi/tampil_select') ?>",
 			dataType: "json",
 			delay: 250,
-			data: function(params) {
+			data: function (params) {
 				return {
 					no_ref: params.term,
 					nama: params.term
 				};
 			},
-			processResults: function(data) {
+			processResults: function (data) {
 				var results = [];
 
-				$.each(data, function(index, item) {
+				$.each(data, function (index, item) {
 					results.push({
 						id: item.no_ref_pelayanan,
 						text: item.no_ref_pelayanan + " || " + item.nama
@@ -125,18 +130,19 @@
 			}
 		}
 	})
+
 </script>
 <script>
 	var count1 = 0;
 	var jumlah_detail_transaksi = 0;
 
 	// jika kita tekan / click button search-button
-	$('#btn_search').on('click', function() {
+	$('#btn_search').on('click', function () {
 		search_proses();
 	});
 
 	// jika kita tekan hapus / click button
-	$(document).on('click', '.remove_baris', function() {
+	$(document).on('click', '.remove_baris', function () {
 		var row_no = $(this).attr("id");
 		$('#row' + row_no).remove();
 
@@ -146,12 +152,12 @@
 	});
 
 	// jika kita mengubah class inputan rupiah
-	$(document).on('keyup', '.rupiah', function() {
+	$(document).on('keyup', '.rupiah', function () {
 		update_total();
 	});
 
 	// jika di click simpan / submit
-	$(document).on('submit', '#transaksi_form', function(event) {
+	$(document).on('submit', '#transaksi_form', function (event) {
 		event.preventDefault();
 
 		// mengambil nilai di dalam form
@@ -162,7 +168,7 @@
 			url: "<?php echo base_url() . 'balai_pengobatan/transaksi/input_transaksi_form'; ?>",
 			method: "POST",
 			data: form_data,
-			success: function(data) {
+			success: function (data) {
 				if (data != "") {
 					alert(data);
 				}
@@ -194,7 +200,7 @@
 
 		$.ajax({
 			url: "<?php echo base_url() . 'balai_pengobatan/transaksi/tampil_daftar_tindakan'; ?>",
-			success: function(hasil) {
+			success: function (hasil) {
 
 				var obj = JSON.parse(hasil);
 				let data = obj['tbl_data'];
@@ -203,7 +209,7 @@
 
 					var no = 1;
 
-					$.each(data, function(i, item) {
+					$.each(data, function (i, item) {
 
 						var kode = data[i].no_bp_t;
 						var nama = data[i].nama;
@@ -285,7 +291,7 @@
 			url: "<?php echo base_url() . 'balai_pengobatan/transaksi/ambil_total'; ?>",
 			method: "POST",
 			data: form_data,
-			success: function(data) {
+			success: function (data) {
 				$('#total_harga').val(data);
 				$('.rupiah').trigger('input'); // Will be display 
 			}
@@ -299,4 +305,5 @@
 			reverse: true
 		});
 	}
+
 </script>

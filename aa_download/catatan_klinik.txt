@@ -1,8 +1,8 @@
 # Perubahan tabel
 - supplier (kurangi email) DONE
 - bp_tindakan (tambah field status) DONE
-- pelayanan (tambah field tipe_pelayanan => ri dan rj)
-- pasien (tinggal no_rm,nama,alamat,umur)
+- pelayanan (tambah field tipe_pelayanan => ri dan rj) DONE
+- pasien (tinggal no_rm,nama,alamat,umur) DONE
 - stok obat apotik (hapus qty awal dan qty sekarang => qty)
 - obat (tambah field tipe qty)
 - penambahan tabel detail obat keluar internal
@@ -15,4 +15,5 @@
 #Yang belum
 - No User Pegawai Masih data dummie saat pendaftaran
 - No RM format gimana?
+- Transaksi bp belum ada view
 
