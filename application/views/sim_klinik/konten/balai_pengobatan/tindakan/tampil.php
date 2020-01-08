@@ -40,6 +40,15 @@
 										id="rupiah" placeholder="Masukan biaya tindakan" required>
 								</div>
 							</div>
+							<div class="form-row">
+								<div class="form-group col-sm-6">
+									<label for="inputEmail2">Penerimaan Uang</label>
+									<select name="status" id="" class="form-control form-control-sm" required>
+										<option value="Terima">Masuk Saldo</option>
+										<option value="Tidak Terima">Tidak Masuk Saldo</option>
+									</select>
+								</div>
+							</div>
 						</div>
 						<div class="modal-footer">
 							<button type="submit" class="btn btn-sm btn-success">Simpan</button>
@@ -54,10 +63,11 @@
 					<thead>
 						<tr>
 							<th width="5%" class="text-center">No</th>
-							<th width="20%">Kode</th>
-							<th width="40%">Nama Tindakan</th>
+							<th width="10%">Kode</th>
+							<th width="30%">Nama Tindakan</th>
 							<th width="15%" class="text-center">Biaya</th>
-							<th width="25%" class="text-center">Aksi</th>
+							<th width="25%" class="text-center">Pemasukan Uang</th>
+							<th width="15%" class="text-center">Aksi</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -70,6 +80,17 @@
 							<td><?= $data->no_bp_t ?></td>
 							<td><?= $data->nama ?></td>
 							<td class="text-right"><?= rupiah($data->harga) ?></td>
+							<?php 
+							if($data->status == 'Terima')
+							{
+								echo '<td>Masuk Saldo</td>';
+
+							}
+							else {
+								echo '<td>Tidak Masuk Saldo</td>';
+
+							}
+							?>
 							<td class="text-center">
 								<a style="cursor:pointer" class="btn btn-sm btn-warning text-white" data-toggle="modal"
 									data-target="#modal-edit<?= $data->no_bp_t ?>">Edit</a>
@@ -113,6 +134,18 @@
 							class="form-control form-control-sm rupiah" id="inputEmail1"
 							placeholder="Masukan biaya tindakan" required>
 
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-sm-6">
+						<label for="inputEmail2">Penerimaan Uang</label>
+						<select name="status" id="" class="form-control form-control-sm" required>
+							<option value="Terima" <?php if($data->status == 'Terima'){ echo 'selected';} ?>>Masuk Saldo
+							</option>
+							<option value="Tidak Terima"
+								<?php if($data->status == 'Tidak Terima'){ echo 'selected';} ?>>Tidak
+								Masuk Saldo</option>
+						</select>
 					</div>
 				</div>
 			</div>

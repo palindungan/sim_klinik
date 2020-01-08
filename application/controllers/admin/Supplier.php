@@ -19,7 +19,6 @@ class Supplier extends CI_Controller
             'no_supplier' => $id,
             'nama' => $this->input->post('nama'),
             'cp' => $cp,
-            'email' => $this->input->post('email'),
             'alamat' => $this->input->post('alamat')
         );
         $this->M_supplier->input_data('supplier',$data);
@@ -35,7 +34,6 @@ class Supplier extends CI_Controller
         $data = array(
             'nama' => $this->input->post('nama'),
             'cp' => $cp,
-            'email' => $this->input->post('email'),
             'alamat' => $this->input->post('alamat')
         );
         $this->M_supplier->update_data($where,'supplier',$data);

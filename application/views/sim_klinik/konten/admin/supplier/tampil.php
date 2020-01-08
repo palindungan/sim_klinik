@@ -42,11 +42,6 @@
 							</div>
 							<div class="form-row">
 								<div class="form-group col-sm-6">
-									<label for="inputEmail2">Email</label>
-									<input type="email" name="email" class="form-control form-control-sm"
-										id="inputEmail2" placeholder="Masukan email" required>
-								</div>
-								<div class="form-group col-sm-6">
 									<label for="inputEmail2">Alamat</label>
 									<textarea class="form-control form-control-sm karakterAngka" name="alamat"
 										placeholder="Masukan alamat" id="exampleFormControlTextarea1" rows="2"
@@ -70,7 +65,6 @@
 							<th width="5%">Kode</th>
 							<th width="20%">Nama Supplier</th>
 							<th width="15%">Contact</th>
-							<th width="15%">Email</th>
 							<th width="20%">Alamat</th>
 							<th width="15%" class="text-center">Aksi</th>
 						</tr>
@@ -85,7 +79,6 @@
 							<td><?= $data->no_supplier ?></td>
 							<td><?= $data->nama ?></td>
 							<td><?= noHp($data->cp) ?></td>
-							<td><?= $data->email ?></td>
 							<td><?= $data->alamat ?></td>
 							<td class="text-center">
 								<a style="cursor:pointer" class="btn btn-sm btn-warning text-white" data-toggle="modal"
@@ -132,12 +125,6 @@
 					</div>
 				</div>
 				<div class="form-row">
-					<div class="form-group col-sm-6">
-						<label for="inputEmail2">Email</label>
-						<input type="email" name="email" value="<?= $data->email ?>"
-							class="form-control form-control-sm" id="inputEmail2" placeholder="Masukan email" required>
-
-					</div>
 					<div class="form-group col-sm-6">
 						<label for="inputEmail2">Alamat</label>
 						<textarea class="form-control form-control-sm karakterAngka" placeholder="Masukan alamat"

@@ -18,7 +18,8 @@ class Tindakan extends CI_Controller
         $data = array(
             'no_bp_t' => $id,
             'nama' => $this->input->post('nama'),
-            'harga' => $harga
+            'harga' => $harga,
+            'status' => $this->input->post('status')
         );
         $this->M_tindakan->input_data('bp_tindakan', $data);
         $this->session->set_flashdata('success','Ditambahkan');
@@ -32,7 +33,9 @@ class Tindakan extends CI_Controller
         $harga = str_replace(".", "", $this->input->post('harga'));
         $data = array(
             'nama' => $this->input->post('nama'),
-            'harga' => $harga
+            'harga' => $harga,
+            'status' => $this->input->post('status')
+
         );
         $this->M_tindakan->update_data($where, 'bp_tindakan', $data);
         $this->session->set_flashdata('update','Diubah');
