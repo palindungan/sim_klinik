@@ -1,0 +1,169 @@
+CREATE VIEW antrian_balai_pengobatan_semua AS 
+SELECT ab.kode_antrian_bp , pa.nama , ab.status , RIGHT(ab.kode_antrian_bp, 3) AS no_antrian
+FROM antrian_bp ab JOIN pelayanan pe USING(no_ref_pelayanan) JOIN pasien pa USING(no_rm)
+ORDER BY RIGHT(ab.kode_antrian_bp, 3) ASC;
+
+CREATE VIEW antrian_balai_pengobatan_prioritas AS 
+SELECT *
+FROM antrian_balai_pengobatan_semua abps
+WHERE abps.status = 'Prioritas'
+ORDER BY abps.no_antrian ASC;
+
+CREATE VIEW antrian_balai_pengobatan_tersisa AS 
+SELECT *
+FROM antrian_balai_pengobatan_semua abps
+WHERE abps.status != 'Selesai' && abps.status != 'Diperiksa'
+ORDER BY abps.no_antrian ASC;
+
+-----------------
+
+CREATE VIEW antrian_kesehatan_ibu_dan_anak_semua AS 
+SELECT kia.kode_antrian_kia , pa.nama , kia.status , RIGHT(kia.kode_antrian_kia, 3) AS no_antrian
+FROM antrian_kia kia JOIN pelayanan pe USING(no_ref_pelayanan) JOIN pasien pa USING(no_rm)
+ORDER BY RIGHT(kia.kode_antrian_kia, 3) ASC;
+
+CREATE VIEW antrian_kesehatan_ibu_dan_anak_tersisa AS 
+SELECT *
+FROM antrian_kesehatan_ibu_dan_anak_semua x
+WHERE x.status != 'Selesai' && x.status != 'Diperiksa'
+ORDER BY x.no_antrian ASC;
+
+-----------------
+
+CREATE VIEW antrian_laboratorium_semua AS 
+SELECT lab.kode_antrian_lab , pa.nama , lab.status , RIGHT(lab.kode_antrian_lab, 3) AS no_antrian
+FROM antrian_lab lab JOIN pelayanan pe USING(no_ref_pelayanan) JOIN pasien pa USING(no_rm)
+ORDER BY RIGHT(lab.kode_antrian_lab, 3) ASC;
+
+CREATE VIEW antrian_laboratorium_prioritas AS 
+SELECT *
+FROM antrian_laboratorium_semua lap
+WHERE lap.status = 'Prioritas'
+ORDER BY lap.no_antrian ASC;
+
+CREATE VIEW antrian_laboratorium_tersisa AS 
+SELECT *
+FROM antrian_laboratorium_semua lap
+WHERE lap.status != 'Selesai' && lap.status != 'Diperiksa'
+ORDER BY lap.no_antrian ASC;
+
+-----------------
+
+CREATE VIEW data_pelayanan_pasien AS 
+SELECT pe.no_ref_pelayanan , pe.layanan_tujuan , pe.tipe_antrian , pe.tgl_pelayanan ,pa.no_rm, pa.nama,pa.nik,pa.tempat_lahir, pa.tgl_lahir,pa.jenkel , pa.alamat ,pe.status
+FROM pelayanan pe JOIN pasien pa USING(no_rm)
+WHERE pe.status='belum_finish'
+ORDER BY pe.no_ref_pelayanan ASC;
+
+-----------------
+
+CREATE VIEW data_obat AS 
+SELECT o.kode_obat , o.nama AS nama_obat , o.min_stok , o.harga_jual , ko.no_kat_obat , ko.nama AS nama_kategori 
+FROM obat o JOIN kategori_obat ko USING(no_kat_obat)
+ORDER BY o.nama;
+
+-----------------
+
+CREATE VIEW data_stok_obat_apotek AS 
+SELECT soa.no_stok_obat_a , soa.harga_supplier, soa.qty_sekarang,soa.qty_awal , po.tgl_penerimaan_o , o.kode_obat, o.nama AS nama_obat , o.harga_jual, ko.no_kat_obat , ko.nama AS nama_kategori
+FROM stok_obat_apotik soa JOIN penerimaan_obat po USING(no_penerimaan_o) JOIN obat o USING(kode_obat) JOIN kategori_obat ko USING(no_kat_obat)
+ORDER BY po.tgl_penerimaan_o ASC;
+
+-----------------
+
+CREATE VIEW pelayanan_tujuan_ugd AS 
+SELECT *
+FROM pelayanan p
+WHERE p.layanan_tujuan = 'UGD' && p.status = 'belum_finish'
+ORDER BY p.no_ref_pelayanan ASC;
+
+CREATE VIEW pelayanan_tujuan_kia AS 
+SELECT *
+FROM pelayanan p
+WHERE p.layanan_tujuan = 'Poli KIA' && p.status = 'belum_finish'
+ORDER BY p.no_ref_pelayanan ASC;
+
+CREATE VIEW pelayanan_tujuan_lab AS 
+SELECT *
+FROM pelayanan p
+WHERE p.layanan_tujuan = 'Laboratorium' && p.status = 'belum_finish'
+ORDER BY p.no_ref_pelayanan ASC;
+
+CREATE VIEW pelayanan_tujuan_bp AS 
+SELECT *
+FROM pelayanan p
+WHERE p.layanan_tujuan = 'Balai Pengobatan' && p.status = 'belum_finish'
+ORDER BY p.no_ref_pelayanan ASC;
+
+---------------------
+
+CREATE VIEW daftar_penjualan_obat_apotek AS 
+SELECT poa.no_penjualan_obat_a , poa.tanggal_penjualan , poa.total_harga , pe.no_ref_pelayanan , pa.no_rm , pa.nama AS nama_pasien , up.no_user_pegawai , up.nama AS nama_pegawai
+FROM  penjualan_obat_apotik poa JOIN pelayanan pe USING(no_ref_pelayanan) JOIN pasien pa USING(no_rm) JOIN user_pegawai up USING(no_user_pegawai)
+ORDER BY poa.no_penjualan_obat_a ASC;
+
+CREATE VIEW daftar_penjualan_obat_apotek_detail AS 
+SELECT dpoa.no_detail_penjualan_obat_a, o.nama , dpoa.qty , dpoa.harga_jual , poa.no_penjualan_obat_a, poa.no_ref_pelayanan,soa.no_stok_obat_a, soa.qty_sekarang
+FROM detail_penjualan_obat_apotik dpoa JOIN stok_obat_apotik soa USING(no_stok_obat_a) JOIN obat o USING(kode_obat) JOIN penjualan_obat_apotik poa USING(no_penjualan_obat_a)
+ORDER BY dpoa.no_detail_penjualan_obat_a ASC;
+
+CREATE VIEW daftar_penerimaan_obat_apotek AS 
+SELECT po.no_penerimaan_o , su.nama , po.tgl_penerimaan_o , po.total_harga 
+FROM penerimaan_obat po JOIN supplier su USING(no_supplier)
+ORDER BY po.no_penerimaan_o ASC;
+
+CREATE VIEW daftar_penerimaan_obat_apotek_detail AS 
+SELECT po.no_penerimaan_o , su.nama AS nama_suplier , po.tgl_penerimaan_o , po.total_harga , o.nama AS nama_obat , soa.harga_supplier , soa.qty_awal
+FROM penerimaan_obat po JOIN supplier su USING(no_supplier) JOIN stok_obat_apotik soa USING(no_penerimaan_o) JOIN obat o USING(kode_obat) 
+ORDER BY soa.no_stok_obat_a ASC;
+
+CREATE VIEW daftar_pengiriman_obat_apotek_detail AS 
+SELECT sori.no_stok_obat_rawat_i, sori.no_obat_keluar_i  , sori.qty_awal, sori.qty_sekarang , o.nama AS nama_obat , ko.nama AS nama_kategori , o.harga_jual, oki.tgl_obat_keluar_i
+FROM stok_obat_rawat_inap sori JOIN stok_obat_apotik soa USING(no_stok_obat_a) JOIN obat o USING(kode_obat) JOIN kategori_obat ko USING(no_kat_obat) JOIN obat_keluar_internal oki USING(no_obat_keluar_i)
+ORDER BY sori.no_stok_obat_rawat_i ASC;
+
+----------
+
+CREATE VIEW daftar_penjualan_obat_rawat_inap_detail AS 
+SELECT sori.no_stok_obat_rawat_i,  o.nama AS nama_obat , ko.nama AS nama_kategori,dtrio.qty ,  sori.qty_sekarang,dtrio.harga_jual ,tri.no_ref_pelayanan
+FROM detail_transaksi_rawat_inap_obat dtrio JOIN stok_obat_rawat_inap sori USING(no_stok_obat_rawat_i) JOIN transaksi_rawat_inap tri USING(no_transaksi_rawat_i) JOIN stok_obat_apotik soa USING(no_stok_obat_a) JOIN obat o USING(kode_obat) JOIN kategori_obat ko USING(no_kat_obat)
+ORDER BY dtrio.no_detail_transaksi_rawat_inap_o ASC;
+
+CREATE VIEW daftar_detail_tindakan_rawat_inap AS 
+SELECT rit.no_rawat_inap_t , rit.nama , dtrit.harga, tri.no_ref_pelayanan
+FROM detail_transaksi_rawat_inap_tindakan dtrit JOIN transaksi_rawat_inap tri USING(no_transaksi_rawat_i) JOIN rawat_inap_tindakan rit USING(no_rawat_inap_t)
+ORDER BY dtrit.no_detail_transaksi_rawat_inap_t ASC;
+
+CREATE VIEW daftar_detail_kamar_rawat_inap AS 
+SELECT kri.no_kamar_rawat_i, kri.nama, dtrik.harga_harian , dtrik.jumlah_hari,kri.tipe ,tri.no_ref_pelayanan
+FROM detail_transaksi_rawat_inap_kamar dtrik JOIN transaksi_rawat_inap tri USING(no_transaksi_rawat_i) JOIN kamar_rawat_inap kri USING(no_kamar_rawat_i)
+ORDER BY dtrik.no_detail_transaksi_rawat_inap_k ASC;
+
+CREATE VIEW daftar_detail_tindakan_lab AS 
+SELECT lc.no_lab_c , lc.nama , dlt.harga , lt.no_ref_pelayanan
+FROM detail_lab_transaksi dlt JOIN lab_transaksi lt USING(no_lab_t) JOIN lab_checkup lc USING(no_lab_c)
+ORDER BY dlt.no_detail_lab_t ASC;
+
+CREATE VIEW daftar_detail_tindakan_bp AS 
+SELECT bt.no_bp_t , bt.nama , dbp.harga , bp.no_ref_pelayanan
+FROM detail_bp_penanganan dbp JOIN bp_tindakan bt USING(no_bp_t) JOIN bp_penanganan bp USING(no_bp_p)
+ORDER BY dbp.no_detail_bp_p ASC;
+
+CREATE VIEW daftar_detail_tindakan_ugd AS 
+SELECT ut.no_ugd_t , ut.nama , dup.harga , up.no_ref_pelayanan
+FROM detail_ugd_penanganan dup JOIN ugd_tindakan ut USING(no_ugd_t) JOIN ugd_penanganan up USING(no_ugd_p)
+ORDER BY dup.no_detail_ugd_p ASC;
+
+CREATE VIEW daftar_detail_tindakan_kia AS 
+SELECT kt.no_kia_t , kt.nama, dkp.harga , kp.no_ref_pelayanan
+FROM detail_kia_penanganan dkp JOIN kia_tindakan kt USING(no_kia_t) JOIN kia_penanganan kp USING(no_kia_p)
+ORDER BY dkp.no_detail_kia_p ASC;
+
+detail_list_bp
+detail_list_kia
+detail_list_lab
+detail_list_ugd
+detail_list_apotek_jual
+detail_list_kamar
+detail_list_tindakan
+detail_list_obat
