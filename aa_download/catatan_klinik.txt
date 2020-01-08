@@ -1,0 +1,13 @@
+# Perubahan tabel
+- supplier (kurangi email)
+- pelayanan (tambah field tipe_pelayanan => ri dan rj)
+- bp_tindakan (tambah field status)
+- pasien (tinggal no_rm,nama,alamat,umur)
+- stok obat apotik (hapus qty awal dan qty sekarang => qty)
+- obat (tambah field tipe qty)
+- penambahan tabel detail obat keluar internal
+- stok obat rawat inap (Pengurangan field)
+- detail transaksi rawat inap (penambahan field)
+- transaksi rawat inap (hapus atas nama)
+- detail transaksi rawat inap kamar (penambahan field tgl check in checkout dan hapus jumlah_hari)
+
