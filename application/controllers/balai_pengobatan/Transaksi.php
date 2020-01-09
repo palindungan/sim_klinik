@@ -106,4 +106,38 @@ class Transaksi extends CI_Controller
         $query = $this->M_transaksi->get_select($no_ref,$nama,'no_ref_pelayanan');
         echo json_encode($query);
     }
+
+    public function tampil_daftar_obat()
+    {
+        $data_tbl['tbl_data'] = $this->M_transaksi->tampil_data('data_stok_obat_apotek')->result();
+
+        $data = json_encode($data_tbl);
+
+        echo $data;
+    }
+    public function ambil_total_obat()
+    {
+        $sub_total = 0;
+        $total = 0;
+
+        if (isset($_POST['no_stok_obat_a']) && isset($_POST['harga_obat']) && isset($_POST['qty'])) {
+
+        for ($i = 0; $i < count($this->input->post('no_stok_obat_a')); $i++) {
+
+            $harga_jual_temp = $this->input->post('harga_obat')[$i];
+            $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
+
+            $qty_temp = $this->input->post('qty')[$i];
+            $qty = (int) preg_replace("/[^0-9]/", "", $qty_temp);
+
+            $perhitungan = $harga_jual * $qty;
+
+            $sub_total = $sub_total + $perhitungan;
+            }
+
+            $total = $sub_total;
+            }
+
+            echo $total;
+    }
 }
