@@ -50,7 +50,7 @@ ORDER BY lap.no_antrian ASC;
 -----------------
 
 CREATE VIEW data_pelayanan_pasien AS 
-SELECT pe.no_ref_pelayanan , pe.layanan_tujuan , pe.tipe_antrian , pe.tgl_pelayanan ,pa.no_rm, pa.nama,pa.nik,pa.tempat_lahir, pa.tgl_lahir,pa.jenkel , pa.alamat ,pe.status
+SELECT pe.no_ref_pelayanan , pe.layanan_tujuan , pe.tipe_antrian , pe.tgl_pelayanan ,pa.no_rm, pa.nama,pa.umur , pa.alamat ,pe.status
 FROM pelayanan pe JOIN pasien pa USING(no_rm)
 WHERE pe.status='belum_finish'
 ORDER BY pe.no_ref_pelayanan ASC;
