@@ -5,6 +5,7 @@ class Transaksi extends CI_Controller
     {
         parent::__construct();
         $this->load->model('balai_pengobatan/M_transaksi');
+        $this->load->model('apotek/M_penjualan_obat');
     }
     public function index()
     {
@@ -47,6 +48,65 @@ class Transaksi extends CI_Controller
     {
         $no_ref_pelayanan = $this->input->post('no_ref_pelayanan');
         $total_tmp = $this->input->post('total_harga');
+
+        if (isset($_POST['no_stok_obat_a'])) {
+
+        // data transaksi
+        $no_penjualan_obat_a = $this->M_penjualan_obat->get_no_transaksi(); // generate
+        $tanggal_penjualan = date('Y-m-d H:i:s');
+
+        $total_tmp = $this->input->post('sub_total_harga_obat');
+        $total_harga = preg_replace("/[^0-9]/", "", $total_tmp);
+
+        $data = array(
+            'no_penjualan_obat_a' => $no_penjualan_obat_a,
+            'no_ref_pelayanan' => $no_ref_pelayanan,
+            'tanggal_penjualan' => $tanggal_penjualan,
+            'total_harga' => $total_harga
+        );
+
+        $status = $this->M_penjualan_obat->input_data('penjualan_obat_apotik', $data);
+        // end of data transaksi
+
+            if ($status) {
+            // tambah detail transaksi
+                for ($i = 0; $i < count($this->input->post('no_stok_obat_a')); $i++) {
+
+                    $no_stok_obat_a = $this->input->post('no_stok_obat_a')[$i];
+                    $harga_temp = $this->input->post('harga_jual')[$i];
+                    $harga_jual = preg_replace("/[^0-9]/", "", $harga_temp);
+                    $qty = $this->input->post('qty')[$i];
+                    $qty_sekarang = $this->input->post('qty_sekarang')[$i];
+
+                    // proses pemasukan ke dalam database detail
+                    $data = array(
+                        'no_penjualan_obat_a' => $no_penjualan_obat_a,
+                        'no_stok_obat_a' => $no_stok_obat_a,
+                        'qty' => $qty,
+                        'harga_jual' => $harga_jual
+                    );
+
+                    $status_detail = $this->M_penjualan_obat->input_data('detail_penjualan_obat_apotik', $data);
+
+                        // update stok di penyimpanan
+                        if ($status_detail) {
+
+                        $where = array(
+                            'no_stok_obat_a' => $no_stok_obat_a
+                        );
+
+                        $data = array(
+                            'qty' => $qty_sekarang - $qty
+                        );
+                        
+                        $status_update = $this->M_penjualan_obat->update_data($where, 'stok_obat_apotik', $data);
+
+                        }
+                    }
+
+                }
+        }
+
         if (isset($_POST['no_bp_t'])) {
 
             date_default_timezone_set('Asia/Jakarta');
@@ -55,7 +115,7 @@ class Transaksi extends CI_Controller
             $no_bp_p = $this->M_transaksi->get_no_transaksi(); // generate
             $no_ref_pelayanan = $this->input->post('no_ref_pelayanan');
             $tgl_penanganan = date('Y-m-d H:i:s');
-            $total_tmp = $this->input->post('total_harga');
+            $total_tmp = $this->input->post('total_harga_bp');
             $total_harga = preg_replace("/[^0-9]/", "", $total_tmp);
 
             $data = array(
@@ -86,17 +146,11 @@ class Transaksi extends CI_Controller
                     $status = $this->M_transaksi->input_data('detail_bp_penanganan', $data);
                 }
 
-                if ($status) {
-                    $this->session->set_flashdata('success', 'Ditambahkan');
-                } else {
-                    echo "Gagal input ke dalam data detail transaksi !!";
-                }
-            } else {
-                echo "Gagal input ke dalam data transaksi !!";
-            }
-        } else {
-            echo "Harus Ada Detail Transaksi !!";
+            } 
         }
+        $this->session->set_flashdata('success', 'Ditambahkan');
+        redirect('balai_pengobatan/transaksi');
+        
     }
 
     function tampil_select()

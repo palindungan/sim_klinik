@@ -7,7 +7,8 @@
 			<h6 class="m-0 font-weight-bold text-primary">Balai Pengobatan</h6>
 		</div>
 		<div class="card-body">
-			<form method="post" id="transaksi_form">
+			<form method="post" id="transaksi_form"
+				action="<?= base_url('balai_pengobatan/transaksi/input_transaksi_form') ?>">
 				<div class="form-row">
 					<div class="form-group col-sm-5">
 						<label>Cari No Ref</label>
@@ -241,28 +242,28 @@
 		update_total();
 	});
 
-	// jika di click simpan / submit
-	$(document).on('submit', '#transaksi_form', function (event) {
-		event.preventDefault();
+	// // jika di click simpan / submit
+	// $(document).on('submit', '#transaksi_form', function (event) {
+	// 	event.preventDefault();
 
-		// mengambil nilai di dalam form
-		var form_data = $(this).serialize();
+	// 	// mengambil nilai di dalam form
+	// 	var form_data = $(this).serialize();
 
-		// tambah ke database
-		$.ajax({
-			url: "<?php echo base_url() . 'balai_pengobatan/transaksi/input_transaksi_form'; ?>",
-			method: "POST",
-			data: form_data,
-			success: function (data) {
-				if (data != "") {
-					alert(data);
-				}
-				location.reload();
-			}
-		});
-		// tambah ke database
+	// 	// tambah ke database
+	// 	$.ajax({
+	// 		url: "<?php echo base_url() . 'balai_pengobatan/transaksi/input_transaksi_form'; ?>",
+	// 		method: "POST",
+	// 		data: form_data,
+	// 		success: function (data) {
+	// 			if (data != "") {
+	// 				alert(data);
+	// 			}
+	// 			location.reload();
+	// 		}
+	// 	});
+	// 	// tambah ke database
 
-	});
+	// });
 
 	// Start pencarian
 	function search_proses() {
@@ -443,6 +444,7 @@
 						var nama_kategori = data[i].nama_kategori;
 						var qty_sekarang = data[i].qty;
 						var harga_obat = data[i].harga_jual;
+						var qty = 1;
 
 						var reverse = harga_obat.toString().split('').reverse().join(''),
 							ribuan = reverse.match(/\d{1,3}/g);
@@ -450,7 +452,8 @@
 
 						var button = `<a
 	 	onclick="pilihobat('` + kode_obat +
-							`','` + nama_obat + `','` + nama_kategori + `','1','` + qty_sekarang +
+							`','` + nama_obat + `','` + nama_kategori + `','` + qty + `','` +
+							qty_sekarang +
 							`','` + harga_obat + `')" id="` + kode_obat +
 							`" class="btn btn-sm btn-dark text-white">Pilih</a>`;
 
@@ -490,7 +493,7 @@
 	 			id="harga_obat` + count3 + `" placeholder="harga Obar" required value="` + harga_obat + `">
 	 	</div>
 	 	<div class="form-group col-sm-2">
-	 		<input type="text" name="qty[]" class="form-control form-control-sm qty_format_rawat_i" id="qty` + count3 + `"
+	 		<input type="text" name="qty[]" class="form-control form-control-sm qty_format_obat" id="qty` + count3 + `"
 	 			placeholder="QTY" value="` + qty + `" required>
 	 		<input type="hidden" name="qty_sekarang[]" id="qty_sekarang` + count3 + `"
 	 			class="form-control form-control-sm" value="` + qty_sekarang + `"></input>
@@ -513,6 +516,20 @@
 
 		cekJumlahDataTransaksi_obat();
 	}
+
+
+
+	// jika kita tekan hapus / click button
+	$(document).on('click', '.remove_baris_obat', function () {
+		var row_no = $(this).attr("id");
+		$('#row_obat' + row_no).remove();
+
+		jumlah_detail_transaksi_obat = jumlah_detail_transaksi_obat - 1;
+
+		cekJumlahDataTransaksi_obat();
+	});
+
+
 
 	function cekJumlahDataTransaksi_obat() {
 
@@ -542,5 +559,26 @@
 
 		validasi();
 	}
+
+	// jika kita mengubah class inputan rupiah_obat
+	$(document).on('keyup', '.rupiah_obat', function () {
+		update_sub_harga_obat();
+	});
+
+	$(document).on('keyup', '.qty_format_obat', function () {
+
+		var row_id = $(this).attr("id"); // qty1++
+		var row_no = row_id.substring(3); // 1++
+		var val_qty = $('#' + row_id).val();
+		val_qty_sekarang = parseInt($('#qty_sekarang' + row_no).val());
+
+		if (val_qty <= val_qty_sekarang) {
+			update_sub_harga_obat();
+		} else {
+			alert("Maaf Qty Tidak Boleh Detail Obat Melebihi Stok Apotek ");
+			$('#' + row_id).val("1");
+			update_sub_harga_obat();
+		}
+	});
 
 </script>
