@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 10 Jan 2020 pada 04.07
+-- Waktu pembuatan: 10 Jan 2020 pada 06.40
 -- Versi server: 10.4.6-MariaDB
 -- Versi PHP: 7.3.9
 
@@ -157,6 +157,62 @@ INSERT INTO `bp_tindakan` (`no_bp_t`, `nama`, `harga`, `status`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Stand-in struktur untuk tampilan `daftar_detail_tindakan_bp_transaksi`
+-- (Lihat di bawah untuk tampilan aktual)
+--
+CREATE TABLE `daftar_detail_tindakan_bp_transaksi` (
+`no_bp_p` char(13)
+,`no_bp_t` char(4)
+,`nama` varchar(50)
+,`harga` int(10)
+,`no_ref_pelayanan` char(10)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in struktur untuk tampilan `daftar_detail_tindakan_kia_transaksi`
+-- (Lihat di bawah untuk tampilan aktual)
+--
+CREATE TABLE `daftar_detail_tindakan_kia_transaksi` (
+`no_kia_p` char(13)
+,`no_kia_t` char(4)
+,`nama` varchar(50)
+,`harga` int(10)
+,`no_ref_pelayanan` char(10)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in struktur untuk tampilan `daftar_detail_tindakan_lab_transaksi`
+-- (Lihat di bawah untuk tampilan aktual)
+--
+CREATE TABLE `daftar_detail_tindakan_lab_transaksi` (
+`no_lab_t` char(13)
+,`no_lab_c` char(4)
+,`nama` varchar(50)
+,`harga` int(11)
+,`no_ref_pelayanan` char(10)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in struktur untuk tampilan `daftar_detail_tindakan_ugd_transaksi`
+-- (Lihat di bawah untuk tampilan aktual)
+--
+CREATE TABLE `daftar_detail_tindakan_ugd_transaksi` (
+`no_ugd_p` char(13)
+,`no_ugd_t` char(4)
+,`nama` varchar(50)
+,`harga` int(10)
+,`no_ref_pelayanan` char(10)
+);
+
+-- --------------------------------------------------------
+
+--
 -- Stand-in struktur untuk tampilan `data_pelayanan_pasien`
 -- (Lihat di bawah untuk tampilan aktual)
 --
@@ -248,6 +304,14 @@ CREATE TABLE `detail_kia_penanganan` (
   `harga` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `detail_kia_penanganan`
+--
+
+INSERT INTO `detail_kia_penanganan` (`no_detail_kia_p`, `no_kia_p`, `no_kia_t`, `harga`) VALUES
+(5, 'KP191226-0002', 'K001', 1000000),
+(6, 'KP191226-0002', 'K002', 70000);
+
 -- --------------------------------------------------------
 
 --
@@ -260,6 +324,14 @@ CREATE TABLE `detail_lab_transaksi` (
   `no_lab_c` char(4) NOT NULL,
   `harga` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `detail_lab_transaksi`
+--
+
+INSERT INTO `detail_lab_transaksi` (`no_detail_lab_t`, `no_lab_t`, `no_lab_c`, `harga`) VALUES
+(5, 'LB191226-0001', 'L001', 300000),
+(6, 'LB191226-0001', 'L002', 1000000);
 
 -- --------------------------------------------------------
 
@@ -294,7 +366,7 @@ CREATE TABLE `detail_penjualan_obat_apotik` (
 
 INSERT INTO `detail_penjualan_obat_apotik` (`no_detail_penjualan_obat_a`, `no_penjualan_obat_a`, `no_stok_obat_a`, `qty`, `harga_jual`, `status_paket`) VALUES
 (2, 'PA191226-0002', 4, 1, 20000, 'Ya'),
-(3, 'PA191226-0002', 2, 1, 20000, 'Ya'),
+(3, 'PA191226-0002', 2, 1, 20000, 'Tidak'),
 (4, 'PA200109-0001', 3, 2, 0, 'Ya'),
 (5, 'PA200109-0002', 3, 2, 0, 'Ya'),
 (6, 'PA200109-0003', 3, 2, 0, 'Ya'),
@@ -363,6 +435,13 @@ CREATE TABLE `detail_ugd_penanganan` (
   `harga` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `detail_ugd_penanganan`
+--
+
+INSERT INTO `detail_ugd_penanganan` (`no_detail_ugd_p`, `no_ugd_p`, `no_ugd_t`, `harga`) VALUES
+(6, 'UP191226-0002', 'U001', 1000000);
+
 -- --------------------------------------------------------
 
 --
@@ -418,6 +497,13 @@ CREATE TABLE `kia_penanganan` (
   `total_harga` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `kia_penanganan`
+--
+
+INSERT INTO `kia_penanganan` (`no_kia_p`, `no_ref_pelayanan`, `tgl_penanganan`, `total_harga`) VALUES
+('KP191226-0002', '191226-022', '2020-01-05 00:00:00', 1070000);
+
 -- --------------------------------------------------------
 
 --
@@ -470,6 +556,13 @@ CREATE TABLE `lab_transaksi` (
   `tgl_transaksi` datetime NOT NULL,
   `total_harga` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `lab_transaksi`
+--
+
+INSERT INTO `lab_transaksi` (`no_lab_t`, `no_ref_pelayanan`, `tgl_transaksi`, `total_harga`) VALUES
+('LB191226-0001', '191226-022', '2020-01-01 00:00:00', 1300000);
 
 -- --------------------------------------------------------
 
@@ -767,6 +860,13 @@ CREATE TABLE `ugd_penanganan` (
   `total_harga` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `ugd_penanganan`
+--
+
+INSERT INTO `ugd_penanganan` (`no_ugd_p`, `no_ref_pelayanan`, `tgl_penanganan`, `total_harga`) VALUES
+('UP191226-0002', '191226-022', '2020-01-01 00:00:00', 1000000);
+
 -- --------------------------------------------------------
 
 --
@@ -807,6 +907,42 @@ CREATE TABLE `user_pegawai` (
 INSERT INTO `user_pegawai` (`no_user_pegawai`, `nama`, `jenis_akses`, `username`, `password`) VALUES
 ('P001', 'afri', 'Rawat Inap', 'afri', '$2y$10$5rtXCrmfFXQlovbbXY/J6u3eplLbiSp3ls0nn9ERXG9gBGifxHiVO'),
 ('U002', 'kika', 'Loket', 'kika', '$2y$10$gIQgZO4D5b8LUWDVvH5Q6.PjmLjM8gLwEtpzkK.6bsXHv1tczykoG');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur untuk view `daftar_detail_tindakan_bp_transaksi`
+--
+DROP TABLE IF EXISTS `daftar_detail_tindakan_bp_transaksi`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_detail_tindakan_bp_transaksi`  AS  select `dbp`.`no_bp_p` AS `no_bp_p`,`bt`.`no_bp_t` AS `no_bp_t`,`bt`.`nama` AS `nama`,`dbp`.`harga` AS `harga`,`bp`.`no_ref_pelayanan` AS `no_ref_pelayanan` from ((`detail_bp_penanganan` `dbp` join `bp_tindakan` `bt` on(`dbp`.`no_bp_t` = `bt`.`no_bp_t`)) join `bp_penanganan` `bp` on(`dbp`.`no_bp_p` = `bp`.`no_bp_p`)) order by `dbp`.`no_detail_bp_p` ;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur untuk view `daftar_detail_tindakan_kia_transaksi`
+--
+DROP TABLE IF EXISTS `daftar_detail_tindakan_kia_transaksi`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_detail_tindakan_kia_transaksi`  AS  select `dkp`.`no_kia_p` AS `no_kia_p`,`kt`.`no_kia_t` AS `no_kia_t`,`kt`.`nama` AS `nama`,`dkp`.`harga` AS `harga`,`kp`.`no_ref_pelayanan` AS `no_ref_pelayanan` from ((`detail_kia_penanganan` `dkp` join `kia_tindakan` `kt` on(`dkp`.`no_kia_t` = `kt`.`no_kia_t`)) join `kia_penanganan` `kp` on(`dkp`.`no_kia_p` = `kp`.`no_kia_p`)) order by `dkp`.`no_detail_kia_p` ;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur untuk view `daftar_detail_tindakan_lab_transaksi`
+--
+DROP TABLE IF EXISTS `daftar_detail_tindakan_lab_transaksi`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_detail_tindakan_lab_transaksi`  AS  select `dlt`.`no_lab_t` AS `no_lab_t`,`lc`.`no_lab_c` AS `no_lab_c`,`lc`.`nama` AS `nama`,`dlt`.`harga` AS `harga`,`lt`.`no_ref_pelayanan` AS `no_ref_pelayanan` from ((`detail_lab_transaksi` `dlt` join `lab_transaksi` `lt` on(`dlt`.`no_lab_t` = `lt`.`no_lab_t`)) join `lab_checkup` `lc` on(`dlt`.`no_lab_c` = `lc`.`no_lab_c`)) order by `dlt`.`no_detail_lab_t` ;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur untuk view `daftar_detail_tindakan_ugd_transaksi`
+--
+DROP TABLE IF EXISTS `daftar_detail_tindakan_ugd_transaksi`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_detail_tindakan_ugd_transaksi`  AS  select `dup`.`no_ugd_p` AS `no_ugd_p`,`ut`.`no_ugd_t` AS `no_ugd_t`,`ut`.`nama` AS `nama`,`dup`.`harga` AS `harga`,`up`.`no_ref_pelayanan` AS `no_ref_pelayanan` from ((`detail_ugd_penanganan` `dup` join `ugd_tindakan` `ut` on(`dup`.`no_ugd_t` = `ut`.`no_ugd_t`)) join `ugd_penanganan` `up` on(`dup`.`no_ugd_p` = `up`.`no_ugd_p`)) order by `dup`.`no_detail_ugd_p` ;
 
 -- --------------------------------------------------------
 
@@ -1063,13 +1199,13 @@ ALTER TABLE `detail_bp_penanganan`
 -- AUTO_INCREMENT untuk tabel `detail_kia_penanganan`
 --
 ALTER TABLE `detail_kia_penanganan`
-  MODIFY `no_detail_kia_p` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `no_detail_kia_p` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_lab_transaksi`
 --
 ALTER TABLE `detail_lab_transaksi`
-  MODIFY `no_detail_lab_t` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `no_detail_lab_t` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_obat_keluar_internal`
@@ -1105,7 +1241,7 @@ ALTER TABLE `detail_transaksi_rawat_inap_tindakan`
 -- AUTO_INCREMENT untuk tabel `detail_ugd_penanganan`
 --
 ALTER TABLE `detail_ugd_penanganan`
-  MODIFY `no_detail_ugd_p` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `no_detail_ugd_p` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `stok_obat_apotik`
