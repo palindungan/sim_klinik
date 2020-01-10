@@ -13,7 +13,7 @@
         }
 
         public function index() {
-            $no_ref_pelayanan = "191226-022";
+            $no_ref_pelayanan = "200108-001";
             $where_no_ref = array(
                 'no_ref_pelayanan' => $no_ref_pelayanan
             );
@@ -28,8 +28,12 @@
             $tipe_pelayanan = $data_pelayanan_pasien->tipe_pelayanan;
 
             // Ambil Tindakan BP
-            $bp_penanganan = $this->M_test->get_data('bp_penanganan',$where_no_ref)->row();
-            $no_bp_p = $bp_penanganan->no_bp_p;
+            $bp_penanganan = $this->M_test->get_data('bp_penanganan',$where_no_ref)->result();
+            $no_bp_p = " ";
+            foreach($bp_penanganan as $bp)
+            {
+                $no_bp_p = $bp->no_bp_p;
+            }
 
             // ambil detail tindakan bp
             $where_no_bp_p = array(
@@ -39,19 +43,27 @@
 
 
             // Ambil Tindakan KIA
-            $kia_penanganan = $this->M_test->get_data('kia_penanganan',$where_no_ref)->row();
-            $no_kia_p = $kia_penanganan->no_kia_p;
+            $kia_penanganan = $this->M_test->get_data('kia_penanganan',$where_no_ref)->result();
+            $no_kia_p = " ";
+            foreach($kia_penanganan as $kia)
+            {
+                $no_kia_p = $kia->no_kia_p;
+            }
 
             // ambil detail tindakan kia
             $where_no_kia_p = array(
-            'no_kia_p' => $no_kia_p
+                'no_kia_p' => $no_kia_p
             );
             $detail_kia_penanganan =
             $this->M_test->get_data('daftar_detail_tindakan_kia_transaksi',$where_no_kia_p)->result();
 
             // Ambil Tindakan Lab
-            $lab_transaksi = $this->M_test->get_data('lab_transaksi',$where_no_ref)->row();
-            $no_lab_t = $lab_transaksi->no_lab_t;
+            $lab_transaksi = $this->M_test->get_data('lab_transaksi',$where_no_ref)->result();
+            $no_lab_t = " ";
+            foreach($lab_transaksi as $lab)
+            {
+                $no_lab_t = $lab->no_lab_t;
+            }
 
             // ambil detail tindakan lab
             $where_no_lab_t = array(
@@ -61,20 +73,28 @@
             $this->M_test->get_data('daftar_detail_tindakan_lab_transaksi',$where_no_lab_t)->result();
 
             // Ambil Tindakan UGD
-            $ugd_penanganan = $this->M_test->get_data('ugd_penanganan',$where_no_ref)->row();
-            $no_ugd_p = $ugd_penanganan->no_ugd_p;
+            $ugd_penanganan = $this->M_test->get_data('ugd_penanganan',$where_no_ref)->result();
+            $no_ugd_p = " ";
+            foreach($ugd_penanganan as $ugd)
+            {
+                $no_ugd_p = $ugd->no_ugd_p;
+            }
 
             // ambil detail tindakan ugd
             $where_no_ugd_p = array(
-            'no_ugd_p' => $no_ugd_p
+                'no_ugd_p' => $no_ugd_p
             );
             $detail_ugd_penanganan =
             $this->M_test->get_data('daftar_detail_tindakan_ugd_transaksi',$where_no_ugd_p)->result();
             
 
             // Ambil Penjualan Apotekk
-            $penjualan_obat_apotek = $this->M_test->get_data('penjualan_obat_apotik',$where_no_ref)->row();
-            $no_penjualan_obat_a = $penjualan_obat_apotek->no_penjualan_obat_a;
+            $penjualan_obat_apotek = $this->M_test->get_data('penjualan_obat_apotik',$where_no_ref)->result();
+            $no_penjualan_obat_a = " ";
+            foreach($penjualan_obat_apotek as $jual_obat_apotek)
+            {
+                $no_penjualan_obat_a = $jual_obat_apotek->no_penjualan_obat_a;
+            }
 
             // ambil detail Penjualan Apotekk
             $where_no_penjualan_obat_a = array(
@@ -94,7 +114,7 @@
             {
                 $html = '
                 <h4 style="text-align:center">Rekening Pasien</h4>
-                <table width="100%" border="1">
+                <table width="100%">
                     <tr>
                         <td width="14%">Nama</td>
                         <td width="1%">:</td>
@@ -118,20 +138,20 @@
                         <td style="text-align:left">Rincian Transaksi</td>
                         <td style="text-align:right">Biaya</td>
                     </tr>';
-                    if(isset($no_bp_p))
+                    if($no_bp_p != " ")
                     {
                     $html.='<tr>
                         <td style="text-align:left;padding-left:10px"><i>Biaya Tindakan Balai Pengobatan</i></td>
                     </tr>';
                     foreach($detail_bp_penanganan as $bp_tindakan)
                     {
-                        $harga_bp += $bp_tindakan->harga;
+                        $harga_bp += $bp_tindakan->harga_tindakan;
                     $html.='<tr>
                         <td style="text-align:left;padding-left:20px">'.$bp_tindakan->nama.'</td>
-                        <td style="text-align:right">'.rupiah($bp_tindakan->harga).'</td>
+                        <td style="text-align:right">'.rupiah($bp_tindakan->harga_tindakan).'</td>
                     </tr>';}
                     }
-                    if(isset($no_kia_p))
+                    if($no_kia_p != " ")
                     {
                     $html.='<tr>
                         <td style="text-align:left;padding-left:10px"><i>Biaya Tindakan Poli KIA</i></td>
@@ -145,7 +165,7 @@
                     </tr>';}
                     }
 
-                    if(isset($no_lab_t))
+                    if($no_lab_t != " ")
                     {
                     $html.='<tr>
                         <td style="text-align:left;padding-left:10px"><i>Biaya Tindakan Laboratorium</i></td>
@@ -159,7 +179,7 @@
                     </tr>';}
                     }
 
-                    if(isset($no_ugd_p))
+                    if($no_ugd_p != " ")
                     {
                     $html.='<tr>
                         <td style="text-align:left;padding-left:10px"><i>Biaya Tindakan UGD</i></td>
@@ -173,7 +193,7 @@
                     </tr>';}
                     }
 
-                    if(isset($no_penjualan_obat_a))
+                    if($no_penjualan_obat_a != " ")
                     {
                         foreach($detail_penjualan_obat_apotek as $row_obat_apotek)
                         {

@@ -170,10 +170,7 @@ detail_list_obat
 
 TAMBAHAN
 
-CREATE VIEW daftar_detail_tindakan_bp_transaksi AS 
-SELECT dbp.no_bp_p,bt.no_bp_t , bt.nama , dbp.harga , bp.no_ref_pelayanan
-FROM detail_bp_penanganan dbp JOIN bp_tindakan bt USING(no_bp_t) JOIN bp_penanganan bp USING(no_bp_p)
-ORDER BY dbp.no_detail_bp_p ASC;
+CREATE VIEW daftar_detail_tindakan_bp_transaksi AS SELECT dbp.no_bp_p,bt.no_bp_t , bt.nama , dbp.harga as harga_detail,bt.harga as harga_tindakan , bp.no_ref_pelayanan FROM detail_bp_penanganan dbp JOIN bp_tindakan bt USING(no_bp_t) JOIN bp_penanganan bp USING(no_bp_p) ORDER BY dbp.no_detail_bp_p ASC 
 
 CREATE VIEW daftar_detail_tindakan_kia_transaksi AS 
 SELECT dkp.no_kia_p,kt.no_kia_t , kt.nama, dkp.harga , kp.no_ref_pelayanan
