@@ -72,6 +72,22 @@
             $this->M_test->get_data('daftar_detail_tindakan_ugd_transaksi',$where_no_ugd_p)->result();
             
 
+            // Ambil Penjualan Apotekk
+            $penjualan_obat_apotek = $this->M_test->get_data('penjualan_obat_apotik',$where_no_ref)->row();
+            $no_penjualan_obat_a = $penjualan_obat_apotek->no_penjualan_obat_a;
+
+            // ambil detail Penjualan Apotekk
+            $where_no_penjualan_obat_a = array(
+                'no_penjualan_obat_a' => $no_penjualan_obat_a
+            );
+            $detail_penjualan_obat_apotek =
+            $this->M_test->get_data('detail_penjualan_obat_apotik',$where_no_penjualan_obat_a)->result();
+            
+            $harga_bp = 0;
+            $harga_kia = 0;
+            $harga_lab = 0;
+            $harga_ugd = 0;
+            $harga_apotek = 0;
 
 
             if($tipe_pelayanan == "Rawat Jalan")
@@ -109,6 +125,7 @@
                     </tr>';
                     foreach($detail_bp_penanganan as $bp_tindakan)
                     {
+                        $harga_bp += $bp_tindakan->harga;
                     $html.='<tr>
                         <td style="text-align:left;padding-left:20px">'.$bp_tindakan->nama.'</td>
                         <td style="text-align:right">'.rupiah($bp_tindakan->harga).'</td>
@@ -121,6 +138,7 @@
                     </tr>';
                     foreach($detail_kia_penanganan as $kia_tindakan)
                     {
+                        $harga_kia += $kia_tindakan->harga;
                     $html.='<tr>
                         <td style="text-align:left;padding-left:20px">'.$kia_tindakan->nama.'</td>
                         <td style="text-align:right">'.rupiah($kia_tindakan->harga).'</td>
@@ -134,6 +152,7 @@
                     </tr>';
                     foreach($detail_lab_transaksi as $lab_tindakan)
                     {
+                        $harga_lab += $lab_tindakan->harga;
                     $html.='<tr>
                         <td style="text-align:left;padding-left:20px">'.$lab_tindakan->nama.'</td>
                         <td style="text-align:right">'.rupiah($lab_tindakan->harga).'</td>
@@ -147,19 +166,41 @@
                     </tr>';
                     foreach($detail_ugd_penanganan as $ugd_tindakan)
                     {
+                        $harga_ugd += $ugd_tindakan->harga;
                     $html.='<tr>
                         <td style="text-align:left;padding-left:20px">'.$ugd_tindakan->nama.'</td>
                         <td style="text-align:right">'.rupiah($ugd_tindakan->harga).'</td>
                     </tr>';}
                     }
+
+                    if(isset($no_penjualan_obat_a))
+                    {
+                        foreach($detail_penjualan_obat_apotek as $row_obat_apotek)
+                        {
+                            if($row_obat_apotek->status_paket == "Ya")
+                            {
+                                $harga_apotek = 0;
+                            }
+                            else 
+                            {
+                                $harga_apotek += $row_obat_apotek->harga_jual;
+                            }
+                        }
                     $html.='<tr>
                         <td style="text-align:left;padding-left:10px"><i>Biaya Obat-obatan</i></td>
-                    </tr>
-                    <tr>
+                    </tr>';
+                    $html.='<tr>
                         <td style="text-align:left;padding-left:20px">Apotek</td>
-                        <td style="text-align:right">90.000</td>
-                    </tr>
-                </table>
+                        <td style="text-align:right">'.rupiah($harga_apotek).'</td>
+                    </tr>';
+                    }
+                    $grand_total = $harga_bp + $harga_kia + $harga_lab + $harga_ugd + $harga_apotek;
+                    $html.='
+                    <tr>
+                        <td style="text-align:left;padding-left:10px;padding-top:20px"><i>Jumlah Yang Harus Dibayar</i></td>
+                        <td style="text-align:right">'.rupiah($grand_total).'</td>
+                    </tr>';
+                $html.='</table>
                 ';
                 $this->dompdf->PdfGenerator($html, 'coba', 'A4', 'potrait',true);
             }
