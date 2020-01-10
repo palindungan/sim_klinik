@@ -73,17 +73,28 @@ class Transaksi extends CI_Controller
                 for ($i = 0; $i < count($this->input->post('no_stok_obat_a')); $i++) {
 
                     $no_stok_obat_a = $this->input->post('no_stok_obat_a')[$i];
-                    $harga_temp = $this->input->post('harga_jual')[$i];
-                    $harga_jual = preg_replace("/[^0-9]/", "", $harga_temp);
+                    $harga_temp = $this->input->post('harga_obat')[$i];
+                    $harga_obat = preg_replace("/[^0-9]/", "", $harga_temp);
                     $qty = $this->input->post('qty')[$i];
                     $qty_sekarang = $this->input->post('qty_sekarang')[$i];
+                    $status_paket_tmp = $this->input->post('status_paket')[$i];
+                    $status_paket = " ";
+                    if($status_paket_tmp == "Ya")
+                    {
+                        $status_paket = "Ya";
+                    }
+                    else 
+                    {
+                        $status_paket = "Tidak";
+                    }
 
                     // proses pemasukan ke dalam database detail
                     $data = array(
                         'no_penjualan_obat_a' => $no_penjualan_obat_a,
                         'no_stok_obat_a' => $no_stok_obat_a,
                         'qty' => $qty,
-                        'harga_jual' => $harga_jual
+                        'harga_jual' => $harga_obat,
+                        'status_paket' => $status_paket
                     );
 
                     $status_detail = $this->M_penjualan_obat->input_data('detail_penjualan_obat_apotik', $data);

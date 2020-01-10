@@ -76,8 +76,9 @@
 							<div class="form-group col-sm-6">
 								<div class="row">
 									<label class=" col-sm-4"><b>Nama Obat</b></label>
-									<label class=" col-sm-4"><b>Harga Jual</b></label>
+									<label class=" col-sm-3"><b>Harga Jual</b></label>
 									<label class=" col-sm-2"><b>QTY</b></label>
+									<label class=" col-sm-2"><b>Paket ?</b></label>
 								</div>
 								<div class="row">
 									<div class="col-sm-12">
@@ -488,7 +489,7 @@
 	 		<input type="hidden" name="no_stok_obat_a[]" class="form-control form-control-sm"
 	 			id="no_stok_obat_a` + count3 + `" value="` + kode_obat + `">
 	 	</div>
-	 	<div class="form-group col-sm-4">
+	 	<div class="form-group col-sm-3">
 	 		<input type="text" name="harga_obat[]" class="form-control form-control-sm rupiah_obat text-right"
 	 			id="harga_obat` + count3 + `" placeholder="harga Obar" required value="` + harga_obat + `">
 	 	</div>
@@ -498,7 +499,14 @@
 	 		<input type="hidden" name="qty_sekarang[]" id="qty_sekarang` + count3 + `"
 	 			class="form-control form-control-sm" value="` + qty_sekarang + `"></input>
 	 	</div>
-	 	<div class="form-group col-sm-2">
+		 <div class="form-group col-sm-2">
+		 	<input type="checkbox" name="status_paket[]" class="form-control form-control-sm status_paket" id="status_paket` +
+			count3 + `"
+		 		placeholder="QTY" value="Ya">
+
+		 	</a>
+		 </div>
+	 	<div class="form-group col-sm-1">
 	 		<a id="` + count3 + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris_obat">
 	 			<span class="icon text-white-50">
 	 				<i class="fas fa-trash-alt"></i>
@@ -506,6 +514,7 @@
 
 	 		</a>
 	 	</div>
+		 
 	 </div>
 
 	 `);
