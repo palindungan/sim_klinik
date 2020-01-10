@@ -167,3 +167,27 @@ detail_list_apotek_jual
 detail_list_kamar
 detail_list_tindakan
 detail_list_obat
+
+TAMBAHAN
+
+CREATE VIEW daftar_detail_tindakan_bp_transaksi AS 
+SELECT dbp.no_bp_p,bt.no_bp_t , bt.nama , dbp.harga , bp.no_ref_pelayanan
+FROM detail_bp_penanganan dbp JOIN bp_tindakan bt USING(no_bp_t) JOIN bp_penanganan bp USING(no_bp_p)
+ORDER BY dbp.no_detail_bp_p ASC;
+
+CREATE VIEW daftar_detail_tindakan_kia_transaksi AS 
+SELECT dkp.no_kia_p,kt.no_kia_t , kt.nama, dkp.harga , kp.no_ref_pelayanan
+FROM detail_kia_penanganan dkp JOIN kia_tindakan kt USING(no_kia_t) JOIN kia_penanganan kp USING(no_kia_p)
+ORDER BY dkp.no_detail_kia_p ASC;
+
+CREATE VIEW daftar_detail_tindakan_lab_transaksi AS 
+SELECT dlt.no_lab_t,lc.no_lab_c , lc.nama , dlt.harga , lt.no_ref_pelayanan
+FROM detail_lab_transaksi dlt JOIN lab_transaksi lt USING(no_lab_t) JOIN lab_checkup lc USING(no_lab_c)
+ORDER BY dlt.no_detail_lab_t ASC;
+
+CREATE VIEW daftar_detail_tindakan_ugd_transaksi AS 
+SELECT dup.no_ugd_p,ut.no_ugd_t , ut.nama , dup.harga , up.no_ref_pelayanan
+FROM detail_ugd_penanganan dup JOIN ugd_tindakan ut USING(no_ugd_t) JOIN ugd_penanganan up USING(no_ugd_p)
+ORDER BY dup.no_detail_ugd_p ASC;
+
+

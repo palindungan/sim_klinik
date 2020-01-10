@@ -3,106 +3,168 @@
     
     class Test extends CI_Controller {
 
-        public function index() {
-            $this->load->view('sim_klinik/konten/administrasi/cetak_struk/tampil');
+        // public function index() {
+        //     $this->load->view('sim_klinik/konten/administrasi/cetak_struk/tampil');
+        // }
+        function __construct()
+        {
+        parent::__construct();
+        $this->load->model('M_test');
         }
 
-        public function cetak() {
-            $html = '
+        public function index() {
+            $no_ref_pelayanan = "191226-022";
+            $where_no_ref = array(
+                'no_ref_pelayanan' => $no_ref_pelayanan
+            );
+
+            // ambil biodata pasien
+            $data_pelayanan_pasien = $this->M_test->get_data('data_pelayanan_pasien_default',$where_no_ref)->row();
+            $nama_pasien = $data_pelayanan_pasien->nama;
+            $no_rm = $data_pelayanan_pasien->no_rm;
+            $no_ref = $data_pelayanan_pasien->no_ref_pelayanan;
+            $tgl_pelayanan_tmp = $data_pelayanan_pasien->tgl_pelayanan;
+            $tgl_pelayanan = tgl_indo(date('Y-m-d',strtotime($tgl_pelayanan_tmp)));
+            $tipe_pelayanan = $data_pelayanan_pasien->tipe_pelayanan;
+
+            // Ambil Tindakan BP
+            $bp_penanganan = $this->M_test->get_data('bp_penanganan',$where_no_ref)->row();
+            $no_bp_p = $bp_penanganan->no_bp_p;
+
+            // ambil detail tindakan bp
+            $where_no_bp_p = array(
+                'no_bp_p' => $no_bp_p
+            );
+            $detail_bp_penanganan = $this->M_test->get_data('daftar_detail_tindakan_bp_transaksi',$where_no_bp_p)->result();
+
+
+            // Ambil Tindakan KIA
+            $kia_penanganan = $this->M_test->get_data('kia_penanganan',$where_no_ref)->row();
+            $no_kia_p = $kia_penanganan->no_kia_p;
+
+            // ambil detail tindakan kia
+            $where_no_kia_p = array(
+            'no_kia_p' => $no_kia_p
+            );
+            $detail_kia_penanganan =
+            $this->M_test->get_data('daftar_detail_tindakan_kia_transaksi',$where_no_kia_p)->result();
+
+            // Ambil Tindakan Lab
+            $lab_transaksi = $this->M_test->get_data('lab_transaksi',$where_no_ref)->row();
+            $no_lab_t = $lab_transaksi->no_lab_t;
+
+            // ambil detail tindakan lab
+            $where_no_lab_t = array(
+            'no_lab_t' => $no_lab_t
+            );
+            $detail_lab_transaksi =
+            $this->M_test->get_data('daftar_detail_tindakan_lab_transaksi',$where_no_lab_t)->result();
+
+            // Ambil Tindakan UGD
+            $ugd_penanganan = $this->M_test->get_data('ugd_penanganan',$where_no_ref)->row();
+            $no_ugd_p = $ugd_penanganan->no_ugd_p;
+
+            // ambil detail tindakan ugd
+            $where_no_ugd_p = array(
+            'no_ugd_p' => $no_ugd_p
+            );
+            $detail_ugd_penanganan =
+            $this->M_test->get_data('daftar_detail_tindakan_ugd_transaksi',$where_no_ugd_p)->result();
+            
+
+
+
+            if($tipe_pelayanan == "Rawat Jalan")
+            {
+                $html = '
                 <h4 style="text-align:center">Rekening Pasien</h4>
+                <table width="100%" border="1">
+                    <tr>
+                        <td width="14%">Nama</td>
+                        <td width="1%">:</td>
+                        <td width="35%">'.$nama_pasien.'</td>
+                        <td width="19%">No Pelayanan</td>
+                        <td width="1%">:</td>
+                        <td width="30%">'.$no_ref.'</td>
+                    </tr>
+                    <tr>
+                        <td width="14%">Nomor RM</td>
+                        <td width="1%">:</td>
+                        <td width="40%">'.$no_rm.'</td>
+                        <td width="19%">Tanggal Masuk</td>
+                        <td width="1%">:</td>
+                        <td width="25%">'.$tgl_pelayanan.'</td>
+                    </tr>
+                </table>
+                <hr>
                 <table width="100%">
-                <tr>
-                    <td width="14%">Nama Pasien</td>
-                    <td width="1%">:</td>
-                    <td width="35%">asd</td>
-                    <td width="19%">No Ref Pelayanan</td>
-                    <td width="1%">:</td>
-                    <td width="30%">123123</td>
-                </tr>
-                <tr>
-                    <td width="14%">Nomor RM</td>
-                    <td width="1%">:</td>
-                    <td width="40%">asd123</td>
-                    <td width="19%">Tanggal Masuk</td>
-                    <td width="1%">:</td>
-                    <td width="25%">asd</td>
-                </tr>
-                <tr>
-                    <td width="14%">Ruangan</td>
-                    <td width="1%">:</td>
-                    <td width="40%">-</td>
-                    <td width="19%">Tanggal Keluar</td>
-                    <td width="1%">:</td>
-                    <td width="25%">-</td>
-                </tr>
-            </table>
-            <hr>
-            <table width="100%">
-                <tr>
-                    <td style="text-align:left">Rincian Transaksi</td>
-                    <td style="text-align:right">Biaya</td>
-                </tr>
-                <tr>
-                    <td style="text-align:left;padding-left:10px"><i>Biaya Tindakan Balai Pengobatan</i></td>
-                </tr>
-                <tr>
-                    <td style="text-align:left;padding-left:20px">Pemberian Infus</td>
-                    <td style="text-align:right">90.000</td>
-                </tr>
-                <tr>
-                    <td style="text-align:left;padding-left:20px">Pemberian Darah</td>
-                    <td style="text-align:right">90.000</td>
-                </tr>
-                <tr>
-                    <td style="text-align:left;padding-left:10px"><i>Biaya Tindakan Poli KIA</i></td>
-                </tr>
-                <tr>
-                    <td style="text-align:left;padding-left:20px">Pemberian Infus</td>
-                    <td style="text-align:right">90.000</td>
-                </tr>
-                <tr>
-                    <td style="text-align:left;padding-left:20px">Pemberian Darah</td>
-                    <td style="text-align:right">90.000</td>
-                </tr>
-                <tr>
-                    <td style="text-align:left;padding-left:10px"><i>Biaya Tindakan Laboratorium</i></td>
-                </tr>
-                <tr>
-                    <td style="text-align:left;padding-left:20px">Pemberian Infus</td>
-                    <td style="text-align:right">90.000</td>
-                </tr>
-                <tr>
-                    <td style="text-align:left;padding-left:20px">Pemberian Darah</td>
-                    <td style="text-align:right">90.000</td>
-                </tr>
-                <tr>
-                    <td style="text-align:left;padding-left:10px"><i>Biaya Tindakan UGD</i></td>
-                </tr>
-                <tr>
-                    <td style="text-align:left;padding-left:20px">Pemberian Infus</td>
-                    <td style="text-align:right">90.000</td>
-                </tr>
-                <tr>
-                    <td style="text-align:left;padding-left:20px">Pemberian Darah</td>
-                    <td style="text-align:right">90.000</td>
-                </tr>
-                <tr>
-                    <td style="text-align:left;padding-left:10px"><i>Biaya Rawat inap</i></td>
-                </tr>
-                <tr>
-                    <td style="text-align:left;padding-left:20px">Pemberian Infus</td>
-                    <td style="text-align:right">90.000</td>
-                </tr>
-                <tr>
-                    <td style="text-align:left;padding-left:10px"><i>Biaya Obat-obatan</i></td>
-                </tr>
-                <tr>
-                    <td style="text-align:left;padding-left:20px">Apotek</td>
-                    <td style="text-align:right">90.000</td>
-                </tr>
-            </table>
+                    <tr>
+                        <td style="text-align:left">Rincian Transaksi</td>
+                        <td style="text-align:right">Biaya</td>
+                    </tr>';
+                    if(isset($no_bp_p))
+                    {
+                    $html.='<tr>
+                        <td style="text-align:left;padding-left:10px"><i>Biaya Tindakan Balai Pengobatan</i></td>
+                    </tr>';
+                    foreach($detail_bp_penanganan as $bp_tindakan)
+                    {
+                    $html.='<tr>
+                        <td style="text-align:left;padding-left:20px">'.$bp_tindakan->nama.'</td>
+                        <td style="text-align:right">'.rupiah($bp_tindakan->harga).'</td>
+                    </tr>';}
+                    }
+                    if(isset($no_kia_p))
+                    {
+                    $html.='<tr>
+                        <td style="text-align:left;padding-left:10px"><i>Biaya Tindakan Poli KIA</i></td>
+                    </tr>';
+                    foreach($detail_kia_penanganan as $kia_tindakan)
+                    {
+                    $html.='<tr>
+                        <td style="text-align:left;padding-left:20px">'.$kia_tindakan->nama.'</td>
+                        <td style="text-align:right">'.rupiah($kia_tindakan->harga).'</td>
+                    </tr>';}
+                    }
+
+                    if(isset($no_lab_t))
+                    {
+                    $html.='<tr>
+                        <td style="text-align:left;padding-left:10px"><i>Biaya Tindakan Laboratorium</i></td>
+                    </tr>';
+                    foreach($detail_lab_transaksi as $lab_tindakan)
+                    {
+                    $html.='<tr>
+                        <td style="text-align:left;padding-left:20px">'.$lab_tindakan->nama.'</td>
+                        <td style="text-align:right">'.rupiah($lab_tindakan->harga).'</td>
+                    </tr>';}
+                    }
+
+                    if(isset($no_ugd_p))
+                    {
+                    $html.='<tr>
+                        <td style="text-align:left;padding-left:10px"><i>Biaya Tindakan UGD</i></td>
+                    </tr>';
+                    foreach($detail_ugd_penanganan as $ugd_tindakan)
+                    {
+                    $html.='<tr>
+                        <td style="text-align:left;padding-left:20px">'.$ugd_tindakan->nama.'</td>
+                        <td style="text-align:right">'.rupiah($ugd_tindakan->harga).'</td>
+                    </tr>';}
+                    }
+                    $html.='<tr>
+                        <td style="text-align:left;padding-left:10px"><i>Biaya Obat-obatan</i></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;padding-left:20px">Apotek</td>
+                        <td style="text-align:right">90.000</td>
+                    </tr>
+                </table>
                 ';
                 $this->dompdf->PdfGenerator($html, 'coba', 'A4', 'potrait',true);
+            }
+
+            
         }
     
         public function cetak_struk() {
