@@ -13,7 +13,7 @@
         }
 
         public function index() {
-            $no_ref_pelayanan = "200108-001";
+            $no_ref_pelayanan = "191226-022";
             $where_no_ref = array(
                 'no_ref_pelayanan' => $no_ref_pelayanan
             );
@@ -102,13 +102,55 @@
             );
             $detail_penjualan_obat_apotek =
             $this->M_test->get_data('detail_penjualan_obat_apotik',$where_no_penjualan_obat_a)->result();
-            
-            $harga_bp = 0;
-            $harga_kia = 0;
-            $harga_lab = 0;
-            $harga_ugd = 0;
-            $harga_apotek = 0;
 
+            // Ambil kamar rawat inatp
+            $transaksi_rawat_inap = $this->M_test->get_data('transaksi_rawat_inap',$where_no_ref)->result();
+
+            $no_transaksi_rawat_i = " ";
+            foreach($transaksi_rawat_inap as $transaksi_ri)
+            {
+                $no_transaksi_rawat_i = $transaksi_ri->no_transaksi_rawat_i;
+            }
+
+            // ambil detail kamar rawaat inap
+            $no_detail_kamar_ri = " ";
+            $where_no_transaksi_rawat_i = array(
+                'no_transaksi_rawat_i' => $no_transaksi_rawat_i
+            );
+            $detail_kamar_rawat_inap =
+            $this->M_test->get_data('detail_transaksi_rawat_inap_kamar',$where_no_transaksi_rawat_i)->result();
+            foreach($detail_kamar_rawat_inap as $data_kamar_ri)
+            {
+                $no_detail_kamar_ri = $data_kamar_ri->no_detail_transaksi_rawat_inap_k;
+            }
+
+            // ambil detail tindakan rawat inap
+            $detail_tindakan_rawat_inap =
+            $this->M_test->get_data('detail_transaksi_rawat_inap_tindakan',$where_no_transaksi_rawat_i)->result();
+            $no_detail_tindakan_ri = " ";
+            foreach($detail_tindakan_rawat_inap as $data_tindakan_ri)
+            {
+                $no_detail_tindakan_ri = $data_tindakan_ri->no_detail_transaksi_rawat_inap_t;
+            }
+
+            // ambil detail obat rawat inap
+            $detail_obat_rawat_inap =
+            $this->M_test->get_data('detail_transaksi_rawat_inap_obat',$where_no_transaksi_rawat_i)->result();
+            $no_detail_obat_ri = " ";
+            foreach($detail_obat_rawat_inap as $data_obat_ri)
+            {
+                $no_detail_obat_ri = $data_obat_ri->no_detail_transaksi_rawat_inap_o;
+            }
+            
+            $total_harga_bp = 0;
+            $total_harga_kia = 0;
+            $total_harga_lab = 0;
+            $total_harga_ugd = 0;
+            $total_harga_apotek = 0;
+
+            $total_harga_kamar_ri= 0;
+            $total_harga_tindakan_ri = 0;
+            $total_harga_obat_ri = 0;
 
             if($tipe_pelayanan == "Rawat Jalan")
             {
@@ -145,7 +187,7 @@
                     </tr>';
                     foreach($detail_bp_penanganan as $bp_tindakan)
                     {
-                        $harga_bp += $bp_tindakan->harga_tindakan;
+                        $total_harga_bp += $bp_tindakan->harga_tindakan;
                     $html.='<tr>
                         <td style="text-align:left;padding-left:20px">'.$bp_tindakan->nama.'</td>
                         <td style="text-align:right">'.rupiah($bp_tindakan->harga_tindakan).'</td>
@@ -158,7 +200,7 @@
                     </tr>';
                     foreach($detail_kia_penanganan as $kia_tindakan)
                     {
-                        $harga_kia += $kia_tindakan->harga;
+                        $total_harga_kia += $kia_tindakan->harga;
                     $html.='<tr>
                         <td style="text-align:left;padding-left:20px">'.$kia_tindakan->nama.'</td>
                         <td style="text-align:right">'.rupiah($kia_tindakan->harga).'</td>
@@ -172,7 +214,7 @@
                     </tr>';
                     foreach($detail_lab_transaksi as $lab_tindakan)
                     {
-                        $harga_lab += $lab_tindakan->harga;
+                        $total_harga_lab += $lab_tindakan->harga;
                     $html.='<tr>
                         <td style="text-align:left;padding-left:20px">'.$lab_tindakan->nama.'</td>
                         <td style="text-align:right">'.rupiah($lab_tindakan->harga).'</td>
@@ -186,7 +228,7 @@
                     </tr>';
                     foreach($detail_ugd_penanganan as $ugd_tindakan)
                     {
-                        $harga_ugd += $ugd_tindakan->harga;
+                        $total_harga_ugd += $ugd_tindakan->harga;
                     $html.='<tr>
                         <td style="text-align:left;padding-left:20px">'.$ugd_tindakan->nama.'</td>
                         <td style="text-align:right">'.rupiah($ugd_tindakan->harga).'</td>
@@ -199,11 +241,11 @@
                         {
                             if($row_obat_apotek->status_paket == "Ya")
                             {
-                                $harga_apotek = 0;
+                                $total_harga_apotek = 0;
                             }
                             else 
                             {
-                                $harga_apotek += $row_obat_apotek->harga_jual;
+                                $total_harga_apotek += $row_obat_apotek->harga_jual;
                             }
                         }
                     $html.='<tr>
@@ -211,16 +253,177 @@
                     </tr>';
                     $html.='<tr>
                         <td style="text-align:left;padding-left:20px">Apotek</td>
-                        <td style="text-align:right">'.rupiah($harga_apotek).'</td>
+                        <td style="text-align:right">'.rupiah($total_harga_apotek).'</td>
                     </tr>';
                     }
-                    $grand_total = $harga_bp + $harga_kia + $harga_lab + $harga_ugd + $harga_apotek;
+                    $grand_total = $total_harga_bp + $total_harga_kia + $total_harga_lab + $total_harga_ugd + $total_harga_apotek;
                     $html.='
                     <tr>
                         <td style="text-align:left;padding-left:10px;padding-top:20px"><i>Jumlah Yang Harus Dibayar</i></td>
-                        <td style="text-align:right">'.rupiah($grand_total).'</td>
+                        <td style="text-align:right;adding-top:20px;">'.rupiah($grand_total).'</td>
                     </tr>';
                 $html.='</table>
+                ';
+                $this->dompdf->PdfGenerator($html, 'coba', 'A4', 'potrait',true);
+            }
+            else {
+                $html = '
+                <h4 style="text-align:center">Rekening Pasien</h4>
+                <table width="100%">
+                    <tr>
+                        <td width="14%">Nama</td>
+                        <td width="1%">:</td>
+                        <td width="35%">'.$nama_pasien.'</td>
+                        <td width="19%">No Pelayanan</td>
+                        <td width="1%">:</td>
+                        <td width="30%">'.$no_ref.'</td>
+                    </tr>
+                    <tr>
+                        <td width="14%">Nomor RM</td>
+                        <td width="1%">:</td>
+                        <td width="40%">'.$no_rm.'</td>
+                        <td width="19%">Tanggal Masuk</td>
+                        <td width="1%">:</td>
+                        <td width="25%">'.$tgl_pelayanan.'</td>
+                    </tr>
+                </table>
+                <hr>
+                <table width="100%">
+                    <tr>
+                        <td style="text-align:left">Rincian Transaksi</td>
+                        <td style="text-align:right">Biaya</td>
+                    </tr>';
+                    if($no_bp_p != " ")
+                    {
+                    $html.='<tr>
+                        <td style="text-align:left;padding-left:10px"><i>Biaya Tindakan Balai Pengobatan</i></td>
+                    </tr>';
+                    foreach($detail_bp_penanganan as $bp_tindakan)
+                    {
+                    $total_harga_bp += $bp_tindakan->harga_tindakan;
+                    $html.='<tr>
+                        <td style="text-align:left;padding-left:20px">'.$bp_tindakan->nama.'</td>
+                        <td style="text-align:right">'.rupiah($bp_tindakan->harga_tindakan).'</td>
+                    </tr>';}
+                    }
+                    if($no_kia_p != " ")
+                    {
+                    $html.='<tr>
+                        <td style="text-align:left;padding-left:10px"><i>Biaya Tindakan Poli KIA</i></td>
+                    </tr>';
+                    foreach($detail_kia_penanganan as $kia_tindakan)
+                    {
+                    $total_harga_kia += $kia_tindakan->harga;
+                    $html.='<tr>
+                        <td style="text-align:left;padding-left:20px">'.$kia_tindakan->nama.'</td>
+                        <td style="text-align:right">'.rupiah($kia_tindakan->harga).'</td>
+                    </tr>';}
+                    }
+
+                    if($no_lab_t != " ")
+                    {
+                    $html.='<tr>
+                        <td style="text-align:left;padding-left:10px"><i>Biaya Tindakan Laboratorium</i></td>
+                    </tr>';
+                    foreach($detail_lab_transaksi as $lab_tindakan)
+                    {
+                    $total_harga_lab += $lab_tindakan->harga;
+                    $html.='<tr>
+                        <td style="text-align:left;padding-left:20px">'.$lab_tindakan->nama.'</td>
+                        <td style="text-align:right">'.rupiah($lab_tindakan->harga).'</td>
+                    </tr>';}
+                    }
+
+                    if($no_ugd_p != " ")
+                    {
+                    $html.='<tr>
+                        <td style="text-align:left;padding-left:10px"><i>Biaya Tindakan UGD</i></td>
+                    </tr>';
+                    foreach($detail_ugd_penanganan as $ugd_tindakan)
+                    {
+                    $total_harga_ugd += $ugd_tindakan->harga;
+                    $html.='<tr>
+                        <td style="text-align:left;padding-left:20px">'.$ugd_tindakan->nama.'</td>
+                        <td style="text-align:right">'.rupiah($ugd_tindakan->harga).'</td>
+                    </tr>';}
+                    }
+
+                    if($no_penjualan_obat_a != " ")
+                    {
+                        foreach($detail_penjualan_obat_apotek as $row_obat_apotek)
+                    {
+                        if($row_obat_apotek->status_paket == "Ya")
+                        {
+                            $total_harga_apotek = 0;
+                        }
+                        else
+                        {
+                            $total_harga_apotek += $row_obat_apotek->harga_jual;
+                        }
+                    }
+                    $html.='<tr>
+                        <td style="text-align:left;padding-left:10px"><i>Biaya Obat-obatan</i></td>
+                    </tr>';
+                    $html.='<tr>
+                        <td style="text-align:left;padding-left:20px">Apotek</td>
+                        <td style="text-align:right">'.rupiah($total_harga_apotek).'</td>
+                    </tr>';
+                    }
+                    if($no_transaksi_rawat_i != " ")
+                    {
+                    $html.='
+                    <tr>
+                    	<td style="text-align:left;padding-left:10px"><i>Rawat Inap</i></td>
+                    </tr>';
+                    }
+
+                    if($no_detail_kamar_ri != " ")
+                    {
+                    foreach($detail_kamar_rawat_inap as $kamar_ri)
+                    {
+                        $total_harga_kamar_ri += $kamar_ri->harga_harian;
+                    }
+                    
+                    $html.='
+                    <tr>
+                        <td style="text-align:left;padding-left:20px">Biaya Kamar</td>
+                        <td style="text-align:right">'.rupiah($total_harga_kamar_ri).'</td>
+                    </tr>';
+                    
+                    }
+                    if($no_detail_tindakan_ri != " ")
+                    {
+                        foreach($detail_tindakan_rawat_inap as $tindakan_ri)
+                        {
+                            $total_harga_tindakan_ri += $tindakan_ri->harga;
+                        }
+                    $html.='<tr>
+                        <td style="text-align:left;padding-left:20px">Biaya Tindakan Rawat Inap</td>
+                        <td style="text-align:right">'.rupiah($total_harga_tindakan_ri).'</td>
+                    </tr>';
+                    }
+                    if($no_detail_obat_ri != " ")
+                    {
+                        foreach($detail_obat_rawat_inap as $obat_ri)
+                        {
+                        $total_harga_obat_ri += $obat_ri->sub_total_harga;
+                        }
+                    $html.='<tr>
+                        <td style="text-align:left;padding-left:20px">Biaya Obat</td>
+                        <td style="text-align:right">'.rupiah($total_harga_obat_ri).'</td>
+                    </tr>
+                    ';
+                    }
+                    $grand_total = $total_harga_bp + $total_harga_kia + $total_harga_lab + $total_harga_ugd +
+                    $total_harga_apotek + $total_harga_kamar_ri + $total_harga_tindakan_ri + $total_harga_obat_ri;
+                    $html.='
+                    <tr>
+                        <td style="text-align:left;padding-left:10px;padding-top:20px"><i>Jumlah Yang Harus Dibayar</i>
+                        </td>
+                        <td style="text-align:right;adding-top:20px;">'.rupiah($grand_total).'</td>
+                    </tr>';
+                    $html.='
+                </table>
                 ';
                 $this->dompdf->PdfGenerator($html, 'coba', 'A4', 'potrait',true);
             }

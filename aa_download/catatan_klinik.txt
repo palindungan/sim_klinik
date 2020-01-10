@@ -15,5 +15,5 @@
 #Yang belum
 - No User Pegawai Masih data dummie saat pendaftaran
 - No RM format gimana?
-- Transaksi bp belum ada view
+- struk rawat inap bagian kamar belum fix
 
