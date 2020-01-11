@@ -13,7 +13,10 @@ class Pengiriman_obat extends CI_Controller
     }
     public function tampil_daftar_obat()
     {
-        $data_tbl['tbl_data'] = $this->M_pengiriman_obat->tampil_data('data_stok_obat_apotek')->result();
+        $where_qty = array(
+            'qty >' => 0
+        );
+        $data_tbl['tbl_data'] = $this->M_pengiriman_obat->get_data('data_stok_obat_apotek',$where_qty)->result();
 
         $data = json_encode($data_tbl);
 
@@ -57,7 +60,7 @@ class Pengiriman_obat extends CI_Controller
                         );
 
                         $data = array(
-                            'qty_sekarang' => $qty_sekarang -  $qty
+                            'qty' => $qty_sekarang -  $qty
                         );
 
                         $status_update = $this->M_pengiriman_obat->update_data($where, 'stok_obat_apotik', $data);
