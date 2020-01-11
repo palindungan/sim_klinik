@@ -100,12 +100,10 @@ ORDER BY p.no_ref_pelayanan ASC;
 CREATE VIEW daftar_penjualan_obat_apotek AS 
 SELECT poa.no_penjualan_obat_a , poa.tanggal_penjualan , poa.total_harga , pe.no_ref_pelayanan , pa.no_rm , pa.nama AS nama_pasien , up.no_user_pegawai , up.nama AS nama_pegawai
 FROM  penjualan_obat_apotik poa JOIN pelayanan pe USING(no_ref_pelayanan) JOIN pasien pa USING(no_rm) JOIN user_pegawai up USING(no_user_pegawai)
-ORDER BY poa.no_penjualan_obat_a ASC;
+ORDER BY poa.no_penjualan_obat_a DESC;
 
 CREATE VIEW daftar_penjualan_obat_apotek_detail AS 
-SELECT dpoa.no_detail_penjualan_obat_a, o.nama , dpoa.qty , dpoa.harga_jual , poa.no_penjualan_obat_a, poa.no_ref_pelayanan,soa.no_stok_obat_a, soa.qty_sekarang
-FROM detail_penjualan_obat_apotik dpoa JOIN stok_obat_apotik soa USING(no_stok_obat_a) JOIN obat o USING(kode_obat) JOIN penjualan_obat_apotik poa USING(no_penjualan_obat_a)
-ORDER BY dpoa.no_detail_penjualan_obat_a ASC;
+SELECT dpoa.no_detail_penjualan_obat_a, o.nama , dpoa.qty , dpoa.harga_jual , poa.no_penjualan_obat_a, poa.no_ref_pelayanan,soa.no_stok_obat_a FROM detail_penjualan_obat_apotik dpoa JOIN stok_obat_apotik soa USING(no_stok_obat_a) JOIN obat o USING(kode_obat) JOIN penjualan_obat_apotik poa USING(no_penjualan_obat_a) ORDER BY dpoa.no_detail_penjualan_obat_a ASC 
 
 CREATE VIEW daftar_penerimaan_obat_apotek AS 
 SELECT po.no_penerimaan_o , su.nama , po.tgl_penerimaan_o , po.total_harga 
