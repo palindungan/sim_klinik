@@ -14,7 +14,10 @@ class Penjualan_obat extends CI_Controller
 
     public function tampil_daftar_obat()
     {
-        $data_tbl['tbl_data'] = $this->M_penjualan_obat->tampil_data('data_stok_obat_apotek')->result();
+        $where_qyty = array(
+            'qty >' => 0
+        );
+        $data_tbl['tbl_data'] = $this->M_penjualan_obat->get_data('data_stok_obat_apotek',$where_qyty)->result();
 
         $data = json_encode($data_tbl);
 
@@ -84,7 +87,8 @@ class Penjualan_obat extends CI_Controller
                         'no_penjualan_obat_a' => $no_penjualan_obat_a,
                         'no_stok_obat_a' => $no_stok_obat_a,
                         'qty' => $qty,
-                        'harga_jual' => $harga_jual
+                        'harga_jual' => $harga_jual,
+                        'status_paket' => 'Tidak'
                     );
 
                     $status_detail = $this->M_penjualan_obat->input_data('detail_penjualan_obat_apotik', $data);
@@ -97,7 +101,7 @@ class Penjualan_obat extends CI_Controller
                         );
 
                         $data = array(
-                            'qty_sekarang' => $qty_sekarang -  $qty
+                            'qty' => $qty_sekarang -  $qty
                         );
                         $status_update = $this->M_penjualan_obat->update_data($where, 'stok_obat_apotik', $data);
 

@@ -74,7 +74,7 @@
 <!-- Modal -->
 <div class="modal fade  bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog"
 	aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="exampleModalLongTitle">Stok Obat Apotek</h5>
@@ -91,7 +91,7 @@
 								<th>Nama Obat</th>
 								<th>Kategori</th>
 								<th>Tanggal Penerimaan</th>
-								<th>Stok Saat Ini</th>
+								<th>Stok</th>
 								<th>Harga Jual</th>
 								<th>Aksi</th>
 							</tr>
@@ -162,9 +162,9 @@
 		var row_no = row_id.substring(3); // 1++
 
 		var val_qty = parseInt($('#' + row_id).val());
-		var val_qty_sekarang = parseInt($('#qty_sekarang' + row_no).val());
+		var val_qty = parseInt($('#qty' + row_no).val());
 
-		if (val_qty <= val_qty_sekarang) {
+		if (val_qty <= val_qty) {
 			update_total();
 		} else {
 			alert("Maaf Qty Tidak Boleh Detail Obat Melebihi Stok Apotek");
@@ -205,7 +205,19 @@
 	function search_proses() {
 
 		var table;
-		table = $('.table_1').DataTable();
+		table = $('.table_1').DataTable({
+			"columnDefs": [{
+					"targets": [0, 3, 4],
+					"className": "text-center"
+				},
+				{
+					"targets": 5,
+					"className": "text-right"
+				}
+			],
+			"bDestroy": true,
+			"pageLength": 5
+		});
 
 		table.clear();
 
@@ -226,16 +238,20 @@
 						var nama = data[i].nama_obat;
 						var nama_kategori = data[i].nama_kategori;
 						var tgl_penerimaan_o = data[i].tgl_penerimaan_o;
-						var qty_sekarang = data[i].qty_sekarang;
+						var qty = data[i].qty;
 						var harga_jual = data[i].harga_jual;
 
+						var reverse = harga_jual.toString().split('').reverse().join(''),
+							ribuan = reverse.match(/\d{1,3}/g);
+						ribuan = ribuan.join('.').split('').reverse().join('');
+
 						var button = `<a onclick="pilihObat('` + kode +
-							`','` + nama + `','` + harga_jual + `','` + qty_sekarang + `')" id="` +
+							`','` + nama + `','` + harga_jual + `','` + qty + `')" id="` +
 							kode +
 							`" class="btn btn-sm btn-dark text-white">Pilih</a>`;
 
-						table.row.add([no, nama, nama_kategori, tgl_penerimaan_o, qty_sekarang,
-							harga_jual, button
+						table.row.add([no, nama, nama_kategori, tgl_penerimaan_o, qty,
+							ribuan, button
 						]);
 
 						no = no + 1;
@@ -252,7 +268,7 @@
 	}
 
 	// Start add_row
-	function pilihObat(kode, nama, harga_jual, qty_sekarang) {
+	function pilihObat(kode, nama, harga_jual, qty) {
 
 		$('#detail_list').append(`
 
@@ -271,8 +287,8 @@
 				</div>
                 <div class="form-group col-sm-1">
 					<input type="text" name="qty[]" class="form-control form-control-sm qty_format" id="qty` + count1 + `" placeholder="QTY" value="1" required>
-					<input type="hidden" name="qty_sekarang[]" id="qty_sekarang` + count1 +
-			`" class="form-control form-control-sm" value="` + qty_sekarang + `"></input>
+					<input type="hidden" name="qty_sekarang[]" id="qty` + count1 +
+			`" class="form-control form-control-sm" value="` + qty + `"></input>
 				</div>
 				<div class="form-group col-sm-2">
 					<a id="` + count1 + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris">

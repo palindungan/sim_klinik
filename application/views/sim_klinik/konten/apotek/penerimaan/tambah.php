@@ -176,7 +176,14 @@
 	function search_proses() {
 
 		var table;
-		table = $('.table_1').DataTable();
+		table = $('.table_1').DataTable({
+			"columnDefs": [{
+				"targets": [0, 3],
+				"className": "text-center"
+			}],
+			"bDestroy": true,
+			"pageLength": 5
+		});
 
 		table.clear();
 

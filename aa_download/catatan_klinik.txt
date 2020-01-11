@@ -16,4 +16,4 @@
 - No User Pegawai Masih data dummie saat pendaftaran
 - No RM format gimana?
 - struk rawat inap bagian kamar belum fix
-
+- tanggal penerimaan di penjualan obat belum di date format
