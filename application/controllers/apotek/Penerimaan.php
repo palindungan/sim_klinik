@@ -26,17 +26,17 @@ class Penerimaan extends CI_Controller
         $sub_total = 0;
         $total = 0;
 
-        if (isset($_POST['kode_obat']) && isset($_POST['harga_supplier']) && isset($_POST['qty_awal'])) {
+        if (isset($_POST['kode_obat']) && isset($_POST['harga_supplier']) && isset($_POST['qty'])) {
 
             for ($i = 0; $i < count($this->input->post('kode_obat')); $i++) {
 
                 $harga_supplier_temp = $this->input->post('harga_supplier')[$i];
                 $harga_supplier = (int) preg_replace("/[^0-9]/", "", $harga_supplier_temp);
 
-                $qty_awal_temp = $this->input->post('qty_awal')[$i];
-                $qty_awal = (int) preg_replace("/[^0-9]/", "", $qty_awal_temp);
+                $qty_temp = $this->input->post('qty')[$i];
+                $qty = (int) preg_replace("/[^0-9]/", "", $qty_temp);
 
-                $perhitungan = $harga_supplier * $qty_awal;
+                $perhitungan = $harga_supplier * $qty;
 
                 $sub_total = $sub_total + $perhitungan;
             }
@@ -79,15 +79,14 @@ class Penerimaan extends CI_Controller
                     $kode_obat = $this->input->post('kode_obat')[$i];
                     $harga_temp = $this->input->post('harga_supplier')[$i];
                     $harga_supplier = preg_replace("/[^0-9]/", "", $harga_temp);
-                    $qty_awal = $this->input->post('qty_awal')[$i];
+                    $qty = $this->input->post('qty')[$i];
 
                     // proses pemasukan ke dalam database detail
                     $data = array(
                         'no_penerimaan_o' => $no_penerimaan_o,
                         'kode_obat' => $kode_obat,
                         'harga_supplier' => $harga_supplier,
-                        'qty_awal' => $qty_awal,
-                        'qty_sekarang' => $qty_awal
+                        'qty' => $qty
                     );
 
                     $status = $this->M_penerimaan->input_data('stok_obat_apotik', $data);

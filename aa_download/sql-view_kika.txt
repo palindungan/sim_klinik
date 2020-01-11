@@ -110,10 +110,10 @@ ORDER BY dpoa.no_detail_penjualan_obat_a ASC;
 CREATE VIEW daftar_penerimaan_obat_apotek AS 
 SELECT po.no_penerimaan_o , su.nama , po.tgl_penerimaan_o , po.total_harga 
 FROM penerimaan_obat po JOIN supplier su USING(no_supplier)
-ORDER BY po.no_penerimaan_o ASC;
+ORDER BY po.no_penerimaan_o DESC;
 
 CREATE VIEW daftar_penerimaan_obat_apotek_detail AS 
-SELECT po.no_penerimaan_o , su.nama AS nama_suplier , po.tgl_penerimaan_o , po.total_harga , o.nama AS nama_obat , soa.harga_supplier , soa.qty_awal
+SELECT po.no_penerimaan_o , su.nama AS nama_suplier , po.tgl_penerimaan_o , po.total_harga , o.nama AS nama_obat , soa.harga_supplier , soa.qty
 FROM penerimaan_obat po JOIN supplier su USING(no_supplier) JOIN stok_obat_apotik soa USING(no_penerimaan_o) JOIN obat o USING(kode_obat) 
 ORDER BY soa.no_stok_obat_a ASC;
 

@@ -6,9 +6,10 @@
 	.select2-selection {
 		height: 38px !important;
 	}
+
 </style>
 <?php if ($this->session->flashdata('success')) : ?>
-	<div class="pesan-sukses" data-flashdata="<?= $this->session->flashdata('success'); ?>"></div>
+<div class="pesan-sukses" data-flashdata="<?= $this->session->flashdata('success'); ?>"></div>
 <?php endif; ?>
 <div class="container-fluid">
 	<div class="card shadow mb-4">
@@ -23,9 +24,9 @@
 						<select class="form-control form-control-sm" name="no_supplier" required>
 							<option value="">-- Pilih Data --</option>
 							<?php foreach ($record as $data) : ?>
-								<option value="<?= $data->no_supplier ?>">
-									<?= $data->no_supplier . " || " . $data->nama ?>
-								</option>
+							<option value="<?= $data->no_supplier ?>">
+								<?= $data->no_supplier . " || " . $data->nama ?>
+							</option>
 							<?php endforeach; ?>
 						</select>
 					</div>
@@ -39,7 +40,8 @@
 				<div class="form-row">
 
 					<div class="form-group col-sm-12">
-						<a href="#" id="btn_search" class="btn btn-sm btn-primary btn-icon-split" data-toggle="modal" data-target="#exampleModalCenter">
+						<a href="#" id="btn_search" class="btn btn-sm btn-primary btn-icon-split" data-toggle="modal"
+							data-target="#exampleModalCenter">
 							<span class="icon text-white-50">
 								<i class="fas fa-search-plus"></i>
 							</span>
@@ -67,11 +69,14 @@
 					<div class="form-group col-sm-5"> </div>
 
 					<div class="form-group col-sm-5">
-						<input type="text" readonly name="total_harga" class="form-control form-control-sm rupiah text-right" id="total_harga" placeholder="Total" required>
+						<input type="text" readonly name="total_harga"
+							class="form-control form-control-sm rupiah text-right" id="total_harga" placeholder="Total"
+							required>
 					</div>
 
 					<div class="form-group col-sm-2">
-						<button id="action" type="submit" class="btn btn-sm btn-success btn-icon-split" onclick="return confirm('Lakukan Simpan Data ?')">
+						<button id="action" type="submit" class="btn btn-sm btn-success btn-icon-split"
+							onclick="return confirm('Lakukan Simpan Data ?')">
 							<span class="icon text-white-50">
 								<i class="fas fa-save"></i>
 							</span>
@@ -88,8 +93,9 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade  bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+<div class="modal fade  bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog"
+	aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="exampleModalLongTitle">Daftar Obat</h5>
@@ -124,12 +130,12 @@
 	var jumlah_detail_penerimaan = 0;
 
 	// jika kita tekan / click button search-button
-	$('#btn_search').on('click', function() {
+	$('#btn_search').on('click', function () {
 		search_proses();
 	});
 
 	// jika kita tekan hapus / click button
-	$(document).on('click', '.remove_baris', function() {
+	$(document).on('click', '.remove_baris', function () {
 		var row_no = $(this).attr("id");
 		$('#row' + row_no).remove();
 
@@ -139,12 +145,12 @@
 	});
 
 	// jika kita mengubah class inputan rupiah
-	$(document).on('keyup', '.rupiah', function() {
+	$(document).on('keyup', '.rupiah', function () {
 		update_total();
 	});
 
 	// jika di click simpan / submit
-	$(document).on('submit', '#penerimaan_form', function(event) {
+	$(document).on('submit', '#penerimaan_form', function (event) {
 		event.preventDefault();
 
 		// mengambil nilai di dalam form
@@ -155,7 +161,7 @@
 			url: "<?php echo base_url() . 'apotek/penerimaan/input_penerimaan_form'; ?>",
 			method: "POST",
 			data: form_data,
-			success: function(data) {
+			success: function (data) {
 				if (data != "") {
 					alert(data);
 				}
@@ -176,7 +182,7 @@
 
 		$.ajax({
 			url: "<?php echo base_url() . 'apotek/penerimaan/tampil_daftar_obat'; ?>",
-			success: function(hasil) {
+			success: function (hasil) {
 
 				var obj = JSON.parse(hasil);
 				let data = obj['tbl_data'];
@@ -185,7 +191,7 @@
 
 					var no = 1;
 
-					$.each(data, function(i, item) {
+					$.each(data, function (i, item) {
 
 						var kode = data[i].kode_obat;
 						var nama = data[i].nama_obat;
@@ -228,7 +234,7 @@
 			count1 + `" placeholder="harga supplier" required>
 				</div>
                 <div class="form-group col-sm-1">
-					<input type="text" name="qty_awal[]" class="form-control form-control-sm  rupiah" id="qty_awal` + count1 + `" placeholder="QTY" value="1" required>
+					<input type="text" name="qty[]" class="form-control form-control-sm  rupiah" id="qty` + count1 + `" placeholder="QTY" value="1" required>
 				</div>
 				<div class="form-group col-sm-2">
 					<a id="` + count1 + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris">
@@ -269,7 +275,7 @@
 			url: "<?php echo base_url() . 'apotek/penerimaan/ambil_total'; ?>",
 			method: "POST",
 			data: form_data,
-			success: function(data) {
+			success: function (data) {
 				$('#total_harga').val(data);
 				$('.rupiah').trigger('input'); // Will be display 
 			}
@@ -283,4 +289,5 @@
 			reverse: true
 		});
 	}
+
 </script>
