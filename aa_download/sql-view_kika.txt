@@ -192,3 +192,16 @@ ORDER BY dup.no_detail_ugd_p ASC;
 CREATE VIEW daftar_detail_kamar_transaksi_ri AS SELECT kri.no_kamar_rawat_i, kri.nama, dtrik.harga_harian, dtrik.tanggal_cek_in,dtrik.tanggal_cek_out,dtrik.sub_total_harga ,kri.tipe ,tri.no_ref_pelayanan
 FROM detail_transaksi_rawat_inap_kamar dtrik JOIN transaksi_rawat_inap tri USING(no_transaksi_rawat_i) JOIN kamar_rawat_inap kri USING(no_kamar_rawat_i)
 ORDER BY dtrik.no_detail_transaksi_rawat_inap_k ASC
+
+
+PIVOT TABLE BUAT LAPORAN RAWAT JALAN
+CREATE VIEW laporan_rawat_jalan as SELECT dbp.no_bp_p,bt.no_bp_t , bt.nama as nama_tindakan , dbp.harga as harga_detail, bp.no_ref_pelayanan , ps.nama as  nama_pasien , pl.tgl_pelayanan FROM detail_bp_penanganan dbp JOIN bp_tindakan bt USING(no_bp_t) JOIN bp_penanganan bp USING(no_bp_p) JOIN pelayanan pl USING(no_ref_pelayanan) JOIN pasien ps USING (no_rm)  ORDER BY dbp.no_detail_bp_p ASC
+
+SELECT  no_bp_p,nama_pasien,tgl_pelayanan,
+	SUM(IF(nama_tindakan = 'Cek Gula Darah',harga_detail,'-')) AS periksa_gula_darah,
+	SUM(IF(nama_tindakan = 'Cek Asam Urat',harga_detail,'-')) AS periksa_asam_urat,
+	SUM(IF(nama_tindakan = 'Cek Kolesterol',harga_detail,null)) AS periksa_kolesterol,
+    SUM(harga_detail) as total_harga
+FROM laporan_rawat_jalan
+GROUP BY no_bp_p
+

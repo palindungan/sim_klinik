@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 10 Jan 2020 pada 14.53
+-- Waktu pembuatan: 13 Jan 2020 pada 17.57
 -- Versi server: 10.4.6-MariaDB
 -- Versi PHP: 7.3.9
 
@@ -58,6 +58,7 @@ INSERT INTO `antrian_bp` (`kode_antrian_bp`, `no_ref_pelayanan`, `status`) VALUE
 ('A007', '191119-014', 'Antri'),
 ('A008', '191125-015', 'Antri'),
 ('A010', '191226-022', 'Antri'),
+('A012', '200113-001', 'Antri'),
 ('AG002', '191112-006', 'Selesai'),
 ('AG005', '191112-009', 'Selesai'),
 ('AG006', '191119-013', 'Antri'),
@@ -130,7 +131,8 @@ CREATE TABLE `bp_penanganan` (
 INSERT INTO `bp_penanganan` (`no_bp_p`, `no_ref_pelayanan`, `tgl_penanganan`, `total_harga`) VALUES
 ('BP191226-0002', '191226-022', '2019-12-26 18:41:05', 190000),
 ('BP200109-0001', '200108-001', '2020-01-09 22:28:12', 0),
-('BP200109-0002', '200108-001', '2020-01-09 22:32:24', 100000);
+('BP200109-0002', '200108-001', '2020-01-09 22:32:24', 100000),
+('BP200113-0001', '200113-001', '2020-01-13 23:54:18', 130000);
 
 -- --------------------------------------------------------
 
@@ -152,7 +154,10 @@ CREATE TABLE `bp_tindakan` (
 INSERT INTO `bp_tindakan` (`no_bp_t`, `nama`, `harga`, `status`) VALUES
 ('B001', 'pemberian betadine', 90000, 'Terima'),
 ('B002', 'Transfusi Darah', 100000, 'Terima'),
-('L003', 'Khitan', 100000, 'Tidak Terima');
+('L003', 'Khitan', 100000, 'Tidak Terima'),
+('T004', 'Cek Gula Darah', 20000, 'Terima'),
+('T005', 'Cek Asam Urat', 10000, 'Terima'),
+('T006', 'Cek Kolesterol', 10000, 'Terima');
 
 -- --------------------------------------------------------
 
@@ -231,6 +236,84 @@ CREATE TABLE `daftar_detail_tindakan_ugd_transaksi` (
 -- --------------------------------------------------------
 
 --
+-- Stand-in struktur untuk tampilan `daftar_penerimaan_obat_apotek`
+-- (Lihat di bawah untuk tampilan aktual)
+--
+CREATE TABLE `daftar_penerimaan_obat_apotek` (
+`no_penerimaan_o` char(13)
+,`nama` varchar(50)
+,`tgl_penerimaan_o` datetime
+,`total_harga` int(10)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in struktur untuk tampilan `daftar_penerimaan_obat_apotek_detail`
+-- (Lihat di bawah untuk tampilan aktual)
+--
+CREATE TABLE `daftar_penerimaan_obat_apotek_detail` (
+`no_penerimaan_o` char(13)
+,`nama_suplier` varchar(50)
+,`tgl_penerimaan_o` datetime
+,`total_harga` int(10)
+,`nama_obat` varchar(50)
+,`harga_supplier` int(9)
+,`qty` mediumint(5)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in struktur untuk tampilan `daftar_penjualan_obat_apotek`
+-- (Lihat di bawah untuk tampilan aktual)
+--
+CREATE TABLE `daftar_penjualan_obat_apotek` (
+`no_penjualan_obat_a` char(13)
+,`tanggal_penjualan` datetime
+,`total_harga` int(10)
+,`no_ref_pelayanan` char(10)
+,`no_rm` char(25)
+,`nama_pasien` varchar(50)
+,`no_user_pegawai` char(4)
+,`nama_pegawai` varchar(50)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in struktur untuk tampilan `daftar_penjualan_obat_apotek_detail`
+-- (Lihat di bawah untuk tampilan aktual)
+--
+CREATE TABLE `daftar_penjualan_obat_apotek_detail` (
+`no_detail_penjualan_obat_a` int(7)
+,`nama` varchar(50)
+,`qty` int(3)
+,`harga_jual` int(9)
+,`no_penjualan_obat_a` char(13)
+,`no_ref_pelayanan` char(10)
+,`no_stok_obat_a` int(7)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in struktur untuk tampilan `data_obat`
+-- (Lihat di bawah untuk tampilan aktual)
+--
+CREATE TABLE `data_obat` (
+`kode_obat` char(4)
+,`nama_obat` varchar(50)
+,`min_stok` int(3)
+,`harga_jual` int(9)
+,`no_kat_obat` char(4)
+,`nama_kategori` varchar(50)
+,`tipe` enum('Alkes','Obat')
+);
+
+-- --------------------------------------------------------
+
+--
 -- Stand-in struktur untuk tampilan `data_pelayanan_pasien`
 -- (Lihat di bawah untuk tampilan aktual)
 --
@@ -280,6 +363,7 @@ CREATE TABLE `data_stok_obat_apotek` (
 ,`kode_obat` char(4)
 ,`nama_obat` varchar(50)
 ,`harga_jual` int(9)
+,`tipe` enum('Alkes','Obat')
 ,`no_kat_obat` char(4)
 ,`nama_kategori` varchar(50)
 );
@@ -302,12 +386,16 @@ CREATE TABLE `detail_bp_penanganan` (
 --
 
 INSERT INTO `detail_bp_penanganan` (`no_detail_bp_p`, `no_bp_p`, `no_bp_t`, `harga`) VALUES
-(3, 'BP191226-0002', 'B001', 90000),
-(4, 'BP191226-0002', 'B002', 100000),
+(3, 'BP191226-0002', 'T004', 90000),
+(4, 'BP191226-0002', 'T006', 100000),
 (5, 'BP200109-0001', 'B001', 90000),
 (6, 'BP200109-0001', 'B002', 100000),
 (7, 'BP200109-0002', 'B002', 100000),
-(8, 'BP200109-0002', 'L003', 0);
+(8, 'BP200109-0002', 'L003', 0),
+(13, 'BP200113-0001', 'B001', 90000),
+(14, 'BP200113-0001', 'T004', 20000),
+(15, 'BP200113-0001', 'T005', 10000),
+(16, 'BP200113-0001', 'T006', 10000);
 
 -- --------------------------------------------------------
 
@@ -394,7 +482,9 @@ INSERT INTO `detail_penjualan_obat_apotik` (`no_detail_penjualan_obat_a`, `no_pe
 (10, 'PA200109-0005', 1, 1, 0, 'Ya'),
 (11, 'PA200110-0001', 4, 1, 0, 'Tidak'),
 (12, 'PA200110-0002', 4, 1, 0, 'Ya'),
-(13, 'PA200110-0003', 1, 1, 25000, 'Tidak');
+(13, 'PA200110-0003', 1, 1, 25000, 'Tidak'),
+(16, 'PA200111-0001', 5, 1, 20000, 'Tidak'),
+(17, 'PA200111-0001', 6, 1, 20000, 'Tidak');
 
 -- --------------------------------------------------------
 
@@ -606,6 +696,23 @@ INSERT INTO `lab_transaksi` (`no_lab_t`, `no_ref_pelayanan`, `tgl_transaksi`, `t
 -- --------------------------------------------------------
 
 --
+-- Stand-in struktur untuk tampilan `laporan_rawat_jalan`
+-- (Lihat di bawah untuk tampilan aktual)
+--
+CREATE TABLE `laporan_rawat_jalan` (
+`no_bp_p` char(13)
+,`no_bp_t` char(4)
+,`nama_tindakan` varchar(50)
+,`harga_detail` int(10)
+,`harga_tindakan` int(9)
+,`no_ref_pelayanan` char(10)
+,`nama_pasien` varchar(50)
+,`tgl_pelayanan` datetime
+);
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `obat`
 --
 
@@ -624,8 +731,8 @@ CREATE TABLE `obat` (
 --
 
 INSERT INTO `obat` (`kode_obat`, `no_kat_obat`, `nama`, `min_stok`, `harga_jual`, `tipe`, `qty`) VALUES
-('O001', 'K002', 'parasetamol', 50, 20000, 'Alkes', 10),
-('O002', 'K004', 'panadol', 40, 25000, 'Alkes', 10);
+('O001', 'K002', 'parasetamol', 50, 20000, 'Obat', 10),
+('O002', 'K004', 'panadol', 40, 25000, 'Obat', 10);
 
 -- --------------------------------------------------------
 
@@ -644,7 +751,19 @@ CREATE TABLE `obat_keluar_internal` (
 --
 
 INSERT INTO `obat_keluar_internal` (`no_obat_keluar_i`, `tujuan`, `tgl_obat_keluar_i`) VALUES
-('OK191210-0001', 'Rawat Inap', '2019-12-10 00:11:16');
+('OK191210-0001', 'Rawat Inap', '2019-12-10 00:11:16'),
+('OK200111-0001', 'Rawat Inap', '2020-01-11 09:10:34'),
+('OK200111-0002', 'Rawat Inap', '2020-01-11 09:12:03'),
+('OK200111-0003', 'Rawat Inap', '2020-01-11 09:12:06'),
+('OK200111-0004', 'Rawat Inap', '2020-01-11 09:12:07'),
+('OK200111-0005', 'Rawat Inap', '2020-01-11 09:12:28'),
+('OK200111-0006', 'Rawat Inap', '2020-01-11 09:13:29'),
+('OK200113-0001', 'Rawat Inap', '2020-01-13 19:56:01'),
+('OK200113-0002', 'Rawat Inap', '2020-01-13 19:56:04'),
+('OK200113-0003', 'Rawat Inap', '2020-01-13 19:56:23'),
+('OK200113-0004', 'Rawat Inap', '2020-01-13 19:56:28'),
+('OK200113-0005', 'Rawat Inap', '2020-01-13 19:57:45'),
+('OK200113-0006', 'Rawat Inap', '2020-01-13 19:59:04');
 
 -- --------------------------------------------------------
 
@@ -685,7 +804,8 @@ INSERT INTO `pasien` (`no_rm`, `nama`, `umur`, `alamat`) VALUES
 ('qweasd123zxc', 'Abda Rasyid', 0, 'Jln Cut Mutiah '),
 ('qweqwe', 'rizkika', 0, 'adasda'),
 ('svffd324', 'asdasd', 0, '12312'),
-('tyu56756', 'asa', 0, 'qweqw');
+('tyu56756', 'asa', 0, 'qweqw'),
+('zxcqsd21', 'zalramliz', 18, 'jember');
 
 -- --------------------------------------------------------
 
@@ -731,7 +851,8 @@ INSERT INTO `pelayanan` (`no_ref_pelayanan`, `no_rm`, `no_user_pegawai`, `layana
 ('191129-020', 'qweqwe', 'P001', 'Balai Pengobatan', 'Anak-Anak', '2019-11-29 00:00:00', 'belum_finish', 'Rawat Jalan'),
 ('191226-021', '098128092', 'P001', 'UGD', 'Dewasa', '2019-12-26 12:10:00', 'belum_finish', 'Rawat Jalan'),
 ('191226-022', 'qweasd123zxc', 'P001', 'Balai Pengobatan', 'Dewasa', '2019-12-26 18:27:48', 'finish', 'Rawat Inap'),
-('200108-001', 'asdasdzxc', 'P001', 'Balai Pengobatan', 'Anak-Anak', '2020-01-08 19:56:02', 'finish', 'Rawat Jalan');
+('200108-001', 'asdasdzxc', 'P001', 'Balai Pengobatan', 'Anak-Anak', '2020-01-08 19:56:02', 'finish', 'Rawat Jalan'),
+('200113-001', 'zxcqsd21', 'P001', 'Balai Pengobatan', 'Dewasa', '2020-01-13 21:02:42', 'belum_finish', 'Rawat Jalan');
 
 -- --------------------------------------------------------
 
@@ -765,7 +886,8 @@ CREATE TABLE `penerimaan_obat` (
 
 INSERT INTO `penerimaan_obat` (`no_penerimaan_o`, `no_supplier`, `tgl_penerimaan_o`, `total_harga`) VALUES
 ('PO191201-0001', 'S001', '2019-12-01 22:22:18', 140000),
-('PO191202-0001', 'S001', '2019-11-30 02:03:25', 43000);
+('PO191202-0001', 'S001', '2019-11-30 02:03:25', 43000),
+('PO200111-0001', 'S001', '2020-01-11 07:15:16', 30000);
 
 -- --------------------------------------------------------
 
@@ -793,7 +915,8 @@ INSERT INTO `penjualan_obat_apotik` (`no_penjualan_obat_a`, `no_ref_pelayanan`, 
 ('PA200109-0005', '200108-001', '2020-01-09 22:32:23', 45000),
 ('PA200110-0001', '200108-001', '2020-01-10 09:58:27', 20000),
 ('PA200110-0002', '200108-001', '2020-01-10 09:58:50', 20000),
-('PA200110-0003', '200108-001', '2020-01-10 10:00:15', 25000);
+('PA200110-0003', '200108-001', '2020-01-10 10:00:15', 25000),
+('PA200111-0001', '191226-021', '2020-01-11 08:48:57', 40000);
 
 -- --------------------------------------------------------
 
@@ -836,7 +959,9 @@ INSERT INTO `stok_obat_apotik` (`no_stok_obat_a`, `no_penerimaan_o`, `kode_obat`
 (1, 'PO191201-0001', 'O002', 60000, 0),
 (2, 'PO191201-0001', 'O001', 40000, 0),
 (3, 'PO191202-0001', 'O002', 8000, 0),
-(4, 'PO191202-0001', 'O001', 9000, 0);
+(4, 'PO191202-0001', 'O001', 9000, 0),
+(5, 'PO200111-0001', 'O001', 10000, 1),
+(6, 'PO200111-0001', 'O001', 10000, 1);
 
 -- --------------------------------------------------------
 
@@ -1009,6 +1134,51 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
+-- Struktur untuk view `daftar_penerimaan_obat_apotek`
+--
+DROP TABLE IF EXISTS `daftar_penerimaan_obat_apotek`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_penerimaan_obat_apotek`  AS  select `po`.`no_penerimaan_o` AS `no_penerimaan_o`,`su`.`nama` AS `nama`,`po`.`tgl_penerimaan_o` AS `tgl_penerimaan_o`,`po`.`total_harga` AS `total_harga` from (`penerimaan_obat` `po` join `supplier` `su` on(`po`.`no_supplier` = `su`.`no_supplier`)) order by `po`.`no_penerimaan_o` desc ;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur untuk view `daftar_penerimaan_obat_apotek_detail`
+--
+DROP TABLE IF EXISTS `daftar_penerimaan_obat_apotek_detail`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_penerimaan_obat_apotek_detail`  AS  select `po`.`no_penerimaan_o` AS `no_penerimaan_o`,`su`.`nama` AS `nama_suplier`,`po`.`tgl_penerimaan_o` AS `tgl_penerimaan_o`,`po`.`total_harga` AS `total_harga`,`o`.`nama` AS `nama_obat`,`soa`.`harga_supplier` AS `harga_supplier`,`soa`.`qty` AS `qty` from (((`penerimaan_obat` `po` join `supplier` `su` on(`po`.`no_supplier` = `su`.`no_supplier`)) join `stok_obat_apotik` `soa` on(`po`.`no_penerimaan_o` = `soa`.`no_penerimaan_o`)) join `obat` `o` on(`soa`.`kode_obat` = `o`.`kode_obat`)) order by `soa`.`no_stok_obat_a` ;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur untuk view `daftar_penjualan_obat_apotek`
+--
+DROP TABLE IF EXISTS `daftar_penjualan_obat_apotek`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_penjualan_obat_apotek`  AS  select `poa`.`no_penjualan_obat_a` AS `no_penjualan_obat_a`,`poa`.`tanggal_penjualan` AS `tanggal_penjualan`,`poa`.`total_harga` AS `total_harga`,`pe`.`no_ref_pelayanan` AS `no_ref_pelayanan`,`pa`.`no_rm` AS `no_rm`,`pa`.`nama` AS `nama_pasien`,`up`.`no_user_pegawai` AS `no_user_pegawai`,`up`.`nama` AS `nama_pegawai` from (((`penjualan_obat_apotik` `poa` join `pelayanan` `pe` on(`poa`.`no_ref_pelayanan` = `pe`.`no_ref_pelayanan`)) join `pasien` `pa` on(`pe`.`no_rm` = `pa`.`no_rm`)) join `user_pegawai` `up` on(`pe`.`no_user_pegawai` = `up`.`no_user_pegawai`)) order by `poa`.`no_penjualan_obat_a` desc ;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur untuk view `daftar_penjualan_obat_apotek_detail`
+--
+DROP TABLE IF EXISTS `daftar_penjualan_obat_apotek_detail`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_penjualan_obat_apotek_detail`  AS  select `dpoa`.`no_detail_penjualan_obat_a` AS `no_detail_penjualan_obat_a`,`o`.`nama` AS `nama`,`dpoa`.`qty` AS `qty`,`dpoa`.`harga_jual` AS `harga_jual`,`poa`.`no_penjualan_obat_a` AS `no_penjualan_obat_a`,`poa`.`no_ref_pelayanan` AS `no_ref_pelayanan`,`soa`.`no_stok_obat_a` AS `no_stok_obat_a` from (((`detail_penjualan_obat_apotik` `dpoa` join `stok_obat_apotik` `soa` on(`dpoa`.`no_stok_obat_a` = `soa`.`no_stok_obat_a`)) join `obat` `o` on(`soa`.`kode_obat` = `o`.`kode_obat`)) join `penjualan_obat_apotik` `poa` on(`dpoa`.`no_penjualan_obat_a` = `poa`.`no_penjualan_obat_a`)) order by `dpoa`.`no_detail_penjualan_obat_a` ;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur untuk view `data_obat`
+--
+DROP TABLE IF EXISTS `data_obat`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `data_obat`  AS  select `o`.`kode_obat` AS `kode_obat`,`o`.`nama` AS `nama_obat`,`o`.`min_stok` AS `min_stok`,`o`.`harga_jual` AS `harga_jual`,`ko`.`no_kat_obat` AS `no_kat_obat`,`ko`.`nama` AS `nama_kategori`,`o`.`tipe` AS `tipe` from (`obat` `o` join `kategori_obat` `ko` on(`o`.`no_kat_obat` = `ko`.`no_kat_obat`)) order by `o`.`nama` ;
+
+-- --------------------------------------------------------
+
+--
 -- Struktur untuk view `data_pelayanan_pasien`
 --
 DROP TABLE IF EXISTS `data_pelayanan_pasien`;
@@ -1031,7 +1201,16 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `data_stok_obat_apotek`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `data_stok_obat_apotek`  AS  select `soa`.`no_stok_obat_a` AS `no_stok_obat_a`,`soa`.`harga_supplier` AS `harga_supplier`,`soa`.`qty` AS `qty`,`po`.`tgl_penerimaan_o` AS `tgl_penerimaan_o`,`o`.`kode_obat` AS `kode_obat`,`o`.`nama` AS `nama_obat`,`o`.`harga_jual` AS `harga_jual`,`ko`.`no_kat_obat` AS `no_kat_obat`,`ko`.`nama` AS `nama_kategori` from (((`stok_obat_apotik` `soa` join `penerimaan_obat` `po` on(`soa`.`no_penerimaan_o` = `po`.`no_penerimaan_o`)) join `obat` `o` on(`soa`.`kode_obat` = `o`.`kode_obat`)) join `kategori_obat` `ko` on(`o`.`no_kat_obat` = `ko`.`no_kat_obat`)) order by `po`.`tgl_penerimaan_o` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `data_stok_obat_apotek`  AS  select `soa`.`no_stok_obat_a` AS `no_stok_obat_a`,`soa`.`harga_supplier` AS `harga_supplier`,`soa`.`qty` AS `qty`,`po`.`tgl_penerimaan_o` AS `tgl_penerimaan_o`,`o`.`kode_obat` AS `kode_obat`,`o`.`nama` AS `nama_obat`,`o`.`harga_jual` AS `harga_jual`,`o`.`tipe` AS `tipe`,`ko`.`no_kat_obat` AS `no_kat_obat`,`ko`.`nama` AS `nama_kategori` from (((`stok_obat_apotik` `soa` join `penerimaan_obat` `po` on(`soa`.`no_penerimaan_o` = `po`.`no_penerimaan_o`)) join `obat` `o` on(`soa`.`kode_obat` = `o`.`kode_obat`)) join `kategori_obat` `ko` on(`o`.`no_kat_obat` = `ko`.`no_kat_obat`)) order by `po`.`tgl_penerimaan_o` ;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur untuk view `laporan_rawat_jalan`
+--
+DROP TABLE IF EXISTS `laporan_rawat_jalan`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `laporan_rawat_jalan`  AS  select `dbp`.`no_bp_p` AS `no_bp_p`,`bt`.`no_bp_t` AS `no_bp_t`,`bt`.`nama` AS `nama_tindakan`,`dbp`.`harga` AS `harga_detail`,`bt`.`harga` AS `harga_tindakan`,`bp`.`no_ref_pelayanan` AS `no_ref_pelayanan`,`ps`.`nama` AS `nama_pasien`,`pl`.`tgl_pelayanan` AS `tgl_pelayanan` from ((((`detail_bp_penanganan` `dbp` join `bp_tindakan` `bt` on(`dbp`.`no_bp_t` = `bt`.`no_bp_t`)) join `bp_penanganan` `bp` on(`dbp`.`no_bp_p` = `bp`.`no_bp_p`)) join `pelayanan` `pl` on(`bp`.`no_ref_pelayanan` = `pl`.`no_ref_pelayanan`)) join `pasien` `ps` on(`pl`.`no_rm` = `ps`.`no_rm`)) order by `dbp`.`no_detail_bp_p` ;
 
 --
 -- Indexes for dumped tables
@@ -1255,7 +1434,7 @@ ALTER TABLE `user_pegawai`
 -- AUTO_INCREMENT untuk tabel `detail_bp_penanganan`
 --
 ALTER TABLE `detail_bp_penanganan`
-  MODIFY `no_detail_bp_p` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `no_detail_bp_p` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_kia_penanganan`
@@ -1279,7 +1458,7 @@ ALTER TABLE `detail_obat_keluar_internal`
 -- AUTO_INCREMENT untuk tabel `detail_penjualan_obat_apotik`
 --
 ALTER TABLE `detail_penjualan_obat_apotik`
-  MODIFY `no_detail_penjualan_obat_a` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `no_detail_penjualan_obat_a` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_transaksi_rawat_inap_kamar`
@@ -1309,7 +1488,7 @@ ALTER TABLE `detail_ugd_penanganan`
 -- AUTO_INCREMENT untuk tabel `stok_obat_apotik`
 --
 ALTER TABLE `stok_obat_apotik`
-  MODIFY `no_stok_obat_a` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `no_stok_obat_a` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `stok_obat_rawat_inap`
