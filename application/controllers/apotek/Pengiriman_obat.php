@@ -14,7 +14,8 @@ class Pengiriman_obat extends CI_Controller
     public function tampil_daftar_obat()
     {
         $where_qty = array(
-            'qty >' => 0
+            'qty >' => 0,
+            'tipe' => 'Obat'
         );
         $data_tbl['tbl_data'] = $this->M_pengiriman_obat->get_data('data_stok_obat_apotek',$where_qty)->result();
 
@@ -38,16 +39,14 @@ class Pengiriman_obat extends CI_Controller
             if ($status) {
                 for ($i = 0; $i < count($this->input->post('kode_obat')); $i++) {
 
-                    $no_stok_obat_a = $this->input->post('kode_obat')[$i];
+                    $kode_obat = $this->input->post('kode_obat')[$i];
                     $qty = $this->input->post('qty')[$i];
                     $qty_sekarang = $this->input->post('qty_sekarang')[$i];
 
                     // proses pemasukan ke dalam database detail
                     $data = array(
-                        'no_obat_keluar_i' => $no_obat_keluar_i,
-                        'no_stok_obat_a' => $no_stok_obat_a,
-                        'qty_awal' => $qty,
-                        'qty_sekarang' => $qty
+                        'kode_obat' => $kode_obat,
+                        'qty' => $qty
                     );
 
                     $status_detail = $this->M_pengiriman_obat->input_data('stok_obat_rawat_inap', $data);

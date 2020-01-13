@@ -21,7 +21,8 @@ class Obat extends CI_Controller
             'no_kat_obat' => $this->input->post('no_kat_obat'),
             'nama' => $this->input->post('nama'),
             'min_stok' => $this->input->post('min_stok'),
-            'harga_jual' => $harga_jual
+            'harga_jual' => $harga_jual,
+            'tipe' => $this->input->post('tipe_logistik')
         );
         $this->M_obat->input_data('obat', $data);
         $this->session->set_flashdata('success', 'Ditambahkan');
@@ -37,7 +38,9 @@ class Obat extends CI_Controller
             'no_kat_obat' => $this->input->post('no_kat_obat'),
             'nama' => $this->input->post('nama'),
             'min_stok' => $this->input->post('min_stok'),
-            'harga_jual' => $harga_jual
+            'harga_jual' => $harga_jual,
+            'tipe' => $this->input->post('tipe_logistik')
+
         );
         $this->M_obat->update_data($where, 'obat', $data);
         $this->session->set_flashdata('update', 'Diubah');

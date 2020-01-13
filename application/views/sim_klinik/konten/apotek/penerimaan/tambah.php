@@ -111,6 +111,7 @@
 								<th width="10%">No</th>
 								<th width="45%">Nama</th>
 								<th width="40%">Kategori</th>
+								<th width="40%">Tipe</th>
 								<th width="5%">Aksi</th>
 							</tr>
 						</thead>
@@ -178,7 +179,7 @@
 		var table;
 		table = $('.table_1').DataTable({
 			"columnDefs": [{
-				"targets": [0, 3],
+				"targets": [0, 3, 4],
 				"className": "text-center"
 			}],
 			"bDestroy": true,
@@ -203,12 +204,13 @@
 						var kode = data[i].kode_obat;
 						var nama = data[i].nama_obat;
 						var nama_kategori = data[i].nama_kategori;
+						var tipe = data[i].tipe;
 
 						var button = `<a onclick="pilihObat('` + kode +
 							`','` + nama + `')" id="` + kode +
 							`" class="btn btn-sm btn-dark text-white text-center">Pilih</a>`;
 
-						table.row.add([no, nama, nama_kategori, button]);
+						table.row.add([no, nama, nama_kategori, tipe, button]);
 
 						no = no + 1;
 					});

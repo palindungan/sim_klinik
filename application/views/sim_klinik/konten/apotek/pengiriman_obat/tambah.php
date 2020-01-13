@@ -7,7 +7,8 @@
 			<h6 class="m-0 font-weight-bold text-primary">Pengiriman Obat Rawat Inap</h6>
 		</div>
 		<div class="card-body">
-			<form method="post" id="pengiriman_form">
+			<form method="post" id="pengiriman_form"
+				action="<?= base_url() . 'apotek/pengiriman_obat/input_pengiriman_obat'; ?>">
 				<div class="form-row">
 					<div class="form-group col-sm-2">
 						<label for="" class="mt-2">Tujuan Obat Dikirim :</label>
@@ -136,7 +137,7 @@
 
 					$.each(data, function (i, item) {
 
-						var kode = data[i].no_stok_obat_a;
+						var kode = data[i].kode_obat;
 						var nama = data[i].nama_obat;
 						var nama_kategori = data[i].nama_kategori;
 						var qty = data[i].qty;
@@ -241,26 +242,26 @@
 		cekJumlahDataPenerimaan();
 	});
 
-	$(document).on('submit', '#pengiriman_form', function (event) {
-		event.preventDefault();
+	// $(document).on('submit', '#pengiriman_form', function (event) {
+	// 	event.preventDefault();
 
-		// mengambil nilai di dalam form
-		var form_data = $(this).serialize();
+	// 	// mengambil nilai di dalam form
+	// 	var form_data = $(this).serialize();
 
-		// tambah ke database
-		$.ajax({
-			url: "<?php echo base_url() . 'apotek/pengiriman_obat/input_pengiriman_obat'; ?>",
-			method: "POST",
-			data: form_data,
-			success: function (data) {
-				if (data != "") {
-					alert(data);
-				}
-				location.reload();
-			}
-		});
-		// tambah ke database
+	// 	// tambah ke database
+	// 	$.ajax({
+	// 		url: "<?php echo base_url() . 'apotek/pengiriman_obat/input_pengiriman_obat'; ?>",
+	// 		method: "POST",
+	// 		data: form_data,
+	// 		success: function (data) {
+	// 			if (data != "") {
+	// 				alert(data);
+	// 			}
+	// 			location.reload();
+	// 		}
+	// 	});
+	// 	// tambah ke database
 
-	});
+	// });
 
 </script>

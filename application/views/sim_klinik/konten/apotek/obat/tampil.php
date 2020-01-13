@@ -10,7 +10,7 @@
 <div class="container-fluid">
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">
-			<h6 class="m-0 font-weight-bold text-primary">Data Obat</h6>
+			<h6 class="m-0 font-weight-bold text-primary">Data Logistik</h6>
 		</div>
 		<div class="card-body">
 			<button type="button" class="btn btn-sm btn-primary mb-3" data-toggle="modal"
@@ -30,7 +30,7 @@
 						<div class="modal-body">
 							<div class="form-row">
 								<div class="form-group col-sm-6">
-									<label for="inputEmail2">Nama Obat</label>
+									<label for="inputEmail2">Nama Obat / Alkes</label>
 									<input type="text" name="nama" class="form-control form-control-sm" id="inputEmail2"
 										placeholder="Masukan nama kategori obat" required>
 								</div>
@@ -55,6 +55,15 @@
 										id="inputEmail5" placeholder="Masukan harga jual" required>
 								</div>
 							</div>
+							<div class="form-row">
+								<div class="form-group col-sm-6">
+									<label for="inputEmail3">Tipe Logistik</label>
+									<select name="tipe_logistik" class="form-control form-control-sm" id="inputEmail3">
+										<option value="Obat">Obat</option>
+										<option value="Alkes">Alkes</option>
+									</select>
+								</div>
+							</div>
 						</div>
 						<div class="modal-footer">
 							<button type="submit" class="btn btn-sm btn-success">Simpan</button>
@@ -70,10 +79,11 @@
 						<tr>
 							<th width="5%" class="text-center">No</th>
 							<th width="5%" class="text-center">Kode</th>
-							<th width="25%">Nama Obat</th>
+							<th width="20%">Nama Obat / Alkes</th>
 							<th width="15%">Kategori</th>
 							<th width="10%">Min. Stok</th>
-							<th width="15%" class="text-center">Harga Jual</th>
+							<th width="10%" class="text-center">Harga Jual</th>
+							<th width="10%" class="text-center">Tipe Logistik</th>
 							<th width="15%" class="text-center">Aksi</th>
 						</tr>
 					</thead>
@@ -89,6 +99,7 @@
 							<td><?= $data->nama_kategori ?></td>
 							<td><?= $data->min_stok ?></td>
 							<td class="text-right"><?= rupiah($data->harga_jual) ?></td>
+							<td><?= $data->tipe ?></td>
 							<td class="text-center">
 								<a style="cursor:pointer" class="btn btn-sm btn-warning text-white" data-toggle="modal"
 									data-target="#modal-edit<?= $data->kode_obat ?>">Edit</a>
@@ -119,7 +130,7 @@
 			<div class="modal-body">
 				<div class="form-row">
 					<div class="form-group col-sm-6">
-						<label for="inputEmail2">Nama Obat</label>
+						<label for="inputEmail2">Nama Obat / Alkes</label>
 						<input type="hidden" name="kode_obat" value="<?= $data->kode_obat ?>">
 						<input type="text" name="nama" value="<?= $data->nama_obat ?>"
 							class="form-control form-control-sm" id="inputEmail2"
@@ -148,6 +159,15 @@
 						<input type="text" name="harga_jual" value="<?= rupiah($data->harga_jual) ?>"
 							class="form-control form-control-sm rupiah" id="inputEmail5"
 							placeholder="Masukan harga jual" required>
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-sm-6">
+						<label for="inputEmail3">Tipe Logistik</label>
+						<select name="tipe_logistik" class="form-control form-control-sm" id="inputEmail3">
+							<option value="Obat" <?php if($data->tipe == 'Obat'){ echo "selected";} ?>>Obat</option>
+							<option value="Alkes" <?php if($data->tipe == 'Alkes'){ echo "selected";} ?>>Alkes</option>
+						</select>
 					</div>
 				</div>
 			</div>
