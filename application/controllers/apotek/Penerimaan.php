@@ -105,7 +105,7 @@ class Penerimaan extends CI_Controller
                     $data = array(
                         'qty' => $qty_obat + $qty
                     );
-                    $status_obat = $this->M_penerimaan->update_data($where_ko,'obat');
+                    $status_obat = $this->M_penerimaan->update_data($where_ko,'obat',$data);
                     $this->session->set_flashdata('success', 'Ditambahkan');
                 } else {
                     echo "Gagal input ke dalam data detail transaksi !!";

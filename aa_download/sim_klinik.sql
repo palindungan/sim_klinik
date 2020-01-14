@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 14 Jan 2020 pada 03.47
+-- Waktu pembuatan: 14 Jan 2020 pada 03.51
 -- Versi server: 10.4.6-MariaDB
 -- Versi PHP: 7.3.9
 
@@ -32,7 +32,7 @@ CREATE TABLE `ambulan` (
   `no_ambulan` char(4) NOT NULL,
   `nama` varchar(30) NOT NULL,
   `harga` int(9) NOT NULL,
-  `tipe` varchar(20) NOT NULL
+  `tujuan` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
