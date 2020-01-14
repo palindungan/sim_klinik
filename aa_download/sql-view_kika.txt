@@ -53,7 +53,8 @@ CREATE VIEW pelayanan_pasien_default AS SELECT * FROM pelayanan JOIN pasien USIN
 
 -----------------
 
-CREATE VIEW data_obat AS SELECT o.kode_obat , o.nama AS nama_obat , o.min_stok , o.harga_jual , ko.no_kat_obat , ko.nama AS nama_kategori , o.tipe
+CREATE VIEW data_obat AS 
+SELECT o.kode_obat , o.nama AS nama_obat , o.min_stok , o.harga_jual , ko.no_kat_obat , ko.nama AS nama_kategori , o.tipe, o.qty
 FROM obat o JOIN kategori_obat ko USING(no_kat_obat)
 ORDER BY o.nama
 

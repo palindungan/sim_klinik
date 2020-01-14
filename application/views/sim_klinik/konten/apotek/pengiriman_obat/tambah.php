@@ -1,5 +1,5 @@
 <?php if ($this->session->flashdata('success')) : ?>
-<div class="pesan-sukses" data-flashdata="<?= $this->session->flashdata('success'); ?>"></div>
+	<div class="pesan-sukses" data-flashdata="<?= $this->session->flashdata('success'); ?>"></div>
 <?php endif; ?>
 <div class="container-fluid">
 	<div class="card shadow mb-4">
@@ -7,8 +7,7 @@
 			<h6 class="m-0 font-weight-bold text-primary">Pengiriman Obat Rawat Inap</h6>
 		</div>
 		<div class="card-body">
-			<form method="post" id="pengiriman_form"
-				action="<?= base_url() . 'apotek/pengiriman_obat/input_pengiriman_obat'; ?>">
+			<form method="post" id="pengiriman_form" action="<?= base_url() . 'apotek/pengiriman_obat/input_pengiriman_obat'; ?>">
 				<div class="form-row">
 					<div class="form-group col-sm-2">
 						<label for="" class="mt-2">Tujuan Obat Dikirim :</label>
@@ -22,8 +21,7 @@
 
 				<div class="form-row">
 					<div class="form-group col-sm-12">
-						<a href="#" id="btn_search" class="btn btn-sm btn-primary btn-icon-split" data-toggle="modal"
-							data-target="#exampleModalCenter">
+						<a href="#" id="btn_search" class="btn btn-sm btn-primary btn-icon-split" data-toggle="modal" data-target="#exampleModalCenter">
 							<span class="icon text-white-50">
 								<i class="fas fa-search-plus"></i>
 							</span>
@@ -54,8 +52,7 @@
 					</div>
 
 					<div class="form-group col-sm-2">
-						<button id="action" type="submit" class="btn btn-sm btn-success btn-icon-split"
-							onclick="return confirm('Lakukan Simpan Data ?')">
+						<button id="action" type="submit" class="btn btn-sm btn-success btn-icon-split" onclick="return confirm('Lakukan Simpan Data ?')">
 							<span class="icon text-white-50">
 								<i class="fas fa-save"></i>
 							</span>
@@ -70,8 +67,7 @@
 	</div>
 
 </div>
-<div class="modal fade  bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog"
-	aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade  bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -103,10 +99,8 @@
 <script src="<?= base_url(); ?>assets/sb_admin_2/vendor/jquery/jquery.min.js"></script>
 
 <script>
-	var count1 = 0;
-	var jumlah_detail_pengiriman = 0;
 	// jika kita tekan / click button search-button
-	$('#btn_search').on('click', function () {
+	$('#btn_search').on('click', function() {
 		search_proses();
 	});
 
@@ -126,7 +120,7 @@
 
 		$.ajax({
 			url: "<?php echo base_url() . 'apotek/pengiriman_obat/tampil_daftar_obat'; ?>",
-			success: function (hasil) {
+			success: function(hasil) {
 
 				var obj = JSON.parse(hasil);
 				let data = obj['tbl_data'];
@@ -135,7 +129,7 @@
 
 					var no = 1;
 
-					$.each(data, function (i, item) {
+					$.each(data, function(i, item) {
 
 						var kode = data[i].kode_obat;
 						var nama = data[i].nama_obat;
@@ -143,7 +137,7 @@
 						var qty_sekarang = data[i].qty;
 						var no_penerimaan_o = data[i].no_penerimaan_o;
 
-						var button = `<a onclick="pilihObat('` + kode +
+						var button = `<a onclick="tambah_obat('` + kode +
 							`','` + nama + `','` + nama_kategori + `','` + qty_sekarang + `','` +
 							no_penerimaan_o +
 							`')" id="` + kode +
@@ -164,35 +158,37 @@
 		});
 	}
 
+	var count_pengiriman_obat = 0;
+	var jumlah_detail_pengiriman_obat = 0;
 	// Start add_row
-	function pilihObat(kode, nama, nama_kategori, qty_sekarang, no_penerimaan_o) {
+	function tambah_obat(kode, nama, nama_kategori, qty_sekarang, no_penerimaan_o) {
 
 		$('#detail_list').append(`
 
-        <div id="row` + count1 + `" class="form-row">
+        <div id="row` + count_pengiriman_obat + `" class="form-row">
             <div class="form-group col-sm-5">
                 <input type="text" readonly name="nama[]" class="form-control form-control-sm karakter" id="nama` +
-			count1 + `"
+			count_pengiriman_obat + `"
                     placeholder="Nama" required value="` + nama + `">
-                <input type="hidden" name="kode_obat[]" class="form-control form-control-sm" id="kode_obat` + count1 + `"
+                <input type="hidden" name="kode_obat[]" class="form-control form-control-sm" id="kode_obat` + count_pengiriman_obat + `"
                     value="` + kode +
 			`">
             </div>
             <div class="form-group col-sm-4">
                 <input type="text" readonly name="nama_kategori[]" class="form-control form-control-sm" id="nama_kategori` +
-			count1 + `"
+			count_pengiriman_obat + `"
                     placeholder="harga supplier" value="` + nama_kategori + `" required>
             </div>
             <div class="form-group col-sm-1">
-                <input type="text" name="qty[]" class="form-control form-control-sm qty_format" id="qty` + count1 + `"
+                <input type="text" name="qty[]" class="form-control form-control-sm qty_format" id="qty` + count_pengiriman_obat + `"
                     placeholder="QTY" required>
-					<input type="hidden" name="qty_sekarang[]" id="qty_sekarang` + count1 +
+					<input type="hidden" name="qty_sekarang[]" id="qty_sekarang` + count_pengiriman_obat +
 			`" class="form-control form-control-sm" value="` + qty_sekarang + `"></input>
-			<input type="hidden" name="no_penerimaan_o[]" id="no_penerimaan_o` + count1 +
+			<input type="hidden" name="no_penerimaan_o[]" id="no_penerimaan_o` + count_pengiriman_obat +
 			`" class="form-control form-control-sm" value="` + no_penerimaan_o + `"></input>
 			</div>
             <div class="form-group col-sm-2">
-                <a id="` + count1 + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris">
+                <a id="` + count_pengiriman_obat + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris">
                     <span class="icon text-white-50">
                         <i class="fas fa-trash-alt"></i>
                     </span>
@@ -203,8 +199,8 @@
 
     `);
 
-		count1 = count1 + 1;
-		jumlah_detail_pengiriman = jumlah_detail_pengiriman + 1;
+		count_pengiriman_obat = count_pengiriman_obat + 1;
+		jumlah_detail_pengiriman_obat = jumlah_detail_pengiriman_obat + 1;
 		$('#exampleModalCenter').modal('hide');
 
 		cekJumlahDataPenerimaan();
@@ -213,7 +209,7 @@
 	function cekJumlahDataPenerimaan() {
 
 		var x = document.getElementById("label_kosong");
-		if (jumlah_detail_pengiriman > 0) {
+		if (jumlah_detail_pengiriman_obat > 0) {
 			x.style.display = "none"; // hidden
 		} else {
 			x.style.display = "block"; // show
@@ -222,7 +218,7 @@
 	}
 
 	// jika kita mengubah class inputan rupiah
-	$(document).on('keyup', '.qty_format', function () {
+	$(document).on('keyup', '.qty_format', function() {
 
 		var row_id = $(this).attr("id"); // qty1++
 		var row_no = row_id.substring(3); // 1++
@@ -238,35 +234,12 @@
 		}
 	});
 
-	$(document).on('click', '.remove_baris', function () {
+	$(document).on('click', '.remove_baris', function() {
 		var row_no = $(this).attr("id");
 		$('#row' + row_no).remove();
 
-		jumlah_detail_pengiriman = jumlah_detail_pengiriman - 1;
+		jumlah_detail_pengiriman_obat = jumlah_detail_pengiriman_obat - 1;
 
 		cekJumlahDataPenerimaan();
 	});
-
-	// $(document).on('submit', '#pengiriman_form', function (event) {
-	// 	event.preventDefault();
-
-	// 	// mengambil nilai di dalam form
-	// 	var form_data = $(this).serialize();
-
-	// 	// tambah ke database
-	// 	$.ajax({
-	// 		url: "<?php echo base_url() . 'apotek/pengiriman_obat/input_pengiriman_obat'; ?>",
-	// 		method: "POST",
-	// 		data: form_data,
-	// 		success: function (data) {
-	// 			if (data != "") {
-	// 				alert(data);
-	// 			}
-	// 			location.reload();
-	// 		}
-	// 	});
-	// 	// tambah ke database
-
-	// });
-
 </script>
