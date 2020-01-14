@@ -40,7 +40,7 @@
 				<!-- start untuk keranjang Obat -->
 				<div id="detail_list">
 					<!-- disini isi detail -->
-					<h6 id="label_kosong">Detail Obat Masih Kosong Lakukan pilih Pencarian Obat !</h6>
+					<h6 id="label_kosong">Detail Obat Masih Kosong Lakukan Pencarian Obat !</h6>
 
 				</div>
 				<!-- end of untuk keranjang Obat -->
@@ -78,7 +78,7 @@
 			</div>
 			<div class="modal-body">
 				<div class="table-responsive">
-					<table class="table table-bordered table_1" width="100%" cellspacing="0">
+					<table class="table table-bordered table_obat" width="100%" cellspacing="0">
 						<thead>
 							<tr>
 								<th>No</th>
@@ -107,7 +107,7 @@
 	function search_proses() {
 
 		var table;
-		table = $('.table_1').DataTable({
+		table = $('.table_obat').DataTable({
 			"columnDefs": [{
 				"targets": [0, 3, 4],
 				"className": "text-center"
@@ -131,25 +131,21 @@
 
 					$.each(data, function(i, item) {
 
-						var kode = data[i].kode_obat;
-						var nama = data[i].nama_obat;
+						var kode_obat = data[i].kode_obat;
+						var nama_obat = data[i].nama_obat;
 						var nama_kategori = data[i].nama_kategori;
 						var qty_sekarang = data[i].qty;
-						var no_penerimaan_o = data[i].no_penerimaan_o;
 
-						var button = `<a onclick="tambah_obat('` + kode +
-							`','` + nama + `','` + nama_kategori + `','` + qty_sekarang + `','` +
-							no_penerimaan_o +
-							`')" id="` + kode +
-							`" class="btn btn-sm btn-dark text-white">Pilih</a>`;
+						var button = `<a onclick="tambah_detail_obat('` + kode_obat +
+							`','` + nama_obat + `','` + nama_kategori + `','` + qty_sekarang + `')" id="` + kode_obat + `" class="btn btn-sm btn-dark text-white">Pilih</a>`;
 
-						table.row.add([no, nama, nama_kategori, qty_sekarang, button]);
+						table.row.add([no, nama_obat, nama_kategori, qty_sekarang, button]);
 
 						no = no + 1;
 					});
 				} else {
 
-					$('.table_1').html('<h3>No data are available</h3>');
+					$('.table_obat').html('<h3>Tidak Ada Data Yang Tersedia</h3>');
 
 				}
 				table.draw();
@@ -161,31 +157,21 @@
 	var count_pengiriman_obat = 0;
 	var jumlah_detail_pengiriman_obat = 0;
 	// Start add_row
-	function tambah_obat(kode, nama, nama_kategori, qty_sekarang, no_penerimaan_o) {
+	function tambah_detail_obat(kode_obat, nama_obat, nama_kategori, qty_sekarang) {
 
 		$('#detail_list').append(`
 
         <div id="row` + count_pengiriman_obat + `" class="form-row">
             <div class="form-group col-sm-5">
-                <input type="text" readonly name="nama[]" class="form-control form-control-sm karakter" id="nama` +
-			count_pengiriman_obat + `"
-                    placeholder="Nama" required value="` + nama + `">
-                <input type="hidden" name="kode_obat[]" class="form-control form-control-sm" id="kode_obat` + count_pengiriman_obat + `"
-                    value="` + kode +
-			`">
+                <input type="text" readonly name="nama_obat[]" class="form-control form-control-sm karakter" id="nama_obat` + count_pengiriman_obat + `" placeholder="Nama" required value="` + nama_obat + `">
+                <input type="hidden" name="kode_obat[]" class="form-control form-control-sm" id="kode_obat` + count_pengiriman_obat + `" value="` + kode_obat + `">
             </div>
             <div class="form-group col-sm-4">
-                <input type="text" readonly name="nama_kategori[]" class="form-control form-control-sm" id="nama_kategori` +
-			count_pengiriman_obat + `"
-                    placeholder="harga supplier" value="` + nama_kategori + `" required>
+                <input type="text" readonly name="nama_kategori[]" class="form-control form-control-sm" id="nama_kategori` + count_pengiriman_obat + `" value="` + nama_kategori + `">
             </div>
             <div class="form-group col-sm-1">
-                <input type="text" name="qty[]" class="form-control form-control-sm qty_format" id="qty` + count_pengiriman_obat + `"
-                    placeholder="QTY" required>
-					<input type="hidden" name="qty_sekarang[]" id="qty_sekarang` + count_pengiriman_obat +
-			`" class="form-control form-control-sm" value="` + qty_sekarang + `"></input>
-			<input type="hidden" name="no_penerimaan_o[]" id="no_penerimaan_o` + count_pengiriman_obat +
-			`" class="form-control form-control-sm" value="` + no_penerimaan_o + `"></input>
+                <input type="text" name="qty[]" class="form-control form-control-sm cek_qty" id="qty` + count_pengiriman_obat + `" placeholder="QTY" required>
+				<input type="hidden" name="qty_sekarang[]" id="qty_sekarang` + count_pengiriman_obat + `" class="form-control form-control-sm" value="` + qty_sekarang + `"></input>
 			</div>
             <div class="form-group col-sm-2">
                 <a id="` + count_pengiriman_obat + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris">
@@ -197,7 +183,7 @@
             </div>
         </div>
 
-    `);
+    	`);
 
 		count_pengiriman_obat = count_pengiriman_obat + 1;
 		jumlah_detail_pengiriman_obat = jumlah_detail_pengiriman_obat + 1;
@@ -208,17 +194,17 @@
 
 	function cekJumlahDataPenerimaan() {
 
-		var x = document.getElementById("label_kosong");
+		var label = document.getElementById("label_kosong");
 		if (jumlah_detail_pengiriman_obat > 0) {
-			x.style.display = "none"; // hidden
+			label.style.display = "none"; // hidden
 		} else {
-			x.style.display = "block"; // show
+			label.style.display = "block"; // show
 		}
 
 	}
 
 	// jika kita mengubah class inputan rupiah
-	$(document).on('keyup', '.qty_format', function() {
+	$(document).on('keyup', '.cek_qty', function() {
 
 		var row_id = $(this).attr("id"); // qty1++
 		var row_no = row_id.substring(3); // 1++
