@@ -13,7 +13,7 @@
         }
 
         public function index() {
-            $no_ref_pelayanan = "191226-022";
+            $no_ref_pelayanan = "200114-001";
             $where_no_ref = array(
                 'no_ref_pelayanan' => $no_ref_pelayanan
             );

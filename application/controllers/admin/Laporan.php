@@ -19,6 +19,8 @@
             SUM(IF(nama_tindakan = 'Cek Gula Darah',harga_detail,'-')) AS periksa_gula_darah,
             SUM(IF(nama_tindakan = 'Cek Asam Urat',harga_detail,'-')) AS periksa_asam_urat,
             SUM(IF(nama_tindakan = 'Cek Kolesterol',harga_detail,'-')) AS periksa_kolesterol,
+            SUM(IF(nama_tindakan = 'Paket 1', harga_detail, IF(nama_tindakan = 'Paket 2', harga_detail, '-'))) AS
+            biaya_periksa,
             SUM(harga_detail) as total_harga
             FROM laporan_rawat_jalan
             GROUP BY no_bp_p")->result();
@@ -33,37 +35,38 @@
             $spreadsheet->getActiveSheet()->getColumnDimension('F')->setWidth(15);
             $spreadsheet->getActiveSheet()->getColumnDimension('G')->setWidth(15);
             $spreadsheet->getActiveSheet()->getColumnDimension('H')->setWidth(15);
+            $spreadsheet->getActiveSheet()->getColumnDimension('I')->setWidth(15);
 
             $spreadsheet->getActiveSheet()->getRowDimension('1')->setRowHeight(35);
             // Atur Judul
-            $spreadsheet->getActiveSheet()->getStyle('A1:H1')->getFont()->setBold(true);
-            $spreadsheet->getActiveSheet()->getStyle("A1:H1")->getFont()->setSize(20);
-            $spreadsheet->getActiveSheet()->getStyle('A1:H1')
+            $spreadsheet->getActiveSheet()->getStyle('A1:I1')->getFont()->setBold(true);
+            $spreadsheet->getActiveSheet()->getStyle("A1:I1")->getFont()->setSize(20);
+            $spreadsheet->getActiveSheet()->getStyle('A1:I1')
             ->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_TOP);
-            $spreadsheet->getActiveSheet()->mergeCells("A1:H1");
+            $spreadsheet->getActiveSheet()->mergeCells("A1:I1");
             $spreadsheet->setActiveSheetIndex(0)->setCellValue('A1', 'Laporan Rawat Jalan');
-            $spreadsheet->getActiveSheet()->getStyle('A1:H1')->getFont()->setBold(true);
-            $spreadsheet->getActiveSheet()->getStyle('A1:H1')->getAlignment()->setHorizontal('center');
-            $spreadsheet->getActiveSheet()->getStyle('A1:H1')
+            $spreadsheet->getActiveSheet()->getStyle('A1:I1')->getFont()->setBold(true);
+            $spreadsheet->getActiveSheet()->getStyle('A1:I1')->getAlignment()->setHorizontal('center');
+            $spreadsheet->getActiveSheet()->getStyle('A1:I1')
             ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-            $spreadsheet->getActiveSheet()->getStyle('A1:H1')
+            $spreadsheet->getActiveSheet()->getStyle('A1:I1')
             ->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
             // tutup
 
-            $spreadsheet->getActiveSheet()->getStyle('A2:H2')
+            $spreadsheet->getActiveSheet()->getStyle('A2:I2')
             ->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_WHITE);
-            $spreadsheet->getActiveSheet()->getStyle('A2:H2')->getFill()
+            $spreadsheet->getActiveSheet()->getStyle('A2:I2')->getFill()
             ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
             ->getStartColor()->setARGB('006400');
-            $spreadsheet->getActiveSheet()->getStyle('A2:H2')->getFont()->setBold(true);
-            $spreadsheet->getActiveSheet()->getStyle('A2:H2')->getAlignment()->setHorizontal('center');
-            $spreadsheet->getActiveSheet()->getStyle('A2:H2')
+            $spreadsheet->getActiveSheet()->getStyle('A2:I2')->getFont()->setBold(true);
+            $spreadsheet->getActiveSheet()->getStyle('A2:I2')->getAlignment()->setHorizontal('center');
+            $spreadsheet->getActiveSheet()->getStyle('A2:I2')
             ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-            $spreadsheet->getActiveSheet()->getStyle('A2:H2')
+            $spreadsheet->getActiveSheet()->getStyle('A2:I2')
             ->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
 
             // Border
-            $spreadsheet->getActiveSheet()->getStyle('A2:H2')->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK)->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_BLACK);;
+            $spreadsheet->getActiveSheet()->getStyle('A2:I2')->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK)->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_BLACK);;
 
             $spreadsheet->setActiveSheetIndex(0)
             ->setCellValue('A2', 'Nomor')
@@ -73,7 +76,8 @@
             ->setCellValue('E2', 'Asam Urat')
             ->setCellValue('F2', 'Kolesterol')
             ->setCellValue('G2', 'Lain-Lain')
-            ->setCellValue('H2', 'Total');
+            ->setCellValue('H2', 'Biaya Periksa')
+            ->setCellValue('I2', 'Total');
 
             $kolom = 3;
             $nomor = 1;
@@ -89,6 +93,7 @@
             $spreadsheet->getActiveSheet()->getStyle('F')->getAlignment()->setHorizontal('right');
              $spreadsheet->getActiveSheet()->getStyle('G')->getAlignment()->setHorizontal('right');
              $spreadsheet->getActiveSheet()->getStyle('H')->getAlignment()->setHorizontal('right');
+             $spreadsheet->getActiveSheet()->getStyle('I')->getAlignment()->setHorizontal('right');
 
 
 
@@ -101,8 +106,9 @@
             ->setCellValue('E' . $kolom, number_format($row->periksa_asam_urat, 0, ".", ","))
             ->setCellValue('F' . $kolom, number_format($row->periksa_kolesterol, 0, ".", ","))
             ->setCellValue('G' . $kolom, number_format($row->total_harga - ($row->periksa_gula_darah +
-            $row->periksa_asam_urat + $row->periksa_kolesterol), 0, ".", ","))
-            ->setCellValue('H' . $kolom,number_format($row->total_harga, 0, ".", ","));
+            $row->periksa_asam_urat + $row->periksa_kolesterol + $row->biaya_periksa), 0, ".", ","))
+            ->setCellValue('H' . $kolom, number_format($row->biaya_periksa, 0, ".", ","))
+            ->setCellValue('I' . $kolom,number_format($row->total_harga, 0, ".", ","));
             $kolom++;
             $nomor++;
             }

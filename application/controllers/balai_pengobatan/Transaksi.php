@@ -183,9 +183,9 @@ class Transaksi extends CI_Controller
         $sub_total = 0;
         $total = 0;
 
-        if (isset($_POST['no_stok_obat_a']) && isset($_POST['harga_obat']) && isset($_POST['qty'])) {
+        if (isset($_POST['kode_obat']) && isset($_POST['harga_obat']) && isset($_POST['qty'])) {
 
-            for ($i = 0; $i < count($this->input->post('no_stok_obat_a')); $i++) {
+            for ($i = 0; $i < count($this->input->post('kode_obat')); $i++) {
 
                 $harga_jual_temp = $this->input->post('harga_obat')[$i];
                 $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
