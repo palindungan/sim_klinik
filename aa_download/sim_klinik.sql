@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 14 Jan 2020 pada 05.10
+-- Waktu pembuatan: 14 Jan 2020 pada 06.15
 -- Versi server: 10.1.37-MariaDB
 -- Versi PHP: 7.3.0
 
@@ -361,9 +361,20 @@ CREATE TABLE `detail_lab_transaksi` (
 
 CREATE TABLE `detail_obat_keluar_internal` (
   `id_detail_obat_keluar_internal` int(7) NOT NULL,
+  `no_obat_keluar_i` char(13) NOT NULL,
   `kode_obat` char(4) NOT NULL,
   `qty` mediumint(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `detail_obat_keluar_internal`
+--
+
+INSERT INTO `detail_obat_keluar_internal` (`id_detail_obat_keluar_internal`, `no_obat_keluar_i`, `kode_obat`, `qty`) VALUES
+(1, '', 'O001', 20),
+(2, '', 'O002', 10),
+(3, 'OK200114-0003', 'O005', 20),
+(4, 'OK200114-0003', 'O003', 15);
 
 -- --------------------------------------------------------
 
@@ -559,11 +570,11 @@ CREATE TABLE `obat` (
 --
 
 INSERT INTO `obat` (`kode_obat`, `no_kat_obat`, `nama`, `min_stok`, `harga_jual`, `tipe`, `qty`) VALUES
-('O001', 'K001', 'Aspirin', 10, 1000, 'Obat', 100),
-('O002', 'K002', 'Prednison', 5, 2000, 'Obat', 50),
-('O003', 'K003', 'Psyllium ', 10, 3000, 'Obat', 50),
+('O001', 'K001', 'Aspirin', 10, 1000, 'Obat', 70),
+('O002', 'K002', 'Prednison', 5, 2000, 'Obat', 40),
+('O003', 'K003', 'Psyllium ', 10, 3000, 'Obat', 35),
 ('O004', 'K004', 'simvastatin', 10, 3000, 'Obat', 0),
-('O005', 'K005', 'Pentabio', 10, 5000, 'Obat', 100);
+('O005', 'K005', 'Pentabio', 10, 5000, 'Obat', 60);
 
 -- --------------------------------------------------------
 
@@ -576,6 +587,15 @@ CREATE TABLE `obat_keluar_internal` (
   `tujuan` varchar(30) NOT NULL,
   `tgl_obat_keluar_i` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `obat_keluar_internal`
+--
+
+INSERT INTO `obat_keluar_internal` (`no_obat_keluar_i`, `tujuan`, `tgl_obat_keluar_i`) VALUES
+('OK200114-0001', 'Rawat Inap', '2020-01-14 12:05:47'),
+('OK200114-0002', 'Rawat Inap', '2020-01-14 12:08:52'),
+('OK200114-0003', 'Rawat Inap', '2020-01-14 12:13:12');
 
 -- --------------------------------------------------------
 
@@ -715,6 +735,16 @@ CREATE TABLE `stok_obat_rawat_inap` (
   `kode_obat` varchar(4) NOT NULL,
   `qty` mediumint(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `stok_obat_rawat_inap`
+--
+
+INSERT INTO `stok_obat_rawat_inap` (`no_stok_obat_rawat_i`, `kode_obat`, `qty`) VALUES
+(1, 'O001', 30),
+(2, 'O005', 40),
+(3, 'O002', 10),
+(4, 'O003', 15);
 
 -- --------------------------------------------------------
 
@@ -1170,7 +1200,7 @@ ALTER TABLE `detail_lab_transaksi`
 -- AUTO_INCREMENT untuk tabel `detail_obat_keluar_internal`
 --
 ALTER TABLE `detail_obat_keluar_internal`
-  MODIFY `id_detail_obat_keluar_internal` int(7) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_detail_obat_keluar_internal` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_penjualan_obat_apotik`
@@ -1212,7 +1242,7 @@ ALTER TABLE `stok_obat_apotik`
 -- AUTO_INCREMENT untuk tabel `stok_obat_rawat_inap`
 --
 ALTER TABLE `stok_obat_rawat_inap`
-  MODIFY `no_stok_obat_rawat_i` int(7) NOT NULL AUTO_INCREMENT;
+  MODIFY `no_stok_obat_rawat_i` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -34,6 +34,7 @@ class M_pengiriman_obat extends CI_Model
 
     function get_no_transaksi()
     {
+        date_default_timezone_set('Asia/Jakarta');
         // PO191125-0001
         $field = "no_obat_keluar_i";
         $tabel = "obat_keluar_internal";
@@ -50,7 +51,6 @@ class M_pengiriman_obat extends CI_Model
         } else {
             $kd = "0001";
         }
-        date_default_timezone_set('Asia/Jakarta');
         return 'OK' . date('ymd') . '-' . $kd; // SELECT SUBSTR('BP191121-0001', 3, 6); dari digit ke 3 sampai 6 digit seanjutnya
     }
 }
