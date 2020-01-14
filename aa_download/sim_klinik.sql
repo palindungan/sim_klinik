@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 14 Jan 2020 pada 06.15
+-- Waktu pembuatan: 14 Jan 2020 pada 06.34
 -- Versi server: 10.1.37-MariaDB
 -- Versi PHP: 7.3.0
 
@@ -205,6 +205,22 @@ CREATE TABLE `daftar_penerimaan_obat_apotek_detail` (
 ,`nama_obat` varchar(50)
 ,`harga_supplier` int(9)
 ,`qty` mediumint(5)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in struktur untuk tampilan `daftar_pengiriman_obat_apotek_detail`
+-- (Lihat di bawah untuk tampilan aktual)
+--
+CREATE TABLE `daftar_pengiriman_obat_apotek_detail` (
+`id_detail_obat_keluar_internal` int(7)
+,`qty` mediumint(5)
+,`no_obat_keluar_i` char(13)
+,`nama_obat` varchar(50)
+,`harga_jual` int(9)
+,`tipe` enum('Alkes','Obat')
+,`nama_kategori` varchar(50)
 );
 
 -- --------------------------------------------------------
@@ -890,6 +906,15 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `daftar_penerimaan_obat_apotek_detail`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_penerimaan_obat_apotek_detail`  AS  select `po`.`no_penerimaan_o` AS `no_penerimaan_o`,`su`.`nama` AS `nama_suplier`,`po`.`tgl_penerimaan_o` AS `tgl_penerimaan_o`,`po`.`total_harga` AS `total_harga`,`o`.`nama` AS `nama_obat`,`soa`.`harga_supplier` AS `harga_supplier`,`soa`.`qty` AS `qty` from (((`penerimaan_obat` `po` join `supplier` `su` on((`po`.`no_supplier` = `su`.`no_supplier`))) join `stok_obat_apotik` `soa` on((`po`.`no_penerimaan_o` = `soa`.`no_penerimaan_o`))) join `obat` `o` on((`soa`.`kode_obat` = `o`.`kode_obat`))) order by `soa`.`no_stok_obat_a` ;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur untuk view `daftar_pengiriman_obat_apotek_detail`
+--
+DROP TABLE IF EXISTS `daftar_pengiriman_obat_apotek_detail`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_pengiriman_obat_apotek_detail`  AS  select `doki`.`id_detail_obat_keluar_internal` AS `id_detail_obat_keluar_internal`,`doki`.`qty` AS `qty`,`oki`.`no_obat_keluar_i` AS `no_obat_keluar_i`,`o`.`nama` AS `nama_obat`,`o`.`harga_jual` AS `harga_jual`,`o`.`tipe` AS `tipe`,`ko`.`nama` AS `nama_kategori` from (((`detail_obat_keluar_internal` `doki` join `obat` `o` on((`doki`.`kode_obat` = `o`.`kode_obat`))) join `kategori_obat` `ko` on((`o`.`no_kat_obat` = `ko`.`no_kat_obat`))) join `obat_keluar_internal` `oki` on((`doki`.`no_obat_keluar_i` = `oki`.`no_obat_keluar_i`))) order by `doki`.`id_detail_obat_keluar_internal` ;
 
 -- --------------------------------------------------------
 
