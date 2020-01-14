@@ -1,5 +1,5 @@
 <?php if ($this->session->flashdata('success')) : ?>
-<div class="pesan-sukses" data-flashdata="<?= $this->session->flashdata('success'); ?>"></div>
+	<div class="pesan-sukses" data-flashdata="<?= $this->session->flashdata('success'); ?>"></div>
 <?php endif; ?>
 <div class="container-fluid">
 	<div class="card shadow mb-4">
@@ -7,8 +7,7 @@
 			<h6 class="m-0 font-weight-bold text-primary">Balai Pengobatan</h6>
 		</div>
 		<div class="card-body">
-			<form method="post" id="transaksi_form"
-				action="<?= base_url('balai_pengobatan/transaksi/input_transaksi_form') ?>">
+			<form method="post" id="transaksi_form">
 				<div class="form-row">
 					<div class="form-group col-sm-5">
 						<label>Cari No Ref</label>
@@ -22,8 +21,7 @@
 						<div class="row">
 							<div class="form-group col-sm-6">
 								<h5>* Balai Pengobatan</h5>
-								<a href="#" id="btn_search_bp" class="btn btn-sm btn-primary btn-icon-split"
-									data-toggle="modal" data-target="#exampleModalCenterBP">
+								<a href="#" id="btn_search_bp" class="btn btn-sm btn-primary btn-icon-split" data-toggle="modal" data-target="#exampleModalCenterBP">
 									<span class="icon text-white-50">
 										<i class="fas fa-search-plus"></i>
 									</span>
@@ -32,8 +30,7 @@
 							</div>
 							<div class="form-group col-sm-6">
 								<h5>* Obat Apotek</h5>
-								<a href="#" id="btn_search_obat" class="btn btn-sm btn-primary btn-icon-split"
-									data-toggle="modal" data-target="#exampleModalCenter_obat">
+								<a href="#" id="btn_search_obat" class="btn btn-sm btn-primary btn-icon-split" data-toggle="modal" data-target="#exampleModalCenter_obat">
 									<span class="icon text-white-50">
 										<i class="fas fa-search-plus"></i>
 									</span>
@@ -65,9 +62,7 @@
 									<div class="col-sm-6">
 									</div>
 									<div class="col-sm-4">
-										<input type="text" readonly name="total_harga_bp"
-											class="form-control form-control-sm rupiah_bp text-right"
-											id="total_harga_bp" placeholder="0" required>
+										<input type="text" readonly name="total_harga_bp" class="form-control form-control-sm rupiah_bp text-right" id="total_harga_bp" placeholder="0" required>
 									</div>
 									<div class="col-sm-2">
 									</div>
@@ -93,9 +88,7 @@
 									<div class="col-sm-6">
 									</div>
 									<div class="col-sm-4">
-										<input type="text" readonly name="sub_total_harga_obat"
-											class="form-control form-control-sm rupiah_obat text-right"
-											id="sub_total_harga_obat" placeholder="0" required>
+										<input type="text" readonly name="sub_total_harga_obat" class="form-control form-control-sm rupiah_obat text-right" id="sub_total_harga_obat" placeholder="0" required>
 									</div>
 									<div class="col-sm-2">
 									</div>
@@ -105,29 +98,24 @@
 					</div>
 				</div>
 
-
 				<div class="form-row">
 					<div class="form-group col-sm-2">
-						<button id="action" type="submit" class="btn btn-sm btn-success btn-icon-split"
-							onclick="return confirm('Lakukan Simpan Data ?')">
+						<button id="action" type="submit" class="btn btn-sm btn-success btn-icon-split" onclick="return confirm('Lakukan Simpan Data ?')">
 							<span class="icon text-white-50">
 								<i class="fas fa-save"></i>
 							</span>
 							<span class="text">Simpan Data</span>
 						</button>
 					</div>
-
 				</div>
 
 			</form>
 		</div>
 	</div>
-
 </div>
 
 <!-- Modal -->
-<div class="modal fade  bd-example-modal-lg" id="exampleModalCenterBP" tabindex="-1" role="dialog"
-	aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade  bd-example-modal-lg" id="exampleModalCenterBP" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -156,8 +144,7 @@
 	</div>
 </div>
 
-<div class="modal fade  bd-example-modal-lg" id="exampleModalCenter_obat" tabindex="-1" role="dialog"
-	aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade  bd-example-modal-lg" id="exampleModalCenter_obat" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -196,16 +183,16 @@
 			url: "<?= base_url('balai_pengobatan/transaksi/tampil_select') ?>",
 			dataType: "json",
 			delay: 250,
-			data: function (params) {
+			data: function(params) {
 				return {
 					no_ref: params.term,
 					nama: params.term
 				};
 			},
-			processResults: function (data) {
+			processResults: function(data) {
 				var results = [];
 
-				$.each(data, function (index, item) {
+				$.each(data, function(index, item) {
 					results.push({
 						id: item.no_ref_pelayanan,
 						text: item.no_ref_pelayanan + " || " + item.nama
@@ -217,19 +204,18 @@
 			}
 		}
 	})
-
 </script>
 <script>
 	var count1 = 0;
 	var jumlah_detail_transaksi = 0;
 
 	// jika kita tekan / click button search-button
-	$('#btn_search_bp').on('click', function () {
+	$('#btn_search_bp').on('click', function() {
 		search_proses();
 	});
 
 	// jika kita tekan hapus / click button
-	$(document).on('click', '.remove_baris', function () {
+	$(document).on('click', '.remove_baris', function() {
 		var row_no = $(this).attr("id");
 		$('#row' + row_no).remove();
 
@@ -239,32 +225,32 @@
 	});
 
 	// jika kita mengubah class inputan rupiah
-	$(document).on('keyup', '.rupiah', function () {
+	$(document).on('keyup', '.rupiah', function() {
 		update_total();
 	});
 
-	// // jika di click simpan / submit
-	// $(document).on('submit', '#transaksi_form', function (event) {
-	// 	event.preventDefault();
+	// jika di click simpan / submit
+	$(document).on('submit', '#transaksi_form', function(event) {
+		event.preventDefault();
 
-	// 	// mengambil nilai di dalam form
-	// 	var form_data = $(this).serialize();
+		// mengambil nilai di dalam form
+		var form_data = $(this).serialize();
 
-	// 	// tambah ke database
-	// 	$.ajax({
-	// 		url: "<?php echo base_url() . 'balai_pengobatan/transaksi/input_transaksi_form'; ?>",
-	// 		method: "POST",
-	// 		data: form_data,
-	// 		success: function (data) {
-	// 			if (data != "") {
-	// 				alert(data);
-	// 			}
-	// 			location.reload();
-	// 		}
-	// 	});
-	// 	// tambah ke database
+		// tambah ke database
+		$.ajax({
+			url: "<?php echo base_url() . 'balai_pengobatan/transaksi/input_transaksi_form'; ?>",
+			method: "POST",
+			data: form_data,
+			success: function(data) {
+				// if (data != "") {
+				// 	alert(data);
+				// }
+				location.reload();
+			}
+		});
+		// tambah ke database
 
-	// });
+	});
 
 	// Start pencarian
 	function search_proses() {
@@ -287,7 +273,7 @@
 
 		$.ajax({
 			url: "<?php echo base_url() . 'balai_pengobatan/transaksi/tampil_daftar_tindakan'; ?>",
-			success: function (hasil) {
+			success: function(hasil) {
 
 				var obj = JSON.parse(hasil);
 				let data = obj['tbl_data'];
@@ -296,7 +282,7 @@
 
 					var no = 1;
 
-					$.each(data, function (i, item) {
+					$.each(data, function(i, item) {
 
 						var kode = data[i].no_bp_t;
 						var nama = data[i].nama;
@@ -381,7 +367,7 @@
 			url: "<?php echo base_url() . 'balai_pengobatan/transaksi/ambil_total'; ?>",
 			method: "POST",
 			data: form_data,
-			success: function (data) {
+			success: function(data) {
 				$('#total_harga_bp').val(data);
 				$('.rupiah_bp').trigger('input'); // Will be display 
 			}
@@ -404,7 +390,7 @@
 
 	// Start of obat////////////////
 	// jika kita tekan / click button search-button
-	$('#btn_search_obat').on('click', function () {
+	$('#btn_search_obat').on('click', function() {
 		search_proses_obat();
 	});
 
@@ -429,7 +415,7 @@
 
 		$.ajax({
 			url: "<?php echo base_url() . 'balai_pengobatan/transaksi/tampil_daftar_obat'; ?>",
-			success: function (hasil) {
+			success: function(hasil) {
 
 				var obj = JSON.parse(hasil);
 				let data = obj['tbl_data'];
@@ -438,7 +424,7 @@
 
 					var no = 1;
 
-					$.each(data, function (i, item) {
+					$.each(data, function(i, item) {
 
 						var kode_obat = data[i].no_stok_obat_a;
 						var nama_obat = data[i].nama_obat;
@@ -529,7 +515,7 @@
 
 
 	// jika kita tekan hapus / click button
-	$(document).on('click', '.remove_baris_obat', function () {
+	$(document).on('click', '.remove_baris_obat', function() {
 		var row_no = $(this).attr("id");
 		$('#row_obat' + row_no).remove();
 
@@ -560,7 +546,7 @@
 			url: "<?php echo base_url() . 'balai_pengobatan/transaksi/ambil_total_obat'; ?>",
 			method: "POST",
 			data: form_data,
-			success: function (data) {
+			success: function(data) {
 				$('#sub_total_harga_obat').val(data);
 				$('.rupiah_obat').trigger('input'); // Will be display
 			}
@@ -570,11 +556,11 @@
 	}
 
 	// jika kita mengubah class inputan rupiah_obat
-	$(document).on('keyup', '.rupiah_obat', function () {
+	$(document).on('keyup', '.rupiah_obat', function() {
 		update_sub_harga_obat();
 	});
 
-	$(document).on('keyup', '.qty_format_obat', function () {
+	$(document).on('keyup', '.qty_format_obat', function() {
 
 		var row_id = $(this).attr("id"); // qty1++
 		var row_no = row_id.substring(3); // 1++
@@ -589,5 +575,4 @@
 			update_sub_harga_obat();
 		}
 	});
-
 </script>

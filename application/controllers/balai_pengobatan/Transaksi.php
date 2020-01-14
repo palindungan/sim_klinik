@@ -51,25 +51,25 @@ class Transaksi extends CI_Controller
 
         if (isset($_POST['no_stok_obat_a'])) {
 
-        // data transaksi
-        $no_penjualan_obat_a = $this->M_penjualan_obat->get_no_transaksi(); // generate
-        $tanggal_penjualan = date('Y-m-d H:i:s');
+            // data transaksi
+            $no_penjualan_obat_a = $this->M_penjualan_obat->get_no_transaksi(); // generate
+            $tanggal_penjualan = date('Y-m-d H:i:s');
 
-        $total_tmp = $this->input->post('sub_total_harga_obat');
-        $total_harga = preg_replace("/[^0-9]/", "", $total_tmp);
+            $total_tmp = $this->input->post('sub_total_harga_obat');
+            $total_harga = preg_replace("/[^0-9]/", "", $total_tmp);
 
-        $data = array(
-            'no_penjualan_obat_a' => $no_penjualan_obat_a,
-            'no_ref_pelayanan' => $no_ref_pelayanan,
-            'tanggal_penjualan' => $tanggal_penjualan,
-            'total_harga' => $total_harga
-        );
+            $data = array(
+                'no_penjualan_obat_a' => $no_penjualan_obat_a,
+                'no_ref_pelayanan' => $no_ref_pelayanan,
+                'tanggal_penjualan' => $tanggal_penjualan,
+                'total_harga' => $total_harga
+            );
 
-        $status = $this->M_penjualan_obat->input_data('penjualan_obat_apotik', $data);
-        // end of data transaksi
+            $status = $this->M_penjualan_obat->input_data('penjualan_obat_apotik', $data);
+            // end of data transaksi
 
             if ($status) {
-            // tambah detail transaksi
+                // tambah detail transaksi
                 for ($i = 0; $i < count($this->input->post('no_stok_obat_a')); $i++) {
 
                     $no_stok_obat_a = $this->input->post('no_stok_obat_a')[$i];
@@ -79,12 +79,9 @@ class Transaksi extends CI_Controller
                     $qty_sekarang = $this->input->post('qty_sekarang')[$i];
                     $status_paket_tmp = $this->input->post('status_paket')[$i];
                     $status_paket = " ";
-                    if($status_paket_tmp == "Ya")
-                    {
+                    if ($status_paket_tmp == "Ya") {
                         $status_paket = "Ya";
-                    }
-                    else 
-                    {
+                    } else {
                         $status_paket = "Tidak";
                     }
 
@@ -99,8 +96,8 @@ class Transaksi extends CI_Controller
 
                     $status_detail = $this->M_penjualan_obat->input_data('detail_penjualan_obat_apotik', $data);
 
-                        // update stok di penyimpanan
-                        if ($status_detail) {
+                    // update stok di penyimpanan
+                    if ($status_detail) {
 
                         $where = array(
                             'no_stok_obat_a' => $no_stok_obat_a
@@ -109,13 +106,11 @@ class Transaksi extends CI_Controller
                         $data = array(
                             'qty' => $qty_sekarang - $qty
                         );
-                        
+
                         $status_update = $this->M_penjualan_obat->update_data($where, 'stok_obat_apotik', $data);
-
-                        }
                     }
-
                 }
+            }
         }
 
         if (isset($_POST['no_bp_t'])) {
@@ -157,18 +152,21 @@ class Transaksi extends CI_Controller
                     $status = $this->M_transaksi->input_data('detail_bp_penanganan', $data);
                 }
 
-            } 
+                if ($status) {
+                    $this->session->set_flashdata('success', 'Ditambahkan');
+                }
+            }
         }
-        $this->session->set_flashdata('success', 'Ditambahkan');
-        redirect('balai_pengobatan/transaksi');
-        
+        // $this->session->set_flashdata('success', 'Ditambahkan');
+        // redirect('balai_pengobatan/transaksi');
+
     }
 
     function tampil_select()
     {
         $no_ref = $this->input->get('no_ref');
         $nama = $this->input->get('nama');
-        $query = $this->M_transaksi->get_select($no_ref,$nama,'no_ref_pelayanan');
+        $query = $this->M_transaksi->get_select($no_ref, $nama, 'no_ref_pelayanan');
         echo json_encode($query);
     }
 
@@ -187,22 +185,22 @@ class Transaksi extends CI_Controller
 
         if (isset($_POST['no_stok_obat_a']) && isset($_POST['harga_obat']) && isset($_POST['qty'])) {
 
-        for ($i = 0; $i < count($this->input->post('no_stok_obat_a')); $i++) {
+            for ($i = 0; $i < count($this->input->post('no_stok_obat_a')); $i++) {
 
-            $harga_jual_temp = $this->input->post('harga_obat')[$i];
-            $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
+                $harga_jual_temp = $this->input->post('harga_obat')[$i];
+                $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
 
-            $qty_temp = $this->input->post('qty')[$i];
-            $qty = (int) preg_replace("/[^0-9]/", "", $qty_temp);
+                $qty_temp = $this->input->post('qty')[$i];
+                $qty = (int) preg_replace("/[^0-9]/", "", $qty_temp);
 
-            $perhitungan = $harga_jual * $qty;
+                $perhitungan = $harga_jual * $qty;
 
-            $sub_total = $sub_total + $perhitungan;
+                $sub_total = $sub_total + $perhitungan;
             }
 
             $total = $sub_total;
-            }
+        }
 
-            echo $total;
+        echo $total;
     }
 }
