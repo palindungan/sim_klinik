@@ -90,7 +90,6 @@
 								<th>No</th>
 								<th>Nama Obat</th>
 								<th>Kategori</th>
-								<th>Tanggal Penerimaan</th>
 								<th>Stok</th>
 								<th>Harga Jual</th>
 								<th>Aksi</th>
@@ -207,11 +206,11 @@
 		var table;
 		table = $('.table_1').DataTable({
 			"columnDefs": [{
-					"targets": [0, 3, 4],
+					"targets": [0, 3, 5],
 					"className": "text-center"
 				},
 				{
-					"targets": 5,
+					"targets": 4,
 					"className": "text-right"
 				}
 			],
@@ -237,7 +236,6 @@
 						var kode = data[i].kode_obat;
 						var nama = data[i].nama_obat;
 						var nama_kategori = data[i].nama_kategori;
-						var tgl_penerimaan_o = data[i].tgl_penerimaan_o;
 						var qty = data[i].qty;
 						var harga_jual = data[i].harga_jual;
 
@@ -250,7 +248,7 @@
 							kode +
 							`" class="btn btn-sm btn-dark text-white">Pilih</a>`;
 
-						table.row.add([no, nama, nama_kategori, tgl_penerimaan_o, qty,
+						table.row.add([no, nama, nama_kategori, qty,
 							ribuan, button
 						]);
 

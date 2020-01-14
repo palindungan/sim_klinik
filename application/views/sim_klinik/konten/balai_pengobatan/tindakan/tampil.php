@@ -31,7 +31,7 @@
 							<div class="form-row">
 								<div class="form-group col-sm-6">
 									<label for="inputEmail2">Nama Tindakan</label>
-									<input type="text" name="nama" class="form-control form-control-sm karakter"
+									<input type="text" name="nama" class="form-control form-control-sm karakterAngka"
 										id="inputEmail2" placeholder="Masukan nama tindakan" required>
 								</div>
 								<div class="form-group col-sm-6">
@@ -124,7 +124,7 @@
 						<input type="hidden" name="no_bp_t" value="<?= $data->no_bp_t ?>">
 						<label for="inputEmail2">Nama Tindakan</label>
 						<input type="text" name="nama" value="<?= $data->nama ?>"
-							class="form-control form-control-sm karakter" id="inputEmail2"
+							class="form-control form-control-sm karakterAngka" id="inputEmail2"
 							placeholder="Masukan nama tindakan"
 							<?php if($data->nama == 'Cek Gula Darah' || $data->nama == 'Cek Asam Urat' || $data->nama == 'Cek Kolesterol') {echo 'readonly';} ?>
 							required>

@@ -18,7 +18,7 @@
             $query = $this->db->query("SELECT no_bp_p,nama_pasien,tgl_pelayanan,
             SUM(IF(nama_tindakan = 'Cek Gula Darah',harga_detail,'-')) AS periksa_gula_darah,
             SUM(IF(nama_tindakan = 'Cek Asam Urat',harga_detail,'-')) AS periksa_asam_urat,
-            SUM(IF(nama_tindakan = 'Cek Kolesterol',harga_detail,null)) AS periksa_kolesterol,
+            SUM(IF(nama_tindakan = 'Cek Kolesterol',harga_detail,'-')) AS periksa_kolesterol,
             SUM(harga_detail) as total_harga
             FROM laporan_rawat_jalan
             GROUP BY no_bp_p")->result();
