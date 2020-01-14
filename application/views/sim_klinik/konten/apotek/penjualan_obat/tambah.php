@@ -162,9 +162,9 @@
 		var row_no = row_id.substring(3); // 1++
 
 		var val_qty = $('#' + row_id).val();
-		var val_qty = parseInt($('#qty_sekarang' + row_no).val());
+		var val_qty_sekarang = parseInt($('#qty_sekarang' + row_no).val());
 
-		if (val_qty <= val_qty) {
+		if (val_qty <= val_qty_sekarang) {
 			update_total();
 		} else {
 			alert("Maaf Qty Tidak Boleh Detail Obat Melebihi Stok Apotek");
