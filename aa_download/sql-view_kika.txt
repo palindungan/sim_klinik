@@ -111,10 +111,8 @@ SELECT po.no_penerimaan_o , su.nama AS nama_suplier , po.tgl_penerimaan_o , po.t
 FROM penerimaan_obat po JOIN supplier su USING(no_supplier) JOIN stok_obat_apotik soa USING(no_penerimaan_o) JOIN obat o USING(kode_obat) 
 ORDER BY soa.no_stok_obat_a ASC;
 
-CREATE VIEW daftar_pengiriman_obat_apotek_detail AS 
-SELECT doki.id_detail_obat_keluar_internal , doki.qty , oki.no_obat_keluar_i ,o.nama AS nama_obat , o.harga_jual , o.tipe , ko.nama AS nama_kategori 
-FROM detail_obat_keluar_internal doki JOIN obat o USING(kode_obat) JOIN kategori_obat ko USING(no_kat_obat) JOIN obat_keluar_internal oki USING(no_obat_keluar_i)
-ORDER BY doki.id_detail_obat_keluar_internal ASC;
+CREATE VIEW daftar_obat_rawat_inap AS 
+SELECT stok_obat_rawat_inap.kode_obat,stok_obat_rawat_inap.qty,obat.nama as nama_obat,kategori_obat.nama as nama_kategori,obat.harga_jual FROM stok_obat_rawat_inap JOIN obat USING (kode_obat) JOIN kategori_obat USING(no_kat_obat) ORDER BY nama_obat ASC
 
 ----------
 

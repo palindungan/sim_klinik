@@ -17,8 +17,7 @@
 								<th>No</th>
 								<th>Nama Obat</th>
 								<th>Kategori</th>
-								<th>Tanggal Penerimaan</th>
-								<th>Stok Saat Ini</th>
+								<th>Stok</th>
 								<th>Harga Jual</th>
 								<th>Aksi</th>
 							</tr>
@@ -80,11 +79,11 @@
 		var table;
 		table = $('.table_obat').DataTable({
 			"columnDefs": [{
-					"targets": [0, 3],
+					"targets": [0, 3, 5],
 					"className": "text-center"
 				},
 				{
-					"targets": 2,
+					"targets": 4,
 					"className": "text-right"
 				}
 			],
@@ -106,11 +105,10 @@
 
 					$.each(data, function (i, item) {
 
-						var kode_obat = data[i].no_stok_obat_rawat_i;
+						var kode_obat = data[i].kode_obat;
 						var nama_obat = data[i].nama_obat;
 						var nama_kategori = data[i].nama_kategori;
-						var tgl_obat_keluar_i = data[i].tgl_obat_keluar_i;
-						var qty_sekarang = data[i].qty_sekarang;
+						var qty_sekarang = data[i].qty;
 						var harga_obat = data[i].harga_jual;
 
 						var reverse = harga_obat.toString().split('').reverse().join(''),
@@ -122,7 +120,7 @@
 							harga_obat + `')" id="` + kode_obat +
 							`" class="btn btn-sm btn-dark text-white">Pilih</a>`;
 
-						table.row.add([no, nama_obat, nama_kategori, tgl_obat_keluar_i, qty_sekarang,
+						table.row.add([no, nama_obat, nama_kategori, qty_sekarang,
 							ribuan, button
 						]);
 

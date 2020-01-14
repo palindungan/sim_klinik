@@ -33,7 +33,7 @@ class Transaksi extends CI_Controller
 
     public function tampil_daftar_obat()
     {
-        $data_tbl['tbl_data'] = $this->M_transaksi->tampil_data('daftar_pengiriman_obat_apotek_detail')->result();
+        $data_tbl['tbl_data'] = $this->M_transaksi->tampil_data('daftar_obat_rawat_inap')->result();
 
         $data = json_encode($data_tbl);
 
