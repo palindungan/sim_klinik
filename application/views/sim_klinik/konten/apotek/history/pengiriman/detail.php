@@ -45,8 +45,8 @@ foreach ($record as $row) {
                     ?>
                         <tr>
                             <td width="7%" scope="row"><?= $no; ?></td>
-                            <td width="25%"><?= $row->nama; ?></td>
-                            <td width="8%"><?= $row->qty_awal; ?></td>
+                            <td width="25%"><?= $row->nama_obat; ?></td>
+                            <td width="8%"><?= $row->qty; ?></td>
                         </tr>
                     <?php $no = $no + 1;
                     } ?>
