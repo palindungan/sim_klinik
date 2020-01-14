@@ -1,3 +1,34 @@
+<!-- Modal -->
+<div class="modal fade  bd-example-modal-lg" id="exampleModalCenter_kamar" tabindex="-1" role="dialog"
+	aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Daftar Obat Rawat Inap</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="table-responsive">
+					<table class="table table-bordered table_kamar" width="100%" cellspacing="0">
+						<thead>
+							<tr>
+								<th>No</th>
+								<th>Nama Kamar</th>
+								<th>Tipe</th>
+								<th>Harga Harian</th>
+								<th>Aksi</th>
+							</tr>
+						</thead>
+						<tbody id="daftar_kamar">
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 <script>
 	var count1 = 0;
 	var jumlah_detail_transaksi_kamar = 0;
@@ -29,11 +60,11 @@
 		var table;
 		table = $('.table_kamar').DataTable({
 			"columnDefs": [{
-					"targets": [0, 3],
+					"targets": [0, 4],
 					"className": "text-center"
 				},
 				{
-					"targets": 2,
+					"targets": 3,
 					"className": "text-right"
 				}
 			],
@@ -69,7 +100,7 @@
 							`')" id="` + kode_kamar +
 							`" class="btn btn-sm btn-dark text-white">Pilih</a>`;
 
-						table.row.add([no, nama_kamar, ribuan, tipe_kamar, button]);
+						table.row.add([no, nama_kamar, tipe_kamar, ribuan, button]);
 
 						no = no + 1;
 					});
@@ -99,19 +130,17 @@
 			kode_kamar +
 			`">
 				</div>
-				<div class="form-group col-sm-4">
-					<input type="text" name="harga_harian_kamar[]" class="form-control form-control-sm rupiah_kamar text-right" id="harga_harian_kamar` +
-			count1 +
-			`" placeholder="Harga Harian Kamar" required value="` + harga_harian_kamar + `">
-				</div>
-                <div class="form-group col-sm-1">
+				
+                <div class="form-group col-sm-2">
 					<input type="text" name="tipe_kamar[]" readonly class="form-control form-control-sm rupiah" id="tipe_kamar` +
 			count1 + `" placeholder="Tipe Kamar" value="` + tipe_kamar + `" required>
-				</div>
-                <div class="form-group col-sm-1">
-					<input type="text" name="jumlah_hari[]" class="form-control form-control-sm rupiah_kamar" id="jumlah_hari` +
-			count1 + `" placeholder="Jumlah Hari" value="1" required>
-				</div>
+                </div>
+                <div class="form-group col-sm-4">
+                	<input type="text" name="harga_harian_kamar[]"
+                		class="form-control form-control-sm rupiah_kamar text-right" id="harga_harian_kamar` +
+			count1 +
+			`" placeholder="Harga Harian Kamar" required value="` + harga_harian_kamar + `">
+                </div>
 				<div class="form-group col-sm-2">
 					<a id="` + count1 + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris_kamar">
 						<span class="icon text-white-50">

@@ -45,19 +45,13 @@ class Transaksi extends CI_Controller
         $sub_total = 0;
         $total = 0;
 
-        if (isset($_POST['no_kamar_rawat_i']) && isset($_POST['harga_harian_kamar']) && isset($_POST['jumlah_hari'])) {
+        if (isset($_POST['no_kamar_rawat_i']) && isset($_POST['harga_harian_kamar'])) {
 
             for ($i = 0; $i < count($this->input->post('no_kamar_rawat_i')); $i++) {
 
                 $harga_temp = $this->input->post('harga_harian_kamar')[$i];
                 $harga = (int) preg_replace("/[^0-9]/", "", $harga_temp);
-
-                $jumlah_hari_temp = $this->input->post('jumlah_hari')[$i];
-                $jumlah_hari = (int) preg_replace("/[^0-9]/", "", $jumlah_hari_temp);
-
-                $perhitungan = $harga * $jumlah_hari;
-
-                $sub_total = $sub_total + $perhitungan;
+                $sub_total = $sub_total + $harga;
             }
 
             $total = $sub_total;

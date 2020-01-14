@@ -1,5 +1,33 @@
-<script src="<?= base_url(); ?>assets/sb_admin_2/vendor/jquery/jquery-3.4.1.min.js"></script>
-
+<!-- Modal -->
+<div class="modal fade  bd-example-modal-lg" id="exampleModalCenter_tindakan" tabindex="-1" role="dialog"
+	aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Daftar Tindakan Rawat Inap</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="table-responsive">
+					<table class="table table-bordered table_tindakan" width="100%" cellspacing="0">
+						<thead>
+							<tr>
+								<th>No</th>
+								<th>Nama tindakan</th>
+								<th>Harga</th>
+								<th>Aksi</th>
+							</tr>
+						</thead>
+						<tbody id="daftar_tindakan">
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 <script>
 	var count2 = 0;
 	var jumlah_detail_transaksi_tindakan = 0;

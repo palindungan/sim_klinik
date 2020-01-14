@@ -1,3 +1,36 @@
+<!-- Modal -->
+<div class="modal fade  bd-example-modal-lg" id="exampleModalCenter_obat" tabindex="-1" role="dialog"
+	aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Daftar Obat Rawat Inap</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="table-responsive">
+					<table class="table table-bordered table_obat" width="100%" cellspacing="0">
+						<thead>
+							<tr>
+								<th>No</th>
+								<th>Nama Obat</th>
+								<th>Kategori</th>
+								<th>Tanggal Penerimaan</th>
+								<th>Stok Saat Ini</th>
+								<th>Harga Jual</th>
+								<th>Aksi</th>
+							</tr>
+						</thead>
+						<tbody id="daftar_obat">
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 <script>
 	var count3 = 0;
 	var jumlah_detail_transaksi_obat = 0;
