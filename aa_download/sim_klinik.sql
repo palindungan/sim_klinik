@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 14 Jan 2020 pada 03.51
+-- Waktu pembuatan: 14 Jan 2020 pada 04.28
 -- Versi server: 10.4.6-MariaDB
 -- Versi PHP: 7.3.9
 
@@ -46,6 +46,13 @@ CREATE TABLE `antrian_bp` (
   `no_ref_pelayanan` char(10) NOT NULL,
   `status` enum('Antri','Prioritas','Diperiksa','Selesai') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `antrian_bp`
+--
+
+INSERT INTO `antrian_bp` (`kode_antrian_bp`, `no_ref_pelayanan`, `status`) VALUES
+('A001', '200114-001', 'Antri');
 
 -- --------------------------------------------------------
 
@@ -224,13 +231,6 @@ CREATE TABLE `daftar_penjualan_obat_apotek` (
 -- (Lihat di bawah untuk tampilan aktual)
 --
 CREATE TABLE `daftar_penjualan_obat_apotek_detail` (
-`no_detail_penjualan_obat_a` int(7)
-,`nama` varchar(50)
-,`qty` int(3)
-,`harga_jual` int(9)
-,`no_penjualan_obat_a` char(13)
-,`no_ref_pelayanan` char(10)
-,`no_stok_obat_a` int(7)
 );
 
 -- --------------------------------------------------------
@@ -367,7 +367,7 @@ CREATE TABLE `detail_obat_keluar_internal` (
 CREATE TABLE `detail_penjualan_obat_apotik` (
   `no_detail_penjualan_obat_a` int(7) NOT NULL,
   `no_penjualan_obat_a` char(13) NOT NULL,
-  `no_stok_obat_a` int(7) NOT NULL,
+  `kode_obat` varchar(4) NOT NULL,
   `qty` int(3) NOT NULL,
   `harga_jual` int(9) NOT NULL,
   `status_paket` enum('Ya','Tidak') NOT NULL
@@ -400,8 +400,7 @@ CREATE TABLE `detail_transaksi_rawat_inap_obat` (
   `no_transaksi_rawat_i` char(13) NOT NULL,
   `no_stok_obat_rawat_i` int(7) NOT NULL,
   `qty` int(3) NOT NULL,
-  `harga_jual` int(10) NOT NULL,
-  `sub_total_harga` int(10) NOT NULL
+  `harga_jual` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -553,11 +552,11 @@ CREATE TABLE `obat` (
 --
 
 INSERT INTO `obat` (`kode_obat`, `no_kat_obat`, `nama`, `min_stok`, `harga_jual`, `tipe`, `qty`) VALUES
-('O001', 'K001', 'Aspirin', 10, 1000, 'Obat', 0),
-('O002', 'K002', 'Prednison', 5, 2000, 'Obat', 0),
-('O003', 'K003', 'Psyllium ', 10, 3000, 'Obat', 0),
+('O001', 'K001', 'Aspirin', 10, 1000, 'Obat', 100),
+('O002', 'K002', 'Prednison', 5, 2000, 'Obat', 50),
+('O003', 'K003', 'Psyllium ', 10, 3000, 'Obat', 50),
 ('O004', 'K004', 'simvastatin', 10, 3000, 'Obat', 0),
-('O005', 'K005', 'Pentabio', 10, 5000, 'Obat', 0);
+('O005', 'K005', 'Pentabio', 10, 5000, 'Obat', 100);
 
 -- --------------------------------------------------------
 
@@ -584,6 +583,13 @@ CREATE TABLE `pasien` (
   `alamat` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `pasien`
+--
+
+INSERT INTO `pasien` (`no_rm`, `nama`, `umur`, `alamat`) VALUES
+('qwe123', 'Rizkika', 20, 'Jember');
+
 -- --------------------------------------------------------
 
 --
@@ -600,6 +606,13 @@ CREATE TABLE `pelayanan` (
   `status` enum('belum_finish','finish') NOT NULL,
   `tipe_pelayanan` enum('Rawat Jalan','Rawat Inap') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `pelayanan`
+--
+
+INSERT INTO `pelayanan` (`no_ref_pelayanan`, `no_rm`, `no_user_pegawai`, `layanan_tujuan`, `tipe_antrian`, `tgl_pelayanan`, `status`, `tipe_pelayanan`) VALUES
+('200114-001', 'qwe123', 'P001', 'Balai Pengobatan', 'Dewasa', '2020-01-14 10:19:06', 'belum_finish', 'Rawat Jalan');
 
 -- --------------------------------------------------------
 
@@ -626,6 +639,14 @@ CREATE TABLE `penerimaan_obat` (
   `tgl_penerimaan_o` datetime NOT NULL,
   `total_harga` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `penerimaan_obat`
+--
+
+INSERT INTO `penerimaan_obat` (`no_penerimaan_o`, `no_supplier`, `tgl_penerimaan_o`, `total_harga`) VALUES
+('PO200114-0001', 'S001', '2020-01-14 10:10:26', 450000),
+('PO200114-0002', 'S001', '2020-01-14 10:14:48', 150000);
 
 -- --------------------------------------------------------
 
@@ -665,6 +686,16 @@ CREATE TABLE `stok_obat_apotik` (
   `harga_supplier` int(9) NOT NULL,
   `qty` mediumint(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `stok_obat_apotik`
+--
+
+INSERT INTO `stok_obat_apotik` (`no_stok_obat_a`, `no_penerimaan_o`, `kode_obat`, `harga_supplier`, `qty`) VALUES
+(5, 'PO200114-0001', 'O001', 500, 100),
+(6, 'PO200114-0001', 'O005', 4000, 100),
+(7, 'PO200114-0002', 'O002', 1000, 50),
+(8, 'PO200114-0002', 'O003', 2000, 50);
 
 -- --------------------------------------------------------
 
@@ -875,7 +906,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `data_stok_obat_apotek`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `data_stok_obat_apotek`  AS  select `soa`.`no_stok_obat_a` AS `no_stok_obat_a`,`soa`.`no_penerimaan_o` AS `no_penerimaan_o`,`soa`.`harga_supplier` AS `harga_supplier`,`soa`.`qty` AS `qty`,`po`.`tgl_penerimaan_o` AS `tgl_penerimaan_o`,`o`.`kode_obat` AS `kode_obat`,`o`.`nama` AS `nama_obat`,`o`.`harga_jual` AS `harga_jual`,`o`.`tipe` AS `tipe`,`ko`.`no_kat_obat` AS `no_kat_obat`,`ko`.`nama` AS `nama_kategori` from (((`stok_obat_apotik` `soa` join `penerimaan_obat` `po` on(`soa`.`no_penerimaan_o` = `po`.`no_penerimaan_o`)) join `obat` `o` on(`soa`.`kode_obat` = `o`.`kode_obat`)) join `kategori_obat` `ko` on(`o`.`no_kat_obat` = `ko`.`no_kat_obat`)) order by `po`.`tgl_penerimaan_o` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `data_stok_obat_apotek`  AS  select `soa`.`no_stok_obat_a` AS `no_stok_obat_a`,`soa`.`no_penerimaan_o` AS `no_penerimaan_o`,`soa`.`harga_supplier` AS `harga_supplier`,`o`.`qty` AS `qty`,`po`.`tgl_penerimaan_o` AS `tgl_penerimaan_o`,`o`.`kode_obat` AS `kode_obat`,`o`.`nama` AS `nama_obat`,`o`.`harga_jual` AS `harga_jual`,`o`.`tipe` AS `tipe`,`ko`.`no_kat_obat` AS `no_kat_obat`,`ko`.`nama` AS `nama_kategori` from (((`stok_obat_apotik` `soa` join `penerimaan_obat` `po` on(`soa`.`no_penerimaan_o` = `po`.`no_penerimaan_o`)) join `obat` `o` on(`soa`.`kode_obat` = `o`.`kode_obat`)) join `kategori_obat` `ko` on(`o`.`no_kat_obat` = `ko`.`no_kat_obat`)) order by `po`.`tgl_penerimaan_o` ;
 
 -- --------------------------------------------------------
 
@@ -1168,7 +1199,7 @@ ALTER TABLE `detail_ugd_penanganan`
 -- AUTO_INCREMENT untuk tabel `stok_obat_apotik`
 --
 ALTER TABLE `stok_obat_apotik`
-  MODIFY `no_stok_obat_a` int(7) NOT NULL AUTO_INCREMENT;
+  MODIFY `no_stok_obat_a` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `stok_obat_rawat_inap`

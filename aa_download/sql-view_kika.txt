@@ -64,7 +64,7 @@ ORDER BY o.nama
 -----------------
 
 CREATE VIEW data_stok_obat_apotek AS 
-SELECT soa.no_stok_obat_a, soa.no_penerimaan_o , soa.harga_supplier, soa.qty , po.tgl_penerimaan_o , o.kode_obat, o.nama AS nama_obat , o.harga_jual , o.tipe, ko.no_kat_obat , ko.nama AS nama_kategori
+SELECT soa.no_stok_obat_a, soa.no_penerimaan_o , soa.harga_supplier, o.qty , po.tgl_penerimaan_o , o.kode_obat, o.nama AS nama_obat , o.harga_jual , o.tipe, ko.no_kat_obat , ko.nama AS nama_kategori
 FROM stok_obat_apotik soa JOIN penerimaan_obat po USING(no_penerimaan_o) JOIN obat o USING(kode_obat) JOIN kategori_obat ko USING(no_kat_obat)
 ORDER BY po.tgl_penerimaan_o ASC;
 

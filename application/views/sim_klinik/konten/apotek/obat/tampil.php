@@ -79,10 +79,11 @@
 						<tr>
 							<th width="5%" class="text-center">No</th>
 							<th width="5%" class="text-center">Kode</th>
-							<th width="20%">Nama Obat / Alkes</th>
+							<th width="15%">Nama Obat / Alkes</th>
 							<th width="15%">Kategori</th>
 							<th width="10%">Min. Stok</th>
 							<th width="10%" class="text-center">Harga Jual</th>
+							<th width="5%" class="text-center">QTY</th>
 							<th width="10%" class="text-center">Tipe Logistik</th>
 							<th width="15%" class="text-center">Aksi</th>
 						</tr>
@@ -99,6 +100,7 @@
 							<td><?= $data->nama_kategori ?></td>
 							<td><?= $data->min_stok ?></td>
 							<td class="text-right"><?= rupiah($data->harga_jual) ?></td>
+							<td><?= $data->qty ?></td>
 							<td><?= $data->tipe ?></td>
 							<td class="text-center">
 								<a style="cursor:pointer" class="btn btn-sm btn-warning text-white" data-toggle="modal"

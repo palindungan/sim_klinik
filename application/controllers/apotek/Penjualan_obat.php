@@ -74,9 +74,9 @@ class Penjualan_obat extends CI_Controller
 
             if ($status) {
                 // tambah detail transaksi
-                for ($i = 0; $i < count($this->input->post('no_stok_obat_a')); $i++) {
+                for ($i = 0; $i < count($this->input->post('kode_obat')); $i++) {
 
-                    $no_stok_obat_a = $this->input->post('no_stok_obat_a')[$i];
+                    $kode_obat = $this->input->post('kode_obat')[$i];
                     $harga_temp = $this->input->post('harga_jual')[$i];
                     $harga_jual = preg_replace("/[^0-9]/", "", $harga_temp);
                     $qty = $this->input->post('qty')[$i];
@@ -85,7 +85,7 @@ class Penjualan_obat extends CI_Controller
                     // proses pemasukan ke dalam database detail
                     $data = array(
                         'no_penjualan_obat_a' => $no_penjualan_obat_a,
-                        'no_stok_obat_a' => $no_stok_obat_a,
+                        'kode_obat' => $kode_obat,
                         'qty' => $qty,
                         'harga_jual' => $harga_jual,
                         'status_paket' => 'Tidak'
@@ -97,13 +97,13 @@ class Penjualan_obat extends CI_Controller
                     if ($status_detail) {
 
                         $where = array(
-                            'no_stok_obat_a' => $no_stok_obat_a
+                            'kode_obat' => $kode_obat
                         );
 
                         $data = array(
                             'qty' => $qty_sekarang -  $qty
                         );
-                        $status_update = $this->M_penjualan_obat->update_data($where, 'stok_obat_apotik', $data);
+                        $status_update = $this->M_penjualan_obat->update_data($where, 'obat', $data);
 
                     }
                 }

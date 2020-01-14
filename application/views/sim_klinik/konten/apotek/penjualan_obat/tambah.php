@@ -161,8 +161,8 @@
 		var row_id = $(this).attr("id"); // qty1++
 		var row_no = row_id.substring(3); // 1++
 
-		var val_qty = parseInt($('#' + row_id).val());
-		var val_qty = parseInt($('#qty' + row_no).val());
+		var val_qty = $('#' + row_id).val();
+		var val_qty = parseInt($('#qty_sekarang' + row_no).val());
 
 		if (val_qty <= val_qty) {
 			update_total();
@@ -234,7 +234,7 @@
 
 					$.each(data, function (i, item) {
 
-						var kode = data[i].no_stok_obat_a;
+						var kode = data[i].kode_obat;
 						var nama = data[i].nama_obat;
 						var nama_kategori = data[i].nama_kategori;
 						var tgl_penerimaan_o = data[i].tgl_penerimaan_o;
@@ -276,7 +276,7 @@
 				<div class="form-group col-sm-5">
 					<input type="text" readonly name="nama[]" class="form-control form-control-sm karakter" id="nama` + count1 +
 			`" placeholder="Nama" required value="` + nama + `">
-					<input type="hidden" name="no_stok_obat_a[]" class="form-control form-control-sm" id="no_stok_obat_a` + count1 +
+					<input type="hidden" name="kode_obat[]" class="form-control form-control-sm" id="kode_obat` + count1 +
 			`" value="` +
 			kode + `">
 				</div>
@@ -287,7 +287,7 @@
 				</div>
                 <div class="form-group col-sm-1">
 					<input type="text" name="qty[]" class="form-control form-control-sm qty_format" id="qty` + count1 + `" placeholder="QTY" value="1" required>
-					<input type="hidden" name="qty_sekarang[]" id="qty` + count1 +
+					<input type="hidden" name="qty_sekarang[]" id="qty_sekarang` + count1 +
 			`" class="form-control form-control-sm" value="` + qty + `"></input>
 				</div>
 				<div class="form-group col-sm-2">

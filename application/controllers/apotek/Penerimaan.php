@@ -89,10 +89,6 @@ class Penerimaan extends CI_Controller
                         'qty' => $qty
                     );
 
-                    $status = $this->M_penerimaan->input_data('stok_obat_apotik', $data);
-                }
-
-                if ($status) {
                     $where_ko = array(
                         'kode_obat' => $kode_obat
                     );
@@ -102,11 +98,17 @@ class Penerimaan extends CI_Controller
                     {
                         $qty_obat = $obat->qty;
                     }
-                    $data = array(
+                    $data_obat = array(
                         'qty' => $qty_obat + $qty
                     );
-                    $status_obat = $this->M_penerimaan->update_data($where_ko,'obat',$data);
-                    $this->session->set_flashdata('success', 'Ditambahkan');
+                    $this->M_penerimaan->update_data($where_ko,'obat',$data_obat);
+
+                    $status = $this->M_penerimaan->input_data('stok_obat_apotik', $data);
+                }
+
+                if ($status) {
+                        $this->session->set_flashdata('success', 'Ditambahkan');
+                    
                 } else {
                     echo "Gagal input ke dalam data detail transaksi !!";
                 }
