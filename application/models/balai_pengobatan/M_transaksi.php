@@ -61,6 +61,7 @@ class M_transaksi extends CI_Model
 
     function get_no_transaksi()
     {
+        date_default_timezone_set('Asia/Jakarta');
         $field = "no_bp_p";
         $tabel = "bp_penanganan";
         $digit = "4";
@@ -76,19 +77,23 @@ class M_transaksi extends CI_Model
         } else {
             $kd = "0001";
         }
-        date_default_timezone_set('Asia/Jakarta');
         return 'BP' . date('ymd') . '-' . $kd; // SELECT SUBSTR('BP191121-0001', 3, 6); dari digit ke 3 sampai 6 digit seanjutnya
     }
 
-    function get_select($no_ref,$nama,$kolom)
+    function get_select($no_ref, $nama, $kolom)
     {
         $this->db->select('*');
-        $this->db->from('data_pelayanan_pasien');
-        $this->db->where('layanan_tujuan', 'Balai Pengobatan');
-        $this->db->group_start();
-        $this->db->or_like('no_ref_pelayanan', $no_ref);
+        $this->db->from('data_pelayanan_pasien_default');
+
+        $this->db->like('no_ref_pelayanan', $no_ref);
         $this->db->or_like('nama', $nama);
-        $this->db->group_end();
+
+        $where = array(
+            'status' => 'belum_finish',
+            'layanan_tujuan' => 'Balai Pengobatan'
+        );
+
+        $this->db->where($where);
         return $this->db->get()->result_array();
     }
 }

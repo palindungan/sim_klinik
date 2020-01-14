@@ -78,13 +78,14 @@ class M_penjualan_obat extends CI_Model
         $this->db->select('*');
         $this->db->from('data_pelayanan_pasien_default');
 
+        $this->db->like('no_ref_pelayanan', $no_ref);
+        $this->db->or_like('nama', $nama);
+
         $where = array(
             'status' => 'belum_finish'
         );
 
         $this->db->where($where);
-        $this->db->or_like('no_ref_pelayanan', $no_ref);
-        $this->db->or_like('nama', $nama);
         return $this->db->get()->result_array();
     }
 }
