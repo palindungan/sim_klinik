@@ -53,6 +53,7 @@ class M_penjualan_obat extends CI_Model
 
     function get_no_transaksi()
     {
+        date_default_timezone_set('Asia/Jakarta');
         // PO191125-0001
         $field = "no_penjualan_obat_a";
         $tabel = "penjualan_obat_apotik";
@@ -69,13 +70,19 @@ class M_penjualan_obat extends CI_Model
         } else {
             $kd = "0001";
         }
-        date_default_timezone_set('Asia/Jakarta');
+
         return 'PA' . date('ymd') . '-' . $kd; // SELECT SUBSTR('BP191121-0001', 3, 6); dari digit ke 3 sampai 6 digit seanjutnya
     }
-    function get_select($no_ref,$nama,$kolom)
+    function get_select($no_ref, $nama, $kolom)
     {
         $this->db->select('*');
-        $this->db->from('data_pelayanan_pasien');
+        $this->db->from('data_pelayanan_pasien_default');
+
+        $where = array(
+            'status' => 'belum_finish'
+        );
+
+        $this->db->where($where);
         $this->db->or_like('no_ref_pelayanan', $no_ref);
         $this->db->or_like('nama', $nama);
         return $this->db->get()->result_array();

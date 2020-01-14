@@ -14,10 +14,10 @@ class Penjualan_obat extends CI_Controller
 
     public function tampil_daftar_obat()
     {
-        $where_qyty = array(
+        $where = array(
             'qty >' => 0
         );
-        $data_tbl['tbl_data'] = $this->M_penjualan_obat->get_data('data_obat',$where_qyty)->result();
+        $data_tbl['tbl_data'] = $this->M_penjualan_obat->get_data('data_obat', $where)->result();
 
         $data = json_encode($data_tbl);
 
@@ -104,7 +104,6 @@ class Penjualan_obat extends CI_Controller
                             'qty' => $qty_sekarang -  $qty
                         );
                         $status_update = $this->M_penjualan_obat->update_data($where, 'obat', $data);
-
                     }
                 }
 
@@ -125,7 +124,7 @@ class Penjualan_obat extends CI_Controller
     {
         $no_ref = $this->input->get('no_ref');
         $nama = $this->input->get('nama');
-        $query = $this->M_penjualan_obat->get_select($no_ref,$nama,'no_ref_pelayanan');
+        $query = $this->M_penjualan_obat->get_select($no_ref, $nama, 'no_ref_pelayanan');
         echo json_encode($query);
     }
 
