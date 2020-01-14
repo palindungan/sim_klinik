@@ -125,7 +125,9 @@
 						<label for="inputEmail2">Nama Tindakan</label>
 						<input type="text" name="nama" value="<?= $data->nama ?>"
 							class="form-control form-control-sm karakter" id="inputEmail2"
-							placeholder="Masukan nama tindakan" required>
+							placeholder="Masukan nama tindakan"
+							<?php if($data->nama == 'Cek Gula Darah' || $data->nama == 'Cek Asam Urat' || $data->nama == 'Cek Kolesterol') {echo 'readonly';} ?>
+							required>
 
 					</div>
 					<div class="form-group col-sm-6">

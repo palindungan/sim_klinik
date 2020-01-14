@@ -17,7 +17,7 @@ class Penjualan_obat extends CI_Controller
         $where_qyty = array(
             'qty >' => 0
         );
-        $data_tbl['tbl_data'] = $this->M_penjualan_obat->get_data('data_stok_obat_apotek',$where_qyty)->result();
+        $data_tbl['tbl_data'] = $this->M_penjualan_obat->get_data('data_obat',$where_qyty)->result();
 
         $data = json_encode($data_tbl);
 
