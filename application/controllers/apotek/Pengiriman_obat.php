@@ -42,20 +42,44 @@ class Pengiriman_obat extends CI_Controller
                     $kode_obat = $this->input->post('kode_obat')[$i];
                     $qty = $this->input->post('qty')[$i];
                     $qty_sekarang = $this->input->post('qty_sekarang')[$i];
+                    $no_penerimaan_o = $this->input->post('no_penerimaan_o')[$i];
 
                     // proses pemasukan ke dalam database detail
-                    $data = array(
-                        'kode_obat' => $kode_obat,
-                        'qty' => $qty
+                    $where_ko = array(
+                        'kode_obat' => $kode_obat
                     );
+                    $cek_obat_ri = $this->M_pengiriman_obat->get_data('stok_obat_rawat_inap',$where_ko)->num_rows();
+                    $stok_obat_ri = $this->M_pengiriman_obat->get_data('stok_obat_rawat_inap',$where_ko)->result();
+                    $qty_ri = " ";
+                    foreach($stok_obat_ri as $stok_ri)
+                    {
+                        $qty_ri = $stok_ri->qty;
+                    }
+                    if($cek_obat_ri > 0)
+                    {
+                        $data = array(
+                            'kode_obat' => $kode_obat,
+                            'qty' => $qty + $qty_ri
+                        );
+                        $status_detail = $this->M_pengiriman_obat->update_data($where_ko,'stok_obat_rawat_inap', $data);
+                    } 
+                    else
+                    {
+                        $data = array(
+                            'kode_obat' => $kode_obat,
+                            'qty' => $qty
+                        );
 
-                    $status_detail = $this->M_pengiriman_obat->input_data('stok_obat_rawat_inap', $data);
+                        $status_detail = $this->M_pengiriman_obat->input_data('stok_obat_rawat_inap', $data);
+                    }
+                    
 
                     // update stok di penyimpanan
                     if ($status_detail) {
 
                         $where = array(
-                            'no_stok_obat_a' => $no_stok_obat_a
+                            'no_penerimaan_o' => $no_penerimaan_o,
+                            'kode_obat' => $kode_obat
                         );
 
                         $data = array(
@@ -76,6 +100,7 @@ class Pengiriman_obat extends CI_Controller
         } else {
             echo "Harus Ada Detail Transaksi !!";
         }
+        redirect('apotek/pengiriman_obat');
     }
 
     public function tampil_daftar_pengiriman_obat()

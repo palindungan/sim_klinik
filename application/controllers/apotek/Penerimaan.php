@@ -93,6 +93,19 @@ class Penerimaan extends CI_Controller
                 }
 
                 if ($status) {
+                    $where_ko = array(
+                        'kode_obat' => $kode_obat
+                    );
+                    $ambil_obat = $this->M_penerimaan->get_data('obat',$where_ko)->result();
+                    $qty_obat = "";
+                    foreach($ambil_obat as $obat)
+                    {
+                        $qty_obat = $obat->qty;
+                    }
+                    $data = array(
+                        'qty' => $qty_obat + $qty
+                    );
+                    $status_obat = $this->M_penerimaan->update_data($where_ko,'obat');
                     $this->session->set_flashdata('success', 'Ditambahkan');
                 } else {
                     echo "Gagal input ke dalam data detail transaksi !!";

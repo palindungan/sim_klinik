@@ -140,13 +140,16 @@
 						var kode = data[i].kode_obat;
 						var nama = data[i].nama_obat;
 						var nama_kategori = data[i].nama_kategori;
-						var qty = data[i].qty;
+						var qty_sekarang = data[i].qty;
+						var no_penerimaan_o = data[i].no_penerimaan_o;
 
 						var button = `<a onclick="pilihObat('` + kode +
-							`','` + nama + `','` + nama_kategori + `','` + qty + `')" id="` + kode +
+							`','` + nama + `','` + nama_kategori + `','` + qty_sekarang + `','` +
+							no_penerimaan_o +
+							`')" id="` + kode +
 							`" class="btn btn-sm btn-dark text-white">Pilih</a>`;
 
-						table.row.add([no, nama, nama_kategori, qty, button]);
+						table.row.add([no, nama, nama_kategori, qty_sekarang, button]);
 
 						no = no + 1;
 					});
@@ -162,7 +165,7 @@
 	}
 
 	// Start add_row
-	function pilihObat(kode, nama, nama_kategori, qty_sekarang) {
+	function pilihObat(kode, nama, nama_kategori, qty_sekarang, no_penerimaan_o) {
 
 		$('#detail_list').append(`
 
@@ -185,6 +188,8 @@
                     placeholder="QTY" required>
 					<input type="hidden" name="qty_sekarang[]" id="qty_sekarang` + count1 +
 			`" class="form-control form-control-sm" value="` + qty_sekarang + `"></input>
+			<input type="hidden" name="no_penerimaan_o[]" id="no_penerimaan_o` + count1 +
+			`" class="form-control form-control-sm" value="` + no_penerimaan_o + `"></input>
 			</div>
             <div class="form-group col-sm-2">
                 <a id="` + count1 + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris">
