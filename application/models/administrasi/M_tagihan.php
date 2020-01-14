@@ -179,15 +179,20 @@ class M_tagihan extends CI_Model
         $q = $this->db->query("SELECT MAX(RIGHT($field,$digit)) AS kd_max FROM $tabel");
         $kd = "";
         if ($q->num_rows() > 0) {
-        foreach ($q->result() as $k) {
-        $tmp = ((int) $k->kd_max) + 1;
-        $kd = $kode . sprintf('%0' . $digit . 's', $tmp);
-        }
+            foreach ($q->result() as $k) {
+                $tmp = ((int) $k->kd_max) + 1;
+                $kd = $kode . sprintf('%0' . $digit . 's', $tmp);
+            }
         } else {
-        $kd = "T001";
+            $kd = "T001";
         }
         return $kd;
     }
 
-    
+    private $_table = 'ambulance';
+
+    function getAmbulance()
+    {
+        return $this->db->get($this->_table);
+    }
 }

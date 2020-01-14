@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 14 Jan 2020 pada 06.34
+-- Waktu pembuatan: 14 Jan 2020 pada 11.56
 -- Versi server: 10.1.37-MariaDB
 -- Versi PHP: 7.3.0
 
@@ -25,15 +25,22 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `ambulan`
+-- Struktur dari tabel `ambulance`
 --
 
-CREATE TABLE `ambulan` (
-  `no_ambulan` char(4) NOT NULL,
-  `nama` varchar(30) NOT NULL,
-  `harga` int(9) NOT NULL,
-  `tujuan` varchar(20) NOT NULL
+CREATE TABLE `ambulance` (
+  `no_ambulance` tinyint(2) NOT NULL,
+  `tujuan` varchar(20) NOT NULL,
+  `harga` int(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `ambulance`
+--
+
+INSERT INTO `ambulance` (`no_ambulance`, `tujuan`, `harga`) VALUES
+(1, 'RS Balung', 120000),
+(2, 'RS Soebandi', 250000);
 
 -- --------------------------------------------------------
 
@@ -91,6 +98,14 @@ CREATE TABLE `bp_penanganan` (
   `total_harga` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `bp_penanganan`
+--
+
+INSERT INTO `bp_penanganan` (`no_bp_p`, `no_ref_pelayanan`, `tgl_penanganan`, `total_harga`) VALUES
+('BP200114-0001', '200114-001', '2020-01-14 12:48:15', 50000),
+('BP200114-0002', '200114-001', '2020-01-14 12:48:46', 100000);
+
 -- --------------------------------------------------------
 
 --
@@ -103,6 +118,13 @@ CREATE TABLE `bp_tindakan` (
   `harga` int(9) NOT NULL,
   `status` enum('Terima','Tidak Terima') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `bp_tindakan`
+--
+
+INSERT INTO `bp_tindakan` (`no_bp_t`, `nama`, `harga`, `status`) VALUES
+('T001', 'vaksin titanus', 50000, 'Terima');
 
 -- --------------------------------------------------------
 
@@ -275,24 +297,6 @@ CREATE TABLE `data_obat` (
 -- --------------------------------------------------------
 
 --
--- Stand-in struktur untuk tampilan `data_pelayanan_pasien`
--- (Lihat di bawah untuk tampilan aktual)
---
-CREATE TABLE `data_pelayanan_pasien` (
-`no_ref_pelayanan` char(10)
-,`layanan_tujuan` enum('Balai Pengobatan','Poli KIA','Laboratorium','UGD')
-,`tipe_antrian` enum('Dewasa','Anak-Anak')
-,`tgl_pelayanan` datetime
-,`no_rm` char(25)
-,`nama` varchar(50)
-,`umur` smallint(3)
-,`alamat` text
-,`status` enum('belum_finish','finish')
-);
-
--- --------------------------------------------------------
-
---
 -- Stand-in struktur untuk tampilan `data_pelayanan_pasien_default`
 -- (Lihat di bawah untuk tampilan aktual)
 --
@@ -342,6 +346,15 @@ CREATE TABLE `detail_bp_penanganan` (
   `no_bp_t` char(4) NOT NULL,
   `harga` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `detail_bp_penanganan`
+--
+
+INSERT INTO `detail_bp_penanganan` (`no_detail_bp_p`, `no_bp_p`, `no_bp_t`, `harga`) VALUES
+(1, 'BP200114-0001', 'T001', 50000),
+(2, 'BP200114-0002', 'T001', 50000),
+(3, 'BP200114-0002', 'T001', 50000);
 
 -- --------------------------------------------------------
 
@@ -406,6 +419,14 @@ CREATE TABLE `detail_penjualan_obat_apotik` (
   `harga_jual` int(9) NOT NULL,
   `status_paket` enum('Ya','Tidak') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `detail_penjualan_obat_apotik`
+--
+
+INSERT INTO `detail_penjualan_obat_apotik` (`no_detail_penjualan_obat_a`, `no_penjualan_obat_a`, `kode_obat`, `qty`, `harga_jual`, `status_paket`) VALUES
+(1, 'PA200114-0001', 'O005', 10, 5000, 'Tidak'),
+(2, 'PA200114-0001', 'O002', 20, 2000, 'Tidak');
 
 -- --------------------------------------------------------
 
@@ -587,10 +608,10 @@ CREATE TABLE `obat` (
 
 INSERT INTO `obat` (`kode_obat`, `no_kat_obat`, `nama`, `min_stok`, `harga_jual`, `tipe`, `qty`) VALUES
 ('O001', 'K001', 'Aspirin', 10, 1000, 'Obat', 70),
-('O002', 'K002', 'Prednison', 5, 2000, 'Obat', 40),
-('O003', 'K003', 'Psyllium ', 10, 3000, 'Obat', 35),
+('O002', 'K002', 'Prednison', 5, 2000, 'Obat', 20),
+('O003', 'K003', 'Psyllium ', 10, 3000, 'Obat', 55),
 ('O004', 'K004', 'simvastatin', 10, 3000, 'Obat', 0),
-('O005', 'K005', 'Pentabio', 10, 5000, 'Obat', 60);
+('O005', 'K005', 'Pentabio', 10, 5000, 'Obat', 70);
 
 -- --------------------------------------------------------
 
@@ -689,7 +710,8 @@ CREATE TABLE `penerimaan_obat` (
 
 INSERT INTO `penerimaan_obat` (`no_penerimaan_o`, `no_supplier`, `tgl_penerimaan_o`, `total_harga`) VALUES
 ('PO200114-0001', 'S001', '2020-01-14 10:10:26', 450000),
-('PO200114-0002', 'S001', '2020-01-14 10:14:48', 150000);
+('PO200114-0002', 'S001', '2020-01-14 10:14:48', 150000),
+('PO200114-0003', 'S003', '2020-01-14 15:45:41', 600000);
 
 -- --------------------------------------------------------
 
@@ -703,6 +725,15 @@ CREATE TABLE `penjualan_obat_apotik` (
   `tanggal_penjualan` datetime NOT NULL,
   `total_harga` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `penjualan_obat_apotik`
+--
+
+INSERT INTO `penjualan_obat_apotik` (`no_penjualan_obat_a`, `no_ref_pelayanan`, `tanggal_penjualan`, `total_harga`) VALUES
+('PA200114-0001', '200114-001', '2020-01-14 15:07:05', 90000),
+('PA200114-0002', '200114-001', '2020-01-14 15:15:43', 5000),
+('PA200114-0003', '200114-001', '2020-01-14 15:18:59', 1000);
 
 -- --------------------------------------------------------
 
@@ -738,7 +769,9 @@ INSERT INTO `stok_obat_apotik` (`no_stok_obat_a`, `no_penerimaan_o`, `kode_obat`
 (5, 'PO200114-0001', 'O001', 500, 100),
 (6, 'PO200114-0001', 'O005', 4000, 100),
 (7, 'PO200114-0002', 'O002', 1000, 50),
-(8, 'PO200114-0002', 'O003', 2000, 50);
+(8, 'PO200114-0002', 'O003', 2000, 50),
+(9, 'PO200114-0003', 'O005', 10000, 20),
+(10, 'PO200114-0003', 'O003', 20000, 20);
 
 -- --------------------------------------------------------
 
@@ -946,15 +979,6 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Struktur untuk view `data_pelayanan_pasien`
---
-DROP TABLE IF EXISTS `data_pelayanan_pasien`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `data_pelayanan_pasien`  AS  select `pe`.`no_ref_pelayanan` AS `no_ref_pelayanan`,`pe`.`layanan_tujuan` AS `layanan_tujuan`,`pe`.`tipe_antrian` AS `tipe_antrian`,`pe`.`tgl_pelayanan` AS `tgl_pelayanan`,`pa`.`no_rm` AS `no_rm`,`pa`.`nama` AS `nama`,`pa`.`umur` AS `umur`,`pa`.`alamat` AS `alamat`,`pe`.`status` AS `status` from (`pelayanan` `pe` join `pasien` `pa` on((`pe`.`no_rm` = `pa`.`no_rm`))) where (`pe`.`status` = 'belum_finish') order by `pe`.`no_ref_pelayanan` ;
-
--- --------------------------------------------------------
-
---
 -- Struktur untuk view `data_pelayanan_pasien_default`
 --
 DROP TABLE IF EXISTS `data_pelayanan_pasien_default`;
@@ -984,10 +1008,10 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 
 --
--- Indeks untuk tabel `ambulan`
+-- Indeks untuk tabel `ambulance`
 --
-ALTER TABLE `ambulan`
-  ADD PRIMARY KEY (`no_ambulan`);
+ALTER TABLE `ambulance`
+  ADD PRIMARY KEY (`no_ambulance`);
 
 --
 -- Indeks untuk tabel `antrian_bp`
@@ -1204,10 +1228,16 @@ ALTER TABLE `user_pegawai`
 --
 
 --
+-- AUTO_INCREMENT untuk tabel `ambulance`
+--
+ALTER TABLE `ambulance`
+  MODIFY `no_ambulance` tinyint(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT untuk tabel `detail_bp_penanganan`
 --
 ALTER TABLE `detail_bp_penanganan`
-  MODIFY `no_detail_bp_p` int(7) NOT NULL AUTO_INCREMENT;
+  MODIFY `no_detail_bp_p` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_kia_penanganan`
@@ -1231,7 +1261,7 @@ ALTER TABLE `detail_obat_keluar_internal`
 -- AUTO_INCREMENT untuk tabel `detail_penjualan_obat_apotik`
 --
 ALTER TABLE `detail_penjualan_obat_apotik`
-  MODIFY `no_detail_penjualan_obat_a` int(7) NOT NULL AUTO_INCREMENT;
+  MODIFY `no_detail_penjualan_obat_a` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_transaksi_rawat_inap_kamar`
@@ -1261,7 +1291,7 @@ ALTER TABLE `detail_ugd_penanganan`
 -- AUTO_INCREMENT untuk tabel `stok_obat_apotik`
 --
 ALTER TABLE `stok_obat_apotik`
-  MODIFY `no_stok_obat_a` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `no_stok_obat_a` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT untuk tabel `stok_obat_rawat_inap`

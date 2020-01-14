@@ -10,6 +10,7 @@
 - detail transaksi rawat inap (penambahan field)
 - transaksi rawat inap (hapus atas nama)
 - detail transaksi rawat inap kamar (penambahan field tgl check in checkout dan hapus jumlah_hari)
+-Ubah Nama tabel ambulan menjadi ambulance. dll
 
 
 #Yang belum
