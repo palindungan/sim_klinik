@@ -170,10 +170,10 @@
             sub_total_ambulance_v = parseInt(sub_total_ambulance.split('.').join(''));
         }
 
-        // var sub_total_bp_tindakan = $('#sub_total_bp_tindakan').val();
-        // var sub_total_bp_tindakan_v = 0;
-        // if (sub_total_bp_tindakan != "") {
-        // 	sub_total_bp_tindakan_v = parseInt(sub_total_bp_tindakan.split('.').join(''));
+        // var sub_total_ri_tindakan = $('#sub_total_ri_tindakan').val();
+        // var sub_total_ri_tindakan_v = 0;
+        // if (sub_total_ri_tindakan != "") {
+        // 	sub_total_ri_tindakan_v = parseInt(sub_total_ri_tindakan.split('.').join(''));
         // }
 
         // var sub_total_ri_kamar = $('#sub_total_ri_kamar').val();
@@ -182,10 +182,10 @@
         // 	sub_total_ri_kamar_v = parseInt(sub_total_ri_kamar.split('.').join(''));
         // }
 
-        // var sub_total_apotek_obat = $('#sub_total_apotek_obat').val();
-        // var sub_total_apotek_obat_v = 0;
-        // if (sub_total_apotek_obat != "") {
-        // 	sub_total_apotek_obat_v = parseInt(sub_total_apotek_obat.split('.').join(''));
+        // var sub_total_ri_obat = $('#sub_total_ri_obat').val();
+        // var sub_total_ri_obat_v = 0;
+        // if (sub_total_ri_obat != "") {
+        // 	sub_total_ri_obat_v = parseInt(sub_total_ri_obat.split('.').join(''));
         // }
 
         $('#grand_total').val(sub_total_ambulance_v);
