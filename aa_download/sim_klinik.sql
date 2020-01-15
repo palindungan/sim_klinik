@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 15 Jan 2020 pada 09.10
+-- Waktu pembuatan: 15 Jan 2020 pada 19.00
 -- Versi server: 10.4.6-MariaDB
 -- Versi PHP: 7.3.9
 
@@ -511,7 +511,8 @@ CREATE TABLE `detail_transaksi_rawat_inap_kamar` (
 --
 
 INSERT INTO `detail_transaksi_rawat_inap_kamar` (`no_detail_transaksi_rawat_inap_k`, `no_transaksi_rawat_i`, `no_kamar_rawat_i`, `harga_harian`, `tanggal_cek_in`, `tanggal_cek_out`, `sub_total_harga`) VALUES
-(5, 'RI200115-0001', 'R001', 200000, '2020-01-15 11:36:32', '0000-00-00 00:00:00', 200000);
+(5, 'RI200115-0001', 'R001', 200000, '2020-01-15 11:36:32', '2020-01-15 22:44:59', 200000),
+(22, 'RI200115-0001', 'R003', 300000, '2020-01-15 22:44:59', '0000-00-00 00:00:00', 300000);
 
 -- --------------------------------------------------------
 
@@ -553,7 +554,9 @@ CREATE TABLE `detail_transaksi_rawat_inap_tindakan` (
 --
 
 INSERT INTO `detail_transaksi_rawat_inap_tindakan` (`no_detail_transaksi_rawat_inap_t`, `no_transaksi_rawat_i`, `no_rawat_inap_t`, `harga`) VALUES
-(5, 'RI200115-0001', 'I001', 20000);
+(5, 'RI200115-0001', 'I001', 20000),
+(6, 'RI200115-0001', 'I001', 20000),
+(7, 'RI200115-0001', 'I001', 20000);
 
 -- --------------------------------------------------------
 
@@ -586,7 +589,9 @@ CREATE TABLE `kamar_rawat_inap` (
 --
 
 INSERT INTO `kamar_rawat_inap` (`no_kamar_rawat_i`, `nama`, `harga_harian`, `tipe`) VALUES
-('R001', 'Saffa', 200000, 'Kelas 1');
+('R001', 'Saffa', 200000, 'Kelas 1'),
+('R002', 'Marwah', 200000, 'Kelas 1'),
+('R003', 'Mawaddah', 300000, 'VIP');
 
 -- --------------------------------------------------------
 
@@ -767,7 +772,7 @@ CREATE TABLE `pelayanan` (
 --
 
 INSERT INTO `pelayanan` (`no_ref_pelayanan`, `no_rm`, `no_user_pegawai`, `layanan_tujuan`, `tipe_antrian`, `tgl_pelayanan`, `status`, `tipe_pelayanan`) VALUES
-('200114-001', 'qwe123', 'P001', 'Balai Pengobatan', 'Dewasa', '2020-01-14 10:19:06', 'belum_finish', 'Rawat Jalan');
+('200114-001', 'qwe123', 'P001', 'Balai Pengobatan', 'Dewasa', '2020-01-14 10:19:06', 'belum_finish', 'Rawat Inap');
 
 -- --------------------------------------------------------
 
@@ -933,7 +938,7 @@ CREATE TABLE `transaksi_rawat_inap` (
 --
 
 INSERT INTO `transaksi_rawat_inap` (`no_transaksi_rawat_i`, `no_ref_pelayanan`, `tgl_transaksi`, `total_harga`) VALUES
-('RI200115-0001', '200114-001', '2020-01-15 11:36:30', 285000);
+('RI200115-0001', '200114-001', '2020-01-15 11:36:30', 8050000);
 
 -- --------------------------------------------------------
 
@@ -1408,7 +1413,7 @@ ALTER TABLE `detail_penjualan_obat_apotik`
 -- AUTO_INCREMENT untuk tabel `detail_transaksi_rawat_inap_kamar`
 --
 ALTER TABLE `detail_transaksi_rawat_inap_kamar`
-  MODIFY `no_detail_transaksi_rawat_inap_k` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `no_detail_transaksi_rawat_inap_k` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_transaksi_rawat_inap_obat`
@@ -1420,7 +1425,7 @@ ALTER TABLE `detail_transaksi_rawat_inap_obat`
 -- AUTO_INCREMENT untuk tabel `detail_transaksi_rawat_inap_tindakan`
 --
 ALTER TABLE `detail_transaksi_rawat_inap_tindakan`
-  MODIFY `no_detail_transaksi_rawat_inap_t` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `no_detail_transaksi_rawat_inap_t` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_ugd_penanganan`
