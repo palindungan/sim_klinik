@@ -128,7 +128,39 @@ class Transaksi extends CI_Controller
             'total_harga' => $total_harga
         );
 
-        $status = $this->M_transaksi->input_data('transaksi_rawat_inap', $data);
+        $where_no_ref = array(
+            'no_ref_pelayanan' => $no_ref_pelayanan
+        );
+
+        $data_transaksi = $this->M_transaksi->get_data('transaksi_rawat_inap',$where_no_ref)->result();
+        $cek_no_transaksi = $this->M_transaksi->get_data('transaksi_rawat_inap',$where_no_ref)->num_rows();
+        $total_harga_lama = 0;
+        foreach($data_transaksi as $transaksi_ri)
+        {
+            $no_transaksi_rawat_i = $transaksi_ri->no_transaksi_rawat_i;
+            $total_harga_lama = $transaksi_ri->total_harga;
+        }
+        if($cek_no_transaksi > 0)
+        {
+            $data_update_transaksi_ri = array(
+                'total_harga' => $total_harga_lama + $total_harga
+            );
+            $status = $this->M_transaksi->update_data($where_no_ref,'transaksi_rawat_inap',$data_update_transaksi_ri);
+
+            $data_update_status = array(
+                'tipe_pelayanan' => 'Rawat Inap'
+            );
+            $this->M_transaksi->update_data($where_no_ref,'pelayanan',$data_update_status);
+        }
+        else 
+        {
+            $status = $this->M_transaksi->input_data('transaksi_rawat_inap', $data);
+            $data_update_status = array(
+            'tipe_pelayanan' => 'Rawat Inap'
+            );
+            $this->M_transaksi->update_data($where_no_ref,'pelayanan',$data_update_status);
+        }
+
 
         if ($status) {
 
@@ -144,6 +176,8 @@ class Transaksi extends CI_Controller
                     $tgl_cek_in = date('Y-m-d H:i:s');
                     $tgl_cek_out = "";
                     $sub_total_harga = $harga_harian;
+
+
 
                     // proses pemasukan ke dalam database detail
                     $data = array(
@@ -177,6 +211,7 @@ class Transaksi extends CI_Controller
                     $harga = preg_replace("/[^0-9]/", "", $harga_temp);
 
                     // proses pemasukan ke dalam database detail
+
                     $data = array(
                         'no_transaksi_rawat_i' => $no_transaksi_rawat_i,
                         'no_rawat_inap_t' => $no_rawat_inap_t,
