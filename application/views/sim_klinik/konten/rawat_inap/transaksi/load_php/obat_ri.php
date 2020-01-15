@@ -61,7 +61,7 @@
 		var row_id = $(this).attr("id"); // qty1++
 		var row_no = row_id.substring(3); // 1++
 
-		var val_qty = parseInt($('#' + row_id).val());
+		var val_qty = $('#' + row_id).val();
 		var val_qty_sekarang = parseInt($('#qty_sekarang' + row_no).val());
 
 		if (val_qty <= val_qty_sekarang) {
@@ -105,7 +105,7 @@
 
 					$.each(data, function (i, item) {
 
-						var kode_obat = data[i].kode_obat;
+						var no_stok_obat_rawat_i = data[i].no_stok_obat_rawat_i;
 						var nama_obat = data[i].nama_obat;
 						var nama_kategori = data[i].nama_kategori;
 						var qty_sekarang = data[i].qty;
@@ -115,9 +115,9 @@
 							ribuan = reverse.match(/\d{1,3}/g);
 						ribuan = ribuan.join('.').split('').reverse().join('');
 
-						var button = `<a onclick="pilihobat('` + kode_obat +
+						var button = `<a onclick="pilihobat('` + no_stok_obat_rawat_i +
 							`','` + nama_obat + `','` + nama_kategori + `','` + qty_sekarang + `','` +
-							harga_obat + `')" id="` + kode_obat +
+							harga_obat + `')" id="` + no_stok_obat_rawat_i +
 							`" class="btn btn-sm btn-dark text-white">Pilih</a>`;
 
 						table.row.add([no, nama_obat, nama_kategori, qty_sekarang,
@@ -138,7 +138,7 @@
 	}
 
 	// Start add_row
-	function pilihobat(kode_obat, nama_obat, nama_kategori, qty_sekarang, harga_obat) {
+	function pilihobat(no_stok_obat_rawat_i, nama_obat, nama_kategori, qty_sekarang, harga_obat) {
 
 		$('#detail_list_obat').append(`
 
@@ -151,7 +151,7 @@
 					<input type="hidden" name="no_stok_obat_rawat_i[]" class="form-control form-control-sm" id="no_stok_obat_rawat_i` +
 			count3 +
 			`" value="` +
-			kode_obat +
+			no_stok_obat_rawat_i +
 			`">
 				</div>
 				<div class="form-group col-sm-4">
