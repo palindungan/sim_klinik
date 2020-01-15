@@ -15,12 +15,6 @@
                         <select id="xx" class="form-control form-control-sm noRef" name="no_ref_pelayanan" required>
                         </select>
                     </div>
-                    <div class="form-group col-sm-1">
-                    </div>
-                    <div class="form-group col-sm-3">
-                        <label>Grand Total</label>
-                        <input type="text" id="grand_total" name="grand_total" class="form-control form-control-sm rupiah_grand_total text-right" placeholder="0" readonly>
-                    </div>
                 </div>
 
                 <div class="row">
@@ -60,12 +54,31 @@
                         <table class="table table-sm table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <td>No.</td>
                                     <td>Rincian</td>
-                                    <td>Qty</td>
+                                    <td width="10%">Qty</td>
                                     <td>Biaya</td>
+                                    <td>Sub Total</td>
+                                    <td width="10%">Hapus</td>
                                 </tr>
                             </thead>
+                            <tbody>
+                                <!-- <tr>
+                                    <td>2131231 hjww w hwfweh w h h h h e few 23</td>
+                                    <td>12</td>
+                                    <td>123123123123123</td>
+                                    <td>123123123123123</td>
+                                    <td>123123</td>
+                                </tr> -->
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td align="right">Total :</td>
+                                    <td>123123123123123</td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
                 </div>

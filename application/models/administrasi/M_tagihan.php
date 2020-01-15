@@ -39,9 +39,16 @@ class M_tagihan extends CI_Model
     function get_select($no_ref, $nama, $kolom)
     {
         $this->db->select('*');
-        $this->db->from('data_pelayanan_pasien');
-        $this->db->or_like('no_ref_pelayanan', $no_ref);
+        $this->db->from('data_pelayanan_pasien_default');
+
+        $this->db->like('no_ref_pelayanan', $no_ref);
         $this->db->or_like('nama', $nama);
+
+        $where = array(
+            'status' => 'belum_finish'
+        );
+
+        $this->db->where($where);
         return $this->db->get()->result_array();
     }
     function get_no_transaksi_kia()
