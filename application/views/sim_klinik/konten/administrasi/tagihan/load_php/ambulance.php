@@ -99,7 +99,8 @@
             <td>
                 <input type="text" name="harga_ambulance[]" class="form-control form-control-sm rupiah text-right harga_ambulance_update" id="harga_ambulance` + count_transaksi + `" placeholder="Harga Ambulance" required value="` + harga_ambulance + `">
             </td>
-            <td>Harga Ambulance</td>
+            <td>  
+                <input type="text" class="form-control form-control-sm rupiah text-right" id="harga_sub_ambulance` + count_transaksi + `" readonly required value="` + harga_ambulance + `"></td>
             <td>
                 <div class="form-group col-sm-2">
                     <a id="` + count_transaksi + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris_ambulance">
@@ -134,6 +135,13 @@
 
     // jika kita mengubah class inputan rupiah
     $(document).on('keyup', '.harga_ambulance_update', function() {
+
+        var row_id = $(this).attr("id"); // harga_ambulance1++
+        var row_no = row_id.substring(15); // 1++
+
+        var row_val = $('#' + row_id).val();
+        $('#harga_sub_ambulance' + row_no).val(row_val);
+
         update_sub_total_ambulance();
     });
 

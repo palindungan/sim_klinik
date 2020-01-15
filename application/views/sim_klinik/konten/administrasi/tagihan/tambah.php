@@ -141,7 +141,9 @@
     var jumlah_detail_transaksi = 0;
 </script>
 
+<!-- start of pecahan codingan script -->
 <?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/ambulance.php') ?>
+<!-- end of pecahan codingan script -->
 
 <script>
     function cek_jumlah_data_detail_transaksi() {
