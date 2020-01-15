@@ -19,7 +19,7 @@
 
                 <div class="row">
                     <div class="form-group col-md-2">
-                        <button class="btn btn-sm btn-primary col-md-12" data-toggle="modal" data-target="#modalAmbulance">Ambulance</button>
+                        <a href="#" id="btn_search_ambulance" class="btn btn-sm btn-primary col-md-12" data-toggle="modal" data-target="#exampleModalCenter_ambulance">Ambulance</a>
                     </div>
                     <div class="form-group col-md-2">
                         <button class="btn btn-sm btn-primary col-md-12">Obat Apotek</button>
@@ -49,6 +49,8 @@
                     </div>
                 </div>
 
+                <input type="text" readonly name="sub_total_ambulance" class="form-control form-control-sm rupiah text-right" id="sub_total_ambulance" placeholder="Sub Total Ambulance">
+
                 <div class="row">
                     <div class="col-md-12">
                         <table class="table table-sm table-bordered table-striped">
@@ -61,21 +63,27 @@
                                     <td width="10%">Hapus</td>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <!-- <tr>
-                                    <td>2131231 hjww w hwfweh w h h h h e few 23</td>
-                                    <td>12</td>
-                                    <td>123123123123123</td>
-                                    <td>123123123123123</td>
-                                    <td>123123</td>
-                                </tr> -->
+                            <tbody id="detail_list_ambulance">
+
+                                <tr id="label_kosong">
+                                    <td>
+                                        Detail Transaksi Masih Kosong !
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <td></td>
                                     <td></td>
-                                    <td align="right">Total :</td>
-                                    <td>123123123123123</td>
+                                    <td align="right">Grand Total :</td>
+                                    <td> 
+                                        <input readonly type="text" name="grand_total" class="form-control form-control-sm rupiah text-right" id="grand_total" placeholder="Grand Total" required value="">
+                                    </td>
                                     <td></td>
                                 </tr>
                             </tfoot>
@@ -98,7 +106,7 @@
     </div>
 </div>
 
-<script src="<?= base_url(); ?>assets/sb_admin_2/vendor/jquery/jquery.min.js"></script>
+<script src="<?= base_url(); ?>assets/sb_admin_2/vendor/jquery/jquery-3.4.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
 <script type="text/javascript">
     $('.noRef').select2({
@@ -127,4 +135,70 @@
             }
         }
     })
+
+    // Deklarasi Variable 
+    var count_transaksi = 0;
+    var jumlah_detail_transaksi = 0;
+</script>
+
+<?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/ambulance.php') ?>
+
+<script>
+    // jika kita tekan hapus / click button
+    $(document).on('click', '.remove_baris', function() {
+        var row_no = $(this).attr("id");
+        $('#row' + row_no).remove();
+
+        jumlah_detail_transaksi = jumlah_detail_transaksi - 1;
+
+        cek_jumlah_data_detail_transaksi();
+    });
+
+    function cek_jumlah_data_detail_transaksi() {
+
+        var x = document.getElementById("label_kosong").style;
+        if (jumlah_detail_transaksi > 0) {
+            x.display = "none"; // hidden
+        } else {
+            x.display = "table-row"; // show
+        }
+
+        update_grand_total();
+    }
+
+    function validasi() {
+        $('.rupiah').mask('000.000.000', {
+            reverse: true
+        });
+    }
+
+    function update_grand_total() {
+
+        var sub_total_ambulance = $('#sub_total_ambulance').val();
+		var sub_total_ambulance_v = 0;
+		if (sub_total_ambulance != "") {
+			sub_total_ambulance_v = parseInt(sub_total_ambulance.split('.').join(''));
+		}
+
+		// var sub_total_bp_tindakan = $('#sub_total_bp_tindakan').val();
+		// var sub_total_bp_tindakan_v = 0;
+		// if (sub_total_bp_tindakan != "") {
+		// 	sub_total_bp_tindakan_v = parseInt(sub_total_bp_tindakan.split('.').join(''));
+		// }
+
+		// var sub_total_ri_kamar = $('#sub_total_ri_kamar').val();
+		// var sub_total_ri_kamar_v = 0;
+		// if (sub_total_ri_kamar != "") {
+		// 	sub_total_ri_kamar_v = parseInt(sub_total_ri_kamar.split('.').join(''));
+		// }
+
+		// var sub_total_apotek_obat = $('#sub_total_apotek_obat').val();
+		// var sub_total_apotek_obat_v = 0;
+		// if (sub_total_apotek_obat != "") {
+		// 	sub_total_apotek_obat_v = parseInt(sub_total_apotek_obat.split('.').join(''));
+		// }
+
+		$('#grand_total').val(sub_total_ambulance_v);
+		$('#grand_total').trigger('input'); // Will be display 
+	}
 </script>

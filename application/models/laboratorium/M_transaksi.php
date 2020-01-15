@@ -61,6 +61,7 @@ class M_transaksi extends CI_Model
 
     function get_no_transaksi()
     {
+        date_default_timezone_set('Asia/Jakarta');
         $field = "no_lab_t";
         $tabel = "lab_transaksi";
         $digit = "4";
@@ -76,11 +77,10 @@ class M_transaksi extends CI_Model
         } else {
             $kd = "0001";
         }
-        date_default_timezone_set('Asia/Jakarta');
         return 'LB' . date('ymd') . '-' . $kd; // SELECT SUBSTR('LB191121-0001', 3, 6); dari digit ke 3 sampai 6 digit seanjutnya
     }
 
-    function get_select($no_ref,$nama,$kolom)
+    function get_select($no_ref, $nama, $kolom)
     {
         $this->db->select('*');
         $this->db->from('data_pelayanan_pasien');

@@ -11,12 +11,12 @@ class Tagihan extends CI_Controller
 
     public function index()
     {
-        $data['ambulance'] = $this->M_ambulance->getAmbulance()->result();
-        $data['bp_tindakan'] = $this->M_tagihan->tampil_data('bp_tindakan')->result();
-        $data['kia_tindakan'] = $this->M_tagihan->tampil_data('kia_tindakan')->result();
-        $data['lab_checkup'] = $this->M_tagihan->tampil_data('lab_checkup')->result();
-        $data['ugd_tindakan'] = $this->M_tagihan->tampil_data('ugd_tindakan')->result();
-        $this->template->load('sim_klinik/template/administrasi', 'sim_klinik/konten/administrasi/tagihan/tambah', $data);
+        // $data['ambulance'] = $this->M_ambulance->getAmbulance()->result();
+        // $data['bp_tindakan'] = $this->M_tagihan->tampil_data('bp_tindakan')->result();
+        // $data['kia_tindakan'] = $this->M_tagihan->tampil_data('kia_tindakan')->result();
+        // $data['lab_checkup'] = $this->M_tagihan->tampil_data('lab_checkup')->result();
+        // $data['ugd_tindakan'] = $this->M_tagihan->tampil_data('ugd_tindakan')->result();
+        $this->template->load('sim_klinik/template/administrasi', 'sim_klinik/konten/administrasi/tagihan/tambah');
     }
 
     public function get_transaksi_pasien()
@@ -47,6 +47,15 @@ class Tagihan extends CI_Controller
         $nama = $this->input->get('nama');
         $query = $this->M_tagihan->get_select($no_ref, $nama, 'no_ref_pelayanan');
         echo json_encode($query);
+    }
+
+    public function tampil_ambulance()
+    {
+        $data_tbl['tbl_data'] = $this->M_tagihan->tampil_data('ambulance')->result();
+
+        $data = json_encode($data_tbl);
+
+        echo $data;
     }
 
     public function tampil_tindakan_bp()
@@ -84,6 +93,30 @@ class Tagihan extends CI_Controller
 
         echo $data;
     }
+
+    public function ambil_total_ambulance()
+    {
+        $sub_total = 0;
+        $total = 0;
+
+        if (isset($_POST['no_ambulance']) && isset($_POST['harga_ambulance'])) {
+
+            for ($i = 0; $i < count($this->input->post('no_ambulance')); $i++) {
+
+                $harga_jual_temp = $this->input->post('harga_ambulance')[$i];
+                $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
+
+                $perhitungan = $harga_jual;
+
+                $sub_total = $sub_total + $perhitungan;
+            }
+
+            $total = $sub_total;
+        }
+
+        echo $total;
+    }
+
 
     public function ambil_total_bp()
     {
@@ -276,16 +309,6 @@ class Tagihan extends CI_Controller
         }
 
         echo $total;
-    }
-    public function ambil_harga_ambulan()
-    {
-        $id = $this->input->post('id');
-        $where = array(
-            'tujuan' => $id
-        );
-        $ambil = $this->M_tagihan->get_data('ambulan', $where)->row();
-        $data = (int) $ambil->harga;
-        echo json_encode($data);
     }
 
     public function input_transaksi_form()
