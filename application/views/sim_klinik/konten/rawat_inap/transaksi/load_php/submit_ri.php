@@ -49,6 +49,25 @@
 
 	});
 
+	$(document).on('change', '#transaksi_form', function (event) {
+		event.preventDefault();
+
+		// mengambil nilai di dalam form
+		var form_data = $(this).serialize();
+
+		// tambah ke database
+		$.ajax({
+			url: "<?php echo base_url() . 'rawat_inap/transaksi/ambil_detail'; ?>",
+			method: "POST",
+			data: form_data,
+			success: function (data) {
+				$("#list_detail").html(data);
+			}
+		});
+		// tambah ke database
+
+	});
+
 	function validasi() {
 		$('.rupiah_kamar').mask('000.000.000', {
 			reverse: true

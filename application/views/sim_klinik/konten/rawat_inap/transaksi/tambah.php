@@ -15,48 +15,10 @@
 						</select>
 					</div>
 				</div>
+				<div id="list_detail">
 
+				</div>
 
-				<!-- <div class="form-row">
-                    <div class="form-group col-sm-12">
-                        <label>Biodata Pasien</label>
-                        <div id="muncul">
-
-                            <table width="100%" class="responsive">
-                                <tr>
-                                    <td width="6%">
-                                        <h5>Nama</h5>
-                                    </td>
-                                    <td width="2%">
-                                        <h5>:</h5>
-                                    </td>
-                                    <td width="24%">
-                                        <h5 id="txt_nama"></h5>
-                                    </td>
-                                    <td width="6%">
-                                        <h5>Umur</h5>
-                                    </td>
-                                    <td width="2%">
-                                        <h5>:</h5>
-                                    </td>
-                                    <td width="19%">
-                                        <h5 id="txt_umur"></h5>
-                                    </td>
-                                    <td width="8%">
-                                        <h5>Alamat</h5>
-                                    </td>
-                                    <td width="2%">
-                                        <h5>:</h5>
-                                    </td>
-                                    <td width="22%">
-                                        <h5 id="txt_alamat"></h5>
-                                    </td>
-                                </tr>
-                            </table>
-
-                        </div>
-                    </div>
-                </div> -->
 
 				<!-- Start of Kamar /////////// -->
 				<div class="form-row">

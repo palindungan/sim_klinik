@@ -238,4 +238,126 @@ class Transaksi extends CI_Controller
             echo "Gagal input ke dalam data transaksi !!";
         }
     }
+    function ambil_detail()
+    {
+        $no_ref_pelayanan = $this->input->post('no_ref_pelayanan');
+        $where_no_ref = array(
+            'no_ref_pelayanan' => $no_ref_pelayanan
+        );
+        $cek_data = $this->M_transaksi->get_data('transaksi_rawat_inap',$where_no_ref)->result();
+        $no_transaksi_rawat_i = "";
+        foreach($cek_data as $row)
+        {
+            $no_transaksi_rawat_i = $row->no_transaksi_rawat_i;
+        }
+        if($no_transaksi_rawat_i != "")
+        {
+            $where_no_ri = array(
+                'no_transaksi_rawat_i' => $no_transaksi_rawat_i
+            );
+
+            // Cek Row Kamar
+            $cek_kamar = $this->M_transaksi->get_data('detail_transaksi_rawat_inap_kamar',$where_no_ri)->result();
+            $no_detail_kamar = "";
+            foreach($cek_kamar as $row_kamar)
+            {
+                $no_detail_kamar = $row_kamar->no_detail_transaksi_rawat_inap_k;
+            }
+            // 
+
+            // Cek Row Tindakan
+            $cek_tindakan = $this->M_transaksi->get_data('detail_transaksi_rawat_inap_tindakan',$where_no_ri)->result();
+            $no_detail_tindakan = "";
+            foreach($cek_tindakan as $row_tindakan)
+            {
+                $no_detail_tindakan = $row_tindakan->no_detail_transaksi_rawat_inap_t;
+            }
+
+            // Cek Obat Rawat Inap
+            $cek_obat = $this->M_transaksi->get_data('detail_transaksi_rawat_inap_obat',$where_no_ri)->result();
+            $no_detail_obat = "";
+            foreach($cek_obat as $row_obat)
+            {
+                $no_detail_obat = $row_obat->no_detail_transaksi_rawat_inap_o;
+            }
+
+            echo '
+            <table class="table table-sm table-bordered" width="100%" cellspacing="0">';
+            if($no_detail_kamar != "")
+            {        
+            echo '
+                <tr>
+                    <td colspan="3" class="text-center"><b>Daftar Kamar</b></td>
+                </tr>
+                <tr>
+                    <td>Nama Kamar</td>
+                    <td>Lama Hari</td>
+                    <td class="text-center">Total Harga</td>
+                </tr>';
+                $data_kamar = $this->M_transaksi->get_data('daftar_detail_kamar_rawat_inap',$where_no_ri)->result();
+                foreach($data_kamar as $detail_kamar)
+                {
+                echo '
+                <tr>
+                    <td>'.$detail_kamar->nama.'</td>
+                    <td>2</td>
+                    <td class="text-right">'.rupiah($detail_kamar->harga_harian).'</td>
+                </tr>
+                ';
+                }
+            }
+
+            if($no_detail_tindakan != "")
+            {
+                echo '
+                <tr>
+                    <td colspan="3" class="text-center"><b>Daftar Tindakan</b></td>
+                </tr>
+                <tr>
+                    <td>Nama Tindakan</td>
+                    <td>Harga</td>
+                    <td>Total Harga</td>
+                </tr>';
+                $data_tindakan = $this->M_transaksi->get_data('daftar_detail_tindakan_rawat_inap',$where_no_ri)->result();
+                foreach($data_tindakan as $detail_tindakan)
+                {
+                echo '
+                <tr>
+                    <td>'.$detail_tindakan->nama.'</td>
+                    <td>asd</td>
+                    <td class="text-right">'.rupiah($detail_tindakan->harga).'</td>
+                </tr>';
+                }
+            }
+
+            if($no_detail_obat != "")
+            {
+                echo '
+                <tr>
+                    <td colspan="3" class="text-center"><b>Daftar Obat</b></td>
+                </tr>';
+                echo '
+                <tr>
+                    <td>Nama Obat</td>
+                    <td>Qty</td>
+                    <td>Total Harga</td>
+                </tr>';
+
+                $data_obat =
+                $this->M_transaksi->get_data('daftar_penjualan_obat_rawat_inap_detail',$where_no_ri)->result();
+                foreach($data_obat as $detail_obat)
+                {
+                echo '
+                <tr>
+                    <td>'.$detail_obat->nama_obat.'</td>
+                    <td>'.$detail_obat->qty.'</td>
+                    <td class="text-right">'.rupiah($detail_obat->harga_jual * $detail_obat->qty).'</td>
+                </tr>';
+                }
+            }
+                echo '
+            </table>
+            ';
+        }
+    }
 }

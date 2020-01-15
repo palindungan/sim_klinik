@@ -117,19 +117,19 @@ SELECT stok_obat_rawat_inap.no_stok_obat_rawat_i,stok_obat_rawat_inap.kode_obat,
 ----------
 
 CREATE VIEW daftar_penjualan_obat_rawat_inap_detail AS 
-SELECT sori.no_stok_obat_rawat_i,  o.nama AS nama_obat , ko.nama AS nama_kategori,dtrio.qty ,  sori.qty_sekarang,dtrio.harga_jual ,tri.no_ref_pelayanan
-FROM detail_transaksi_rawat_inap_obat dtrio JOIN stok_obat_rawat_inap sori USING(no_stok_obat_rawat_i) JOIN transaksi_rawat_inap tri USING(no_transaksi_rawat_i) JOIN stok_obat_apotik soa USING(no_stok_obat_a) JOIN obat o USING(kode_obat) JOIN kategori_obat ko USING(no_kat_obat)
-ORDER BY dtrio.no_detail_transaksi_rawat_inap_o ASC;
+SELECT sori.no_stok_obat_rawat_i,  o.nama AS nama_obat , ko.nama AS nama_kategori,dtrio.qty , dtrio.harga_jual ,tri.no_ref_pelayanan,dtrio.no_transaksi_rawat_i
+FROM detail_transaksi_rawat_inap_obat dtrio JOIN stok_obat_rawat_inap sori USING(no_stok_obat_rawat_i) JOIN transaksi_rawat_inap tri USING(no_transaksi_rawat_i) JOIN obat o USING(kode_obat) JOIN kategori_obat ko USING(no_kat_obat)
+ORDER BY dtrio.no_detail_transaksi_rawat_inap_o ASC
 
 CREATE VIEW daftar_detail_tindakan_rawat_inap AS 
-SELECT rit.no_rawat_inap_t , rit.nama , dtrit.harga, tri.no_ref_pelayanan
+SELECT rit.no_rawat_inap_t , rit.nama , dtrit.harga, tri.no_ref_pelayanan,dtrit.no_transaksi_rawat_i
 FROM detail_transaksi_rawat_inap_tindakan dtrit JOIN transaksi_rawat_inap tri USING(no_transaksi_rawat_i) JOIN rawat_inap_tindakan rit USING(no_rawat_inap_t)
-ORDER BY dtrit.no_detail_transaksi_rawat_inap_t ASC;
+ORDER BY dtrit.no_detail_transaksi_rawat_inap_t ASC
 
 CREATE VIEW daftar_detail_kamar_rawat_inap AS 
-SELECT kri.no_kamar_rawat_i, kri.nama, dtrik.harga_harian,kri.tipe ,tri.no_ref_pelayanan
+SELECT kri.no_kamar_rawat_i, kri.nama, dtrik.harga_harian,kri.tipe ,tri.no_ref_pelayanan,dtrik.tanggal_cek_in,dtrik.tanggal_cek_out,tri.no_transaksi_rawat_i
 FROM detail_transaksi_rawat_inap_kamar dtrik JOIN transaksi_rawat_inap tri USING(no_transaksi_rawat_i) JOIN kamar_rawat_inap kri USING(no_kamar_rawat_i)
-ORDER BY dtrik.no_detail_transaksi_rawat_inap_k ASC;
+ORDER BY dtrik.no_detail_transaksi_rawat_inap_k ASC
 
 CREATE VIEW daftar_detail_tindakan_lab AS 
 SELECT lc.no_lab_c , lc.nama , dlt.harga , lt.no_ref_pelayanan
