@@ -122,21 +122,21 @@
 
 			<div id="row_kamar` + count1 + `" class="form-row">
 				<div class="form-group col-sm-4">
-					<input type="text" readonly name="nama_kamar[]" class="form-control form-control-sm karakter" id="nama_kamar` +
+					<input type="text" readonly name="nama_kamar" class="form-control form-control-sm karakter" id="nama_kamar` +
 			count1 +
 			`" placeholder="Nama_kamar" required value="` + nama_kamar + `">
-					<input type="hidden" name="no_kamar_rawat_i[]" class="form-control form-control-sm" id="no_kamar_rawat_i` +
+					<input type="hidden" name="no_kamar_rawat_i" class="form-control form-control-sm" id="no_kamar_rawat_i` +
 			count1 + `" value="` +
 			kode_kamar +
 			`">
 				</div>
 				
                 <div class="form-group col-sm-2">
-					<input type="text" name="tipe_kamar[]" readonly class="form-control form-control-sm rupiah" id="tipe_kamar` +
+					<input type="text" name="tipe_kamar" readonly class="form-control form-control-sm rupiah" id="tipe_kamar` +
 			count1 + `" placeholder="Tipe Kamar" value="` + tipe_kamar + `" required>
                 </div>
                 <div class="form-group col-sm-4">
-                	<input type="text" name="harga_harian_kamar[]"
+                	<input type="text" name="harga_harian_kamar"
                 		class="form-control form-control-sm rupiah_kamar text-right" id="harga_harian_kamar` +
 			count1 +
 			`" placeholder="Harga Harian Kamar" required value="` + harga_harian_kamar + `">
@@ -156,6 +156,9 @@
 		count1 = count1 + 1;
 		jumlah_detail_transaksi_kamar = jumlah_detail_transaksi_kamar + 1;
 		$('#exampleModalCenter_kamar').modal('hide');
+		if (jumlah_detail_transaksi_kamar > 1) {
+			alert('Hanya boleh memilih satu kamar');
+		}
 
 		cekJumlahDataTransaksi_kamar();
 	}

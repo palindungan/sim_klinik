@@ -46,21 +46,7 @@ class Transaksi extends CI_Controller
 
     public function ambil_sub_total_kamar()
     {
-        $sub_total = 0;
-        $total = 0;
-
-        if (isset($_POST['no_kamar_rawat_i']) && isset($_POST['harga_harian_kamar'])) {
-
-            for ($i = 0; $i < count($this->input->post('no_kamar_rawat_i')); $i++) {
-
-                $harga_temp = $this->input->post('harga_harian_kamar')[$i];
-                $harga = (int) preg_replace("/[^0-9]/", "", $harga_temp);
-                $sub_total = $sub_total + $harga;
-            }
-
-            $total = $sub_total;
-        }
-
+        $total = $this->input->post('harga_harian_kamar');
         echo $total;
     }
 
@@ -167,17 +153,19 @@ class Transaksi extends CI_Controller
             // start of insert Kamar //////////
             if (isset($_POST['no_kamar_rawat_i'])) {
 
-                // tambah detail transaksi
-                for ($i = 0; $i < count($this->input->post('no_kamar_rawat_i')); $i++) {
-
-                    $no_kamar_rawat_i = $this->input->post('no_kamar_rawat_i')[$i];
-                    $harga_temp = $this->input->post('harga_harian_kamar')[$i];
+                    $no_kamar_rawat_i = $this->input->post('no_kamar_rawat_i');
+                    $harga_temp = $this->input->post('harga_harian_kamar');
                     $harga_harian = preg_replace("/[^0-9]/", "", $harga_temp);
                     $tgl_cek_in = date('Y-m-d H:i:s');
                     $tgl_cek_out = "";
                     $sub_total_harga = $harga_harian;
 
+                    $ambil_data_akhir = $this->db->query("SELECT * FROM detail_transaksi_rawat_inap_kamar JOIN transaksi_rawat_inap USING(no_transaksi_rawat_i) WHERE no_ref_pelayanan = '$no_ref_pelayanan' ORDER BY no_detail_transaksi_rawat_inap_k DESC LIMIT 1")->row();
 
+                    $no_detail_transaksi_rawat_inap_k_lama = $ambil_data_akhir->no_detail_transaksi_rawat_inap_k;
+                    $tanggal_cek_in_lama = date('Y-m-d',strtotime($ambil_data_akhir->tanggal_cek_in));
+                    $harga_harian_lama = $ambil_data_akhir->harga_harian;
+                    
 
                     // proses pemasukan ke dalam database detail
                     $data = array(
@@ -189,8 +177,30 @@ class Transaksi extends CI_Controller
                         'sub_total_harga' => $sub_total_harga
                     );
 
-                    $status = $this->M_transaksi->input_data('detail_transaksi_rawat_inap_kamar', $data);
-                }
+                    $format_cek_in = date('Y-m-d',strtotime($tgl_cek_in));
+                    if($tanggal_cek_in_lama == $format_cek_in && $harga_harian_lama == $harga_harian)
+                    {
+                        $where_no_detail_rik = array(
+                            'no_detail_transaksi_rawat_inap_k' => $no_detail_transaksi_rawat_inap_k_lama
+                        );
+                        $update_kamar_sebelumnya = array(
+                            'harga_harian' => "",
+                            'tanggal_cek_out' => $tgl_cek_in
+                        );
+                        $this->M_transaksi->update_data($where_no_detail_rik,'detail_transaksi_rawat_inap_kamar',$update_kamar_sebelumnya);
+                        $status = $this->M_transaksi->input_data('detail_transaksi_rawat_inap_kamar', $data);
+                    }
+                    else{
+                        $where_no_detail_rik = array(
+                            'no_detail_transaksi_rawat_inap_k' => $no_detail_transaksi_rawat_inap_k_lama
+                        );
+                        $update_kamar_sebelumnya = array(
+                            'tanggal_cek_out' => $tgl_cek_in
+                        );
+                        $this->M_transaksi->update_data($where_no_detail_rik,'detail_transaksi_rawat_inap_kamar',$update_kamar_sebelumnya);
+
+                        $status = $this->M_transaksi->input_data('detail_transaksi_rawat_inap_kamar', $data);
+                    }
 
                 if ($status) {
                     $this->session->set_flashdata('success', 'Ditambahkan');
@@ -322,46 +332,41 @@ class Transaksi extends CI_Controller
             {        
             echo '
                 <tr>
-                    <td colspan="3" class="text-center"><b>Daftar Kamar</b></td>
+                    <td colspan="5" class="text-center"><b>Daftar Kamar</b></td>
                 </tr>
                 <tr>
-                    <td>Nama Kamar</td>
-                    <td>Lama Hari</td>
+                    <td class="text-center">Nama Kamar</td>
+                    <td class="text-center">Tanggal Check In</td>
+                    <td class="text-center">Lama Hari</td>
+                    <td class="text-center">Tanggal Check Out</td>
                     <td class="text-center">Total Harga</td>
                 </tr>';
                 $data_kamar = $this->M_transaksi->get_data('daftar_detail_kamar_rawat_inap',$where_no_ri)->result();
                 foreach($data_kamar as $detail_kamar)
                 {
+                    $cek_out = $detail_kamar->tanggal_cek_out;
+                    $cek_in = $detail_kamar->tanggal_cek_in;
+                    $format_cek_in = date('Y-m-d',strtotime($cek_in));
+                    $tanggal_cek_in = new DateTime($format_cek_in);
+                    $tanggal_cek_out = new DateTime();
+                    $lama_hari = $tanggal_cek_out->diff($tanggal_cek_in)->format("%a") + 1;
+                    if($cek_out == "0000-00-00 00:00:00")
+                    {
+                        $cek_out = "-";
+                    }
+                    else 
+                    {
+                        $cek_out = date('d-m-Y H:i',strtotime($cek_out));
+                    }
                 echo '
                 <tr>
                     <td>'.$detail_kamar->nama.'</td>
-                    <td>2</td>
+                    <td class="text-center">'.date('d-m-Y H:i',strtotime($cek_in)).'</td>
+                    <td class="text-center">'.$lama_hari.'</td>
+                    <td class="text-center">'.$cek_out.'</td>
                     <td class="text-right">'.rupiah($detail_kamar->harga_harian).'</td>
                 </tr>
                 ';
-                }
-            }
-
-            if($no_detail_tindakan != "")
-            {
-                echo '
-                <tr>
-                    <td colspan="3" class="text-center"><b>Daftar Tindakan</b></td>
-                </tr>
-                <tr>
-                    <td>Nama Tindakan</td>
-                    <td>Harga</td>
-                    <td>Total Harga</td>
-                </tr>';
-                $data_tindakan = $this->M_transaksi->get_data('daftar_detail_tindakan_rawat_inap',$where_no_ri)->result();
-                foreach($data_tindakan as $detail_tindakan)
-                {
-                echo '
-                <tr>
-                    <td>'.$detail_tindakan->nama.'</td>
-                    <td>asd</td>
-                    <td class="text-right">'.rupiah($detail_tindakan->harga).'</td>
-                </tr>';
                 }
             }
 
@@ -373,9 +378,9 @@ class Transaksi extends CI_Controller
                 </tr>';
                 echo '
                 <tr>
-                    <td>Nama Obat</td>
-                    <td>Qty</td>
-                    <td>Total Harga</td>
+                    <td class="text-center">Nama Obat</td>
+                    <td class="text-center">Qty</td>
+                    <td class="text-center">Total Harga</td>
                 </tr>';
 
                 $data_obat =
@@ -385,11 +390,33 @@ class Transaksi extends CI_Controller
                 echo '
                 <tr>
                     <td>'.$detail_obat->nama_obat.'</td>
-                    <td>'.$detail_obat->qty.'</td>
+                    <td class="text-center">'.$detail_obat->qty.'</td>
                     <td class="text-right">'.rupiah($detail_obat->harga_jual * $detail_obat->qty).'</td>
                 </tr>';
                 }
             }
+
+            if($no_detail_tindakan != "")
+            {
+                echo '
+                <tr>
+                    <td colspan="3" class="text-center"><b>Daftar Tindakan</b></td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="text-center">Nama Tindakan</td>
+                    <td class="text-center">Total Harga</td>
+                </tr>';
+                $data_tindakan = $this->M_transaksi->get_data('daftar_detail_tindakan_rawat_inap',$where_no_ri)->result();
+                foreach($data_tindakan as $detail_tindakan)
+                {
+                echo '
+                <tr>
+                    <td colspan="2">'.$detail_tindakan->nama.'</td>
+                    <td class="text-right">'.rupiah($detail_tindakan->harga).'</td>
+                </tr>';
+                }
+            }
+
                 echo '
             </table>
             ';
