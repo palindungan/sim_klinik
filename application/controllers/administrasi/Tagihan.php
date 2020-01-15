@@ -58,42 +58,6 @@ class Tagihan extends CI_Controller
         echo $data;
     }
 
-    public function tampil_tindakan_bp()
-    {
-        $data_tbl['tbl_data_bp'] = $this->M_tagihan->tampil_data('bp_tindakan')->result();
-
-        $data = json_encode($data_tbl);
-
-        echo $data;
-    }
-
-    public function tampil_tindakan_kia()
-    {
-        $data_tbl['tbl_data_kia'] = $this->M_tagihan->tampil_data('kia_tindakan')->result();
-
-        $data = json_encode($data_tbl);
-
-        echo $data;
-    }
-
-    public function tampil_tindakan_lab()
-    {
-        $data_tbl['tbl_data_lab'] = $this->M_tagihan->tampil_data('lab_checkup')->result();
-
-        $data = json_encode($data_tbl);
-
-        echo $data;
-    }
-
-    public function tampil_tindakan_ugd()
-    {
-        $data_tbl['tbl_data_ugd'] = $this->M_tagihan->tampil_data('ugd_tindakan')->result();
-
-        $data = json_encode($data_tbl);
-
-        echo $data;
-    }
-
     public function ambil_total_ambulance()
     {
         $sub_total = 0;
@@ -107,6 +71,32 @@ class Tagihan extends CI_Controller
                 $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
 
                 $perhitungan = $harga_jual;
+
+                $sub_total = $sub_total + $perhitungan;
+            }
+
+            $total = $sub_total;
+        }
+
+        echo $total;
+    }
+
+    public function ambil_total_apotek_obat()
+    {
+        $sub_total = 0;
+        $total = 0;
+
+        if (isset($_POST['kode_obat']) && isset($_POST['harga_apotek_obat']) && isset($_POST['qty_apotek_obat'])) {
+
+            for ($i = 0; $i < count($this->input->post('kode_obat')); $i++) {
+
+                $harga_jual_temp = $this->input->post('harga_apotek_obat')[$i];
+                $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
+
+                $qty_temp = $this->input->post('qty_apotek_obat')[$i];
+                $qty = (int) $qty_temp;
+
+                $perhitungan = $harga_jual * $qty;
 
                 $sub_total = $sub_total + $perhitungan;
             }
@@ -200,32 +190,6 @@ class Tagihan extends CI_Controller
                 $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
 
                 $perhitungan = $harga_jual;
-
-                $sub_total = $sub_total + $perhitungan;
-            }
-
-            $total = $sub_total;
-        }
-
-        echo $total;
-    }
-
-    public function ambil_total_apotek()
-    {
-        $sub_total = 0;
-        $total = 0;
-
-        if (isset($_POST['no_stok_obat_a']) && isset($_POST['harga_jual_apotek_jual']) && isset($_POST['qty_apotek_jual'])) {
-
-            for ($i = 0; $i < count($this->input->post('no_stok_obat_a')); $i++) {
-
-                $harga_jual_temp = $this->input->post('harga_jual_apotek_jual')[$i];
-                $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
-
-                $qty_temp = $this->input->post('qty_apotek_jual')[$i];
-                $qty = (int) $qty_temp;
-
-                $perhitungan = $harga_jual * $qty;
 
                 $sub_total = $sub_total + $perhitungan;
             }

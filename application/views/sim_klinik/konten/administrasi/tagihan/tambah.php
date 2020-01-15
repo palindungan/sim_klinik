@@ -22,7 +22,7 @@
                         <a href="#" id="btn_search_ambulance" class="btn btn-sm btn-primary col-md-12" data-toggle="modal" data-target="#exampleModalCenter_ambulance">Ambulance</a>
                     </div>
                     <div class="form-group col-md-2">
-                        <button class="btn btn-sm btn-primary col-md-12">Obat Apotek</button>
+                        <a href="#" id="btn_search_apotek_obat" class="btn btn-sm btn-primary col-md-12" data-toggle="modal" data-target="#exampleModalCenter_apotek_obat">Obat Apotek</a>
                     </div>
                     <div class="form-group col-md-2">
                         <button class="btn btn-sm btn-primary col-md-12">RI-Kamar</button>
@@ -50,6 +50,7 @@
                 </div>
 
                 <input type="text" readonly name="sub_total_ambulance" class="form-control form-control-sm rupiah text-right" id="sub_total_ambulance" placeholder="Sub Total Ambulance">
+                <input type="text" readonly name="sub_total_apotek_obat" class="form-control form-control-sm rupiah text-right" id="sub_total_apotek_obat" placeholder="Sub Total Obat Apotek">
 
                 <div class="row">
                     <div class="col-md-12">
@@ -143,6 +144,7 @@
 
 <!-- start of pecahan codingan script -->
 <?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/ambulance.php') ?>
+<?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/apotek_obat.php') ?>
 <!-- end of pecahan codingan script -->
 
 <script>
@@ -172,6 +174,12 @@
             sub_total_ambulance_v = parseInt(sub_total_ambulance.split('.').join(''));
         }
 
+        var sub_total_apotek_obat = $('#sub_total_apotek_obat').val();
+        var sub_total_apotek_obat_v = 0;
+        if (sub_total_apotek_obat != "") {
+            sub_total_apotek_obat_v = parseInt(sub_total_apotek_obat.split('.').join(''));
+        }
+
         // var sub_total_ri_tindakan = $('#sub_total_ri_tindakan').val();
         // var sub_total_ri_tindakan_v = 0;
         // if (sub_total_ri_tindakan != "") {
@@ -190,7 +198,7 @@
         // 	sub_total_ri_obat_v = parseInt(sub_total_ri_obat.split('.').join(''));
         // }
 
-        $('#grand_total').val(sub_total_ambulance_v);
+        $('#grand_total').val(sub_total_ambulance_v + sub_total_apotek_obat_v);
         $('#grand_total').trigger('input'); // Will be display 
     }
 </script>
