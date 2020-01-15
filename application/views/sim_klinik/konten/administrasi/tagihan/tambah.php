@@ -144,16 +144,6 @@
 <?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/ambulance.php') ?>
 
 <script>
-    // jika kita tekan hapus / click button
-    $(document).on('click', '.remove_baris', function() {
-        var row_no = $(this).attr("id");
-        $('#row' + row_no).remove();
-
-        jumlah_detail_transaksi = jumlah_detail_transaksi - 1;
-
-        cek_jumlah_data_detail_transaksi();
-    });
-
     function cek_jumlah_data_detail_transaksi() {
 
         var x = document.getElementById("label_kosong").style;

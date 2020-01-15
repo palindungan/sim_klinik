@@ -31,9 +31,6 @@
 </div>
 
 <script>
-    var count_transaksi = 0;
-    var jumlah_detail_transaksi = 0;
-
     // jika kita tekan / click button search-button
     $('#btn_search_ambulance').on('click', function() {
         search_proses_ambulance();
@@ -105,7 +102,7 @@
             <td>Harga Ambulance</td>
             <td>
                 <div class="form-group col-sm-2">
-                    <a id="` + count_transaksi + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris">
+                    <a id="` + count_transaksi + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris_ambulance">
                         <span class="icon text-white-50">
                             <i class="fas fa-trash-alt"></i>
                         </span>
@@ -123,6 +120,17 @@
         cek_jumlah_data_detail_transaksi();
         update_sub_total_ambulance();
     }
+
+     // jika kita tekan hapus / click button
+     $(document).on('click', '.remove_baris_ambulance', function() {
+        var row_no = $(this).attr("id");
+        $('#row' + row_no).remove();
+
+        jumlah_detail_transaksi = jumlah_detail_transaksi - 1;
+
+        cek_jumlah_data_detail_transaksi();
+        update_sub_total_ambulance();
+    });
 
     // jika kita mengubah class inputan rupiah
     $(document).on('keyup', '.harga_ambulance_update', function() {
