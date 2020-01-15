@@ -88,7 +88,7 @@
     // Start add_row
     function tambah_detail_ambulance(no_ambulance, tujuan_ambulance, harga_ambulance) {
 
-        $('#detail_list_ambulance').append(`
+        $('#detail_list').append(`
 
         <tr id="row` + count_transaksi + `">
             <td>
@@ -121,8 +121,8 @@
         update_sub_total_ambulance();
     }
 
-     // jika kita tekan hapus / click button
-     $(document).on('click', '.remove_baris_ambulance', function() {
+    // jika kita tekan hapus / click button
+    $(document).on('click', '.remove_baris_ambulance', function() {
         var row_no = $(this).attr("id");
         $('#row' + row_no).remove();
 

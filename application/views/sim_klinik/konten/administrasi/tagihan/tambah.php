@@ -63,7 +63,7 @@
                                     <td width="10%">Hapus</td>
                                 </tr>
                             </thead>
-                            <tbody id="detail_list_ambulance">
+                            <tbody id="detail_list">
 
                                 <tr id="label_kosong">
                                     <td>
@@ -81,7 +81,7 @@
                                     <td></td>
                                     <td></td>
                                     <td align="right">Grand Total :</td>
-                                    <td> 
+                                    <td>
                                         <input readonly type="text" name="grand_total" class="form-control form-control-sm rupiah text-right" id="grand_total" placeholder="Grand Total" required value="">
                                     </td>
                                     <td></td>
@@ -165,30 +165,30 @@
     function update_grand_total() {
 
         var sub_total_ambulance = $('#sub_total_ambulance').val();
-		var sub_total_ambulance_v = 0;
-		if (sub_total_ambulance != "") {
-			sub_total_ambulance_v = parseInt(sub_total_ambulance.split('.').join(''));
-		}
+        var sub_total_ambulance_v = 0;
+        if (sub_total_ambulance != "") {
+            sub_total_ambulance_v = parseInt(sub_total_ambulance.split('.').join(''));
+        }
 
-		// var sub_total_bp_tindakan = $('#sub_total_bp_tindakan').val();
-		// var sub_total_bp_tindakan_v = 0;
-		// if (sub_total_bp_tindakan != "") {
-		// 	sub_total_bp_tindakan_v = parseInt(sub_total_bp_tindakan.split('.').join(''));
-		// }
+        // var sub_total_bp_tindakan = $('#sub_total_bp_tindakan').val();
+        // var sub_total_bp_tindakan_v = 0;
+        // if (sub_total_bp_tindakan != "") {
+        // 	sub_total_bp_tindakan_v = parseInt(sub_total_bp_tindakan.split('.').join(''));
+        // }
 
-		// var sub_total_ri_kamar = $('#sub_total_ri_kamar').val();
-		// var sub_total_ri_kamar_v = 0;
-		// if (sub_total_ri_kamar != "") {
-		// 	sub_total_ri_kamar_v = parseInt(sub_total_ri_kamar.split('.').join(''));
-		// }
+        // var sub_total_ri_kamar = $('#sub_total_ri_kamar').val();
+        // var sub_total_ri_kamar_v = 0;
+        // if (sub_total_ri_kamar != "") {
+        // 	sub_total_ri_kamar_v = parseInt(sub_total_ri_kamar.split('.').join(''));
+        // }
 
-		// var sub_total_apotek_obat = $('#sub_total_apotek_obat').val();
-		// var sub_total_apotek_obat_v = 0;
-		// if (sub_total_apotek_obat != "") {
-		// 	sub_total_apotek_obat_v = parseInt(sub_total_apotek_obat.split('.').join(''));
-		// }
+        // var sub_total_apotek_obat = $('#sub_total_apotek_obat').val();
+        // var sub_total_apotek_obat_v = 0;
+        // if (sub_total_apotek_obat != "") {
+        // 	sub_total_apotek_obat_v = parseInt(sub_total_apotek_obat.split('.').join(''));
+        // }
 
-		$('#grand_total').val(sub_total_ambulance_v);
-		$('#grand_total').trigger('input'); // Will be display 
-	}
+        $('#grand_total').val(sub_total_ambulance_v);
+        $('#grand_total').trigger('input'); // Will be display 
+    }
 </script>
