@@ -25,7 +25,7 @@
                         <a href="#" id="btn_search_apotek_obat" class="btn btn-sm btn-primary col-md-12" data-toggle="modal" data-target="#exampleModalCenter_apotek_obat">Obat Apotek</a>
                     </div>
                     <div class="form-group col-md-2">
-                        <button class="btn btn-sm btn-primary col-md-12">RI-Kamar</button>
+                        <a href="#" id="btn_search_ri_kamar" class="btn btn-sm btn-primary col-md-12" data-toggle="modal" data-target="#exampleModalCenter_ri_kamar">RI-Kamar</a>
                     </div>
                     <div class="form-group col-md-2">
                         <button class="btn btn-sm btn-primary col-md-12">RI-Obat</button>
@@ -55,6 +55,7 @@
                 <input type="hidden" readonly name="sub_total_kia_tindakan" class="form-control form-control-sm rupiah text-right" id="sub_total_kia_tindakan" placeholder="Sub Total KIA Tindakan">
                 <input type="hidden" readonly name="sub_total_lab_tindakan" class="form-control form-control-sm rupiah text-right" id="sub_total_lab_tindakan" placeholder="Sub Total LAB Tindakan">
                 <input type="hidden" readonly name="sub_total_ugd_tindakan" class="form-control form-control-sm rupiah text-right" id="sub_total_ugd_tindakan" placeholder="Sub Total UGD Tindakan">
+                <input type="hidden" readonly name="sub_total_ri_kamar" class="form-control form-control-sm rupiah text-right" id="sub_total_ri_kamar" placeholder="Sub Total RI Kamar">
 
                 <div class="row">
                     <div class="col-md-12">
@@ -83,6 +84,9 @@
 
                             <tbody id="detail_list_ambulance"></tbody>
                             <tbody id="detail_list_apotek_obat"></tbody>
+
+                            <tbody id="detail_list_ri_kamar"></tbody>
+
                             <tbody id="detail_list_bp_tindakan"></tbody>
                             <tbody id="detail_list_kia_tindakan"></tbody>
                             <tbody id="detail_list_lab_tindakan"></tbody>
@@ -156,6 +160,9 @@
 <!-- start of pecahan codingan script -->
 <?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/ambulance.php') ?>
 <?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/apotek_obat.php') ?>
+
+<?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/ri_kamar.php') ?>
+
 <?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/bp_tindakan.php') ?>
 <?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/kia_tindakan.php') ?>
 <?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/lab_tindakan.php') ?>
@@ -195,6 +202,12 @@
             sub_total_apotek_obat_v = parseInt(sub_total_apotek_obat.split('.').join(''));
         }
 
+        var sub_total_ri_kamar = $('#sub_total_ri_kamar').val();
+        var sub_total_ri_kamar_v = 0;
+        if (sub_total_ri_kamar != "") {
+            sub_total_ri_kamar_v = parseInt(sub_total_ri_kamar.split('.').join(''));
+        }
+
         var sub_total_bp_tindakan = $('#sub_total_bp_tindakan').val();
         var sub_total_bp_tindakan_v = 0;
         if (sub_total_bp_tindakan != "") {
@@ -225,19 +238,13 @@
         // 	sub_total_ri_tindakan_v = parseInt(sub_total_ri_tindakan.split('.').join(''));
         // }
 
-        // var sub_total_ri_kamar = $('#sub_total_ri_kamar').val();
-        // var sub_total_ri_kamar_v = 0;
-        // if (sub_total_ri_kamar != "") {
-        // 	sub_total_ri_kamar_v = parseInt(sub_total_ri_kamar.split('.').join(''));
-        // }
-
         // var sub_total_ri_obat = $('#sub_total_ri_obat').val();
         // var sub_total_ri_obat_v = 0;
         // if (sub_total_ri_obat != "") {
         // 	sub_total_ri_obat_v = parseInt(sub_total_ri_obat.split('.').join(''));
         // }
 
-        $('#grand_total').val(sub_total_ambulance_v + sub_total_apotek_obat_v + sub_total_bp_tindakan_v + sub_total_kia_tindakan_v + sub_total_lab_tindakan_v + sub_total_ugd_tindakan_v);
+        $('#grand_total').val(sub_total_ambulance_v + sub_total_apotek_obat_v + sub_total_bp_tindakan_v + sub_total_kia_tindakan_v + sub_total_lab_tindakan_v + sub_total_ugd_tindakan_v + sub_total_ri_kamar_v);
         $('#grand_total').trigger('input'); // Will be display 
     }
 </script>
