@@ -199,7 +199,7 @@ class Tagihan extends CI_Controller
         $sub_total = 0;
         $total = 0;
 
-        if (isset($_POST['no_kamar_rawat_i']) && isset($_POST['harga_harian_ri_kamar'])) {
+        if (isset($_POST['no_kamar_rawat_i']) && isset($_POST['harga_harian_ri_kamar']) && isset($_POST['jumlah_hari_ri_kamar'])) {
 
             for ($i = 0; $i < count($this->input->post('no_kamar_rawat_i')); $i++) {
 
@@ -210,7 +210,10 @@ class Tagihan extends CI_Controller
                     $harga_jual = 0;
                 }
 
-                $perhitungan = $harga_jual;
+                $jumlah_hari_temp = $this->input->post('jumlah_hari_ri_kamar')[$i];
+                $jumlah_hari = (int) $jumlah_hari_temp;
+
+                $perhitungan = $harga_jual * $jumlah_hari;
 
                 $sub_total = $sub_total + $perhitungan;
             }

@@ -68,7 +68,7 @@
                                     <td>Rincian</td>
                                     <td>Check In</td>
                                     <td>Check Out</td>
-                                    <td>@Hari</td>
+                                    <td width="5%">@Hari</td>
                                     <td>Biaya Harian</td>
                                     <td width="20%">Sub Total</td>
                                     <td width="5%">Hapus</td>
@@ -214,7 +214,13 @@
 
         var x = document.getElementById("label_kosong").style;
         if (jumlah_detail_transaksi > 0) {
-            x.display = "none"; // hidden
+
+            if (jumlah_detail_transaksi != jumlah_detail_transaksi_ri_kamar) {
+                x.display = "none"; // hidden
+            } else {
+                x.display = "table-row"; // show
+            }
+
         } else {
             x.display = "table-row"; // show
         }
