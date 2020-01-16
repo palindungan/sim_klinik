@@ -222,6 +222,32 @@ class Tagihan extends CI_Controller
         echo $total;
     }
 
+    public function ambil_total_ri_obat()
+    {
+        $sub_total = 0;
+        $total = 0;
+
+        if (isset($_POST['no_stok_obat_rawat_i']) && isset($_POST['harga_ri_obat']) && isset($_POST['qty_ri_obat'])) {
+
+            for ($i = 0; $i < count($this->input->post('no_stok_obat_rawat_i')); $i++) {
+
+                $harga_jual_temp = $this->input->post('harga_ri_obat')[$i];
+                $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
+
+                $qty_temp = $this->input->post('qty_ri_obat')[$i];
+                $qty = (int) $qty_temp;
+
+                $perhitungan = $harga_jual * $qty;
+
+                $sub_total = $sub_total + $perhitungan;
+            }
+
+            $total = $sub_total;
+        }
+
+        echo $total;
+    }
+
     public function input_transaksi_form()
     {
 
