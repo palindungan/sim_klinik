@@ -45,7 +45,7 @@
                         <a href="#" id="btn_search_lab_tindakan" class="btn btn-sm btn-primary col-md-12" data-toggle="modal" data-target="#exampleModalCenter_lab_tindakan">Tindakan LAB</a>
                     </div>
                     <div class="form-group col-md-2">
-                        <button class="btn btn-sm btn-primary col-md-12" data-toggle="modal" data-target="#modalTindakanUGD">Tindakan UGD</button>
+                        <a href="#" id="btn_search_ugd_tindakan" class="btn btn-sm btn-primary col-md-12" data-toggle="modal" data-target="#exampleModalCenter_ugd_tindakan">Tindakan UGD</a>
                     </div>
                 </div>
 
@@ -54,6 +54,7 @@
                 <input type="hidden" readonly name="sub_total_bp_tindakan" class="form-control form-control-sm rupiah text-right" id="sub_total_bp_tindakan" placeholder="Sub Total BP Tindakan">
                 <input type="hidden" readonly name="sub_total_kia_tindakan" class="form-control form-control-sm rupiah text-right" id="sub_total_kia_tindakan" placeholder="Sub Total KIA Tindakan">
                 <input type="hidden" readonly name="sub_total_lab_tindakan" class="form-control form-control-sm rupiah text-right" id="sub_total_lab_tindakan" placeholder="Sub Total LAB Tindakan">
+                <input type="text" readonly name="sub_total_ugd_tindakan" class="form-control form-control-sm rupiah text-right" id="sub_total_ugd_tindakan" placeholder="Sub Total UGD Tindakan">
 
                 <div class="row">
                     <div class="col-md-12">
@@ -151,6 +152,7 @@
 <?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/bp_tindakan.php') ?>
 <?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/kia_tindakan.php') ?>
 <?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/lab_tindakan.php') ?>
+<?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/ugd_tindakan.php') ?>
 <!-- end of pecahan codingan script -->
 
 <script>
@@ -204,6 +206,12 @@
             sub_total_lab_tindakan_v = parseInt(sub_total_lab_tindakan.split('.').join(''));
         }
 
+        var sub_total_ugd_tindakan = $('#sub_total_ugd_tindakan').val();
+        var sub_total_ugd_tindakan_v = 0;
+        if (sub_total_ugd_tindakan != "") {
+            sub_total_ugd_tindakan_v = parseInt(sub_total_ugd_tindakan.split('.').join(''));
+        }
+
         // var sub_total_ri_tindakan = $('#sub_total_ri_tindakan').val();
         // var sub_total_ri_tindakan_v = 0;
         // if (sub_total_ri_tindakan != "") {
@@ -222,7 +230,7 @@
         // 	sub_total_ri_obat_v = parseInt(sub_total_ri_obat.split('.').join(''));
         // }
 
-        $('#grand_total').val(sub_total_ambulance_v + sub_total_apotek_obat_v + sub_total_bp_tindakan_v + sub_total_kia_tindakan_v + sub_total_lab_tindakan_v);
+        $('#grand_total').val(sub_total_ambulance_v + sub_total_apotek_obat_v + sub_total_bp_tindakan_v + sub_total_kia_tindakan_v + sub_total_lab_tindakan_v + sub_total_ugd_tindakan_v);
         $('#grand_total').trigger('input'); // Will be display 
     }
 </script>
