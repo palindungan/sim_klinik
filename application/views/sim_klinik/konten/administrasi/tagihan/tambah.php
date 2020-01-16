@@ -39,7 +39,7 @@
                         <a href="#" id="btn_search_bp_tindakan" class="btn btn-sm btn-primary col-md-12" data-toggle="modal" data-target="#exampleModalCenter_bp_tindakan">Tindakan BP</a>
                     </div>
                     <div class="form-group col-md-2">
-                        <button class="btn btn-sm btn-primary col-md-12" data-toggle="modal" data-target="#modalTindakanKIA">Tindakan KIA</button>
+                        <a href="#" id="btn_search_kia_tindakan" class="btn btn-sm btn-primary col-md-12" data-toggle="modal" data-target="#exampleModalCenter_kia_tindakan">Tindakan KIA</a>
                     </div>
                     <div class="form-group col-md-2">
                         <button class="btn btn-sm btn-primary col-md-12" data-toggle="modal" data-target="#modalCheckupLab">Tindakan Lab</button>
@@ -49,9 +49,10 @@
                     </div>
                 </div>
 
-                <input type="text" readonly name="sub_total_ambulance" class="form-control form-control-sm rupiah text-right" id="sub_total_ambulance" placeholder="Sub Total Ambulance">
-                <input type="text" readonly name="sub_total_apotek_obat" class="form-control form-control-sm rupiah text-right" id="sub_total_apotek_obat" placeholder="Sub Total Obat Apotek">
-                <input type="text" readonly name="sub_total_bp_tindakan" class="form-control form-control-sm rupiah text-right" id="sub_total_bp_tindakan" placeholder="Sub Total BP Tindakan">
+                <input type="hidden" readonly name="sub_total_ambulance" class="form-control form-control-sm rupiah text-right" id="sub_total_ambulance" placeholder="Sub Total Ambulance">
+                <input type="hidden" readonly name="sub_total_apotek_obat" class="form-control form-control-sm rupiah text-right" id="sub_total_apotek_obat" placeholder="Sub Total Obat Apotek">
+                <input type="hidden" readonly name="sub_total_bp_tindakan" class="form-control form-control-sm rupiah text-right" id="sub_total_bp_tindakan" placeholder="Sub Total BP Tindakan">
+                <input type="text" readonly name="sub_total_kia_tindakan" class="form-control form-control-sm rupiah text-right" id="sub_total_kia_tindakan" placeholder="Sub Total KIA Tindakan">
 
                 <div class="row">
                     <div class="col-md-12">
@@ -147,6 +148,7 @@
 <?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/ambulance.php') ?>
 <?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/apotek_obat.php') ?>
 <?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/bp_tindakan.php') ?>
+<?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/kia_tindakan.php') ?>
 <!-- end of pecahan codingan script -->
 
 <script>
@@ -188,6 +190,12 @@
             sub_total_bp_tindakan_v = parseInt(sub_total_bp_tindakan.split('.').join(''));
         }
 
+        var sub_total_kia_tindakan = $('#sub_total_kia_tindakan').val();
+        var sub_total_kia_tindakan_v = 0;
+        if (sub_total_kia_tindakan != "") {
+            sub_total_kia_tindakan_v = parseInt(sub_total_kia_tindakan.split('.').join(''));
+        }
+
         // var sub_total_ri_tindakan = $('#sub_total_ri_tindakan').val();
         // var sub_total_ri_tindakan_v = 0;
         // if (sub_total_ri_tindakan != "") {
@@ -206,7 +214,7 @@
         // 	sub_total_ri_obat_v = parseInt(sub_total_ri_obat.split('.').join(''));
         // }
 
-        $('#grand_total').val(sub_total_ambulance_v + sub_total_apotek_obat_v + sub_total_bp_tindakan_v);
+        $('#grand_total').val(sub_total_ambulance_v + sub_total_apotek_obat_v + sub_total_bp_tindakan_v + sub_total_kia_tindakan_v);
         $('#grand_total').trigger('input'); // Will be display 
     }
 </script>

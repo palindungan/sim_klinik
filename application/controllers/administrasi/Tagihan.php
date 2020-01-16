@@ -130,6 +130,28 @@ class Tagihan extends CI_Controller
         echo $total;
     }
 
+    public function ambil_total_kia_tindakan()
+    {
+        $sub_total = 0;
+        $total = 0;
+
+        if (isset($_POST['no_kia_t']) && isset($_POST['harga_kia_tindakan'])) {
+
+            for ($i = 0; $i < count($this->input->post('no_kia_t')); $i++) {
+
+                $harga_jual_temp = $this->input->post('harga_kia_tindakan')[$i];
+                $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
+
+                $perhitungan = $harga_jual;
+
+                $sub_total = $sub_total + $perhitungan;
+            }
+
+            $total = $sub_total;
+        }
+
+        echo $total;
+    }
 
     public function ambil_total_bp()
     {
