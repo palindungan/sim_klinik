@@ -88,7 +88,7 @@
     // Start add_row
     function tambah_detail_ambulance(no_ambulance, tujuan_ambulance, harga_ambulance) {
 
-        $('#detail_list').append(`
+        $('#detail_list_ambulance').append(`
 
         <tr id="row` + count_transaksi + `">
             <td>

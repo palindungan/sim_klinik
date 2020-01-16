@@ -68,8 +68,8 @@
                                     <td width="10%">Hapus</td>
                                 </tr>
                             </thead>
-                            <tbody id="detail_list">
 
+                            <tbody>
                                 <tr id="label_kosong">
                                     <td>
                                         Detail Transaksi Masih Kosong !
@@ -79,8 +79,15 @@
                                     <td></td>
                                     <td></td>
                                 </tr>
-
                             </tbody>
+
+                            <tbody id="detail_list_ambulance"></tbody>
+                            <tbody id="detail_list_apotek_obat"></tbody>
+                            <tbody id="detail_list_bp_tindakan"></tbody>
+                            <tbody id="detail_list_kia_tindakan"></tbody>
+                            <tbody id="detail_list_lab_tindakan"></tbody>
+                            <tbody id="detail_list_ugd_tindakan"></tbody>
+
                             <tfoot>
                                 <tr>
                                     <td></td>

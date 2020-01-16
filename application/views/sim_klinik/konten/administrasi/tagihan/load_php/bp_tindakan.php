@@ -90,7 +90,7 @@
             harga = 0;
         }
 
-        $('#detail_list').append(`
+        $('#detail_list_bp_tindakan').append(`
 
         <tr id="row` + count_transaksi + `">
             <td>

@@ -85,7 +85,7 @@
     // Start add_row kode, nama, harga
     function tambah_detail_kia_tindakan(kode, nama, harga) {
 
-        $('#detail_list').append(`
+        $('#detail_list_kia_tindakan').append(`
 
         <tr id="row` + count_transaksi + `">
             <td>

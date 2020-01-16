@@ -94,7 +94,7 @@
     // Start add_row kode_obat, nama_obat, harga_jual, qty
     function tambah_detail_apotek_obat(kode_obat, nama_obat, harga_apotek_obat, qty) {
 
-        $('#detail_list').append(`
+        $('#detail_list_apotek_obat').append(`
 
         <tr id="row` + count_transaksi + `">
             <td>
