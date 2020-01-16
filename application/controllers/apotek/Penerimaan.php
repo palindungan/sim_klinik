@@ -5,6 +5,8 @@ class Penerimaan extends CI_Controller
     {
         parent::__construct();
         $this->load->model('apotek/M_penerimaan');
+        date_default_timezone_set('Asia/Jakarta');
+
     }
     public function index()
     {
@@ -53,7 +55,6 @@ class Penerimaan extends CI_Controller
         $total_tmp = $this->input->post('total_harga');
         if (isset($_POST['kode_obat'])) {
 
-            date_default_timezone_set('Asia/Jakarta');
 
             // data transaksi 
             $no_penerimaan_o = $this->M_penerimaan->get_no_transaksi(); // generate

@@ -190,7 +190,7 @@ ORDER BY dtrik.no_detail_transaksi_rawat_inap_k ASC
 
 
 PIVOT TABLE BUAT LAPORAN RAWAT JALAN
-CREATE VIEW laporan_rawat_jalan as SELECT dbp.no_bp_p,bt.no_bp_t , bt.nama as nama_tindakan , dbp.harga as harga_detail, bp.no_ref_pelayanan , ps.nama as  nama_pasien , pl.tgl_pelayanan FROM detail_bp_penanganan dbp JOIN bp_tindakan bt USING(no_bp_t) JOIN bp_penanganan bp USING(no_bp_p) JOIN pelayanan pl USING(no_ref_pelayanan) JOIN pasien ps USING (no_rm)  ORDER BY dbp.no_detail_bp_p ASC
+CREATE VIEW laporan_rawat_jalan as SELECT dbp.no_bp_p,bt.no_bp_t , bt.nama as nama_tindakan , dbp.harga as harga_detail, bp.no_ref_pelayanan , ps.nama as nama_pasien , pl.tgl_pelayanan , pl.tipe_pelayanan FROM detail_bp_penanganan dbp JOIN bp_tindakan bt USING(no_bp_t) JOIN bp_penanganan bp USING(no_bp_p) JOIN pelayanan pl USING(no_ref_pelayanan) JOIN pasien ps USING (no_rm) ORDER BY dbp.no_detail_bp_p ASC 
 
 SELECT  no_bp_p,nama_pasien,tgl_pelayanan,
 	SUM(IF(nama_tindakan = 'Cek Gula Darah',harga_detail,'-')) AS periksa_gula_darah,
