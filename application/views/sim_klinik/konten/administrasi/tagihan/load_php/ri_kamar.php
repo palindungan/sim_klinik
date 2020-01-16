@@ -90,6 +90,11 @@
     // Start add_row kode_kamar, nama_kamar, harga_harian_kamar, tipe_kamar
     function tambah_detail_ri_kamar(kode, nama, harga, tipe) {
 
+        var today = new Date();
+        var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+        var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        var dateTime = date + ' ' + time;
+
         $('#detail_list_ri_kamar').append(`
 
         <tr id="row` + count_transaksi + `">
@@ -97,11 +102,17 @@
                 ` + nama + ` (` + tipe + `)
                 <input type="hidden" name="no_kamar_rawat_i[]" class="form-control form-control-sm" id="no_kamar_rawat_i` + count_transaksi + `" value="` + kode + `">
             </td>
-            <td>tanggal 1</td>
-            <td>tanggal 2</td>
+            <td>  
+                <input readonly type="text" name="tanggal_cek_in_ri_kamar[]" class="form-control form-control-sm text-right" id="tanggal_cek_in_ri_kamar` + count_transaksi + `" required value="` + dateTime + `">
+            </td>
+            <td>Belum</td>
+            <td>0</td>
             <td>
                 <input type="text" name="harga_harian_ri_kamar[]" class="form-control form-control-sm rupiah text-right harga_harian_ri_kamar_update" id="harga_harian_ri_kamar` + count_transaksi + `" placeholder="Harga RI Kamar" required value="` + harga + `">
+                <input type="hidden" name="status_kamar_ri_kamar[]" class="form-control form-control-sm text-right" id="status_kamar_ri_kamar` + count_transaksi + `" required value="Belum Cek Out">
             </td>
+            <td>    
+                <input type="text" class="form-control form-control-sm rupiah text-right" id="harga_sub_ri_kamar` + count_transaksi + `" readonly required value="0"></td></td>
             <td>
                 <div class="form-group col-sm-2">
                     <a id="` + count_transaksi + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris_ri_kamar">

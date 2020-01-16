@@ -11,11 +11,6 @@ class Tagihan extends CI_Controller
 
     public function index()
     {
-        // $data['ambulance'] = $this->M_ambulance->getAmbulance()->result();
-        // $data['bp_tindakan'] = $this->M_tagihan->tampil_data('bp_tindakan')->result();
-        // $data['kia_tindakan'] = $this->M_tagihan->tampil_data('kia_tindakan')->result();
-        // $data['lab_checkup'] = $this->M_tagihan->tampil_data('lab_checkup')->result();
-        // $data['ugd_tindakan'] = $this->M_tagihan->tampil_data('ugd_tindakan')->result();
         $this->template->load('sim_klinik/template/administrasi', 'sim_klinik/konten/administrasi/tagihan/tambah');
     }
 
@@ -210,6 +205,10 @@ class Tagihan extends CI_Controller
 
                 $harga_jual_temp = $this->input->post('harga_harian_ri_kamar')[$i];
                 $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
+
+                if ($this->input->post('status_kamar_ri_kamar')[$i] == "Belum Cek Out") {
+                    $harga_jual = 0;
+                }
 
                 $perhitungan = $harga_jual;
 
