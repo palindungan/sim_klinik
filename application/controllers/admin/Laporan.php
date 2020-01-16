@@ -84,7 +84,9 @@
 
             $kolom = 3;
             $nomor = 1;
+            $grand_total = 0;
             foreach ($query as $row) {
+            $grand_total += $row->total_harga;
             $tgl_parsing = date('Y-m-d',strtotime($row->tgl_pelayanan));
             $tgl_pelayanan = tgl_indo($tgl_parsing);
 
@@ -115,6 +117,13 @@
             $kolom++;
             $nomor++;
             }
+
+            $spreadsheet->setActiveSheetIndex(0)
+            ->setCellValue('H' . ((int) $kolom + 3), 'Grand Total')
+            ->setCellValue('I' . ((int) $kolom + 3), number_format($grand_total, 0, ".", ","));
+
+            $spreadsheet->getActiveSheet()->getStyle('B' . ((int) $kolom + 3) . ':C' . ((int) $kolom +
+            3))->getFont()->setBold(true);
 
             $writer = new Xlsx($spreadsheet);
 
@@ -188,7 +197,9 @@
 
         $kolom = 3;
         $nomor = 1;
+        $grand_total = 0;
         foreach ($query as $row) {
+            $grand_total += $row->total_harga;
         $tgl_parsing = date('Y-m-d',strtotime($row->tgl_pelayanan));
         $tgl_pelayanan = tgl_indo($tgl_parsing);
 
@@ -219,6 +230,13 @@
         $kolom++;
         $nomor++;
         }
+
+        $spreadsheet->setActiveSheetIndex(0)
+        ->setCellValue('H' . ((int) $kolom + 3), 'Grand Total')
+        ->setCellValue('I' . ((int) $kolom + 3), number_format($grand_total, 0, ".", ","));
+
+        $spreadsheet->getActiveSheet()->getStyle('B' . ((int) $kolom + 3) . ':C' . ((int) $kolom +
+        3))->getFont()->setBold(true);
 
         $writer = new Xlsx($spreadsheet);
 
