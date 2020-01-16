@@ -199,6 +199,29 @@ class Tagihan extends CI_Controller
         echo $total;
     }
 
+    public function ambil_total_ri_kamar()
+    {
+        $sub_total = 0;
+        $total = 0;
+
+        if (isset($_POST['no_kamar_rawat_i']) && isset($_POST['harga_harian_ri_kamar'])) {
+
+            for ($i = 0; $i < count($this->input->post('no_kamar_rawat_i')); $i++) {
+
+                $harga_jual_temp = $this->input->post('harga_harian_ri_kamar')[$i];
+                $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
+
+                $perhitungan = $harga_jual;
+
+                $sub_total = $sub_total + $perhitungan;
+            }
+
+            $total = $sub_total;
+        }
+
+        echo $total;
+    }
+
     public function input_transaksi_form()
     {
 

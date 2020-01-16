@@ -78,7 +78,7 @@
                     });
                 } else {
 
-                    $('.table_kamar').html('<h3>No data are available</h3>');
+                    $('.table_ri_kamar').html('<h3>No data are available</h3>');
 
                 }
                 table.draw();
@@ -88,25 +88,20 @@
     }
 
     // Start add_row kode_kamar, nama_kamar, harga_harian_kamar, tipe_kamar
-    function tambah_detail_ri_kamar(kode, nama, harga, status) {
-
-        if (status == 'Tidak Terima') {
-            harga = 0;
-        }
+    function tambah_detail_ri_kamar(kode, nama, harga, tipe) {
 
         $('#detail_list_ri_kamar').append(`
 
         <tr id="row` + count_transaksi + `">
             <td>
-                ` + nama + `
-                <input type="hidden" name="no_bp_t[]" class="form-control form-control-sm" id="no_bp_t` + count_transaksi + `" value="` + kode + `">
+                ` + nama + ` (` + tipe + `)
+                <input type="hidden" name="no_kamar_rawat_i[]" class="form-control form-control-sm" id="no_kamar_rawat_i` + count_transaksi + `" value="` + kode + `">
             </td>
-            <td>1</td>
+            <td>tanggal 1</td>
+            <td>tanggal 2</td>
             <td>
-                <input type="text" name="harga_ri_kamar[]" class="form-control form-control-sm rupiah text-right harga_ri_kamar_update" id="harga_ri_kamar` + count_transaksi + `" placeholder="Harga Tindakan BP" required value="` + harga + `">
+                <input type="text" name="harga_harian_ri_kamar[]" class="form-control form-control-sm rupiah text-right harga_harian_ri_kamar_update" id="harga_harian_ri_kamar` + count_transaksi + `" placeholder="Harga RI Kamar" required value="` + harga + `">
             </td>
-            <td>  
-                <input type="text" class="form-control form-control-sm rupiah text-right" id="harga_sub_ri_kamar` + count_transaksi + `" readonly required value="` + harga + `"></td>
             <td>
                 <div class="form-group col-sm-2">
                     <a id="` + count_transaksi + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris_ri_kamar">
@@ -122,6 +117,7 @@
 
         count_transaksi = count_transaksi + 1;
         jumlah_detail_transaksi = jumlah_detail_transaksi + 1;
+        jumlah_detail_transaksi_ri_kamar = jumlah_detail_transaksi_ri_kamar + 1;
         $('#exampleModalCenter_ri_kamar').modal('hide');
 
         cek_jumlah_data_detail_transaksi();
@@ -134,20 +130,14 @@
         $('#row' + row_no).remove();
 
         jumlah_detail_transaksi = jumlah_detail_transaksi - 1;
+        jumlah_detail_transaksi_ri_kamar = jumlah_detail_transaksi_ri_kamar - 1;
 
         cek_jumlah_data_detail_transaksi();
         update_sub_total_ri_kamar();
     });
 
     // jika kita mengubah class inputan rupiah
-    $(document).on('keyup', '.harga_ri_kamar_update', function() {
-
-        var row_id = $(this).attr("id"); // harga_ri_kamar1++
-        var row_no = row_id.substring(17); // 1++
-
-        var row_val = $('#' + row_id).val();
-        $('#harga_sub_ri_kamar' + row_no).val(row_val);
-
+    $(document).on('keyup', '.harga_harian_ri_kamar_update', function() {
         update_sub_total_ri_kamar();
     });
 

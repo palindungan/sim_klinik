@@ -65,12 +65,25 @@
                                     <td>Rincian</td>
                                     <td>Check In</td>
                                     <td>Check Out</td>
-                                    <td width="28%">Biaya</td>
-                                    <td width="10%">Hapus</td>
+                                    <td width="25%">Biaya</td>
+                                    <td width="5%">Hapus</td>
                                 </tr>
                             </thead>
 
+                            <tbody>
+                                <tr id="label_kosong_ri_kamar">
+                                    <td>
+                                        Tidak Ada Kamar Rawat Inap
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+
                             <tbody id="detail_list_ri_kamar"></tbody>
+
                         </table>
                     </div>
                 </div>
@@ -83,8 +96,8 @@
                                     <td>Rincian</td>
                                     <td width="10%">Qty</td>
                                     <td>Biaya</td>
-                                    <td>Sub Total</td>
-                                    <td width="10%">Hapus</td>
+                                    <td width="25%">Sub Total</td>
+                                    <td width="5%">Hapus</td>
                                 </tr>
                             </thead>
 
@@ -170,6 +183,7 @@
     // Deklarasi Variable 
     var count_transaksi = 0;
     var jumlah_detail_transaksi = 0;
+    var jumlah_detail_transaksi_ri_kamar = 0;
 </script>
 
 <!-- start of pecahan codingan script -->
@@ -192,6 +206,13 @@
             x.display = "none"; // hidden
         } else {
             x.display = "table-row"; // show
+        }
+
+        var label_ri_kamar = document.getElementById("label_kosong_ri_kamar").style;
+        if (jumlah_detail_transaksi_ri_kamar > 0) {
+            label_ri_kamar.display = "none"; // hidden
+        } else {
+            label_ri_kamar.display = "table-row"; // show
         }
 
         update_grand_total();
