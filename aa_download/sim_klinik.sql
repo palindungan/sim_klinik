@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 15 Jan 2020 pada 19.00
+-- Waktu pembuatan: 16 Jan 2020 pada 06.14
 -- Versi server: 10.4.6-MariaDB
 -- Versi PHP: 7.3.9
 
@@ -45,6 +45,45 @@ INSERT INTO `ambulance` (`no_ambulance`, `tujuan`, `harga`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Stand-in struktur untuk tampilan `antrian_balai_pengobatan_prioritas`
+-- (Lihat di bawah untuk tampilan aktual)
+--
+CREATE TABLE `antrian_balai_pengobatan_prioritas` (
+`kode_antrian_bp` char(5)
+,`nama` varchar(50)
+,`status` enum('Antri','Prioritas','Diperiksa','Selesai')
+,`no_antrian` varchar(3)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in struktur untuk tampilan `antrian_balai_pengobatan_semua`
+-- (Lihat di bawah untuk tampilan aktual)
+--
+CREATE TABLE `antrian_balai_pengobatan_semua` (
+`kode_antrian_bp` char(5)
+,`nama` varchar(50)
+,`status` enum('Antri','Prioritas','Diperiksa','Selesai')
+,`no_antrian` varchar(3)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in struktur untuk tampilan `antrian_balai_pengobatan_tersisa`
+-- (Lihat di bawah untuk tampilan aktual)
+--
+CREATE TABLE `antrian_balai_pengobatan_tersisa` (
+`kode_antrian_bp` char(5)
+,`nama` varchar(50)
+,`status` enum('Antri','Prioritas','Diperiksa','Selesai')
+,`no_antrian` varchar(3)
+);
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `antrian_bp`
 --
 
@@ -60,6 +99,32 @@ CREATE TABLE `antrian_bp` (
 
 INSERT INTO `antrian_bp` (`kode_antrian_bp`, `no_ref_pelayanan`, `status`) VALUES
 ('A001', '200114-001', 'Antri');
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in struktur untuk tampilan `antrian_kesehatan_ibu_dan_anak_semua`
+-- (Lihat di bawah untuk tampilan aktual)
+--
+CREATE TABLE `antrian_kesehatan_ibu_dan_anak_semua` (
+`kode_antrian_kia` char(4)
+,`nama` varchar(50)
+,`status` enum('Antri','Diperiksa','Selesai')
+,`no_antrian` varchar(3)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in struktur untuk tampilan `antrian_kesehatan_ibu_dan_anak_tersisa`
+-- (Lihat di bawah untuk tampilan aktual)
+--
+CREATE TABLE `antrian_kesehatan_ibu_dan_anak_tersisa` (
+`kode_antrian_kia` char(4)
+,`nama` varchar(50)
+,`status` enum('Antri','Diperiksa','Selesai')
+,`no_antrian` varchar(3)
+);
 
 -- --------------------------------------------------------
 
@@ -84,6 +149,45 @@ CREATE TABLE `antrian_lab` (
   `no_ref_pelayanan` char(10) NOT NULL,
   `status` enum('Antri','Prioritas','Diperiksa','Selesai') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in struktur untuk tampilan `antrian_laboratorium_prioritas`
+-- (Lihat di bawah untuk tampilan aktual)
+--
+CREATE TABLE `antrian_laboratorium_prioritas` (
+`kode_antrian_lab` char(5)
+,`nama` varchar(50)
+,`status` enum('Antri','Prioritas','Diperiksa','Selesai')
+,`no_antrian` varchar(3)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in struktur untuk tampilan `antrian_laboratorium_semua`
+-- (Lihat di bawah untuk tampilan aktual)
+--
+CREATE TABLE `antrian_laboratorium_semua` (
+`kode_antrian_lab` char(5)
+,`nama` varchar(50)
+,`status` enum('Antri','Prioritas','Diperiksa','Selesai')
+,`no_antrian` varchar(3)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in struktur untuk tampilan `antrian_laboratorium_tersisa`
+-- (Lihat di bawah untuk tampilan aktual)
+--
+CREATE TABLE `antrian_laboratorium_tersisa` (
+`kode_antrian_lab` char(5)
+,`nama` varchar(50)
+,`status` enum('Antri','Prioritas','Diperiksa','Selesai')
+,`no_antrian` varchar(3)
+);
 
 -- --------------------------------------------------------
 
@@ -986,6 +1090,78 @@ CREATE TABLE `user_pegawai` (
 INSERT INTO `user_pegawai` (`no_user_pegawai`, `nama`, `jenis_akses`, `username`, `password`) VALUES
 ('P001', 'afri', 'Rawat Inap', 'afri', '$2y$10$5rtXCrmfFXQlovbbXY/J6u3eplLbiSp3ls0nn9ERXG9gBGifxHiVO'),
 ('U002', 'kika', 'Loket', 'kika', '$2y$10$gIQgZO4D5b8LUWDVvH5Q6.PjmLjM8gLwEtpzkK.6bsXHv1tczykoG');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur untuk view `antrian_balai_pengobatan_prioritas`
+--
+DROP TABLE IF EXISTS `antrian_balai_pengobatan_prioritas`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_balai_pengobatan_prioritas`  AS  select `abps`.`kode_antrian_bp` AS `kode_antrian_bp`,`abps`.`nama` AS `nama`,`abps`.`status` AS `status`,`abps`.`no_antrian` AS `no_antrian` from `antrian_balai_pengobatan_semua` `abps` where `abps`.`status` = 'Prioritas' order by `abps`.`no_antrian` ;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur untuk view `antrian_balai_pengobatan_semua`
+--
+DROP TABLE IF EXISTS `antrian_balai_pengobatan_semua`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_balai_pengobatan_semua`  AS  select `ab`.`kode_antrian_bp` AS `kode_antrian_bp`,`pa`.`nama` AS `nama`,`ab`.`status` AS `status`,right(`ab`.`kode_antrian_bp`,3) AS `no_antrian` from ((`antrian_bp` `ab` join `pelayanan` `pe` on(`ab`.`no_ref_pelayanan` = `pe`.`no_ref_pelayanan`)) join `pasien` `pa` on(`pe`.`no_rm` = `pa`.`no_rm`)) order by right(`ab`.`kode_antrian_bp`,3) ;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur untuk view `antrian_balai_pengobatan_tersisa`
+--
+DROP TABLE IF EXISTS `antrian_balai_pengobatan_tersisa`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_balai_pengobatan_tersisa`  AS  select `abps`.`kode_antrian_bp` AS `kode_antrian_bp`,`abps`.`nama` AS `nama`,`abps`.`status` AS `status`,`abps`.`no_antrian` AS `no_antrian` from `antrian_balai_pengobatan_semua` `abps` where `abps`.`status` <> 'Selesai' and `abps`.`status` <> 'Diperiksa' order by `abps`.`no_antrian` ;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur untuk view `antrian_kesehatan_ibu_dan_anak_semua`
+--
+DROP TABLE IF EXISTS `antrian_kesehatan_ibu_dan_anak_semua`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_kesehatan_ibu_dan_anak_semua`  AS  select `kia`.`kode_antrian_kia` AS `kode_antrian_kia`,`pa`.`nama` AS `nama`,`kia`.`status` AS `status`,right(`kia`.`kode_antrian_kia`,3) AS `no_antrian` from ((`antrian_kia` `kia` join `pelayanan` `pe` on(`kia`.`no_ref_pelayanan` = `pe`.`no_ref_pelayanan`)) join `pasien` `pa` on(`pe`.`no_rm` = `pa`.`no_rm`)) order by right(`kia`.`kode_antrian_kia`,3) ;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur untuk view `antrian_kesehatan_ibu_dan_anak_tersisa`
+--
+DROP TABLE IF EXISTS `antrian_kesehatan_ibu_dan_anak_tersisa`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_kesehatan_ibu_dan_anak_tersisa`  AS  select `x`.`kode_antrian_kia` AS `kode_antrian_kia`,`x`.`nama` AS `nama`,`x`.`status` AS `status`,`x`.`no_antrian` AS `no_antrian` from `antrian_kesehatan_ibu_dan_anak_semua` `x` where `x`.`status` <> 'Selesai' and `x`.`status` <> 'Diperiksa' order by `x`.`no_antrian` ;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur untuk view `antrian_laboratorium_prioritas`
+--
+DROP TABLE IF EXISTS `antrian_laboratorium_prioritas`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_laboratorium_prioritas`  AS  select `lap`.`kode_antrian_lab` AS `kode_antrian_lab`,`lap`.`nama` AS `nama`,`lap`.`status` AS `status`,`lap`.`no_antrian` AS `no_antrian` from `antrian_laboratorium_semua` `lap` where `lap`.`status` = 'Prioritas' order by `lap`.`no_antrian` ;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur untuk view `antrian_laboratorium_semua`
+--
+DROP TABLE IF EXISTS `antrian_laboratorium_semua`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_laboratorium_semua`  AS  select `lab`.`kode_antrian_lab` AS `kode_antrian_lab`,`pa`.`nama` AS `nama`,`lab`.`status` AS `status`,right(`lab`.`kode_antrian_lab`,3) AS `no_antrian` from ((`antrian_lab` `lab` join `pelayanan` `pe` on(`lab`.`no_ref_pelayanan` = `pe`.`no_ref_pelayanan`)) join `pasien` `pa` on(`pe`.`no_rm` = `pa`.`no_rm`)) order by right(`lab`.`kode_antrian_lab`,3) ;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur untuk view `antrian_laboratorium_tersisa`
+--
+DROP TABLE IF EXISTS `antrian_laboratorium_tersisa`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_laboratorium_tersisa`  AS  select `lap`.`kode_antrian_lab` AS `kode_antrian_lab`,`lap`.`nama` AS `nama`,`lap`.`status` AS `status`,`lap`.`no_antrian` AS `no_antrian` from `antrian_laboratorium_semua` `lap` where `lap`.`status` <> 'Selesai' and `lap`.`status` <> 'Diperiksa' order by `lap`.`no_antrian` ;
 
 -- --------------------------------------------------------
 
