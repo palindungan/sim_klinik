@@ -63,6 +63,24 @@
                             <thead>
                                 <tr>
                                     <td>Rincian</td>
+                                    <td>Check In</td>
+                                    <td>Check Out</td>
+                                    <td width="28%">Biaya</td>
+                                    <td width="10%">Hapus</td>
+                                </tr>
+                            </thead>
+
+                            <tbody id="detail_list_ri_kamar"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-sm table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <td>Rincian</td>
                                     <td width="10%">Qty</td>
                                     <td>Biaya</td>
                                     <td>Sub Total</td>
@@ -84,9 +102,6 @@
 
                             <tbody id="detail_list_ambulance"></tbody>
                             <tbody id="detail_list_apotek_obat"></tbody>
-
-                            <tbody id="detail_list_ri_kamar"></tbody>
-
                             <tbody id="detail_list_bp_tindakan"></tbody>
                             <tbody id="detail_list_kia_tindakan"></tbody>
                             <tbody id="detail_list_lab_tindakan"></tbody>
