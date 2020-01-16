@@ -70,7 +70,7 @@
                                     <td>Check Out</td>
                                     <td>@Hari</td>
                                     <td>Biaya Harian</td>
-                                    <td width="25%">Sub Total</td>
+                                    <td width="20%">Sub Total</td>
                                     <td width="5%">Hapus</td>
                                 </tr>
                             </thead>
@@ -103,7 +103,7 @@
                                     <td>Rincian</td>
                                     <td width="10%">Qty</td>
                                     <td>Biaya</td>
-                                    <td width="25%">Sub Total</td>
+                                    <td width="20%">Sub Total</td>
                                     <td width="5%">Hapus</td>
                                 </tr>
                             </thead>

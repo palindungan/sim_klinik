@@ -105,7 +105,12 @@
             <td>  
                 <input readonly type="text" name="tanggal_cek_in_ri_kamar[]" class="form-control form-control-sm text-right" id="tanggal_cek_in_ri_kamar` + count_transaksi + `" required value="` + dateTime + `">
             </td>
-            <td>Belum</td>
+            <td>
+                (Belum) - 
+                <button class="btn btn-sm btn-danger btn-icon-split" onclick="return confirm('Lakukan Check Out Kamar ?')">
+                    <span class="text">Check Out</span>
+                </button>
+            </td>
             <td>0</td>
             <td>
                 <input type="text" name="harga_harian_ri_kamar[]" class="form-control form-control-sm rupiah text-right harga_harian_ri_kamar_update" id="harga_harian_ri_kamar` + count_transaksi + `" placeholder="Harga RI Kamar" required value="` + harga + `">
