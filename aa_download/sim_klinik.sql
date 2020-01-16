@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 16 Jan 2020 pada 06.14
+-- Waktu pembuatan: 16 Jan 2020 pada 07.13
 -- Versi server: 10.4.6-MariaDB
 -- Versi PHP: 7.3.9
 
@@ -780,10 +780,10 @@ CREATE TABLE `laporan_rawat_jalan` (
 ,`no_bp_t` char(4)
 ,`nama_tindakan` varchar(50)
 ,`harga_detail` int(10)
-,`harga_tindakan` int(9)
 ,`no_ref_pelayanan` char(10)
 ,`nama_pasien` varchar(50)
 ,`tgl_pelayanan` datetime
+,`tipe_pelayanan` enum('Rawat Jalan','Rawat Inap')
 );
 
 -- --------------------------------------------------------
@@ -876,7 +876,7 @@ CREATE TABLE `pelayanan` (
 --
 
 INSERT INTO `pelayanan` (`no_ref_pelayanan`, `no_rm`, `no_user_pegawai`, `layanan_tujuan`, `tipe_antrian`, `tgl_pelayanan`, `status`, `tipe_pelayanan`) VALUES
-('200114-001', 'qwe123', 'P001', 'Balai Pengobatan', 'Dewasa', '2020-01-14 10:19:06', 'belum_finish', 'Rawat Inap');
+('200114-001', 'qwe123', 'P001', 'Balai Pengobatan', 'Dewasa', '2020-01-14 03:11:05', 'belum_finish', 'Rawat Jalan');
 
 -- --------------------------------------------------------
 
@@ -1323,7 +1323,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `laporan_rawat_jalan`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `laporan_rawat_jalan`  AS  select `dbp`.`no_bp_p` AS `no_bp_p`,`bt`.`no_bp_t` AS `no_bp_t`,`bt`.`nama` AS `nama_tindakan`,`dbp`.`harga` AS `harga_detail`,`bt`.`harga` AS `harga_tindakan`,`bp`.`no_ref_pelayanan` AS `no_ref_pelayanan`,`ps`.`nama` AS `nama_pasien`,`pl`.`tgl_pelayanan` AS `tgl_pelayanan` from ((((`detail_bp_penanganan` `dbp` join `bp_tindakan` `bt` on(`dbp`.`no_bp_t` = `bt`.`no_bp_t`)) join `bp_penanganan` `bp` on(`dbp`.`no_bp_p` = `bp`.`no_bp_p`)) join `pelayanan` `pl` on(`bp`.`no_ref_pelayanan` = `pl`.`no_ref_pelayanan`)) join `pasien` `ps` on(`pl`.`no_rm` = `ps`.`no_rm`)) order by `dbp`.`no_detail_bp_p` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `laporan_rawat_jalan`  AS  select `dbp`.`no_bp_p` AS `no_bp_p`,`bt`.`no_bp_t` AS `no_bp_t`,`bt`.`nama` AS `nama_tindakan`,`dbp`.`harga` AS `harga_detail`,`bp`.`no_ref_pelayanan` AS `no_ref_pelayanan`,`ps`.`nama` AS `nama_pasien`,`pl`.`tgl_pelayanan` AS `tgl_pelayanan`,`pl`.`tipe_pelayanan` AS `tipe_pelayanan` from ((((`detail_bp_penanganan` `dbp` join `bp_tindakan` `bt` on(`dbp`.`no_bp_t` = `bt`.`no_bp_t`)) join `bp_penanganan` `bp` on(`dbp`.`no_bp_p` = `bp`.`no_bp_p`)) join `pelayanan` `pl` on(`bp`.`no_ref_pelayanan` = `pl`.`no_ref_pelayanan`)) join `pasien` `ps` on(`pl`.`no_rm` = `ps`.`no_rm`)) order by `dbp`.`no_detail_bp_p` ;
 
 --
 -- Indexes for dumped tables
