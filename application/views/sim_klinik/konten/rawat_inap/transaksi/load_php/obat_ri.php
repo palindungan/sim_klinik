@@ -31,9 +31,6 @@
 	</div>
 </div>
 <script>
-	var count3 = 0;
-	var jumlah_detail_transaksi_obat = 0;
-
 	// Start of obat////////////////
 	// jika kita tekan / click button search-button
 	$('#btn_search_obat').on('click', function () {
@@ -43,20 +40,19 @@
 	// jika kita tekan hapus / click button
 	$(document).on('click', '.remove_baris_obat', function () {
 		var row_no = $(this).attr("id");
-		$('#row_obat' + row_no).remove();
-
-		jumlah_detail_transaksi_obat = jumlah_detail_transaksi_obat - 1;
-
-		cekJumlahDataTransaksi_obat();
-	});
-
-	// jika kita mengubah class inputan rupiah_obat
-	$(document).on('keyup', '.rupiah_obat', function () {
+		$('#row' + row_no).remove();
+		jumlah_detail_transaksi = jumlah_detail_transaksi - 1;
+		cek_jumlah_data_detail_transaksi();
 		update_sub_harga_obat();
 	});
 
 	// jika kita mengubah class inputan rupiah
-	$(document).on('keyup', '.qty_format', function () {
+	$(document).on('keyup', '.rupiah', function () {
+		update_sub_harga_obat();
+	});
+
+	// jika kita mengubah class inputan rupiah
+	$(document).on('keyup', '.cek_qty', function () {
 
 		var row_id = $(this).attr("id"); // qty1++
 		var row_no = row_id.substring(3); // 1++
@@ -65,12 +61,22 @@
 		var val_qty_sekarang = parseInt($('#qty_sekarang' + row_no).val());
 
 		if (val_qty <= val_qty_sekarang) {
-			cekJumlahDataTransaksi_obat();
+			update_sub_harga_obat();
+			var harga_obat = $('#harga_obat' + row_no).val()
+			var val_harga_obat = parseInt(harga_obat.split('.').join(''));
+			$('#harga_sub_obat' + row_no).val(val_harga_obat * val_qty);
+
 		} else {
 			alert("Maaf Qty Tidak Boleh Detail Obat Melebihi Stok Apotek");
 			$('#' + row_id).val("1");
-			cekJumlahDataTransaksi_obat();
+			update_sub_harga_obat();
+			var harga_obat = $('#harga_obat' + row_no).val()
+			var val_harga_obat = parseInt(harga_obat.split('.').join(''));
+			$('#harga_sub_obat' + row_no).val(val_harga_obat);
 		}
+
+
+
 	});
 
 	// Start pencarian
@@ -140,60 +146,53 @@
 	// Start add_row
 	function pilihobat(no_stok_obat_rawat_i, nama_obat, nama_kategori, qty_sekarang, harga_obat) {
 
-		$('#detail_list_obat').append(`
+		$('#detail_list').append(`
 
-            <div id="row_obat` + count3 + `" class="form-row">
-				<div class="form-group col-sm-5">
-					<input type="text" readonly name="nama_obat[]" class="form-control form-control-sm karakter" id="nama_obat` +
-			count3 +
-			`" placeholder="Nama_obat" required value="` + nama_obat +
-			`">
-					<input type="hidden" name="no_stok_obat_rawat_i[]" class="form-control form-control-sm" id="no_stok_obat_rawat_i` +
-			count3 +
-			`" value="` +
-			no_stok_obat_rawat_i +
-			`">
-				</div>
-				<div class="form-group col-sm-4">
-					<input type="text" name="harga_obat[]" class="form-control form-control-sm rupiah_obat text-right" id="harga_obat` +
-			count3 +
-			`" placeholder="harga Obar" required value="` + harga_obat + `">
-				</div>
-                <div class="form-group col-sm-1">
-					<input type="text" name="qty[]" class="form-control form-control-sm qty_format" id="qty` + count3 + `" placeholder="QTY" value="1" required>
-					<input type="hidden" name="qty_sekarang[]" id="qty_sekarang` + count3 +
-			`" class="form-control form-control-sm" value="` + qty_sekarang + `"></input>
-				</div>
+		<tr id="row` + count_transaksi + `">
+			<td>
+				` + nama_obat + `
+				<input type="hidden" name="no_stok_obat_rawat_i[]" class="form-control form-control-sm"
+					id="no_stok_obat_rawat_i` + count_transaksi + `" value="` + no_stok_obat_rawat_i + `">
+			</td>
+			<td>
+				<input type="text" name="qty[]" class="form-control form-control-sm cek_qty"
+					id="qty` + count_transaksi + `" placeholder="QTY" value="1" required>
+				<input readonly type="hidden" name="qty_sekarang[]" class="form-control form-control-sm"
+					id="qty_sekarang` + count_transaksi + `" value="` + qty_sekarang + `">
+			</td>
+			<td>
+				<input type="text" name="harga_obat[]"
+					class="form-control form-control-sm rupiah text-right harga_obat_update"
+					id="harga_obat` + count_transaksi + `" placeholder="Harga Obat Apotek" required
+					value="` + harga_obat + `">
+			</td>
+			<td>
+				<input type="text" class="form-control form-control-sm rupiah text-right"
+					id="harga_sub_obat` + count_transaksi + `" readonly required value="` + harga_obat + `">
+			</td>
+			<td>
 				<div class="form-group col-sm-2">
-					<a id="` + count3 + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris_obat">
+					<a id="` + count_transaksi + `" href="#"
+						class="btn btn-sm btn-danger btn-icon-split remove_baris_obat">
 						<span class="icon text-white-50">
 							<i class="fas fa-trash-alt"></i>
 						</span>
-						<span class="text">Hapus</span>
 					</a>
 				</div>
-			</div>
+			</td>
+		</tr>
 
 		`);
 
-		count3 = count3 + 1;
-		jumlah_detail_transaksi_obat = jumlah_detail_transaksi_obat + 1;
+		count_transaksi = count_transaksi + 1;
+		jumlah_detail_transaksi = jumlah_detail_transaksi + 1;
 		$('#exampleModalCenter_obat').modal('hide');
 
-		cekJumlahDataTransaksi_obat();
-	}
-
-	function cekJumlahDataTransaksi_obat() {
-
-		var x = document.getElementById("label_kosong_obat");
-		if (jumlah_detail_transaksi_obat > 0) {
-			x.style.display = "none"; // hidden
-		} else {
-			x.style.display = "block"; // show
-		}
-
+		cek_jumlah_data_detail_transaksi();
 		update_sub_harga_obat();
 	}
+
+
 
 	function update_sub_harga_obat() {
 		// mengambil nilai di dalam form
@@ -205,8 +204,8 @@
 			data: form_data,
 			success: function (data) {
 				$('#sub_total_harga_obat').val(data);
-				grandTotal();
-				$('.rupiah_obat').trigger('input'); // Will be display 
+				update_grand_total();
+				$('.rupiah').trigger('input'); // Will be display 
 			}
 		});
 

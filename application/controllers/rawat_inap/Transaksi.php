@@ -46,7 +46,22 @@ class Transaksi extends CI_Controller
 
     public function ambil_sub_total_kamar()
     {
-        $total = $this->input->post('harga_harian_kamar');
+        $sub_total = 0;
+        $total = 0;
+
+        if (isset($_POST['no_kamar_rawat_i']) && isset($_POST['harga_harian_kamar'])) {
+
+        for ($i = 0; $i < count($this->input->post('no_kamar_rawat_i')); $i++) {
+
+            $harga_temp = $this->input->post('harga_harian_kamar')[$i];
+            $harga = (int) preg_replace("/[^0-9]/", "", $harga_temp);
+            $perhitungan = $harga;
+
+            $sub_total = $sub_total + $perhitungan;
+            }
+
+            $total = $sub_total;
+        }
         echo $total;
     }
 

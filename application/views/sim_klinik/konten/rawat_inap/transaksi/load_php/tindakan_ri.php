@@ -29,9 +29,6 @@
 	</div>
 </div>
 <script>
-	var count2 = 0;
-	var jumlah_detail_transaksi_tindakan = 0;
-
 	// Start of tindakan////////////////
 	// jika kita tekan / click button search-button
 	$('#btn_search_tindakan').on('click', function () {
@@ -41,11 +38,11 @@
 	// jika kita tekan hapus / click button
 	$(document).on('click', '.remove_baris_tindakan', function () {
 		var row_no = $(this).attr("id");
-		$('#row_tindakan' + row_no).remove();
+		$('#row' + row_no).remove();
 
-		jumlah_detail_transaksi_tindakan = jumlah_detail_transaksi_tindakan - 1;
-
-		cekJumlahDataTransaksi_tindakan();
+		jumlah_detail_transaksi = jumlah_detail_transaksi - 1;
+		cek_jumlah_data_detail_transaksi();
+		update_sub_harga_tindakan()
 	});
 
 	// jika kita mengubah class inputan rupiah_tindakan
@@ -116,53 +113,47 @@
 	// Start add_row
 	function pilihtindakan(kode_tindakan, nama_tindakan, harga_tindakan) {
 
-		$('#detail_list_tindakan').append(`
+		$('#detail_list').append(`
 
-<div id="row_tindakan` + count2 + `" class="form-row">
-	<div class="form-group col-sm-5">
-		<input type="text" readonly name="nama_tindakan[]" class="form-control form-control-sm karakter" id="nama_tindakan` +
-			count2 +
-			`" placeholder="Nama_tindakan" required value="` + nama_tindakan + `">
-		<input type="hidden" name="no_rawat_inap_t[]" class="form-control form-control-sm"
-			id="no_rawat_inap_t` + count2 + `" value="` +
-			kode_tindakan +
-			`">
-	</div>
-	<div class="form-group col-sm-5">
-		<input type="text" name="harga_tindakan[]" class="form-control form-control-sm rupiah_tindakan text-right" id="harga_tindakan` +
-			count2 +
-			`" placeholder="Harga Harian tindakan" required value="` + harga_tindakan + `">
-	</div>
-	<div class="form-group col-sm-2">
-		<a id="` + count2 + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris_tindakan">
-			<span class="icon text-white-50">
-				<i class="fas fa-trash-alt"></i>
-			</span>
-			<span class="text">Hapus</span>
-		</a>
-	</div>
-</div>
+		<tr id="row` + count_transaksi + `">
+			<td>
+				` + nama_tindakan + `
+				<input type="hidden" name="no_rawat_inap_t[]" class="form-control form-control-sm" id="no_rawat_inap_t` +
+			count_transaksi + `"
+					value="` + kode_tindakan + `">
+			</td>
+			<td>1</td>
+			<td>
+				<input type="text" name="harga_tindakan[]"
+					class="form-control form-control-sm rupiah text-right harga_tindakan_update"
+					id="harga_tindakan` + count_transaksi + `" placeholder="Harga Tindakan" required
+					value="` + harga_tindakan + `">
+			</td>
+			<td>
+				<input type="text" class="form-control form-control-sm rupiah text-right"
+					id="sub_total_harga_tindakan` + count_transaksi + `" readonly required value="` + harga_tindakan + `"></td>
+			<td>
+				<div class="form-group col-sm-2">
+					<a id="` + count_transaksi + `" href="#"
+						class="btn btn-sm btn-danger btn-icon-split remove_baris_tindakan">
+						<span class="icon text-white-50">
+							<i class="fas fa-trash-alt"></i>
+						</span>
+					</a>
+				</div>
+			</td>
+		</tr>
 
-`);
+		`);
 
-		count2 = count2 + 1;
-		jumlah_detail_transaksi_tindakan = jumlah_detail_transaksi_tindakan + 1;
+		count_transaksi = count_transaksi + 1;
+		jumlah_detail_transaksi = jumlah_detail_transaksi + 1;
 		$('#exampleModalCenter_tindakan').modal('hide');
 
-		cekJumlahDataTransaksi_tindakan();
-	}
-
-	function cekJumlahDataTransaksi_tindakan() {
-
-		var x = document.getElementById("label_kosong_tindakan");
-		if (jumlah_detail_transaksi_tindakan > 0) {
-			x.style.display = "none"; // hidden
-		} else {
-			x.style.display = "block"; // show
-		}
-
+		cek_jumlah_data_detail_transaksi();
 		update_sub_harga_tindakan();
 	}
+
 
 	function update_sub_harga_tindakan() {
 		// mengambil nilai di dalam form
@@ -174,8 +165,8 @@
 			data: form_data,
 			success: function (data) {
 				$('#sub_total_harga_tindakan').val(data);
-				grandTotal();
-				$('.rupiah_tindakan').trigger('input'); // Will be display
+				update_grand_total();
+				$('.rupiah').trigger('input'); // Will be display
 			}
 		});
 

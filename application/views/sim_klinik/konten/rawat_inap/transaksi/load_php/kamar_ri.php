@@ -42,11 +42,11 @@
 	// jika kita tekan hapus / click button
 	$(document).on('click', '.remove_baris_kamar', function () {
 		var row_no = $(this).attr("id");
-		$('#row_kamar' + row_no).remove();
+		$('#row' + row_no).remove();
 
-		jumlah_detail_transaksi_kamar = jumlah_detail_transaksi_kamar - 1;
-
-		cekJumlahDataTransaksi_kamar();
+		jumlah_detail_transaksi = jumlah_detail_transaksi - 1;
+		cek_jumlah_data_detail_transaksi();
+		update_sub_harga_kamar()
 	});
 
 	// jika kita mengubah class inputan rupiah_kamar
@@ -118,49 +118,45 @@
 	// Start add_row
 	function pilihKamar(kode_kamar, nama_kamar, harga_harian_kamar, tipe_kamar) {
 
-		$('#detail_list_kamar').append(`
+		$('#detail_list').append(`
 
-			<div id="row_kamar` + count1 + `" class="form-row">
-				<div class="form-group col-sm-4">
-					<input type="text" readonly name="nama_kamar" class="form-control form-control-sm karakter" id="nama_kamar` +
-			count1 +
-			`" placeholder="Nama_kamar" required value="` + nama_kamar + `">
-					<input type="hidden" name="no_kamar_rawat_i" class="form-control form-control-sm" id="no_kamar_rawat_i` +
-			count1 + `" value="` +
-			kode_kamar +
-			`">
-				</div>
-				
-                <div class="form-group col-sm-2">
-					<input type="text" name="tipe_kamar" readonly class="form-control form-control-sm rupiah" id="tipe_kamar` +
-			count1 + `" placeholder="Tipe Kamar" value="` + tipe_kamar + `" required>
-                </div>
-                <div class="form-group col-sm-4">
-                	<input type="text" name="harga_harian_kamar"
-                		class="form-control form-control-sm rupiah_kamar text-right" id="harga_harian_kamar` +
-			count1 +
-			`" placeholder="Harga Harian Kamar" required value="` + harga_harian_kamar + `">
-                </div>
+		<tr id="row` + count_transaksi + `">
+			<td>
+				` + nama_kamar + `
+				<input type="hidden" name="no_kamar_rawat_i[]" class="form-control form-control-sm" id="no_kamar_rawat_i` +
+			count_transaksi + `" value="` + kode_kamar + `">
+			</td>
+			<td>1</td>
+			<td>
+				<input type="text" name="harga_harian_kamar[]"
+					class="form-control form-control-sm rupiah text-right harga_harian_kamar"
+					id="harga_tindakan` + count_transaksi + `" placeholder="Harga Tindakan" required
+					value="` + harga_harian_kamar + `">
+			</td>
+			<td>
+				<input type="text" class="form-control form-control-sm rupiah text-right"
+					id="sub_total_harga_kamar` + count_transaksi + `" readonly required value="` + harga_harian_kamar + `">
+			</td>
+			<td>
 				<div class="form-group col-sm-2">
-					<a id="` + count1 + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris_kamar">
+					<a id="` + count_transaksi + `" href="#"
+						class="btn btn-sm btn-danger btn-icon-split remove_baris_kamar">
 						<span class="icon text-white-50">
 							<i class="fas fa-trash-alt"></i>
 						</span>
-						<span class="text">Hapus</span>
 					</a>
 				</div>
-			</div>
+			</td>
+		</tr>
 
 		`);
 
-		count1 = count1 + 1;
-		jumlah_detail_transaksi_kamar = jumlah_detail_transaksi_kamar + 1;
+		count_transaksi = count_transaksi + 1;
+		jumlah_detail_transaksi = jumlah_detail_transaksi + 1;
 		$('#exampleModalCenter_kamar').modal('hide');
-		if (jumlah_detail_transaksi_kamar > 1) {
-			alert('Hanya boleh memilih satu kamar');
-		}
 
-		cekJumlahDataTransaksi_kamar();
+		cek_jumlah_data_detail_transaksi();
+		update_sub_harga_kamar();
 	}
 
 	function cekJumlahDataTransaksi_kamar() {
@@ -185,8 +181,8 @@
 			data: form_data,
 			success: function (data) {
 				$('#sub_total_harga_kamar').val(data);
-				grandTotal();
-				$('.rupiah_kamar').trigger('input'); // Will be display 
+				update_grand_total();
+				$('.rupiah').trigger('input'); // Will be display 
 			}
 		});
 
