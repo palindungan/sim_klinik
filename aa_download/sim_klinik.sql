@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 16 Jan 2020 pada 23.09
+-- Waktu pembuatan: 17 Jan 2020 pada 02.21
 -- Versi server: 10.1.37-MariaDB
 -- Versi PHP: 7.3.0
 
@@ -237,23 +237,6 @@ INSERT INTO `bp_tindakan` (`no_bp_t`, `nama`, `harga`, `status`) VALUES
 -- (Lihat di bawah untuk tampilan aktual)
 --
 CREATE TABLE `daftar_detail_kamar_rawat_inap` (
-`no_kamar_rawat_i` char(4)
-,`nama` varchar(50)
-,`harga_harian` int(9)
-,`tipe` varchar(20)
-,`no_ref_pelayanan` char(10)
-,`tanggal_cek_in` datetime
-,`tanggal_cek_out` datetime
-,`no_transaksi_rawat_i` char(13)
-);
-
--- --------------------------------------------------------
-
---
--- Stand-in struktur untuk tampilan `daftar_detail_kamar_transaksi_ri`
--- (Lihat di bawah untuk tampilan aktual)
---
-CREATE TABLE `daftar_detail_kamar_transaksi_ri` (
 `no_detail_transaksi_rawat_inap_k` int(7)
 ,`status_kamar` enum('Belum Cek Out','Sudah Cek Out')
 ,`no_kamar_rawat_i` char(4)
@@ -1176,16 +1159,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `daftar_detail_kamar_rawat_inap`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_detail_kamar_rawat_inap`  AS  select `kri`.`no_kamar_rawat_i` AS `no_kamar_rawat_i`,`kri`.`nama` AS `nama`,`dtrik`.`harga_harian` AS `harga_harian`,`kri`.`tipe` AS `tipe`,`tri`.`no_ref_pelayanan` AS `no_ref_pelayanan`,`dtrik`.`tanggal_cek_in` AS `tanggal_cek_in`,`dtrik`.`tanggal_cek_out` AS `tanggal_cek_out`,`tri`.`no_transaksi_rawat_i` AS `no_transaksi_rawat_i` from ((`detail_transaksi_rawat_inap_kamar` `dtrik` join `transaksi_rawat_inap` `tri` on((`dtrik`.`no_transaksi_rawat_i` = `tri`.`no_transaksi_rawat_i`))) join `kamar_rawat_inap` `kri` on((`dtrik`.`no_kamar_rawat_i` = `kri`.`no_kamar_rawat_i`))) order by `dtrik`.`no_detail_transaksi_rawat_inap_k` ;
-
--- --------------------------------------------------------
-
---
--- Struktur untuk view `daftar_detail_kamar_transaksi_ri`
---
-DROP TABLE IF EXISTS `daftar_detail_kamar_transaksi_ri`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_detail_kamar_transaksi_ri`  AS  select `dtrik`.`no_detail_transaksi_rawat_inap_k` AS `no_detail_transaksi_rawat_inap_k`,`dtrik`.`status_kamar` AS `status_kamar`,`kri`.`no_kamar_rawat_i` AS `no_kamar_rawat_i`,`kri`.`nama` AS `nama`,`dtrik`.`tanggal_cek_in` AS `tanggal_cek_in`,`dtrik`.`tanggal_cek_out` AS `tanggal_cek_out`,`dtrik`.`jumlah_hari` AS `jumlah_hari`,`dtrik`.`harga_harian` AS `harga_harian`,`dtrik`.`sub_total_harga` AS `sub_total_harga`,`kri`.`tipe` AS `tipe`,`tri`.`no_ref_pelayanan` AS `no_ref_pelayanan`,`tri`.`no_transaksi_rawat_i` AS `no_transaksi_rawat_i` from ((`detail_transaksi_rawat_inap_kamar` `dtrik` join `transaksi_rawat_inap` `tri` on((`dtrik`.`no_transaksi_rawat_i` = `tri`.`no_transaksi_rawat_i`))) join `kamar_rawat_inap` `kri` on((`dtrik`.`no_kamar_rawat_i` = `kri`.`no_kamar_rawat_i`))) order by `dtrik`.`no_detail_transaksi_rawat_inap_k` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_detail_kamar_rawat_inap`  AS  select `dtrik`.`no_detail_transaksi_rawat_inap_k` AS `no_detail_transaksi_rawat_inap_k`,`dtrik`.`status_kamar` AS `status_kamar`,`kri`.`no_kamar_rawat_i` AS `no_kamar_rawat_i`,`kri`.`nama` AS `nama`,`dtrik`.`tanggal_cek_in` AS `tanggal_cek_in`,`dtrik`.`tanggal_cek_out` AS `tanggal_cek_out`,`dtrik`.`jumlah_hari` AS `jumlah_hari`,`dtrik`.`harga_harian` AS `harga_harian`,`dtrik`.`sub_total_harga` AS `sub_total_harga`,`kri`.`tipe` AS `tipe`,`tri`.`no_ref_pelayanan` AS `no_ref_pelayanan`,`tri`.`no_transaksi_rawat_i` AS `no_transaksi_rawat_i` from ((`detail_transaksi_rawat_inap_kamar` `dtrik` join `transaksi_rawat_inap` `tri` on((`dtrik`.`no_transaksi_rawat_i` = `tri`.`no_transaksi_rawat_i`))) join `kamar_rawat_inap` `kri` on((`dtrik`.`no_kamar_rawat_i` = `kri`.`no_kamar_rawat_i`))) order by `dtrik`.`no_detail_transaksi_rawat_inap_k` ;
 
 -- --------------------------------------------------------
 
