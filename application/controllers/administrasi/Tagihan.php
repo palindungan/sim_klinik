@@ -572,5 +572,99 @@ class Tagihan extends CI_Controller
             }
         }
         // End Of cek di setiap transaksi
+
+        // Start of cek di setiap transaksi //// untuk kia_penanganan
+        if ($cek_kia_penanganan->num_rows() > 0) {
+
+            // Start of hapus semua detail transaksi lama
+            // ambil kode transaksi
+            $no_kia_p = "kosong";
+            foreach ($cek_kia_penanganan->result() as $data) {
+                $no_kia_p = $data->no_kia_p;
+            }
+
+            $where_no_kia_p = array(
+                'no_kia_p' => $no_kia_p
+            );
+
+            $hapus = $this->M_tagihan->hapus_data($where_no_kia_p, 'detail_kia_penanganan');
+            // End of hapus semua detail transaksi lama
+
+            // Start of Cek apakah ada data detail post masuk ? no_kia_t harga_kia_tindakan
+            if (isset($_POST['no_kia_t']) && isset($_POST['harga_kia_tindakan'])) {
+
+                // menambah detail transaksi baru 
+                for ($i = 0; $i < count($this->input->post('no_kia_t')); $i++) {
+
+                    $no_kia_t = $this->input->post('no_kia_t')[$i];
+
+                    $harga_jual_temp = $this->input->post('harga_kia_tindakan')[$i];
+                    $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
+
+                    $data = array(
+                        'no_kia_p' => $no_kia_p,
+                        'no_kia_t' => $no_kia_t,
+                        'harga' => $harga_jual
+                    );
+
+                    $tambah = $this->M_tagihan->input_data('detail_kia_penanganan', $data);
+                }
+
+                // update transaksi lama
+                $tgl_transaksi = date('Y-m-d H:i:s');
+                $total_tmp = $this->input->post('sub_total_kia_tindakan');
+                $total_harga = preg_replace("/[^0-9]/", "", $total_tmp);
+
+                $data = array(
+                    'tgl_penanganan' => $tgl_transaksi,
+                    'total_harga' => $total_harga
+                );
+                $update = $this->M_tagihan->update_data($where_no_kia_p, 'kia_penanganan', $data);
+            } else {
+
+                // Hapus transaksi Utama
+                $hapus = $this->M_tagihan->hapus_data($where_no_kia_p, 'kia_penanganan');
+            }
+            // End of Cek apakah ada data detail post masuk ?
+
+        } else {
+
+            // Start of Cek apakah ada data detail post masuk ? no_kia_t harga_kia_tindakan
+            if (isset($_POST['no_kia_t']) && isset($_POST['harga_kia_tindakan'])) {
+
+                // menambah transaksi utama
+                $no_kia_p = $this->M_tagihan->get_no_kia_p(); // generate
+                $tgl_transaksi = date('Y-m-d H:i:s');
+                $total_tmp = $this->input->post('sub_total_kia_tindakan');
+                $total_harga = preg_replace("/[^0-9]/", "", $total_tmp);
+
+                $data = array(
+                    'no_kia_p' => $no_kia_p,
+                    'no_ref_pelayanan' => $no_ref_pelayanan,
+                    'tgl_penanganan' => $tgl_transaksi,
+                    'total_harga' => $total_harga
+                );
+
+                $tambah = $this->M_tagihan->input_data('kia_penanganan', $data);
+
+                // menambah detail transaksi baru 
+                for ($i = 0; $i < count($this->input->post('no_kia_t')); $i++) {
+
+                    $no_kia_t = $this->input->post('no_kia_t')[$i];
+
+                    $harga_jual_temp = $this->input->post('harga_kia_tindakan')[$i];
+                    $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
+
+                    $data = array(
+                        'no_kia_p' => $no_kia_p,
+                        'no_kia_t' => $no_kia_t,
+                        'harga' => $harga_jual
+                    );
+
+                    $tambah = $this->M_tagihan->input_data('detail_kia_penanganan', $data);
+                }
+            }
+        }
+        // End Of cek di setiap transaksi
     }
 }
