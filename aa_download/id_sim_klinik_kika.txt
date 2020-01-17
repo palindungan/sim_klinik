@@ -14,6 +14,8 @@ no_penerimaan_o = PO191125-0001
 no_penjualan_obat_a = PA191125-0001
 transaksi_rawat_inap = RI191125-0001
 
+no_pelayanan_a = AB191121-0001
+
 mengubah data master pasien
 tambah tipe pelayanan = untuk membedakan pelayanan rawat inap rawat jalan
 tipe pada obat untuk membagi obat dengan alkes (data master obat)

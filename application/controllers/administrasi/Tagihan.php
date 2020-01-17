@@ -670,6 +670,7 @@ class Tagihan extends CI_Controller
         // Start of cek di setiap transaksi //// untuk pelayanan_ambulan
         if ($cek_pelayanan_ambulan->num_rows() > 0) {
 
+            // Start of hapus semua detail transaksi lama
             // ambil kode transaksi
             $no_pelayanan_a = "kosong";
             foreach ($cek_pelayanan_ambulan->result() as $data) {
@@ -680,20 +681,23 @@ class Tagihan extends CI_Controller
                 'no_pelayanan_a' => $no_pelayanan_a
             );
 
-            // Start of Cek apakah ada data detail post masuk ? no_bp_t harga_bp_tindakan
-            if (isset($_POST['no_bp_t']) && isset($_POST['harga_bp_tindakan'])) {
+            $hapus = $this->M_tagihan->hapus_data($where_no_pelayanan_a, 'detail_pelayanan_ambulan');
+            // End of hapus semua detail transaksi lama
+
+            // Start of Cek apakah ada data detail post masuk ? no_ambulance harga_ambulance
+            if (isset($_POST['no_ambulance']) && isset($_POST['harga_ambulance'])) {
 
                 // menambah detail transaksi baru 
-                for ($i = 0; $i < count($this->input->post('no_bp_t')); $i++) {
+                for ($i = 0; $i < count($this->input->post('no_ambulance')); $i++) {
 
-                    $no_bp_t = $this->input->post('no_bp_t')[$i];
+                    $no_ambulance = $this->input->post('no_ambulance')[$i];
 
-                    $harga_jual_temp = $this->input->post('harga_bp_tindakan')[$i];
+                    $harga_jual_temp = $this->input->post('harga_ambulance')[$i];
                     $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
 
                     $data = array(
                         'no_pelayanan_a' => $no_pelayanan_a,
-                        'no_bp_t' => $no_bp_t,
+                        'no_ambulance' => $no_ambulance,
                         'harga' => $harga_jual
                     );
 
@@ -702,11 +706,11 @@ class Tagihan extends CI_Controller
 
                 // update transaksi lama
                 $tgl_transaksi = date('Y-m-d H:i:s');
-                $total_tmp = $this->input->post('sub_total_bp_tindakan');
+                $total_tmp = $this->input->post('sub_total_ambulance');
                 $total_harga = preg_replace("/[^0-9]/", "", $total_tmp);
 
                 $data = array(
-                    'tgl_penanganan' => $tgl_transaksi,
+                    'tanggal' => $tgl_transaksi,
                     'total_harga' => $total_harga
                 );
                 $update = $this->M_tagihan->update_data($where_no_pelayanan_a, 'pelayanan_ambulan', $data);
@@ -719,35 +723,35 @@ class Tagihan extends CI_Controller
 
         } else {
 
-            // Start of Cek apakah ada data detail post masuk ? no_bp_t harga_bp_tindakan
-            if (isset($_POST['no_bp_t']) && isset($_POST['harga_bp_tindakan'])) {
+            // Start of Cek apakah ada data detail post masuk ? no_ambulance harga_ambulance
+            if (isset($_POST['no_ambulance']) && isset($_POST['harga_ambulance'])) {
 
                 // menambah transaksi utama
                 $no_pelayanan_a = $this->M_tagihan->get_no_pelayanan_a(); // generate
                 $tgl_transaksi = date('Y-m-d H:i:s');
-                $total_tmp = $this->input->post('sub_total_bp_tindakan');
+                $total_tmp = $this->input->post('sub_total_ambulance');
                 $total_harga = preg_replace("/[^0-9]/", "", $total_tmp);
 
                 $data = array(
                     'no_pelayanan_a' => $no_pelayanan_a,
                     'no_ref_pelayanan' => $no_ref_pelayanan,
-                    'tgl_penanganan' => $tgl_transaksi,
+                    'tanggal' => $tgl_transaksi,
                     'total_harga' => $total_harga
                 );
 
                 $tambah = $this->M_tagihan->input_data('pelayanan_ambulan', $data);
 
                 // menambah detail transaksi baru 
-                for ($i = 0; $i < count($this->input->post('no_bp_t')); $i++) {
+                for ($i = 0; $i < count($this->input->post('no_ambulance')); $i++) {
 
-                    $no_bp_t = $this->input->post('no_bp_t')[$i];
+                    $no_ambulance = $this->input->post('no_ambulance')[$i];
 
-                    $harga_jual_temp = $this->input->post('harga_bp_tindakan')[$i];
+                    $harga_jual_temp = $this->input->post('harga_ambulance')[$i];
                     $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
 
                     $data = array(
                         'no_pelayanan_a' => $no_pelayanan_a,
-                        'no_bp_t' => $no_bp_t,
+                        'no_ambulance' => $no_ambulance,
                         'harga' => $harga_jual
                     );
 
