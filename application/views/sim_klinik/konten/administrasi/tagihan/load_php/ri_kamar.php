@@ -108,7 +108,7 @@
                 <input style="display: none" readonly type="text" name="tanggal_cek_out_ri_kamar[]" class="form-control form-control-sm text-right" id="tanggal_cek_out_ri_kamar` + count_transaksi + `" required value="">
             </td>
             <td>  
-                <input  maxlength="3" type="text" name="jumlah_hari_ri_kamar[]" class="cek_jumlah_hari_ri_kamar form-control form-control-sm text-right" id="jumlah_hari_ri_kamar` + count_transaksi + `" placeholder="@Hari" required value="0">
+                <input readonly maxlength="3" type="text" name="jumlah_hari_ri_kamar[]" class="cek_jumlah_hari_ri_kamar form-control form-control-sm text-right" id="jumlah_hari_ri_kamar` + count_transaksi + `" placeholder="@Hari" required value="0">
             </td>
             <td>
                 <input type="text" name="harga_harian_ri_kamar[]" class="form-control form-control-sm rupiah text-right harga_harian_ri_kamar_update" id="harga_harian_ri_kamar` + count_transaksi + `" placeholder="Harga RI Kamar" required value="` + harga + `">
@@ -183,6 +183,8 @@
 
         var c = confirm("Lakukan Check Out Kamar ?");
         if (c == true) {
+
+            document.getElementById("jumlah_hari_ri_kamar" + row_no).readOnly = false;
 
             $('#tanggal_cek_out_ri_kamar' + row_no).val(moment().format('YYYY-MM-DD HH:mm:ss'));
 
