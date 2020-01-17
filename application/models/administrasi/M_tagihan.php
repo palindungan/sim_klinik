@@ -51,50 +51,17 @@ class M_tagihan extends CI_Model
         $this->db->where($where);
         return $this->db->get()->result_array();
     }
-    function get_no_transaksi_kia()
-    {
-        $field = "no_kia_p";
-        $tabel = "kia_penanganan";
-        $digit = "4";
-        $ymd = date('ymd');
 
-        $q = $this->db->query("SELECT MAX(RIGHT($field,$digit)) AS kd_max FROM $tabel WHERE SUBSTR($field, 3, 6) = $ymd LIMIT 1");
-        $kd = "";
-        if ($q->num_rows() > 0) {
-            foreach ($q->result() as $k) {
-                $tmp = ((int) $k->kd_max) + 1;
-                $kd = sprintf("%04s", $tmp);
-            }
-        } else {
-            $kd = "0001";
-        }
-        date_default_timezone_set('Asia/Jakarta');
-        return 'KP' . date('ymd') . '-' . $kd; // SELECT SUBSTR('BP191121-0001', 3, 6); dari digit ke 3 sampai 6 digit seanjutnya
+    private $_table = 'ambulance';
+
+    function getAmbulance()
+    {
+        return $this->db->get($this->_table);
     }
 
-    function get_no_transaksi_bp()
+    function get_no_lab_t()
     {
-        $field = "no_bp_p";
-        $tabel = "bp_penanganan";
-        $digit = "4";
-        $ymd = date('ymd');
-
-        $q = $this->db->query("SELECT MAX(RIGHT($field,$digit)) AS kd_max FROM $tabel WHERE SUBSTR($field, 3, 6) = $ymd LIMIT 1");
-        $kd = "";
-        if ($q->num_rows() > 0) {
-            foreach ($q->result() as $k) {
-                $tmp = ((int) $k->kd_max) + 1;
-                $kd = sprintf("%04s", $tmp);
-            }
-        } else {
-            $kd = "0001";
-        }
         date_default_timezone_set('Asia/Jakarta');
-        return 'BP' . date('ymd') . '-' . $kd; // SELECT SUBSTR('BP191121-0001', 3, 6); dari digit ke 3 sampai 6 digit seanjutnya
-    }
-
-    function get_no_transaksi_lab()
-    {
         $field = "no_lab_t";
         $tabel = "lab_transaksi";
         $digit = "4";
@@ -110,96 +77,6 @@ class M_tagihan extends CI_Model
         } else {
             $kd = "0001";
         }
-        date_default_timezone_set('Asia/Jakarta');
         return 'LB' . date('ymd') . '-' . $kd; // SELECT SUBSTR('LB191121-0001', 3, 6); dari digit ke 3 sampai 6 digit seanjutnya
-    }
-
-    function get_no_transaksi_ugd()
-    {
-        $field = "no_ugd_p";
-        $tabel = "ugd_penanganan";
-        $digit = "4";
-        $ymd = date('ymd');
-
-        $q = $this->db->query("SELECT MAX(RIGHT($field,$digit)) AS kd_max FROM $tabel WHERE SUBSTR($field, 3, 6) = $ymd LIMIT 1");
-        $kd = "";
-        if ($q->num_rows() > 0) {
-            foreach ($q->result() as $k) {
-                $tmp = ((int) $k->kd_max) + 1;
-                $kd = sprintf("%04s", $tmp);
-            }
-        } else {
-            $kd = "0001";
-        }
-        date_default_timezone_set('Asia/Jakarta');
-        return 'UP' . date('ymd') . '-' . $kd; // SELECT SUBSTR('BP191121-0001', 3, 6); dari digit ke 3 sampai 6 digit seanjutnya
-    }
-
-    function get_no_transaksi_rawat_inap()
-    {
-        $field = "no_transaksi_rawat_i";
-        $tabel = "transaksi_rawat_inap";
-        $digit = "4";
-        $ymd = date('ymd');
-
-        $q = $this->db->query("SELECT MAX(RIGHT($field,$digit)) AS kd_max FROM $tabel WHERE SUBSTR($field, 3, 6) = $ymd LIMIT 1");
-        $kd = "";
-        if ($q->num_rows() > 0) {
-            foreach ($q->result() as $k) {
-                $tmp = ((int) $k->kd_max) + 1;
-                $kd = sprintf('%0' . $digit . 's', $tmp);
-            }
-        } else {
-            $kd = "0001";
-        }
-        date_default_timezone_set('Asia/Jakarta');
-        return 'RI' . date('ymd') . '-' . $kd; // SELECT SUBSTR('RI191121-0001', 3, 6); dari digit ke 3 sampai 6 digit seanjutnya
-    }
-
-    function get_no_transaksi()
-    {
-        // PO191125-0001
-        $field = "no_penjualan_obat_a";
-        $tabel = "penjualan_obat_apotik";
-        $digit = "4";
-        $ymd = date('ymd');
-
-        $q = $this->db->query("SELECT MAX(RIGHT($field,$digit)) AS kd_max FROM $tabel WHERE SUBSTR($field, 3, 6) = $ymd LIMIT 1");
-        $kd = "";
-        if ($q->num_rows() > 0) {
-            foreach ($q->result() as $k) {
-                $tmp = ((int) $k->kd_max) + 1;
-                $kd = sprintf("%04s", $tmp);
-            }
-        } else {
-            $kd = "0001";
-        }
-        date_default_timezone_set('Asia/Jakarta');
-        return 'PA' . date('ymd') . '-' . $kd; // SELECT SUBSTR('BP191121-0001', 3, 6); dari digit ke 3 sampai 6 digit seanjutnya
-    }
-    function get_no_transaksi_ambulan()
-    {
-        $field = "no_pelayanan_a";
-        $tabel = "pelayanan_ambulan";
-        $digit = "3";
-        $kode = "T";
-        $q = $this->db->query("SELECT MAX(RIGHT($field,$digit)) AS kd_max FROM $tabel");
-        $kd = "";
-        if ($q->num_rows() > 0) {
-            foreach ($q->result() as $k) {
-                $tmp = ((int) $k->kd_max) + 1;
-                $kd = $kode . sprintf('%0' . $digit . 's', $tmp);
-            }
-        } else {
-            $kd = "T001";
-        }
-        return $kd;
-    }
-
-    private $_table = 'ambulance';
-
-    function getAmbulance()
-    {
-        return $this->db->get($this->_table);
     }
 }

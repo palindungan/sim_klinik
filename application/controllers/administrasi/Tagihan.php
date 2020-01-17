@@ -4,9 +4,9 @@ class Tagihan extends CI_Controller
     function __construct()
     {
         parent::__construct();
+        date_default_timezone_set('Asia/Jakarta');
         $this->load->model('ambulance/M_ambulance');
         $this->load->model('administrasi/M_tagihan');
-        // date_default_timezone_set('Asia/Jakarta');
     }
 
     public function index()
@@ -275,6 +275,114 @@ class Tagihan extends CI_Controller
 
     public function input_transaksi_form()
     {
+
         $no_ref_pelayanan = $this->input->post('no_ref_pelayanan');
+
+        $where_no_ref_pelayanan = array(
+            'no_ref_pelayanan' => $no_ref_pelayanan
+        );
+
+        // cek apakah ada no ref pelayanan didalam semua tabel transaksi
+        $cek_lab_transaksi = $this->M_tagihan->get_data('lab_transaksi', $where_no_ref_pelayanan);
+        $cek_bp_penanganan = $this->M_tagihan->get_data('bp_penanganan', $where_no_ref_pelayanan);
+        $cek_ugd_penanganan = $this->M_tagihan->get_data('ugd_penanganan', $where_no_ref_pelayanan);
+        $cek_kia_penanganan = $this->M_tagihan->get_data('kia_penanganan', $where_no_ref_pelayanan);
+        $cek_pelayanan_ambulan = $this->M_tagihan->get_data('pelayanan_ambulan', $where_no_ref_pelayanan);
+        $cek_transaksi_rawat_inap = $this->M_tagihan->get_data('transaksi_rawat_inap', $where_no_ref_pelayanan);
+        $cek_penjualan_obat_apotik = $this->M_tagihan->get_data('penjualan_obat_apotik', $where_no_ref_pelayanan);
+
+        // Start of cek di setiap transaksi //// untuk lab_transaksi
+        if ($cek_lab_transaksi->num_rows() > 0) {
+
+            // Start of hapus semua detail transaksi lama
+            // ambil kode transaksi
+            $no_lab_t = "kosong";
+            foreach ($cek_lab_transaksi->result() as $data) {
+                $no_lab_t = $data->no_lab_t;
+            }
+
+            $where_no_lab_t = array(
+                'no_lab_t' => $no_lab_t
+            );
+
+            $hapus = $this->M_tagihan->hapus_data($where_no_lab_t, 'detail_lab_transaksi');
+            // End of hapus semua detail transaksi lama
+
+            // Start of Cek apakah ada data detail post masuk ? no_lab_c harga_lab_tindakan
+            if (isset($_POST['no_lab_c']) && isset($_POST['harga_lab_tindakan'])) {
+
+                // menambah detail transaksi baru 
+                for ($i = 0; $i < count($this->input->post('no_lab_c')); $i++) {
+
+                    $no_lab_c = $this->input->post('no_lab_c')[$i];
+
+                    $harga_jual_temp = $this->input->post('harga_lab_tindakan')[$i];
+                    $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
+
+                    $data = array(
+                        'no_lab_t' => $no_lab_t,
+                        'no_lab_c' => $no_lab_c,
+                        'harga' => $harga_jual
+                    );
+
+                    $tambah = $this->M_tagihan->input_data('detail_lab_transaksi', $data);
+                }
+
+                // update transaksi lama
+                $tgl_transaksi = date('Y-m-d H:i:s');
+                $total_tmp = $this->input->post('sub_total_lab_tindakan');
+                $total_harga = preg_replace("/[^0-9]/", "", $total_tmp);
+
+                $data = array(
+                    'tgl_transaksi' => $tgl_transaksi,
+                    'total_harga' => $total_harga
+                );
+                $update = $this->M_tagihan->update_data($where_no_lab_t, 'lab_transaksi', $data);
+            } else {
+
+                // Hapus transaksi Utama
+                $hapus = $this->M_tagihan->hapus_data($where_no_lab_t, 'lab_transaksi');
+            }
+            // End of Cek apakah ada data detail post masuk ?
+
+        } else {
+
+            // Start of Cek apakah ada data detail post masuk ? no_lab_c harga_lab_tindakan
+            if (isset($_POST['no_lab_c']) && isset($_POST['harga_lab_tindakan'])) {
+
+                // menambah transaksi utama
+                $no_lab_t = $this->M_tagihan->get_no_lab_t(); // generate
+                $tgl_transaksi = date('Y-m-d H:i:s');
+                $total_tmp = $this->input->post('sub_total_lab_tindakan');
+                $total_harga = preg_replace("/[^0-9]/", "", $total_tmp);
+
+                $data = array(
+                    'no_lab_t' => $no_lab_t,
+                    'no_ref_pelayanan' => $no_ref_pelayanan,
+                    'tgl_transaksi' => $tgl_transaksi,
+                    'total_harga' => $total_harga
+                );
+
+                $tambah = $this->M_tagihan->input_data('lab_transaksi', $data);
+
+                // menambah detail transaksi baru 
+                for ($i = 0; $i < count($this->input->post('no_lab_c')); $i++) {
+
+                    $no_lab_c = $this->input->post('no_lab_c')[$i];
+
+                    $harga_jual_temp = $this->input->post('harga_lab_tindakan')[$i];
+                    $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
+
+                    $data = array(
+                        'no_lab_t' => $no_lab_t,
+                        'no_lab_c' => $no_lab_c,
+                        'harga' => $harga_jual
+                    );
+
+                    $tambah = $this->M_tagihan->input_data('detail_lab_transaksi', $data);
+                }
+            }
+        }
+        // End Of cek di setiap transaksi
     }
 }
