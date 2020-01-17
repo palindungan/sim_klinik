@@ -103,6 +103,7 @@ class M_tagihan extends CI_Model
 
     function get_no_ugd_p()
     {
+        date_default_timezone_set('Asia/Jakarta');
         $field = "no_ugd_p";
         $tabel = "ugd_penanganan";
         $digit = "4";
@@ -118,7 +119,6 @@ class M_tagihan extends CI_Model
         } else {
             $kd = "0001";
         }
-        date_default_timezone_set('Asia/Jakarta');
         return 'UP' . date('ymd') . '-' . $kd; // SELECT SUBSTR('BP191121-0001', 3, 6); dari digit ke 3 sampai 6 digit seanjutnya
     }
 }
