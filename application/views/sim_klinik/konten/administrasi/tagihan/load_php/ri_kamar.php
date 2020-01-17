@@ -3,14 +3,14 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Tindakan Balai Pengobatan</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">Rawat Inap - Kamar</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered table_ri_kamar" width="100%" cellspacing="0">
+                    <table id="table_ri_kamar" class="table table-bordered" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -20,7 +20,6 @@
                                 <th>Aksi</th>
                             </tr>
                         </thead>
-
                         <tbody>
                         </tbody>
 
@@ -41,7 +40,18 @@
     function search_proses_ri_kamar() {
 
         var table;
-        table = $('.table_ri_kamar').DataTable();
+        table = $('#table_ri_kamar').DataTable({
+            "columnDefs": [{
+					"targets": 3,
+					"className": "text-right"
+				},{
+					"targets": 4,
+					"className": "text-center"
+				}
+				
+			],
+			"bDestroy": true
+        });
 
         table.clear();
 
@@ -76,10 +86,6 @@
 
                         no = no + 1;
                     });
-                } else {
-
-                    $('.table_ri_kamar').html('<h3>No data are available</h3>');
-
                 }
                 table.draw();
 

@@ -10,7 +10,7 @@
             </div>
             <div class="modal-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered table_apotek_obat" width="100%" cellspacing="0">
+                    <table id="table_apotek_obat" class="table table-bordered" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -42,7 +42,18 @@
     function search_proses_apotek_obat() {
 
         var table;
-        table = $('.table_apotek_obat').DataTable();
+        table = $('#table_apotek_obat').DataTable({
+            "columnDefs": [{
+					"targets": 4,
+					"className": "text-right"
+				},{
+					"targets": 5,
+					"className": "text-center"
+				}
+				
+			],
+			"bDestroy": true
+        });
 
         table.clear();
 
@@ -80,10 +91,6 @@
 
                         no = no + 1;
                     });
-                } else {
-
-                    $('.table_apotek_obat').html('<h3>No data are available</h3>');
-
                 }
                 table.draw();
 

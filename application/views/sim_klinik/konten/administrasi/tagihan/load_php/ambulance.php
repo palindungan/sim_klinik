@@ -10,7 +10,7 @@
             </div>
             <div class="modal-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered table_ambulance" width="100%" cellspacing="0">
+                    <table id="table_ambulance" class="table table-bordered" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -40,7 +40,18 @@
     function search_proses_ambulance() {
 
         var table;
-        table = $('.table_ambulance').DataTable();
+        table = $('#table_ambulance').DataTable({
+            "columnDefs": [{
+					"targets": 2,
+					"className": "text-right"
+				},{
+					"targets": 3,
+					"className": "text-center"
+				}
+				
+			],
+			"bDestroy": true
+        });
 
         table.clear();
 
@@ -65,7 +76,7 @@
                             ribuan = reverse.match(/\d{1,3}/g);
                         ribuan = ribuan.join('.').split('').reverse().join('');
 
-                        var button = `<a onclick="tambah_detail_ambulance('` + no_ambulance +
+                        var button = `<a href="#" onclick="tambah_detail_ambulance('` + no_ambulance +
                             `','` + tujuan_ambulance + `','` + harga_ambulance + `')" id="` +
                             no_ambulance +
                             `" class="btn btn-sm btn-dark text-white">Pilih</a>`;
@@ -74,10 +85,6 @@
 
                         no = no + 1;
                     });
-                } else {
-
-                    $('.table_ambulance').html('<h3>No data are available</h3>');
-
                 }
                 table.draw();
 

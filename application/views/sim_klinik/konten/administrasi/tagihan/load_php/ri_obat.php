@@ -10,7 +10,7 @@
             </div>
             <div class="modal-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered table_ri_obat" width="100%" cellspacing="0">
+                    <table id="table_ri_obat" class="table table-bordered" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -21,7 +21,6 @@
                                 <th>Aksi</th>
                             </tr>
                         </thead>
-
                         <tbody>
                         </tbody>
 
@@ -42,7 +41,18 @@
     function search_proses_ri_obat() {
 
         var table;
-        table = $('.table_ri_obat').DataTable();
+        table = $('#table_ri_obat').DataTable({
+            "columnDefs": [{
+					"targets": 4,
+					"className": "text-right"
+				},{
+					"targets": 5,
+					"className": "text-center"
+				}
+				
+			],
+			"bDestroy": true
+        });
 
         table.clear();
 
@@ -77,10 +87,6 @@
 
                         no = no + 1;
                     });
-                } else {
-
-                    $('.table_obat').html('<h3>No data are available</h3>');
-
                 }
                 table.draw();
 

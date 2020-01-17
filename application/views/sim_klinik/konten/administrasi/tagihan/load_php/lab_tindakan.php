@@ -3,14 +3,14 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Tindakan LAB</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">Check Up LAB</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered table_lab_tindakan" width="100%" cellspacing="0">
+                    <table id="checkup_lab" class="table table-bordered" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <th class="text-center">No</th>
@@ -19,10 +19,8 @@
                                 <th class="text-center">Aksi</th>
                             </tr>
                         </thead>
-
                         <tbody>
                         </tbody>
-
                     </table>
                 </div>
             </div>
@@ -40,7 +38,18 @@
     function search_proses_lab_tindakan() {
 
         var table;
-        table = $('.table_lab_tindakan').DataTable();
+        table = $('#checkup_lab').DataTable({
+            "columnDefs": [{
+					"targets": 2,
+					"className": "text-right"
+				},{
+					"targets": 3,
+					"className": "text-center"
+				}
+				
+			],
+			"bDestroy": true
+        });
 
         table.clear();
 
@@ -71,10 +80,6 @@
 
                         no = no + 1;
                     });
-                } else {
-
-                    $('.table_lab_tindakan').html('<h3>No data are available</h3>');
-
                 }
                 table.draw();
 

@@ -10,7 +10,7 @@
             </div>
             <div class="modal-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered table_bp_tindakan" width="100%" cellspacing="0">
+                    <table id="table_bp_tindakan" class="table table-bordered" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <th class="text-center">No</th>
@@ -40,7 +40,18 @@
     function search_proses_bp_tindakan() {
 
         var table;
-        table = $('.table_bp_tindakan').DataTable();
+        table = $('#table_bp_tindakan').DataTable({
+            "columnDefs": [{
+					"targets": 2,
+					"className": "text-right"
+				},{
+					"targets": 3,
+					"className": "text-center"
+				}
+				
+			],
+			"bDestroy": true
+        });
 
         table.clear();
 
@@ -72,10 +83,6 @@
 
                         no = no + 1;
                     });
-                } else {
-
-                    $('.table_bp_tindakan').html('<h3>No data are available</h3>');
-
                 }
                 table.draw();
 

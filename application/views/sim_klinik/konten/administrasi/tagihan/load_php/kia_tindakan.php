@@ -10,7 +10,7 @@
             </div>
             <div class="modal-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered table_kia_tindakan" width="100%" cellspacing="0">
+                    <table id="table_kia_tindakan" class="table table-bordered" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <th class="text-center">No</th>
@@ -19,7 +19,6 @@
                                 <th class="text-center">Aksi</th>
                             </tr>
                         </thead>
-
                         <tbody>
                         </tbody>
 
@@ -40,7 +39,18 @@
     function search_proses_kia_tindakan() {
 
         var table;
-        table = $('.table_kia_tindakan').DataTable();
+        table = $('#table_kia_tindakan').DataTable({
+            "columnDefs": [{
+					"targets": 2,
+					"className": "text-right"
+				},{
+					"targets": 3,
+					"className": "text-center"
+				}
+				
+			],
+			"bDestroy": true
+        });
 
         table.clear();
 
@@ -71,10 +81,6 @@
 
                         no = no + 1;
                     });
-                } else {
-
-                    $('.table_kia_tindakan').html('<h3>No data are available</h3>');
-
                 }
                 table.draw();
 
