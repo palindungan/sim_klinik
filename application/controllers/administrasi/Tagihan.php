@@ -288,8 +288,8 @@ class Tagihan extends CI_Controller
         $cek_ugd_penanganan = $this->M_tagihan->get_data('ugd_penanganan', $where_no_ref_pelayanan);
         $cek_kia_penanganan = $this->M_tagihan->get_data('kia_penanganan', $where_no_ref_pelayanan);
         $cek_pelayanan_ambulan = $this->M_tagihan->get_data('pelayanan_ambulan', $where_no_ref_pelayanan);
-        $cek_transaksi_rawat_inap = $this->M_tagihan->get_data('transaksi_rawat_inap', $where_no_ref_pelayanan);
         $cek_penjualan_obat_apotik = $this->M_tagihan->get_data('penjualan_obat_apotik', $where_no_ref_pelayanan);
+        $cek_transaksi_rawat_inap = $this->M_tagihan->get_data('transaksi_rawat_inap', $where_no_ref_pelayanan);
 
         // Start of cek di setiap transaksi //// untuk lab_transaksi
         if ($cek_lab_transaksi->num_rows() > 0) {
@@ -662,6 +662,96 @@ class Tagihan extends CI_Controller
                     );
 
                     $tambah = $this->M_tagihan->input_data('detail_kia_penanganan', $data);
+                }
+            }
+        }
+        // End Of cek di setiap transaksi
+
+        // Start of cek di setiap transaksi //// untuk pelayanan_ambulan
+        if ($cek_pelayanan_ambulan->num_rows() > 0) {
+
+            // ambil kode transaksi
+            $no_pelayanan_a = "kosong";
+            foreach ($cek_pelayanan_ambulan->result() as $data) {
+                $no_pelayanan_a = $data->no_pelayanan_a;
+            }
+
+            $where_no_pelayanan_a = array(
+                'no_pelayanan_a' => $no_pelayanan_a
+            );
+
+            // Start of Cek apakah ada data detail post masuk ? no_bp_t harga_bp_tindakan
+            if (isset($_POST['no_bp_t']) && isset($_POST['harga_bp_tindakan'])) {
+
+                // menambah detail transaksi baru 
+                for ($i = 0; $i < count($this->input->post('no_bp_t')); $i++) {
+
+                    $no_bp_t = $this->input->post('no_bp_t')[$i];
+
+                    $harga_jual_temp = $this->input->post('harga_bp_tindakan')[$i];
+                    $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
+
+                    $data = array(
+                        'no_pelayanan_a' => $no_pelayanan_a,
+                        'no_bp_t' => $no_bp_t,
+                        'harga' => $harga_jual
+                    );
+
+                    $tambah = $this->M_tagihan->input_data('detail_pelayanan_ambulan', $data);
+                }
+
+                // update transaksi lama
+                $tgl_transaksi = date('Y-m-d H:i:s');
+                $total_tmp = $this->input->post('sub_total_bp_tindakan');
+                $total_harga = preg_replace("/[^0-9]/", "", $total_tmp);
+
+                $data = array(
+                    'tgl_penanganan' => $tgl_transaksi,
+                    'total_harga' => $total_harga
+                );
+                $update = $this->M_tagihan->update_data($where_no_pelayanan_a, 'pelayanan_ambulan', $data);
+            } else {
+
+                // Hapus transaksi Utama
+                $hapus = $this->M_tagihan->hapus_data($where_no_pelayanan_a, 'pelayanan_ambulan');
+            }
+            // End of Cek apakah ada data detail post masuk ?
+
+        } else {
+
+            // Start of Cek apakah ada data detail post masuk ? no_bp_t harga_bp_tindakan
+            if (isset($_POST['no_bp_t']) && isset($_POST['harga_bp_tindakan'])) {
+
+                // menambah transaksi utama
+                $no_pelayanan_a = $this->M_tagihan->get_no_pelayanan_a(); // generate
+                $tgl_transaksi = date('Y-m-d H:i:s');
+                $total_tmp = $this->input->post('sub_total_bp_tindakan');
+                $total_harga = preg_replace("/[^0-9]/", "", $total_tmp);
+
+                $data = array(
+                    'no_pelayanan_a' => $no_pelayanan_a,
+                    'no_ref_pelayanan' => $no_ref_pelayanan,
+                    'tgl_penanganan' => $tgl_transaksi,
+                    'total_harga' => $total_harga
+                );
+
+                $tambah = $this->M_tagihan->input_data('pelayanan_ambulan', $data);
+
+                // menambah detail transaksi baru 
+                for ($i = 0; $i < count($this->input->post('no_bp_t')); $i++) {
+
+                    $no_bp_t = $this->input->post('no_bp_t')[$i];
+
+                    $harga_jual_temp = $this->input->post('harga_bp_tindakan')[$i];
+                    $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
+
+                    $data = array(
+                        'no_pelayanan_a' => $no_pelayanan_a,
+                        'no_bp_t' => $no_bp_t,
+                        'harga' => $harga_jual
+                    );
+
+                    $tambah = $this->M_tagihan->input_data('detail_pelayanan_ambulan', $data);
                 }
             }
         }
