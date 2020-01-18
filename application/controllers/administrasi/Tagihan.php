@@ -1121,5 +1121,8 @@ class Tagihan extends CI_Controller
             // End of Cek apakah ada data detail post masuk ?
         }
         // End Of cek di setiap transaksi
+
+        $this->session->set_flashdata('success', 'Ditambahkan');
+        redirect('administrasi/tagihan');
     }
 }
