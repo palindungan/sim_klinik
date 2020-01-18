@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 18 Jan 2020 pada 01.27
+-- Waktu pembuatan: 18 Jan 2020 pada 02.04
 -- Versi server: 10.1.37-MariaDB
 -- Versi PHP: 7.3.0
 
@@ -413,10 +413,12 @@ CREATE TABLE `daftar_penjualan_obat_apotek` (
 --
 CREATE TABLE `daftar_penjualan_obat_apotek_detail` (
 `no_detail_penjualan_obat_a` int(7)
+,`kode_obat` char(4)
 ,`nama` varchar(50)
 ,`qty` int(3)
 ,`harga_jual` int(9)
 ,`status_paket` enum('Ya','Tidak')
+,`qty_sekarang` mediumint(5)
 ,`no_penjualan_obat_a` char(13)
 ,`no_ref_pelayanan` char(10)
 );
@@ -435,6 +437,7 @@ CREATE TABLE `daftar_penjualan_obat_rawat_inap_detail` (
 ,`harga_jual` int(10)
 ,`no_ref_pelayanan` char(10)
 ,`no_transaksi_rawat_i` char(13)
+,`qty_sekarang` mediumint(5)
 );
 
 -- --------------------------------------------------------
@@ -569,14 +572,6 @@ CREATE TABLE `detail_pelayanan_ambulan` (
   `harga` int(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `detail_pelayanan_ambulan`
---
-
-INSERT INTO `detail_pelayanan_ambulan` (`no_detail_pelayanan_ambulan`, `no_pelayanan_a`, `no_ambulance`, `harga`) VALUES
-(1, 'AB200118-0001', 1, 200000),
-(2, 'AB200118-0001', 2, 250000);
-
 -- --------------------------------------------------------
 
 --
@@ -609,6 +604,14 @@ CREATE TABLE `detail_transaksi_rawat_inap_kamar` (
   `sub_total_harga` int(10) NOT NULL,
   `status_kamar` enum('Belum Cek Out','Sudah Cek Out') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `detail_transaksi_rawat_inap_kamar`
+--
+
+INSERT INTO `detail_transaksi_rawat_inap_kamar` (`no_detail_transaksi_rawat_inap_k`, `no_transaksi_rawat_i`, `no_kamar_rawat_i`, `tanggal_cek_in`, `tanggal_cek_out`, `jumlah_hari`, `harga_harian`, `sub_total_harga`, `status_kamar`) VALUES
+(29, 'RI200118-0001', 'R001', '2020-01-18 07:50:11', '2020-01-18 07:50:13', 2, 200000, 400000, 'Sudah Cek Out'),
+(30, 'RI200118-0001', 'R001', '2020-01-18 07:50:20', '0000-00-00 00:00:00', 0, 200000, 0, 'Belum Cek Out');
 
 -- --------------------------------------------------------
 
@@ -882,13 +885,6 @@ CREATE TABLE `pelayanan_ambulan` (
   `total_harga` int(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `pelayanan_ambulan`
---
-
-INSERT INTO `pelayanan_ambulan` (`no_pelayanan_a`, `no_ref_pelayanan`, `tanggal`, `total_harga`) VALUES
-('AB200118-0001', '200114-001', '2020-01-18 07:21:23', 450000);
-
 -- --------------------------------------------------------
 
 --
@@ -1025,6 +1021,13 @@ CREATE TABLE `transaksi_rawat_inap` (
   `tgl_transaksi` datetime NOT NULL,
   `total_harga` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `transaksi_rawat_inap`
+--
+
+INSERT INTO `transaksi_rawat_inap` (`no_transaksi_rawat_i`, `no_ref_pelayanan`, `tgl_transaksi`, `total_harga`) VALUES
+('RI200118-0001', '200114-001', '2020-01-18 07:50:26', 400000);
 
 -- --------------------------------------------------------
 
@@ -1268,7 +1271,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `daftar_penjualan_obat_apotek_detail`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_penjualan_obat_apotek_detail`  AS  select `dpoa`.`no_detail_penjualan_obat_a` AS `no_detail_penjualan_obat_a`,`o`.`nama` AS `nama`,`dpoa`.`qty` AS `qty`,`dpoa`.`harga_jual` AS `harga_jual`,`dpoa`.`status_paket` AS `status_paket`,`poa`.`no_penjualan_obat_a` AS `no_penjualan_obat_a`,`poa`.`no_ref_pelayanan` AS `no_ref_pelayanan` from ((`detail_penjualan_obat_apotik` `dpoa` join `obat` `o` on((`dpoa`.`kode_obat` = `o`.`kode_obat`))) join `penjualan_obat_apotik` `poa` on((`dpoa`.`no_penjualan_obat_a` = `poa`.`no_penjualan_obat_a`))) order by `dpoa`.`no_detail_penjualan_obat_a` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_penjualan_obat_apotek_detail`  AS  select `dpoa`.`no_detail_penjualan_obat_a` AS `no_detail_penjualan_obat_a`,`o`.`kode_obat` AS `kode_obat`,`o`.`nama` AS `nama`,`dpoa`.`qty` AS `qty`,`dpoa`.`harga_jual` AS `harga_jual`,`dpoa`.`status_paket` AS `status_paket`,`o`.`qty` AS `qty_sekarang`,`poa`.`no_penjualan_obat_a` AS `no_penjualan_obat_a`,`poa`.`no_ref_pelayanan` AS `no_ref_pelayanan` from ((`detail_penjualan_obat_apotik` `dpoa` join `obat` `o` on((`dpoa`.`kode_obat` = `o`.`kode_obat`))) join `penjualan_obat_apotik` `poa` on((`dpoa`.`no_penjualan_obat_a` = `poa`.`no_penjualan_obat_a`))) order by `dpoa`.`no_detail_penjualan_obat_a` ;
 
 -- --------------------------------------------------------
 
@@ -1277,7 +1280,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `daftar_penjualan_obat_rawat_inap_detail`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_penjualan_obat_rawat_inap_detail`  AS  select `sori`.`no_stok_obat_rawat_i` AS `no_stok_obat_rawat_i`,`o`.`nama` AS `nama_obat`,`ko`.`nama` AS `nama_kategori`,`dtrio`.`qty` AS `qty`,`dtrio`.`harga_jual` AS `harga_jual`,`tri`.`no_ref_pelayanan` AS `no_ref_pelayanan`,`dtrio`.`no_transaksi_rawat_i` AS `no_transaksi_rawat_i` from ((((`detail_transaksi_rawat_inap_obat` `dtrio` join `stok_obat_rawat_inap` `sori` on((`dtrio`.`no_stok_obat_rawat_i` = `sori`.`no_stok_obat_rawat_i`))) join `transaksi_rawat_inap` `tri` on((`dtrio`.`no_transaksi_rawat_i` = `tri`.`no_transaksi_rawat_i`))) join `obat` `o` on((`sori`.`kode_obat` = `o`.`kode_obat`))) join `kategori_obat` `ko` on((`o`.`no_kat_obat` = `ko`.`no_kat_obat`))) order by `dtrio`.`no_detail_transaksi_rawat_inap_o` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_penjualan_obat_rawat_inap_detail`  AS  select `sori`.`no_stok_obat_rawat_i` AS `no_stok_obat_rawat_i`,`o`.`nama` AS `nama_obat`,`ko`.`nama` AS `nama_kategori`,`dtrio`.`qty` AS `qty`,`dtrio`.`harga_jual` AS `harga_jual`,`tri`.`no_ref_pelayanan` AS `no_ref_pelayanan`,`dtrio`.`no_transaksi_rawat_i` AS `no_transaksi_rawat_i`,`sori`.`qty` AS `qty_sekarang` from ((((`detail_transaksi_rawat_inap_obat` `dtrio` join `stok_obat_rawat_inap` `sori` on((`dtrio`.`no_stok_obat_rawat_i` = `sori`.`no_stok_obat_rawat_i`))) join `transaksi_rawat_inap` `tri` on((`dtrio`.`no_transaksi_rawat_i` = `tri`.`no_transaksi_rawat_i`))) join `obat` `o` on((`sori`.`kode_obat` = `o`.`kode_obat`))) join `kategori_obat` `ko` on((`o`.`no_kat_obat` = `ko`.`no_kat_obat`))) order by `dtrio`.`no_detail_transaksi_rawat_inap_o` ;
 
 -- --------------------------------------------------------
 
@@ -1591,7 +1594,7 @@ ALTER TABLE `detail_penjualan_obat_apotik`
 -- AUTO_INCREMENT untuk tabel `detail_transaksi_rawat_inap_kamar`
 --
 ALTER TABLE `detail_transaksi_rawat_inap_kamar`
-  MODIFY `no_detail_transaksi_rawat_inap_k` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `no_detail_transaksi_rawat_inap_k` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_transaksi_rawat_inap_obat`

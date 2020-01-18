@@ -18,19 +18,17 @@
                 // parse
                 var obj = JSON.parse(hasil);
 
-                // ambil data detail daftar_detail_pelayanan_ambulan
+                // ambil data detail daftar_detail_pelayanan_ambulan 
                 let data_pelayanan_ambulance = obj['daftar_detail_pelayanan_ambulan'];
                 if (data_pelayanan_ambulance != '') {
 
                     $.each(data_pelayanan_ambulance, function(i, item) {
 
-                        var kode = data_pelayanan_ambulance[i].no_stok_obat_a;
-                        var nama = data_pelayanan_ambulance[i].nama;
-                        var harga_jual = data_pelayanan_ambulance[i].harga_jual;
-                        var qty = data_pelayanan_ambulance[i].qty;
-                        var qty_sekarang = data_pelayanan_ambulance[i].qty_sekarang;
+                        var no_ambulance = data_pelayanan_ambulance[i].no_ambulance;
+                        var tujuan = data_pelayanan_ambulance[i].tujuan;
+                        var harga = data_pelayanan_ambulance[i].harga;
 
-                        pilihObat_apotek_jual(kode, nama, harga_jual, qty, qty_sekarang);
+                        // load_detail_ambulance(no_ambulance, tujuan, harga)
                     });
                 }
 
@@ -40,13 +38,13 @@
 
                     $.each(data_apotek_penjualan_obat, function(i, item) {
 
-                        var kode = data_apotek_penjualan_obat[i].no_stok_obat_a;
+                        var kode_obat = data_apotek_penjualan_obat[i].kode_obat;
                         var nama = data_apotek_penjualan_obat[i].nama;
                         var harga_jual = data_apotek_penjualan_obat[i].harga_jual;
                         var qty = data_apotek_penjualan_obat[i].qty;
                         var qty_sekarang = data_apotek_penjualan_obat[i].qty_sekarang;
 
-                        pilihObat_apotek_jual(kode, nama, harga_jual, qty, qty_sekarang);
+                        //  load_detail_apotek_obat(kode_obat, nama, harga_jual, qty , qty_sekarang) 
                     });
                 }
 
@@ -56,14 +54,13 @@
 
                     $.each(data_ri_penjualan_obat, function(i, item) {
 
-                        var kode_obat = data_ri_penjualan_obat[i].no_stok_obat_rawat_i;
+                        var no_stok_obat_rawat_i = data_ri_penjualan_obat[i].no_stok_obat_rawat_i;
                         var nama_obat = data_ri_penjualan_obat[i].nama_obat;
-                        var nama_kategori = data_ri_penjualan_obat[i].nama_kategori;
+                        var harga_jual = data_ri_penjualan_obat[i].harga_jual;
                         var qty = data_ri_penjualan_obat[i].qty;
                         var qty_sekarang = data_ri_penjualan_obat[i].qty_sekarang;
-                        var harga_obat = data_ri_penjualan_obat[i].harga_jual;
 
-                        pilihobat(kode_obat, nama_obat, nama_kategori, qty, qty_sekarang, harga_obat);
+                        //  load_detail_ri_obat(no_stok_obat_rawat_i, nama_obat, harga_jual, qty , qty_sekarang)
                     });
                 }
 
@@ -73,11 +70,11 @@
 
                     $.each(data_ri_tindakan, function(i, item) {
 
-                        var kode_tindakan = data_ri_tindakan[i].no_rawat_inap_t;
-                        var nama_tindakan = data_ri_tindakan[i].nama;
-                        var harga_tindakan = data_ri_tindakan[i].harga;
+                        var no_rawat_inap_t = data_ri_tindakan[i].no_rawat_inap_t;
+                        var nama = data_ri_tindakan[i].nama;
+                        var harga = data_ri_tindakan[i].harga;
 
-                        pilihtindakan(kode_tindakan, nama_tindakan, harga_tindakan);
+                        // load_detail_ri_tindakan(no_rawat_inap_t, nama, harga)
                     });
                 }
 
@@ -87,13 +84,17 @@
 
                     $.each(data_ri_kamar, function(i, item) {
 
-                        var kode_kamar = data_ri_kamar[i].no_kamar_rawat_i;
-                        var nama_kamar = data_ri_kamar[i].nama;
-                        var harga_harian_kamar = data_ri_kamar[i].harga_harian;
+                        var no_kamar_rawat_i = data_ri_kamar[i].no_kamar_rawat_i;
+                        var nama = data_ri_kamar[i].nama;
+                        var tanggal_cek_in = data_ri_kamar[i].tanggal_cek_in;
+                        var tanggal_cek_out = data_ri_kamar[i].tanggal_cek_out;
+                        var status_kamar = data_ri_kamar[i].status_kamar;
                         var jumlah_hari = data_ri_kamar[i].jumlah_hari;
-                        var tipe_kamar = data_ri_kamar[i].tipe;
+                        var harga_harian = data_ri_kamar[i].harga_harian;
+                        var sub_total_harga = data_ri_kamar[i].sub_total_harga;
+                        var tipe = data_ri_kamar[i].tipe;
 
-                        pilihKamar(kode_kamar, nama_kamar, harga_harian_kamar, jumlah_hari, tipe_kamar);
+                        // load_detail_ri_kamar(no_kamar_rawat_i , nama , tanggal_cek_in , tanggal_cek_out , status_kamar , jumlah_hari , harga_harian , sub_total_harga , tipe)
                     });
                 }
 
@@ -103,11 +104,11 @@
 
                     $.each(data_lab_tindakan, function(i, item) {
 
-                        var kode = data_lab_tindakan[i].no_lab_c;
+                        var no_lab_c = data_lab_tindakan[i].no_lab_c;
                         var nama = data_lab_tindakan[i].nama;
                         var harga = data_lab_tindakan[i].harga;
 
-                        pilihTindakanLab(kode, nama, harga);
+                        // load_detail_lab_tindakan(no_lab_c, nama, harga)
                     });
                 }
 
@@ -117,11 +118,11 @@
 
                     $.each(data_bp_tindakan, function(i, item) {
 
-                        var kode = data_bp_tindakan[i].no_bp_t;
+                        var no_bp_t = data_bp_tindakan[i].no_bp_t;
                         var nama = data_bp_tindakan[i].nama;
-                        var harga = data_bp_tindakan[i].harga;
+                        var harga_detail = data_bp_tindakan[i].harga_detail;
 
-                        pilihTindakanBp(kode, nama, harga);
+                        // load_detail_bp_tindakan(no_bp_t, nama, harga_detail)
                     });
                 }
 
@@ -131,11 +132,11 @@
 
                     $.each(data_ugd_tindakan, function(i, item) {
 
-                        var kode = data_ugd_tindakan[i].no_ugd_t;
+                        var no_ugd_t = data_ugd_tindakan[i].no_ugd_t;
                         var nama = data_ugd_tindakan[i].nama;
                         var harga = data_ugd_tindakan[i].harga;
 
-                        pilihTindakanUgd(kode, nama, harga);
+                        // load_detail_ugd_tindakan(no_ugd_t, nama, harga)
                     });
                 }
 
@@ -145,15 +146,17 @@
 
                     $.each(data_kia_tindakan, function(i, item) {
 
-                        var kode = data_kia_tindakan[i].no_kia_t;
+                        var no_kia_t = data_kia_tindakan[i].no_kia_t;
                         var nama = data_kia_tindakan[i].nama;
                         var harga = data_kia_tindakan[i].harga;
 
-                        pilihTindakanKia(kode, nama, harga);
+                        // load_detail_kia_tindakan(no_kia_t, nama, harga)
                     });
                 }
 
             }
         });
     });
+
+    // start of fungsi untuk memanggil data
 </script>

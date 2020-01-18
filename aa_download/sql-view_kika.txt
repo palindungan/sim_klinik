@@ -99,7 +99,7 @@ FROM  penjualan_obat_apotik poa JOIN pelayanan pe USING(no_ref_pelayanan) JOIN p
 ORDER BY poa.no_penjualan_obat_a DESC;
 
 CREATE VIEW daftar_penjualan_obat_apotek_detail AS 
-SELECT dpoa.no_detail_penjualan_obat_a, o.nama , dpoa.qty , dpoa.harga_jual,dpoa.status_paket , poa.no_penjualan_obat_a, poa.no_ref_pelayanan 
+SELECT dpoa.no_detail_penjualan_obat_a,o.kode_obat , o.nama , dpoa.qty , dpoa.harga_jual,dpoa.status_paket , o.qty AS qty_sekarang , poa.no_penjualan_obat_a, poa.no_ref_pelayanan 
 FROM detail_penjualan_obat_apotik dpoa JOIN obat o USING(kode_obat) JOIN penjualan_obat_apotik poa USING(no_penjualan_obat_a) 
 ORDER BY dpoa.no_detail_penjualan_obat_a ASC
 
@@ -119,7 +119,7 @@ SELECT stok_obat_rawat_inap.no_stok_obat_rawat_i,stok_obat_rawat_inap.kode_obat,
 ----------
 
 CREATE VIEW daftar_penjualan_obat_rawat_inap_detail AS 
-SELECT sori.no_stok_obat_rawat_i,  o.nama AS nama_obat , ko.nama AS nama_kategori,dtrio.qty , dtrio.harga_jual ,tri.no_ref_pelayanan,dtrio.no_transaksi_rawat_i
+SELECT sori.no_stok_obat_rawat_i,  o.nama AS nama_obat , ko.nama AS nama_kategori,dtrio.qty , dtrio.harga_jual ,tri.no_ref_pelayanan,dtrio.no_transaksi_rawat_i , sori.qty as qty_sekarang
 FROM detail_transaksi_rawat_inap_obat dtrio JOIN stok_obat_rawat_inap sori USING(no_stok_obat_rawat_i) JOIN transaksi_rawat_inap tri USING(no_transaksi_rawat_i) JOIN obat o USING(kode_obat) JOIN kategori_obat ko USING(no_kat_obat)
 ORDER BY dtrio.no_detail_transaksi_rawat_inap_o ASC
 
