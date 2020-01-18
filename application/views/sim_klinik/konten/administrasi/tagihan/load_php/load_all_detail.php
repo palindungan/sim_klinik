@@ -28,8 +28,10 @@
                         var tujuan = data_pelayanan_ambulance[i].tujuan;
                         var harga = data_pelayanan_ambulance[i].harga;
 
-                        // load_detail_ambulance(no_ambulance, tujuan, harga)
+                        load_detail_ambulance(no_ambulance, tujuan, harga);
                     });
+
+                    update_sub_total_ambulance();
                 }
 
                 // ambil data detail daftar_penjualan_obat_apotek_detail
@@ -44,8 +46,10 @@
                         var qty = data_apotek_penjualan_obat[i].qty;
                         var qty_sekarang = data_apotek_penjualan_obat[i].qty_sekarang;
 
-                        //  load_detail_apotek_obat(kode_obat, nama, harga_jual, qty , qty_sekarang) 
+                        load_detail_apotek_obat(kode_obat, nama, harga_jual, qty, qty_sekarang);
                     });
+
+                    update_sub_total_apotek_obat();
                 }
 
                 // ambil data detail daftar_penjualan_obat_rawat_inap_detail
@@ -159,4 +163,74 @@
     });
 
     // start of fungsi untuk memanggil data
+
+    function load_detail_ambulance(no_ambulance, tujuan, harga) {
+
+        $('#detail_list_ambulance').append(`
+
+        <tr id="row` + count_transaksi + `" class="kelas_row">
+            <td>
+                ` + tujuan + ` (Ambulance)
+                <input type="hidden" name="no_ambulance[]" class="form-control form-control-sm" id="no_ambulance` + count_transaksi + `" value="` + no_ambulance + `">
+            </td>
+            <td>1</td>
+            <td>
+                <input type="text" name="harga_ambulance[]" class="form-control form-control-sm rupiah text-right harga_ambulance_update" id="harga_ambulance` + count_transaksi + `" placeholder="Harga Ambulance" required value="` + harga + `">
+            </td>
+            <td>  
+                <input type="text" class="form-control form-control-sm rupiah text-right" id="harga_sub_ambulance` + count_transaksi + `" readonly required value="` + harga + `"></td>
+            <td>
+                <div class="form-group col-sm-2">
+                    <a id="` + count_transaksi + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris_ambulance">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-trash-alt"></i>
+                        </span>
+                    </a>
+                </div>
+            </td>
+        </tr>
+
+        `);
+
+        count_transaksi = count_transaksi + 1;
+        jumlah_detail_transaksi = jumlah_detail_transaksi + 1;
+    }
+
+    function load_detail_apotek_obat(kode_obat, nama, harga_jual, qty, qty_sekarang) {
+
+        $('#detail_list_apotek_obat').append(`
+
+            <tr id="row` + count_transaksi + `" class="kelas_row">
+                <td>
+                    ` + nama + `
+                    <input type="hidden" name="kode_obat[]" class="form-control form-control-sm" id="kode_obat` + count_transaksi + `" value="` + kode_obat + `">
+                </td>
+                <td>
+                    <input type="text" name="qty_apotek_obat[]" class="form-control form-control-sm cek_qty_apotek_obat" id="qty_apotek_obat` + count_transaksi + `" placeholder="QTY" value="` + qty + `" required>
+                    <input readonly type="hidden" name="cek_qty_apotek_obat[]" class="form-control form-control-sm" id="cek_qty_apotek_obat` + count_transaksi + `" value="` + qty_sekarang + `">
+                </td>
+                <td>
+                    <input type="text" name="harga_apotek_obat[]" class="form-control form-control-sm rupiah text-right harga_apotek_obat_update" id="harga_apotek_obat` + count_transaksi + `" placeholder="Harga Obat Apotek" required value="` + harga_jual + `">
+                    <input type="checkbox" name="status_paket_apotek_obat[]" class="form-control form-control-sm" id="status_paket_apotek_obat` + count_transaksi + `" value="Ya">
+                </td>
+                <td>  
+                    <input type="text" class="form-control form-control-sm rupiah text-right" id="harga_sub_apotek_obat` + count_transaksi + `" readonly required value="` + harga_jual * qty + `"></td>
+                <td>
+                    <div class="form-group col-sm-2">
+                        <a id="` + count_transaksi + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris_apotek_obat">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-trash-alt"></i>
+                            </span>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+
+        `);
+
+        count_transaksi = count_transaksi + 1;
+        jumlah_detail_transaksi = jumlah_detail_transaksi + 1;
+    }
+
+    // End of fungsi untuk memanggil data
 </script>

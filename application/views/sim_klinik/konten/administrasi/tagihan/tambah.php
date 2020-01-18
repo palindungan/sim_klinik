@@ -209,7 +209,7 @@
 <?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/lab_tindakan.php') ?>
 <?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/ugd_tindakan.php') ?>
 
-<!-- <?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/load_all_detail.php') ?> -->
+<?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/load_all_detail.php') ?>
 <!-- end of pecahan codingan script -->
 
 <script>
