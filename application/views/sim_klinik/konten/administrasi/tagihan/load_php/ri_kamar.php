@@ -42,15 +42,15 @@
         var table;
         table = $('#table_ri_kamar').DataTable({
             "columnDefs": [{
-					"targets": 3,
-					"className": "text-right"
-				},{
-					"targets": 4,
-					"className": "text-center"
-				}
-				
-			],
-			"bDestroy": true
+                    "targets": 3,
+                    "className": "text-right"
+                }, {
+                    "targets": 4,
+                    "className": "text-center"
+                }
+
+            ],
+            "bDestroy": true
         });
 
         table.clear();
@@ -98,7 +98,7 @@
 
         $('#detail_list_ri_kamar').append(`
 
-        <tr id="row` + count_transaksi + `">
+        <tr id="row` + count_transaksi + `" class="kelas_row">
             <td>
                 ` + nama + ` (` + tipe + `)
                 <input type="hidden" name="no_kamar_rawat_i[]" class="form-control form-control-sm" id="no_kamar_rawat_i` + count_transaksi + `" value="` + kode + `">

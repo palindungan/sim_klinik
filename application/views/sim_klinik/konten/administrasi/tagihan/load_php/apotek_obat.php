@@ -44,15 +44,15 @@
         var table;
         table = $('#table_apotek_obat').DataTable({
             "columnDefs": [{
-					"targets": 4,
-					"className": "text-right"
-				},{
-					"targets": 5,
-					"className": "text-center"
-				}
-				
-			],
-			"bDestroy": true
+                    "targets": 4,
+                    "className": "text-right"
+                }, {
+                    "targets": 5,
+                    "className": "text-center"
+                }
+
+            ],
+            "bDestroy": true
         });
 
         table.clear();
@@ -103,7 +103,7 @@
 
         $('#detail_list_apotek_obat').append(`
 
-        <tr id="row` + count_transaksi + `">
+        <tr id="row` + count_transaksi + `" class="kelas_row">
             <td>
                 ` + nama_obat + `
                 <input type="hidden" name="kode_obat[]" class="form-control form-control-sm" id="kode_obat` + count_transaksi + `" value="` + kode_obat + `">

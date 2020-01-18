@@ -42,15 +42,15 @@
         var table;
         table = $('#table_ambulance').DataTable({
             "columnDefs": [{
-					"targets": 2,
-					"className": "text-right"
-				},{
-					"targets": 3,
-					"className": "text-center"
-				}
-				
-			],
-			"bDestroy": true
+                    "targets": 2,
+                    "className": "text-right"
+                }, {
+                    "targets": 3,
+                    "className": "text-center"
+                }
+
+            ],
+            "bDestroy": true
         });
 
         table.clear();
@@ -97,7 +97,7 @@
 
         $('#detail_list_ambulance').append(`
 
-        <tr id="row` + count_transaksi + `">
+        <tr id="row` + count_transaksi + `" class="kelas_row">
             <td>
                 ` + tujuan_ambulance + ` (Ambulance)
                 <input type="hidden" name="no_ambulance[]" class="form-control form-control-sm" id="no_ambulance` + count_transaksi + `" value="` + no_ambulance + `">

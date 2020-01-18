@@ -200,3 +200,8 @@ SELECT  no_bp_p,nama_pasien,tgl_pelayanan,
 FROM laporan_rawat_jalan
 GROUP BY no_bp_p
 
+CREATE VIEW daftar_detail_pelayanan_ambulan AS 
+SELECT dpa.harga , pa.no_pelayanan_a , pa.no_ref_pelayanan , a.no_ambulance ,a.tujuan
+FROM detail_pelayanan_ambulan dpa JOIN pelayanan_ambulan pa USING(no_pelayanan_a) JOIN ambulance a USING(no_ambulance)
+ORDER BY dpa.no_detail_pelayanan_ambulan ASC;
+

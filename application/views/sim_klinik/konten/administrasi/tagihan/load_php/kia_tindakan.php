@@ -41,15 +41,15 @@
         var table;
         table = $('#table_kia_tindakan').DataTable({
             "columnDefs": [{
-					"targets": 2,
-					"className": "text-right"
-				},{
-					"targets": 3,
-					"className": "text-center"
-				}
-				
-			],
-			"bDestroy": true
+                    "targets": 2,
+                    "className": "text-right"
+                }, {
+                    "targets": 3,
+                    "className": "text-center"
+                }
+
+            ],
+            "bDestroy": true
         });
 
         table.clear();
@@ -93,7 +93,7 @@
 
         $('#detail_list_kia_tindakan').append(`
 
-        <tr id="row` + count_transaksi + `">
+        <tr id="row` + count_transaksi + `" class="kelas_row">
             <td>
                 ` + nama + `
                 <input type="hidden" name="no_kia_t[]" class="form-control form-control-sm" id="no_kia_t` + count_transaksi + `" value="` + kode + `">

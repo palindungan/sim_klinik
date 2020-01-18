@@ -43,15 +43,15 @@
         var table;
         table = $('#table_ri_obat').DataTable({
             "columnDefs": [{
-					"targets": 4,
-					"className": "text-right"
-				},{
-					"targets": 5,
-					"className": "text-center"
-				}
-				
-			],
-			"bDestroy": true
+                    "targets": 4,
+                    "className": "text-right"
+                }, {
+                    "targets": 5,
+                    "className": "text-center"
+                }
+
+            ],
+            "bDestroy": true
         });
 
         table.clear();
@@ -99,7 +99,7 @@
 
         $('#detail_list_ri_obat').append(`
 
-        <tr id="row` + count_transaksi + `">
+        <tr id="row` + count_transaksi + `" class="kelas_row">
             <td>
                 ` + nama_obat + `
                 <input type="hidden" name="no_stok_obat_rawat_i[]" class="form-control form-control-sm" id="no_stok_obat_rawat_i` + count_transaksi + `" value="` + no_stok_obat_rawat_i + `">

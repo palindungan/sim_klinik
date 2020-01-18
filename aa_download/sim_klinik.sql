@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 18 Jan 2020 pada 01.07
+-- Waktu pembuatan: 18 Jan 2020 pada 01.27
 -- Versi server: 10.1.37-MariaDB
 -- Versi PHP: 7.3.0
 
@@ -241,6 +241,20 @@ CREATE TABLE `daftar_detail_kamar_rawat_inap` (
 ,`tipe` varchar(20)
 ,`no_ref_pelayanan` char(10)
 ,`no_transaksi_rawat_i` char(13)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in struktur untuk tampilan `daftar_detail_pelayanan_ambulan`
+-- (Lihat di bawah untuk tampilan aktual)
+--
+CREATE TABLE `daftar_detail_pelayanan_ambulan` (
+`harga` int(9)
+,`no_pelayanan_a` char(13)
+,`no_ref_pelayanan` char(10)
+,`no_ambulance` tinyint(2)
+,`tujuan` varchar(20)
 );
 
 -- --------------------------------------------------------
@@ -555,6 +569,14 @@ CREATE TABLE `detail_pelayanan_ambulan` (
   `harga` int(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `detail_pelayanan_ambulan`
+--
+
+INSERT INTO `detail_pelayanan_ambulan` (`no_detail_pelayanan_ambulan`, `no_pelayanan_a`, `no_ambulance`, `harga`) VALUES
+(1, 'AB200118-0001', 1, 200000),
+(2, 'AB200118-0001', 2, 250000);
+
 -- --------------------------------------------------------
 
 --
@@ -588,14 +610,6 @@ CREATE TABLE `detail_transaksi_rawat_inap_kamar` (
   `status_kamar` enum('Belum Cek Out','Sudah Cek Out') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `detail_transaksi_rawat_inap_kamar`
---
-
-INSERT INTO `detail_transaksi_rawat_inap_kamar` (`no_detail_transaksi_rawat_inap_k`, `no_transaksi_rawat_i`, `no_kamar_rawat_i`, `tanggal_cek_in`, `tanggal_cek_out`, `jumlah_hari`, `harga_harian`, `sub_total_harga`, `status_kamar`) VALUES
-(27, 'RI200118-0001', 'R001', '2020-01-18 05:35:38', '2020-01-18 05:35:50', 2, 200000, 400000, 'Sudah Cek Out'),
-(28, 'RI200118-0001', 'R002', '2020-01-18 05:35:40', '0000-00-00 00:00:00', 0, 200000, 0, 'Belum Cek Out');
-
 -- --------------------------------------------------------
 
 --
@@ -610,14 +624,6 @@ CREATE TABLE `detail_transaksi_rawat_inap_obat` (
   `harga_jual` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `detail_transaksi_rawat_inap_obat`
---
-
-INSERT INTO `detail_transaksi_rawat_inap_obat` (`no_detail_transaksi_rawat_inap_o`, `no_transaksi_rawat_i`, `no_stok_obat_rawat_i`, `qty`, `harga_jual`) VALUES
-(9, 'RI200118-0001', 1, 2, 50000),
-(10, 'RI200118-0001', 1, 2, 25000);
-
 -- --------------------------------------------------------
 
 --
@@ -630,14 +636,6 @@ CREATE TABLE `detail_transaksi_rawat_inap_tindakan` (
   `no_rawat_inap_t` char(4) NOT NULL,
   `harga` int(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `detail_transaksi_rawat_inap_tindakan`
---
-
-INSERT INTO `detail_transaksi_rawat_inap_tindakan` (`no_detail_transaksi_rawat_inap_t`, `no_transaksi_rawat_i`, `no_rawat_inap_t`, `harga`) VALUES
-(12, 'RI200118-0001', 'I001', 20000),
-(13, 'RI200118-0001', 'I001', 30000);
 
 -- --------------------------------------------------------
 
@@ -884,6 +882,13 @@ CREATE TABLE `pelayanan_ambulan` (
   `total_harga` int(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `pelayanan_ambulan`
+--
+
+INSERT INTO `pelayanan_ambulan` (`no_pelayanan_a`, `no_ref_pelayanan`, `tanggal`, `total_harga`) VALUES
+('AB200118-0001', '200114-001', '2020-01-18 07:21:23', 450000);
+
 -- --------------------------------------------------------
 
 --
@@ -1021,13 +1026,6 @@ CREATE TABLE `transaksi_rawat_inap` (
   `total_harga` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `transaksi_rawat_inap`
---
-
-INSERT INTO `transaksi_rawat_inap` (`no_transaksi_rawat_i`, `no_ref_pelayanan`, `tgl_transaksi`, `total_harga`) VALUES
-('RI200118-0001', '200114-001', '2020-01-18 05:36:53', 600000);
-
 -- --------------------------------------------------------
 
 --
@@ -1163,6 +1161,15 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `daftar_detail_kamar_rawat_inap`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_detail_kamar_rawat_inap`  AS  select `dtrik`.`no_detail_transaksi_rawat_inap_k` AS `no_detail_transaksi_rawat_inap_k`,`dtrik`.`status_kamar` AS `status_kamar`,`kri`.`no_kamar_rawat_i` AS `no_kamar_rawat_i`,`kri`.`nama` AS `nama`,`dtrik`.`tanggal_cek_in` AS `tanggal_cek_in`,`dtrik`.`tanggal_cek_out` AS `tanggal_cek_out`,`dtrik`.`jumlah_hari` AS `jumlah_hari`,`dtrik`.`harga_harian` AS `harga_harian`,`dtrik`.`sub_total_harga` AS `sub_total_harga`,`kri`.`tipe` AS `tipe`,`tri`.`no_ref_pelayanan` AS `no_ref_pelayanan`,`tri`.`no_transaksi_rawat_i` AS `no_transaksi_rawat_i` from ((`detail_transaksi_rawat_inap_kamar` `dtrik` join `transaksi_rawat_inap` `tri` on((`dtrik`.`no_transaksi_rawat_i` = `tri`.`no_transaksi_rawat_i`))) join `kamar_rawat_inap` `kri` on((`dtrik`.`no_kamar_rawat_i` = `kri`.`no_kamar_rawat_i`))) order by `dtrik`.`no_detail_transaksi_rawat_inap_k` ;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur untuk view `daftar_detail_pelayanan_ambulan`
+--
+DROP TABLE IF EXISTS `daftar_detail_pelayanan_ambulan`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_detail_pelayanan_ambulan`  AS  select `dpa`.`harga` AS `harga`,`pa`.`no_pelayanan_a` AS `no_pelayanan_a`,`pa`.`no_ref_pelayanan` AS `no_ref_pelayanan`,`a`.`no_ambulance` AS `no_ambulance`,`a`.`tujuan` AS `tujuan` from ((`detail_pelayanan_ambulan` `dpa` join `pelayanan_ambulan` `pa` on((`dpa`.`no_pelayanan_a` = `pa`.`no_pelayanan_a`))) join `ambulance` `a` on((`dpa`.`no_ambulance` = `a`.`no_ambulance`))) order by `dpa`.`no_detail_pelayanan_ambulan` ;
 
 -- --------------------------------------------------------
 
@@ -1572,7 +1579,7 @@ ALTER TABLE `detail_obat_keluar_internal`
 -- AUTO_INCREMENT untuk tabel `detail_pelayanan_ambulan`
 --
 ALTER TABLE `detail_pelayanan_ambulan`
-  MODIFY `no_detail_pelayanan_ambulan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `no_detail_pelayanan_ambulan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_penjualan_obat_apotik`
