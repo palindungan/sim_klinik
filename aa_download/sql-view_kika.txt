@@ -99,7 +99,9 @@ FROM  penjualan_obat_apotik poa JOIN pelayanan pe USING(no_ref_pelayanan) JOIN p
 ORDER BY poa.no_penjualan_obat_a DESC;
 
 CREATE VIEW daftar_penjualan_obat_apotek_detail AS 
-SELECT dpoa.no_detail_penjualan_obat_a, o.nama , dpoa.qty , dpoa.harga_jual , poa.no_penjualan_obat_a, poa.no_ref_pelayanan FROM detail_penjualan_obat_apotik dpoa JOIN obat o USING(kode_obat) JOIN penjualan_obat_apotik poa USING(no_penjualan_obat_a) ORDER BY dpoa.no_detail_penjualan_obat_a ASC
+SELECT dpoa.no_detail_penjualan_obat_a, o.nama , dpoa.qty , dpoa.harga_jual,dpoa.status_paket , poa.no_penjualan_obat_a, poa.no_ref_pelayanan 
+FROM detail_penjualan_obat_apotik dpoa JOIN obat o USING(kode_obat) JOIN penjualan_obat_apotik poa USING(no_penjualan_obat_a) 
+ORDER BY dpoa.no_detail_penjualan_obat_a ASC
 
 CREATE VIEW daftar_penerimaan_obat_apotek AS 
 SELECT po.no_penerimaan_o , su.nama , po.tgl_penerimaan_o , po.total_harga 
@@ -163,7 +165,10 @@ detail_list_obat
 TAMBAHAN
 
 // Detail Tindakan Transaksi BP
-CREATE VIEW daftar_detail_tindakan_bp_transaksi AS SELECT dbp.no_bp_p,bt.no_bp_t , bt.nama , dbp.harga as harga_detail,bt.harga as harga_tindakan , bp.no_ref_pelayanan FROM detail_bp_penanganan dbp JOIN bp_tindakan bt USING(no_bp_t) JOIN bp_penanganan bp USING(no_bp_p) ORDER BY dbp.no_detail_bp_p ASC 
+CREATE VIEW daftar_detail_tindakan_bp_transaksi AS 
+SELECT dbp.no_bp_p,bt.no_bp_t , bt.nama , dbp.harga as harga_detail,bt.harga as harga_tindakan , bp.no_ref_pelayanan 
+FROM detail_bp_penanganan dbp JOIN bp_tindakan bt USING(no_bp_t) JOIN bp_penanganan bp USING(no_bp_p) 
+ORDER BY dbp.no_detail_bp_p ASC 
 
 // Detail Tindakan Transaksi KIA
 CREATE VIEW daftar_detail_tindakan_kia_transaksi AS 

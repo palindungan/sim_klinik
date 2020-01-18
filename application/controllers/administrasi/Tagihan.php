@@ -26,10 +26,10 @@ class Tagihan extends CI_Controller
         $data_tbl['daftar_penjualan_obat_rawat_inap_detail'] =  $this->M_tagihan->get_data('daftar_penjualan_obat_rawat_inap_detail', $where)->result();
         $data_tbl['daftar_detail_tindakan_rawat_inap'] =  $this->M_tagihan->get_data('daftar_detail_tindakan_rawat_inap', $where)->result();
         $data_tbl['daftar_detail_kamar_rawat_inap'] =  $this->M_tagihan->get_data('daftar_detail_kamar_rawat_inap', $where)->result();
-        $data_tbl['daftar_detail_tindakan_lab'] =  $this->M_tagihan->get_data('daftar_detail_tindakan_lab', $where)->result();
-        $data_tbl['daftar_detail_tindakan_bp'] =  $this->M_tagihan->get_data('daftar_detail_tindakan_bp', $where)->result();
-        $data_tbl['daftar_detail_tindakan_ugd'] =  $this->M_tagihan->get_data('daftar_detail_tindakan_ugd', $where)->result();
-        $data_tbl['daftar_detail_tindakan_kia'] =  $this->M_tagihan->get_data('daftar_detail_tindakan_kia', $where)->result();
+        $data_tbl['daftar_detail_tindakan_lab_transaksi'] =  $this->M_tagihan->get_data('daftar_detail_tindakan_lab_transaksi', $where)->result();
+        $data_tbl['daftar_detail_tindakan_bp_transaksi'] =  $this->M_tagihan->get_data('daftar_detail_tindakan_bp_transaksi', $where)->result();
+        $data_tbl['daftar_detail_tindakan_ugd_transaksi'] =  $this->M_tagihan->get_data('daftar_detail_tindakan_ugd_transaksi', $where)->result();
+        $data_tbl['daftar_detail_tindakan_kia_transaksi'] =  $this->M_tagihan->get_data('daftar_detail_tindakan_kia_transaksi', $where)->result();
 
         $data = json_encode($data_tbl);
 
