@@ -5,6 +5,7 @@ class Transaksi extends CI_Controller
     {
         parent::__construct();
         $this->load->model('rawat_inap/M_transaksi');
+        $this->load->model('administrasi/M_tagihan');
         date_default_timezone_set('Asia/Jakarta');
     }
 
@@ -301,6 +302,6 @@ class Transaksi extends CI_Controller
         // End Of cek di setiap transaksi
 
         $this->session->set_flashdata('success', 'Ditambahkan');
-        redirect('administrasi/tagihan');
+        redirect('rawat_inap/transaksi');
     }
 }

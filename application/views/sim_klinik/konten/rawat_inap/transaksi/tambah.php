@@ -7,7 +7,8 @@
 			<h6 class="m-0 font-weight-bold text-primary">Rawat Inap</h6>
 		</div>
 		<div class="card-body">
-			<form method="post" id="transaksi_form">
+			<form method="post" id="transaksi_form"
+				action="<?= base_url('rawat_inap/transaksi/input_transaksi_form') ?>">
 				<div class="form-row">
 					<div class="form-group col-sm-5">
 						<label>Cari No Ref</label>
@@ -125,7 +126,7 @@
 
 				<div class="form-row">
 					<div class="col-sm-2">
-						<button id="action" type="submit" class="btn btn-sm btn-success btn-icon-split"
+						<button type="submit" class="btn btn-sm btn-success btn-icon-split"
 							onclick="return confirm('Lakukan Simpan Data ?')">
 							<span class="icon text-white-50">
 								<i class="fas fa-save"></i>
@@ -186,8 +187,8 @@
 </script>
 <?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/ri_kamar.php') ?>
 <?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/ri_obat.php') ?>
-<?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/ri_tindakan.php') ?>
-<?php $this->view('sim_klinik/konten/rawat_inap/transaksi/load_php/submit_ri.php') ?>
+<?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/ri_tindakan.php') ?><?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/load_all_detail.php') ?>
+
 
 <script>
 	function cek_jumlah_data_detail_transaksi() {
