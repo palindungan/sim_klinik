@@ -118,8 +118,10 @@
                         var nama = data_lab_tindakan[i].nama;
                         var harga = data_lab_tindakan[i].harga;
 
-                        // load_detail_lab_tindakan(no_lab_c, nama, harga)
+                        load_detail_lab_tindakan(no_lab_c, nama, harga);
                     });
+
+                    update_sub_total_lab_tindakan();
                 }
 
                 // ambil data detail daftar_detail_tindakan_bp_transaksi
@@ -132,8 +134,10 @@
                         var nama = data_bp_tindakan[i].nama;
                         var harga_detail = data_bp_tindakan[i].harga_detail;
 
-                        // load_detail_bp_tindakan(no_bp_t, nama, harga_detail)
+                        load_detail_bp_tindakan(no_bp_t, nama, harga_detail);
                     });
+
+                    update_sub_total_bp_tindakan();
                 }
 
                 // ambil data detail daftar_detail_tindakan_ugd_transaksi
@@ -146,8 +150,10 @@
                         var nama = data_ugd_tindakan[i].nama;
                         var harga = data_ugd_tindakan[i].harga;
 
-                        // load_detail_ugd_tindakan(no_ugd_t, nama, harga)
+                        load_detail_ugd_tindakan(no_ugd_t, nama, harga);
                     });
+
+                    update_sub_total_ugd_tindakan();
                 }
 
                 // ambil data detail daftar_detail_tindakan_kia_transaksi
@@ -160,10 +166,13 @@
                         var nama = data_kia_tindakan[i].nama;
                         var harga = data_kia_tindakan[i].harga;
 
-                        // load_detail_kia_tindakan(no_kia_t, nama, harga)
+                        load_detail_kia_tindakan(no_kia_t, nama, harga);
                     });
+
+                    update_sub_total_kia_tindakan();
                 }
 
+                cek_jumlah_data_detail_transaksi();
             }
         });
     });
@@ -358,6 +367,134 @@
         count_transaksi = count_transaksi + 1;
         jumlah_detail_transaksi = jumlah_detail_transaksi + 1;
         jumlah_detail_transaksi_ri_kamar = jumlah_detail_transaksi_ri_kamar + 1;
+    }
+
+    function load_detail_lab_tindakan(kode, nama, harga) {
+
+        $('#detail_list_lab_tindakan').append(`
+
+        <tr id="row` + count_transaksi + `" class="kelas_row">
+            <td>
+                ` + nama + `
+                <input type="hidden" name="no_lab_c[]" class="form-control form-control-sm" id="no_lab_c` + count_transaksi + `" value="` + kode + `">
+            </td>
+            <td>1</td>
+            <td>
+                <input type="text" name="harga_lab_tindakan[]" class="form-control form-control-sm rupiah text-right harga_lab_tindakan_update" id="harga_lab_tindakan` + count_transaksi + `" placeholder="Harga Tindakan LAB" required value="` + harga + `">
+            </td>
+            <td>  
+                <input type="text" class="form-control form-control-sm rupiah text-right" id="harga_sub_lab_tindakan` + count_transaksi + `" readonly required value="` + harga + `"></td>
+            <td>
+                <div class="form-group col-sm-2">
+                    <a id="` + count_transaksi + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris_lab_tindakan">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-trash-alt"></i>
+                        </span>
+                    </a>
+                </div>
+            </td>
+        </tr>
+
+        `);
+
+        count_transaksi = count_transaksi + 1;
+        jumlah_detail_transaksi = jumlah_detail_transaksi + 1;
+    }
+
+    function load_detail_bp_tindakan(no_bp_t, nama, harga_detail) {
+
+        $('#detail_list_bp_tindakan').append(`
+
+        <tr id="row` + count_transaksi + `" class="kelas_row">
+            <td>
+                ` + nama + `
+                <input type="hidden" name="no_bp_t[]" class="form-control form-control-sm" id="no_bp_t` + count_transaksi + `" value="` + no_bp_t + `">
+            </td>
+            <td>1</td>
+            <td>
+                <input type="text" name="harga_bp_tindakan[]" class="form-control form-control-sm rupiah text-right harga_bp_tindakan_update" id="harga_bp_tindakan` + count_transaksi + `" placeholder="Harga Tindakan BP" required value="` + harga_detail + `">
+            </td>
+            <td>  
+                <input type="text" class="form-control form-control-sm rupiah text-right" id="harga_sub_bp_tindakan` + count_transaksi + `" readonly required value="` + harga_detail + `"></td>
+            <td>
+                <div class="form-group col-sm-2">
+                    <a id="` + count_transaksi + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris_bp_tindakan">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-trash-alt"></i>
+                        </span>
+                    </a>
+                </div>
+            </td>
+        </tr>
+
+        `);
+
+        count_transaksi = count_transaksi + 1;
+        jumlah_detail_transaksi = jumlah_detail_transaksi + 1;
+    }
+
+    function load_detail_ugd_tindakan(no_ugd_t, nama, harga) {
+
+        $('#detail_list_ugd_tindakan').append(`
+
+        <tr id="row` + count_transaksi + `" class="kelas_row">
+            <td>
+                ` + nama + `
+                <input type="hidden" name="no_ugd_t[]" class="form-control form-control-sm" id="no_ugd_t` + count_transaksi + `" value="` + no_ugd_t + `">
+            </td>
+            <td>1</td>
+            <td>
+                <input type="text" name="harga_ugd_tindakan[]" class="form-control form-control-sm rupiah text-right harga_ugd_tindakan_update" id="harga_ugd_tindakan` + count_transaksi + `" placeholder="Harga Tindakan UGD" required value="` + harga + `">
+            </td>
+            <td>  
+                <input type="text" class="form-control form-control-sm rupiah text-right" id="harga_sub_ugd_tindakan` + count_transaksi + `" readonly required value="` + harga + `"></td>
+            <td>
+                <div class="form-group col-sm-2">
+                    <a id="` + count_transaksi + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris_ugd_tindakan">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-trash-alt"></i>
+                        </span>
+                    </a>
+                </div>
+            </td>
+        </tr>
+
+        `);
+
+        count_transaksi = count_transaksi + 1;
+        jumlah_detail_transaksi = jumlah_detail_transaksi + 1;
+    }
+
+    function load_detail_kia_tindakan(no_kia_t, nama, harga) {
+
+        $('#detail_list_kia_tindakan').append(`
+
+        <tr id="row` + count_transaksi + `" class="kelas_row">
+            <td>
+                ` + nama + `
+                <input type="hidden" name="no_kia_t[]" class="form-control form-control-sm" id="no_kia_t` + count_transaksi + `" value="` + no_kia_t + `">
+            </td>
+            <td>1</td>
+            <td>
+                <input type="text" name="harga_kia_tindakan[]" class="form-control form-control-sm rupiah text-right harga_kia_tindakan_update" id="harga_kia_tindakan` + count_transaksi + `" placeholder="Harga Tindakan KIA" required value="` + harga + `">
+            </td>
+            <td>  
+                <input type="text" class="form-control form-control-sm rupiah text-right" id="harga_sub_kia_tindakan` + count_transaksi + `" readonly required value="` + harga + `"></td>
+            <td>
+                <div class="form-group col-sm-2">
+                    <a id="` + count_transaksi + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris_kia_tindakan">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-trash-alt"></i>
+                        </span>
+                    </a>
+                </div>
+            </td>
+        </tr>
+
+        `);
+
+        count_transaksi = count_transaksi + 1;
+        jumlah_detail_transaksi = jumlah_detail_transaksi + 1;
     }
 
     // End of fungsi untuk memanggil data
