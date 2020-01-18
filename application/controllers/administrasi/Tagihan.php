@@ -808,6 +808,8 @@ class Tagihan extends CI_Controller
                     );
 
                     $tambah = $this->M_tagihan->input_data('detail_penjualan_obat_apotik', $data);
+
+                    // update qty obat lama dibawah ini
                 }
 
                 // update transaksi lama
@@ -873,6 +875,8 @@ class Tagihan extends CI_Controller
                     );
 
                     $tambah = $this->M_tagihan->input_data('detail_penjualan_obat_apotik', $data);
+
+                    // update qty obat lama dibawah ini
                 }
             }
             // End of Cek apakah ada data detail post masuk ?
@@ -924,6 +928,8 @@ class Tagihan extends CI_Controller
                         );
 
                         $tambah = $this->M_tagihan->input_data('detail_transaksi_rawat_inap_obat', $data);
+
+                        // update qty obat lama dibawah ini
                     }
                 }
 
@@ -1055,6 +1061,8 @@ class Tagihan extends CI_Controller
                         );
 
                         $tambah = $this->M_tagihan->input_data('detail_transaksi_rawat_inap_obat', $data);
+
+                        // update qty obat lama dibawah ini
                     }
                 }
 
