@@ -303,4 +303,30 @@
         $('#grand_total').val(sub_total_ambulance_v + sub_total_apotek_obat_v + sub_total_bp_tindakan_v + sub_total_kia_tindakan_v + sub_total_lab_tindakan_v + sub_total_ugd_tindakan_v + sub_total_ri_kamar_v + sub_total_ri_obat_v + sub_total_ri_tindakan_v);
         $('#grand_total').trigger('input'); // Will be display 
     }
+
+    // deteksi paket obat
+    $(document).on('click', '.deteksi_cek_box', function() {
+
+        var row_id = $(this).attr("id"); // status_paket_apotek_obat1++
+        var row_no = row_id.substring(24); // 1++
+
+        // Get the checkbox
+        var checkBox = document.getElementById(row_id);
+        // If the checkbox is checked, harga_apotek_obat harga_sub_apotek_obat harga_cadangan_apotek_obat
+        if (checkBox.checked == true) {
+            $('#harga_apotek_obat' + row_no).val("0");
+            $('#harga_sub_apotek_obat' + row_no).val("0");
+        } else {
+
+            var harga_cadangan_apotek_obat = $('#harga_cadangan_apotek_obat' + row_no).val();
+            $('#harga_apotek_obat' + row_no).val(harga_cadangan_apotek_obat);
+
+            var harga_apotek_obat = parseInt($('#harga_apotek_obat' + row_no).val().split('.').join(''));
+            var qty_apotek_obat = parseInt($('#qty_apotek_obat' + row_no).val().split('.').join(''));
+
+            $('#harga_sub_apotek_obat' + row_no).val(harga_apotek_obat * qty_apotek_obat);
+        }
+
+        update_sub_total_apotek_obat();
+    });
 </script>
