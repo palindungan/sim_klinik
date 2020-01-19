@@ -119,7 +119,8 @@
 
 <!-- start of pecahan codingan script -->
 <?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/bp_tindakan.php') ?>
-<?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/load_all_detail.php') ?>
+
+<?php $this->view('sim_klinik/konten/balai_pengobatan/transaksi/load_php/load_all_detail.php') ?>
 <!-- end of pecahan codingan script -->
 
 <script>
@@ -161,7 +162,7 @@
 
 		// tambah ke database
 		$.ajax({
-			url: "<?php echo base_url() . 'administrasi/tagihan/input_transaksi_form'; ?>",
+			url: "<?php echo base_url() . 'balai_pengobatan/transaksi/input_transaksi_form'; ?>",
 			method: "POST",
 			data: form_data,
 			success: function(data) {
