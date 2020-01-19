@@ -144,18 +144,6 @@
         update_sub_total_bp_tindakan();
     });
 
-    // jika kita mengubah class inputan rupiah
-    $(document).on('keyup', '.harga_bp_tindakan_update', function() {
-
-        var row_id = $(this).attr("id"); // harga_bp_tindakan1++
-        var row_no = row_id.substring(17); // 1++
-
-        var row_val = $('#' + row_id).val();
-        $('#harga_sub_bp_tindakan' + row_no).val(row_val);
-
-        update_sub_total_bp_tindakan();
-    });
-
     $(document).on('keyup', '.harga_bp_tindakan_update', function() {
 
         var row_id = $(this).attr("id"); // harga_bp_tindakan1++

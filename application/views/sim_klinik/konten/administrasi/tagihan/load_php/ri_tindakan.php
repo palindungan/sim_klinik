@@ -102,7 +102,9 @@
                 ` + nama + `
                 <input type="hidden" name="no_rawat_inap_t[]" class="form-control form-control-sm" id="no_rawat_inap_t` + count_transaksi + `" value="` + kode + `">
             </td>
-            <td>1</td>
+            <td>
+                <input type="text" name="qty_ri_tindakan[]" class="form-control form-control-sm cek_qty_ri_tindakan" id="qty_ri_tindakan` + count_transaksi + `" placeholder="QTY" value="1" required>
+            </td>
             <td>
                 <input type="text" name="harga_ri_tindakan[]" class="form-control form-control-sm rupiah text-right harga_ri_tindakan_update" id="harga_ri_tindakan` + count_transaksi + `" placeholder="Harga Tindakan RI" required value="` + harga + `">
             </td>
@@ -140,16 +142,34 @@
         update_sub_total_ri_tindakan();
     });
 
-    // jika kita mengubah class inputan rupiah
     $(document).on('keyup', '.harga_ri_tindakan_update', function() {
 
         var row_id = $(this).attr("id"); // harga_ri_tindakan1++
         var row_no = row_id.substring(17); // 1++
 
         var row_val = $('#' + row_id).val();
-        $('#harga_sub_ri_tindakan' + row_no).val(row_val);
+        var val_qty = $('#qty_ri_tindakan' + row_no).val();
+
+        // sub total
+        var val_harga_ri_tindakan = parseInt(row_val.split('.').join(''));
+        $('#harga_sub_ri_tindakan' + row_no).val(val_harga_ri_tindakan * val_qty);
 
         update_sub_total_ri_tindakan();
+    });
+
+    $(document).on('keyup', '.cek_qty_ri_tindakan', function() {
+
+        var row_id = $(this).attr("id"); // qty_ri_tindakan1++
+        var row_no = row_id.substring(15); // 1++
+
+        var val_qty = $('#' + row_id).val();
+
+        update_sub_total_ri_tindakan()
+
+        // sub total
+        var harga_ri_tindakan = $('#harga_ri_tindakan' + row_no).val()
+        var val_harga_ri_tindakan = parseInt(harga_ri_tindakan.split('.').join(''));
+        $('#harga_sub_ri_tindakan' + row_no).val(val_harga_ri_tindakan * val_qty);
     });
 
     function update_sub_total_ri_tindakan() {
