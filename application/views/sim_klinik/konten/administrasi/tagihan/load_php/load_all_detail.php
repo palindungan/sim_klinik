@@ -7,6 +7,10 @@
         $('.kelas_row').remove();
         $('.angka_default').val("0");
 
+        count_transaksi = 0;
+        jumlah_detail_transaksi = 0;
+        jumlah_detail_transaksi_ri_kamar = 0;
+
         // Fetch data
         $.ajax({
             url: "<?php echo base_url() . 'administrasi/tagihan/get_transaksi_pasien'; ?>",
