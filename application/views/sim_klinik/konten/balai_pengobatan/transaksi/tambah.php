@@ -22,7 +22,7 @@
 					</div>
 				</div>
 
-				<input type="hidden" readonly name="sub_total_bp_tindakan" class="form-control form-control-sm rupiah text-right" id="sub_total_bp_tindakan" placeholder="Sub Total BP Tindakan">
+				<input type="hidden" readonly name="sub_total_bp_tindakan" class="angka_default form-control form-control-sm rupiah text-right" id="sub_total_bp_tindakan" placeholder="Sub Total BP Tindakan">
 
 				<div class="row">
 					<div class="col-md-12">

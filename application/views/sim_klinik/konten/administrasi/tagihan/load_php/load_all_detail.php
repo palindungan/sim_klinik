@@ -5,6 +5,7 @@
 
         // kosongkan semua detail
         $('.kelas_row').remove();
+        $('.angka_default').val("0");
 
         // Fetch data
         $.ajax({
