@@ -100,7 +100,9 @@
                 ` + nama + `
                 <input type="hidden" name="no_ugd_t[]" class="form-control form-control-sm" id="no_ugd_t` + count_transaksi + `" value="` + kode + `">
             </td>
-            <td>1</td>
+            <td>
+                <input type="text" name="qty_ugd_tindakan[]" class="form-control form-control-sm cek_qty_ugd_tindakan" id="qty_ugd_tindakan` + count_transaksi + `" placeholder="QTY" value="1" required>
+            </td>
             <td>
                 <input type="text" name="harga_ugd_tindakan[]" class="form-control form-control-sm rupiah text-right harga_ugd_tindakan_update" id="harga_ugd_tindakan` + count_transaksi + `" placeholder="Harga Tindakan UGD" required value="` + harga + `">
             </td>
@@ -138,16 +140,34 @@
         update_sub_total_ugd_tindakan();
     });
 
-    // jika kita mengubah class inputan rupiah
     $(document).on('keyup', '.harga_ugd_tindakan_update', function() {
 
         var row_id = $(this).attr("id"); // harga_ugd_tindakan1++
         var row_no = row_id.substring(18); // 1++
 
         var row_val = $('#' + row_id).val();
-        $('#harga_sub_ugd_tindakan' + row_no).val(row_val);
+        var val_qty = $('#qty_ugd_tindakan' + row_no).val();
+
+        // sub total
+        var val_harga_ugd_tindakan = parseInt(row_val.split('.').join(''));
+        $('#harga_sub_ugd_tindakan' + row_no).val(val_harga_ugd_tindakan * val_qty);
 
         update_sub_total_ugd_tindakan();
+    });
+
+    $(document).on('keyup', '.cek_qty_ugd_tindakan', function() {
+
+        var row_id = $(this).attr("id"); // qty_ugd_tindakan1++
+        var row_no = row_id.substring(16); // 1++
+
+        var val_qty = $('#' + row_id).val();
+
+        update_sub_total_ugd_tindakan()
+
+        // sub total
+        var harga_ugd_tindakan = $('#harga_ugd_tindakan' + row_no).val()
+        var val_harga_ugd_tindakan = parseInt(harga_ugd_tindakan.split('.').join(''));
+        $('#harga_sub_ugd_tindakan' + row_no).val(val_harga_ugd_tindakan * val_qty);
     });
 
     function update_sub_total_ugd_tindakan() {
