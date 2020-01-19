@@ -105,7 +105,7 @@
                 <input type="hidden" name="no_bp_t[]" class="form-control form-control-sm" id="no_bp_t` + count_transaksi + `" value="` + kode + `">
             </td>
             <td>
-            <input type="text" name="qty_bp_tindakan[]" class="form-control form-control-sm cek_qty_bp_tindakan" id="qty_bp_tindakan` + count_transaksi + `" placeholder="QTY" value="1" required>
+                <input type="text" name="qty_bp_tindakan[]" class="form-control form-control-sm cek_qty_bp_tindakan" id="qty_bp_tindakan` + count_transaksi + `" placeholder="QTY" value="1" required>
             </td>
             <td>
                 <input type="text" name="harga_bp_tindakan[]" class="form-control form-control-sm rupiah text-right harga_bp_tindakan_update" id="harga_bp_tindakan` + count_transaksi + `" placeholder="Harga Tindakan BP" required value="` + harga + `">
