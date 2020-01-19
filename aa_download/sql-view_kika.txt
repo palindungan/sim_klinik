@@ -124,7 +124,7 @@ FROM detail_transaksi_rawat_inap_obat dtrio JOIN stok_obat_rawat_inap sori USING
 ORDER BY dtrio.no_detail_transaksi_rawat_inap_o ASC
 
 CREATE VIEW daftar_detail_tindakan_rawat_inap AS 
-SELECT rit.no_rawat_inap_t , rit.nama , dtrit.harga, tri.no_ref_pelayanan,dtrit.no_transaksi_rawat_i
+SELECT rit.no_rawat_inap_t , rit.nama ,dtrit.qty, dtrit.harga, tri.no_ref_pelayanan,dtrit.no_transaksi_rawat_i
 FROM detail_transaksi_rawat_inap_tindakan dtrit JOIN transaksi_rawat_inap tri USING(no_transaksi_rawat_i) JOIN rawat_inap_tindakan rit USING(no_rawat_inap_t)
 ORDER BY dtrit.no_detail_transaksi_rawat_inap_t ASC
 

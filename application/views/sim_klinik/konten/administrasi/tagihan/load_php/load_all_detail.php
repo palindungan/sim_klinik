@@ -78,9 +78,10 @@
 
                         var no_rawat_inap_t = data_ri_tindakan[i].no_rawat_inap_t;
                         var nama = data_ri_tindakan[i].nama;
+                        var qty = data_ri_tindakan[i].qty;
                         var harga = data_ri_tindakan[i].harga;
 
-                        load_detail_ri_tindakan(no_rawat_inap_t, nama, harga);
+                        load_detail_ri_tindakan(no_rawat_inap_t, nama, qty, harga);
                     });
 
                     update_sub_total_ri_tindakan();
@@ -290,7 +291,7 @@
         jumlah_detail_transaksi = jumlah_detail_transaksi + 1;
     }
 
-    function load_detail_ri_tindakan(no_rawat_inap_t, nama, harga) {
+    function load_detail_ri_tindakan(no_rawat_inap_t, nama, qty, harga) {
 
         $('#detail_list_ri_tindakan').append(`
 
@@ -299,12 +300,14 @@
                 ` + nama + `
                 <input type="hidden" name="no_rawat_inap_t[]" class="form-control form-control-sm" id="no_rawat_inap_t` + count_transaksi + `" value="` + no_rawat_inap_t + `">
             </td>
-            <td>1</td>
+            <td>
+                <input type="text" name="qty_ri_tindakan[]" class="form-control form-control-sm cek_qty_ri_tindakan" id="qty_ri_tindakan` + count_transaksi + `" placeholder="QTY" value="` + qty + `" required>
+            </td>
             <td>
                 <input type="text" name="harga_ri_tindakan[]" class="form-control form-control-sm rupiah text-right harga_ri_tindakan_update" id="harga_ri_tindakan` + count_transaksi + `" placeholder="Harga Tindakan RI" required value="` + harga + `">
             </td>
             <td>  
-                <input type="text" class="form-control form-control-sm rupiah text-right" id="harga_sub_ri_tindakan` + count_transaksi + `" readonly required value="` + harga + `"></td>
+                <input type="text" class="form-control form-control-sm rupiah text-right" id="harga_sub_ri_tindakan` + count_transaksi + `" readonly required value="` + harga * qty + `"></td>
             <td>
                 <div class="form-group col-sm-2">
                     <a id="` + count_transaksi + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris_ri_tindakan">
