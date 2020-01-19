@@ -98,7 +98,9 @@
                 ` + nama + `
                 <input type="hidden" name="no_kia_t[]" class="form-control form-control-sm" id="no_kia_t` + count_transaksi + `" value="` + kode + `">
             </td>
-            <td>1</td>
+            <td>
+                <input type="text" name="qty_kia_tindakan[]" class="form-control form-control-sm cek_qty_kia_tindakan" id="qty_kia_tindakan` + count_transaksi + `" placeholder="QTY" value="1" required>
+            </td>
             <td>
                 <input type="text" name="harga_kia_tindakan[]" class="form-control form-control-sm rupiah text-right harga_kia_tindakan_update" id="harga_kia_tindakan` + count_transaksi + `" placeholder="Harga Tindakan KIA" required value="` + harga + `">
             </td>
@@ -136,16 +138,34 @@
         update_sub_total_kia_tindakan();
     });
 
-    // jika kita mengubah class inputan rupiah
     $(document).on('keyup', '.harga_kia_tindakan_update', function() {
 
         var row_id = $(this).attr("id"); // harga_kia_tindakan1++
         var row_no = row_id.substring(18); // 1++
 
         var row_val = $('#' + row_id).val();
-        $('#harga_sub_kia_tindakan' + row_no).val(row_val);
+        var val_qty = $('#qty_kia_tindakan' + row_no).val();
+
+        // sub total
+        var val_harga_kia_tindakan = parseInt(row_val.split('.').join(''));
+        $('#harga_sub_kia_tindakan' + row_no).val(val_harga_kia_tindakan * val_qty);
 
         update_sub_total_kia_tindakan();
+    });
+
+    $(document).on('keyup', '.cek_qty_kia_tindakan', function() {
+
+        var row_id = $(this).attr("id"); // qty_kia_tindakan1++
+        var row_no = row_id.substring(16); // 1++
+
+        var val_qty = $('#' + row_id).val();
+
+        update_sub_total_kia_tindakan()
+
+        // sub total
+        var harga_kia_tindakan = $('#harga_kia_tindakan' + row_no).val()
+        var val_harga_kia_tindakan = parseInt(harga_kia_tindakan.split('.').join(''));
+        $('#harga_sub_kia_tindakan' + row_no).val(val_harga_kia_tindakan * val_qty);
     });
 
     function update_sub_total_kia_tindakan() {
