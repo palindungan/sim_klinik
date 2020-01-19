@@ -97,7 +97,9 @@
                 ` + nama + `
                 <input type="hidden" name="no_lab_c[]" class="form-control form-control-sm" id="no_lab_c` + count_transaksi + `" value="` + kode + `">
             </td>
-            <td>1</td>
+            <td>
+                <input type="text" name="qty_lab_tindakan[]" class="form-control form-control-sm cek_qty_lab_tindakan" id="qty_lab_tindakan` + count_transaksi + `" placeholder="QTY" value="1" required>
+            </td>
             <td>
                 <input type="text" name="harga_lab_tindakan[]" class="form-control form-control-sm rupiah text-right harga_lab_tindakan_update" id="harga_lab_tindakan` + count_transaksi + `" placeholder="Harga Tindakan LAB" required value="` + harga + `">
             </td>
@@ -135,16 +137,34 @@
         update_sub_total_lab_tindakan();
     });
 
-    // jika kita mengubah class inputan rupiah
     $(document).on('keyup', '.harga_lab_tindakan_update', function() {
 
         var row_id = $(this).attr("id"); // harga_lab_tindakan1++
         var row_no = row_id.substring(18); // 1++
 
         var row_val = $('#' + row_id).val();
-        $('#harga_sub_lab_tindakan' + row_no).val(row_val);
+        var val_qty = $('#qty_lab_tindakan' + row_no).val();
+
+        // sub total
+        var val_harga_lab_tindakan = parseInt(row_val.split('.').join(''));
+        $('#harga_sub_lab_tindakan' + row_no).val(val_harga_lab_tindakan * val_qty);
 
         update_sub_total_lab_tindakan();
+    });
+
+    $(document).on('keyup', '.cek_qty_lab_tindakan', function() {
+
+        var row_id = $(this).attr("id"); // qty_lab_tindakan1++
+        var row_no = row_id.substring(16); // 1++
+
+        var val_qty = $('#' + row_id).val();
+
+        update_sub_total_lab_tindakan()
+
+        // sub total
+        var harga_lab_tindakan = $('#harga_lab_tindakan' + row_no).val()
+        var val_harga_lab_tindakan = parseInt(harga_lab_tindakan.split('.').join(''));
+        $('#harga_sub_lab_tindakan' + row_no).val(val_harga_lab_tindakan * val_qty);
     });
 
     function update_sub_total_lab_tindakan() {
