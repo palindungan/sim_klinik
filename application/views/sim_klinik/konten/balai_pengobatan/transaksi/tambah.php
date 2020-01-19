@@ -1,5 +1,5 @@
 <?php if ($this->session->flashdata('success')) : ?>
-<div class="pesan-sukses" data-flashdata="<?= $this->session->flashdata('success'); ?>"></div>
+	<div class="pesan-sukses" data-flashdata="<?= $this->session->flashdata('success'); ?>"></div>
 <?php endif; ?>
 <div class="container-fluid">
 	<div class="card shadow mb-4">
@@ -7,99 +7,80 @@
 			<h6 class="m-0 font-weight-bold text-primary">Balai Pengobatan</h6>
 		</div>
 		<div class="card-body">
-			<form method="post" id="transaksi_form">
+			<form method="post" id="transaksi_form" action="<?= base_url('administrasi/tagihan/input_transaksi_form') ?>">
 				<div class="form-row">
 					<div class="form-group col-sm-5">
 						<label>Cari No Ref</label>
-						<select class="form-control form-control-sm itemName" name="no_ref_pelayanan" required>
+						<select id="xx" class="form-control form-control-sm itemName" name="no_ref_pelayanan" required>
 						</select>
 					</div>
 				</div>
 
-				<div class="form-row">
-
-					<div class="form-group col-sm-12">
-						<a href="#" id="btn_search_bp" class="btn btn-sm btn-primary btn-icon-split" data-toggle="modal"
-							data-target="#exampleModalCenterBP">
-							<span class="icon text-white-50">
-								<i class="fas fa-search-plus"></i>
-							</span>
-							<span class="text">Cari Tindakan</span>
-						</a>
+				<div class="row">
+					<div class="form-group col-md-2">
+						<a href="#" id="btn_search_bp_tindakan" class="btn btn-sm btn-primary col-md-12" data-toggle="modal" data-target="#exampleModalCenter_bp_tindakan">Tindakan BP</a>
 					</div>
-
 				</div>
 
-				<div class="form-row">
-					<label class=" col-sm-5"><b>Nama Tindakan</b></label>
-					<label class=" col-sm-5"><b>Biaya</b></label>
-				</div>
+				<input type="hidden" readonly name="sub_total_bp_tindakan" class="form-control form-control-sm rupiah text-right" id="sub_total_bp_tindakan" placeholder="Sub Total BP Tindakan">
 
-				<!-- start untuk keranjang tindakan -->
-				<div id="detail_list_bp">
-					<!-- disini isi detail -->
-					<h6 id="label_kosong_bp">Detail Tindakan Masih Kosong Lakukan pilih Pencarian Tindakan !</h6>
+				<div class="row">
+					<div class="col-md-12">
+						<table class="table table-sm table-bordered table-striped">
+							<thead>
+								<tr>
+									<td>Rincian</td>
+									<td width="10%">Qty</td>
+									<td>Biaya</td>
+									<td width="20%">Sub Total</td>
+									<td width="5%">Hapus</td>
+								</tr>
+							</thead>
 
-				</div>
-				<!-- end of untuk keranjang tindakan -->
+							<tbody>
+								<tr id="label_kosong">
+									<td>
+										Detail Transaksi Masih Kosong !
+									</td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+							</tbody>
 
-				<div class="form-row">
-					<div class="form-group col-sm-5"> </div>
+							<tbody id="detail_list_bp_tindakan"></tbody>
 
-					<div class="form-group col-sm-5">
-						<input type="text" readonly name="total_harga_bp"
-							class="form-control form-control-sm rupiah_bp text-right" id="total_harga_bp"
-							placeholder="Total" required>
+							<tfoot>
+								<tr>
+									<td></td>
+									<td></td>
+									<td align="right">Grand Total :</td>
+									<td>
+										<input readonly type="text" name="grand_total" class="form-control form-control-sm rupiah text-right" id="grand_total" placeholder="Grand Total" required value="">
+									</td>
+									<td></td>
+								</tr>
+							</tfoot>
+						</table>
 					</div>
+				</div>
 
-					<div class="form-group col-sm-2">
-						<button id="action" type="submit" class="btn btn-sm btn-success btn-icon-split"
-							onclick="return confirm('Lakukan Simpan Data ?')">
+				<div class="form-row">
+					<div class="col-sm-2">
+						<button id="action" type="submit" class="btn btn-sm btn-success btn-icon-split" onclick="return confirm('Lakukan Simpan Data ?')">
 							<span class="icon text-white-50">
 								<i class="fas fa-save"></i>
 							</span>
 							<span class="text">Simpan Data</span>
 						</button>
 					</div>
-
 				</div>
 
 			</form>
 		</div>
 	</div>
 </div>
-
-<!-- Modal -->
-<div class="modal fade  bd-example-modal-lg" id="exampleModalCenterBP" tabindex="-1" role="dialog"
-	aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-	<div class="modal-dialog modal-lg" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLongTitle">Daftar Tindakan</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<div class="table-responsive">
-					<table class="table table-bordered table_1" width="100%" cellspacing="0">
-						<thead>
-							<tr>
-								<th class="text-center">No</th>
-								<th class="text-center">Nama</th>
-								<th class="text-center">Biaya</th>
-								<th class="text-center">Aksi</th>
-							</tr>
-						</thead>
-						<tbody id="daftar_barang">
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
 
 <script src="<?= base_url(); ?>assets/sb_admin_2/vendor/jquery/jquery-3.4.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
@@ -109,16 +90,16 @@
 			url: "<?= base_url('balai_pengobatan/transaksi/tampil_select') ?>",
 			dataType: "json",
 			delay: 250,
-			data: function (params) {
+			data: function(params) {
 				return {
 					no_ref: params.term,
 					nama: params.term
 				};
 			},
-			processResults: function (data) {
+			processResults: function(data) {
 				var results = [];
 
-				$.each(data, function (index, item) {
+				$.each(data, function(index, item) {
 					results.push({
 						id: item.no_ref_pelayanan,
 						text: item.no_ref_pelayanan + " || " + item.nama
@@ -131,176 +112,38 @@
 		}
 	})
 
-</script>
-<script>
-	var count1 = 0;
+	// Deklarasi Variable 
+	var count_transaksi = 0;
 	var jumlah_detail_transaksi = 0;
+</script>
 
-	// jika kita tekan / click button search-button
-	$('#btn_search_bp').on('click', function () {
-		search_proses();
-	});
+<!-- start of pecahan codingan script -->
+<?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/bp_tindakan.php') ?>
+<?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/load_all_detail.php') ?>
+<!-- end of pecahan codingan script -->
 
-	// jika kita tekan hapus / click button
-	$(document).on('click', '.remove_baris', function () {
-		var row_no = $(this).attr("id");
-		$('#row' + row_no).remove();
+<script>
+	function cek_jumlah_data_detail_transaksi() {
 
-		jumlah_detail_transaksi = jumlah_detail_transaksi - 1;
-
-		cekJumlahDataTransaksi();
-	});
-
-	// jika kita mengubah class inputan rupiah
-	$(document).on('keyup', '.rupiah', function () {
-		update_total();
-	});
-
-	// jika di click simpan / submit
-	$(document).on('submit', '#transaksi_form', function (event) {
-		event.preventDefault();
-
-		// mengambil nilai di dalam form
-		var form_data = $(this).serialize();
-
-		// tambah ke database
-		$.ajax({
-			url: "<?php echo base_url() . 'balai_pengobatan/transaksi/input_transaksi_form'; ?>",
-			method: "POST",
-			data: form_data,
-			success: function (data) {
-				// if (data != "") {
-				// 	alert(data);
-				// }
-				location.reload();
-			}
-		});
-		// tambah ke database
-
-	});
-
-	// Start pencarian
-	function search_proses() {
-
-		var table;
-		table = $('.table_1').DataTable({
-			"columnDefs": [{
-					"targets": [0, 3],
-					"className": "text-center"
-				},
-				{
-					"targets": 2,
-					"className": "text-right"
-				}
-			],
-			"bDestroy": true
-		});
-
-		table.clear();
-
-		$.ajax({
-			url: "<?php echo base_url() . 'balai_pengobatan/transaksi/tampil_daftar_tindakan'; ?>",
-			success: function (hasil) {
-
-				var obj = JSON.parse(hasil);
-				let data = obj['tbl_data'];
-
-				if (data != '') {
-
-					var no = 1;
-
-					$.each(data, function (i, item) {
-
-						var kode = data[i].no_bp_t;
-						var nama = data[i].nama;
-						var harga = data[i].harga;
-						var status = data[i].status;
-						var reverse = harga.toString().split('').reverse().join(''),
-							ribuan = reverse.match(/\d{1,3}/g);
-						ribuan = ribuan.join('.').split('').reverse().join('');
-						var button = `<a onclick="pilihTindakan('` + kode +
-							`','` + nama + `','` + harga + `','` + status + `')" id="` + kode +
-							`" class="btn btn-sm btn-dark text-white">Pilih</a>`;
-
-						table.row.add([no, nama, ribuan, button]);
-
-						no = no + 1;
-					});
-				} else {
-
-					$('.table_1').html('<h3>No data are available</h3>');
-
-				}
-				table.draw();
-
-			}
-		});
-	}
-
-	// Start add_row
-	function pilihTindakan(kode, nama, harga, status) {
-		if (status == 'Tidak Terima') {
-			harga = 0;
-		}
-		$('#detail_list_bp').append(`
-
-			<div id="row` + count1 + `" class="form-row">
-				<div class="form-group col-sm-5">
-					<input type="text" readonly name="nama[]" class="form-control form-control-sm karakter" id="nama` + count1 +
-			`" placeholder="Nama" required value="` + nama + `">
-					<input type="hidden" name="no_bp_t[]" class="form-control form-control-sm" id="no_bp_t` + count1 + `" value="` +
-			kode + `">
-				</div>
-				<div class="form-group col-sm-5">
-					<input type="text" name="harga[]" class="form-control form-control-sm rupiah_bp text-right" id="harga` + count1 +
-			`" placeholder="Harga" required value="` + harga + `">
-				</div>
-				<div class="form-group col-sm-2">
-					<a id="` + count1 + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris">
-						<span class="icon text-white-50">
-							<i class="fas fa-trash-alt"></i>
-						</span>
-						<span class="text">Hapus</span>
-					</a>
-				</div>
-			</div>
-
-		`);
-
-		count1 = count1 + 1;
-		jumlah_detail_transaksi = jumlah_detail_transaksi + 1;
-		$('#exampleModalCenterBP').modal('hide');
-
-		cekJumlahDataTransaksi();
-	}
-
-	function cekJumlahDataTransaksi() {
-
-		var x = document.getElementById("label_kosong_bp");
+		var x = document.getElementById("label_kosong").style;
 		if (jumlah_detail_transaksi > 0) {
-			x.style.display = "none"; // hidden
+			x.display = "none"; // hidden
 		} else {
-			x.style.display = "block"; // show
+			x.display = "table-row"; // show
 		}
-
-		update_total();
+		update_grand_total();
 	}
 
-	function update_total() {
-		// mengambil nilai di dalam form
-		var form_data = $('#transaksi_form').serialize()
+	function update_grand_total() {
 
-		$.ajax({
-			url: "<?php echo base_url() . 'balai_pengobatan/transaksi/ambil_total'; ?>",
-			method: "POST",
-			data: form_data,
-			success: function (data) {
-				$('#total_harga_bp').val(data);
-				$('.rupiah_bp').trigger('input'); // Will be display 
-			}
-		});
+		var sub_total_bp_tindakan = $('#sub_total_bp_tindakan').val();
+		var sub_total_bp_tindakan_v = 0;
+		if (sub_total_bp_tindakan != "") {
+			sub_total_bp_tindakan_v = parseInt(sub_total_bp_tindakan.split('.').join(''));
+		}
 
-		validasi();
+		$('#grand_total').val(sub_total_bp_tindakan_v);
+		$('#grand_total').trigger('input'); // Will be display 
 	}
 
 	function validasi() {
@@ -309,4 +152,23 @@
 		});
 	}
 
+	// jika di click simpan / submit
+	$(document).on('submit', '#transaksi_form', function(event) {
+		event.preventDefault();
+
+		// mengambil nilai di dalam form
+		var form_data = $(this).serialize();
+
+		// tambah ke database
+		$.ajax({
+			url: "<?php echo base_url() . 'administrasi/tagihan/input_transaksi_form'; ?>",
+			method: "POST",
+			data: form_data,
+			success: function(data) {
+				location.reload();
+			}
+		});
+		// tambah ke database
+
+	});
 </script>

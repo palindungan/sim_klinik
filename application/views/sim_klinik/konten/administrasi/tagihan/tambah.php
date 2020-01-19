@@ -329,4 +329,24 @@
 
         update_sub_total_apotek_obat();
     });
+
+    // jika di click simpan / submit
+    $(document).on('submit', '#transaksi_form', function(event) {
+        event.preventDefault();
+
+        // mengambil nilai di dalam form
+        var form_data = $(this).serialize();
+
+        // tambah ke database
+        $.ajax({
+            url: "<?php echo base_url() . 'administrasi/tagihan/input_transaksi_form'; ?>",
+            method: "POST",
+            data: form_data,
+            success: function(data) {
+                location.reload();
+            }
+        });
+        // tambah ke database
+
+    });
 </script>
