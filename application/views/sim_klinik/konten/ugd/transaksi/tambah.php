@@ -154,21 +154,26 @@
 
 	// jika di click simpan / submit
 	$(document).on('submit', '#transaksi_form', function(event) {
-		event.preventDefault();
 
-		// mengambil nilai di dalam form
-		var form_data = $(this).serialize();
+		if (jumlah_detail_transaksi > 0) {
+			event.preventDefault();
 
-		// tambah ke database
-		$.ajax({
-			url: "<?php echo base_url() . 'ugd/transaksi/input_transaksi_form'; ?>",
-			method: "POST",
-			data: form_data,
-			success: function(data) {
-				location.reload();
-			}
-		});
-		// tambah ke database
+			// mengambil nilai di dalam form
+			var form_data = $(this).serialize();
+
+			// tambah ke database
+			$.ajax({
+				url: "<?php echo base_url() . 'ugd/transaksi/input_transaksi_form'; ?>",
+				method: "POST",
+				data: form_data,
+				success: function(data) {
+					location.reload();
+				}
+			});
+			// tambah ke database
+		} else {
+			alert("Detail Transaksi Kosong !");
+		}
 
 	});
 </script>
