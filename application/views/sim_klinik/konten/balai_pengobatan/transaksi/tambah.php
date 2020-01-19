@@ -7,7 +7,7 @@
 			<h6 class="m-0 font-weight-bold text-primary">Balai Pengobatan</h6>
 		</div>
 		<div class="card-body">
-			<form method="post" id="transaksi_form" action="<?= base_url('administrasi/tagihan/input_transaksi_form') ?>">
+			<form method="post" id="transaksi_form">
 				<div class="form-row">
 					<div class="form-group col-sm-5">
 						<label>Cari No Ref</label>
