@@ -37,8 +37,8 @@ class Transaksi extends CI_Controller
     {
         $where_qty_obat = array(
             'qty >' => 0
-        );  
-        $data_tbl['tbl_data'] = $this->M_transaksi->get_data('daftar_obat_rawat_inap',$where_qty_obat)->result();
+        );
+        $data_tbl['tbl_data'] = $this->M_transaksi->get_data('daftar_obat_rawat_inap', $where_qty_obat)->result();
 
         $data = json_encode($data_tbl);
 
@@ -47,12 +47,14 @@ class Transaksi extends CI_Controller
 
     public function input_transaksi_form()
     {
+
         $no_ref_pelayanan = $this->input->post('no_ref_pelayanan');
 
         $where_no_ref_pelayanan = array(
             'no_ref_pelayanan' => $no_ref_pelayanan
         );
 
+        // cek apakah ada no ref pelayanan didalam semua tabel transaksi
         $cek_transaksi_rawat_inap = $this->M_tagihan->get_data('transaksi_rawat_inap', $where_no_ref_pelayanan);
 
         // Start of cek di setiap transaksi //// untuk transaksi_rawat_inap
@@ -105,7 +107,7 @@ class Transaksi extends CI_Controller
                 }
 
                 // no_rawat_inap_t harga_ri_tindakan
-                if (isset($_POST['no_rawat_inap_t']) && isset($_POST['harga_ri_tindakan'])) {
+                if (isset($_POST['no_rawat_inap_t']) && isset($_POST['harga_ri_tindakan']) && isset($_POST['qty_ri_tindakan'])) {
 
                     // menambah detail transaksi baru 
                     for ($i = 0; $i < count($this->input->post('no_rawat_inap_t')); $i++) {
@@ -115,9 +117,13 @@ class Transaksi extends CI_Controller
                         $harga_jual_temp = $this->input->post('harga_ri_tindakan')[$i];
                         $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
 
+                        $qty_temp = $this->input->post('qty_ri_tindakan')[$i];
+                        $qty = (int) $qty_temp;
+
                         $data = array(
                             'no_transaksi_rawat_i' => $no_transaksi_rawat_i,
                             'no_rawat_inap_t' => $no_rawat_inap_t,
+                            'qty' => $qty,
                             'harga' => $harga_jual
                         );
 
@@ -238,7 +244,7 @@ class Transaksi extends CI_Controller
                 }
 
                 // no_rawat_inap_t harga_ri_tindakan
-                if (isset($_POST['no_rawat_inap_t']) && isset($_POST['harga_ri_tindakan'])) {
+                if (isset($_POST['no_rawat_inap_t']) && isset($_POST['harga_ri_tindakan']) && isset($_POST['qty_ri_tindakan'])) {
 
                     // menambah detail transaksi baru 
                     for ($i = 0; $i < count($this->input->post('no_rawat_inap_t')); $i++) {
@@ -248,9 +254,13 @@ class Transaksi extends CI_Controller
                         $harga_jual_temp = $this->input->post('harga_ri_tindakan')[$i];
                         $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
 
+                        $qty_temp = $this->input->post('qty_ri_tindakan')[$i];
+                        $qty = (int) $qty_temp;
+
                         $data = array(
                             'no_transaksi_rawat_i' => $no_transaksi_rawat_i,
                             'no_rawat_inap_t' => $no_rawat_inap_t,
+                            'qty' => $qty,
                             'harga' => $harga_jual
                         );
 
@@ -302,6 +312,5 @@ class Transaksi extends CI_Controller
         // End Of cek di setiap transaksi
 
         $this->session->set_flashdata('success', 'Ditambahkan');
-        redirect('rawat_inap/transaksi');
     }
 }

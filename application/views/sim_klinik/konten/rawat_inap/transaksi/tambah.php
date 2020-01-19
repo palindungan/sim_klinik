@@ -1,5 +1,5 @@
 <?php if ($this->session->flashdata('success')) : ?>
-<div class="pesan-sukses" data-flashdata="<?= $this->session->flashdata('success'); ?>"></div>
+	<div class="pesan-sukses" data-flashdata="<?= $this->session->flashdata('success'); ?>"></div>
 <?php endif; ?>
 <div class="container-fluid">
 	<div class="card shadow mb-4">
@@ -7,8 +7,7 @@
 			<h6 class="m-0 font-weight-bold text-primary">Rawat Inap</h6>
 		</div>
 		<div class="card-body">
-			<form method="post" id="transaksi_form"
-				action="<?= base_url('rawat_inap/transaksi/input_transaksi_form') ?>">
+			<form method="post" id="transaksi_form">
 				<div class="form-row">
 					<div class="form-group col-sm-5">
 						<label>Cari No Ref</label>
@@ -19,30 +18,19 @@
 
 				<div class="row">
 					<div class="form-group col-md-2">
-						<a href="#" id="btn_search_ri_kamar" class="btn btn-sm btn-primary col-md-12"
-							data-toggle="modal" data-target="#exampleModalCenter_ri_kamar">RI-Kamar</a>
+						<a href="#" id="btn_search_ri_kamar" class="btn btn-sm btn-primary col-md-12" data-toggle="modal" data-target="#exampleModalCenter_ri_kamar">RI-Kamar</a>
 					</div>
 					<div class="form-group col-md-2">
-						<a href="#" id="btn_search_ri_obat" class="btn btn-sm btn-primary col-md-12" data-toggle="modal"
-							data-target="#exampleModalCenter_ri_obat">RI-Obat</a>
+						<a href="#" id="btn_search_ri_obat" class="btn btn-sm btn-primary col-md-12" data-toggle="modal" data-target="#exampleModalCenter_ri_obat">RI-Obat</a>
 					</div>
 					<div class="form-group col-md-2">
-						<a href="#" id="btn_search_ri_tindakan" class="btn btn-sm btn-primary col-md-12"
-							data-toggle="modal" data-target="#exampleModalCenter_ri_tindakan">RI-Tindakan</a>
+						<a href="#" id="btn_search_ri_tindakan" class="btn btn-sm btn-primary col-md-12" data-toggle="modal" data-target="#exampleModalCenter_ri_tindakan">RI-Tindakan</a>
 					</div>
 				</div>
 
-
-
-				<input type="hidden" readonly name="sub_total_ri_kamar"
-					class="form-control form-control-sm rupiah text-right" id="sub_total_ri_kamar"
-					placeholder="Sub Total RI Kamar">
-				<input type="hidden" readonly name="sub_total_ri_obat"
-					class="form-control form-control-sm rupiah text-right" id="sub_total_ri_obat"
-					placeholder="Sub Total RI Obat">
-				<input type="hidden" readonly name="sub_total_ri_tindakan"
-					class="form-control form-control-sm rupiah text-right" id="sub_total_ri_tindakan"
-					placeholder="Sub Total RI Tindakan">
+				<input type="hidden" readonly name="sub_total_ri_kamar" class="form-control form-control-sm rupiah text-right" id="sub_total_ri_kamar" placeholder="Sub Total RI Kamar">
+				<input type="hidden" readonly name="sub_total_ri_obat" class="form-control form-control-sm rupiah text-right" id="sub_total_ri_obat" placeholder="Sub Total RI Obat">
+				<input type="hidden" readonly name="sub_total_ri_tindakan" class="form-control form-control-sm rupiah text-right" id="sub_total_ri_tindakan" placeholder="Sub Total RI Tindakan">
 
 				<div class="row">
 					<div class="col-md-12">
@@ -113,9 +101,7 @@
 									<td></td>
 									<td align="right">Grand Total :</td>
 									<td>
-										<input readonly type="text" name="grand_total"
-											class="form-control form-control-sm rupiah text-right" id="grand_total"
-											placeholder="Grand Total" required value="">
+										<input readonly type="text" name="grand_total" class="form-control form-control-sm rupiah text-right" id="grand_total" placeholder="Grand Total" required value="">
 									</td>
 									<td></td>
 								</tr>
@@ -126,8 +112,7 @@
 
 				<div class="form-row">
 					<div class="col-sm-2">
-						<button type="submit" class="btn btn-sm btn-success btn-icon-split"
-							onclick="return confirm('Lakukan Simpan Data ?')">
+						<button id="action" type="submit" class="btn btn-sm btn-success btn-icon-split" onclick="return confirm('Lakukan Simpan Data ?')">
 							<span class="icon text-white-50">
 								<i class="fas fa-save"></i>
 							</span>
@@ -142,12 +127,6 @@
 
 </div>
 
-
-
-
-<script src="<?= base_url(); ?>assets/sb_admin_2/vendor/jquery/jquery-3.4.1.min.js"></script>
-<script src="<?= base_url(); ?>assets/sb_admin_2/vendor/moment/moment.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
 <script src="<?= base_url(); ?>assets/sb_admin_2/vendor/jquery/jquery-3.4.1.min.js"></script>
 <script src="<?= base_url(); ?>assets/sb_admin_2/vendor/moment/moment.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
@@ -157,16 +136,16 @@
 			url: "<?= base_url('administrasi/tagihan/tampil_select') ?>",
 			dataType: "json",
 			delay: 250,
-			data: function (params) {
+			data: function(params) {
 				return {
 					no_ref: params.term,
 					nama: params.term
 				};
 			},
-			processResults: function (data) {
+			processResults: function(data) {
 				var results = [];
 
-				$.each(data, function (index, item) {
+				$.each(data, function(index, item) {
 					results.push({
 						id: item.no_ref_pelayanan,
 						text: item.no_ref_pelayanan + " || " + item.nama
@@ -183,12 +162,16 @@
 	var count_transaksi = 0;
 	var jumlah_detail_transaksi = 0;
 	var jumlah_detail_transaksi_ri_kamar = 0;
-
 </script>
+
+<!-- start of pecahan codingan script -->
+
 <?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/ri_kamar.php') ?>
 <?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/ri_obat.php') ?>
-<?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/ri_tindakan.php') ?><?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/load_all_detail.php') ?>
+<?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/ri_tindakan.php') ?>
 
+<?php $this->view('sim_klinik/konten/rawat_inap/transaksi/load_php/load_all_detail.php') ?>
+<!-- end of pecahan codingan script -->
 
 <script>
 	function cek_jumlah_data_detail_transaksi() {
@@ -242,9 +225,27 @@
 			sub_total_ri_tindakan_v = parseInt(sub_total_ri_tindakan.split('.').join(''));
 		}
 
-		$('#grand_total').val(sub_total_ri_kamar_v +
-			sub_total_ri_obat_v + sub_total_ri_tindakan_v);
+		$('#grand_total').val(sub_total_ri_kamar_v + sub_total_ri_obat_v + sub_total_ri_tindakan_v);
 		$('#grand_total').trigger('input'); // Will be display 
 	}
 
+	// jika di click simpan / submit
+	$(document).on('submit', '#transaksi_form', function(event) {
+		event.preventDefault();
+
+		// mengambil nilai di dalam form
+		var form_data = $(this).serialize();
+
+		// tambah ke database
+		$.ajax({
+			url: "<?php echo base_url() . 'rawat_inap/transaksi/input_transaksi_form'; ?>",
+			method: "POST",
+			data: form_data,
+			success: function(data) {
+				location.reload();
+			}
+		});
+		// tambah ke database
+
+	});
 </script>
