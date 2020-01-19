@@ -184,7 +184,7 @@ ORDER BY dlt.no_detail_lab_t ASC;
 
 // Detail Tindakan Transaksi UGD
 CREATE VIEW daftar_detail_tindakan_ugd_transaksi AS 
-SELECT dup.no_ugd_p,ut.no_ugd_t , ut.nama , dup.harga , up.no_ref_pelayanan
+SELECT dup.no_ugd_p,ut.no_ugd_t , ut.nama ,dup.qty ,dup.harga , up.no_ref_pelayanan
 FROM detail_ugd_penanganan dup JOIN ugd_tindakan ut USING(no_ugd_t) JOIN ugd_penanganan up USING(no_ugd_p)
 ORDER BY dup.no_detail_ugd_p ASC;
 
