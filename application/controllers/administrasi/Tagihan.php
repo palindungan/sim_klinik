@@ -407,7 +407,7 @@ class Tagihan extends CI_Controller
             // End of hapus semua detail transaksi lama
 
             // Start of Cek apakah ada data detail post masuk ? no_bp_t harga_bp_tindakan
-            if (isset($_POST['no_bp_t']) && isset($_POST['harga_bp_tindakan'])) {
+            if (isset($_POST['no_bp_t']) && isset($_POST['harga_bp_tindakan']) && isset($_POST['qty_bp_tindakan'])) {
 
                 // menambah detail transaksi baru 
                 for ($i = 0; $i < count($this->input->post('no_bp_t')); $i++) {
@@ -417,9 +417,13 @@ class Tagihan extends CI_Controller
                     $harga_jual_temp = $this->input->post('harga_bp_tindakan')[$i];
                     $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
 
+                    $qty_temp = $this->input->post('qty_bp_tindakan')[$i];
+                    $qty = (int) $qty_temp;
+
                     $data = array(
                         'no_bp_p' => $no_bp_p,
                         'no_bp_t' => $no_bp_t,
+                        'qty' => $qty,
                         'harga' => $harga_jual
                     );
 
@@ -446,7 +450,7 @@ class Tagihan extends CI_Controller
         } else {
 
             // Start of Cek apakah ada data detail post masuk ? no_bp_t harga_bp_tindakan
-            if (isset($_POST['no_bp_t']) && isset($_POST['harga_bp_tindakan'])) {
+            if (isset($_POST['no_bp_t']) && isset($_POST['harga_bp_tindakan']) && isset($_POST['qty_bp_tindakan'])) {
 
                 // menambah transaksi utama
                 $no_bp_p = $this->M_tagihan->get_no_bp_p(); // generate
@@ -471,9 +475,13 @@ class Tagihan extends CI_Controller
                     $harga_jual_temp = $this->input->post('harga_bp_tindakan')[$i];
                     $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
 
+                    $qty_temp = $this->input->post('qty_bp_tindakan')[$i];
+                    $qty = (int) $qty_temp;
+
                     $data = array(
                         'no_bp_p' => $no_bp_p,
                         'no_bp_t' => $no_bp_t,
+                        'qty' => $qty,
                         'harga' => $harga_jual
                     );
 
