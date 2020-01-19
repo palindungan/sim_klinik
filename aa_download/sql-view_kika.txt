@@ -178,7 +178,7 @@ ORDER BY dkp.no_detail_kia_p ASC;
 
 // Detail Tindakan Transaksi LAB
 CREATE VIEW daftar_detail_tindakan_lab_transaksi AS 
-SELECT dlt.no_lab_t,lc.no_lab_c , lc.nama , dlt.harga , lt.no_ref_pelayanan
+SELECT dlt.no_lab_t,lc.no_lab_c , lc.nama ,dlt.qty, dlt.harga , lt.no_ref_pelayanan
 FROM detail_lab_transaksi dlt JOIN lab_transaksi lt USING(no_lab_t) JOIN lab_checkup lc USING(no_lab_c)
 ORDER BY dlt.no_detail_lab_t ASC;
 

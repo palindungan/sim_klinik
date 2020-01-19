@@ -116,9 +116,10 @@
 
                         var no_lab_c = data_lab_tindakan[i].no_lab_c;
                         var nama = data_lab_tindakan[i].nama;
+                        var qty = data_lab_tindakan[i].qty;
                         var harga = data_lab_tindakan[i].harga;
 
-                        load_detail_lab_tindakan(no_lab_c, nama, harga);
+                        load_detail_lab_tindakan(no_lab_c, nama, qty, harga);
                     });
 
                     update_sub_total_lab_tindakan();
@@ -375,7 +376,7 @@
         jumlah_detail_transaksi_ri_kamar = jumlah_detail_transaksi_ri_kamar + 1;
     }
 
-    function load_detail_lab_tindakan(kode, nama, harga) {
+    function load_detail_lab_tindakan(kode, nama, qty, harga) {
 
         $('#detail_list_lab_tindakan').append(`
 
@@ -384,12 +385,14 @@
                 ` + nama + `
                 <input type="hidden" name="no_lab_c[]" class="form-control form-control-sm" id="no_lab_c` + count_transaksi + `" value="` + kode + `">
             </td>
-            <td>1</td>
+            <td>
+                <input type="text" name="qty_lab_tindakan[]" class="form-control form-control-sm cek_qty_lab_tindakan" id="qty_lab_tindakan` + count_transaksi + `" placeholder="QTY" value="` + qty + `" required>
+            </td>
             <td>
                 <input type="text" name="harga_lab_tindakan[]" class="form-control form-control-sm rupiah text-right harga_lab_tindakan_update" id="harga_lab_tindakan` + count_transaksi + `" placeholder="Harga Tindakan LAB" required value="` + harga + `">
             </td>
             <td>  
-                <input type="text" class="form-control form-control-sm rupiah text-right" id="harga_sub_lab_tindakan` + count_transaksi + `" readonly required value="` + harga + `"></td>
+                <input type="text" class="form-control form-control-sm rupiah text-right" id="harga_sub_lab_tindakan` + count_transaksi + `" readonly required value="` + harga * qty + `"></td>
             <td>
                 <div class="form-group col-sm-2">
                     <a id="` + count_transaksi + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris_lab_tindakan">
