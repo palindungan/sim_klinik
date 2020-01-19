@@ -319,7 +319,7 @@ class Tagihan extends CI_Controller
             // End of hapus semua detail transaksi lama
 
             // Start of Cek apakah ada data detail post masuk ? no_lab_c harga_lab_tindakan
-            if (isset($_POST['no_lab_c']) && isset($_POST['harga_lab_tindakan'])) {
+            if (isset($_POST['no_lab_c']) && isset($_POST['harga_lab_tindakan']) && isset($_POST['qty_lab_tindakan'])) {
 
                 // menambah detail transaksi baru 
                 for ($i = 0; $i < count($this->input->post('no_lab_c')); $i++) {
@@ -329,9 +329,13 @@ class Tagihan extends CI_Controller
                     $harga_jual_temp = $this->input->post('harga_lab_tindakan')[$i];
                     $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
 
+                    $qty_temp = $this->input->post('qty_lab_tindakan')[$i];
+                    $qty = (int) $qty_temp;
+
                     $data = array(
                         'no_lab_t' => $no_lab_t,
                         'no_lab_c' => $no_lab_c,
+                        'qty' => $qty,
                         'harga' => $harga_jual
                     );
 
@@ -358,7 +362,7 @@ class Tagihan extends CI_Controller
         } else {
 
             // Start of Cek apakah ada data detail post masuk ? no_lab_c harga_lab_tindakan
-            if (isset($_POST['no_lab_c']) && isset($_POST['harga_lab_tindakan'])) {
+            if (isset($_POST['no_lab_c']) && isset($_POST['harga_lab_tindakan']) && isset($_POST['qty_lab_tindakan'])) {
 
                 // menambah transaksi utama
                 $no_lab_t = $this->M_tagihan->get_no_lab_t(); // generate
@@ -383,9 +387,13 @@ class Tagihan extends CI_Controller
                     $harga_jual_temp = $this->input->post('harga_lab_tindakan')[$i];
                     $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
 
+                    $qty_temp = $this->input->post('qty_lab_tindakan')[$i];
+                    $qty = (int) $qty_temp;
+
                     $data = array(
                         'no_lab_t' => $no_lab_t,
                         'no_lab_c' => $no_lab_c,
+                        'qty' => $qty,
                         'harga' => $harga_jual
                     );
 
