@@ -156,9 +156,9 @@
 
 	// jika di click simpan / submit
 	$(document).on('submit', '#transaksi_form', function(event) {
+		event.preventDefault();
 
 		if (jumlah_detail_transaksi > 0) {
-			event.preventDefault();
 
 			// mengambil nilai di dalam form
 			var form_data = $(this).serialize();
