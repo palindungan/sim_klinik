@@ -526,7 +526,7 @@ class Tagihan extends CI_Controller
             // End of hapus semua detail transaksi lama
 
             // Start of Cek apakah ada data detail post masuk ? no_ugd_t harga_ugd_tindakan
-            if (isset($_POST['no_ugd_t']) && isset($_POST['harga_ugd_tindakan'])) {
+            if (isset($_POST['no_ugd_t']) && isset($_POST['harga_ugd_tindakan']) && isset($_POST['qty_ugd_tindakan'])) {
 
                 // menambah detail transaksi baru 
                 for ($i = 0; $i < count($this->input->post('no_ugd_t')); $i++) {
@@ -536,9 +536,13 @@ class Tagihan extends CI_Controller
                     $harga_jual_temp = $this->input->post('harga_ugd_tindakan')[$i];
                     $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
 
+                    $qty_temp = $this->input->post('qty_ugd_tindakan')[$i];
+                    $qty = (int) $qty_temp;
+
                     $data = array(
                         'no_ugd_p' => $no_ugd_p,
                         'no_ugd_t' => $no_ugd_t,
+                        'qty' => $qty,
                         'harga' => $harga_jual
                     );
 
@@ -565,7 +569,7 @@ class Tagihan extends CI_Controller
         } else {
 
             // Start of Cek apakah ada data detail post masuk ? no_ugd_t harga_ugd_tindakan
-            if (isset($_POST['no_ugd_t']) && isset($_POST['harga_ugd_tindakan'])) {
+            if (isset($_POST['no_ugd_t']) && isset($_POST['harga_ugd_tindakan']) && isset($_POST['qty_ugd_tindakan'])) {
 
                 // menambah transaksi utama
                 $no_ugd_p = $this->M_tagihan->get_no_ugd_p(); // generate
@@ -590,9 +594,13 @@ class Tagihan extends CI_Controller
                     $harga_jual_temp = $this->input->post('harga_ugd_tindakan')[$i];
                     $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
 
+                    $qty_temp = $this->input->post('qty_ugd_tindakan')[$i];
+                    $qty = (int) $qty_temp;
+
                     $data = array(
                         'no_ugd_p' => $no_ugd_p,
                         'no_ugd_t' => $no_ugd_t,
+                        'qty' => $qty,
                         'harga' => $harga_jual
                     );
 
