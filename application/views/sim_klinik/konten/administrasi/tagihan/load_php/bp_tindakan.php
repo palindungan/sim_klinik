@@ -104,7 +104,9 @@
                 ` + nama + `
                 <input type="hidden" name="no_bp_t[]" class="form-control form-control-sm" id="no_bp_t` + count_transaksi + `" value="` + kode + `">
             </td>
-            <td>1</td>
+            <td>
+            <input type="text" name="qty_bp_tindakan[]" class="form-control form-control-sm cek_qty_bp_tindakan" id="qty_bp_tindakan` + count_transaksi + `" placeholder="QTY" value="1" required>
+            </td>
             <td>
                 <input type="text" name="harga_bp_tindakan[]" class="form-control form-control-sm rupiah text-right harga_bp_tindakan_update" id="harga_bp_tindakan` + count_transaksi + `" placeholder="Harga Tindakan BP" required value="` + harga + `">
             </td>
@@ -152,6 +154,36 @@
         $('#harga_sub_bp_tindakan' + row_no).val(row_val);
 
         update_sub_total_bp_tindakan();
+    });
+
+    $(document).on('keyup', '.harga_bp_tindakan_update', function() {
+
+        var row_id = $(this).attr("id"); // harga_bp_tindakan1++
+        var row_no = row_id.substring(17); // 1++
+
+        var row_val = $('#' + row_id).val();
+        var val_qty = $('#qty_bp_tindakan' + row_no).val();
+
+        // sub total
+        var val_harga_bp_tindakan = parseInt(row_val.split('.').join(''));
+        $('#harga_sub_bp_tindakan' + row_no).val(val_harga_bp_tindakan * val_qty);
+
+        update_sub_total_bp_tindakan();
+    });
+
+    $(document).on('keyup', '.cek_qty_bp_tindakan', function() {
+
+        var row_id = $(this).attr("id"); // qty_bp_tindakan1++
+        var row_no = row_id.substring(15); // 1++
+
+        var val_qty = $('#' + row_id).val();
+
+        update_sub_total_bp_tindakan()
+
+        // sub total
+        var harga_bp_tindakan = $('#harga_bp_tindakan' + row_no).val()
+        var val_harga_bp_tindakan = parseInt(harga_bp_tindakan.split('.').join(''));
+        $('#harga_sub_bp_tindakan' + row_no).val(val_harga_bp_tindakan * val_qty);
     });
 
     function update_sub_total_bp_tindakan() {
