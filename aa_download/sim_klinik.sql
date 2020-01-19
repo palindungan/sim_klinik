@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 19 Jan 2020 pada 09.04
+-- Waktu pembuatan: 19 Jan 2020 pada 15.21
 -- Versi server: 10.1.37-MariaDB
 -- Versi PHP: 7.3.0
 
@@ -202,13 +202,6 @@ CREATE TABLE `bp_penanganan` (
   `total_harga` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `bp_penanganan`
---
-
-INSERT INTO `bp_penanganan` (`no_bp_p`, `no_ref_pelayanan`, `tgl_penanganan`, `total_harga`) VALUES
-('BP200119-0001', '200114-001', '2020-01-19 14:47:02', 50000);
-
 -- --------------------------------------------------------
 
 --
@@ -274,6 +267,7 @@ CREATE TABLE `daftar_detail_tindakan_bp_transaksi` (
 `no_bp_p` char(13)
 ,`no_bp_t` char(4)
 ,`nama` varchar(50)
+,`qty` int(3)
 ,`harga_detail` int(10)
 ,`harga_tindakan` int(9)
 ,`no_ref_pelayanan` char(10)
@@ -289,6 +283,7 @@ CREATE TABLE `daftar_detail_tindakan_kia_transaksi` (
 `no_kia_p` char(13)
 ,`no_kia_t` char(4)
 ,`nama` varchar(50)
+,`qty` int(3)
 ,`harga` int(10)
 ,`no_ref_pelayanan` char(10)
 );
@@ -303,6 +298,7 @@ CREATE TABLE `daftar_detail_tindakan_lab_transaksi` (
 `no_lab_t` char(13)
 ,`no_lab_c` char(4)
 ,`nama` varchar(50)
+,`qty` int(3)
 ,`harga` int(11)
 ,`no_ref_pelayanan` char(10)
 );
@@ -316,6 +312,7 @@ CREATE TABLE `daftar_detail_tindakan_lab_transaksi` (
 CREATE TABLE `daftar_detail_tindakan_rawat_inap` (
 `no_rawat_inap_t` char(4)
 ,`nama` varchar(30)
+,`qty` int(3)
 ,`harga` int(9)
 ,`no_ref_pelayanan` char(10)
 ,`no_transaksi_rawat_i` char(13)
@@ -331,6 +328,7 @@ CREATE TABLE `daftar_detail_tindakan_ugd_transaksi` (
 `no_ugd_p` char(13)
 ,`no_ugd_t` char(4)
 ,`nama` varchar(50)
+,`qty` int(3)
 ,`harga` int(10)
 ,`no_ref_pelayanan` char(10)
 );
@@ -518,13 +516,6 @@ CREATE TABLE `detail_bp_penanganan` (
   `harga` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `detail_bp_penanganan`
---
-
-INSERT INTO `detail_bp_penanganan` (`no_detail_bp_p`, `no_bp_p`, `no_bp_t`, `qty`, `harga`) VALUES
-(1, 'BP200119-0001', 'T001', 0, 50000);
-
 -- --------------------------------------------------------
 
 --
@@ -552,13 +543,6 @@ CREATE TABLE `detail_lab_transaksi` (
   `qty` int(3) NOT NULL,
   `harga` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `detail_lab_transaksi`
---
-
-INSERT INTO `detail_lab_transaksi` (`no_detail_lab_t`, `no_lab_t`, `no_lab_c`, `qty`, `harga`) VALUES
-(2, 'LB200119-0001', 'L001', 0, 100000);
 
 -- --------------------------------------------------------
 
@@ -629,14 +613,6 @@ CREATE TABLE `detail_transaksi_rawat_inap_kamar` (
   `status_kamar` enum('Belum Cek Out','Sudah Cek Out') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `detail_transaksi_rawat_inap_kamar`
---
-
-INSERT INTO `detail_transaksi_rawat_inap_kamar` (`no_detail_transaksi_rawat_inap_k`, `no_transaksi_rawat_i`, `no_kamar_rawat_i`, `tanggal_cek_in`, `tanggal_cek_out`, `jumlah_hari`, `harga_harian`, `sub_total_harga`, `status_kamar`) VALUES
-(33, 'RI200118-0001', 'R001', '2020-01-18 07:50:11', '2020-01-18 07:50:13', 2, 200000, 400000, 'Sudah Cek Out'),
-(34, 'RI200118-0001', 'R001', '2020-01-18 07:50:20', '0000-00-00 00:00:00', 0, 200000, 0, 'Belum Cek Out');
-
 -- --------------------------------------------------------
 
 --
@@ -664,6 +640,14 @@ CREATE TABLE `detail_transaksi_rawat_inap_tindakan` (
   `qty` int(3) NOT NULL,
   `harga` int(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `detail_transaksi_rawat_inap_tindakan`
+--
+
+INSERT INTO `detail_transaksi_rawat_inap_tindakan` (`no_detail_transaksi_rawat_inap_t`, `no_transaksi_rawat_i`, `no_rawat_inap_t`, `qty`, `harga`) VALUES
+(5, 'RI200119-0001', 'I001', 3, 20000),
+(6, 'RI200119-0001', 'I001', 3, 20000);
 
 -- --------------------------------------------------------
 
@@ -788,13 +772,6 @@ CREATE TABLE `lab_transaksi` (
   `tgl_transaksi` datetime NOT NULL,
   `total_harga` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `lab_transaksi`
---
-
-INSERT INTO `lab_transaksi` (`no_lab_t`, `no_ref_pelayanan`, `tgl_transaksi`, `total_harga`) VALUES
-('LB200119-0001', '200114-001', '2020-01-19 14:47:02', 100000);
 
 -- --------------------------------------------------------
 
@@ -1060,7 +1037,7 @@ CREATE TABLE `transaksi_rawat_inap` (
 --
 
 INSERT INTO `transaksi_rawat_inap` (`no_transaksi_rawat_i`, `no_ref_pelayanan`, `tgl_transaksi`, `total_harga`) VALUES
-('RI200118-0001', '200114-001', '2020-01-19 14:47:02', 400000);
+('RI200119-0001', '200114-001', '2020-01-19 21:20:28', 120000);
 
 -- --------------------------------------------------------
 
@@ -1214,7 +1191,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `daftar_detail_tindakan_bp_transaksi`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_detail_tindakan_bp_transaksi`  AS  select `dbp`.`no_bp_p` AS `no_bp_p`,`bt`.`no_bp_t` AS `no_bp_t`,`bt`.`nama` AS `nama`,`dbp`.`harga` AS `harga_detail`,`bt`.`harga` AS `harga_tindakan`,`bp`.`no_ref_pelayanan` AS `no_ref_pelayanan` from ((`detail_bp_penanganan` `dbp` join `bp_tindakan` `bt` on((`dbp`.`no_bp_t` = `bt`.`no_bp_t`))) join `bp_penanganan` `bp` on((`dbp`.`no_bp_p` = `bp`.`no_bp_p`))) order by `dbp`.`no_detail_bp_p` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_detail_tindakan_bp_transaksi`  AS  select `dbp`.`no_bp_p` AS `no_bp_p`,`bt`.`no_bp_t` AS `no_bp_t`,`bt`.`nama` AS `nama`,`dbp`.`qty` AS `qty`,`dbp`.`harga` AS `harga_detail`,`bt`.`harga` AS `harga_tindakan`,`bp`.`no_ref_pelayanan` AS `no_ref_pelayanan` from ((`detail_bp_penanganan` `dbp` join `bp_tindakan` `bt` on((`dbp`.`no_bp_t` = `bt`.`no_bp_t`))) join `bp_penanganan` `bp` on((`dbp`.`no_bp_p` = `bp`.`no_bp_p`))) order by `dbp`.`no_detail_bp_p` ;
 
 -- --------------------------------------------------------
 
@@ -1223,7 +1200,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `daftar_detail_tindakan_kia_transaksi`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_detail_tindakan_kia_transaksi`  AS  select `dkp`.`no_kia_p` AS `no_kia_p`,`kt`.`no_kia_t` AS `no_kia_t`,`kt`.`nama` AS `nama`,`dkp`.`harga` AS `harga`,`kp`.`no_ref_pelayanan` AS `no_ref_pelayanan` from ((`detail_kia_penanganan` `dkp` join `kia_tindakan` `kt` on((`dkp`.`no_kia_t` = `kt`.`no_kia_t`))) join `kia_penanganan` `kp` on((`dkp`.`no_kia_p` = `kp`.`no_kia_p`))) order by `dkp`.`no_detail_kia_p` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_detail_tindakan_kia_transaksi`  AS  select `dkp`.`no_kia_p` AS `no_kia_p`,`kt`.`no_kia_t` AS `no_kia_t`,`kt`.`nama` AS `nama`,`dkp`.`qty` AS `qty`,`dkp`.`harga` AS `harga`,`kp`.`no_ref_pelayanan` AS `no_ref_pelayanan` from ((`detail_kia_penanganan` `dkp` join `kia_tindakan` `kt` on((`dkp`.`no_kia_t` = `kt`.`no_kia_t`))) join `kia_penanganan` `kp` on((`dkp`.`no_kia_p` = `kp`.`no_kia_p`))) order by `dkp`.`no_detail_kia_p` ;
 
 -- --------------------------------------------------------
 
@@ -1232,7 +1209,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `daftar_detail_tindakan_lab_transaksi`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_detail_tindakan_lab_transaksi`  AS  select `dlt`.`no_lab_t` AS `no_lab_t`,`lc`.`no_lab_c` AS `no_lab_c`,`lc`.`nama` AS `nama`,`dlt`.`harga` AS `harga`,`lt`.`no_ref_pelayanan` AS `no_ref_pelayanan` from ((`detail_lab_transaksi` `dlt` join `lab_transaksi` `lt` on((`dlt`.`no_lab_t` = `lt`.`no_lab_t`))) join `lab_checkup` `lc` on((`dlt`.`no_lab_c` = `lc`.`no_lab_c`))) order by `dlt`.`no_detail_lab_t` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_detail_tindakan_lab_transaksi`  AS  select `dlt`.`no_lab_t` AS `no_lab_t`,`lc`.`no_lab_c` AS `no_lab_c`,`lc`.`nama` AS `nama`,`dlt`.`qty` AS `qty`,`dlt`.`harga` AS `harga`,`lt`.`no_ref_pelayanan` AS `no_ref_pelayanan` from ((`detail_lab_transaksi` `dlt` join `lab_transaksi` `lt` on((`dlt`.`no_lab_t` = `lt`.`no_lab_t`))) join `lab_checkup` `lc` on((`dlt`.`no_lab_c` = `lc`.`no_lab_c`))) order by `dlt`.`no_detail_lab_t` ;
 
 -- --------------------------------------------------------
 
@@ -1241,7 +1218,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `daftar_detail_tindakan_rawat_inap`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_detail_tindakan_rawat_inap`  AS  select `rit`.`no_rawat_inap_t` AS `no_rawat_inap_t`,`rit`.`nama` AS `nama`,`dtrit`.`harga` AS `harga`,`tri`.`no_ref_pelayanan` AS `no_ref_pelayanan`,`dtrit`.`no_transaksi_rawat_i` AS `no_transaksi_rawat_i` from ((`detail_transaksi_rawat_inap_tindakan` `dtrit` join `transaksi_rawat_inap` `tri` on((`dtrit`.`no_transaksi_rawat_i` = `tri`.`no_transaksi_rawat_i`))) join `rawat_inap_tindakan` `rit` on((`dtrit`.`no_rawat_inap_t` = `rit`.`no_rawat_inap_t`))) order by `dtrit`.`no_detail_transaksi_rawat_inap_t` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_detail_tindakan_rawat_inap`  AS  select `rit`.`no_rawat_inap_t` AS `no_rawat_inap_t`,`rit`.`nama` AS `nama`,`dtrit`.`qty` AS `qty`,`dtrit`.`harga` AS `harga`,`tri`.`no_ref_pelayanan` AS `no_ref_pelayanan`,`dtrit`.`no_transaksi_rawat_i` AS `no_transaksi_rawat_i` from ((`detail_transaksi_rawat_inap_tindakan` `dtrit` join `transaksi_rawat_inap` `tri` on((`dtrit`.`no_transaksi_rawat_i` = `tri`.`no_transaksi_rawat_i`))) join `rawat_inap_tindakan` `rit` on((`dtrit`.`no_rawat_inap_t` = `rit`.`no_rawat_inap_t`))) order by `dtrit`.`no_detail_transaksi_rawat_inap_t` ;
 
 -- --------------------------------------------------------
 
@@ -1250,7 +1227,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `daftar_detail_tindakan_ugd_transaksi`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_detail_tindakan_ugd_transaksi`  AS  select `dup`.`no_ugd_p` AS `no_ugd_p`,`ut`.`no_ugd_t` AS `no_ugd_t`,`ut`.`nama` AS `nama`,`dup`.`harga` AS `harga`,`up`.`no_ref_pelayanan` AS `no_ref_pelayanan` from ((`detail_ugd_penanganan` `dup` join `ugd_tindakan` `ut` on((`dup`.`no_ugd_t` = `ut`.`no_ugd_t`))) join `ugd_penanganan` `up` on((`dup`.`no_ugd_p` = `up`.`no_ugd_p`))) order by `dup`.`no_detail_ugd_p` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_detail_tindakan_ugd_transaksi`  AS  select `dup`.`no_ugd_p` AS `no_ugd_p`,`ut`.`no_ugd_t` AS `no_ugd_t`,`ut`.`nama` AS `nama`,`dup`.`qty` AS `qty`,`dup`.`harga` AS `harga`,`up`.`no_ref_pelayanan` AS `no_ref_pelayanan` from ((`detail_ugd_penanganan` `dup` join `ugd_tindakan` `ut` on((`dup`.`no_ugd_t` = `ut`.`no_ugd_t`))) join `ugd_penanganan` `up` on((`dup`.`no_ugd_p` = `up`.`no_ugd_p`))) order by `dup`.`no_detail_ugd_p` ;
 
 -- --------------------------------------------------------
 
@@ -1591,19 +1568,19 @@ ALTER TABLE `ambulance`
 -- AUTO_INCREMENT untuk tabel `detail_bp_penanganan`
 --
 ALTER TABLE `detail_bp_penanganan`
-  MODIFY `no_detail_bp_p` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `no_detail_bp_p` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_kia_penanganan`
 --
 ALTER TABLE `detail_kia_penanganan`
-  MODIFY `no_detail_kia_p` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `no_detail_kia_p` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_lab_transaksi`
 --
 ALTER TABLE `detail_lab_transaksi`
-  MODIFY `no_detail_lab_t` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `no_detail_lab_t` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_obat_keluar_internal`
@@ -1615,7 +1592,7 @@ ALTER TABLE `detail_obat_keluar_internal`
 -- AUTO_INCREMENT untuk tabel `detail_pelayanan_ambulan`
 --
 ALTER TABLE `detail_pelayanan_ambulan`
-  MODIFY `no_detail_pelayanan_ambulan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `no_detail_pelayanan_ambulan` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_penjualan_obat_apotik`
@@ -1633,19 +1610,19 @@ ALTER TABLE `detail_transaksi_rawat_inap_kamar`
 -- AUTO_INCREMENT untuk tabel `detail_transaksi_rawat_inap_obat`
 --
 ALTER TABLE `detail_transaksi_rawat_inap_obat`
-  MODIFY `no_detail_transaksi_rawat_inap_o` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `no_detail_transaksi_rawat_inap_o` int(7) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_transaksi_rawat_inap_tindakan`
 --
 ALTER TABLE `detail_transaksi_rawat_inap_tindakan`
-  MODIFY `no_detail_transaksi_rawat_inap_t` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `no_detail_transaksi_rawat_inap_t` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_ugd_penanganan`
 --
 ALTER TABLE `detail_ugd_penanganan`
-  MODIFY `no_detail_ugd_p` int(7) NOT NULL AUTO_INCREMENT;
+  MODIFY `no_detail_ugd_p` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `stok_obat_apotik`
