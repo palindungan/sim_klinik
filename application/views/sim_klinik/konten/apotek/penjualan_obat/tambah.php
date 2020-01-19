@@ -12,44 +12,63 @@
 				<div class="form-row">
 					<div class="form-group col-sm-5">
 						<label>Cari No Ref</label>
-						<select class="form-control form-control-sm itemName" name="no_ref_pelayanan" required>
+						<select id="xx" class="form-control form-control-sm itemName" name="no_ref_pelayanan" required>
 						</select>
 					</div>
 				</div>
 
-				<div class="form-row">
-					<div class="form-group col-sm-12">
-						<a href="#" id="btn_search" class="btn btn-sm btn-primary btn-icon-split" data-toggle="modal" data-target="#exampleModalCenter">
-							<span class="icon text-white-50">
-								<i class="fas fa-search-plus"></i>
-							</span>
-							<span class="text">Cari Data Obat</span>
-						</a>
+				<div class="row">
+					<div class="form-group col-md-2">
+						<a href="#" id="btn_search_apotek_obat" class="btn btn-sm btn-primary col-md-12" data-toggle="modal" data-target="#exampleModalCenter_apotek_obat">Obat Apotek</a>
+					</div>
+				</div>
+
+				<input type="hidden" readonly name="sub_total_apotek_obat" class="angka_default form-control form-control-sm rupiah text-right" id="sub_total_apotek_obat" placeholder="Sub Total Obat Apotek">
+
+				<div class="row">
+					<div class="col-md-12">
+						<table class="table table-sm table-bordered table-striped">
+							<thead>
+								<tr>
+									<td>Rincian</td>
+									<td width="10%">Qty</td>
+									<td>Biaya</td>
+									<td width="20%">Sub Total</td>
+									<td width="5%">Hapus</td>
+								</tr>
+							</thead>
+
+							<tbody>
+								<tr id="label_kosong">
+									<td>
+										Detail Transaksi Masih Kosong !
+									</td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+							</tbody>
+
+							<tbody id="detail_list_apotek_obat"></tbody>
+
+							<tfoot>
+								<tr>
+									<td></td>
+									<td></td>
+									<td align="right">Grand Total :</td>
+									<td>
+										<input readonly type="text" name="grand_total" class="angka_default form-control form-control-sm rupiah text-right" id="grand_total" placeholder="Grand Total" required value="">
+									</td>
+									<td></td>
+								</tr>
+							</tfoot>
+						</table>
 					</div>
 				</div>
 
 				<div class="form-row">
-					<label class=" col-sm-5"><b>Nama Obat</b></label>
-					<label class=" col-sm-4"><b>Harga Jual</b></label>
-					<label class=" col-sm-1"><b>QTY</b></label>
-				</div>
-
-				<!-- start untuk keranjang Obat -->
-				<div id="detail_list">
-					<!-- disini isi detail -->
-					<h6 id="label_kosong">Detail Obat Masih Kosong Lakukan pilih Pencarian Data Obat !</h6>
-
-				</div>
-				<!-- end of untuk keranjang Obat -->
-
-				<div class="form-row">
-					<div class="form-group col-sm-5"> </div>
-
-					<div class="form-group col-sm-5">
-						<input type="text" readonly name="total_harga" class="form-control form-control-sm rupiah text-right" id="total_harga" placeholder="Total" required>
-					</div>
-
-					<div class="form-group col-sm-2">
+					<div class="col-sm-2">
 						<button id="action" type="submit" class="btn btn-sm btn-success btn-icon-split" onclick="return confirm('Lakukan Simpan Data ?')">
 							<span class="icon text-white-50">
 								<i class="fas fa-save"></i>
@@ -57,45 +76,12 @@
 							<span class="text">Simpan Data</span>
 						</button>
 					</div>
-
 				</div>
 
 			</form>
 		</div>
 	</div>
 
-</div>
-
-<!-- Modal -->
-<div class="modal fade  bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-	<div class="modal-dialog modal-lg" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLongTitle">Stok Obat Apotek</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<div class="table-responsive">
-					<table class="table table-bordered table_1" width="100%" cellspacing="0">
-						<thead>
-							<tr>
-								<th>No</th>
-								<th>Nama Obat</th>
-								<th>Kategori</th>
-								<th>Stok</th>
-								<th>Harga Jual</th>
-								<th>Aksi</th>
-							</tr>
-						</thead>
-						<tbody id="daftar_barang">
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div>
 </div>
 
 <script src="<?= base_url(); ?>assets/sb_admin_2/vendor/jquery/jquery.min.js"></script>
@@ -127,178 +113,28 @@
 			}
 		}
 	})
+
+	// Deklarasi Variable 
+	var count_transaksi = 0;
+	var jumlah_detail_transaksi = 0;
 </script>
 
+<!-- start of pecahan codingan script -->
+<?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/apotek_obat.php') ?>
+
+<?php $this->view('sim_klinik/konten/apotek/penjualan_obat/load_php/load_all_detail.php') ?>
+<!-- end of pecahan codingan script -->
+
 <script>
-	var count_penjualan_obat = 0;
-	var jumlah_detail_transaksi_penjualan_obat = 0;
-
-	// jika kita tekan / click button search-button
-	$('#btn_search').on('click', function() {
-		search_proses();
-	});
-
-	// Start pencarian
-	function search_proses() {
-
-		var table;
-		table = $('.table_1').DataTable({
-			"columnDefs": [{
-					"targets": [0, 3, 5],
-					"className": "text-center"
-				},
-				{
-					"targets": 4,
-					"className": "text-right"
-				}
-			],
-			"bDestroy": true,
-			"pageLength": 5
-		});
-
-		table.clear();
-
-		$.ajax({
-			url: "<?php echo base_url() . 'apotek/penjualan_obat/tampil_daftar_obat'; ?>",
-			success: function(hasil) {
-
-				var obj = JSON.parse(hasil);
-				let data = obj['tbl_data'];
-
-				if (data != '') {
-
-					var no = 1;
-
-					$.each(data, function(i, item) {
-
-						var kode_obat = data[i].kode_obat;
-						var nama_obat = data[i].nama_obat;
-						var nama_kategori = data[i].nama_kategori;
-						var qty = data[i].qty;
-						var harga_jual = data[i].harga_jual;
-
-						var reverse = harga_jual.toString().split('').reverse().join(''),
-							ribuan = reverse.match(/\d{1,3}/g);
-						ribuan = ribuan.join('.').split('').reverse().join('');
-
-						var button = `<a onclick="tambah_detail_obat('` + kode_obat +
-							`','` + nama_obat + `','` + harga_jual + `','` + qty + `')" id="` +
-							kode_obat +
-							`" class="btn btn-sm btn-dark text-white">Pilih</a>`;
-
-						table.row.add([no, nama_obat, nama_kategori, qty,
-							ribuan, button
-						]);
-
-						no = no + 1;
-					});
-				} else {
-
-					$('.table_1').html('<h3>No data are available</h3>');
-
-				}
-				table.draw();
-
-			}
-		});
-	}
-
-	// Start add_row
-	function tambah_detail_obat(kode_obat, nama_obat, harga_jual, qty) {
-
-		$('#detail_list').append(`
-
-			<div id="row` + count_penjualan_obat + `" class="form-row">
-				<div class="form-group col-sm-5">
-					<input type="text" readonly name="nama[]" class="form-control form-control-sm karakter" id="nama` + count_penjualan_obat + `" placeholder="Nama Obat" required value="` + nama_obat + `">
-					<input type="hidden" name="kode_obat[]" class="form-control form-control-sm" id="kode_obat` + count_penjualan_obat + `" value="` + kode_obat + `">
-				</div>
-				<div class="form-group col-sm-4">
-					<input type="text" name="harga_jual[]" class="form-control form-control-sm rupiah text-right" id="harga_jual` + count_penjualan_obat + `" placeholder="harga supplier" required value="` + harga_jual + `">
-				</div>
-				<div class="form-group col-sm-1">
-					<input type="text" name="qty[]" class="form-control form-control-sm cek_qty" id="qty` + count_penjualan_obat + `" placeholder="QTY" value="1" required>
-					<input type="hidden" name="qty_sekarang[]" id="qty_sekarang` + count_penjualan_obat + `" class="form-control form-control-sm" value="` + qty + `"></input>
-				</div>
-				<div class="form-group col-sm-2">
-					<a id="` + count_penjualan_obat + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris">
-						<span class="icon text-white-50">
-							<i class="fas fa-trash-alt"></i>
-						</span>
-						<span class="text">Hapus</span>
-					</a>
-				</div>
-			</div>
-
-		`);
-
-		count_penjualan_obat = count_penjualan_obat + 1;
-		jumlah_detail_transaksi_penjualan_obat = jumlah_detail_transaksi_penjualan_obat + 1;
-		$('#exampleModalCenter').modal('hide');
-
-		cek_jumlah_data_detail_transaksi();
-	}
-
-	// jika kita tekan hapus / click button
-	$(document).on('click', '.remove_baris', function() {
-		var row_no = $(this).attr("id");
-		$('#row' + row_no).remove();
-
-		jumlah_detail_transaksi_penjualan_obat = jumlah_detail_transaksi_penjualan_obat - 1;
-
-		cek_jumlah_data_detail_transaksi();
-	});
-
-	// jika kita mengubah class inputan rupiah
-	$(document).on('keyup', '.cek_qty', function() {
-
-		var row_id = $(this).attr("id"); // qty1++
-		var row_no = row_id.substring(3); // 1++
-
-		var val_qty = $('#' + row_id).val();
-		var val_qty_sekarang = parseInt($('#qty_sekarang' + row_no).val());
-
-		if (val_qty <= val_qty_sekarang) {
-			update_total();
-		} else {
-			alert("Maaf Qty Tidak Boleh Detail Obat Melebihi Stok Apotek");
-			$('#' + row_id).val("1");
-			update_total();
-		}
-	});
-
-	// jika kita mengubah class inputan rupiah
-	$(document).on('keyup', '.rupiah', function() {
-		update_total();
-	});
-
 	function cek_jumlah_data_detail_transaksi() {
 
-		var x = document.getElementById("label_kosong");
-		if (jumlah_detail_transaksi_penjualan_obat > 0) {
-			x.style.display = "none"; // hidden
+		var x = document.getElementById("label_kosong").style;
+		if (jumlah_detail_transaksi > 0) {
+			x.display = "none"; // hidden
 		} else {
-			x.style.display = "block"; // show
+			x.display = "table-row"; // show
 		}
-
-		update_total();
-	}
-
-	function update_total() {
-		// mengambil nilai di dalam form
-		var form_data = $('#transaksi_form').serialize()
-
-		$.ajax({
-			url: "<?php echo base_url() . 'apotek/penjualan_obat/ambil_total'; ?>",
-			method: "POST",
-			data: form_data,
-			success: function(data) {
-				$('#total_harga').val(data);
-				$('.rupiah').trigger('input'); // Will be display 
-			}
-		});
-
-		validasi();
+		update_grand_total();
 	}
 
 	function validasi() {
@@ -306,6 +142,44 @@
 			reverse: true
 		});
 	}
+
+	function update_grand_total() {
+
+		var sub_total_apotek_obat = $('#sub_total_apotek_obat').val();
+		var sub_total_apotek_obat_v = 0;
+		if (sub_total_apotek_obat != "") {
+			sub_total_apotek_obat_v = parseInt(sub_total_apotek_obat.split('.').join(''));
+		}
+
+		$('#grand_total').val(sub_total_apotek_obat_v);
+		$('#grand_total').trigger('input'); // Will be display 
+	}
+
+	// deteksi paket obat
+	$(document).on('click', '.deteksi_cek_box', function() {
+
+		var row_id = $(this).attr("id"); // status_paket_apotek_obat1++
+		var row_no = row_id.substring(24); // 1++
+
+		// Get the checkbox
+		var checkBox = document.getElementById(row_id);
+		// If the checkbox is checked, harga_apotek_obat harga_sub_apotek_obat harga_cadangan_apotek_obat
+		if (checkBox.checked == true) {
+			$('#harga_apotek_obat' + row_no).val("0");
+			$('#harga_sub_apotek_obat' + row_no).val("0");
+		} else {
+
+			var harga_cadangan_apotek_obat = $('#harga_cadangan_apotek_obat' + row_no).val();
+			$('#harga_apotek_obat' + row_no).val(harga_cadangan_apotek_obat);
+
+			var harga_apotek_obat = parseInt($('#harga_apotek_obat' + row_no).val().split('.').join(''));
+			var qty_apotek_obat = parseInt($('#qty_apotek_obat' + row_no).val().split('.').join(''));
+
+			$('#harga_sub_apotek_obat' + row_no).val(harga_apotek_obat * qty_apotek_obat);
+		}
+
+		update_sub_total_apotek_obat();
+	});
 
 	// jika di click simpan / submit
 	$(document).on('submit', '#transaksi_form', function(event) {
@@ -320,9 +194,6 @@
 			method: "POST",
 			data: form_data,
 			success: function(data) {
-				if (data != "") {
-					alert(data);
-				}
 				location.reload();
 			}
 		});
