@@ -115,6 +115,20 @@ class Penjualan_obat extends CI_Controller
                     $tambah = $this->M_tagihan->input_data('detail_penjualan_obat_apotik', $data);
 
                     // update qty obat lama dibawah ini
+                    $where_kode_obat = array(
+                        'kode_obat' => $kode_obat
+                    );
+
+                    $ambil_data = $this->M_tagihan->get_data('obat', $where_kode_obat);
+                    $qty_lama = "kosong";
+                    foreach ($ambil_data->result() as $data) {
+                        $qty_lama = $data->qty;
+                    }
+
+                    $data = array(
+                        'qty' => $qty_lama - $qty
+                    );
+                    $update = $this->M_tagihan->update_data($where_kode_obat, 'obat', $data);
                 }
 
                 // update transaksi lama
@@ -182,6 +196,20 @@ class Penjualan_obat extends CI_Controller
                     $tambah = $this->M_tagihan->input_data('detail_penjualan_obat_apotik', $data);
 
                     // update qty obat lama dibawah ini
+                    $where_kode_obat = array(
+                        'kode_obat' => $kode_obat
+                    );
+
+                    $ambil_data = $this->M_tagihan->get_data('obat', $where_kode_obat);
+                    $qty_lama = "kosong";
+                    foreach ($ambil_data->result() as $data) {
+                        $qty_lama = $data->qty;
+                    }
+
+                    $data = array(
+                        'qty' => $qty_lama - $qty
+                    );
+                    $update = $this->M_tagihan->update_data($where_kode_obat, 'obat', $data);
                 }
             }
             // End of Cek apakah ada data detail post masuk ?
