@@ -981,7 +981,7 @@ class Tagihan extends CI_Controller
                 }
 
                 // no_rawat_inap_t harga_ri_tindakan
-                if (isset($_POST['no_rawat_inap_t']) && isset($_POST['harga_ri_tindakan'])) {
+                if (isset($_POST['no_rawat_inap_t']) && isset($_POST['harga_ri_tindakan']) && isset($_POST['qty_ri_tindakan'])) {
 
                     // menambah detail transaksi baru 
                     for ($i = 0; $i < count($this->input->post('no_rawat_inap_t')); $i++) {
@@ -991,9 +991,13 @@ class Tagihan extends CI_Controller
                         $harga_jual_temp = $this->input->post('harga_ri_tindakan')[$i];
                         $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
 
+                        $qty_temp = $this->input->post('qty_ri_tindakan')[$i];
+                        $qty = (int) $qty_temp;
+
                         $data = array(
                             'no_transaksi_rawat_i' => $no_transaksi_rawat_i,
                             'no_rawat_inap_t' => $no_rawat_inap_t,
+                            'qty' => $qty,
                             'harga' => $harga_jual
                         );
 
@@ -1114,7 +1118,7 @@ class Tagihan extends CI_Controller
                 }
 
                 // no_rawat_inap_t harga_ri_tindakan
-                if (isset($_POST['no_rawat_inap_t']) && isset($_POST['harga_ri_tindakan'])) {
+                if (isset($_POST['no_rawat_inap_t']) && isset($_POST['harga_ri_tindakan']) && isset($_POST['qty_ri_tindakan'])) {
 
                     // menambah detail transaksi baru 
                     for ($i = 0; $i < count($this->input->post('no_rawat_inap_t')); $i++) {
@@ -1124,9 +1128,13 @@ class Tagihan extends CI_Controller
                         $harga_jual_temp = $this->input->post('harga_ri_tindakan')[$i];
                         $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
 
+                        $qty_temp = $this->input->post('qty_ri_tindakan')[$i];
+                        $qty = (int) $qty_temp;
+
                         $data = array(
                             'no_transaksi_rawat_i' => $no_transaksi_rawat_i,
                             'no_rawat_inap_t' => $no_rawat_inap_t,
+                            'qty' => $qty,
                             'harga' => $harga_jual
                         );
 
