@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 18 Jan 2020 pada 02.04
+-- Waktu pembuatan: 19 Jan 2020 pada 09.04
 -- Versi server: 10.1.37-MariaDB
 -- Versi PHP: 7.3.0
 
@@ -201,6 +201,13 @@ CREATE TABLE `bp_penanganan` (
   `tgl_penanganan` datetime NOT NULL,
   `total_harga` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `bp_penanganan`
+--
+
+INSERT INTO `bp_penanganan` (`no_bp_p`, `no_ref_pelayanan`, `tgl_penanganan`, `total_harga`) VALUES
+('BP200119-0001', '200114-001', '2020-01-19 14:47:02', 50000);
 
 -- --------------------------------------------------------
 
@@ -507,8 +514,16 @@ CREATE TABLE `detail_bp_penanganan` (
   `no_detail_bp_p` int(7) NOT NULL,
   `no_bp_p` char(13) NOT NULL,
   `no_bp_t` char(4) NOT NULL,
+  `qty` int(3) NOT NULL,
   `harga` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `detail_bp_penanganan`
+--
+
+INSERT INTO `detail_bp_penanganan` (`no_detail_bp_p`, `no_bp_p`, `no_bp_t`, `qty`, `harga`) VALUES
+(1, 'BP200119-0001', 'T001', 0, 50000);
 
 -- --------------------------------------------------------
 
@@ -520,6 +535,7 @@ CREATE TABLE `detail_kia_penanganan` (
   `no_detail_kia_p` int(7) NOT NULL,
   `no_kia_p` char(13) NOT NULL,
   `no_kia_t` char(4) NOT NULL,
+  `qty` int(3) NOT NULL,
   `harga` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -533,8 +549,16 @@ CREATE TABLE `detail_lab_transaksi` (
   `no_detail_lab_t` int(7) NOT NULL,
   `no_lab_t` char(13) NOT NULL,
   `no_lab_c` char(4) NOT NULL,
+  `qty` int(3) NOT NULL,
   `harga` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `detail_lab_transaksi`
+--
+
+INSERT INTO `detail_lab_transaksi` (`no_detail_lab_t`, `no_lab_t`, `no_lab_c`, `qty`, `harga`) VALUES
+(2, 'LB200119-0001', 'L001', 0, 100000);
 
 -- --------------------------------------------------------
 
@@ -610,8 +634,8 @@ CREATE TABLE `detail_transaksi_rawat_inap_kamar` (
 --
 
 INSERT INTO `detail_transaksi_rawat_inap_kamar` (`no_detail_transaksi_rawat_inap_k`, `no_transaksi_rawat_i`, `no_kamar_rawat_i`, `tanggal_cek_in`, `tanggal_cek_out`, `jumlah_hari`, `harga_harian`, `sub_total_harga`, `status_kamar`) VALUES
-(29, 'RI200118-0001', 'R001', '2020-01-18 07:50:11', '2020-01-18 07:50:13', 2, 200000, 400000, 'Sudah Cek Out'),
-(30, 'RI200118-0001', 'R001', '2020-01-18 07:50:20', '0000-00-00 00:00:00', 0, 200000, 0, 'Belum Cek Out');
+(33, 'RI200118-0001', 'R001', '2020-01-18 07:50:11', '2020-01-18 07:50:13', 2, 200000, 400000, 'Sudah Cek Out'),
+(34, 'RI200118-0001', 'R001', '2020-01-18 07:50:20', '0000-00-00 00:00:00', 0, 200000, 0, 'Belum Cek Out');
 
 -- --------------------------------------------------------
 
@@ -637,6 +661,7 @@ CREATE TABLE `detail_transaksi_rawat_inap_tindakan` (
   `no_detail_transaksi_rawat_inap_t` int(7) NOT NULL,
   `no_transaksi_rawat_i` char(13) NOT NULL,
   `no_rawat_inap_t` char(4) NOT NULL,
+  `qty` int(3) NOT NULL,
   `harga` int(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -650,6 +675,7 @@ CREATE TABLE `detail_ugd_penanganan` (
   `no_detail_ugd_p` int(7) NOT NULL,
   `no_ugd_p` char(13) NOT NULL,
   `no_ugd_t` char(4) NOT NULL,
+  `qty` int(3) NOT NULL,
   `harga` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -762,6 +788,13 @@ CREATE TABLE `lab_transaksi` (
   `tgl_transaksi` datetime NOT NULL,
   `total_harga` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `lab_transaksi`
+--
+
+INSERT INTO `lab_transaksi` (`no_lab_t`, `no_ref_pelayanan`, `tgl_transaksi`, `total_harga`) VALUES
+('LB200119-0001', '200114-001', '2020-01-19 14:47:02', 100000);
 
 -- --------------------------------------------------------
 
@@ -1027,7 +1060,7 @@ CREATE TABLE `transaksi_rawat_inap` (
 --
 
 INSERT INTO `transaksi_rawat_inap` (`no_transaksi_rawat_i`, `no_ref_pelayanan`, `tgl_transaksi`, `total_harga`) VALUES
-('RI200118-0001', '200114-001', '2020-01-18 07:50:26', 400000);
+('RI200118-0001', '200114-001', '2020-01-19 14:47:02', 400000);
 
 -- --------------------------------------------------------
 
@@ -1558,7 +1591,7 @@ ALTER TABLE `ambulance`
 -- AUTO_INCREMENT untuk tabel `detail_bp_penanganan`
 --
 ALTER TABLE `detail_bp_penanganan`
-  MODIFY `no_detail_bp_p` int(7) NOT NULL AUTO_INCREMENT;
+  MODIFY `no_detail_bp_p` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_kia_penanganan`
@@ -1570,7 +1603,7 @@ ALTER TABLE `detail_kia_penanganan`
 -- AUTO_INCREMENT untuk tabel `detail_lab_transaksi`
 --
 ALTER TABLE `detail_lab_transaksi`
-  MODIFY `no_detail_lab_t` int(7) NOT NULL AUTO_INCREMENT;
+  MODIFY `no_detail_lab_t` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_obat_keluar_internal`
@@ -1594,7 +1627,7 @@ ALTER TABLE `detail_penjualan_obat_apotik`
 -- AUTO_INCREMENT untuk tabel `detail_transaksi_rawat_inap_kamar`
 --
 ALTER TABLE `detail_transaksi_rawat_inap_kamar`
-  MODIFY `no_detail_transaksi_rawat_inap_k` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `no_detail_transaksi_rawat_inap_k` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_transaksi_rawat_inap_obat`
