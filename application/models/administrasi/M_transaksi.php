@@ -41,6 +41,8 @@ class M_transaksi extends CI_Model
 
     function get_no_transaksi_rawat_inap()
     {
+        date_default_timezone_set('Asia/Jakarta');
+
         $field = "no_transaksi_rawat_i";
         $tabel = "transaksi_rawat_inap";
         $digit = "4";
@@ -56,7 +58,6 @@ class M_transaksi extends CI_Model
         } else {
             $kd = "0001";
         }
-        date_default_timezone_set('Asia/Jakarta');
         return 'RI' . date('ymd') . '-' . $kd; // SELECT SUBSTR('RI191121-0001', 3, 6); dari digit ke 3 sampai 6 digit seanjutnya
     }
 
