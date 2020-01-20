@@ -152,7 +152,7 @@
 							var nama = data[i].nama;
 							var alamat = data[i].alamat;
 							var umur = data[i].umur;
-							var button = `<a onclick="pilihTindakan('` + kode +
+							var button = `<a href="" onclick="pilihTindakan('` + kode +
 								`','` + nama + `','` + alamat + `','` + umur + `')" id="` + kode +
 								`" class="btn btn-sm btn-dark text-white">Pilih</a>`;
 
@@ -160,10 +160,6 @@
 
 							no = no + 1;
 						});
-					} else {
-
-						$('.table_1').html('<h3>No data are available</h3>');
-
 					}
 					table.draw();
 
