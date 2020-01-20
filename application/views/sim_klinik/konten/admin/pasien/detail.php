@@ -12,30 +12,32 @@
         $tipe_pelayanan = $pelayanan->tipe_pelayanan;
         $nama_pasien = $pasien->nama;
         ?>
-				<a href="<?= base_url('admin/pasien/list/'.$no_rm) ?>" class="btn btn-sm btn-dark">Kembali</a>
+				<a href="<?php echo base_url('admin/pasien/list/'.$no_rm) ?>" class="btn btn-sm btn-dark">Kembali</a>
 				<h4 style="text-align:center">Rekening Pasien</h4>
 				<table width="100%">
 					<tr>
 						<td width="14%">Nama</td>
 						<td width="1%">:</td>
-						<td width="35%"><?= $nama_pasien ?></td>
+						<td width="35%"><?php echo $nama_pasien ?></td>
 						<td width="19%">No Ref Pelayanan</td>
 						<td width="1%">:</td>
-						<td width="30%"><?= $no_ref ?></td>
+						<td width="30%"><?php echo $no_ref ?></td>
 					</tr>
 					<tr>
 						<td width="14%">Nomor RM</td>
 						<td width="1%">:</td>
-						<td width="40%"><?= $no_rm ?></td>
+						<td width="40%"><?php echo $no_rm ?></td>
 						<td width="19%">Tanggal</td>
 						<td width="1%">:</td>
-						<td width="25%"><?= $tgl_pelayanan ?></td>
+						<td width="25%"><?php echo $tgl_pelayanan ?></td>
 					</tr>
 				</table>
 				<hr>
 				<table width="100%">
 					<tr>
 						<td style="text-align:left">Rincian Transaksi</td>
+						<td></td>
+						<td></td>
 						<td style="text-align:right">Biaya</td>
 					</tr>
 					<?php
@@ -49,11 +51,13 @@
 					<?php 
                     foreach($detail_tindakan_bp as $tindakan_bp)
                     {
-						$harga_tindakan_bp += $tindakan_bp->harga_detail;
+						$harga_tindakan_bp += $tindakan_bp->harga_detail * $tindakan_bp->qty;
                     ?>
 					<tr>
-						<td style="text-align:left;padding-left:20px"><?= $tindakan_bp->nama ?></td>
-						<td style="text-align:right"><?= rupiah($tindakan_bp->harga_detail) ?></td>
+						<td style="text-align:left;padding-left:20px"><?php echo $tindakan_bp->nama ?></td>
+						<td style="text-align:right"><?php echo $tindakan_bp->qty." x" ?></td>
+						<td style="text-align:right"><?php echo rupiah($tindakan_bp->harga_detail) ?></td>
+						<td style="text-align:right"><?php echo rupiah($tindakan_bp->harga_detail * $tindakan_bp->qty) ?></td>
 					</tr>
 					<?php 
                     }
@@ -71,11 +75,13 @@
 					<?php 
                     foreach($detail_tindakan_kia as $tindakan_kia)
                     {
-						$harga_tindakan_kia += $tindakan_kia->harga;
+						$harga_tindakan_kia += $tindakan_kia->harga * $tindakan_kia->qty;
                     ?>
 					<tr>
-						<td style="text-align:left;padding-left:20px"><?= $tindakan_kia->nama ?></td>
-						<td style="text-align:right"><?= rupiah($tindakan_kia->harga) ?></td>
+						<td style="text-align:left;padding-left:20px"><?php echo $tindakan_kia->nama ?></td>
+						<td style="text-align:right"><?php echo $tindakan_kia->qty." x" ?></td>
+						<td style="text-align:right"><?php echo rupiah($tindakan_kia->harga) ?></td>
+						<td style="text-align:right"><?php echo rupiah($tindakan_kia->harga * $tindakan_kia->qty) ?></td>
 					</tr>
 					<?php 
 					}
@@ -96,8 +102,10 @@
 						$harga_tindakan_lab += $tindakan_lab->harga;
                     ?>
 					<tr>
-						<td style="text-align:left;padding-left:20px"><?= $tindakan_lab->nama ?></td>
-						<td style="text-align:right"><?= rupiah($tindakan_lab->harga) ?></td>
+						<td style="text-align:left;padding-left:20px"><?php echo $tindakan_lab->nama ?></td>
+						<td style="text-align:right"><?php echo $tindakan_lab->qty." x" ?></td>
+						<td style="text-align:right"><?php echo rupiah($tindakan_lab->harga) ?></td>
+						<td style="text-align:right"><?php echo rupiah($tindakan_lab->harga) ?></td>
 					</tr>
 					<?php 
 					}
@@ -118,8 +126,10 @@
 						$harga_tindakan_ugd += $tindakan_ugd->harga;
                     ?>
 					<tr>
-						<td style="text-align:left;padding-left:20px"><?= $tindakan_ugd->nama ?></td>
-						<td style="text-align:right"><?= rupiah($tindakan_ugd->harga) ?></td>
+						<td style="text-align:left;padding-left:20px"><?php echo $tindakan_ugd->nama ?></td>
+						<td style="text-align:right"><?php echo $tindakan_ugd->qty." x" ?></td>
+						<td style="text-align:right"><?php echo rupiah($tindakan_ugd->harga) ?></td>
+						<td style="text-align:right"><?php echo rupiah($tindakan_ugd->harga) ?></td>
 					</tr>
 					<?php 
 					}
@@ -137,12 +147,18 @@
 					<?php 
                     foreach($detail_penjualan_obat_apotik as $penjualan_obat_apotik)
                     {
+						if($penjualan_obat_apotik->status_paket == "Ya")
+						{
+							$penjualan_obat_apotik->harga_jual = 0;
+						}
 						$harga_penjualan_obat_a += $penjualan_obat_apotik->qty * $penjualan_obat_apotik->harga_jual;
                     ?>
 					<tr>
-						<td style="text-align:left;padding-left:20px"><?= $penjualan_obat_apotik->nama ?></td>
+						<td style="text-align:left;padding-left:20px"><?php echo $penjualan_obat_apotik->nama ?></td>
+						<td style="text-align:right"><?php echo $penjualan_obat_apotik->qty." x" ?></td>
+						<td style="text-align:right"><?php echo rupiah($penjualan_obat_apotik->harga_jual) ?></td>
 						<td style="text-align:right">
-							<?= rupiah($penjualan_obat_apotik->qty * $penjualan_obat_apotik->harga_jual) ?></td>
+							<?php echo rupiah($penjualan_obat_apotik->qty * $penjualan_obat_apotik->harga_jual) ?></td>
 					</tr>
 					<?php 
 					}
@@ -175,8 +191,10 @@
 						$harga_kamar_ri += $lama_hari * $detail_rawat_inap_k->harga_harian;
 					?>
 					<tr>
-						<td style="text-align:left;padding-left:40px"><?= $detail_rawat_inap_k->nama ?></td>
-						<td style="text-align:right"><?= rupiah($lama_hari * $detail_rawat_inap_k->harga_harian) ?></td>
+						<td style="text-align:left;padding-left:40px"><?php echo $detail_rawat_inap_k->nama ?></td>
+						<td style="text-align:right"><?php echo $lama_hari." hari" ?></td>
+						<td style="text-align:right"><?php echo rupiah($detail_rawat_inap_k->harga_harian) ?></td>
+						<td style="text-align:right"><?php echo rupiah($lama_hari * $detail_rawat_inap_k->harga_harian) ?></td>
 					</tr>
 					<?php 
 					}
@@ -187,11 +205,13 @@
 					<?php 
 					foreach($detail_transaksi_rawat_inap_t as $detail_rawat_inap_t) 
 					{
-						$harga_tindakan_ri += $detail_rawat_inap_t->harga;
+						$harga_tindakan_ri += $detail_rawat_inap_t->harga * $detail_rawat_inap_t->qty;
 					?>
 					<tr>
-						<td style="text-align:left;padding-left:40px"><?= $detail_rawat_inap_t->nama ?></td>
-						<td style="text-align:right"><?= rupiah($detail_rawat_inap_t->harga) ?></td>
+						<td style="text-align:left;padding-left:40px"><?php echo $detail_rawat_inap_t->nama ?></td>
+						<td style="text-align:right"><?php echo $detail_rawat_inap_t->qty." x" ?></td>
+						<td style="text-align:right"><?php echo rupiah($detail_rawat_inap_t->harga) ?></td>
+						<td style="text-align:right"><?php echo rupiah($detail_rawat_inap_t->harga * $detail_rawat_inap_t->qty) ?></td>
 					</tr>
 					<?php
 					}
@@ -205,9 +225,11 @@
 						$harga_obat_ri += $detail_rawat_inap_o->qty * $detail_rawat_inap_o->harga_jual;
 					?>
 					<tr>
-						<td style="text-align:left;padding-left:40px"><?= $detail_rawat_inap_o->nama_obat ?></td>
+						<td style="text-align:left;padding-left:40px"><?php echo $detail_rawat_inap_o->nama_obat ?></td>
+						<td style="text-align:right"><?php echo $detail_rawat_inap_o->qty." x" ?></td>
+						<td style="text-align:right"><?php echo rupiah($detail_rawat_inap_o->harga_jual) ?></td>
 						<td style="text-align:right">
-							<?= rupiah($detail_rawat_inap_o->qty * $detail_rawat_inap_o->harga_jual) ?></td>
+							<?php echo rupiah($detail_rawat_inap_o->qty * $detail_rawat_inap_o->harga_jual) ?></td>
 					</tr>
 					<?php
 					}
@@ -219,7 +241,9 @@
 					?>
 					<tr style="line-height:50px;">
 						<td style="text-align:left;">Jumlah Yang Harus Dibayar</td>
-						<td style="text-align:right"><?= rupiah($grand_total) ?></td>
+						<td></td>
+						<td></td>
+						<td style="text-align:right"><?php echo rupiah($grand_total) ?></td>
 					</tr>
 
 				</table>
