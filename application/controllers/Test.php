@@ -8,8 +8,20 @@
         // }
         function __construct()
         {
-        parent::__construct();
-        $this->load->model('M_test');
+            parent::__construct();
+            $this->load->model('M_test');
+        }
+
+        public function onclick()
+        {
+            $this->load->view('test');
+        }
+
+        public function onclick_load()
+        {
+            $html = 'hello';
+            $this->dompdf->PdfGenerator($html, 'coba', 'A4', 'potrait',true);
+            
         }
 
         public function index() {
