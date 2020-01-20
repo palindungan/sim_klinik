@@ -1,44 +1,42 @@
 <div class="container-fluid">
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">
-			<h6 class="m-0 font-weight-bold text-primary">Detail Pasien</h6>
+			<h6 class="m-0 font-weight-bold text-primary">Detail Kunjungan Pasien</h6>
 		</div>
 		<div class="card-body">
 			<div class="container">
 				<?php 
-        $no_ref = $pelayanan->no_ref_pelayanan; 
-        $no_rm = $pelayanan->no_rm;    
-        $tgl_pelayanan = $pelayanan->tgl_pelayanan;
-        $tipe_pelayanan = $pelayanan->tipe_pelayanan;
-        $nama_pasien = $pasien->nama;
-        ?>
-				<a href="<?php echo base_url('admin/pasien/list/'.$no_rm) ?>" class="btn btn-sm btn-dark">Kembali</a>
-				<h4 style="text-align:center">Rekening Pasien</h4>
+					$no_ref = $pelayanan->no_ref_pelayanan; 
+					$no_rm = $pelayanan->no_rm;    
+					$tgl_pelayanan = $pelayanan->tgl_pelayanan;
+					$tipe_pelayanan = $pelayanan->tipe_pelayanan;
+					$nama_pasien = $pasien->nama;
+				?>
 				<table width="100%">
 					<tr>
-						<td width="14%">Nama</td>
+						<td width="14%" class="font-weight-bold">Nama</td>
 						<td width="1%">:</td>
 						<td width="35%"><?php echo $nama_pasien ?></td>
-						<td width="19%">No Ref Pelayanan</td>
+						<td width="19%" class="font-weight-bold">No Ref Pelayanan</td>
 						<td width="1%">:</td>
 						<td width="30%"><?php echo $no_ref ?></td>
 					</tr>
 					<tr>
-						<td width="14%">Nomor RM</td>
-						<td width="1%">:</td>
-						<td width="40%"><?php echo $no_rm ?></td>
-						<td width="19%">Tanggal</td>
-						<td width="1%">:</td>
-						<td width="25%"><?php echo $tgl_pelayanan ?></td>
+						<td class="font-weight-bold">Nomor RM</td>
+						<td>:</td>
+						<td><?php echo $no_rm ?></td>
+						<td class="font-weight-bold">Tanggal</td>
+						<td>:</td>
+						<td><?php echo date("d-m-Y H:i:s",strtotime($tgl_pelayanan)); ?></td>
 					</tr>
 				</table>
 				<hr>
 				<table width="100%">
 					<tr>
-						<td style="text-align:left">Rincian Transaksi</td>
+						<td class="font-weight-bold">Rincian Transaksi</td>
 						<td></td>
 						<td></td>
-						<td style="text-align:right">Biaya</td>
+						<td class="text-right font-weight-bold">Biaya</td>
 					</tr>
 					<?php
 					$harga_tindakan_bp = 0;
@@ -261,10 +259,10 @@
 					$grand_total = $harga_tindakan_bp + $harga_tindakan_kia + $harga_tindakan_lab + $harga_tindakan_ugd + $harga_penjualan_obat_a + $harga_kamar_ri + $harga_tindakan_ri + $harga_obat_ri + $harga_ambulance;
 					?>
 					<tr style="line-height:50px;">
-						<td style="text-align:left;">Jumlah Yang Harus Dibayar</td>
+						<td class="font-weight-bold">Jumlah Yang Harus Dibayar</td>
 						<td></td>
 						<td></td>
-						<td style="text-align:right"><?php echo rupiah($grand_total) ?></td>
+						<td class="text-right font-weight-bold"><?php echo rupiah($grand_total) ?></td>
 					</tr>
 
 				</table>

@@ -1,21 +1,20 @@
 <?php
-class Pasien extends CI_Controller
-{
-    function __construct()
-    {
+class Pasien extends CI_Controller{
+    function __construct(){
         parent::__construct();
         $this->load->model('admin/M_pasien');
+        $this->load->model('administrasi/M_tagihan');
     }
     public function index()
     {
-        $data['record'] = $this->M_pasien->tampil_pasien('data_pelayanan_pasien_default')->result();
+        $data['record'] = $this->M_pasien->tampil_data('pasien')->result();
         $this->template->load('sim_klinik/template/admin', 'sim_klinik/konten/admin/pasien/tampil',$data);
     }
     public function list($id)
     {
-        $data['list'] = $this->M_pasien->list_kunjung('pelayanan',$id)->result();
+        $data['list'] = $this->M_tagihan->getRekapByNoRM($id)->result(); 
         $pasien= $this->M_pasien->detail_pasien('pasien',$id)->row();
-        $data['pasien'] = $pasien->nama;
+        $data['pasien'] = $pasien->no_rm.'-'.$pasien->nama;
         $this->template->load('sim_klinik/template/admin', 'sim_klinik/konten/admin/pasien/list_kunjung',$data);
     }
     public function detail($id)

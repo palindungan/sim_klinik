@@ -10,9 +10,9 @@
 						<tr>
 							<th width="5%" class="text-center">No</th>
 							<th width="15%">No RM</th>
-							<th width="45%">Nama</th>
+							<th width="40%">Nama</th>
 							<th width="25%">Alamat</th>
-							<th width="10%">Detail</th>
+							<th>Aksi</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -25,9 +25,8 @@
 							<td><?= $data->no_rm ?></td>
 							<td><?= $data->nama ?></td>
 							<td><?= $data->alamat ?></td>
-							<td>
-								<a href="<?= base_url('admin/pasien/list/'.$data->no_rm) ?>"
-									class="btn btn-sm btn-info">Lihat</a>
+							<td class="text-center">
+								<a href="<?php echo base_url('admin/pasien/list/'.$data->no_rm) ?>" class="btn btn-sm btn-info">Detail Kunjungan</a>
 							</td>
 
 						</tr>

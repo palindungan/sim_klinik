@@ -5,6 +5,21 @@ class M_tagihan extends CI_Model
     {
         return $this->db->get($table);
     }
+    function getRekap(){
+        $this->db->select("no_ref_pelayanan,pasien.no_rm,pasien.nama,tgl_pelayanan,tipe_pelayanan");
+        $this->db->from('pelayanan');
+        $this->db->join('pasien','pelayanan.no_rm = pasien.no_rm');
+        $this->db->order_by('no_ref_pelayanan','DESC');
+        return $this->db->get();
+    }
+    function getRekapByNoRM($noRM){
+        $this->db->select("no_ref_pelayanan,pasien.no_rm,pasien.nama,tgl_pelayanan,tipe_pelayanan");
+        $this->db->from('pelayanan');
+        $this->db->join('pasien','pelayanan.no_rm = pasien.no_rm');
+        $this->db->where('pelayanan.no_rm',$noRM);
+        $this->db->order_by('no_ref_pelayanan','DESC');
+        return $this->db->get();
+    }
 
     function input_data($table, $data)
     {

@@ -4,7 +4,6 @@ class Tagihan extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        date_default_timezone_set('Asia/Jakarta');
         $this->load->model('ambulance/M_ambulance');
         $this->load->model('administrasi/M_tagihan');
     }
@@ -12,6 +11,14 @@ class Tagihan extends CI_Controller
     public function index()
     {
         $this->template->load('sim_klinik/template/administrasi', 'sim_klinik/konten/administrasi/tagihan/tambah');
+    }
+
+    function rekapTagihan(){
+        $data['record'] = $this->M_tagihan->getRekap()->result(); 
+        $this->template->load('sim_klinik/template/administrasi', 'sim_klinik/konten/administrasi/tagihan/rekap_tagihan',$data);
+    }
+    function detailRekapTagihan(){
+
     }
 
     public function get_transaksi_pasien()
