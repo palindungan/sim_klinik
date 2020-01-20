@@ -114,4 +114,8 @@
 	$('#dataTable').DataTable({
 		ordering: false
 	});
+	$('#dataTable2').DataTable({
+		ordering: false
+	});
 </script>
+

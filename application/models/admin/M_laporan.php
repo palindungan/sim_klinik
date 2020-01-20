@@ -11,7 +11,7 @@ class M_laporan extends CI_Model
         biaya_periksa,
         SUM(harga_detail) as total_harga
         FROM laporan_rawat_jalan WHERE tipe_pelayanan = 'Rawat Jalan' AND DATE(tgl_pelayanan) = CURDATE()
-        GROUP BY no_bp_p")->result();
+        GROUP BY no_bp_p ORDER BY tgl_pelayanan DESC")->result();
         return $query;
     }
 
@@ -25,7 +25,7 @@ class M_laporan extends CI_Model
         biaya_periksa,
         SUM(harga_detail) as total_harga
         FROM laporan_rawat_jalan WHERE tipe_pelayanan = 'Rawat Jalan' AND MONTH(tgl_pelayanan) = MONTH(CURDATE()) AND YEAR(tgl_pelayanan) = YEAR(CURDATE())
-        GROUP BY no_bp_p")->result();
+        GROUP BY no_bp_p ORDER BY tgl_pelayanan DESC")->result();
         return $query;
     }
     

@@ -17,9 +17,11 @@
 
         }
 
-        public function index()
+        public function rawat_jalan()
         {
-            $this->template->load('sim_klinik/template/admin', 'sim_klinik/konten/admin/laporan/tampil');
+            $data['rj_hari'] = $this->M_laporan->laporan_rj_hari_ini();
+            $data['rj_bulan'] = $this->M_laporan->laporan_rj_bulan_ini();
+            $this->template->load('sim_klinik/template/admin', 'sim_klinik/konten/admin/laporan/rawat_jalan',$data);
         }
 
         public function rj_hari_ini() {

@@ -38,7 +38,7 @@ class M_pasien extends CI_Model
 
     function tampil_pasien($table)
     {
-        return $this->db->order_by('tgl_pelayanan','DESC')->get_where($table,array('status' => 'finish'));
+        return $this->db->order_by('tgl_pelayanan','DESC')->get($table);
     }
 
     function ambil_nama($table,$no_rm)
