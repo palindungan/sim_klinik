@@ -116,96 +116,6 @@
 
 
 	<script src="<?= base_url(); ?>assets/sb_admin_2/vendor/jquery/jquery-3.4.1.min.js"></script>
-
-	<script>
-		$(document).ready(function () {
-			auto_complete();
-
-		});
-
-		// codingan untuk autocomplete start
-		function auto_complete() {
-
-			$(function () {
-
-				// untuk no_rm
-				$(".no_rmnya").autocomplete({
-					source: function (request, response) {
-						// Fetch data
-						$.ajax({
-							url: "<?php echo base_url() . 'loket/pendaftaran/get_autocomplete_no_rm'; ?>",
-							type: 'post',
-							dataType: "json",
-							data: {
-								nilai: request.term
-							},
-							success: function (data) {
-								response(data);
-							}
-						});
-					},
-					select: function (event, ui) {},
-				});
-
-				$(".no_rmnya").on("autocompleteselect", function (event, ui) {
-
-					var id = ui.item.value
-
-					// Fetch data
-					$.ajax({
-						url: "<?php echo base_url() . 'loket/pendaftaran/get_pasien_by_no_rm'; ?>",
-						type: 'post',
-						data: {
-							nilai: id
-						},
-						success: function (hasil) {
-
-							// parse
-							var obj = JSON.parse(hasil);
-							let data = obj['tbl_data'];
-
-							if (data != '') {
-
-								$.each(data, function (i, item) {
-
-									var nama = data[i].nama;
-									var alamat = data[i].alamat;
-									var umur = data[i].umur;
-
-									$("#nama").val(nama);
-									$("#alamat").val(alamat);
-									$("#umur").val(umur);
-
-
-								});
-
-								$("#pilih_rm").val("yes");
-							} else {
-
-								alert("Data Dengan Kode : " + id + " Tidak Ditemukan !");
-
-							}
-						}
-					});
-				});
-
-				$(".no_rmnya").on("autocompletesearch", function (event, ui) {
-					$("#pilih_rm").val("no");
-					//$("#no_rm").val("");
-					$("#nama").val("");
-					$("#alamat").val("");
-					$("#umur").val("");
-				});
-
-				// end of untuk no_rm
-
-
-			});
-
-		}
-		// codingan untuk autocomplete end
-
-	</script>
 	<script>
 		// jika kita tekan / click button search-button
 		$('#btn_search').on('click', function () {
@@ -269,8 +179,6 @@
 			$("#nama").val(nama);
 			$("#alamat").val(alamat);
 			$("#umur").val(umur);
-
-
 			$('#exampleModalCenter').modal('hide');
 		}
 

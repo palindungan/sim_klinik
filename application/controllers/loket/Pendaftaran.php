@@ -264,33 +264,5 @@ class Pendaftaran extends CI_Controller
         redirect('loket/pendaftaran','refresh');
     }
 
-    function get_autocomplete_no_rm()
-    {
-        $nilai = $this->input->post('nilai');
-
-        if (isset($nilai)) {
-            $result = $this->M_pendaftaran->search_autocomplete('pasien', 'no_rm', $nilai);
-            if (count($result) > 0) {
-                foreach ($result as $row)
-                    $arr_result[] = $row->no_rm;
-                echo json_encode($arr_result);
-            }
-        }
-    }
-
-    function get_pasien_by_no_rm()
-    {
-        $nilai = $this->input->post('nilai');
-        if (isset($nilai)) {
-
-            $where = array(
-                'no_rm' => $nilai
-            );
-
-            $data_tbl['tbl_data'] = $this->M_pendaftaran->get_data('pasien', $where)->result();
-            $data = json_encode($data_tbl);
-            echo $data;
-        }
-    }
 
 }
