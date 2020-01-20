@@ -42,7 +42,6 @@ class M_transaksi extends CI_Model
     function get_no_transaksi_rawat_inap()
     {
         date_default_timezone_set('Asia/Jakarta');
-
         $field = "no_transaksi_rawat_i";
         $tabel = "transaksi_rawat_inap";
         $digit = "4";
