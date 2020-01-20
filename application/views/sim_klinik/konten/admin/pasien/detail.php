@@ -234,10 +234,31 @@
 					<?php
 					}
 					?>
+					
 
 					<?php 
 					}
-					$grand_total = $harga_tindakan_bp + $harga_tindakan_kia + $harga_tindakan_lab + $harga_tindakan_ugd + $harga_penjualan_obat_a + $harga_kamar_ri + $harga_tindakan_ri + $harga_obat_ri;
+					
+					
+					?>
+
+					<?php
+					$harga_ambulance = 0;
+                    if($no_pelayanan_a != "kosong"){
+						foreach($data_ambulance as $row_ambulance)
+						{
+							$harga_ambulance += $row_ambulance->total_harga;
+						} 
+                    ?>
+					<tr>
+						<td style="text-align:left;padding-left:10px"><i>Biaya Ambulance</i></td>
+						<td></td>
+						<td></td>
+						<td style="text-align:right"><?php echo rupiah($harga_ambulance) ?></td>
+					</tr>
+					<?php 
+					}
+					$grand_total = $harga_tindakan_bp + $harga_tindakan_kia + $harga_tindakan_lab + $harga_tindakan_ugd + $harga_penjualan_obat_a + $harga_kamar_ri + $harga_tindakan_ri + $harga_obat_ri + $harga_ambulance;
 					?>
 					<tr style="line-height:50px;">
 						<td style="text-align:left;">Jumlah Yang Harus Dibayar</td>

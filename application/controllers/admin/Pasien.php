@@ -29,6 +29,16 @@ class Pasien extends CI_Controller
             'no_ref_pelayanan' => $id
         );
 
+        // ambil data Ambulance
+        $no_pelayanan_a = "kosong";
+        $pelayanan_ambulance = $this->M_pasien->get_data('pelayanan_ambulan',$where_no_ref)->result();
+        foreach($pelayanan_ambulance as $data_ambulan)
+        {
+            $no_pelayanan_a = $data_ambulan->no_pelayanan_a;
+        }
+        $data['no_pelayanan_a'] = $no_pelayanan_a;
+        $data['data_ambulance'] = $pelayanan_ambulance;
+
         // ambil data Bp Penanganan
         $no_bp_p = "kosong";
         $bp_penanganan = $this->M_pasien->get_data('bp_penanganan',$where_no_ref)->result();
