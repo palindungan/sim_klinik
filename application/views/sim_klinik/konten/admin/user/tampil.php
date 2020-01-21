@@ -62,12 +62,11 @@
 								<div class="form-group col-sm-6">
 									<label for="inputEmail5">Jenis Akses</label>
 									<select name="jenis_akses" class="form-control form-control-sm" id="inputEmail5">
+										<option value="Manager">Manager</option>
+										<option value="Admin">Admin</option>
 										<option value="Loket">Loket</option>
 										<option value="Apotek">Apotek</option>
 										<option value="Administrasi">Administrasi</option>
-										<option value="Balai Pengobatan">Balai Pengobatan</option>
-										<option value="Laboratorium">Laboratorium</option>
-										<option value="KIA">KIA</option>
 										<option value="Rawat Inap">Rawat Inap</option>
 									</select>
 								</div>
@@ -157,6 +156,10 @@
 					<div class="form-group col-sm-6">
 						<label for="inputEmail5">Jenis Akses</label>
 						<select name="jenis_akses" class="form-control form-control-sm" id="inputEmail5">
+							<option value="Loket" <?php if($data->jenis_akses == "Manager") {echo'selected';} ?>>Manager
+							</option>
+							<option value="Loket" <?php if($data->jenis_akses == "Admin") {echo'selected';} ?>>Admin
+							</option>
 							<option value="Loket" <?php if($data->jenis_akses == "Loket") {echo'selected';} ?>>Loket
 							</option>
 							<option value="Apotek" <?php if($data->jenis_akses == "Apotek") {echo'selected';} ?>>Apotek
@@ -164,14 +167,6 @@
 							<option value="Administrasi"
 								<?php if($data->jenis_akses == "Administrasi") {echo'selected';} ?>>
 								Administrasi</option>
-							<option value="Balai Pengobatan"
-								<?php if($data->jenis_akses == "Balai Pengobatan") {echo'selected';} ?>>Balai Pengobatan
-							</option>
-							<option value="Laboratorium"
-								<?php if($data->jenis_akses == "Laboratorium") {echo'selected';} ?>>
-								Laboratorium</option>
-							<option value="KIA" <?php if($data->jenis_akses == "KIA") {echo'selected';} ?>>KIA
-							</option>
 							<option value="Rawat Inap"
 								<?php if($data->jenis_akses == "Rawat Inap") {echo'selected';} ?>>
 								Rawat Inap</option>

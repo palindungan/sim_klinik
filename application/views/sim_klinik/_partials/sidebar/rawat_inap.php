@@ -17,6 +17,7 @@
     </div>
 
     <!-- Nav Item - Charts -->
+    
     <li class="nav-item">
         <a class="nav-link" href="<?= base_url('rawat_inap/transaksi'); ?>">
             <i class="fas fa-user-edit <?php if($this->uri->segment(1)=="rawat_inap" && $this->uri->segment(2)=="transaksi"){echo "text-white";} ?>"></i>

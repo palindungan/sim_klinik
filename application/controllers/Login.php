@@ -30,7 +30,13 @@ class Login extends CI_Controller
                     'akses' => $akses
                 );
                 $this->session->set_userdata($data_session);
-                if ($row->jenis_akses == 'Loket') 
+                if($row->jenis_akses == 'Manager'){
+                    redirect('laporan/rekap_tagihan');
+                }
+                else if($row->jenis_akses== 'Admin'){
+                    redirect('admin/pasien');
+                }
+                else if ($row->jenis_akses == 'Loket') 
                 {
                     redirect(base_url("loket/pendaftaran"));
                 } 
@@ -41,18 +47,6 @@ class Login extends CI_Controller
                 else if ($row->jenis_akses == 'Administrasi')
                 {
                     redirect(base_url("administrasi/tagihan"));
-                }
-                else if ($row->jenis_akses == 'Balai Pengobatan')
-                {
-                    redirect(base_url("balai_pengobatan/transaksi"));
-                }
-                else if ($row->jenis_akses == 'Laboratorium')
-                {
-                    redirect(base_url("laboratorium/checkup"));
-                }
-                else if ($row->jenis_akses == 'KIA')
-                {
-                    redirect(base_url("kia/transaksi"));
                 }
                 else if ($row->jenis_akses == 'Rawat Inap')
                 {

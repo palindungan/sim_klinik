@@ -4,6 +4,11 @@ class Kamar extends CI_Controller
     function __construct()
     {
         parent::__construct();
+        if($this->session->userdata('akses') == 'Admin' || $this->session->userdata('akses') == 'Rawat Inap'){
+            
+        }else{
+            show_404();
+        }
         $this->load->model('admin/M_kamar');
     }
     public function index()
