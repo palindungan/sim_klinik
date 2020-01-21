@@ -228,6 +228,11 @@ class Transaksi extends CI_Controller
                     'total_harga' => $total_harga
                 );
 
+                $data_update_status_pelayanan = array(
+                    'tipe_pelayanan' => 'Rawat Inap'
+                );
+                $this->M_tagihan->update_data($where_no_ref_pelayanan,'pelayanan',$data_update_status_pelayanan);
+
                 $tambah = $this->M_tagihan->input_data('transaksi_rawat_inap', $data);
 
                 // no_stok_obat_rawat_i harga_ri_obat qty_ri_obat

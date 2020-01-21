@@ -305,6 +305,7 @@ class Tagihan extends CI_Controller
             'no_ref_pelayanan' => $no_ref_pelayanan
         );
 
+
         // cek apakah ada no ref pelayanan didalam semua tabel transaksi
         $cek_lab_transaksi = $this->M_tagihan->get_data('lab_transaksi', $where_no_ref_pelayanan);
         $cek_bp_penanganan = $this->M_tagihan->get_data('bp_penanganan', $where_no_ref_pelayanan);
@@ -1136,6 +1137,11 @@ class Tagihan extends CI_Controller
                     'tgl_transaksi' => $tgl_transaksi,
                     'total_harga' => $total_harga
                 );
+                
+                $data_update_status_pelayanan = array(
+                    'tipe_pelayanan' => 'Rawat Inap'
+                );
+                $this->M_tagihan->update_data($where_no_ref_pelayanan,'pelayanan',$data_update_status_pelayanan);
 
                 $tambah = $this->M_tagihan->input_data('transaksi_rawat_inap', $data);
 
