@@ -82,13 +82,18 @@ class M_transaksi extends CI_Model
 
     function get_select($no_ref, $nama, $kolom)
     {
-        $this->db->select('*');
+        $this->db->select('no_ref_pelayanan,nama');
         $this->db->from('data_pelayanan_pasien_default');
-        $this->db->where('layanan_tujuan', 'Poli KIA');
-        $this->db->group_start();
-        $this->db->or_like('no_ref_pelayanan', $no_ref);
+        $this->db->group_start();  //group start
+        $this->db->like('no_ref_pelayanan', $no_ref);
         $this->db->or_like('nama', $nama);
-        $this->db->group_end();
+        $this->db->group_end();  //group ed
+        $where = array(
+            'status' => 'belum_finish',
+            'layanan_tujuan' => 'Poli KIA'
+        );
+
+        $this->db->where($where);
         return $this->db->get()->result_array();
     }
 }

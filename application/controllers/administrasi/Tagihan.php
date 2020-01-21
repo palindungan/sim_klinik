@@ -298,7 +298,7 @@ class Tagihan extends CI_Controller
 
     public function input_transaksi_form()
     {
-
+        $btn_simpan = $this->input->post('btn_simpan');
         $no_ref_pelayanan = $this->input->post('no_ref_pelayanan');
 
         $where_no_ref_pelayanan = array(
@@ -1137,7 +1137,7 @@ class Tagihan extends CI_Controller
                     'tgl_transaksi' => $tgl_transaksi,
                     'total_harga' => $total_harga
                 );
-                
+
                 $data_update_status_pelayanan = array(
                     'tipe_pelayanan' => 'Rawat Inap'
                 );
@@ -1254,6 +1254,16 @@ class Tagihan extends CI_Controller
         }
         // End Of cek di setiap transaksi
 
+        
+        if($btn_simpan == "simpan_final")
+        {
+            $data_update_status_pelayanan = array(
+                    'status' => 'finish'
+            );
+            $this->M_tagihan->update_data($where_no_ref_pelayanan,'pelayanan',$data_update_status_pelayanan);
+        }
         $this->session->set_flashdata('success', 'Ditambahkan');
+        redirect('administrasi/tagihan');
+
     }
 }

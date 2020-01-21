@@ -7,7 +7,7 @@
             <h6 class="m-0 font-weight-bold text-primary">Tagihan</h6>
         </div>
         <div class="card-body">
-            <form method="post" id="transaksi_form">
+            <form method="post" id="transaksi_form" action="<?php echo base_url('administrasi/tagihan/input_transaksi_form') ?>">
 
                 <div class="form-row">
                     <div class="form-group col-sm-5">
@@ -146,11 +146,19 @@
 
                 <div class="form-row">
                     <div class="col-sm-2">
-                        <button id="action" type="submit" class="btn btn-sm btn-success btn-icon-split" onclick="return confirm('Lakukan Simpan Data ?')">
+                        <button id="action" type="submit" name="btn_simpan" value="simpan_sementara" class="btn btn-sm btn-info btn-icon-split" onclick="return confirm('Lakukan Simpan Data ?')">
                             <span class="icon text-white-50">
                                 <i class="fas fa-save"></i>
                             </span>
                             <span class="text">Simpan Data</span>
+                        </button>
+                    </div>
+                    <div class="col-sm-2">
+                        <button id="action" type="submit" name="btn_simpan" value="simpan_final" class="btn btn-sm btn-success btn-icon-split" onclick="return confirm('Lakukan Simpan Data ?')">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-print"></i>
+                            </span>
+                            <span class="text">Selesai</span>
                         </button>
                     </div>
                 </div>
@@ -330,30 +338,30 @@
         update_sub_total_apotek_obat();
     });
 
-    // jika di click simpan / submit
-    $(document).on('submit', '#transaksi_form', function(event) {
-        event.preventDefault();
+    // // jika di click simpan / submit
+    // $(document).on('submit', '#transaksi_form', function(event) {
+    //     event.preventDefault();
 
-        if (jumlah_detail_transaksi > 0) {
+    //     if (jumlah_detail_transaksi > 0) {
 
-            // mengambil nilai di dalam form
-            var form_data = $(this).serialize();
+    //         // mengambil nilai di dalam form
+    //         var form_data = $(this).serialize();
 
-            // tambah ke database
-            $.ajax({
-                url: "<?php echo base_url() . 'administrasi/tagihan/input_transaksi_form'; ?>",
-                method: "POST",
-                data: form_data,
-                success: function(data) {
-                    location.reload();
-                }
-            });
-            // tambah ke database
-        } else {
-            alert("Detail Transaksi Kosong !");
-        }
+    //         // tambah ke database
+    //         $.ajax({
+    //             url: "<?php echo base_url() . 'administrasi/tagihan/input_transaksi_form'; ?>",
+    //             method: "POST",
+    //             data: form_data,
+    //             success: function(data) {
+    //                 location.reload();
+    //             }
+    //         });
+    //         // tambah ke database
+    //     } else {
+    //         alert("Detail Transaksi Kosong !");
+    //     }
 
 
 
-    });
+    // });
 </script>
