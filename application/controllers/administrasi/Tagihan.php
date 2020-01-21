@@ -1257,13 +1257,305 @@ class Tagihan extends CI_Controller
         
         if($btn_simpan == "simpan_final")
         {
-            $data_update_status_pelayanan = array(
-                    'status' => 'finish'
-            );
-            $this->M_tagihan->update_data($where_no_ref_pelayanan,'pelayanan',$data_update_status_pelayanan);
+            // $data_update_status_pelayanan = array(
+            //         'status' => 'finish'
+            // );
+            // $this->M_tagihan->update_data($where_no_ref_pelayanan,'pelayanan',$data_update_status_pelayanan);
+
+            $data_pelayanan_pasien = $this->M_tagihan->get_data('data_pelayanan_pasien_default',$where_no_ref_pelayanan)->row();
+            $nama_pasien = $data_pelayanan_pasien->nama;
+            $no_rm = $data_pelayanan_pasien->no_rm;
+            $no_ref = $data_pelayanan_pasien->no_ref_pelayanan;
+            $tgl_pelayanan_tmp = $data_pelayanan_pasien->tgl_pelayanan;
+            $tgl_pelayanan = tgl_indo(date('Y-m-d',strtotime($tgl_pelayanan_tmp)));
+            $tipe_pelayanan = $data_pelayanan_pasien->tipe_pelayanan;
+
+            $cek_lab_transaksi2 = $this->M_tagihan->get_data('lab_transaksi', $where_no_ref_pelayanan);
+            $cek_bp_penanganan2 = $this->M_tagihan->get_data('bp_penanganan', $where_no_ref_pelayanan);
+            $cek_ugd_penanganan2 = $this->M_tagihan->get_data('ugd_penanganan', $where_no_ref_pelayanan);
+            $cek_kia_penanganan2 = $this->M_tagihan->get_data('kia_penanganan', $where_no_ref_pelayanan);
+            $cek_pelayanan_ambulan2 = $this->M_tagihan->get_data('pelayanan_ambulan', $where_no_ref_pelayanan);
+            $cek_penjualan_obat_apotik2 = $this->M_tagihan->get_data('penjualan_obat_apotik', $where_no_ref_pelayanan);
+            $cek_transaksi_rawat_inap2 = $this->M_tagihan->get_data('transaksi_rawat_inap', $where_no_ref_pelayanan);
+
+            $html = '
+            <table width="100%">
+					<tr>
+						<td width="14%" class="font-weight-bold">Nama</td>
+						<td width="1%">:</td>
+						<td width="40%">'.$nama_pasien.'</td>
+						<td width="20%" class="font-weight-bold">No Ref Pelayanan</td>
+						<td width="1%">:</td>
+						<td width="24%">'.$no_ref.'</td>
+					</tr>
+					<tr>
+						<td class="font-weight-bold">Nomor RM</td>
+						<td>:</td>
+						<td>'.$no_rm.'</td>
+						<td class="font-weight-bold">Tanggal</td>
+						<td>:</td>
+						<td>'.$tgl_pelayanan.'</td>
+					</tr>
+			</table>
+            <hr>
+            <table width="100%">
+                <tr>
+                    <td>Rincian Transaksi</td>
+                    <td></td>
+                    <td></td>
+                    <td style="text-align:right">Biaya</td>
+                </tr>';
+                
+                $harga_tindakan_bp = 0;
+                if ($cek_bp_penanganan2->num_rows() > 0){
+                foreach ($cek_bp_penanganan->result() as $data_bp) {
+                    $no_bp_p = $data_bp->no_bp_p;
+                }
+
+                $where_no_bp_p = array(
+                    'no_bp_p' => $no_bp_p
+                );
+                $detail_penanganan_bp = $this->M_tagihan->get_data('daftar_detail_tindakan_bp_transaksi',$where_no_bp_p);
+
+                $html.='
+                <tr>
+                    <td style="text-align:left;padding-left:10px"><i>Biaya Tindakan Balai Pengobatan</i></td>
+                </tr>';
+                foreach($detail_penanganan_bp->result() as $detail_bp)
+                {
+                    $harga_tindakan_bp += $detail_bp->harga_tindakan * $detail_bp->qty;
+                $html.='
+                <tr>
+                    <td style="text-align:left;padding-left:20px">'.$detail_bp->nama.'</td>
+                    <td style="text-align:right">'.$detail_bp->qty." x".'</td>
+                    <td style="text-align:right">'.rupiah($detail_bp->harga_tindakan).'</td>
+                    <td style="text-align:right">'.rupiah($detail_bp->harga_tindakan * $detail_bp->qty).'</td>
+                </tr>';
+                }
+                }
+
+                $harga_tindakan_kia = 0;
+                if ($cek_kia_penanganan2->num_rows() > 0){
+                foreach ($cek_kia_penanganan->result() as $data_kia) {
+                    $no_kia_p = $data_kia->no_kia_p;
+                }
+
+                $where_no_kia_p = array(
+                    'no_kia_p' => $no_kia_p
+                );
+                $detail_penanganan_kia = $this->M_tagihan->get_data('daftar_detail_tindakan_kia_transaksi',$where_no_kia_p);
+                $html.='
+                <tr>
+                    <td style="text-align:left;padding-left:10px"><i>Biaya Tindakan Poli KIA</i></td>
+                </tr>';
+                foreach($detail_penanganan_kia->result() as $detail_kia)
+                {
+                    $harga_tindakan_kia += $detail_kia->harga * $detail_kia->qty;
+                $html.='
+                <tr>
+                    <td style="text-align:left;padding-left:20px">'.$detail_kia->nama.'</td>
+                    <td style="text-align:right">'.$detail_kia->qty." x".'</td>
+                    <td style="text-align:right">'.rupiah($detail_kia->harga).'</td>
+                    <td style="text-align:right">'.rupiah($detail_kia->harga * $detail_kia->qty).'</td>
+                </tr>';
+                }
+                }
+
+
+                $harga_tindakan_lab = 0;
+                if ($cek_lab_transaksi2->num_rows() > 0){
+                foreach ($cek_lab_transaksi->result() as $data_lab) {
+                    $no_lab_t = $data_lab->no_lab_t;
+                }
+
+                $where_no_lab_t = array(
+                    'no_lab_t' => $no_lab_t
+                );
+                $detail_penanganan_lab = $this->M_tagihan->get_data('daftar_detail_tindakan_lab_transaksi',$where_no_lab_t);
+                $html.='
+                <tr>
+                    <td style="text-align:left;padding-left:10px"><i>Biaya Tindakan Laboratorium</i></td>
+                </tr>';
+                foreach($detail_penanganan_lab->result() as $detail_lab)
+                {
+                    $harga_tindakan_lab += $detail_lab->harga * $detail_lab->qty;
+                $html.='
+                <tr>
+                    <td style="text-align:left;padding-left:20px">'.$detail_lab->nama.'</td>
+                    <td style="text-align:right">'.$detail_lab->qty." x".'</td>
+                    <td style="text-align:right">'.rupiah($detail_lab->harga).'</td>
+                    <td style="text-align:right">'.rupiah($detail_lab->harga * $detail_lab->qty).'</td>
+                </tr>';
+                }
+                }
+
+                $harga_tindakan_ugd = 0;
+                if ($cek_ugd_penanganan2->num_rows() > 0){
+                foreach ($cek_ugd_penanganan->result() as $data_ugd) {
+                    $no_ugd_p = $data_ugd->no_ugd_p;
+                }
+
+                $where_no_ugd_p = array(
+                    'no_ugd_p' => $no_ugd_p
+                );
+                $detail_penanganan_ugd = $this->M_tagihan->get_data('daftar_detail_tindakan_ugd_transaksi',$where_no_ugd_p);
+                
+                $html.='
+                <tr>
+                    <td style="text-align:left;padding-left:10px"><i>Biaya Tindakan UGD</i></td>
+                </tr>';
+                foreach($detail_penanganan_ugd->result() as $detail_ugd)
+                {
+                    $harga_tindakan_ugd += $detail_ugd->harga * $detail_ugd->qty;
+                $html.='
+                <tr>
+                    <td style="text-align:left;padding-left:20px">'.$detail_ugd->nama.'</td>
+                    <td style="text-align:right">'.$detail_ugd->qty." x".'</td>
+                    <td style="text-align:right">'.rupiah($detail_ugd->harga).'</td>
+                    <td style="text-align:right">'.rupiah($detail_ugd->harga * $detail_ugd->qty).'</td>
+                </tr>';
+                }
+                }
+
+                $harga_apotek_total = 0;
+                if ($cek_penjualan_obat_apotik2->num_rows() > 0){
+                foreach ($cek_penjualan_obat_apotik2->result() as $data_apotik) {
+                    $no_penjualan_obat_a = $data_apotik->no_penjualan_obat_a;
+                }
+
+                $where_no_penjualan_obat_a = array(
+                    'no_penjualan_obat_a' => $no_penjualan_obat_a
+                );
+                $detail_penjualan_apotik = $this->M_tagihan->get_data('daftar_penjualan_obat_apotek_detail',$where_no_penjualan_obat_a)->result();
+
+                $html.='
+                <tr>
+                    <td style="text-align:left;padding-left:10px"><i>Apotek</i></td>
+                </tr>';
+                foreach($detail_penjualan_apotik as $data_apotik)
+                {
+                    if($data_apotik->status_paket == "Ya")
+                    {
+                        $data_apotik->harga_jual = 0;
+                    }
+                    $harga_apotek_total += $data_apotik->harga_jual * $data_apotik->qty;
+                }
+                $html.='
+                <tr>
+                    <td style="text-align:left;padding-left:20px">Biaya Obat-Obatan</td>
+                    <td style="text-align:right"></td>
+                    <td style="text-align:right"></td>
+                    <td style="text-align:right">'.rupiah($harga_apotek_total).'</td>
+                </tr>';
+                }
+
+                
+                if ($cek_transaksi_rawat_inap2->num_rows() > 0){
+                foreach ($cek_transaksi_rawat_inap2->result() as $data_rawat_inap) {
+                    $no_transaksi_rawat_i = $data_rawat_inap->no_transaksi_rawat_i;
+                }
+
+                $where_no_transaksi_rawat_i = array(
+                    'no_transaksi_rawat_i' => $no_transaksi_rawat_i
+                );
+
+                $detail_kamar_ri = $this->M_tagihan->get_data('daftar_detail_kamar_rawat_inap',$where_no_transaksi_rawat_i)->result();
+                $detail_tindakan_ri = $this->M_tagihan->get_data('daftar_detail_tindakan_rawat_inap',$where_no_transaksi_rawat_i)->result();
+                $detail_obat_ri = $this->M_tagihan->get_data('daftar_penjualan_obat_rawat_inap_detail',$where_no_transaksi_rawat_i)->result();
+
+                $no_rawat_inap_t = "kosong";
+                foreach($detail_tindakan_ri as $detail_tindakan_rawat_inap)
+                {
+                    $no_rawat_inap_t = $detail_tindakan_rawat_inap->no_rawat_inap_t;
+                }
+
+                $no_detail_transaksi_rawat_inap_k = "kosong";
+                foreach($detail_kamar_ri as $detail_kamar_rawat_inap)
+                {
+                    $no_detail_transaksi_rawat_inap_k = $detail_kamar_rawat_inap->no_detail_transaksi_rawat_inap_k;
+                }
+
+                $no_stok_obat_rawat_i = "kosong";
+                foreach($detail_obat_ri as $detail_obat_rawat_inap)
+                {
+                    $no_stok_obat_rawat_i = $detail_obat_rawat_inap->no_stok_obat_rawat_i;
+                }
+
+                $html.='
+                <tr>
+                    <td style="text-align:left;padding-left:10px"><i>Biaya Rawat inap</i></td>
+                </tr>';
+                $harga_kamar_ri = 0;
+                if($no_detail_transaksi_rawat_inap_k != "kosong")
+                {
+                $html.='
+                <tr>
+                    <td style="text-align:left;padding-left:20px">Kamar</td>
+                </tr>';
+                foreach($detail_kamar_ri as $detail_rawat_inap_k)
+                {
+                    $cek_out = $detail_rawat_inap_k->tanggal_cek_out;
+                    $cek_in = $detail_rawat_inap_k->tanggal_cek_in;
+                    $format_cek_in = date('Y-m-d',strtotime($cek_in));
+                    $format_cek_out = date('Y-m-d',strtotime($cek_out));
+                    $tanggal_cek_in = new DateTime($format_cek_in);
+                    $tanggal_cek_out = new DateTime($format_cek_out);
+                    $lama_hari = $tanggal_cek_out->diff($tanggal_cek_in)->format("%a") + 1;
+                    $harga_kamar_ri += $lama_hari * $detail_rawat_inap_k->harga_harian;
+
+                $html.='
+                <tr>
+                    <td style="text-align:left;padding-left:40px">'.$detail_rawat_inap_k->nama.'</td>
+                    <td style="text-align:right">'.$lama_hari." hari".'</td>
+                    <td style="text-align:right">'.rupiah($detail_rawat_inap_k->harga_harian).'</td>
+                    <td style="text-align:right">'.rupiah($lama_hari * $detail_rawat_inap_k->harga_harian).'</td>
+                </tr>';
+                }
+                }
+                $html.='
+                <tr>
+                    <td style="text-align:left;padding-left:20px">Tindakan Rawat Inap</td>
+                </tr>
+                <tr>
+                    <td style="text-align:left;padding-left:40px">asd</td>
+                    <td style="text-align:right">asd</td>
+                    <td style="text-align:right">asd</td>
+                    <td style="text-align:right">asd</td>
+                </tr>
+                
+                <tr>
+                    <td style="text-align:left;padding-left:20px">Obat Rawat Inap</td>
+                </tr>
+                <tr>
+                    <td style="text-align:left;padding-left:40px">asd</td>
+                    <td style="text-align:right">asd</td>
+                    <td style="text-align:right">asd</td>
+                    <td style="text-align:right">asd</td>
+                </tr>';
+                }                
+                $html.='
+                <tr>
+                    <td style="text-align:left;padding-left:10px"><i>Biaya Ambulance</i></td>
+                    <td></td>
+                    <td></td>
+                    <td style="text-align:right">asd</td>
+                </tr>
+                
+                <tr style="line-height:50px;">
+                    <td class="font-weight-bold">Jumlah Yang Harus Dibayar</td>
+                    <td></td>
+                    <td></td>
+                    <td style="text-align:right">asd</td>
+                </tr>
+
+			</table>';
         }
-        $this->session->set_flashdata('success', 'Ditambahkan');
-        redirect('administrasi/tagihan');
+
+
+        $this->dompdf->PdfGenerator($html, 'coba', 'A4', 'potrait',true);
+
+        // $this->session->set_flashdata('success', 'Ditambahkan');
+        // redirect('administrasi/tagihan');
 
     }
 }
