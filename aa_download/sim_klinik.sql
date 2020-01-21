@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 19 Jan 2020 pada 20.21
+-- Waktu pembuatan: 21 Jan 2020 pada 15.35
 -- Versi server: 10.1.37-MariaDB
 -- Versi PHP: 7.3.0
 
@@ -222,7 +222,7 @@ CREATE TABLE `bp_penanganan` (
 
 INSERT INTO `bp_penanganan` (`no_bp_p`, `no_ref_pelayanan`, `tgl_penanganan`, `total_harga`) VALUES
 ('BP200119-0001', '200114-001', '2020-01-19 22:38:12', 50000),
-('BP200119-0002', '200119-001', '2020-01-19 22:58:01', 50000);
+('BP200119-0002', '200119-001', '2020-01-21 21:35:27', 50000);
 
 -- --------------------------------------------------------
 
@@ -448,6 +448,7 @@ CREATE TABLE `daftar_penjualan_obat_apotek_detail` (
 ,`qty_sekarang` mediumint(5)
 ,`no_penjualan_obat_a` char(13)
 ,`no_ref_pelayanan` char(10)
+,`harga_lama` int(9)
 );
 
 -- --------------------------------------------------------
@@ -544,7 +545,7 @@ CREATE TABLE `detail_bp_penanganan` (
 
 INSERT INTO `detail_bp_penanganan` (`no_detail_bp_p`, `no_bp_p`, `no_bp_t`, `qty`, `harga`) VALUES
 (33, 'BP200119-0001', 'T001', 1, 50000),
-(36, 'BP200119-0002', 'T001', 1, 50000);
+(41, 'BP200119-0002', 'T001', 1, 50000);
 
 -- --------------------------------------------------------
 
@@ -566,8 +567,8 @@ CREATE TABLE `detail_kia_penanganan` (
 
 INSERT INTO `detail_kia_penanganan` (`no_detail_kia_p`, `no_kia_p`, `no_kia_t`, `qty`, `harga`) VALUES
 (11, 'KP200119-0001', 'K001', 5, 200000),
-(22, 'KP200119-0002', 'K002', 10, 100000),
-(23, 'KP200119-0002', 'K001', 10, 200000);
+(32, 'KP200119-0002', 'K002', 10, 100000),
+(33, 'KP200119-0002', 'K001', 10, 200000);
 
 -- --------------------------------------------------------
 
@@ -631,7 +632,7 @@ CREATE TABLE `detail_pelayanan_ambulan` (
 --
 
 INSERT INTO `detail_pelayanan_ambulan` (`no_detail_pelayanan_ambulan`, `no_pelayanan_a`, `no_ambulance`, `harga`) VALUES
-(3, 'AB200119-0001', 1, 120000);
+(8, 'AB200119-0001', 1, 120000);
 
 -- --------------------------------------------------------
 
@@ -653,8 +654,14 @@ CREATE TABLE `detail_penjualan_obat_apotik` (
 --
 
 INSERT INTO `detail_penjualan_obat_apotik` (`no_detail_penjualan_obat_a`, `no_penjualan_obat_a`, `kode_obat`, `qty`, `harga_jual`, `status_paket`) VALUES
-(3, 'PA200120-0001', 'O005', 2, 5000, 'Tidak'),
-(4, 'PA200120-0001', 'O001', 3, 1000, 'Tidak');
+(39, 'PA200121-0003', 'O001', 1, 1000, 'Tidak'),
+(40, 'PA200121-0003', 'O005', 2, 0, 'Ya'),
+(41, 'PA200121-0003', 'O002', 1, 2000, 'Tidak'),
+(42, 'PA200121-0003', 'O003', 2, 0, 'Ya'),
+(47, 'PA200121-0001', 'O005', 1, 0, 'Ya'),
+(48, 'PA200121-0001', 'O002', 1, 0, 'Ya'),
+(53, 'PA200121-0002', 'O005', 1, 0, 'Ya'),
+(54, 'PA200121-0002', 'O001', 1, 1000, 'Tidak');
 
 -- --------------------------------------------------------
 
@@ -687,14 +694,6 @@ CREATE TABLE `detail_transaksi_rawat_inap_obat` (
   `qty` int(3) NOT NULL,
   `harga_jual` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `detail_transaksi_rawat_inap_obat`
---
-
-INSERT INTO `detail_transaksi_rawat_inap_obat` (`no_detail_transaksi_rawat_inap_o`, `no_transaksi_rawat_i`, `no_stok_obat_rawat_i`, `qty`, `harga_jual`) VALUES
-(6, 'RI200120-0001', 1, 5, 1000),
-(7, 'RI200120-0001', 2, 2, 5000);
 
 -- --------------------------------------------------------
 
@@ -787,7 +786,7 @@ CREATE TABLE `kia_penanganan` (
 
 INSERT INTO `kia_penanganan` (`no_kia_p`, `no_ref_pelayanan`, `tgl_penanganan`, `total_harga`) VALUES
 ('KP200119-0001', '200114-001', '2020-01-19 22:32:17', 1000000),
-('KP200119-0002', '200119-001', '2020-01-19 22:59:06', 3000000);
+('KP200119-0002', '200119-001', '2020-01-21 21:35:27', 3000000);
 
 -- --------------------------------------------------------
 
@@ -887,11 +886,11 @@ CREATE TABLE `obat` (
 --
 
 INSERT INTO `obat` (`kode_obat`, `no_kat_obat`, `nama`, `min_stok`, `harga_jual`, `tipe`, `qty`) VALUES
-('O001', 'K001', 'Aspirin', 10, 1000, 'Obat', 60),
-('O002', 'K002', 'Prednison', 5, 2000, 'Obat', 20),
-('O003', 'K003', 'Psyllium ', 10, 3000, 'Obat', 55),
+('O001', 'K001', 'Aspirin', 10, 1000, 'Obat', 50),
+('O002', 'K002', 'Prednison', 5, 2000, 'Obat', 6),
+('O003', 'K003', 'Psyllium ', 10, 3000, 'Obat', 53),
 ('O004', 'K004', 'simvastatin', 10, 3000, 'Obat', 0),
-('O005', 'K005', 'Pentabio', 10, 5000, 'Obat', 65);
+('O005', 'K005', 'Pentabio', 10, 5000, 'Obat', 42);
 
 -- --------------------------------------------------------
 
@@ -981,7 +980,7 @@ CREATE TABLE `pelayanan_ambulan` (
 --
 
 INSERT INTO `pelayanan_ambulan` (`no_pelayanan_a`, `no_ref_pelayanan`, `tanggal`, `total_harga`) VALUES
-('AB200119-0001', '200119-001', '2020-01-19 22:58:01', 120000);
+('AB200119-0001', '200119-001', '2020-01-21 21:35:27', 120000);
 
 -- --------------------------------------------------------
 
@@ -1023,7 +1022,9 @@ CREATE TABLE `penjualan_obat_apotik` (
 --
 
 INSERT INTO `penjualan_obat_apotik` (`no_penjualan_obat_a`, `no_ref_pelayanan`, `tanggal_penjualan`, `total_harga`) VALUES
-('PA200120-0001', '200119-001', '2020-01-20 01:38:16', 13000);
+('PA200121-0001', '200120-001', '2020-01-21 21:34:24', 0),
+('PA200121-0002', '200119-001', '2020-01-21 21:35:27', 1000),
+('PA200121-0003', '200120-002', '2020-01-21 21:31:14', 3000);
 
 -- --------------------------------------------------------
 
@@ -1126,13 +1127,6 @@ CREATE TABLE `transaksi_rawat_inap` (
   `tgl_transaksi` datetime NOT NULL,
   `total_harga` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `transaksi_rawat_inap`
---
-
-INSERT INTO `transaksi_rawat_inap` (`no_transaksi_rawat_i`, `no_ref_pelayanan`, `tgl_transaksi`, `total_harga`) VALUES
-('RI200120-0001', '200120-001', '2020-01-20 02:17:44', 15000);
 
 -- --------------------------------------------------------
 
@@ -1376,7 +1370,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `daftar_penjualan_obat_apotek_detail`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_penjualan_obat_apotek_detail`  AS  select `dpoa`.`no_detail_penjualan_obat_a` AS `no_detail_penjualan_obat_a`,`o`.`kode_obat` AS `kode_obat`,`o`.`nama` AS `nama`,`dpoa`.`qty` AS `qty`,`dpoa`.`harga_jual` AS `harga_jual`,`dpoa`.`status_paket` AS `status_paket`,`o`.`qty` AS `qty_sekarang`,`poa`.`no_penjualan_obat_a` AS `no_penjualan_obat_a`,`poa`.`no_ref_pelayanan` AS `no_ref_pelayanan` from ((`detail_penjualan_obat_apotik` `dpoa` join `obat` `o` on((`dpoa`.`kode_obat` = `o`.`kode_obat`))) join `penjualan_obat_apotik` `poa` on((`dpoa`.`no_penjualan_obat_a` = `poa`.`no_penjualan_obat_a`))) order by `dpoa`.`no_detail_penjualan_obat_a` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_penjualan_obat_apotek_detail`  AS  select `dpoa`.`no_detail_penjualan_obat_a` AS `no_detail_penjualan_obat_a`,`o`.`kode_obat` AS `kode_obat`,`o`.`nama` AS `nama`,`dpoa`.`qty` AS `qty`,`dpoa`.`harga_jual` AS `harga_jual`,`dpoa`.`status_paket` AS `status_paket`,`o`.`qty` AS `qty_sekarang`,`poa`.`no_penjualan_obat_a` AS `no_penjualan_obat_a`,`poa`.`no_ref_pelayanan` AS `no_ref_pelayanan`,`o`.`harga_jual` AS `harga_lama` from ((`detail_penjualan_obat_apotik` `dpoa` join `obat` `o` on((`dpoa`.`kode_obat` = `o`.`kode_obat`))) join `penjualan_obat_apotik` `poa` on((`dpoa`.`no_penjualan_obat_a` = `poa`.`no_penjualan_obat_a`))) order by `dpoa`.`no_detail_penjualan_obat_a` ;
 
 -- --------------------------------------------------------
 
@@ -1663,13 +1657,13 @@ ALTER TABLE `ambulance`
 -- AUTO_INCREMENT untuk tabel `detail_bp_penanganan`
 --
 ALTER TABLE `detail_bp_penanganan`
-  MODIFY `no_detail_bp_p` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `no_detail_bp_p` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_kia_penanganan`
 --
 ALTER TABLE `detail_kia_penanganan`
-  MODIFY `no_detail_kia_p` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `no_detail_kia_p` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_lab_transaksi`
@@ -1687,13 +1681,13 @@ ALTER TABLE `detail_obat_keluar_internal`
 -- AUTO_INCREMENT untuk tabel `detail_pelayanan_ambulan`
 --
 ALTER TABLE `detail_pelayanan_ambulan`
-  MODIFY `no_detail_pelayanan_ambulan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `no_detail_pelayanan_ambulan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_penjualan_obat_apotik`
 --
 ALTER TABLE `detail_penjualan_obat_apotik`
-  MODIFY `no_detail_penjualan_obat_a` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `no_detail_penjualan_obat_a` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_transaksi_rawat_inap_kamar`
