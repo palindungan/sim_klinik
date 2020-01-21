@@ -70,12 +70,22 @@
 							<td><?= $data->no_lab_c ?></td>
 							<td><?= $data->nama ?></td>
 							<td class="text-right"><?= rupiah($data->harga) ?></td>
+							<?php 
+							if($data->no_lab_c == 'L001' || $data->no_lab_c == 'L002' || $data->no_lab_c == 'L003')
+							{
+							?>
+							<td class="text-center">
+								<a style="cursor:pointer" class="btn btn-sm btn-warning text-white" data-toggle="modal"
+									data-target="#modal-edit<?= $data->no_lab_c ?>">Edit</a>
+							</td>
+							<?php } else { ?>
 							<td class="text-center">
 								<a style="cursor:pointer" class="btn btn-sm btn-warning text-white" data-toggle="modal"
 									data-target="#modal-edit<?= $data->no_lab_c ?>">Edit</a>
 								<a href="<?= base_url('laboratorium/checkup/delete/' . $data->no_lab_c) ?>"
 									class="btn btn-sm btn-danger tombol-hapus">Hapus</a>
 							</td>
+							<?php } ?>
 						</tr>
 						<?php endforeach; ?>
 					</tbody>
@@ -104,7 +114,7 @@
 						<label for="inputEmail2">Nama Checkup</label>
 						<input type="text" name="nama" value="<?= $data->nama ?>"
 							class="form-control form-control-sm karakter" id="inputEmail2"
-							placeholder="Masukan nama Checkup" required>
+							placeholder="Masukan nama Checkup" <?php if($data->nama == 'Gula Darah' || $data->nama == 'Asam Urat' || $data->nama == 'Cholesterol') {echo 'readonly';} ?> required>
 
 					</div>
 					<div class="form-group col-sm-6">

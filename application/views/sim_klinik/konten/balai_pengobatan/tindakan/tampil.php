@@ -126,7 +126,6 @@
 						<input type="text" name="nama" value="<?= $data->nama ?>"
 							class="form-control form-control-sm karakterAngka" id="inputEmail2"
 							placeholder="Masukan nama tindakan"
-							<?php if($data->nama == 'Cek Gula Darah' || $data->nama == 'Cek Asam Urat' || $data->nama == 'Cek Kolesterol') {echo 'readonly';} ?>
 							required>
 
 					</div>
