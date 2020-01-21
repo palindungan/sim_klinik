@@ -50,8 +50,10 @@
                         var harga_jual = data_apotek_penjualan_obat[i].harga_jual;
                         var qty = data_apotek_penjualan_obat[i].qty;
                         var qty_sekarang = data_apotek_penjualan_obat[i].qty_sekarang;
+                        var status_paket = data_apotek_penjualan_obat[i].status_paket;
+                        var harga_lama = data_apotek_penjualan_obat[i].harga_lama;
 
-                        load_detail_apotek_obat(kode_obat, nama, harga_jual, qty, qty_sekarang);
+                        load_detail_apotek_obat(kode_obat, nama, harga_jual, qty, qty_sekarang, status_paket, harga_lama);
                     });
 
                     update_sub_total_apotek_obat();
@@ -221,7 +223,12 @@
         jumlah_detail_transaksi = jumlah_detail_transaksi + 1;
     }
 
-    function load_detail_apotek_obat(kode_obat, nama, harga_jual, qty, qty_sekarang) {
+    function load_detail_apotek_obat(kode_obat, nama, harga_jual, qty, qty_sekarang, status_paket, harga_lama) {
+
+        var status = "";
+        if (status_paket == "Ya") {
+            status = "checked";
+        }
 
         $('#detail_list_apotek_obat').append(`
 
@@ -236,8 +243,10 @@
                 </td>
                 <td>
                     <div class="btn-icon-split col-12">
-                        <input type="checkbox" name="status_paket_apotek_obat[]" class="col-md-1 icon deteksi_cek_box form-control form-control-sm" id="status_paket_apotek_obat` + count_transaksi + `" value="Ya">
+                        <input type="checkbox" name="status_paket_apotek_obat_cb[]" class="col-md-1 icon deteksi_cek_box form-control form-control-sm" id="status_paket_apotek_obat_cb` + count_transaksi + `" ` + status + `>
+                        <input type="hidden" name="status_paket_apotek_obat[]" class="col-md-1 icon form-control form-control-sm" id="status_paket_apotek_obat` + count_transaksi + `" value="` + status_paket + `">
                         <input type="text" name="harga_apotek_obat[]" class="col-md-11 form-control form-control-sm rupiah text-right harga_apotek_obat_update" id="harga_apotek_obat` + count_transaksi + `" placeholder="Harga Obat Apotek" required value="` + harga_jual + `">
+                        <input type="text" name="harga_obat_lama[]" class="col-md-1 icon form-control form-control-sm" id="harga_obat_lama` + count_transaksi + `" value="` + harga_lama + `">
                     </div>
                     <input type="hidden" class="form-control form-control-sm rupiah text-right" id="harga_cadangan_apotek_obat` + count_transaksi + `" readonly required value="` + harga_jual + `">
                 </td>
