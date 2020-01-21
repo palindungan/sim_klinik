@@ -19,34 +19,41 @@
 						<thead>
 							<tr>
 								<th class="text-center">No</th>
-								<th class="text-center">Nama Pasien</th>
 								<th class="text-center">Tanggal</th>
-								<th class="text-center">Gula Darah</th>
-								<th class="text-center">Asam Urat</th>
-								<th class="text-center">Kolesterol</th>
-								<th class="text-center">Lain-lain</th>
-								<th class="text-center">Periksa</th>
+								<th class="text-center">Nama Pasien</th>
+								<th class="text-center">GD</th>
+								<th class="text-center">AU</th>
+								<th class="text-center">Chol</th>
+								<th class="text-center">BP</th>
+								<th class="text-center">LAB</th>
+								<th class="text-center">KIA</th>
+								<th class="text-center">UGD</th>
+								<th class="text-center">Apotik</th>
 								<th class="text-center">Total</th>
 							</tr>
 						</thead>
 						<tbody>
 						<?php 
 						$no_hari = 1;
+						$grand_total_hari = 0;
 						foreach($rj_hari as $row_hari) 
 						{
-						$tanggal_hari = date('Y-m-d',strtotime($row_hari->tgl_pelayanan));
+						$tanggal_hari = date('d-m-Y',strtotime($row_hari->tgl_pelayanan));
+						$grand_total_hari = $row_hari->gula_darah + $row_hari->asam_urat + $row_hari->cholesterol + $row_hari->total_bp + $row_hari->lab_non_primer + $row_hari->total_kia + $row_hari->total_ugd + $row_hari->total_obat_apotik;
 						?>
 							<tr>
 								<td><?php echo $no_hari++ ?></td>
+								<td><?php echo $tanggal_hari ?></td>
 								<td><?php echo $row_hari->nama_pasien ?></td>
-								<td><?php echo tgl_indo($tanggal_hari) ?></td>
-								<td class="text-right"><?php echo rupiah($row_hari->periksa_gula_darah) ?></td>
-								<td class="text-right"><?php echo rupiah($row_hari->periksa_asam_urat) ?></td>
-								<td class="text-right"><?php echo rupiah($row_hari->periksa_kolesterol) ?></td>
-								<td class="text-right"><?php echo rupiah($row_hari->total_harga - ($row_hari->periksa_gula_darah +
-            $row_hari->periksa_asam_urat + $row_hari->periksa_kolesterol + $row_hari->biaya_periksa)) ?></td>
-								<td class="text-right"><?php echo rupiah($row_hari->biaya_periksa) ?></td>
-								<td class="text-right"><?php echo rupiah($row_hari->total_harga) ?></td>
+								<td class="text-right"><?php echo ($row_hari->gula_darah == NULL) ? '0' : rupiah($row_hari->gula_darah);  ?></td>
+								<td class="text-right"><?php echo ($row_hari->asam_urat == NULL) ? '0' : rupiah($row_hari->asam_urat);  ?></td>
+								<td class="text-right"><?php echo ($row_hari->cholesterol == NULL) ? '0' : rupiah($row_hari->cholesterol);  ?></td>
+								<td class="text-right"><?php echo ($row_hari->total_bp == NULL) ? '0' : rupiah($row_hari->total_bp);  ?></td>
+								<td class="text-right"><?php echo ($row_hari->lab_non_primer == NULL) ? '0' : rupiah($row_hari->lab_non_primer);  ?></td>
+								<td class="text-right"><?php echo ($row_hari->total_kia == NULL) ? '0' : rupiah($row_hari->total_kia);  ?></td>
+								<td class="text-right"><?php echo ($row_hari->total_ugd == NULL) ? '0' : rupiah($row_hari->total_ugd);  ?></td>
+								<td class="text-right"><?php echo ($row_hari->total_obat_apotik == NULL) ? '0' : rupiah($row_hari->total_obat_apotik);  ?></td>
+								<td class="text-right"><?php echo rupiah($grand_total_hari) ?></td>
 							</tr>
 						<?php } ?>
 						</tbody>
@@ -60,34 +67,41 @@
 						<thead>
 							<tr>
 								<th class="text-center">No</th>
-								<th class="text-center">Nama Pasien</th>
 								<th class="text-center">Tanggal</th>
-								<th class="text-center">Gula Darah</th>
-								<th class="text-center">Asam Urat</th>
-								<th class="text-center">Kolesterol</th>
-								<th class="text-center">Lain-lain</th>
-								<th class="text-center">Periksa</th>
+								<th class="text-center">Nama Pasien</th>
+								<th class="text-center">GD</th>
+								<th class="text-center">AU</th>
+								<th class="text-center">Chol</th>
+								<th class="text-center">BP</th>
+								<th class="text-center">LAB</th>
+								<th class="text-center">KIA</th>
+								<th class="text-center">UGD</th>
+								<th class="text-center">Apotik</th>
 								<th class="text-center">Total</th>
 							</tr>
 						</thead>
 						<tbody>
 						<?php 
 						$no_bulan = 1;
+						$grand_total_bulan = 0;
 						foreach($rj_bulan as $row_bulan) 
 						{
-						$tanggal_bulan = date('Y-m-d',strtotime($row_bulan->tgl_pelayanan));
+						$tanggal_bulan = date('d-m-Y',strtotime($row_bulan->tgl_pelayanan));
+						$grand_total_bulan = $row_bulan->gula_darah + $row_bulan->asam_urat + $row_bulan->cholesterol + $row_bulan->total_bp + $row_bulan->lab_non_primer + $row_bulan->total_kia + $row_bulan->total_ugd + $row_bulan->total_obat_apotik;
 						?>
 							<tr>
 								<td><?php echo $no_bulan++ ?></td>
+								<td><?php echo $tanggal_bulan ?></td>
 								<td><?php echo $row_bulan->nama_pasien ?></td>
-								<td><?php echo tgl_indo($tanggal_bulan) ?></td>
-								<td class="text-right"><?php echo rupiah($row_bulan->periksa_gula_darah) ?></td>
-								<td class="text-right"><?php echo rupiah($row_bulan->periksa_asam_urat) ?></td>
-								<td class="text-right"><?php echo rupiah($row_bulan->periksa_kolesterol) ?></td>
-								<td class="text-right"><?php echo rupiah($row_bulan->total_harga - ($row_bulan->periksa_gula_darah +
-            $row_bulan->periksa_asam_urat + $row_bulan->periksa_kolesterol + $row_bulan->biaya_periksa)) ?></td>
-								<td class="text-right"><?php echo rupiah($row_bulan->biaya_periksa) ?></td>
-								<td class="text-right"><?php echo rupiah($row_bulan->total_harga) ?></td>
+								<td class="text-right"><?php echo ($row_bulan->gula_darah == NULL) ? '0' : rupiah($row_bulan->gula_darah);  ?></td>
+								<td class="text-right"><?php echo ($row_bulan->asam_urat == NULL) ? '0' : rupiah($row_bulan->asam_urat);  ?></td>
+								<td class="text-right"><?php echo ($row_bulan->cholesterol == NULL) ? '0' : rupiah($row_bulan->cholesterol);  ?></td>
+								<td class="text-right"><?php echo ($row_bulan->total_bp == NULL) ? '0' : rupiah($row_bulan->total_bp);  ?></td>
+								<td class="text-right"><?php echo ($row_bulan->lab_non_primer == NULL) ? '0' : rupiah($row_bulan->lab_non_primer);  ?></td>
+								<td class="text-right"><?php echo ($row_bulan->total_kia == NULL) ? '0' : rupiah($row_bulan->total_kia);  ?></td>
+								<td class="text-right"><?php echo ($row_bulan->total_ugd == NULL) ? '0' : rupiah($row_bulan->total_ugd);  ?></td>
+								<td class="text-right"><?php echo ($row_bulan->total_obat_apotik == NULL) ? '0' : rupiah($row_bulan->total_obat_apotik);  ?></td>
+								<td class="text-right"><?php echo rupiah($grand_total_bulan) ?></td>
 							</tr>
 						<?php } ?>
 						</tbody>
