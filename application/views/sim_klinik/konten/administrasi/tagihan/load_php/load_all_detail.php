@@ -246,7 +246,7 @@
                         <input type="checkbox" name="status_paket_apotek_obat_cb[]" class="col-md-1 icon deteksi_cek_box form-control form-control-sm" id="status_paket_apotek_obat_cb` + count_transaksi + `" ` + status + `>
                         <input type="hidden" name="status_paket_apotek_obat[]" class="col-md-1 icon form-control form-control-sm" id="status_paket_apotek_obat` + count_transaksi + `" value="` + status_paket + `">
                         <input type="text" name="harga_apotek_obat[]" class="col-md-11 form-control form-control-sm rupiah text-right harga_apotek_obat_update" id="harga_apotek_obat` + count_transaksi + `" placeholder="Harga Obat Apotek" required value="` + harga_jual + `">
-                        <input type="text" name="harga_obat_lama[]" class="col-md-1 icon form-control form-control-sm" id="harga_obat_lama` + count_transaksi + `" value="` + harga_lama + `">
+                        <input type="hidden" name="harga_obat_lama[]" class="col-md-1 icon form-control form-control-sm" id="harga_obat_lama` + count_transaksi + `" value="` + harga_lama + `">
                     </div>
                     <input type="hidden" class="form-control form-control-sm rupiah text-right" id="harga_cadangan_apotek_obat` + count_transaksi + `" readonly required value="` + harga_jual + `">
                 </td>
