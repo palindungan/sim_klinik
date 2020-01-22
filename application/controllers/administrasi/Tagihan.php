@@ -1277,7 +1277,16 @@ class Tagihan extends CI_Controller
             $cek_pelayanan_ambulan2 = $this->M_tagihan->get_data('pelayanan_ambulan', $where_no_ref_pelayanan);
             $cek_penjualan_obat_apotik2 = $this->M_tagihan->get_data('penjualan_obat_apotik', $where_no_ref_pelayanan);
             $cek_transaksi_rawat_inap2 = $this->M_tagihan->get_data('transaksi_rawat_inap', $where_no_ref_pelayanan);
-
+            
+            $harga_tindakan_bp = 0;
+            $harga_tindakan_kia = 0;
+            $harga_tindakan_lab = 0; 
+            $harga_tindakan_ugd = 0;
+            $harga_apotek_total = 0;
+            $harga_kamar_ri = 0;
+            $harga_tindakan_ri = 0;
+            $harga_obat_ri = 0;
+            $harga_ambulance = 0;
             $grand_total = 0;
 
             $html = '
@@ -1308,9 +1317,8 @@ class Tagihan extends CI_Controller
                     <td style="text-align:right">Biaya</td>
                 </tr>';
                 
-                $harga_tindakan_bp = 0;
                 if ($cek_bp_penanganan2->num_rows() > 0){
-                foreach ($cek_bp_penanganan->result() as $data_bp) {
+                foreach ($cek_bp_penanganan2->result() as $data_bp) {
                     $no_bp_p = $data_bp->no_bp_p;
                 }
 
@@ -1336,9 +1344,9 @@ class Tagihan extends CI_Controller
                 }
                 }
 
-                $harga_tindakan_kia = 0;
+                
                 if ($cek_kia_penanganan2->num_rows() > 0){
-                foreach ($cek_kia_penanganan->result() as $data_kia) {
+                foreach ($cek_kia_penanganan2->result() as $data_kia) {
                     $no_kia_p = $data_kia->no_kia_p;
                 }
 
@@ -1364,9 +1372,8 @@ class Tagihan extends CI_Controller
                 }
 
 
-                $harga_tindakan_lab = 0;
                 if ($cek_lab_transaksi2->num_rows() > 0){
-                foreach ($cek_lab_transaksi->result() as $data_lab) {
+                foreach ($cek_lab_transaksi2->result() as $data_lab) {
                     $no_lab_t = $data_lab->no_lab_t;
                 }
 
@@ -1391,9 +1398,9 @@ class Tagihan extends CI_Controller
                 }
                 }
 
-                $harga_tindakan_ugd = 0;
+                
                 if ($cek_ugd_penanganan2->num_rows() > 0){
-                foreach ($cek_ugd_penanganan->result() as $data_ugd) {
+                foreach ($cek_ugd_penanganan2->result() as $data_ugd) {
                     $no_ugd_p = $data_ugd->no_ugd_p;
                 }
 
@@ -1419,7 +1426,7 @@ class Tagihan extends CI_Controller
                 }
                 }
 
-                $harga_apotek_total = 0;
+                
                 if ($cek_penjualan_obat_apotik2->num_rows() > 0){
                 foreach ($cek_penjualan_obat_apotik2->result() as $data_apotik) {
                     $no_penjualan_obat_a = $data_apotik->no_penjualan_obat_a;
@@ -1490,7 +1497,7 @@ class Tagihan extends CI_Controller
                 <tr>
                     <td style="text-align:left;padding-left:10px"><i>Biaya Rawat inap</i></td>
                 </tr>';
-                $harga_kamar_ri = 0;
+                
                 if($no_detail_transaksi_rawat_inap_k != "kosong")
                 {
                 $html.='
@@ -1510,7 +1517,7 @@ class Tagihan extends CI_Controller
                 </tr>';
                 }
                 }
-                $harga_tindakan_ri = 0;
+                
                 if($no_rawat_inap_t != "kosong")
                 {
                 $html.='
@@ -1530,7 +1537,7 @@ class Tagihan extends CI_Controller
                 }
                 }
 
-                $harga_obat_ri = 0;
+                
                 if($no_stok_obat_rawat_i != "kosong")
                 {
                 $html.='
@@ -1553,7 +1560,7 @@ class Tagihan extends CI_Controller
 
                 }       
                 
-                $harga_ambulance = 0;
+                
                 if ($cek_pelayanan_ambulan2->num_rows() > 0){
                 foreach ($cek_pelayanan_ambulan2->result() as $data_ambulance) {
                     $no_pelayanan_a = $data_ambulance->no_pelayanan_a;
