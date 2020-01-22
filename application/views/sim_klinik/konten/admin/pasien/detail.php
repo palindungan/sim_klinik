@@ -179,20 +179,13 @@
 					<?php 
 					foreach($detail_transaksi_rawat_inap_k as $detail_rawat_inap_k) 
 					{
-						$cek_out = $detail_rawat_inap_k->tanggal_cek_out;
-						$cek_in = $detail_rawat_inap_k->tanggal_cek_in;
-						$format_cek_in = date('Y-m-d',strtotime($cek_in));
-						$format_cek_out = date('Y-m-d',strtotime($cek_out));
-						$tanggal_cek_in = new DateTime($format_cek_in);
-						$tanggal_cek_out = new DateTime($format_cek_out);
-						$lama_hari = $tanggal_cek_out->diff($tanggal_cek_in)->format("%a") + 1;
-						$harga_kamar_ri += $lama_hari * $detail_rawat_inap_k->harga_harian;
+						$harga_kamar_ri += $detail_rawat_inap_k->jumlah_hari * $detail_rawat_inap_k->harga_harian;
 					?>
 					<tr>
 						<td style="text-align:left;padding-left:40px"><?php echo $detail_rawat_inap_k->nama ?></td>
-						<td style="text-align:right"><?php echo $lama_hari." hari" ?></td>
+						<td style="text-align:right"><?php echo $detail_rawat_inap_k->jumlah_hari." hari" ?></td>
 						<td style="text-align:right"><?php echo rupiah($detail_rawat_inap_k->harga_harian) ?></td>
-						<td style="text-align:right"><?php echo rupiah($lama_hari * $detail_rawat_inap_k->harga_harian) ?></td>
+						<td style="text-align:right"><?php echo rupiah($detail_rawat_inap_k->jumlah_hari * $detail_rawat_inap_k->harga_harian) ?></td>
 					</tr>
 					<?php 
 					}
