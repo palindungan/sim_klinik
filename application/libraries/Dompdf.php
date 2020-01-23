@@ -6,7 +6,7 @@ Class Dompdf {
     {
         require_once 'vendor/autoload.php';
         // instantiate and use the dompdf class
-        $dompdf = new Dompdf\Dompdf();
+        $dompdf = new Dompdf\Dompdf(array('enable_remote' => true));
         $dompdf->loadHtml($html);
 
         // (Optional) Setup the paper size and orientation

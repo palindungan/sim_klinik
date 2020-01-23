@@ -1288,30 +1288,45 @@ class Tagihan extends CI_Controller
             $harga_obat_ri = 0;
             $harga_ambulance = 0;
             $grand_total = 0;
-
+            $image = base_url('assets/sb_admin_2/img/logo.jpg');
             $html = '
             <table width="100%">
-					<tr>
-						<td width="14%" class="font-weight-bold">Nama</td>
+                <tr>
+                    <td width="17%" rowspan="3"><img width="100px" height="100px" src="'.$image.'"></td>
+                    <td colspan="6">KLINIK PRATAMA RAWAT INAP AMPEL SEHAT</td>
+                </tr>
+                <tr>
+                    <td colspan="6"><font size="10px;">Jl. Sunan Muria No.10 Ampel Wuluhan Jember</font></td>
+                </tr>
+                <tr>
+                    <td colspan="6"><font size="10px">Telp (0336) 622454 | Kode Pos 68162</font></td>
+                </tr>
+                <tr>
+                    <td colspan="7"><hr></td>
+                </tr>
+                <tr>
+						<td width="14%">Nama</td>
 						<td width="1%">:</td>
-						<td width="40%">'.$nama_pasien.'</td>
-						<td width="20%" class="font-weight-bold">No Ref Pelayanan</td>
+						<td width="37%">'.$nama_pasien.'</td>
+						<td width="22%">No Ref Pelayanan</td>
 						<td width="1%">:</td>
-						<td width="24%">'.$no_ref.'</td>
+						<td width="25%">'.$no_ref.'</td>
 					</tr>
 					<tr>
-						<td class="font-weight-bold">Nomor RM</td>
+						<td>Nomor RM</td>
 						<td>:</td>
 						<td>'.$no_rm.'</td>
-						<td class="font-weight-bold">Tanggal</td>
+						<td>Tanggal</td>
 						<td>:</td>
 						<td>'.$tgl_pelayanan.'</td>
-					</tr>
-			</table>
-            <hr>
-            <table width="100%">
+                    </tr>
                 <tr>
-                    <td>Rincian Transaksi</td>
+                    <td colspan="7"><hr></td>
+                </tr>
+            <table>
+            <table style="margin-top:5px" width="100%">
+                <tr>
+                    <td><p style="font-weight:normal">Rincian Transaksi</p></td>
                     <td></td>
                     <td></td>
                     <td style="text-align:right">Biaya</td>
@@ -1602,4 +1617,6 @@ class Tagihan extends CI_Controller
         // redirect('administrasi/tagihan');
 
     }
+
+    
 }
