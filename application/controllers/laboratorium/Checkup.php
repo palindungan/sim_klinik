@@ -4,7 +4,9 @@ class Checkup extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        if($this->session->userdata('akses') != 'Admin'){
+        if($this->session->userdata('akses') == ""){
+            redirect('login');
+        }else if($this->session->userdata('akses') != 'Admin'){
             show_404();
         }
         $this->load->model('laboratorium/M_checkup');

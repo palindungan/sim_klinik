@@ -4,10 +4,12 @@ class Penerimaan extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        $this->load->model('apotek/M_penerimaan');
-        if($this->session->userdata('akses') != 'Apotek'){ 
+        if($this->session->userdata('akses') == ""){
+            redirect('login');
+        }else if($this->session->userdata('akses') != 'Apotek'){ 
             show_404();
         }
+        $this->load->model('apotek/M_penerimaan');
 
     }
     public function index()

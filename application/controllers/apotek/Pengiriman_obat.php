@@ -4,7 +4,9 @@ class Pengiriman_obat extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        if($this->session->userdata('akses') != 'Apotek'){ 
+        if($this->session->userdata('akses') == ""){
+            redirect('login');
+        }else if($this->session->userdata('akses') != 'Apotek'){ 
             show_404();
         }
         $this->load->model('apotek/M_pengiriman_obat');

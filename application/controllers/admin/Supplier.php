@@ -4,7 +4,9 @@ class Supplier extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        if($this->session->userdata('akses') == 'Admin' || $this->session->userdata('akses') == 'Apotek'){
+        if($this->session->userdata('akses') == ""){
+            redirect('login');
+        }else if($this->session->userdata('akses') == 'Admin' || $this->session->userdata('akses') == 'Apotek'){
             
         }else{
             show_404();

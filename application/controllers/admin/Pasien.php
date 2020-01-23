@@ -2,7 +2,9 @@
 class Pasien extends CI_Controller{
     function __construct(){
         parent::__construct();
-        if($this->session->userdata('akses') == 'Manager' || $this->session->userdata('akses') == 'Loket' || $this->session->userdata('akses') == 'Admin' 
+        if($this->session->userdata('akses') == ""){
+            redirect('login');
+        }else if($this->session->userdata('akses') == 'Manager' || $this->session->userdata('akses') == 'Loket' || $this->session->userdata('akses') == 'Admin' 
         || $this->session->userdata('akses') == 'Apotek' || $this->session->userdata('akses') == 'Rawat Inap' || $this->session->userdata('akses') == 'Administrasi'){ 
 
         }else{
