@@ -13,7 +13,6 @@
         {
             parent::__construct();
             $this->load->model('admin/M_laporan');
-            date_default_timezone_set('Asia/Jakarta');
 
         }
 

@@ -4,6 +4,9 @@ class Tagihan extends CI_Controller
     function __construct()
     {
         parent::__construct();
+        if($this->session->userdata('akses') != 'Administrasi'){ 
+            show_404();
+        }
         $this->load->model('ambulance/M_ambulance');
         $this->load->model('administrasi/M_tagihan');
     }

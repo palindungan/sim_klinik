@@ -4,9 +4,11 @@ class Transaksi extends CI_Controller
     function __construct()
     {
         parent::__construct();
+        if($this->session->userdata('akses') != 'Rawat Inap'){
+            show_404();
+        }
         $this->load->model('rawat_inap/M_transaksi');
         $this->load->model('administrasi/M_tagihan');
-        date_default_timezone_set('Asia/Jakarta');
     }
 
     public function index()

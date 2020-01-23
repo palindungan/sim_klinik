@@ -4,6 +4,9 @@ class Tindakan extends CI_Controller
     function __construct()
     {
         parent::__construct();
+        if($this->session->userdata('akses') != 'Admin'){
+            show_404();
+        }
         $this->load->model('kia/M_tindakan');
     }
     public function index()

@@ -4,8 +4,10 @@ class Penjualan_obat extends CI_Controller
     function __construct()
     {
         parent::__construct();
+        if($this->session->userdata('akses') != 'Apotek'){ 
+            show_404();
+        }
         $this->load->model('apotek/M_penjualan_obat');
-        date_default_timezone_set('Asia/Jakarta');
         $this->load->model('administrasi/M_tagihan');
     }
     public function index()
