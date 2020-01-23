@@ -4,6 +4,23 @@
 			<h6 class="m-0 font-weight-bold text-primary">Laporan Rawat Jalan</h6>
 		</div>
 		<div class="card-body">
+			<h5>Laporan Custom</h5>
+				<form action="<?php echo base_url('admin/laporan/rj_custom') ?>" method="post">
+					<div class="row mb-3">
+							<div class="col-md-3">
+								<input id="datepicker_awal" name="tgl_mulai" width="250" />
+							</div>
+							<div class="col-md-1">
+								<h6 class="mt-2 text-center">Sampai</h6>
+							</div>
+							<div class="col-md-3">
+								<input id="datepicker_akhir" name="tgl_akhir" width="250" />
+							</div>
+							<div class="col-md-2">
+								<button type="submit" class="btn btn-sm btn-success mt-1">Cetak Custom</button>
+							</div>
+					</div>
+				</form>
 		<nav class="mb-3">
 			<div class="nav nav-tabs" id="nav-tab" role="tablist">
 				<a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Hari Ini</a>
@@ -112,3 +129,15 @@
 		</div>
 	</div>
 </div>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+<script>
+	$('#datepicker_awal').datepicker({
+		format: 'dd-mm-yyyy',
+		uiLibrary: 'bootstrap4'
+	});
+	$('#datepicker_akhir').datepicker({
+		format: 'dd-mm-yyyy',
+		uiLibrary: 'bootstrap4'
+	});
+</script>
