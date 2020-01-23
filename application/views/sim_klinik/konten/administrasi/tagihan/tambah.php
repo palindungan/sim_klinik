@@ -169,7 +169,8 @@
 
 <script src="<?= base_url(); ?>assets/sb_admin_2/vendor/jquery/jquery-3.4.1.min.js"></script>
 <script src="<?= base_url(); ?>assets/sb_admin_2/vendor/moment/moment.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+<script src="<?= base_url(); ?>assets/sb_admin_2/vendor/jquery/select2.min.js"></script>
+
 <script type="text/javascript">
     $('.noRef').select2({
         ajax: {
