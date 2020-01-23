@@ -14,6 +14,6 @@ Class RekapTagihan extends CI_Controller{
 
     function index(){
         $data['record'] = $this->M_tagihan->getRekap()->result(); 
-        $this->template->load('sim_klinik/template/administrasi', 'sim_klinik/konten/administrasi/tagihan/rekap_tagihan',$data);
+        $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/administrasi/tagihan/rekap_tagihan',$data);
     }
 }

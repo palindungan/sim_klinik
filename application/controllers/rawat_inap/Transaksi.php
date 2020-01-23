@@ -12,7 +12,7 @@ class Transaksi extends CI_Controller
     public function index()
     {
         $data['record'] = $this->M_transaksi->tampil_data('data_pelayanan_pasien_default')->result();
-        $this->template->load('sim_klinik/template/rawat_inap', 'sim_klinik/konten/rawat_inap/transaksi/tambah', $data);
+        $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/rawat_inap/transaksi/tambah', $data);
     }
 
     public function tampil_daftar_kamar()

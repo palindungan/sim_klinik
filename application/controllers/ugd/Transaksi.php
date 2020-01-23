@@ -9,7 +9,7 @@ class Transaksi extends CI_Controller
     }
     public function index()
     {
-        $this->template->load('sim_klinik/template/ugd', 'sim_klinik/konten/ugd/transaksi/tambah');
+        $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/ugd/transaksi/tambah');
     }
 
     public function tampil_daftar_tindakan()

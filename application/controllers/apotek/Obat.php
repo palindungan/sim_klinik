@@ -10,7 +10,7 @@ class Obat extends CI_Controller
     {
         $data['record'] = $this->M_obat->tampil_join()->result();
         $data['kategori'] = $this->M_obat->tampil_data('kategori_obat')->result();
-        $this->template->load('sim_klinik/template/apotek', 'sim_klinik/konten/apotek/obat/tampil', $data);
+        $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/apotek/obat/tampil', $data);
     }
     public function store()
     {

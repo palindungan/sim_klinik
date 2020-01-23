@@ -9,7 +9,7 @@ class Transaksi extends CI_Controller
     }
     public function index()
     {
-        $this->template->load('sim_klinik/template/balai_pengobatan', 'sim_klinik/konten/balai_pengobatan/transaksi/tambah');
+        $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/balai_pengobatan/transaksi/tambah');
     }
 
     function tampil_select()

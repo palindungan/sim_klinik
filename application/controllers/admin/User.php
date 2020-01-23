@@ -12,7 +12,7 @@ class User extends CI_Controller
     public function index()
     {
         $data['record'] = $this->M_user->tampil_data('user_pegawai')->result();
-        $this->template->load('sim_klinik/template/admin', 'sim_klinik/konten/admin/user/tampil',$data);
+        $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/admin/user/tampil',$data);
     }
     public function store()
     {

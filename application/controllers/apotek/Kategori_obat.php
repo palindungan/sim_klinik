@@ -9,7 +9,7 @@ class Kategori_obat extends CI_Controller
     public function index()
     {
         $data['record'] = $this->M_kategoriObat->tampil_data('kategori_obat')->result();
-        $this->template->load('sim_klinik/template/apotek', 'sim_klinik/konten/apotek/kategori_obat/tampil', $data);
+        $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/apotek/kategori_obat/tampil', $data);
     }
     public function store()
     {

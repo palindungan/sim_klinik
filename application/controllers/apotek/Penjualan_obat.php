@@ -10,7 +10,7 @@ class Penjualan_obat extends CI_Controller
     }
     public function index()
     {
-        $this->template->load('sim_klinik/template/apotek', 'sim_klinik/konten/apotek/penjualan_obat/tambah');
+        $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/apotek/penjualan_obat/tambah');
     }
 
     public function tampil_daftar_obat()
@@ -37,7 +37,7 @@ class Penjualan_obat extends CI_Controller
     {
         $data['record'] = $this->M_penjualan_obat->tampil_data('daftar_penjualan_obat_apotek')->result();
 
-        $this->template->load('sim_klinik/template/apotek', 'sim_klinik/konten/apotek/history/penjualan/tampil', $data);
+        $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/apotek/history/penjualan/tampil', $data);
     }
 
     public function tampil_detail_daftar_penjualan_obat()
@@ -52,7 +52,7 @@ class Penjualan_obat extends CI_Controller
 
         $data['detail_record'] = $this->M_penjualan_obat->get_data('daftar_penjualan_obat_apotek_detail', $where)->result();
 
-        $this->template->load('sim_klinik/template/apotek', 'sim_klinik/konten/apotek/history/penjualan/detail', $data);
+        $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/apotek/history/penjualan/detail', $data);
     }
 
     public function input_transaksi_form()

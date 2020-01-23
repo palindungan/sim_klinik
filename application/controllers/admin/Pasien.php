@@ -8,14 +8,14 @@ class Pasien extends CI_Controller{
     public function index()
     {
         $data['record'] = $this->M_pasien->tampil_data('pasien')->result();
-        $this->template->load('sim_klinik/template/admin', 'sim_klinik/konten/admin/pasien/tampil',$data);
+        $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/admin/pasien/tampil',$data);
     }
     public function list($id)
     {
         $data['list'] = $this->M_tagihan->getRekapByNoRM($id)->result(); 
         $pasien= $this->M_pasien->detail_pasien('pasien',$id)->row();
         $data['pasien'] = $pasien->no_rm.'-'.$pasien->nama;
-        $this->template->load('sim_klinik/template/admin', 'sim_klinik/konten/admin/pasien/list_kunjung',$data);
+        $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/admin/pasien/list_kunjung',$data);
     }
     public function detail($id)
     {
@@ -147,6 +147,6 @@ class Pasien extends CI_Controller{
         $data['detail_transaksi_rawat_inap_o'] =
         $this->M_pasien->get_data('daftar_penjualan_obat_rawat_inap_detail',$where_no_transaksi_rawat_i)->result();
         
-        $this->template->load('sim_klinik/template/admin', 'sim_klinik/konten/admin/pasien/detail',$data);
+        $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/admin/pasien/detail',$data);
     }
 }

@@ -5,13 +5,12 @@ class Penerimaan extends CI_Controller
     {
         parent::__construct();
         $this->load->model('apotek/M_penerimaan');
-        date_default_timezone_set('Asia/Jakarta');
 
     }
     public function index()
     {
         $data['record'] = $this->M_penerimaan->tampil_data('supplier')->result();
-        $this->template->load('sim_klinik/template/apotek', 'sim_klinik/konten/apotek/penerimaan/tambah', $data);
+        $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/apotek/penerimaan/tambah', $data);
     }
 
     public function tampil_daftar_obat()
@@ -125,7 +124,7 @@ class Penerimaan extends CI_Controller
     {
         $data['record'] = $this->M_penerimaan->tampil_data('daftar_penerimaan_obat_apotek')->result();
 
-        $this->template->load('sim_klinik/template/apotek', 'sim_klinik/konten/apotek/history/penerimaan/tampil', $data);
+        $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/apotek/history/penerimaan/tampil', $data);
     }
 
     public function tampil_detail_daftar_penerimaan_obat()
@@ -140,6 +139,6 @@ class Penerimaan extends CI_Controller
 
         $data['detail_record'] = $this->M_penerimaan->get_data('daftar_penerimaan_obat_apotek_detail', $where)->result();
 
-        $this->template->load('sim_klinik/template/apotek', 'sim_klinik/konten/apotek/history/penerimaan/detail', $data);
+        $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/apotek/history/penerimaan/detail', $data);
     }
 }

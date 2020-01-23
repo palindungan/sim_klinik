@@ -10,12 +10,12 @@ class Tagihan extends CI_Controller
 
     public function index()
     {
-        $this->template->load('sim_klinik/template/administrasi', 'sim_klinik/konten/administrasi/tagihan/tambah');
+        $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/administrasi/tagihan/tambah');
     }
 
     function rekapTagihan(){
         $data['record'] = $this->M_tagihan->getRekap()->result(); 
-        $this->template->load('sim_klinik/template/administrasi', 'sim_klinik/konten/administrasi/tagihan/rekap_tagihan',$data);
+        $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/administrasi/tagihan/rekap_tagihan',$data);
     }
     function detailRekapTagihan(){
 

@@ -14,7 +14,7 @@ class Kamar extends CI_Controller
     public function index()
     {
         $data['record'] = $this->M_kamar->tampil_data('kamar_rawat_inap')->result();
-        $this->template->load('sim_klinik/template/admin', 'sim_klinik/konten/admin/kamar/tampil',$data);
+        $this->template->load('/full_template', 'sim_klinik/konten/admin/kamar/tampil',$data);
     }
     public function store()
     {

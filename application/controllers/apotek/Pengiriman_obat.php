@@ -9,7 +9,7 @@ class Pengiriman_obat extends CI_Controller
     }
     public function index()
     {
-        $this->template->load('sim_klinik/template/apotek', 'sim_klinik/konten/apotek/pengiriman_obat/tambah');
+        $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/apotek/pengiriman_obat/tambah');
     }
     public function tampil_daftar_obat()
     {
@@ -108,7 +108,7 @@ class Pengiriman_obat extends CI_Controller
     {
         $data['record'] = $this->M_pengiriman_obat->tampil_data('obat_keluar_internal')->result();
 
-        $this->template->load('sim_klinik/template/apotek', 'sim_klinik/konten/apotek/history/pengiriman/tampil', $data);
+        $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/apotek/history/pengiriman/tampil', $data);
     }
 
     public function tampil_detail_daftar_pengiriman_obat()
@@ -123,6 +123,6 @@ class Pengiriman_obat extends CI_Controller
 
         $data['detail_record'] = $this->M_pengiriman_obat->get_data('daftar_pengiriman_obat_apotek_detail', $where)->result();
 
-        $this->template->load('sim_klinik/template/apotek', 'sim_klinik/konten/apotek/history/pengiriman/detail', $data);
+        $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/apotek/history/pengiriman/detail', $data);
     }
 }

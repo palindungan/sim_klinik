@@ -12,6 +12,13 @@
             $this->load->model('M_test');
         }
 
+        public function a(){
+            echo "<script type='text/javascript'>";
+    // window.location = "http://google.com";
+        echo "window.open('http://google.com','_blank')";
+        echo "</script>";
+        }
+
         public function onclick()
         {
             $this->load->view('test');

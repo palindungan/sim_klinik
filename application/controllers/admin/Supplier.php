@@ -12,7 +12,7 @@ class Supplier extends CI_Controller
     public function index()
     {
         $data['record'] = $this->M_supplier->tampil_data('supplier')->result();
-        $this->template->load('sim_klinik/template/admin', 'sim_klinik/konten/admin/supplier/tampil',$data);
+        $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/admin/supplier/tampil',$data);
     }
     public function store()
     {

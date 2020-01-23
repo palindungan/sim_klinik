@@ -9,7 +9,7 @@ class Tindakan extends CI_Controller
     public function index()
     {
         $data['record'] = $this->M_tindakan->tampil_data('ugd_tindakan')->result();
-        $this->template->load('sim_klinik/template/admin', 'sim_klinik/konten/ugd/tindakan/tampil', $data);
+        $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/ugd/tindakan/tampil', $data);
     }
     public function store()
     {

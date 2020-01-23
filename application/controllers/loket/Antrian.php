@@ -10,7 +10,7 @@ class Antrian extends CI_Controller
 
     public function index()
     {
-        $this->template->load('sim_klinik/template/loket', 'sim_klinik/konten/loket/antrian/tampil');
+        $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/loket/antrian/tampil');
     }
 
     public function click_prioritas_balai_pengobatan()
