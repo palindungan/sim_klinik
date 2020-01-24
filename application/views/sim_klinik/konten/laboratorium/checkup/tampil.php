@@ -71,7 +71,7 @@
 							<td><?= $data->nama ?></td>
 							<td class="text-right"><?= rupiah($data->harga) ?></td>
 							<?php 
-							if($data->no_lab_c == 'L001' || $data->no_lab_c == 'L002' || $data->no_lab_c == 'L003')
+							if($data->no_lab_c == 'L001' || $data->no_lab_c == 'L002' || $data->no_lab_c == 'L003' || $data->no_lab_c == 'L004')
 							{
 							?>
 							<td class="text-center">
@@ -114,7 +114,7 @@
 						<label for="inputEmail2">Nama Checkup</label>
 						<input type="text" name="nama" value="<?= $data->nama ?>"
 							class="form-control form-control-sm karakter" id="inputEmail2"
-							placeholder="Masukan nama Checkup" <?php if($data->nama == 'Gula Darah' || $data->nama == 'Asam Urat' || $data->nama == 'Cholesterol') {echo 'readonly';} ?> required>
+							placeholder="Masukan nama Checkup" <?php if($data->no_lab_c == 'L001' || $data->no_lab_c == 'L002' || $data->no_lab_c == 'L003' || $data->no_lab_c == 'L004') {echo 'readonly';} ?> required>
 
 					</div>
 					<div class="form-group col-sm-6">
