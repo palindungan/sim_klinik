@@ -6,7 +6,7 @@ class Tagihan extends CI_Controller
         parent::__construct();
         if($this->session->userdata('akses') == ""){
             redirect('login');
-        }else if($this->session->userdata('akses') == 'Administrasi' || $this->session->userdata('akses') == 'Rawat Inap'){ 
+        }else if($this->session->userdata('akses') == 'Administrasi' || $this->session->userdata('akses') == 'Rawat Inap' || $this->session->userdata('akses') == 'Apotek'){ 
             
         }else{
             show_404();

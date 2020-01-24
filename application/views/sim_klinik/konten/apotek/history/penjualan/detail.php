@@ -27,29 +27,29 @@ foreach ($record as $row) {
             <table class="table table-borderless" width="100">
                 <tr>
                     <th width="11%">Pasien</th>
-                    <th width="1%">:</th>
-                    <th><?= $nama_pasien; ?></th>
+                    <td width="1%">:</th>
+                    <td><?= $nama_pasien; ?></th>
                     <th width="11%">Petugas</th>
-                    <th width="1%">:</th>
-                    <th><?= $nama_pegawai; ?></th>
+                    <td width="1%">:</th>
+                    <td><?= $nama_pegawai; ?></th>
                 </tr>
                 <tr>
                     <th>Tanggal</th>
-                    <th>:</th>
-                    <th><?= $tanggal_penjualan; ?></th>
+                    <td>:</th>
+                    <td><?= $tanggal_penjualan; ?></th>
                     <th>Kode</th>
-                    <th>:</th>
-                    <th><?= $no_penjualan_obat_a; ?></th>
+                    <td>:</th>
+                    <td><?= $no_penjualan_obat_a; ?></th>
                 </tr>
             </table>
-            <table class="table table-sm table-borderless" width="100%">
+            <table class="table table-sm table-bordered" width="100%">
                 <thead>
                     <tr>
-                        <th width="7%" scope="col">NO</th>
-                        <th width="25%" scope="col">NAMA OBAT</th>
-                        <th width="8%" scope="col">QTY</th>
-                        <th width="15%" scope="col">HARGA BARANG</th>
-                        <th width="15%" style="text-align:center" scope="col">TOTAL HARGA</th>
+                        <th width="7%" scope="col" class="text-center">No.</th>
+                        <th width="25%" scope="col" class="text-center">Nama Obat</th>
+                        <th width="8%" scope="col" class="text-center">Qty</th>
+                        <th width="15%" scope="col" class="text-center">Harga</th>
+                        <th width="15%" scope="col" class="text-center">Subtotal</th>
                     </tr>
 
                 </thead>
@@ -59,23 +59,16 @@ foreach ($record as $row) {
                     foreach ($detail_record as $row) {
                     ?>
                         <tr>
-                            <td width="7%" scope="row"><?= $no; ?></td>
+                            <td width="7%" scope="row"><?= $no++; ?></td>
                             <td width="25%"><?= $row->nama; ?></td>
                             <td width="8%"><?= $row->qty; ?></td>
                             <td width="15%" style="text-align:right"><?= rupiah($row->harga_jual) ?></td>
                             <th width="15%" style="text-align:right"><?= rupiah($row->qty * $row->harga_jual) ?></th>
                         </tr>
-                    <?php $no = $no + 1;
-                    } ?>
-                </tbody>
-            </table>
-            <table class="table table-sm table-borderless">
-                <tr>
-                    <th width="7%"></th>
-                    <th width="59%"></th>
-                    <th style="text-align:right" width="22%">Grand Total</th>
+                    <?php } ?>
+                    <th style="text-align:center" colspan="4">Grand Total</th>
                     <th style="text-align:right"><?= rupiah($total_harga) ?></th>
-                </tr>
+                </tbody>
             </table>
         </div>
     </div>

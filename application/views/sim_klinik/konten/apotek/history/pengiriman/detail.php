@@ -18,24 +18,24 @@ foreach ($record as $row) {
             <table class="table table-borderless" width="100">
                 <tr>
                     <th width="11%">Kode</th>
-                    <th width="1%">:</th>
-                    <th><?= $no_obat_keluar_i; ?></th>
+                    <td width="1%">:</th>
+                    <td><?= $no_obat_keluar_i; ?></th>
                     <th width="11%">Tujuan</th>
-                    <th width="1%">:</th>
-                    <th><?= $tujuan; ?></th>
+                    <td width="1%">:</th>
+                    <td><?= $tujuan; ?></th>
                 </tr>
                 <tr>
                     <th>Tanggal</th>
-                    <th>:</th>
-                    <th><?= $tgl_obat_keluar_i; ?></th>
+                    <td>:</th>
+                    <td><?= $tgl_obat_keluar_i; ?></th>
                 </tr>
             </table>
-            <table class="table table-sm table-borderless" width="100%">
+            <table class="table table-sm table-bordered" width="100%">
                 <thead>
                     <tr>
-                        <th width="7%" scope="col">NO</th>
-                        <th width="25%" scope="col">NAMA OBAT</th>
-                        <th width="8%" scope="col">QTY</th>
+                        <th width="7%" scope="col" class="text-center">No.</th>
+                        <th width="25%" scope="col" class="text-center">Nama Obat</th>
+                        <th width="8%" scope="col" class="text-center">Qty</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -44,12 +44,11 @@ foreach ($record as $row) {
                     foreach ($detail_record as $row) {
                     ?>
                         <tr>
-                            <td width="7%" scope="row"><?= $no; ?></td>
+                            <td width="7%" scope="row"><?= $no++; ?></td>
                             <td width="25%"><?= $row->nama_obat; ?></td>
                             <td width="8%"><?= $row->qty; ?></td>
                         </tr>
-                    <?php $no = $no + 1;
-                    } ?>
+                    <?php } ?>
                 </tbody>
             </table>
         </div>
