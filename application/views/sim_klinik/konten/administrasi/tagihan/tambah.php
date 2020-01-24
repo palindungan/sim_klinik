@@ -7,7 +7,7 @@
             <h6 class="m-0 font-weight-bold text-primary">Tagihan</h6>
         </div>
         <div class="card-body">
-            <form method="post" id="transaksi_form" action="<?php echo base_url('administrasi/tagihan/input_transaksi_form') ?>" target="_blank">
+            <form method="post" id="transaksi_form" action="<?php echo base_url('administrasi/tagihan/input_transaksi_form') ?>">
 
                 <div class="form-row">
                     <div class="form-group col-sm-5">

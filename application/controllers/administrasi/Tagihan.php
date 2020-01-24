@@ -1264,12 +1264,27 @@ class Tagihan extends CI_Controller
         
         if($btn_simpan == "simpan_final")
         {
-            // $data_update_status_pelayanan = array(
-            //         'status' => 'finish'
-            // );
-            // $this->M_tagihan->update_data($where_no_ref_pelayanan,'pelayanan',$data_update_status_pelayanan);
+            $data_update_status_pelayanan = array(
+                    'status' => 'finish'
+            );
+            $this->M_tagihan->update_data($where_no_ref_pelayanan,'pelayanan',$data_update_status_pelayanan);
+            $base_url = base_url('administrasi/tagihan/cetak/'.$no_ref_pelayanan);
+            echo "<script type='text/javascript'>";
+            echo "window.open('".$base_url."','_blank')";
+            echo "</script>";
+            
+        }
+        
+        // $this->session->set_flashdata('success', 'Ditambahkan');
+        redirect('administrasi/tagihan','refresh');
 
-            $data_pelayanan_pasien = $this->M_tagihan->get_data('data_pelayanan_pasien_default',$where_no_ref_pelayanan)->row();
+    }
+    function cetak($no_ref_pelayanan)
+    {   
+        $where_no_ref_pelayanan = array(
+            'no_ref_pelayanan' => $no_ref_pelayanan
+        );
+        $data_pelayanan_pasien = $this->M_tagihan->get_data('data_pelayanan_pasien_default',$where_no_ref_pelayanan)->row();
             $nama_pasien = $data_pelayanan_pasien->nama;
             $no_rm = $data_pelayanan_pasien->no_rm;
             $no_ref = $data_pelayanan_pasien->no_ref_pelayanan;
@@ -1614,15 +1629,10 @@ class Tagihan extends CI_Controller
                     <td style="text-align:right">'.rupiah($grand_total).'</td>
                 </tr>
 
-			</table>';
-        }
-
-
-        $this->dompdf->PdfGenerator($html, 'coba', 'A4', 'potrait',true);
-
-        // $this->session->set_flashdata('success', 'Ditambahkan');
-        // redirect('administrasi/tagihan');
-
+            </table>';
+            $this->dompdf->PdfGenerator($html, 'coba', 'A4', 'potrait',true);
+            
+            
     }
 
     
