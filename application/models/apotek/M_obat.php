@@ -10,7 +10,7 @@ class M_obat extends CI_Model
     {
         $this->db->select('kode_obat,obat.nama AS nama_obat,kategori_obat.nama AS nama_kategori,obat.no_kat_obat AS no_kat,min_stok,harga_jual,tipe,qty');
         $this->db->from('obat');
-        $this->db->join('kategori_obat', 'kategori_obat.no_kat_obat = obat.no_kat_obat');
+        $this->db->join('kategori_obat', 'kategori_obat.no_kat_obat = obat.no_kat_obat', 'left');
         $query = $this->db->get();
         return $query;
     }

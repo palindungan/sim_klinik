@@ -1314,14 +1314,8 @@ class Tagihan extends CI_Controller
             $html = '
             <table width="100%">
                 <tr>
-                    <td width="17%" rowspan="3"><img width="100px" height="100px" src="'.$image.'"></td>
-                    <td colspan="6">KLINIK PRATAMA RAWAT INAP AMPEL SEHAT</td>
-                </tr>
-                <tr>
-                    <td colspan="6"><font size="10px;">Jl. Sunan Muria No.10 Ampel Wuluhan Jember</font></td>
-                </tr>
-                <tr>
-                    <td colspan="6"><font size="10px">Telp (0336) 622454 | Kode Pos 68162</font></td>
+                    <td width="14%" style="padding-right:10px;"><img width="100" height="100" src="'.$image.'"></td>
+                    <td colspan="6"><span style="font-size:20px;">KLINIK PRATAMA RAWAT INAP AMPEL SEHAT </span> <br> <span style="font-size:15px">Jl. Sunan Muria No.10 Ampel Wuluhan Jember<span> <br> <span style="font-size:15px">Telp (0336) 622454 | Kode Pos 68162 </span></td>
                 </tr>
                 <tr>
                     <td colspan="7"><hr></td>
@@ -1630,7 +1624,7 @@ class Tagihan extends CI_Controller
                 </tr>
 
             </table>';
-            $this->dompdf->PdfGenerator($html, 'coba', 'A4', 'potrait',true);
+            $this->dompdf->PdfGenerator($html, 'struk', 'A4', 'potrait',true);
             
             
     }

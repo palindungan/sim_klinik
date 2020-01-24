@@ -32,11 +32,12 @@
 								<div class="form-group col-sm-6">
 									<label for="inputEmail2">Nama Obat / Alkes</label>
 									<input type="text" name="nama" class="form-control form-control-sm" id="inputEmail2"
-										placeholder="Masukan nama kategori obat" required>
+										placeholder="Masukan Nama Obat" required>
 								</div>
 								<div class="form-group col-sm-6">
 									<label for="inputEmail3">Kategori Obat</label>
 									<select name="no_kat_obat" class="form-control form-control-sm" id="inputEmail3">
+										<option value="">No Category</option>
 										<?php foreach($kategori as $row):?>
 										<option value="<?= $row->no_kat_obat ?>"><?= $row->nama ?></option>
 										<?php endforeach; ?>
@@ -47,12 +48,12 @@
 								<div class="form-group col-sm-6">
 									<label for="inputEmail4">Min Stok</label>
 									<input type="text" name="min_stok" class="form-control form-control-sm min_stok"
-										id="inputEmail4" placeholder="Masukan minimal stok" required>
+										id="inputEmail4" placeholder="Masukan Minimal Stok" required>
 								</div>
 								<div class="form-group col-sm-6">
 									<label for="inputEmail5">Harga Jual</label>
 									<input type="text" name="harga_jual" class="form-control form-control-sm rupiah"
-										id="inputEmail5" placeholder="Masukan harga jual" required>
+										id="inputEmail5" placeholder="Masukan Harga Jual" required>
 								</div>
 							</div>
 							<div class="form-row">
@@ -146,11 +147,12 @@
 						<input type="hidden" name="kode_obat" value="<?= $data->kode_obat ?>">
 						<input type="text" name="nama" value="<?= $data->nama_obat ?>"
 							class="form-control form-control-sm" id="inputEmail2"
-							placeholder="Masukan nama kategori obat" <?php if($data->kode_obat == 'O001') {echo"readonly";} ?> required>
+							placeholder="Masukan Nama Obat" <?php if($data->kode_obat == 'O001') {echo"readonly";} ?> required>
 					</div>
 					<div class="form-group col-sm-6">
 						<label for="inputEmail3">Kategori Obat</label>
 						<select name="no_kat_obat" class="form-control form-control-sm" id="inputEmail3">
+							<option value="" <?php if($row->no_kat_obat == ""){echo "Selected";} ?>>No Category</option>
 							<?php foreach($kategori as $row):?>
 							<option value="<?= $row->no_kat_obat ?>"
 								<?php if($row->no_kat_obat == $data->no_kat){echo 'selected';} ?>>
@@ -164,13 +166,13 @@
 						<label for="inputEmail4">Min Stok</label>
 						<input type="text" name="min_stok" value="<?= $data->min_stok ?>"
 							class="form-control form-control-sm min_stok" id="inputEmail4"
-							placeholder="Masukan minimal stok" required>
+							placeholder="Masukan Minimal Stok" required>
 					</div>
 					<div class="form-group col-sm-6">
 						<label for="inputEmail5">Harga Jual</label>
 						<input type="text" name="harga_jual" value="<?= rupiah($data->harga_jual) ?>"
 							class="form-control form-control-sm rupiah" id="inputEmail5"
-							placeholder="Masukan harga jual" required>
+							placeholder="Masukan Harga Jual" required>
 					</div>
 				</div>
 				<div class="form-row">
