@@ -1269,7 +1269,9 @@ class Tagihan extends CI_Controller
             if($count_transaction==0){
                 $temp_saldo = 0;
             }else if($count_transaction > 0){
-                $temp_saldo = $this->M_tagihan->getLastRecordWithTglKeluarParam();
+                foreach($this->M_tagihan->getLastRecordWithTglKeluarParam() as $i){
+                    $temp_saldo = $i->temp_saldo;    
+                }
             }
             $grand_total = preg_replace("/[^0-9]/", "", $this->input->post('grand_total'));
             $new_saldo = $temp_saldo + $grand_total;

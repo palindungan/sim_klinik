@@ -14,17 +14,17 @@ class M_tagihan extends CI_Model
     }
 
     function getLastRecordWithTglKeluarParam(){
-        $this->db->select('temp_saldo');
+        $this->db->select('no_ref_pelayanan, temp_saldo');
         $this->db->from('pelayanan');
         $this->db->where('tgl_keluar IS NOT NULL', null, false);
         $this->db->order_by('tgl_keluar','DESC');
         $this->db->limit('1');
-        $data = $this->db->get()->result();
-        $temp_saldo = "";
-        foreach($data as $i){
-            $temp_saldo = $i->temp_saldo;
-        }
-        return $temp_saldo;
+        return  $this->db->get()->result();
+        // $temp_saldo = "";
+        // foreach($data as $i){
+        //     $temp_saldo = $i->temp_saldo;
+        // }
+        // return $temp_saldo;
     }
 
     function getRekap(){
