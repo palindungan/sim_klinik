@@ -7,7 +7,7 @@
 			<h6 class="m-0 font-weight-bold text-primary">Return Obat</h6>
 		</div>
 		<div class="card-body">
-			<form method="post" id="transaksi_form">
+			<form method="post" id="transaksi_form" action="<?php echo base_url('apotek/return_obat/input_transaksi_form') ?>">
 
 				<div class="row">
 					<div class="form-group col-md-2">
@@ -151,7 +151,7 @@
             }
         });
     }
-    function tambah_detail_apotek_obat(kode_obat, nama_obat,nama_kategori, harga_apotek_obat, qty) {
+    function tambah_detail_apotek_obat(kode_obat, nama_obat,nama_kategori, qty) {
 
         $('#detail_list_apotek_obat').append(`
 
