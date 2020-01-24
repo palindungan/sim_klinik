@@ -1264,8 +1264,22 @@ class Tagihan extends CI_Controller
         
         if($btn_simpan == "simpan_final")
         {
+            $count_transaction = $this->M_tagihan->countRecordWithTglKeluarParam();
+            $temp_saldo = "";
+            if($count_transaction==0){
+                $temp_saldo = 0;
+            }else if($count_transaction > 0){
+                $temp_saldo = $this->M_tagihan->getLastRecordWithTglKeluarParam();
+            }
+            $grand_total = preg_replace("/[^0-9]/", "", $this->input->post('grand_total'));
+            $new_saldo = $temp_saldo + $grand_total;
+
             $data_update_status_pelayanan = array(
-                    'status' => 'finish'
+                    'status' => 'finish',
+                    'tgl_keluar' => date('Y-m-d H:i:s'),
+                    'grand_total' => $grand_total,
+                    'temp_saldo' => $new_saldo,
+                    'saldo' => $new_saldo
             );
             $this->M_tagihan->update_data($where_no_ref_pelayanan,'pelayanan',$data_update_status_pelayanan);
             $base_url = base_url('administrasi/tagihan/cetak/'.$no_ref_pelayanan);
@@ -1275,7 +1289,7 @@ class Tagihan extends CI_Controller
             
         }
         
-        // $this->session->set_flashdata('success', 'Ditambahkan');
+        $this->session->set_flashdata('success', 'Ditambahkan');
         redirect('administrasi/tagihan','refresh');
 
     }
