@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 22 Jan 2020 pada 17.52
+-- Waktu pembuatan: 24 Jan 2020 pada 10.07
 -- Versi server: 10.4.6-MariaDB
 -- Versi PHP: 7.3.9
 
@@ -93,13 +93,6 @@ CREATE TABLE `antrian_bp` (
   `status` enum('Antri','Prioritas','Diperiksa','Selesai') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `antrian_bp`
---
-
-INSERT INTO `antrian_bp` (`kode_antrian_bp`, `no_ref_pelayanan`, `status`) VALUES
-('A001', '200114-001', 'Antri');
-
 -- --------------------------------------------------------
 
 --
@@ -138,13 +131,6 @@ CREATE TABLE `antrian_kia` (
   `status` enum('Antri','Diperiksa','Selesai') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `antrian_kia`
---
-
-INSERT INTO `antrian_kia` (`kode_antrian_kia`, `no_ref_pelayanan`, `status`) VALUES
-('B001', '200119-001', 'Antri');
-
 -- --------------------------------------------------------
 
 --
@@ -156,13 +142,6 @@ CREATE TABLE `antrian_lab` (
   `no_ref_pelayanan` char(10) NOT NULL,
   `status` enum('Antri','Prioritas','Diperiksa','Selesai') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `antrian_lab`
---
-
-INSERT INTO `antrian_lab` (`kode_antrian_lab`, `no_ref_pelayanan`, `status`) VALUES
-('C001', '200120-002', 'Antri');
 
 -- --------------------------------------------------------
 
@@ -216,15 +195,6 @@ CREATE TABLE `bp_penanganan` (
   `total_harga` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `bp_penanganan`
---
-
-INSERT INTO `bp_penanganan` (`no_bp_p`, `no_ref_pelayanan`, `tgl_penanganan`, `total_harga`) VALUES
-('BP200122-0001', '200120-002', '2020-01-22 23:49:27', 50000),
-('BP200122-0002', '200120-001', '2020-01-22 23:49:13', 50000),
-('BP200122-0003', '200119-001', '2020-01-22 23:48:23', 50000);
-
 -- --------------------------------------------------------
 
 --
@@ -243,7 +213,8 @@ CREATE TABLE `bp_tindakan` (
 --
 
 INSERT INTO `bp_tindakan` (`no_bp_t`, `nama`, `harga`, `status`) VALUES
-('T001', 'vaksin titanus', 50000, 'Terima');
+('T001', 'Paket 1', 30000, 'Terima'),
+('T002', 'Paket 2', 35000, 'Terima');
 
 -- --------------------------------------------------------
 
@@ -540,15 +511,6 @@ CREATE TABLE `detail_bp_penanganan` (
   `harga` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `detail_bp_penanganan`
---
-
-INSERT INTO `detail_bp_penanganan` (`no_detail_bp_p`, `no_bp_p`, `no_bp_t`, `qty`, `harga`) VALUES
-(113, 'BP200122-0003', 'T001', 1, 50000),
-(114, 'BP200122-0002', 'T001', 1, 50000),
-(115, 'BP200122-0001', 'T001', 1, 50000);
-
 -- --------------------------------------------------------
 
 --
@@ -562,15 +524,6 @@ CREATE TABLE `detail_kia_penanganan` (
   `qty` int(3) NOT NULL,
   `harga` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `detail_kia_penanganan`
---
-
-INSERT INTO `detail_kia_penanganan` (`no_detail_kia_p`, `no_kia_p`, `no_kia_t`, `qty`, `harga`) VALUES
-(104, 'KP200122-0003', 'K001', 1, 200000),
-(105, 'KP200122-0002', 'K001', 1, 200000),
-(106, 'KP200122-0001', 'K002', 1, 100000);
 
 -- --------------------------------------------------------
 
@@ -586,14 +539,6 @@ CREATE TABLE `detail_lab_transaksi` (
   `harga` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `detail_lab_transaksi`
---
-
-INSERT INTO `detail_lab_transaksi` (`no_detail_lab_t`, `no_lab_t`, `no_lab_c`, `qty`, `harga`) VALUES
-(45, 'LB200122-0002', 'L002', 2, 30000),
-(46, 'LB200122-0001', 'L001', 3, 20000);
-
 -- --------------------------------------------------------
 
 --
@@ -607,16 +552,6 @@ CREATE TABLE `detail_obat_keluar_internal` (
   `qty` mediumint(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `detail_obat_keluar_internal`
---
-
-INSERT INTO `detail_obat_keluar_internal` (`id_detail_obat_keluar_internal`, `no_obat_keluar_i`, `kode_obat`, `qty`) VALUES
-(1, '', 'O001', 20),
-(2, '', 'O002', 10),
-(3, 'OK200114-0003', 'O005', 20),
-(4, 'OK200114-0003', 'O003', 15);
-
 -- --------------------------------------------------------
 
 --
@@ -629,13 +564,6 @@ CREATE TABLE `detail_pelayanan_ambulan` (
   `no_ambulance` tinyint(2) NOT NULL,
   `harga` int(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `detail_pelayanan_ambulan`
---
-
-INSERT INTO `detail_pelayanan_ambulan` (`no_detail_pelayanan_ambulan`, `no_pelayanan_a`, `no_ambulance`, `harga`) VALUES
-(47, 'AB200122-0001', 2, 250000);
 
 -- --------------------------------------------------------
 
@@ -651,13 +579,6 @@ CREATE TABLE `detail_penjualan_obat_apotik` (
   `harga_jual` int(9) NOT NULL,
   `status_paket` enum('Ya','Tidak') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `detail_penjualan_obat_apotik`
---
-
-INSERT INTO `detail_penjualan_obat_apotik` (`no_detail_penjualan_obat_a`, `no_penjualan_obat_a`, `kode_obat`, `qty`, `harga_jual`, `status_paket`) VALUES
-(122, 'PA200122-0001', 'O001', 3, 1000, 'Tidak');
 
 -- --------------------------------------------------------
 
@@ -677,13 +598,6 @@ CREATE TABLE `detail_transaksi_rawat_inap_kamar` (
   `status_kamar` enum('Belum Cek Out','Sudah Cek Out') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `detail_transaksi_rawat_inap_kamar`
---
-
-INSERT INTO `detail_transaksi_rawat_inap_kamar` (`no_detail_transaksi_rawat_inap_k`, `no_transaksi_rawat_i`, `no_kamar_rawat_i`, `tanggal_cek_in`, `tanggal_cek_out`, `jumlah_hari`, `harga_harian`, `sub_total_harga`, `status_kamar`) VALUES
-(60, 'RI200122-0001', 'R001', '2020-01-22 23:11:07', '2020-01-22 23:11:10', 2, 200000, 400000, 'Sudah Cek Out');
-
 -- --------------------------------------------------------
 
 --
@@ -697,13 +611,6 @@ CREATE TABLE `detail_transaksi_rawat_inap_obat` (
   `qty` int(3) NOT NULL,
   `harga_jual` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `detail_transaksi_rawat_inap_obat`
---
-
-INSERT INTO `detail_transaksi_rawat_inap_obat` (`no_detail_transaksi_rawat_inap_o`, `no_transaksi_rawat_i`, `no_stok_obat_rawat_i`, `qty`, `harga_jual`) VALUES
-(27, 'RI200122-0001', 1, 5, 1000);
 
 -- --------------------------------------------------------
 
@@ -719,13 +626,6 @@ CREATE TABLE `detail_transaksi_rawat_inap_tindakan` (
   `harga` int(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `detail_transaksi_rawat_inap_tindakan`
---
-
-INSERT INTO `detail_transaksi_rawat_inap_tindakan` (`no_detail_transaksi_rawat_inap_t`, `no_transaksi_rawat_i`, `no_rawat_inap_t`, `qty`, `harga`) VALUES
-(34, 'RI200122-0001', 'I001', 2, 20000);
-
 -- --------------------------------------------------------
 
 --
@@ -739,13 +639,6 @@ CREATE TABLE `detail_ugd_penanganan` (
   `qty` int(3) NOT NULL,
   `harga` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `detail_ugd_penanganan`
---
-
-INSERT INTO `detail_ugd_penanganan` (`no_detail_ugd_p`, `no_ugd_p`, `no_ugd_t`, `qty`, `harga`) VALUES
-(36, 'UP200122-0001', 'U001', 1, 150000);
 
 -- --------------------------------------------------------
 
@@ -804,15 +697,6 @@ CREATE TABLE `kia_penanganan` (
   `total_harga` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `kia_penanganan`
---
-
-INSERT INTO `kia_penanganan` (`no_kia_p`, `no_ref_pelayanan`, `tgl_penanganan`, `total_harga`) VALUES
-('KP200122-0001', '200120-002', '2020-01-22 23:49:27', 100000),
-('KP200122-0002', '200120-001', '2020-01-22 23:49:13', 200000),
-('KP200122-0003', '200114-001', '2020-01-22 23:48:08', 200000);
-
 -- --------------------------------------------------------
 
 --
@@ -824,14 +708,6 @@ CREATE TABLE `kia_tindakan` (
   `nama` varchar(50) NOT NULL,
   `harga` int(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `kia_tindakan`
---
-
-INSERT INTO `kia_tindakan` (`no_kia_t`, `nama`, `harga`) VALUES
-('K001', 'imunisasi semua', 200000),
-('K002', 'suntik mutaber', 100000);
 
 -- --------------------------------------------------------
 
@@ -850,9 +726,9 @@ CREATE TABLE `lab_checkup` (
 --
 
 INSERT INTO `lab_checkup` (`no_lab_c`, `nama`, `harga`) VALUES
-('L001', 'Gula Darah', 20000),
-('L002', 'Asam Urat ', 30000),
-('L003', 'Cholesterol', 20000),
+('L001', 'Gula Darah', 10000),
+('L002', 'Asam Urat ', 10000),
+('L003', 'Cholesterol', 25000),
 ('L004', 'Lab Luar', 30000),
 ('L005', 'HB', 30000),
 ('L006', 'Golongan Darah', 30000),
@@ -874,14 +750,6 @@ CREATE TABLE `lab_transaksi` (
   `tgl_transaksi` datetime NOT NULL,
   `total_harga` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `lab_transaksi`
---
-
-INSERT INTO `lab_transaksi` (`no_lab_t`, `no_ref_pelayanan`, `tgl_transaksi`, `total_harga`) VALUES
-('LB200122-0001', '200120-002', '2020-01-22 23:49:27', 60000),
-('LB200122-0002', '200119-001', '2020-01-22 23:48:23', 60000);
 
 -- --------------------------------------------------------
 
@@ -926,7 +794,7 @@ CREATE TABLE `obat` (
 --
 
 INSERT INTO `obat` (`kode_obat`, `no_kat_obat`, `nama`, `min_stok`, `harga_jual`, `tipe`, `qty`) VALUES
-('O001', 'K001', 'Aspirin', 10, 1000, 'Obat', 1),
+('O001', 'K001', 'Oral', 10, 1000, 'Obat', 1),
 ('O002', 'K002', 'Prednison', 5, 2000, 'Obat', 1),
 ('O003', 'K003', 'Psyllium ', 10, 3000, 'Obat', 16),
 ('O004', 'K004', 'simvastatin', 10, 3000, 'Obat', 0),
@@ -944,15 +812,6 @@ CREATE TABLE `obat_keluar_internal` (
   `tgl_obat_keluar_i` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `obat_keluar_internal`
---
-
-INSERT INTO `obat_keluar_internal` (`no_obat_keluar_i`, `tujuan`, `tgl_obat_keluar_i`) VALUES
-('OK200114-0001', 'Rawat Inap', '2020-01-14 12:05:47'),
-('OK200114-0002', 'Rawat Inap', '2020-01-14 12:08:52'),
-('OK200114-0003', 'Rawat Inap', '2020-01-14 12:13:12');
-
 -- --------------------------------------------------------
 
 --
@@ -965,15 +824,6 @@ CREATE TABLE `pasien` (
   `umur` smallint(3) NOT NULL,
   `alamat` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `pasien`
---
-
-INSERT INTO `pasien` (`no_rm`, `nama`, `umur`, `alamat`) VALUES
-('123123', 'fff', 22, '232'),
-('qwe123', 'Rizkika', 20, 'Jember'),
-('rtt6t67t', 'jjj', 9, 'klkl');
 
 -- --------------------------------------------------------
 
@@ -992,16 +842,6 @@ CREATE TABLE `pelayanan` (
   `tipe_pelayanan` enum('Rawat Jalan','Rawat Inap') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `pelayanan`
---
-
-INSERT INTO `pelayanan` (`no_ref_pelayanan`, `no_rm`, `no_user_pegawai`, `layanan_tujuan`, `tipe_antrian`, `tgl_pelayanan`, `status`, `tipe_pelayanan`) VALUES
-('200114-001', 'qwe123', 'P001', 'Balai Pengobatan', 'Dewasa', '2020-01-14 03:11:05', 'belum_finish', 'Rawat Jalan'),
-('200119-001', 'qwe123', 'P001', 'Poli KIA', 'Dewasa', '2020-01-19 22:52:03', 'belum_finish', 'Rawat Jalan'),
-('200120-001', '123123', 'P001', 'UGD', 'Dewasa', '2020-01-20 00:24:50', 'belum_finish', 'Rawat Inap'),
-('200120-002', 'rtt6t67t', 'P001', 'Laboratorium', 'Dewasa', '2020-01-20 01:10:26', 'belum_finish', 'Rawat Inap');
-
 -- --------------------------------------------------------
 
 --
@@ -1014,13 +854,6 @@ CREATE TABLE `pelayanan_ambulan` (
   `tanggal` datetime NOT NULL,
   `total_harga` int(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `pelayanan_ambulan`
---
-
-INSERT INTO `pelayanan_ambulan` (`no_pelayanan_a`, `no_ref_pelayanan`, `tanggal`, `total_harga`) VALUES
-('AB200122-0001', '200120-002', '2020-01-22 23:49:28', 250000);
 
 -- --------------------------------------------------------
 
@@ -1057,13 +890,6 @@ CREATE TABLE `penjualan_obat_apotik` (
   `total_harga` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `penjualan_obat_apotik`
---
-
-INSERT INTO `penjualan_obat_apotik` (`no_penjualan_obat_a`, `no_ref_pelayanan`, `tanggal_penjualan`, `total_harga`) VALUES
-('PA200122-0001', '200120-002', '2020-01-22 23:49:28', 3000);
-
 -- --------------------------------------------------------
 
 --
@@ -1081,7 +907,8 @@ CREATE TABLE `rawat_inap_tindakan` (
 --
 
 INSERT INTO `rawat_inap_tindakan` (`no_rawat_inap_t`, `nama`, `harga`) VALUES
-('I001', 'Kunjungan Dokter', 20000);
+('I001', 'Visite Dokter', 20000),
+('I002', 'Japel', 20000);
 
 -- --------------------------------------------------------
 
@@ -1097,18 +924,6 @@ CREATE TABLE `stok_obat_apotik` (
   `qty` mediumint(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `stok_obat_apotik`
---
-
-INSERT INTO `stok_obat_apotik` (`no_stok_obat_a`, `no_penerimaan_o`, `kode_obat`, `harga_supplier`, `qty`) VALUES
-(5, 'PO200114-0001', 'O001', 500, 100),
-(6, 'PO200114-0001', 'O005', 4000, 100),
-(7, 'PO200114-0002', 'O002', 1000, 50),
-(8, 'PO200114-0002', 'O003', 2000, 50),
-(9, 'PO200114-0003', 'O005', 10000, 20),
-(10, 'PO200114-0003', 'O003', 20000, 20);
-
 -- --------------------------------------------------------
 
 --
@@ -1120,16 +935,6 @@ CREATE TABLE `stok_obat_rawat_inap` (
   `kode_obat` varchar(4) NOT NULL,
   `qty` mediumint(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `stok_obat_rawat_inap`
---
-
-INSERT INTO `stok_obat_rawat_inap` (`no_stok_obat_rawat_i`, `kode_obat`, `qty`) VALUES
-(1, 'O001', -10),
-(2, 'O005', -21),
-(3, 'O002', 10),
-(4, 'O003', 10);
 
 -- --------------------------------------------------------
 
@@ -1166,13 +971,6 @@ CREATE TABLE `transaksi_rawat_inap` (
   `total_harga` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `transaksi_rawat_inap`
---
-
-INSERT INTO `transaksi_rawat_inap` (`no_transaksi_rawat_i`, `no_ref_pelayanan`, `tgl_transaksi`, `total_harga`) VALUES
-('RI200122-0001', '200120-002', '2020-01-22 23:49:29', 445000);
-
 -- --------------------------------------------------------
 
 --
@@ -1186,13 +984,6 @@ CREATE TABLE `ugd_penanganan` (
   `total_harga` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `ugd_penanganan`
---
-
-INSERT INTO `ugd_penanganan` (`no_ugd_p`, `no_ref_pelayanan`, `tgl_penanganan`, `total_harga`) VALUES
-('UP200122-0001', '200120-002', '2020-01-22 23:49:27', 150000);
-
 -- --------------------------------------------------------
 
 --
@@ -1204,14 +995,6 @@ CREATE TABLE `ugd_tindakan` (
   `nama` varchar(50) NOT NULL,
   `harga` int(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `ugd_tindakan`
---
-
-INSERT INTO `ugd_tindakan` (`no_ugd_t`, `nama`, `harga`) VALUES
-('U001', 'jahit luka', 150000),
-('U002', 'periksa luka', 50000);
 
 -- --------------------------------------------------------
 
@@ -1471,7 +1254,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `laporan_rj`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `laporan_rj`  AS  select `p`.`no_ref_pelayanan` AS `no_ref_pelayanan`,`p`.`no_rm` AS `no_rm`,`p`.`tgl_pelayanan` AS `tgl_pelayanan`,`p`.`tipe_pelayanan` AS `tipe_pelayanan`,(select sum(`c`.`harga` * `c`.`qty`) from (`lab_transaksi` `m` join `detail_lab_transaksi` `c` on(`m`.`no_lab_t` = `c`.`no_lab_t`)) where `m`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan` and `c`.`no_lab_c` = 'L001') AS `gula_darah`,(select sum(`c`.`harga` * `c`.`qty`) from (`lab_transaksi` `m` join `detail_lab_transaksi` `c` on(`m`.`no_lab_t` = `c`.`no_lab_t`)) where `m`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan` and `c`.`no_lab_c` = 'L002') AS `asam_urat`,(select sum(`c`.`harga` * `c`.`qty`) from (`lab_transaksi` `m` join `detail_lab_transaksi` `c` on(`m`.`no_lab_t` = `c`.`no_lab_t`)) where `m`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan` and `c`.`no_lab_c` = 'L003') AS `cholesterol`,(select sum(`c`.`harga` * `c`.`qty`) from (`lab_transaksi` `m` join `detail_lab_transaksi` `c` on(`m`.`no_lab_t` = `c`.`no_lab_t`)) where `m`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan` and `c`.`no_lab_c` <> 'L001' and `c`.`no_lab_c` <> 'L002' and `c`.`no_lab_c` <> 'L003') AS `lab_non_primer`,(select `kia`.`total_harga` from `kia_penanganan` `kia` where `kia`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan`) AS `total_kia`,(select `ugd`.`total_harga` from `ugd_penanganan` `ugd` where `ugd`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan`) AS `total_ugd`,(select `bp`.`total_harga` from `bp_penanganan` `bp` where `bp`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan`) AS `total_bp`,(select `apotik`.`total_harga` from `penjualan_obat_apotik` `apotik` where `apotik`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan`) AS `total_obat_apotik`,(select `ps`.`nama` from `pasien` `ps` where `ps`.`no_rm` = `p`.`no_rm`) AS `nama_pasien` from `pelayanan` `p` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `laporan_rj`  AS  select `p`.`no_ref_pelayanan` AS `no_ref_pelayanan`,`p`.`no_rm` AS `no_rm`,`p`.`tgl_pelayanan` AS `tgl_pelayanan`,`p`.`tipe_pelayanan` AS `tipe_pelayanan`,(select sum(`c`.`harga` * `c`.`qty`) from (`lab_transaksi` `m` join `detail_lab_transaksi` `c` on(`m`.`no_lab_t` = `c`.`no_lab_t`)) where `m`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan` and `c`.`no_lab_c` = 'L001') AS `gula_darah`,(select sum(`c`.`harga` * `c`.`qty`) from (`lab_transaksi` `m` join `detail_lab_transaksi` `c` on(`m`.`no_lab_t` = `c`.`no_lab_t`)) where `m`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan` and `c`.`no_lab_c` = 'L002') AS `asam_urat`,(select sum(`c`.`harga` * `c`.`qty`) from (`lab_transaksi` `m` join `detail_lab_transaksi` `c` on(`m`.`no_lab_t` = `c`.`no_lab_t`)) where `m`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan` and `c`.`no_lab_c` = 'L003') AS `cholesterol`,(select sum(`c`.`harga` * `c`.`qty`) from (`lab_transaksi` `m` join `detail_lab_transaksi` `c` on(`m`.`no_lab_t` = `c`.`no_lab_t`)) where `m`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan` and `c`.`no_lab_c` <> 'L001' and `c`.`no_lab_c` <> 'L002' and `c`.`no_lab_c` <> 'L003') AS `lab_non_primer`,(select `kia`.`total_harga` from `kia_penanganan` `kia` where `kia`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan`) AS `total_kia`,(select `ugd`.`total_harga` from `ugd_penanganan` `ugd` where `ugd`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan`) AS `total_ugd`,(select `bp`.`total_harga` from `bp_penanganan` `bp` where `bp`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan`) AS `total_bp`,(select `apotik`.`total_harga` from `penjualan_obat_apotik` `apotik` where `apotik`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan`) AS `total_obat_apotik`,(select `ps`.`nama` from `pasien` `ps` where `ps`.`no_rm` = `p`.`no_rm`) AS `nama_pasien` from `pelayanan` `p` where `p`.`status` = 'finish' ;
 
 --
 -- Indexes for dumped tables
@@ -1713,61 +1496,61 @@ ALTER TABLE `ambulance`
 -- AUTO_INCREMENT untuk tabel `detail_bp_penanganan`
 --
 ALTER TABLE `detail_bp_penanganan`
-  MODIFY `no_detail_bp_p` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=116;
+  MODIFY `no_detail_bp_p` int(7) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_kia_penanganan`
 --
 ALTER TABLE `detail_kia_penanganan`
-  MODIFY `no_detail_kia_p` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
+  MODIFY `no_detail_kia_p` int(7) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_lab_transaksi`
 --
 ALTER TABLE `detail_lab_transaksi`
-  MODIFY `no_detail_lab_t` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `no_detail_lab_t` int(7) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_obat_keluar_internal`
 --
 ALTER TABLE `detail_obat_keluar_internal`
-  MODIFY `id_detail_obat_keluar_internal` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_detail_obat_keluar_internal` int(7) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_pelayanan_ambulan`
 --
 ALTER TABLE `detail_pelayanan_ambulan`
-  MODIFY `no_detail_pelayanan_ambulan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `no_detail_pelayanan_ambulan` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_penjualan_obat_apotik`
 --
 ALTER TABLE `detail_penjualan_obat_apotik`
-  MODIFY `no_detail_penjualan_obat_a` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123;
+  MODIFY `no_detail_penjualan_obat_a` int(7) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_transaksi_rawat_inap_kamar`
 --
 ALTER TABLE `detail_transaksi_rawat_inap_kamar`
-  MODIFY `no_detail_transaksi_rawat_inap_k` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `no_detail_transaksi_rawat_inap_k` int(7) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_transaksi_rawat_inap_obat`
 --
 ALTER TABLE `detail_transaksi_rawat_inap_obat`
-  MODIFY `no_detail_transaksi_rawat_inap_o` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `no_detail_transaksi_rawat_inap_o` int(7) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_transaksi_rawat_inap_tindakan`
 --
 ALTER TABLE `detail_transaksi_rawat_inap_tindakan`
-  MODIFY `no_detail_transaksi_rawat_inap_t` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `no_detail_transaksi_rawat_inap_t` int(7) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_ugd_penanganan`
 --
 ALTER TABLE `detail_ugd_penanganan`
-  MODIFY `no_detail_ugd_p` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `no_detail_ugd_p` int(7) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `stok_obat_apotik`
