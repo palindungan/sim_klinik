@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 24 Jan 2020 pada 11.16
+-- Waktu pembuatan: 24 Jan 2020 pada 15.03
 -- Versi server: 10.4.6-MariaDB
 -- Versi PHP: 7.3.9
 
@@ -229,7 +229,7 @@ CREATE TABLE `daftar_detail_kamar_rawat_inap` (
 ,`nama` varchar(50)
 ,`tanggal_cek_in` datetime
 ,`tanggal_cek_out` datetime
-,`jumlah_hari` int(3)
+,`jumlah_hari` float
 ,`harga_harian` int(9)
 ,`sub_total_harga` int(10)
 ,`tipe` varchar(20)
@@ -592,7 +592,7 @@ CREATE TABLE `detail_transaksi_rawat_inap_kamar` (
   `no_kamar_rawat_i` char(4) NOT NULL,
   `tanggal_cek_in` datetime NOT NULL,
   `tanggal_cek_out` datetime NOT NULL,
-  `jumlah_hari` int(3) NOT NULL,
+  `jumlah_hari` float NOT NULL,
   `harga_harian` int(9) NOT NULL,
   `sub_total_harga` int(10) NOT NULL,
   `status_kamar` enum('Belum Cek Out','Sudah Cek Out') NOT NULL
