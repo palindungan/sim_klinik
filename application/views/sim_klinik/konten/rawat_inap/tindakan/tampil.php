@@ -70,12 +70,22 @@
 							<td><?= $data->no_rawat_inap_t ?></td>
 							<td><?= $data->nama ?></td>
 							<td class="text-right"><?= rupiah($data->harga) ?></td>
+							<?php 
+							if($data->no_rawat_inap_t == "I001" || $data->no_rawat_inap_t == "I002")
+							{
+							?>
+							<td class="text-center">
+								<a style="cursor:pointer" class="btn btn-sm btn-warning text-white" data-toggle="modal"
+									data-target="#modal-edit<?= $data->no_rawat_inap_t ?>">Edit</a>
+							</td>
+							<?php } else { ?>
 							<td class="text-center">
 								<a style="cursor:pointer" class="btn btn-sm btn-warning text-white" data-toggle="modal"
 									data-target="#modal-edit<?= $data->no_rawat_inap_t ?>">Edit</a>
 								<a href="<?= base_url('rawat_inap/tindakan/delete/'.$data->no_rawat_inap_t) ?>"
 									class="btn btn-sm btn-danger tombol-hapus">Hapus</a>
 							</td>
+							<?php } ?>
 						</tr>
 						<?php endforeach; ?>
 					</tbody>
@@ -104,7 +114,7 @@
 						<label for="inputEmail2">Nama Tindakan</label>
 						<input type="text" name="nama" value="<?= $data->nama ?>"
 							class="form-control form-control-sm karakter" id="inputEmail2"
-							placeholder="Masukan nama tindakan" required>
+							placeholder="Masukan nama tindakan" <?php if($data->no_rawat_inap_t == "I001" || $data->no_rawat_inap_t == "I002"){echo"readonly";} ?> required>
 
 					</div>
 					<div class="form-group col-sm-6">
