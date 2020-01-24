@@ -4,7 +4,7 @@
 
     use PhpOffice\PhpSpreadsheet\Spreadsheet;
     use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-    class Laporan extends CI_Controller {
+    class RawatJalan extends CI_Controller {
 
         // public function index() {
         //     $this->load->view('sim_klinik/konten/administrasi/cetak_struk/tampil');
@@ -16,11 +16,11 @@
 
         }
 
-        public function rawat_jalan()
+        public function index()
         {
             $data['rj_hari'] = $this->M_laporan->laporan_rj_hari_ini();
             $data['rj_bulan'] = $this->M_laporan->laporan_rj_bulan_ini();
-            $this->template->load('sim_klinik/template/admin', 'sim_klinik/konten/admin/laporan/rawat_jalan',$data);
+            $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/laporan/rawat_jalan',$data);
         }
 
         public function rj_hari_ini() {

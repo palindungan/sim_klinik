@@ -216,7 +216,7 @@ select p.no_ref_pelayanan AS no_ref_pelayanan,p.no_rm,p.tgl_pelayanan,p.tipe_pel
 (select bp.total_harga from sim_klinik.bp_penanganan bp where bp.no_ref_pelayanan = p.no_ref_pelayanan) AS total_bp,
 (select apotik.total_harga from sim_klinik.penjualan_obat_apotik apotik where apotik.no_ref_pelayanan = p.no_ref_pelayanan) AS total_obat_apotik,
 (select ps.nama from sim_klinik.pasien ps where ps.no_rm = p.no_rm) AS nama_pasien 
-from sim_klinik.pelayanan p
+from sim_klinik.pelayanan p WHERE p.status = 'finish'
 
 
 CREATE VIEW laporan_ri AS
@@ -233,7 +233,6 @@ select p.no_ref_pelayanan AS no_ref_pelayanan,p.no_rm,p.tgl_pelayanan,p.tipe_pel
 (select sum(dlt.harga * dlt.qty) from (lab_transaksi lt join detail_lab_transaksi dlt on(lt.no_lab_t = dlt.no_lab_t)) where lt.no_ref_pelayanan = p.no_ref_pelayanan and dlt.no_lab_c = 'L010') AS ul,
 (select sum(dlt.harga * dlt.qty) from (lab_transaksi lt join detail_lab_transaksi dlt on(lt.no_lab_t = dlt.no_lab_t)) where lt.no_ref_pelayanan = p.no_ref_pelayanan and dlt.no_lab_c = 'L011') AS buncreat,
 (select sum(dlt.harga * dlt.qty) from (lab_transaksi lt join detail_lab_transaksi dlt on(lt.no_lab_t = dlt.no_lab_t)) where lt.no_ref_pelayanan = p.no_ref_pelayanan and dlt.no_lab_c = 'L004') AS lab_luar,
-(select sum(poa.total_harga) from penjualan_obat_apotik poa where poa.no_ref_pelayanan = p.no_ref_pelayanan) AS obat_apotik,
 (select sum(dori.harga_jual * dori.qty) from (transaksi_rawat_inap tri join detail_transaksi_rawat_inap_obat dori on(tri.no_transaksi_rawat_i = dori.no_transaksi_rawat_i)) where tri.no_ref_pelayanan = p.no_ref_pelayanan) AS obat_ri,
 (select sum(pa.total_harga) from pelayanan_ambulan pa where pa.no_ref_pelayanan = p.no_ref_pelayanan) AS biaya_ambulance 
 from pelayanan p

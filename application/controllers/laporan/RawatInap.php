@@ -19,7 +19,7 @@
 
         public function index()
         {
-            $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/admin/laporan/rawat_inap');
+            $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/laporan/rawat_inap');
         }
 
         public function ri_hari_ini() {
