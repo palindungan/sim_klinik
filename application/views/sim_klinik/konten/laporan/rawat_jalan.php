@@ -5,7 +5,7 @@
 		</div>
 		<div class="card-body">
 			<h5>Laporan Custom</h5>
-				<form action="<?php echo base_url('laporan/rawatJalan/custom') ?>" method="post">
+				<form action="<?php echo base_url('laporan/rawatJalan/rj_custom') ?>" method="post">
 					<div class="row mb-3">
 							<div class="col-md-3">
 								<input id="datepicker_awal" placeholder="tanggal mulai" name="tgl_mulai" width="250" />
