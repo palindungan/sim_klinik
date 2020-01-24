@@ -28,5 +28,14 @@ class M_laporan extends CI_Model
         $query = $this->db->query("SELECT * FROM laporan_ri WHERE DATE(tgl_keluar) = CURDATE() ORDER BY tgl_keluar ASC")->result();
         return $query;
     }
+
+    function laporan_ri_bulan_ini(){
+        $query = $this->db->query("SELECT * FROM laporan_ri WHERE MONTH(tgl_keluar) = MONTH(CURDATE()) AND YEAR(tgl_keluar) = YEAR(CURDATE()) ORDER BY tgl_keluar ASC")->result();
+        return $query;
+    }
+    function laporan_ri_custom($tgl_mulai,$tgl_akhir){
+        $query = $this->db->query("SELECT * FROM laporan_ri WHERE tgl_keluar BETWEEN '$tgl_mulai' AND '$tgl_akhir' ORDER BY tgl_keluar ASC")->result();
+        return $query;
+    }
     
 }

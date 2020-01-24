@@ -31,7 +31,7 @@ class Login extends CI_Controller
                 );
                 $this->session->set_userdata($data_session);
                 if($row->jenis_akses == 'Manager'){
-                    redirect('laporan/rekap_tagihan');
+                    redirect('laporan/rekapTagihan');
                 }
                 else if($row->jenis_akses== 'Admin'){
                     redirect('admin/pasien');

@@ -127,7 +127,12 @@
         <a class="nav-link" href="<?= base_url('rawat_inap/transaksi'); ?>">
             <i class="fas fa-user-edit <?php if($this->uri->segment(1)=="rawat_inap" && $this->uri->segment(2)=="transaksi"){echo "text-white";} ?>"></i>
             <span class="<?php if($this->uri->segment(1)=="rawat_inap" && $this->uri->segment(2)=="transaksi"){echo "text-white";} ?>">Transaksi</span></a>
-    </li>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="<?= base_url('rawat_inap/setorUang'); ?>">
+			<i class="fas fa-address-card <?php if($this->uri->segment(1)=="rawat_inap" && $this->uri->segment(2)=="setorUang"){echo "text-white";}?>"></i>
+			<span class="<?php if($this->uri->segment(1)=="rawat_inap" && $this->uri->segment(2)=="setorUang"){echo "text-white";}?>">Setor Uang Rawat Inap</span></a>
+	</li>
 	<?php } ?>
 	<!-- Apotek -->
 	<?php
@@ -228,17 +233,26 @@
 			<i class="fas fa-address-card <?php if($this->uri->segment(1)=="laporan" && $this->uri->segment(2)=="rekapTagihan"){echo "text-white";}?>"></i>
 			<span class="<?php if($this->uri->segment(1)=="laporan" && $this->uri->segment(2)=="rekapTagihan"){echo "text-white";}?>">Rekap Tagihan</span></a>
 	</li>
-	<?php } ?>
+	<?php 
+	}
+	if($this->session->userdata('akses') == 'Manager' || $this->session->userdata('akses') == 'Administrasi' || $this->session->userdata('akses') == 'Rawat Inap'){ 
+	?>
 	<li class="nav-item">
 		<a class="nav-link" href="<?= base_url('laporan/rawatJalan'); ?>">
 			<i class="fas fa-address-card <?php if($this->uri->segment(1)=="laporan" && $this->uri->segment(2)=="rawatJalan"){echo "text-white";}?>"></i>
 			<span class="<?php if($this->uri->segment(1)=="laporan" && $this->uri->segment(2)=="rawatJalan"){echo "text-white";}?>">Rawat Jalan</span></a>
 	</li>
+	<?php
+	}
+	if($this->session->userdata('akses') == 'Manager' || $this->session->userdata('akses') == 'Rawat Inap'){
+	?>
 	<li class="nav-item">
 		<a class="nav-link" href="<?= base_url('laporan/rawatInap'); ?>">
 			<i class="fas fa-address-card <?php if($this->uri->segment(1)=="laporan" && $this->uri->segment(2)=="rawatInap"){echo "text-white";}?>"></i>
 			<span class="<?php if($this->uri->segment(1)=="laporan" && $this->uri->segment(2)=="rawatInap"){echo "text-white";}?>">Rawat Inap</span></a>
 	</li>
+	<?php } ?>
+	
 	
 	<!-- Divider -->
 	<hr class="sidebar-divider d-none d-md-block">

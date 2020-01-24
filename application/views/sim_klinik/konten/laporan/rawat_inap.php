@@ -5,7 +5,7 @@
 		</div>
 		<div class="card-body">
 			<h5>Laporan Custom</h5>
-				<form action="<?php echo base_url('admin/laporan/rj_custom') ?>" method="post">
+				<form action="<?php echo base_url('laporan/rawatInap/ri_custom') ?>" method="post">
 					<div class="row mb-3">
 							<div class="col-md-3">
 								<input id="datepicker_awal" placeholder="tanggal mulai" name="tgl_mulai" width="250" />
@@ -31,78 +31,122 @@
 			<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
 			
 				<a href="<?= base_url(); ?>laporan/rawatInap/ri_hari_ini" class="btn btn-sm btn-success mb-3">Cetak Hari</a>
-				<div class="table-responsive">
+				<div style="overflow-x:auto;">
 					<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 						<thead>
 							<tr>
 								<th class="text-center">No</th>
-								<th class="text-center">Tanggal</th>
-								<th class="text-center">Nama Pasien</th>
-								<th class="text-center">GD</th>
-								<th class="text-center">AU</th>
-								<th class="text-center">Chol</th>
+								<th class="text-center" width="250px;">Tanggal</th>
+								<th class="text-center">Nama</th>
+								<th class="text-center">Uang&nbsp;Masuk</th>
+								<th class="text-center">Gizi</th>
+								<th class="text-center">Kamar</th>
 								<th class="text-center">BP</th>
 								<th class="text-center">LAB</th>
 								<th class="text-center">KIA</th>
 								<th class="text-center">UGD</th>
-								<th class="text-center">Apotik</th>
-								<th class="text-center">Total</th>
+								<th class="text-center">Ambulance</th>
+								<th class="text-center">Semua&nbsp;Obat</th>
+								<th class="text-center">Obat&nbsp;Oral</th>
+								<th class="text-center">Pemasukan&nbsp;Bersih</th>
+								<th class="text-center">Japel</th>
+								<th class="text-center">Visite</th>
+								<th class="text-center">Klinik&nbsp;Bersih</th>
+								<th class="text-center">Saldo</th>
 							</tr>
 						</thead>
 						<tbody>
+							<?php 
+							$nomor = 1;
+							foreach($ri_hari_ini as $row){
+								$tgl_keluar = date('d-m-Y',strtotime($row->tgl_keluar));
+								$semua_obat = $row->obat_ri + $row->obat_apotik;
+								$obat_oral = (int) $row->obat_oral;
+								$pemasukan_bersih = $row->uang_masuk - $row->gizi - $row->kamar - $row->total_bp - $row->total_lab - $row->total_kia - $row->total_ugd - $row->biaya_ambulance - $semua_obat - $obat_oral;
+								$klinik_bersih = $pemasukan_bersih - $row->japel - $row->visite;
+							?>
 							<tr>
-                                <td>asd</td>
-								<td>asd</td>
-								<td>asd</td>
-								<td>asd</td>
-								<td>asd</td>
-								<td>asd</td>
-								<td>asd</td>
-								<td>asd</td>
-								<td>asd</td>
-								<td>asd</td>
-								<td>asd</td>
-								<td>asd</td>
+                                <td><?php echo $nomor++; ; ?></td>
+                                <td><?php echo $tgl_keluar; ; ?></td>
+                                <td><?php echo $row->nama_pasien ; ?></td>
+                                <td class="text-right"><?php echo $row->uang_masuk ; ?></td>
+                                <td class="text-right"><?php echo $row->gizi ; ?></td>
+                                <td class="text-right"><?php echo $row->kamar ; ?></td>
+                                <td class="text-right"><?php echo $row->total_bp ; ?></td>
+                                <td class="text-right"><?php echo $row->total_lab ; ?></td>
+                                <td class="text-right"><?php echo $row->total_kia ; ?></td>
+                                <td class="text-right"><?php echo $row->total_ugd ; ?></td>
+                                <td class="text-right"><?php echo $row->biaya_ambulance ; ?></td>
+                                <td class="text-right"><?php echo $semua_obat; ?></td>
+                                <td class="text-right"><?php echo $obat_oral; ?></td>
+                                <td class="text-right"><?php echo $pemasukan_bersih; ?></td>
+                                <td class="text-right"><?php echo $row->japel ; ?></td>
+                                <td class="text-right"><?php echo $row->visite ; ?></td>
+								<td class="text-right"><?php echo $klinik_bersih ; ?></td>
+								<td class="text-right"><?php echo $row->saldo; ?></td>
 							</tr>
+							<?php } ?>
 						</tbody>
 					</table>
 				</div>
 			</div>
 			<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-				<a href="<?= base_url(); ?>admin/laporan/rj_bulan_ini" class="btn btn-sm btn-success mb-3">Cetak Bulan</a>
-				<div class="table-responsive">
-					<table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
+				<a href="<?= base_url(); ?>laporan/rawatInap/ri_bulan_ini" class="btn btn-sm btn-success mb-3">Cetak Bulan</a>
+				<div style="overflow-x:auto;">
+					<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 						<thead>
 							<tr>
 								<th class="text-center">No</th>
-								<th class="text-center">Tanggal</th>
-								<th class="text-center">Nama Pasien</th>
-								<th class="text-center">GD</th>
-								<th class="text-center">AU</th>
-								<th class="text-center">Chol</th>
+								<th class="text-center" width="250px;">Tanggal</th>
+								<th class="text-center">Nama</th>
+								<th class="text-center">Uang&nbsp;Masuk</th>
+								<th class="text-center">Gizi</th>
+								<th class="text-center">Kamar</th>
 								<th class="text-center">BP</th>
 								<th class="text-center">LAB</th>
 								<th class="text-center">KIA</th>
 								<th class="text-center">UGD</th>
-								<th class="text-center">Apotik</th>
-								<th class="text-center">Total</th>
+								<th class="text-center">Ambulance</th>
+								<th class="text-center">Semua&nbsp;Obat</th>
+								<th class="text-center">Obat&nbsp;Oral</th>
+								<th class="text-center">Pemasukan&nbsp;Bersih</th>
+								<th class="text-center">Japel</th>
+								<th class="text-center">Visite</th>
+								<th class="text-center">Klinik&nbsp;Bersih</th>
+								<th class="text-center">Saldo</th>
 							</tr>
 						</thead>
 						<tbody>
+							<?php 
+							$nomor = 1;
+							foreach($ri_bulan_ini as $row){
+								$tgl_keluar = date('d-m-Y',strtotime($row->tgl_keluar));
+								$semua_obat = $row->obat_ri + $row->obat_apotik;
+								$obat_oral = (int) $row->obat_oral;
+								$pemasukan_bersih = $row->uang_masuk - $row->gizi - $row->kamar - $row->total_bp - $row->total_lab - $row->total_kia - $row->total_ugd - $row->biaya_ambulance - $semua_obat - $obat_oral;
+								$klinik_bersih = $pemasukan_bersih - $row->japel - $row->visite;
+							?>
 							<tr>
-								<td>asd</td>
-								<td>asd</td>
-								<td>asd</td>
-								<td>asd</td>
-								<td>asd</td>
-								<td>asd</td>
-								<td>asd</td>
-								<td>asd</td>
-								<td>asd</td>
-								<td>asd</td>
-								<td>asd</td>
-								<td>asd</td>
+                                <td><?php echo $nomor++; ; ?></td>
+                                <td><?php echo $tgl_keluar; ; ?></td>
+                                <td><?php echo $row->nama_pasien ; ?></td>
+                                <td class="text-right"><?php echo $row->uang_masuk ; ?></td>
+                                <td class="text-right"><?php echo $row->gizi ; ?></td>
+                                <td class="text-right"><?php echo $row->kamar ; ?></td>
+                                <td class="text-right"><?php echo $row->total_bp ; ?></td>
+                                <td class="text-right"><?php echo $row->total_lab ; ?></td>
+                                <td class="text-right"><?php echo $row->total_kia ; ?></td>
+                                <td class="text-right"><?php echo $row->total_ugd ; ?></td>
+                                <td class="text-right"><?php echo $row->biaya_ambulance ; ?></td>
+                                <td class="text-right"><?php echo $semua_obat; ?></td>
+                                <td class="text-right"><?php echo $obat_oral; ?></td>
+                                <td class="text-right"><?php echo $pemasukan_bersih; ?></td>
+                                <td class="text-right"><?php echo $row->japel ; ?></td>
+                                <td class="text-right"><?php echo $row->visite ; ?></td>
+								<td class="text-right"><?php echo $klinik_bersih ; ?></td>
+								<td class="text-right"><?php echo $row->saldo; ?></td>
 							</tr>
+							<?php } ?>
 						</tbody>
 					</table>
 				</div>

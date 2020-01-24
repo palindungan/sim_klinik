@@ -4,7 +4,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>SB Admin 2 - Blank</title>
+<title>SIM Klinik</title>
 
 <!-- Custom fonts for this template-->
 <link href="<?= base_url(); ?>assets/sb_admin_2/vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
