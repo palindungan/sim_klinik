@@ -91,7 +91,7 @@
             $grand_total = 0;
             $sub_total = 0;
             foreach ($query as $row) {
-            $tgl_pelayanan = date('d-m-Y',strtotime($row->tgl_pelayanan));
+            $tgl_keluar = date('d-m-Y',strtotime($row->tgl_keluar));
             $sub_total = $row->gula_darah + $row->asam_urat + $row->cholesterol + $row->total_bp + $row->lab_non_primer + $row->total_kia + $row->total_ugd + $row->total_obat_apotik;
 
             $grand_total += $sub_total;
@@ -217,7 +217,7 @@
             $grand_total = 0;
             $sub_total = 0;
             foreach ($query as $row) {
-            $tgl_pelayanan = date('d-m-Y',strtotime($row->tgl_pelayanan));
+            $tgl_keluar = date('d-m-Y',strtotime($row->tgl_keluar));
             $sub_total = $row->gula_darah + $row->asam_urat + $row->cholesterol + $row->total_bp + $row->lab_non_primer + $row->total_kia + $row->total_ugd + $row->total_obat_apotik;
 
             $grand_total += $sub_total;
@@ -352,7 +352,7 @@
             $grand_total = 0;
             $sub_total = 0;
             foreach ($query as $row) {
-            $tgl_pelayanan = date('d-m-Y',strtotime($row->tgl_pelayanan));
+            $tgl_keluar = date('d-m-Y',strtotime($row->tgl_keluar));
             $sub_total = $row->gula_darah + $row->asam_urat + $row->cholesterol + $row->total_bp + $row->lab_non_primer + $row->total_kia + $row->total_ugd + $row->total_obat_apotik;
 
             $grand_total += $sub_total;

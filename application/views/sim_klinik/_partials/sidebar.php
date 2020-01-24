@@ -153,6 +153,11 @@
 				Internal</span></a>
 	</li>
 	<li class="nav-item">
+		<a class="nav-link" href="<?= base_url('apotek/return_obat'); ?>">
+			<i class="fas fa-dolly-flatbed <?php if($this->uri->segment(1)=="apotek" && $this->uri->segment(2)=="return_obat" && $this->uri->segment(3) == FALSE){echo "text-white";}?>"></i>
+			<span class="<?php if($this->uri->segment(1)=="apotek" && $this->uri->segment(2)=="return_obat" && $this->uri->segment(3) == FALSE){echo "text-white";}?>">Return Obat</span></a>
+	</li>
+	<li class="nav-item">
 		<a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
 			aria-controls="collapseTwo">
 			<i class="fas fa-fw fa-cog <?php if($this->uri->segment(1)=="apotek" && $this->uri->segment(2)=="obat"){echo "text-white";} else if($this->uri->segment(1)=="apotek" && $this->uri->segment(2)=="kategori_obat"){echo "text-white";}?>"></i>

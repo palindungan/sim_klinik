@@ -227,9 +227,11 @@ SELECT p.no_ref_pelayanan, p.no_rm, p.tgl_pelayanan, p.tipe_pelayanan,p.tgl_kelu
 (select sum(pa.total_harga) from pelayanan_ambulan pa where pa.no_ref_pelayanan = p.no_ref_pelayanan) AS biaya_ambulance,
 (select `bp`.`total_harga` from `sim_klinik`.`bp_penanganan` `bp` where `bp`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan`) AS `total_bp`,
 (select sum(dtrit.harga * dtrit.qty) from (transaksi_rawat_inap tri join detail_transaksi_rawat_inap_tindakan dtrit on (tri.no_transaksi_rawat_i = dtrit.no_transaksi_rawat_i)) where tri.no_ref_pelayanan = p.no_ref_pelayanan and dtrit.no_rawat_inap_t = 'I003') AS gizi,
+(select sum(dtrik.harga_harian * dtrik.jumlah_hari) from (transaksi_rawat_inap tri join detail_transaksi_rawat_inap_kamar dtrik on (tri.no_transaksi_rawat_i = dtrik.no_transaksi_rawat_i)) where tri.no_ref_pelayanan = p.no_ref_pelayanan) AS kamar,
 (select sum(dori.harga_jual * dori.qty) from (transaksi_rawat_inap tri join detail_transaksi_rawat_inap_obat dori on(tri.no_transaksi_rawat_i = dori.no_transaksi_rawat_i)) where tri.no_ref_pelayanan = p.no_ref_pelayanan) AS obat_ri,
 (select sum(poa.total_harga) from penjualan_obat_apotik poa where poa.no_ref_pelayanan=p.no_ref_pelayanan) AS obat_apotik,
 (select sum(dtrio.harga_jual * dtrio.qty * 0.5) from (transaksi_rawat_inap tri join detail_transaksi_rawat_inap_obat dtrio on (tri.no_transaksi_rawat_i = dtrio.no_transaksi_rawat_i)) join stok_obat_rawat_inap sori on dtrio.no_stok_obat_rawat_i=sori.no_stok_obat_rawat_i where tri.no_ref_pelayanan = p.no_ref_pelayanan and sori.kode_obat = 'O001') AS obat_oral,
 (select sum(dtrit.harga * dtrit.qty) from (transaksi_rawat_inap tri join detail_transaksi_rawat_inap_tindakan dtrit on (tri.no_transaksi_rawat_i = dtrit.no_transaksi_rawat_i)) where tri.no_ref_pelayanan = p.no_ref_pelayanan and dtrit.no_rawat_inap_t = 'I002') AS japel,
-(select sum(dtrit.harga * dtrit.qty) from (transaksi_rawat_inap tri join detail_transaksi_rawat_inap_tindakan dtrit on (tri.no_transaksi_rawat_i = dtrit.no_transaksi_rawat_i)) where tri.no_ref_pelayanan = p.no_ref_pelayanan and dtrit.no_rawat_inap_t = 'I001') AS visite
+(select sum(dtrit.harga * dtrit.qty) from (transaksi_rawat_inap tri join detail_transaksi_rawat_inap_tindakan dtrit on (tri.no_transaksi_rawat_i = dtrit.no_transaksi_rawat_i)) where tri.no_ref_pelayanan = p.no_ref_pelayanan and dtrit.no_rawat_inap_t = 'I001') AS visite,
+(select ps.nama from sim_klinik.pasien ps where ps.no_rm = p.no_rm) AS nama_pasien
 FROM pelayanan p WHERE p.status = 'finish'

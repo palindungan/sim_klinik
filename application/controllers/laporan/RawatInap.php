@@ -81,7 +81,6 @@
             // Border
             $spreadsheet->getActiveSheet()->getStyle('A2:R2')->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK)->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_BLACK);;
 
-// nomor,tanggal,nama,uang masuk,uang makan/gizi,kamar,bp,lab,kia,ugd,semua obat,onat oral,pemasukan bersih,japel visite
 
             $spreadsheet->setActiveSheetIndex(0)
             ->setCellValue('A2', 'Nomor')
@@ -105,7 +104,9 @@
 
             $kolom = 3;
             $nomor = 1;
-
+            foreach ($query as $row) {
+            $semua_obat = $row->obat_ri + $row->obat_apotik;
+            $obat_oral = (int) $row->obat_oral;
             // di dalam loop
             $spreadsheet->getActiveSheet()->getStyle('A')->getAlignment()->setHorizontal('center');
             $spreadsheet->getActiveSheet()->getStyle('B')->getAlignment()->setHorizontal('center');
@@ -126,7 +127,28 @@
             $spreadsheet->getActiveSheet()->getStyle('Q')->getAlignment()->setHorizontal('right');
             $spreadsheet->getActiveSheet()->getStyle('R')->getAlignment()->setHorizontal('right');
         
-            
+            $spreadsheet->setActiveSheetIndex(0)
+            ->setCellValue('A' . $kolom, $nomor)
+            ->setCellValue('B' . $kolom,$tgl_keluar)
+            ->setCellValue('C' . $kolom, $row->nama_pasien)
+            ->setCellValue('D' . $kolom, number_format($row->uang_masuk, 0, ".", ","))
+            ->setCellValue('E' . $kolom, number_format($row->gizi, 0, ".", ","))
+            ->setCellValue('F' . $kolom, number_format($row->kamar, 0, ".", ","))
+            ->setCellValue('G' . $kolom, number_format($row->total_bp, 0, ".", ","))
+            ->setCellValue('H' . $kolom, number_format($row->total_lab, 0, ".", ","))
+            ->setCellValue('I' . $kolom, number_format($row->total_kia, 0, ".", ","))
+            ->setCellValue('J' . $kolom, number_format($row->total_ugd, 0, ".", ","))
+            ->setCellValue('K' . $kolom, number_format($row->biaya_ambulance, 0, ".", ","))
+            ->setCellValue('L' . $kolom, number_format($semua_obat, 0, ".", ","))
+            ->setCellValue('M' . $kolom, number_format($sub_total, 0, ".", ","))
+            ->setCellValue('N' . $kolom, number_format($sub_total, 0, ".", ","))
+            ->setCellValue('O' . $kolom, number_format($sub_total, 0, ".", ","))
+            ->setCellValue('P' . $kolom, number_format($sub_total, 0, ".", ","))
+            ->setCellValue('Q' . $kolom, number_format($sub_total, 0, ".", ","))
+            ->setCellValue('R' . $kolom, number_format($sub_total, 0, ".", ","));
+            $kolom++;
+            $nomor++;
+            }
 
 
             $writer = new Xlsx($spreadsheet);
