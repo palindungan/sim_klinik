@@ -22,8 +22,8 @@
 						<table class="table table-sm table-bordered table-striped">
 							<thead>
 								<tr>
-									<td>Nama Obat</td>
-									<td>Kategori Obat</td>
+									<td>Nama Obat/Alkes</td>
+									<td>Kategori</td>
 									<td width="10%">Qty</td>
 									<td width="5%">Hapus</td>
 								</tr>
@@ -66,7 +66,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Daftar Obat Apotek</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">Daftar Item</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -77,7 +77,7 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Nama Obat</th>
+                                <th>Item</th>
                                 <th>Kategori</th>
                                 <th>Stok</th>
                                 <th>Aksi</th>

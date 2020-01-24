@@ -13,7 +13,7 @@
 <div class="container-fluid">
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">
-			<h6 class="m-0 font-weight-bold text-primary">Penerimaan Obat</h6>
+			<h6 class="m-0 font-weight-bold text-primary">Penerimaan Obat/Alkes</h6>
 		</div>
 		<div class="card-body">
 			<form method="post" id="penerimaan_form">
@@ -37,7 +37,7 @@
 							<span class="icon text-white-50">
 								<i class="fas fa-search-plus"></i>
 							</span>
-							<span class="text">Cari Data Obat</span>
+							<span class="text">Cari Data Obat/Alkes</span>
 						</a>
 					</div>
 				</div>

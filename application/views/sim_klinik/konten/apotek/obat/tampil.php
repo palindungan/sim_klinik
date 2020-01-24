@@ -21,7 +21,7 @@
 				<div class="modal-dialog modal-lg">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title">Tambah Data Obat</h5>
+							<h5 class="modal-title">Tambah Data Obat/Alkes</h5>
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
@@ -35,7 +35,7 @@
 										placeholder="Masukan Nama Obat" required>
 								</div>
 								<div class="form-group col-sm-6">
-									<label for="inputEmail3">Kategori Obat</label>
+									<label for="inputEmail3">Kategori Obat/Alkes</label>
 									<select name="no_kat_obat" class="form-control form-control-sm" id="inputEmail3">
 										<option value="">No Category</option>
 										<?php foreach($kategori as $row):?>
@@ -150,7 +150,7 @@
 							placeholder="Masukan Nama Obat" <?php if($data->kode_obat == 'O001') {echo"readonly";} ?> required>
 					</div>
 					<div class="form-group col-sm-6">
-						<label for="inputEmail3">Kategori Obat</label>
+						<label for="inputEmail3">Kategori Obat/Alkes</label>
 						<select name="no_kat_obat" class="form-control form-control-sm" id="inputEmail3">
 							<option value="" <?php if($row->no_kat_obat == ""){echo "Selected";} ?>>No Category</option>
 							<?php foreach($kategori as $row):?>
@@ -201,7 +201,7 @@
 		var href = $(this).attr('href');
 		Swal.fire({
 			title: 'Apakah anda yakin?',
-			text: "Data obat akan dihapus",
+			text: "Data Obat/Alkes akan dihapus",
 			icon: 'warning',
 			showCancelButton: true,
 			confirmButtonColor: '#d33',

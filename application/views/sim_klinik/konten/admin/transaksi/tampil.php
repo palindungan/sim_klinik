@@ -221,14 +221,14 @@
                             <span class="icon text-white-50">
                                 <i class="fas fa-search-plus"></i>
                             </span>
-                            <span class="text">Tambah Data Obat</span>
+                            <span class="text">Tambah Data Obat/Alkes</span>
                         </a>
                     </div>
 
                 </div>
 
                 <div class="form-row">
-                    <label class=" col-sm-5"><b>Nama Obat</b></label>
+                    <label class=" col-sm-5"><b>Nama Obat/Alkes</b></label>
                     <label class=" col-sm-4"><b>Harga Jual</b></label>
                     <label class=" col-sm-1"><b>QTY</b></label>
                 </div>

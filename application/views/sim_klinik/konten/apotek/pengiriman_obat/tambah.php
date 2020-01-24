@@ -25,7 +25,7 @@
 							<span class="icon text-white-50">
 								<i class="fas fa-search-plus"></i>
 							</span>
-							<span class="text">Cari Data Obat</span>
+							<span class="text">Cari Data Obat/Alkes</span>
 						</a>
 					</div>
 

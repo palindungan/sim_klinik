@@ -9,7 +9,7 @@ foreach ($record as $row) {
 <div class="container-fluid">
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Detail Data Transfer Obat</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Detail Data Transfer Obat/Alkes</h6>
         </div>
         <div class="card-body">
             <div style="margin-bottom: 20px;">

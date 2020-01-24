@@ -10,7 +10,7 @@
 <div class="container-fluid">
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">
-			<h6 class="m-0 font-weight-bold text-primary">Kategori Obat</h6>
+			<h6 class="m-0 font-weight-bold text-primary">Kategori Obat/Alkes</h6>
 		</div>
 		<div class="card-body">
 			<button type="button" class="btn btn-sm btn-primary mb-3" data-toggle="modal"
@@ -21,7 +21,7 @@
 				<div class="modal-dialog modal-lg">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title">Tambah Kategori Obat</h5>
+							<h5 class="modal-title">Tambah Kategori Obat/Alkes</h5>
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
@@ -30,9 +30,9 @@
 						<div class="modal-body">
 							<div class="form-row">
 								<div class="form-group col-sm-6">
-									<label for="inputEmail2">Nama Kategori Obat</label>
+									<label for="inputEmail2">Nama Kategori Obat/Alkes</label>
 									<input type="text" name="nama" class="form-control form-control-sm" id="inputEmail2"
-										placeholder="Masukan nama kategori obat" required>
+										placeholder="Masukan nama Kategori Obat/Alkes" required>
 								</div>
 							</div>
 						</div>
@@ -50,7 +50,7 @@
 						<tr>
 							<th width="5%" class="text-center">No</th>
 							<th width="20%">Kode</th>
-							<th width="50%">Nama Kategori Obat</th>
+							<th width="50%">Nama Kategori Obat/Alkes</th>
 							<th width="15%" class="text-center">Aksi</th>
 						</tr>
 					</thead>
@@ -84,7 +84,7 @@
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">Edit Kategori Obat</h5>
+				<h5 class="modal-title">Edit Kategori Obat/Alkes</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -94,9 +94,9 @@
 				<div class="form-row">
 					<div class="form-group col-sm-6">
 						<input type="hidden" name="no_kat_obat" value="<?= $data->no_kat_obat ?>">
-						<label for="inputEmail2">Nama Kategori Obat</label>
+						<label for="inputEmail2">Nama Kategori Obat/Alkes</label>
 						<input type="text" name="nama" value="<?= $data->nama ?>" class="form-control form-control-sm"
-							id="inputEmail2" placeholder="Masukan nama kategori obat" required>
+							id="inputEmail2" placeholder="Masukan Nama Kategori Obat/Alkes" required>
 					</div>
 				</div>
 			</div>
@@ -116,7 +116,7 @@
 		var href = $(this).attr('href');
 		Swal.fire({
 			title: 'Apakah anda yakin?',
-			text: "Data kategori obat akan dihapus",
+			text: "Data Kategori Obat/Alkes Akan Dihapus",
 			icon: 'warning',
 			showCancelButton: true,
 			confirmButtonColor: '#d33',
