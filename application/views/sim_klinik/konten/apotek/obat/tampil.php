@@ -102,12 +102,22 @@
 							<td class="text-right"><?= rupiah($data->harga_jual) ?></td>
 							<td><?= $data->qty ?></td>
 							<td><?= $data->tipe ?></td>
+							<?php 
+							if($data->kode_obat == 'O001')
+							{
+							?>
+							<td class="text-center">
+								<a style="cursor:pointer" class="btn btn-sm btn-warning text-white" data-toggle="modal"
+									data-target="#modal-edit<?= $data->kode_obat ?>">Edit</a>
+							</td>
+							<?php } else { ?>
 							<td class="text-center">
 								<a style="cursor:pointer" class="btn btn-sm btn-warning text-white" data-toggle="modal"
 									data-target="#modal-edit<?= $data->kode_obat ?>">Edit</a>
 								<a href="<?= base_url('apotek/obat/delete/'.$data->kode_obat) ?>"
 									class="btn btn-sm btn-danger tombol-hapus">Hapus</a>
 							</td>
+							<?php } ?>
 						</tr>
 						<?php endforeach; ?>
 					</tbody>
@@ -136,7 +146,7 @@
 						<input type="hidden" name="kode_obat" value="<?= $data->kode_obat ?>">
 						<input type="text" name="nama" value="<?= $data->nama_obat ?>"
 							class="form-control form-control-sm" id="inputEmail2"
-							placeholder="Masukan nama kategori obat" required>
+							placeholder="Masukan nama kategori obat" <?php if($data->kode_obat == 'O001') {echo"readonly";} ?> required>
 					</div>
 					<div class="form-group col-sm-6">
 						<label for="inputEmail3">Kategori Obat</label>
