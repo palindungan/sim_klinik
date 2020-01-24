@@ -231,14 +231,14 @@ class Tagihan extends CI_Controller
             for ($i = 0; $i < count($this->input->post('no_kamar_rawat_i')); $i++) {
 
                 $harga_jual_temp = $this->input->post('harga_harian_ri_kamar')[$i];
-                $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
+                $harga_jual = (double) preg_replace("/[^0-9]/", "", $harga_jual_temp);
 
                 if ($this->input->post('status_kamar_ri_kamar')[$i] == "Belum Cek Out") {
                     $harga_jual = 0;
                 }
 
                 $jumlah_hari_temp = $this->input->post('jumlah_hari_ri_kamar')[$i];
-                $jumlah_hari = (int) $jumlah_hari_temp;
+                $jumlah_hari = (double) $jumlah_hari_temp;
 
                 $perhitungan = $harga_jual * $jumlah_hari;
 

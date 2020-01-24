@@ -41,10 +41,7 @@ class Transaksi extends CI_Controller
 
     public function tampil_daftar_obat()
     {
-        $where_qty_obat = array(
-            'qty >' => 0
-        );
-        $data_tbl['tbl_data'] = $this->M_transaksi->get_data('daftar_obat_rawat_inap', $where_qty_obat)->result();
+        $data_tbl['tbl_data'] = $this->M_transaksi->tampil_data('daftar_obat_rawat_inap')->result();
 
         $data = json_encode($data_tbl);
 
@@ -163,10 +160,10 @@ class Transaksi extends CI_Controller
                         $tanggal_cek_out_ri_kamar = $this->input->post('tanggal_cek_out_ri_kamar')[$i];
 
                         $jumlah_hari_temp = $this->input->post('jumlah_hari_ri_kamar')[$i];
-                        $jumlah_hari = (int) $jumlah_hari_temp;
+                        $jumlah_hari = (double) $jumlah_hari_temp;
 
                         $harga_harian_temp = $this->input->post('harga_harian_ri_kamar')[$i];
-                        $harga_harian = (int) preg_replace("/[^0-9]/", "", $harga_harian_temp);
+                        $harga_harian = (double) preg_replace("/[^0-9]/", "", $harga_harian_temp);
 
                         $status_kamar_ri_kamar = $this->input->post('status_kamar_ri_kamar')[$i];
 

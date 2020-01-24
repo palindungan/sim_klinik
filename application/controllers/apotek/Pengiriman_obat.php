@@ -17,10 +17,7 @@ class Pengiriman_obat extends CI_Controller
     }
     public function tampil_daftar_obat()
     {
-        $where = array(
-            'qty >' => 0
-        );
-        $data_tbl['tbl_data'] = $this->M_pengiriman_obat->get_data('data_obat', $where)->result();
+        $data_tbl['tbl_data'] = $this->M_pengiriman_obat->tampil_data('data_obat')->result();
 
         $data = json_encode($data_tbl);
 
