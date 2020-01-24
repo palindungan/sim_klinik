@@ -6,9 +6,6 @@
     use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
     class RawatJalan extends CI_Controller {
 
-        // public function index() {
-        //     $this->load->view('sim_klinik/konten/administrasi/cetak_struk/tampil');
-        // }
         function __construct()
         {
             parent::__construct();
@@ -117,7 +114,7 @@
 
             $spreadsheet->setActiveSheetIndex(0)
             ->setCellValue('A' . $kolom, $nomor)
-            ->setCellValue('B' . $kolom,$tgl_pelayanan)
+            ->setCellValue('B' . $kolom,$tgl_keluar)
             ->setCellValue('C' . $kolom, $row->nama_pasien)
             ->setCellValue('D' . $kolom, number_format($row->gula_darah, 0, ".", ","))
             ->setCellValue('E' . $kolom, number_format($row->asam_urat, 0, ".", ","))
@@ -243,7 +240,7 @@
 
             $spreadsheet->setActiveSheetIndex(0)
             ->setCellValue('A' . $kolom, $nomor)
-            ->setCellValue('B' . $kolom,$tgl_pelayanan)
+            ->setCellValue('B' . $kolom,$tgl_keluar)
             ->setCellValue('C' . $kolom, $row->nama_pasien)
             ->setCellValue('D' . $kolom, number_format($row->gula_darah, 0, ".", ","))
             ->setCellValue('E' . $kolom, number_format($row->asam_urat, 0, ".", ","))
@@ -378,7 +375,7 @@
 
             $spreadsheet->setActiveSheetIndex(0)
             ->setCellValue('A' . $kolom, $nomor)
-            ->setCellValue('B' . $kolom,$tgl_pelayanan)
+            ->setCellValue('B' . $kolom,$tgl_keluar)
             ->setCellValue('C' . $kolom, $row->nama_pasien)
             ->setCellValue('D' . $kolom, number_format($row->gula_darah, 0, ".", ","))
             ->setCellValue('E' . $kolom, number_format($row->asam_urat, 0, ".", ","))
