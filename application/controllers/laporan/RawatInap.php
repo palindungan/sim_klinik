@@ -104,9 +104,13 @@
 
             $kolom = 3;
             $nomor = 1;
+            $pemasukan_bersih = 0;
             foreach ($query as $row) {
+            $tgl_keluar = date('d-m-Y',strtotime($row->tgl_keluar));
             $semua_obat = $row->obat_ri + $row->obat_apotik;
             $obat_oral = (int) $row->obat_oral;
+            $pemasukan_bersih = $row->uang_masuk - $row->gizi - $row->kamar - $row->total_bp - $row->total_lab - $row->total_kia - $row->total_ugd - $row->biaya_ambulance - $semua_obat - $obat_oral;
+            $klinik_bersih = $pemasukan_bersih - $row->japel - $row->visite;
             // di dalam loop
             $spreadsheet->getActiveSheet()->getStyle('A')->getAlignment()->setHorizontal('center');
             $spreadsheet->getActiveSheet()->getStyle('B')->getAlignment()->setHorizontal('center');
@@ -140,12 +144,12 @@
             ->setCellValue('J' . $kolom, number_format($row->total_ugd, 0, ".", ","))
             ->setCellValue('K' . $kolom, number_format($row->biaya_ambulance, 0, ".", ","))
             ->setCellValue('L' . $kolom, number_format($semua_obat, 0, ".", ","))
-            ->setCellValue('M' . $kolom, number_format($sub_total, 0, ".", ","))
-            ->setCellValue('N' . $kolom, number_format($sub_total, 0, ".", ","))
-            ->setCellValue('O' . $kolom, number_format($sub_total, 0, ".", ","))
-            ->setCellValue('P' . $kolom, number_format($sub_total, 0, ".", ","))
-            ->setCellValue('Q' . $kolom, number_format($sub_total, 0, ".", ","))
-            ->setCellValue('R' . $kolom, number_format($sub_total, 0, ".", ","));
+            ->setCellValue('M' . $kolom, number_format($obat_oral, 0, ".", ","))
+            ->setCellValue('N' . $kolom, number_format($pemasukan_bersih, 0, ".", ","))
+            ->setCellValue('O' . $kolom, number_format($row->japel, 0, ".", ","))
+            ->setCellValue('P' . $kolom, number_format($row->visite, 0, ".", ","))
+            ->setCellValue('Q' . $kolom, number_format($klinik_bersih, 0, ".", ","))
+            ->setCellValue('R' . $kolom, number_format($row->saldo, 0, ".", ","));
             $kolom++;
             $nomor++;
             }

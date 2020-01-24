@@ -25,7 +25,7 @@ class M_laporan extends CI_Model
 
     function laporan_ri_hari_ini()
     {
-        $query = $this->db->query("SELECT * FROM laporan_ri WHERE DATE(tgl_keluar) = CURDATE() ORDER BY tgl_keluar DESC")->result();
+        $query = $this->db->query("SELECT * FROM laporan_ri WHERE DATE(tgl_keluar) = CURDATE() ORDER BY tgl_keluar ASC")->result();
         return $query;
     }
     
