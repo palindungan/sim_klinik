@@ -139,20 +139,18 @@
 	<li class="nav-item">
 		<a class="nav-link" href="<?= base_url('apotek/penjualan_obat'); ?>">
 			<i class="fas fa-comment-dollar <?php if($this->uri->segment(1)=="apotek" && $this->uri->segment(2)=="penjualan_obat" && $this->uri->segment(3) == FALSE){echo "text-white";}?>"></i>
-			<span class="<?php if($this->uri->segment(1)=="apotek" && $this->uri->segment(2)=="penjualan_obat" && $this->uri->segment(3) == FALSE){echo "text-white";}?>">Penjualan
-				Obat</span></a>
+			<span class="<?php if($this->uri->segment(1)=="apotek" && $this->uri->segment(2)=="penjualan_obat" && $this->uri->segment(3) == FALSE){echo "text-white";}?>">Penjualan</span></a>
 	</li>
 	<li class="nav-item">
 		<a class="nav-link" href="<?= base_url('apotek/penerimaan'); ?>">
 			<i class="fas fa-vote-yea <?php if($this->uri->segment(1)=="apotek" && $this->uri->segment(2)=="penerimaan" && $this->uri->segment(3) == FALSE){echo "text-white";}?>"></i>
-			<span class="<?php if($this->uri->segment(1)=="apotek" && $this->uri->segment(2)=="penerimaan" && $this->uri->segment(3) == FALSE){echo "text-white";}?>">Penerimaan
-				Obat</span></a>
+			<span class="<?php if($this->uri->segment(1)=="apotek" && $this->uri->segment(2)=="penerimaan" && $this->uri->segment(3) == FALSE){echo "text-white";}?>">Penerimaan</span></a>
 	</li>
 	<li class="nav-item">
 		<a class="nav-link" href="<?= base_url('apotek/pengiriman_obat'); ?>">
 			<i class="fas fa-dolly-flatbed <?php if($this->uri->segment(1)=="apotek" && $this->uri->segment(2)=="pengiriman_obat" && $this->uri->segment(3) == FALSE){echo "text-white";}?>"></i>
 			<span class="<?php if($this->uri->segment(1)=="apotek" && $this->uri->segment(2)=="pengiriman_obat" && $this->uri->segment(3) == FALSE){echo "text-white";}?>">Transfer
-				Obat</span></a>
+				Internal</span></a>
 	</li>
 	<li class="nav-item">
 		<a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
@@ -165,8 +163,8 @@
 			class="collapse <?php if($this->uri->segment(1)=="apotek" && $this->uri->segment(2)=="obat"){echo "show";} else if($this->uri->segment(1)=="apotek" && $this->uri->segment(2)=="kategori_obat"){echo "show";}?>"
 			aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 			<div class="bg-white py-2 collapse-inner rounded">
-				<a class="collapse-item " href="<?= base_url('apotek/obat'); ?>">Obat</a>
-				<a class="collapse-item" href="<?= base_url('apotek/kategori_obat'); ?>">Kategori Obat</a>
+				<a class="collapse-item " href="<?= base_url('apotek/obat'); ?>">Obat/Alkes</a>
+				<a class="collapse-item" href="<?= base_url('apotek/kategori_obat'); ?>">Kategori Obat/Alkes</a>
 			</div>
 		</div>
 	</li>
@@ -182,12 +180,11 @@
 			aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 			<div class="bg-white py-2 collapse-inner rounded">
 				<a class="collapse-item "
-					href="<?= base_url('apotek/penjualan_obat/tampil_daftar_penjualan_obat'); ?>">Penjualan Obat</a>
+					href="<?= base_url('apotek/penjualan_obat/tampil_daftar_penjualan_obat'); ?>">Penjualan</a>
 				<a class="collapse-item"
-					href="<?= base_url('apotek/penerimaan/tampil_daftar_penerimaan_obat'); ?>">Penerimaan Obat /
-					Alkes</a>
+					href="<?= base_url('apotek/penerimaan/tampil_daftar_penerimaan_obat'); ?>">Penerimaan</a>
 				<a class="collapse-item"
-					href="<?= base_url('apotek/pengiriman_obat/tampil_daftar_pengiriman_obat'); ?>">Transfer Obat</a>
+					href="<?= base_url('apotek/pengiriman_obat/tampil_daftar_pengiriman_obat'); ?>">Transfer Internal</a>
 			</div>
 		</div>
 	</li>

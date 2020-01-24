@@ -6,7 +6,9 @@ class Penjualan_obat extends CI_Controller
         parent::__construct();
         if($this->session->userdata('akses') == ""){
             redirect('login');
-        }else if($this->session->userdata('akses') != 'Apotek'){ 
+        }else if($this->session->userdata('akses') == 'Apotek' || $this->session->userdata('akses') == 'Administrasi'){ 
+            
+        }else{
             show_404();
         }
         $this->load->model('apotek/M_penjualan_obat');

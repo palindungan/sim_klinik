@@ -6,7 +6,9 @@ class Transaksi extends CI_Controller
         parent::__construct();
         if($this->session->userdata('akses') == ""){
             redirect('login');
-        }else if($this->session->userdata('akses') != 'Rawat Inap'){
+        }else if($this->session->userdata('akses') == 'Rawat Inap' || $this->session->userdata('akses') == 'Administrasi'){
+            
+        }else{
             show_404();
         }
         $this->load->model('rawat_inap/M_transaksi');
