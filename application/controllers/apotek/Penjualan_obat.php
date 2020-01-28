@@ -4,11 +4,10 @@ class Penjualan_obat extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        if($this->session->userdata('akses') == ""){
+        if ($this->session->userdata('akses') == "") {
             redirect('login');
-        }else if($this->session->userdata('akses') == 'Apotek' || $this->session->userdata('akses') == 'Administrasi'){ 
-            
-        }else{
+        } else if ($this->session->userdata('akses') == 'Apotek' || $this->session->userdata('akses') == 'Administrasi') {
+        } else {
             show_404();
         }
         $this->load->model('apotek/M_penjualan_obat');
@@ -118,20 +117,26 @@ class Penjualan_obat extends CI_Controller
                     $tambah = $this->M_tagihan->input_data('detail_penjualan_obat_apotik', $data);
 
                     // update qty obat lama dibawah ini
-                    $where_kode_obat = array(
-                        'kode_obat' => $kode_obat
-                    );
+                    // $where_kode_obat = array(
+                    //     'kode_obat' => $kode_obat
+                    // );
 
-                    $ambil_data = $this->M_tagihan->get_data('obat', $where_kode_obat);
-                    $qty_lama = "kosong";
-                    foreach ($ambil_data->result() as $data) {
-                        $qty_lama = $data->qty;
-                    }
+                    // $ambil_data = $this->M_tagihan->get_data('obat', $where_kode_obat);
+                    // $qty_lama = "kosong";
+                    // foreach ($ambil_data->result() as $data) {
+                    //     $qty_lama = $data->qty;
+                    // }
 
-                    $data = array(
-                        'qty' => $qty_lama - $qty
-                    );
-                    $update = $this->M_tagihan->update_data($where_kode_obat, 'obat', $data);
+                    // $qty_sekarang = $qty_lama - $qty;
+
+                    // if ($qty_sekarang < 0) {
+                    //     $qty_sekarang = 0;
+                    // }
+
+                    // $data = array(
+                    //     'qty' => $qty_sekarang
+                    // );
+                    // $update = $this->M_tagihan->update_data($where_kode_obat, 'obat', $data);
                 }
 
                 // update transaksi lama
@@ -199,20 +204,26 @@ class Penjualan_obat extends CI_Controller
                     $tambah = $this->M_tagihan->input_data('detail_penjualan_obat_apotik', $data);
 
                     // update qty obat lama dibawah ini
-                    $where_kode_obat = array(
-                        'kode_obat' => $kode_obat
-                    );
+                    // $where_kode_obat = array(
+                    //     'kode_obat' => $kode_obat
+                    // );
 
-                    $ambil_data = $this->M_tagihan->get_data('obat', $where_kode_obat);
-                    $qty_lama = "kosong";
-                    foreach ($ambil_data->result() as $data) {
-                        $qty_lama = $data->qty;
-                    }
+                    // $ambil_data = $this->M_tagihan->get_data('obat', $where_kode_obat);
+                    // $qty_lama = "kosong";
+                    // foreach ($ambil_data->result() as $data) {
+                    //     $qty_lama = $data->qty;
+                    // }
 
-                    $data = array(
-                        'qty' => $qty_lama - $qty
-                    );
-                    $update = $this->M_tagihan->update_data($where_kode_obat, 'obat', $data);
+                    // $qty_sekarang = $qty_lama - $qty;
+
+                    // if ($qty_sekarang < 0) {
+                    //     $qty_sekarang = 0;
+                    // }
+
+                    // $data = array(
+                    //     'qty' => $qty_sekarang
+                    // );
+                    // $update = $this->M_tagihan->update_data($where_kode_obat, 'obat', $data);
                 }
             }
             // End of Cek apakah ada data detail post masuk ?

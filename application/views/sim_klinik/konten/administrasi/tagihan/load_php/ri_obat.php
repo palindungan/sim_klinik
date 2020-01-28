@@ -171,8 +171,8 @@
         if (val_qty <= val_qty_sekarang) {
             update_sub_total_ri_obat()
         } else {
-            alert("Maaf Qty Detail Obat Tidak Boleh Melebihi Stok Rawat Inap");
-            $('#' + row_id).val("1");
+            // alert("Maaf Qty Detail Obat Tidak Boleh Melebihi Stok Rawat Inap");
+            // $('#' + row_id).val("1");
             update_sub_total_ri_obat();
         }
 

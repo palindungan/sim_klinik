@@ -4,11 +4,10 @@ class Transaksi extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        if($this->session->userdata('akses') == ""){
+        if ($this->session->userdata('akses') == "") {
             redirect('login');
-        }else if($this->session->userdata('akses') == 'Rawat Inap' || $this->session->userdata('akses') == 'Administrasi'){
-            
-        }else{
+        } else if ($this->session->userdata('akses') == 'Rawat Inap' || $this->session->userdata('akses') == 'Administrasi') {
+        } else {
             show_404();
         }
         $this->load->model('rawat_inap/M_transaksi');
@@ -106,20 +105,26 @@ class Transaksi extends CI_Controller
                         $tambah = $this->M_tagihan->input_data('detail_transaksi_rawat_inap_obat', $data);
 
                         // update qty obat lama dibawah ini
-                        $where_no_stok_obat_rawat_i = array(
-                            'no_stok_obat_rawat_i' => $no_stok_obat_rawat_i
-                        );
+                        // $where_no_stok_obat_rawat_i = array(
+                        //     'no_stok_obat_rawat_i' => $no_stok_obat_rawat_i
+                        // );
 
-                        $ambil_data = $this->M_tagihan->get_data('stok_obat_rawat_inap', $where_no_stok_obat_rawat_i);
-                        $qty_lama = "kosong";
-                        foreach ($ambil_data->result() as $data) {
-                            $qty_lama = $data->qty;
-                        }
+                        // $ambil_data = $this->M_tagihan->get_data('stok_obat_rawat_inap', $where_no_stok_obat_rawat_i);
+                        // $qty_lama = "kosong";
+                        // foreach ($ambil_data->result() as $data) {
+                        //     $qty_lama = $data->qty;
+                        // }
 
-                        $data = array(
-                            'qty' => $qty_lama - $qty
-                        );
-                        $update = $this->M_tagihan->update_data($where_no_stok_obat_rawat_i, 'stok_obat_rawat_inap', $data);
+                        // $qty_sekarang = $qty_lama - $qty;
+
+                        // if ($qty_sekarang < 0) {
+                        //     $qty_sekarang = 0;
+                        // }
+
+                        // $data = array(
+                        //     'qty' =>  $qty_sekarang
+                        // );
+                        // $update = $this->M_tagihan->update_data($where_no_stok_obat_rawat_i, 'stok_obat_rawat_inap', $data);
                     }
                 }
 
@@ -160,10 +165,10 @@ class Transaksi extends CI_Controller
                         $tanggal_cek_out_ri_kamar = $this->input->post('tanggal_cek_out_ri_kamar')[$i];
 
                         $jumlah_hari_temp = $this->input->post('jumlah_hari_ri_kamar')[$i];
-                        $jumlah_hari = (double) $jumlah_hari_temp;
+                        $jumlah_hari = (float) $jumlah_hari_temp;
 
                         $harga_harian_temp = $this->input->post('harga_harian_ri_kamar')[$i];
-                        $harga_harian = (double) preg_replace("/[^0-9]/", "", $harga_harian_temp);
+                        $harga_harian = (float) preg_replace("/[^0-9]/", "", $harga_harian_temp);
 
                         $status_kamar_ri_kamar = $this->input->post('status_kamar_ri_kamar')[$i];
 
@@ -234,7 +239,7 @@ class Transaksi extends CI_Controller
                 $data_update_status_pelayanan = array(
                     'tipe_pelayanan' => 'Rawat Inap'
                 );
-                $this->M_tagihan->update_data($where_no_ref_pelayanan,'pelayanan',$data_update_status_pelayanan);
+                $this->M_tagihan->update_data($where_no_ref_pelayanan, 'pelayanan', $data_update_status_pelayanan);
 
                 $tambah = $this->M_tagihan->input_data('transaksi_rawat_inap', $data);
 
@@ -262,20 +267,26 @@ class Transaksi extends CI_Controller
                         $tambah = $this->M_tagihan->input_data('detail_transaksi_rawat_inap_obat', $data);
 
                         // update qty obat lama dibawah ini
-                        $where_no_stok_obat_rawat_i = array(
-                            'no_stok_obat_rawat_i' => $no_stok_obat_rawat_i
-                        );
+                        // $where_no_stok_obat_rawat_i = array(
+                        //     'no_stok_obat_rawat_i' => $no_stok_obat_rawat_i
+                        // );
 
-                        $ambil_data = $this->M_tagihan->get_data('stok_obat_rawat_inap', $where_no_stok_obat_rawat_i);
-                        $qty_lama = "kosong";
-                        foreach ($ambil_data->result() as $data) {
-                            $qty_lama = $data->qty;
-                        }
+                        // $ambil_data = $this->M_tagihan->get_data('stok_obat_rawat_inap', $where_no_stok_obat_rawat_i);
+                        // $qty_lama = "kosong";
+                        // foreach ($ambil_data->result() as $data) {
+                        //     $qty_lama = $data->qty;
+                        // }
 
-                        $data = array(
-                            'qty' => $qty_lama - $qty
-                        );
-                        $update = $this->M_tagihan->update_data($where_no_stok_obat_rawat_i, 'stok_obat_rawat_inap', $data);
+                        // $qty_sekarang = $qty_lama - $qty;
+
+                        // if ($qty_sekarang < 0) {
+                        //     $qty_sekarang = 0;
+                        // }
+
+                        // $data = array(
+                        //     'qty' => $qty_sekarang
+                        // );
+                        // $update = $this->M_tagihan->update_data($where_no_stok_obat_rawat_i, 'stok_obat_rawat_inap', $data);
                     }
                 }
 
