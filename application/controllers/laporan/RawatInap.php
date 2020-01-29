@@ -109,11 +109,12 @@
             $pemasukan_bersih = 0;
             foreach ($query as $row) {
             $gizi = $row->gizi_hari + $row->gizi_porsi;
+            $japel = $row->japel_hari + $row->japel_setengah;
             $tgl_keluar = date('d-m-Y',strtotime($row->tgl_keluar));
             $semua_obat = $row->obat_ri + $row->obat_apotik;
             $obat_oral = (int) $row->obat_oral;
             $pemasukan_bersih = $row->uang_masuk - $gizi - $row->kamar - $row->total_bp - $row->total_lab - $row->total_kia - $row->total_ugd - $row->biaya_ambulance - $semua_obat - $obat_oral;
-            $klinik_bersih = $pemasukan_bersih - $row->japel - $row->visite;
+            $klinik_bersih = $pemasukan_bersih - $japel - $row->visite;
             // di dalam loop
             $spreadsheet->getActiveSheet()->getStyle('A')->getAlignment()->setHorizontal('center');
             $spreadsheet->getActiveSheet()->getStyle('B')->getAlignment()->setHorizontal('center');
@@ -149,7 +150,7 @@
             ->setCellValue('L' . $kolom, number_format($semua_obat, 0, ".", ","))
             ->setCellValue('M' . $kolom, number_format($obat_oral, 0, ".", ","))
             ->setCellValue('N' . $kolom, number_format($pemasukan_bersih, 0, ".", ","))
-            ->setCellValue('O' . $kolom, number_format($row->japel, 0, ".", ","))
+            ->setCellValue('O' . $kolom, number_format($japel, 0, ".", ","))
             ->setCellValue('P' . $kolom, number_format($row->visite, 0, ".", ","))
             ->setCellValue('Q' . $kolom, number_format($klinik_bersih, 0, ".", ","))
             ->setCellValue('R' . $kolom, number_format($row->saldo, 0, ".", ","));
@@ -253,11 +254,12 @@
             $pemasukan_bersih = 0;
             foreach ($query as $row) {
             $gizi = $row->gizi_hari + $row->gizi_porsi;
+            $japel = $row->japel_hari + $row->japel_setengah;
             $tgl_keluar = date('d-m-Y',strtotime($row->tgl_keluar));
             $semua_obat = $row->obat_ri + $row->obat_apotik;
             $obat_oral = (int) $row->obat_oral;
             $pemasukan_bersih = $row->uang_masuk - $gizi - $row->kamar - $row->total_bp - $row->total_lab - $row->total_kia - $row->total_ugd - $row->biaya_ambulance - $semua_obat - $obat_oral;
-            $klinik_bersih = $pemasukan_bersih - $row->japel - $row->visite;
+            $klinik_bersih = $pemasukan_bersih - $japel - $row->visite;
             // di dalam loop
             $spreadsheet->getActiveSheet()->getStyle('A')->getAlignment()->setHorizontal('center');
             $spreadsheet->getActiveSheet()->getStyle('B')->getAlignment()->setHorizontal('center');
@@ -293,7 +295,7 @@
             ->setCellValue('L' . $kolom, number_format($semua_obat, 0, ".", ","))
             ->setCellValue('M' . $kolom, number_format($obat_oral, 0, ".", ","))
             ->setCellValue('N' . $kolom, number_format($pemasukan_bersih, 0, ".", ","))
-            ->setCellValue('O' . $kolom, number_format($row->japel, 0, ".", ","))
+            ->setCellValue('O' . $kolom, number_format($japel, 0, ".", ","))
             ->setCellValue('P' . $kolom, number_format($row->visite, 0, ".", ","))
             ->setCellValue('Q' . $kolom, number_format($klinik_bersih, 0, ".", ","))
             ->setCellValue('R' . $kolom, number_format($row->saldo, 0, ".", ","));
@@ -408,11 +410,12 @@
             $pemasukan_bersih = 0;
             foreach ($query as $row) {
             $gizi = $row->gizi_hari + $row->gizi_porsi;
+            $japel = $row->japel_hari + $row->japel_setengah;
             $tgl_keluar = date('d-m-Y',strtotime($row->tgl_keluar));
             $semua_obat = $row->obat_ri + $row->obat_apotik;
             $obat_oral = (int) $row->obat_oral;
             $pemasukan_bersih = $row->uang_masuk - $gizi - $row->kamar - $row->total_bp - $row->total_lab - $row->total_kia - $row->total_ugd - $row->biaya_ambulance - $semua_obat - $obat_oral;
-            $klinik_bersih = $pemasukan_bersih - $row->japel - $row->visite;
+            $klinik_bersih = $pemasukan_bersih - $japel - $row->visite;
             // di dalam loop
             $spreadsheet->getActiveSheet()->getStyle('A')->getAlignment()->setHorizontal('center');
             $spreadsheet->getActiveSheet()->getStyle('B')->getAlignment()->setHorizontal('center');
@@ -448,7 +451,7 @@
             ->setCellValue('L' . $kolom, number_format($semua_obat, 0, ".", ","))
             ->setCellValue('M' . $kolom, number_format($obat_oral, 0, ".", ","))
             ->setCellValue('N' . $kolom, number_format($pemasukan_bersih, 0, ".", ","))
-            ->setCellValue('O' . $kolom, number_format($row->japel, 0, ".", ","))
+            ->setCellValue('O' . $kolom, number_format($japel, 0, ".", ","))
             ->setCellValue('P' . $kolom, number_format($row->visite, 0, ".", ","))
             ->setCellValue('Q' . $kolom, number_format($klinik_bersih, 0, ".", ","))
             ->setCellValue('R' . $kolom, number_format($row->saldo, 0, ".", ","));

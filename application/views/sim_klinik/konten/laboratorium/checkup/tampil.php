@@ -31,7 +31,7 @@
 							<div class="form-row">
 								<div class="form-group col-sm-6">
 									<label for="inputEmail2">Nama Checkup</label>
-									<input type="text" name="nama" class="form-control form-control-sm karakter"
+									<input type="text" name="nama" class="form-control form-control-sm"
 										id="inputEmail2" placeholder="Masukan nama Checkup" required>
 								</div>
 								<div class="form-group col-sm-6">
@@ -113,7 +113,7 @@
 						<input type="hidden" name="no_lab_c" value="<?= $data->no_lab_c ?>">
 						<label for="inputEmail2">Nama Checkup</label>
 						<input type="text" name="nama" value="<?= $data->nama ?>"
-							class="form-control form-control-sm karakter" id="inputEmail2"
+							class="form-control form-control-sm" id="inputEmail2"
 							placeholder="Masukan nama Checkup" <?php if($data->no_lab_c == 'L001' || $data->no_lab_c == 'L002' || $data->no_lab_c == 'L003' || $data->no_lab_c == 'L004') {echo 'readonly';} ?> required>
 
 					</div>
