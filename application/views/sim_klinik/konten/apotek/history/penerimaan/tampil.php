@@ -8,23 +8,27 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th width="5%" class="text-center">No</th>
-                            <th width="15%" class="text-center">Kode</th>
-                            <th width="10%">Tanggal</th>
-                            <th width="20%">Nama Pasien</th>
-                            <th width="15%" class="text-center">Total Harga</th>
-                            <th width="15%" class="text-center">Aksi</th>
+                            <th class="text-center">No</th>
+                            <th class="text-center">Kode</th>
+                            <th class="text-center">Tanggal</th>
+                            <th class="text-center">Waktu</th>
+                            <th class="text-center">Nama Supplier</th>
+                            <th class="text-center">Total Harga</th>
+                            <th class="text-center">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
                         $no = 1;
                         foreach ($record as $data) :
+                            $tanggal = tgl_indo(date('Y-m-d',strtotime($data->tgl_penerimaan_o)));
+                            $waktu = date('H:i',strtotime($data->tgl_penerimaan_o));
                         ?>
                             <tr>
                                 <td class="text-center"><?= $no++ ?></td>
                                 <td class="text-center"><?= $data->no_penerimaan_o ?></td>
-                                <td><?= $data->tgl_penerimaan_o ?></td>
+                                <td><?= $tanggal ?></td>
+                                <td><?= $waktu ?></td>
                                 <td><?= $data->nama ?></td>
                                 <td class="text-right"><?= rupiah($data->total_harga) ?></td>
                                 <td class="text-center">

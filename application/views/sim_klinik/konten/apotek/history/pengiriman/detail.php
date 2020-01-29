@@ -3,7 +3,8 @@ foreach ($record as $row) {
 
     $no_obat_keluar_i = $row->no_obat_keluar_i;
     $tujuan = $row->tujuan;
-    $tgl_obat_keluar_i = $row->tgl_obat_keluar_i;
+    $tanggal = tgl_indo(date('Y-m-d',strtotime($row->tgl_obat_keluar_i)));
+	$waktu = date('H:i',strtotime($row->tgl_obat_keluar_i));
 } ?>
 
 <div class="container-fluid">
@@ -27,7 +28,7 @@ foreach ($record as $row) {
                 <tr>
                     <th>Tanggal</th>
                     <td>:</th>
-                    <td><?= $tgl_obat_keluar_i; ?></th>
+                    <td><?= $tanggal." ".$waktu; ?></th>
                 </tr>
             </table>
             <table class="table table-sm table-bordered" width="100%">

@@ -8,23 +8,27 @@
 				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 					<thead>
 						<tr>
-							<th width="5%" class="text-center">No</th>
-							<th width="15%" class="text-center">Kode</th>
-							<th width="10%">Tanggal</th>
-							<th width="20%">Nama Pasien</th>
-							<th width="15%" class="text-center">Total Harga</th>
-							<th width="15%" class="text-center">Aksi</th>
+							<th class="text-center">No</th>
+							<th class="text-center">Kode</th>
+							<th class="text-center">Tanggal</th>
+							<th class="text-center">Waktu</th>
+							<th class="text-center">Nama Pasien</th>
+							<th class="text-center">Total Harga</th>
+							<th class="text-center">Aksi</th>
 						</tr>
 					</thead>
 					<tbody>
 						<?php
                         $no = 1;
-                        foreach ($record as $data) :
+						foreach ($record as $data) :
+							$tanggal = tgl_indo(date('Y-m-d',strtotime($data->tanggal_penjualan)));
+							$waktu = date('H:i',strtotime($data->tanggal_penjualan));
                         ?>
 						<tr>
 							<td class="text-center"><?= $no++ ?></td>
 							<td class="text-center"><?= $data->no_penjualan_obat_a ?></td>
-							<td><?= $data->tanggal_penjualan ?></td>
+							<td><?= $tanggal ?></td>
+							<td><?= $waktu ?></td>
 							<td><?= $data->nama_pasien ?></td>
 							<td class="text-right"><?= rupiah($data->total_harga) ?></td>
 							<td class="text-center">

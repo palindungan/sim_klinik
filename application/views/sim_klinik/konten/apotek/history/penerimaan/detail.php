@@ -3,7 +3,8 @@ foreach ($record as $row) {
 
     $nama = $row->nama;
 
-    $tgl_penerimaan_o = $row->tgl_penerimaan_o;
+    $tanggal = tgl_indo(date('Y-m-d',strtotime($row->tgl_penerimaan_o)));
+    $waktu = date('H:i',strtotime($row->tgl_penerimaan_o));
 
     $no_penerimaan_o = $row->no_penerimaan_o;
 
@@ -31,7 +32,7 @@ foreach ($record as $row) {
 				<tr>
 					<th>Tanggal</th>
 					<td>:</th>
-					<td><?= $tgl_penerimaan_o; ?></th>
+					<td><?= $tanggal." ".$waktu; ?></th>
 				</tr>
 			</table>
 			<table class="table table-sm table-bordered" width="100%">
