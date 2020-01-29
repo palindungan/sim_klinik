@@ -127,7 +127,7 @@ class Penerimaan extends CI_Controller
 
     public function tampil_daftar_penerimaan_obat()
     {
-        $data['record'] = $this->M_penerimaan->tampil_data('daftar_penerimaan_obat_apotek')->result();
+        $data['record'] = $this->db->order_by('no_penerimaan_o', 'DESC')->get('daftar_penerimaan_obat_apotek')->result();
 
         $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/apotek/history/penerimaan/tampil', $data);
     }

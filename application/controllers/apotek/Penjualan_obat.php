@@ -37,7 +37,7 @@ class Penjualan_obat extends CI_Controller
 
     public function tampil_daftar_penjualan_obat()
     {
-        $data['record'] = $this->M_penjualan_obat->tampil_data('daftar_penjualan_obat_apotek')->result();
+        $data['record'] = $this->db->order_by('no_penjualan_obat_a', 'DESC')->get('daftar_penjualan_obat_apotek')->result();
 
         $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/apotek/history/penjualan/tampil', $data);
     }

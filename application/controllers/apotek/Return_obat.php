@@ -74,4 +74,23 @@ class Return_obat extends CI_Controller
             $this->session->set_flashdata('success', 'Ditambahkan');
             redirect('apotek/return_obat');
     }
+    public function tampil_daftar_return_obat()
+    {
+        $data['record'] = $this->db->order_by('no_return_obat', 'DESC')->get('return_obat')->result();
+        $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/apotek/history/return_obat/tampil', $data);
+    }
+    public function tampil_detail_daftar_return_obat()
+    {
+        $no_return_obat = $this->input->get('no_return_obat');
+
+        $where = array(
+            'no_return_obat' => $no_return_obat
+        );
+
+        $data['record'] = $this->M_return_obat->get_data('return_obat', $where)->result();
+
+        $data['detail_record'] = $this->M_return_obat->get_data('daftar_return_obat', $where)->result();
+
+        $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/apotek/history/return_obat/detail', $data);
+    }
 }

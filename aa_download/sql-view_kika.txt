@@ -189,22 +189,13 @@ FROM detail_ugd_penanganan dup JOIN ugd_tindakan ut USING(no_ugd_t) JOIN ugd_pen
 ORDER BY dup.no_detail_ugd_p ASC;
 
 
-PIVOT TABLE BUAT LAPORAN RAWAT JALAN
-CREATE VIEW laporan_rawat_jalan as SELECT dbp.no_bp_p,bt.no_bp_t , bt.nama as nama_tindakan , dbp.harga as harga_detail, bp.no_ref_pelayanan , ps.nama as nama_pasien , pl.tgl_pelayanan , pl.tipe_pelayanan FROM detail_bp_penanganan dbp JOIN bp_tindakan bt USING(no_bp_t) JOIN bp_penanganan bp USING(no_bp_p) JOIN pelayanan pl USING(no_ref_pelayanan) JOIN pasien ps USING (no_rm) ORDER BY dbp.no_detail_bp_p ASC 
-
-SELECT  no_bp_p,nama_pasien,tgl_pelayanan,
-	SUM(IF(nama_tindakan = 'Cek Gula Darah',harga_detail,'-')) AS periksa_gula_darah,
-	SUM(IF(nama_tindakan = 'Cek Asam Urat',harga_detail,'-')) AS periksa_asam_urat,
-	SUM(IF(nama_tindakan = 'Cek Kolesterol',harga_detail,null)) AS periksa_kolesterol,
-    SUM(harga_detail) as total_harga
-FROM laporan_rawat_jalan
-GROUP BY no_bp_p
-
+//Daftar detail pelayanan ambulan
 CREATE VIEW daftar_detail_pelayanan_ambulan AS 
 SELECT dpa.harga , pa.no_pelayanan_a , pa.no_ref_pelayanan , a.no_ambulance ,a.tujuan
 FROM detail_pelayanan_ambulan dpa JOIN pelayanan_ambulan pa USING(no_pelayanan_a) JOIN ambulance a USING(no_ambulance)
 ORDER BY dpa.no_detail_pelayanan_ambulan ASC;
 
+// Laporan RJ
 CREATE VIEW laporan_rj AS
 select p.no_ref_pelayanan AS no_ref_pelayanan,p.no_rm,p.tgl_pelayanan,p.tipe_pelayanan,p.tgl_keluar,
 (select sum(c.harga * c.qty) from (sim_klinik.lab_transaksi m join sim_klinik.detail_lab_transaksi c on(m.no_lab_t = c.no_lab_t)) where m.no_ref_pelayanan = p.no_ref_pelayanan and c.no_lab_c = 'L001') AS gula_darah,
@@ -218,7 +209,7 @@ select p.no_ref_pelayanan AS no_ref_pelayanan,p.no_rm,p.tgl_pelayanan,p.tipe_pel
 (select ps.nama from sim_klinik.pasien ps where ps.no_rm = p.no_rm) AS nama_pasien 
 from sim_klinik.pelayanan p WHERE p.status = 'finish' AND p.tipe_pelayanan = 'Rawat Jalan'
 
-
+// Laporan RI
 CREATE VIEW laporan_ri AS
 SELECT p.no_ref_pelayanan, p.no_rm, p.tgl_pelayanan, p.tipe_pelayanan,p.tgl_keluar,p.grand_total as uang_masuk,p.temp_saldo,p.saldo,  
 (SELECT l.total_harga FROM lab_transaksi l WHERE l.no_ref_pelayanan = p.no_ref_pelayanan) as total_lab,
@@ -235,3 +226,6 @@ SELECT p.no_ref_pelayanan, p.no_rm, p.tgl_pelayanan, p.tipe_pelayanan,p.tgl_kelu
 (select sum(dtrit.harga * dtrit.qty) from (transaksi_rawat_inap tri join detail_transaksi_rawat_inap_tindakan dtrit on (tri.no_transaksi_rawat_i = dtrit.no_transaksi_rawat_i)) where tri.no_ref_pelayanan = p.no_ref_pelayanan and dtrit.no_rawat_inap_t = 'I001') AS visite,
 (select ps.nama from sim_klinik.pasien ps where ps.no_rm = p.no_rm) AS nama_pasien
 FROM pelayanan p WHERE p.status = 'finish'
+
+//Daftar Return Obat
+CREATE VIEW daftar_return_obat AS SELECT kode_obat,no_return_obat,detail_return_obat.qty as qty_detail,tanggal,nama FROM detail_return_obat JOIN obat USING(kode_obat) JOIN return_obat USING(no_return_obat)

@@ -107,7 +107,7 @@ class Pengiriman_obat extends CI_Controller
 
     public function tampil_daftar_pengiriman_obat()
     {
-        $data['record'] = $this->M_pengiriman_obat->tampil_data('obat_keluar_internal')->result();
+        $data['record'] = $this->db->order_by('no_obat_keluar_i', 'DESC')->get('obat_keluar_internal')->result();
 
         $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/apotek/history/pengiriman/tampil', $data);
     }

@@ -195,6 +195,8 @@
 					href="<?= base_url('apotek/penerimaan/tampil_daftar_penerimaan_obat'); ?>">Penerimaan</a>
 				<a class="collapse-item"
 					href="<?= base_url('apotek/pengiriman_obat/tampil_daftar_pengiriman_obat'); ?>">Transfer Internal</a>
+				<a class="collapse-item"
+					href="<?= base_url('apotek/return_obat/tampil_daftar_return_obat'); ?>">Return Obat</a>
 			</div>
 		</div>
 	</li>
