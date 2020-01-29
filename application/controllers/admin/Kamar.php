@@ -25,8 +25,7 @@ class Kamar extends CI_Controller
         $data = array(
             'no_kamar_rawat_i' => $id,
             'nama' => $this->input->post('nama'),
-            'harga_harian' => $harga,
-            'tipe' => $this->input->post('tipe')
+            'harga_harian' => $harga
         );
         $this->M_kamar->input_data('kamar_rawat_inap',$data);
         $this->session->set_flashdata('success','Ditambahkan');
@@ -40,8 +39,7 @@ class Kamar extends CI_Controller
         $harga = str_replace(".", "", $this->input->post('harga'));
         $data = array(
             'nama' => $this->input->post('nama'),
-            'harga_harian' => $harga,
-            'tipe' => $this->input->post('tipe')
+            'harga_harian' => $harga
         );
         $this->M_kamar->update_data($where,'kamar_rawat_inap',$data);
         $this->session->set_flashdata('update','Diubah');

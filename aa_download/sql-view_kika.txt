@@ -129,7 +129,7 @@ FROM detail_transaksi_rawat_inap_tindakan dtrit JOIN transaksi_rawat_inap tri US
 ORDER BY dtrit.no_detail_transaksi_rawat_inap_t ASC
 
 CREATE VIEW daftar_detail_kamar_rawat_inap AS 
-SELECT dtrik.no_detail_transaksi_rawat_inap_k, dtrik.status_kamar ,kri.no_kamar_rawat_i, kri.nama, dtrik.tanggal_cek_in , dtrik.tanggal_cek_out , dtrik.jumlah_hari, dtrik.harga_harian , dtrik.sub_total_harga , kri.tipe ,tri.no_ref_pelayanan , tri.no_transaksi_rawat_i
+SELECT dtrik.no_detail_transaksi_rawat_inap_k, dtrik.status_kamar ,kri.no_kamar_rawat_i, kri.nama, dtrik.tanggal_cek_in , dtrik.tanggal_cek_out , dtrik.jumlah_hari, dtrik.harga_harian , dtrik.sub_total_harga ,tri.no_ref_pelayanan , tri.no_transaksi_rawat_i
 FROM detail_transaksi_rawat_inap_kamar dtrik JOIN transaksi_rawat_inap tri USING(no_transaksi_rawat_i) JOIN kamar_rawat_inap kri USING(no_kamar_rawat_i)
 ORDER BY dtrik.no_detail_transaksi_rawat_inap_k ASC
 
@@ -217,7 +217,8 @@ SELECT p.no_ref_pelayanan, p.no_rm, p.tgl_pelayanan, p.tipe_pelayanan,p.tgl_kelu
 (select `ugd`.`total_harga` from `sim_klinik`.`ugd_penanganan` `ugd` where `ugd`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan`) AS `total_ugd`,
 (select sum(pa.total_harga) from pelayanan_ambulan pa where pa.no_ref_pelayanan = p.no_ref_pelayanan) AS biaya_ambulance,
 (select `bp`.`total_harga` from `sim_klinik`.`bp_penanganan` `bp` where `bp`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan`) AS `total_bp`,
-(select sum(dtrit.harga * dtrit.qty) from (transaksi_rawat_inap tri join detail_transaksi_rawat_inap_tindakan dtrit on (tri.no_transaksi_rawat_i = dtrit.no_transaksi_rawat_i)) where tri.no_ref_pelayanan = p.no_ref_pelayanan and dtrit.no_rawat_inap_t = 'I003') AS gizi,
+(select sum(dtrit.harga * dtrit.qty) from (transaksi_rawat_inap tri join detail_transaksi_rawat_inap_tindakan dtrit on (tri.no_transaksi_rawat_i = dtrit.no_transaksi_rawat_i)) where tri.no_ref_pelayanan = p.no_ref_pelayanan and dtrit.no_rawat_inap_t = 'I003') AS gizi_hari,
+(select sum(dtrit.harga * dtrit.qty) from (transaksi_rawat_inap tri join detail_transaksi_rawat_inap_tindakan dtrit on (tri.no_transaksi_rawat_i = dtrit.no_transaksi_rawat_i)) where tri.no_ref_pelayanan = p.no_ref_pelayanan and dtrit.no_rawat_inap_t = 'I004') AS gizi_porsi,
 (select sum(dtrik.harga_harian * dtrik.jumlah_hari) from (transaksi_rawat_inap tri join detail_transaksi_rawat_inap_kamar dtrik on (tri.no_transaksi_rawat_i = dtrik.no_transaksi_rawat_i)) where tri.no_ref_pelayanan = p.no_ref_pelayanan) AS kamar,
 (select sum(dori.harga_jual * dori.qty) from (transaksi_rawat_inap tri join detail_transaksi_rawat_inap_obat dori on(tri.no_transaksi_rawat_i = dori.no_transaksi_rawat_i)) where tri.no_ref_pelayanan = p.no_ref_pelayanan) AS obat_ri,
 (select sum(poa.total_harga) from penjualan_obat_apotik poa where poa.no_ref_pelayanan=p.no_ref_pelayanan) AS obat_apotik,

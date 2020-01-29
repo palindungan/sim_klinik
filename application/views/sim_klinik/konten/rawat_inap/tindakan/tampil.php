@@ -31,7 +31,7 @@
 							<div class="form-row">
 								<div class="form-group col-sm-6">
 									<label for="inputEmail2">Nama Tindakan</label>
-									<input type="text" name="nama" class="form-control form-control-sm karakter"
+									<input type="text" name="nama" class="form-control form-control-sm"
 										id="inputEmail2" placeholder="Masukan nama tindakan" required>
 								</div>
 								<div class="form-group col-sm-6">
@@ -71,7 +71,7 @@
 							<td><?= $data->nama ?></td>
 							<td class="text-right"><?= rupiah($data->harga) ?></td>
 							<?php 
-							if($data->no_rawat_inap_t == "I001" || $data->no_rawat_inap_t == "I002" || $data->no_rawat_inap_t == "I003" || $data->no_rawat_inap_t == "I004" || $data->no_rawat_inap_t == "I005" || $data->no_rawat_inap_t == "I006" || $data->no_rawat_inap_t == "I007" || $data->no_rawat_inap_t == "I008")
+							if($data->no_rawat_inap_t == "I001" || $data->no_rawat_inap_t == "I002" || $data->no_rawat_inap_t == "I003" || $data->no_rawat_inap_t == "I004")
 							{
 							?>
 							<td class="text-center">
@@ -113,8 +113,8 @@
 						<input type="hidden" name="no_rawat_inap_t" value="<?= $data->no_rawat_inap_t ?>">
 						<label for="inputEmail2">Nama Tindakan</label>
 						<input type="text" name="nama" value="<?= $data->nama ?>"
-							class="form-control form-control-sm karakter" id="inputEmail2"
-							placeholder="Masukan nama tindakan" <?php if($data->no_rawat_inap_t == "I001" || $data->no_rawat_inap_t == "I002" || $data->no_rawat_inap_t == "I003" || $data->no_rawat_inap_t == "I004" || $data->no_rawat_inap_t == "I005" || $data->no_rawat_inap_t == "I006" || $data->no_rawat_inap_t == "I007" || $data->no_rawat_inap_t == "I008"){echo"readonly";} ?> required>
+							class="form-control form-control-sm" id="inputEmail2"
+							placeholder="Masukan nama tindakan" <?php if($data->no_rawat_inap_t == "I001" || $data->no_rawat_inap_t == "I002"){echo"readonly";} ?> required>
 
 					</div>
 					<div class="form-group col-sm-6">
