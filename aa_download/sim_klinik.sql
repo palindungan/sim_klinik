@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 30 Jan 2020 pada 00.06
+-- Waktu pembuatan: 30 Jan 2020 pada 00.28
 -- Versi server: 10.4.6-MariaDB
 -- Versi PHP: 7.3.9
 
@@ -1420,7 +1420,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `daftar_pengiriman_obat_apotek_detail`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_pengiriman_obat_apotek_detail`  AS  select `doki`.`id_detail_obat_keluar_internal` AS `id_detail_obat_keluar_internal`,`doki`.`qty` AS `qty`,`oki`.`no_obat_keluar_i` AS `no_obat_keluar_i`,`o`.`nama` AS `nama_obat`,`o`.`harga_jual` AS `harga_jual`,`o`.`tipe` AS `tipe`,`ko`.`nama` AS `nama_kategori` from (((`detail_obat_keluar_internal` `doki` join `obat` `o` on(`doki`.`kode_obat` = `o`.`kode_obat`)) join `kategori_obat` `ko` on(`o`.`no_kat_obat` = `ko`.`no_kat_obat`)) join `obat_keluar_internal` `oki` on(`doki`.`no_obat_keluar_i` = `oki`.`no_obat_keluar_i`)) order by `doki`.`id_detail_obat_keluar_internal` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_pengiriman_obat_apotek_detail`  AS  select `doki`.`id_detail_obat_keluar_internal` AS `id_detail_obat_keluar_internal`,`doki`.`qty` AS `qty`,`oki`.`no_obat_keluar_i` AS `no_obat_keluar_i`,`o`.`nama` AS `nama_obat`,`o`.`harga_jual` AS `harga_jual`,`o`.`tipe` AS `tipe`,`ko`.`nama` AS `nama_kategori` from (((`detail_obat_keluar_internal` `doki` join `obat` `o` on(`doki`.`kode_obat` = `o`.`kode_obat`)) left join `kategori_obat` `ko` on(`o`.`no_kat_obat` = `ko`.`no_kat_obat`)) join `obat_keluar_internal` `oki` on(`doki`.`no_obat_keluar_i` = `oki`.`no_obat_keluar_i`)) order by `doki`.`id_detail_obat_keluar_internal` ;
 
 -- --------------------------------------------------------
 
