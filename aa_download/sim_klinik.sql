@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 24 Jan 2020 pada 19.00
+-- Waktu pembuatan: 29 Jan 2020 pada 03.55
 -- Versi server: 10.4.6-MariaDB
 -- Versi PHP: 7.3.9
 
@@ -467,6 +467,20 @@ CREATE TABLE `daftar_penjualan_obat_rawat_inap_detail` (
 -- --------------------------------------------------------
 
 --
+-- Stand-in struktur untuk tampilan `daftar_return_obat`
+-- (Lihat di bawah untuk tampilan aktual)
+--
+CREATE TABLE `daftar_return_obat` (
+`kode_obat` char(4)
+,`no_return_obat` char(13)
+,`qty_detail` mediumint(5)
+,`tanggal` datetime
+,`nama` varchar(50)
+);
+
+-- --------------------------------------------------------
+
+--
 -- Stand-in struktur untuk tampilan `data_obat`
 -- (Lihat di bawah untuk tampilan aktual)
 --
@@ -649,6 +663,31 @@ INSERT INTO `detail_penjualan_obat_apotik` (`no_detail_penjualan_obat_a`, `no_pe
 (2, 'PA200124-0001', 'O005', 5, 5000, 'Tidak'),
 (4, 'PA200124-0002', 'O003', 1, 3000, 'Tidak'),
 (5, 'PA200125-0001', 'O003', 3, 3000, 'Tidak');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `detail_return_obat`
+--
+
+CREATE TABLE `detail_return_obat` (
+  `no_detail_return_obat` int(9) NOT NULL,
+  `no_return_obat` char(13) NOT NULL,
+  `kode_obat` char(4) NOT NULL,
+  `qty` mediumint(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `detail_return_obat`
+--
+
+INSERT INTO `detail_return_obat` (`no_detail_return_obat`, `no_return_obat`, `kode_obat`, `qty`) VALUES
+(1, 'RO200129-0001', 'O001', 5),
+(2, 'RO200129-0002', 'O001', 1),
+(3, 'RO200129-0003', 'O001', 1),
+(4, 'RO200129-0004', 'O001', 1),
+(5, 'RO200129-0005', 'O001', 1),
+(6, 'RO200129-0005', 'O003', 1);
 
 -- --------------------------------------------------------
 
@@ -928,9 +967,9 @@ CREATE TABLE `obat` (
 --
 
 INSERT INTO `obat` (`kode_obat`, `no_kat_obat`, `nama`, `min_stok`, `harga_jual`, `tipe`, `qty`) VALUES
-('O001', 'K001', 'Oral', 10, 1000, 'Obat', 10),
+('O001', 'K001', 'Oral', 10, 1000, 'Obat', 17),
 ('O002', 'K002', 'Prednison', 5, 2000, 'Obat', 1),
-('O003', 'K003', 'Psyllium ', 10, 3000, 'Obat', 5),
+('O003', 'K003', 'Psyllium ', 10, 3000, 'Obat', 17),
 ('O004', 'K004', 'simvastatin', 10, 3000, 'Obat', 0),
 ('O005', 'K005', 'Pentabio', 10, 5000, 'Obat', 0);
 
@@ -1088,6 +1127,28 @@ CREATE TABLE `rawat_inap_tindakan` (
 INSERT INTO `rawat_inap_tindakan` (`no_rawat_inap_t`, `nama`, `harga`) VALUES
 ('I001', 'Visite Dokter', 20000),
 ('I002', 'Japel', 20000);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `return_obat`
+--
+
+CREATE TABLE `return_obat` (
+  `no_return_obat` char(13) NOT NULL,
+  `tanggal` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `return_obat`
+--
+
+INSERT INTO `return_obat` (`no_return_obat`, `tanggal`) VALUES
+('RO200129-0001', '2020-01-29 08:02:31'),
+('RO200129-0002', '2020-01-29 08:03:52'),
+('RO200129-0003', '2020-01-29 08:06:20'),
+('RO200129-0004', '2020-01-29 08:13:20'),
+('RO200129-0005', '2020-01-29 08:15:30');
 
 -- --------------------------------------------------------
 
@@ -1438,6 +1499,15 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
+-- Struktur untuk view `daftar_return_obat`
+--
+DROP TABLE IF EXISTS `daftar_return_obat`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_return_obat`  AS  select `detail_return_obat`.`kode_obat` AS `kode_obat`,`detail_return_obat`.`no_return_obat` AS `no_return_obat`,`detail_return_obat`.`qty` AS `qty_detail`,`return_obat`.`tanggal` AS `tanggal`,`obat`.`nama` AS `nama` from ((`detail_return_obat` join `obat` on(`detail_return_obat`.`kode_obat` = `obat`.`kode_obat`)) join `return_obat` on(`detail_return_obat`.`no_return_obat` = `return_obat`.`no_return_obat`)) ;
+
+-- --------------------------------------------------------
+
+--
 -- Struktur untuk view `data_obat`
 --
 DROP TABLE IF EXISTS `data_obat`;
@@ -1557,6 +1627,12 @@ ALTER TABLE `detail_penjualan_obat_apotik`
   ADD PRIMARY KEY (`no_detail_penjualan_obat_a`);
 
 --
+-- Indeks untuk tabel `detail_return_obat`
+--
+ALTER TABLE `detail_return_obat`
+  ADD PRIMARY KEY (`no_detail_return_obat`);
+
+--
 -- Indeks untuk tabel `detail_transaksi_rawat_inap_kamar`
 --
 ALTER TABLE `detail_transaksi_rawat_inap_kamar`
@@ -1665,6 +1741,12 @@ ALTER TABLE `rawat_inap_tindakan`
   ADD PRIMARY KEY (`no_rawat_inap_t`);
 
 --
+-- Indeks untuk tabel `return_obat`
+--
+ALTER TABLE `return_obat`
+  ADD PRIMARY KEY (`no_return_obat`);
+
+--
 -- Indeks untuk tabel `setoran_rawat_inap`
 --
 ALTER TABLE `setoran_rawat_inap`
@@ -1757,6 +1839,12 @@ ALTER TABLE `detail_pelayanan_ambulan`
 --
 ALTER TABLE `detail_penjualan_obat_apotik`
   MODIFY `no_detail_penjualan_obat_a` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT untuk tabel `detail_return_obat`
+--
+ALTER TABLE `detail_return_obat`
+  MODIFY `no_detail_return_obat` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_transaksi_rawat_inap_kamar`
