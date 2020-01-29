@@ -30,4 +30,26 @@ class M_return_obat extends CI_Model
         $status = $this->db->update($table, $data);
         return $status;
     }
+    function get_no_transaksi()
+    {
+        date_default_timezone_set('Asia/Jakarta');
+        // PO191125-0001
+        $field = "no_return_obat";
+        $tabel = "return_obat";
+        $digit = "4";
+        $ymd = date('ymd');
+
+        $q = $this->db->query("SELECT MAX(RIGHT($field,$digit)) AS kd_max FROM $tabel WHERE SUBSTR($field, 3, 6) = $ymd LIMIT 1");
+        $kd = "";
+        if ($q->num_rows() > 0) {
+            foreach ($q->result() as $k) {
+                $tmp = ((int) $k->kd_max) + 1;
+                $kd = sprintf("%04s", $tmp);
+            }
+        } else {
+            $kd = "0001";
+        }
+
+        return 'RO' . date('ymd') . '-' . $kd; // SELECT SUBSTR('BP191121-0001', 3, 6); dari digit ke 3 sampai 6 digit seanjutnya
+    }
 }

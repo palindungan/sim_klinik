@@ -30,7 +30,14 @@ class Return_obat extends CI_Controller
     public function input_transaksi_form()
     {
         if (isset($_POST['kode_obat']) && isset($_POST['qty_apotek_obat'])) {
-
+            $no_return_obat = $this->M_return_obat->get_no_transaksi();
+            $tanggal = date('Y-m-d H:i:s');
+            $data_transaksi = array(
+                'no_return_obat' => $no_return_obat,
+                'tanggal' => $tanggal
+            );
+            
+            $input = $this->M_return_obat->input_data('return_obat',$data_transaksi);
                 // menambah detail transaksi baru 
                 for ($i = 0; $i < count($this->input->post('kode_obat')); $i++) {
 
@@ -38,6 +45,13 @@ class Return_obat extends CI_Controller
 
                     $qty_temp = $this->input->post('qty_apotek_obat')[$i];
                     $qty = (int) $qty_temp;
+
+                    $data_detail = array(
+                        'no_return_obat' => $no_return_obat,
+                        'kode_obat' => $kode_obat,
+                        'qty' => $qty
+                    );
+                    $input_detail = $this->M_return_obat->input_data('detail_return_obat',$data_detail);
 
                     // update qty obat lama dibawah ini
                     $where_kode_obat = array(
@@ -57,6 +71,7 @@ class Return_obat extends CI_Controller
                 }
                 
             }
+            $this->session->set_flashdata('success', 'Ditambahkan');
             redirect('apotek/return_obat');
     }
 }
