@@ -98,7 +98,7 @@
 									<th class="text-center">No RM</th>
 									<th class="text-center">Nama</th>
 									<th class="text-center">Alamat</th>
-									<th class="text-center">Aksi</th>
+									<!-- <th class="text-center">Aksi</th> -->
 								</tr>
 							</thead>
 							<tbody id="daftar_pasien">
@@ -110,63 +110,24 @@
 		</div>
 	</div>
 
-
 	<script src="<?= base_url(); ?>assets/sb_admin_2/vendor/jquery/jquery-3.4.1.min.js"></script>
-
-
 	<script>
 		// jika kita tekan / click button search-button
-		$('#btn_search').on('click', function() {
+		$(document).ready(function() {
+			//DOM manipulation code
 			search_proses();
 		});
 
 		function search_proses() {
-
 			var table;
 			table = $('.table_1').DataTable({
-				"columnDefs": [{
-					"targets": [0, 4],
-					"className": "text-center"
-				}],
-				"bDestroy": true
-			});
-
-			table.clear();
-
-			$.ajax({
-				url: "<?php echo base_url() . 'loket/pendaftaran/tampil_daftar_pasien'; ?>",
-				success: function(hasil) {
-
-					var obj = JSON.parse(hasil);
-					let data = obj['tbl_data'];
-
-					if (data != '') {
-
-						var no = 1;
-
-						$.each(data, function(i, item) {
-
-							var kode = data[i].no_rm;
-							var nama = data[i].nama;
-							var alamat = data[i].alamat;
-							var umur = data[i].umur;
-							var button = `<a href="#" onclick="pilihTindakan('` + kode +
-								`','` + nama + `','` + alamat + `','` + umur + `')" id="` + kode +
-								`" class="btn btn-sm btn-dark text-white">Pilih</a>`;
-
-							table.row.add([no, kode, nama, alamat, button]);
-
-							no = no + 1;
-						});
-					}
-					table.draw();
-
-				}
+				// "processing": true,
+				"serverSide": true,
+				"ajax": "<?php echo base_url() . 'loket/pendaftaran/tampil_daftar_pasien'; ?>"
 			});
 		}
 
 		function pilihTindakan(kode, nama, alamat, umur) {
-
 			document.getElementById("no_rm").value = kode;
 			$("#pilih_rm").val("yes");
 			$("#no_rm").val(kode);
