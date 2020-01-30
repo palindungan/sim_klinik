@@ -19,6 +19,11 @@ class Pendaftaran extends CI_Controller
         $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/loket/pendaftaran/tambah', $data);
     }
 
+    public function showDataPasienFastLoad()
+    {
+        echo $this->M_pasien->getDataPasienFastLoad();
+    }
+
     public function tampil_daftar_pasien()
     {
         require('assets/sb_admin_2/vendor/fast_load_datatable/ssp.class.php');

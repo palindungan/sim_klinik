@@ -91,14 +91,14 @@
 				</div>
 				<div class="modal-body">
 					<div class="table-responsive">
-						<table class="table table-bordered table_1" width="100%" cellspacing="0">
+						<table class="table table_pasien table-bordered table_1" width="100%" cellspacing="0">
 							<thead>
 								<tr>
-									<th class="text-center">No</th>
 									<th class="text-center">No RM</th>
 									<th class="text-center">Nama</th>
+									<th class="text-center">Umur</th>
 									<th class="text-center">Alamat</th>
-									<!-- <th class="text-center">Aksi</th> -->
+									<th class="text-center">Aksi</th>
 								</tr>
 							</thead>
 							<tbody id="daftar_pasien">
@@ -110,24 +110,44 @@
 		</div>
 	</div>
 
+
 	<script src="<?= base_url(); ?>assets/sb_admin_2/vendor/jquery/jquery-3.4.1.min.js"></script>
 	<script>
-		// jika kita tekan / click button search-button
 		$(document).ready(function() {
 			//DOM manipulation code
 			search_proses();
+
 		});
 
 		function search_proses() {
 			var table;
-			table = $('.table_1').DataTable({
+			table = $('.table_pasien').DataTable({
 				"processing": true,
 				"serverSide": true,
-				"ajax": "<?php echo base_url() . 'loket/pendaftaran/tampil_daftar_pasien'; ?>"
+				"ajax": "<?php echo base_url() . 'loket/pendaftaran/showDataPasienFastLoad'; ?>",
+				"columnDefs": [{
+					"targets": -1,
+					"className": "text-center",
+					render: function(data, type, row, meta) {
+						// return '<a type="button" class="btn btn-danger btn-block" href="http://google.com"  >删除</a>';
+						return '<button class="btn btn-sm btn-warning btn-pilih btn-edit">Pilih</button>'
+					}
+				}]
+			});
+
+			$('.table_pasien tbody').on('click', '.btn-pilih', function() {
+				var data = table.row($(this).parents('tr')).data();
+
+				var kode = data[0];
+				var nama = data[1];
+				var umur = data[2];
+				var alamat = data[3];
+
+				pilihPasien(kode, nama, alamat, umur);
 			});
 		}
 
-		function pilihTindakan(kode, nama, alamat, umur) {
+		function pilihPasien(kode, nama, alamat, umur) {
 			document.getElementById("no_rm").value = kode;
 			$("#pilih_rm").val("yes");
 			$("#no_rm").val(kode);
