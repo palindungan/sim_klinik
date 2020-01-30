@@ -28,10 +28,10 @@ Class RekapTagihan extends CI_Controller{
         $primaryKey = 'no_ref_pelayanan';
 
         $columns = array(
-            array('db' => 'no_ref_pelayanan', 'dt' => 0),
-            array('db' => 'no_rm', 'dt' => 1),
-            array('db' => 'nama', 'dt' => 2),
-            array('db' => 'tgl_pelayanan', 'dt' => 3),
+            array('db' => 'tgl_pelayanan', 'dt' => 0),
+            array('db' => 'no_ref_pelayanan', 'dt' => 1),
+            array('db' => 'no_rm', 'dt' => 2),
+            array('db' => 'nama', 'dt' => 3),
             array('db' => 'tipe_pelayanan', 'dt' => 4),
         );
 

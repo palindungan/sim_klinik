@@ -5,7 +5,7 @@
 		</div>
 		<div class="card-body">
 			<div class="table-responsive">
-				<table class="table table-bordered" class="table_1" id="dataTable" width="100%" cellspacing="0">
+				<table class="table table-bordered table_1" width="100%" cellspacing="0">
 					<thead>
 						<tr>
 							<th class="text-center">Tanggal</th>
@@ -37,7 +37,22 @@
 		table = $('.table_1').DataTable({
 			"processing": true,
 			"serverSide": true,
-			"ajax": "<?php echo base_url() . 'laporan/RekapTagihan/tampil_data_tagihan'; ?>"
+			"ajax": "<?php echo base_url() . 'laporan/RekapTagihan/tampil_data_tagihan'; ?>",
+			"columnDefs": [{
+				"targets": -1,
+				"className": "text-center",
+				render: function (data, type, row, meta) {
+					// return '<a type="button" class="btn btn-danger btn-block" href="http://google.com">删除</a>';
+					return '<button class="btn btn-sm btn-info btn-detail">Detail</button>'
+				}
+			}]
+		});
+
+		$('.table_1 tbody').on('click', '.btn-detail', function () {
+			var data = table.row($(this).parents('tr')).data();
+			// alert(data[1]);
+			var url = "<?php echo base_url().'admin/pasien/detail/'; ?>" + data[1] + "";
+			window.location = url;
 		});
 	}
 
