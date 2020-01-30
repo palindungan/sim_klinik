@@ -1,10 +1,33 @@
 <?php
 class M_pasien extends CI_Model
 {
+    private $_table = 'pasien';
+    function getDataPasienFastLoad(){
+        require('assets\sb_admin_2\vendor\fast_load_datatable\ssp.class.php');
+
+        // Table's primary key
+        $primaryKey = 'no_rm';
+
+        $columns = array(
+            array('db' => 'no_rm', 'dt' => 0),
+            array('db' => 'nama',  'dt' => 1),
+            array('db' => 'umur',  'dt' => 2),
+            array('db' => 'alamat',  'dt' => 3),
+            
+        );
+
+        // koneksiDatatable ambil dari custom helper
+        return json_encode(
+            SSP::simple($_GET, koneksiDatatable(), $this->_table, $primaryKey, $columns)
+        );
+    }
+
     function tampil_data($table)
     {
         return $this->db->get($table);
     }
+
+    
 
     function input_data($table, $data)
     {

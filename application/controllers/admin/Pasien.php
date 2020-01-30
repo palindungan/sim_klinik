@@ -1,5 +1,6 @@
 <?php
 class Pasien extends CI_Controller{
+
     function __construct(){
         parent::__construct();
         if($this->session->userdata('akses') == ""){
@@ -15,9 +16,14 @@ class Pasien extends CI_Controller{
     }
     public function index()
     {
-        $data['record'] = $this->M_pasien->tampil_data('pasien')->result();
+        $data['record'] = $this->M_pasien->getDataPasienFastLoad();
         $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/admin/pasien/tampil',$data);
     }
+
+    public function showDataPasienFastLoad(){
+        echo $this->M_pasien->getDataPasienFastLoad();
+    }
+
     public function list($id)
     {
         $data['list'] = $this->M_tagihan->getRekapByNoRM($id)->result(); 

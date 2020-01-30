@@ -62,38 +62,59 @@
 			</div>
 
 			<div class="table-responsive">
-				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+				<table class="table table-bordered table_pasien" width="100%" cellspacing="0">
 					<thead>
 						<tr>
 							<th class="text-center">No</th>
 							<th class="text-center">No RM</th>
 							<th class="text-center">Nama</th>
 							<th class="text-center">Alamat</th>
-							<th>Aksi</th>
+							<th class="text-center">Aksi</th>
 						</tr>
 					</thead>
 					<tbody>
-						<?php
-						$no=1;
-						foreach($record as $data):
-                        ?>
-						<tr>
-							<td class="text-center"><?= $no++ ?></td>
-							<td><?= $data->no_rm ?></td>
-							<td><?= $data->nama ?></td>
-							<td><?= $data->alamat ?></td>
-							<td class="text-center">
-								<a href="<?php echo base_url('admin/pasien/view_edit/'.$data->no_rm) ?>"
-									class="btn btn-sm btn-warning">Edit Data</a>
-								<a href="<?php echo base_url('admin/pasien/list/'.$data->no_rm) ?>"
-									class="btn btn-sm btn-info">Detail Kunjungan</a>
-							</td>
-
-						</tr>
-						<?php endforeach; ?>
+						
 					</tbody>
 				</table>
 			</div>
 		</div>
 	</div>
 </div>
+<script src="<?= base_url(); ?>assets/sb_admin_2/vendor/jquery/jquery-3.4.1.min.js"></script>
+<script>
+$(document).ready(function() {
+	//DOM manipulation code
+	search_proses();
+	
+});
+
+function search_proses() {
+	var table;
+	table = $('.table_pasien').DataTable({
+		"processing": true,
+		"serverSide": true,
+		"ajax": "<?php echo base_url() . 'admin/pasien/showDataPasienFastLoad'; ?>",
+		"columnDefs":[{
+            "targets": -1,
+			"className": "text-center",
+            render: function (data, type, row, meta) {
+                // return '<a type="button" class="btn btn-danger btn-block" href="http://google.com"  >删除</a>';
+				return '<button class="btn btn-sm btn-warning btn-edit">Edit Data</button> <button class="btn btn-sm btn-info btn-detail">Detail Kunjungan</button>'
+            }
+        } ]
+	});
+
+	$('.table_pasien tbody').on( 'click', '.btn-edit', function () {
+        var data = table.row( $(this).parents('tr') ).data();
+		var url = "<?php echo base_url().'admin/pasien/view_edit/'; ?>"+data[0]+"" ;
+		window.location = url;
+    } );
+
+	$('.table_pasien tbody').on( 'click', '.btn-detail', function () {
+        var data = table.row( $(this).parents('tr') ).data();
+        // alert( data[0] +"'s salary is: "+ data[ 3 ] );
+		var url = "<?php echo base_url().'admin/pasien/list/'; ?>"+data[0]+"" ;
+		window.location = url;
+    } );
+}
+</script>
