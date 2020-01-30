@@ -168,33 +168,33 @@ class M_pendaftaran extends CI_Model
         $q = $this->db->query("SELECT MAX(RIGHT($field,$digit)) AS kd_max FROM $tabel");
         $kd = "";
         if ($q->num_rows() > 0) {
-        foreach ($q->result() as $k) {
-        $tmp = ((int) $k->kd_max) + 1;
-        $kd = $kode . sprintf('%0' . $digit . 's', $tmp);
-        }
+            foreach ($q->result() as $k) {
+                $tmp = ((int) $k->kd_max) + 1;
+                $kd = $kode . sprintf('%0' . $digit . 's', $tmp);
+            }
         } else {
-        $kd = "T001";
+            $kd = "T001";
         }
         return $kd;
     }
 
-     function get_no_rm()
-     {
-     $field = "no_rm";
-     $tabel = "pasien";
-     $digit = "9";
-     $kode = "024";
+    function get_no_rm()
+    {
+        $field = "no_rm";
+        $tabel = "pasien";
+        $digit = "9";
+        $kode = "024";
 
-     $q = $this->db->query("SELECT MAX(RIGHT($field,$digit)) AS kd_max FROM $tabel");
-     $kd = "";
-     if ($q->num_rows() > 0) {
-     foreach ($q->result() as $k) {
-     $tmp = ((int) $k->kd_max) + 1;
-     $kd = $kode . sprintf('%0' . $digit . 's', $tmp);
-     }
-     } else {
-     $kd = "024000000001";
-     }
-     return $kd;
-     }
+        $q = $this->db->query("SELECT MAX(RIGHT($field,$digit)) AS kd_max FROM $tabel");
+        $kd = "";
+        if ($q->num_rows() > 0) {
+            foreach ($q->result() as $k) {
+                $tmp = ((int) $k->kd_max) + 1;
+                $kd = $kode . sprintf('%0' . $digit . 's', $tmp);
+            }
+        } else {
+            $kd = "024000000001";
+        }
+        return $kd;
+    }
 }

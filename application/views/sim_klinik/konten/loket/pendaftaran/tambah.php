@@ -81,7 +81,7 @@
 
 	<!-- Modal -->
 	<div class="modal fade  bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-		<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-dialog modal-xl" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLongTitle">Daftar Pasien</h5>
@@ -121,7 +121,7 @@
 		function search_proses() {
 			var table;
 			table = $('.table_1').DataTable({
-				// "processing": true,
+				"processing": true,
 				"serverSide": true,
 				"ajax": "<?php echo base_url() . 'loket/pendaftaran/tampil_daftar_pasien'; ?>"
 			});
