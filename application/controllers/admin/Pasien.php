@@ -157,4 +157,47 @@ class Pasien extends CI_Controller{
         
         $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/admin/pasien/detail',$data);
     }
+
+    public function store()
+    {
+        $data_pasien = array(
+            'no_rm' => $this->input->post('no_rm'),
+            'nama' => $this->input->post('nama'),
+            'alamat' => $this->input->post('alamat'),
+            'umur' => $this->input->post('umur')
+        );
+
+        $this->M_pasien->input_data('pasien', $data_pasien);
+
+        $this->session->set_flashdata('success','Ditambahkan');
+        redirect('admin/pasien');
+    }
+
+    public function view_edit($id)
+    {
+        $where = array(
+            'no_rm' => $id
+        );
+        
+        $data['row'] = $this->M_pasien->get_data('pasien', $where)->result();
+
+        $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/admin/pasien/edit',$data);
+    }
+    public function update()
+    {
+        $where = array(
+            'no_rm' => $this->input->post('no_rm')
+        );
+        $data = array(
+            'nama' => $this->input->post('nama'),
+            'alamat' => $this->input->post('alamat'),
+            'umur' => $this->input->post('umur')
+        );
+
+        $this->M_pasien->update_data($where,'pasien',$data);
+
+        $this->session->set_flashdata('update','Diubah');
+        redirect('admin/pasien');
+
+    }
 }

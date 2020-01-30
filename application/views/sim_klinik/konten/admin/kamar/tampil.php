@@ -30,16 +30,9 @@
 							<div class="form-row">
 								<div class="form-group col-sm-6">
 									<label for="inputEmail2">Nama Kamar</label>
-									<input type="text" name="nama" class="form-control form-control-sm karakterAngka"
+									<input type="text" name="nama" class="form-control form-control-sm"
 										id="inputEmail2" placeholder="Masukan nama kamar" required>
 								</div>
-								<div class="form-group col-sm-6">
-									<label for="inputEmail2">Tipe</label>
-									<input type="text" name="tipe" class="form-control form-control-sm karakterAngka"
-										id="inputEmail2" placeholder="Masukan tipe kamar" required>
-								</div>
-							</div>
-							<div class="form-row">
 								<div class="form-group col-sm-6">
 									<label for="inputEmail2">Biaya/hari</label>
 									<input type="text" name="harga" class="form-control form-control-sm rupiah"
@@ -59,10 +52,9 @@
 				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 					<thead>
 						<tr>
-							<th width="5%" class="text-center">No</th>
-							<th width="10%">Kode</th>
-							<th width="25%">Nama Kamar</th>
-							<th width="20%">Tipe</th>
+							<th class="text-center">No</th>
+							<th class="text-center">Kode</th>
+							<th class="text-center">Nama Kamar</th>
 							<th width="15%" class="text-center">Biaya</th>
 							<th width="15%" class="text-center">Aksi</th>
 						</tr>
@@ -76,7 +68,6 @@
 							<td class="text-center"><?= $no++ ?></td>
 							<td><?= $data->no_kamar_rawat_i ?></td>
 							<td><?= $data->nama ?></td>
-							<td><?= $data->tipe ?></td>
 							<td class="text-right"><?= rupiah($data->harga_harian) ?></td>
 							<td class="text-center">
 								<a style="cursor:pointer" class="btn btn-sm btn-warning text-white" data-toggle="modal"
@@ -111,17 +102,9 @@
 						<label for="inputEmail2">Nama Kamar</label>
 						<input type="hidden" name="no_kamar_rawat_i" value="<?= $data->no_kamar_rawat_i ?>">
 						<input type="text" name="nama" value="<?= $data->nama ?>"
-							class="form-control form-control-sm karakterAngka" id="inputEmail2"
+							class="form-control form-control-sm" id="inputEmail2"
 							placeholder="Masukan nama kamar" required>
 					</div>
-					<div class="form-group col-sm-6">
-						<label for="inputEmail2">Tipe</label>
-						<input type="text" name="tipe" value="<?= $data->tipe ?>"
-							class="form-control form-control-sm karakterAngka" id="inputEmail2"
-							placeholder="Masukan tipe kamar" required>
-					</div>
-				</div>
-				<div class="form-row">
 					<div class="form-group col-sm-6">
 						<label for="inputEmail2">Biaya/hari</label>
 						<input type="text" name="harga" value="<?= rupiah($data->harga_harian) ?>"

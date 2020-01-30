@@ -244,6 +244,11 @@
 			<i class="fas fa-address-card <?php if($this->uri->segment(1)=="laporan" && $this->uri->segment(2)=="rawatJalan"){echo "text-white";}?>"></i>
 			<span class="<?php if($this->uri->segment(1)=="laporan" && $this->uri->segment(2)=="rawatJalan"){echo "text-white";}?>">Rawat Jalan</span></a>
 	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="<?= base_url('laporan/rawatInap'); ?>">
+			<i class="fas fa-address-card <?php if($this->uri->segment(1)=="laporan" && $this->uri->segment(2)=="rawatInap"){echo "text-white";}?>"></i>
+			<span class="<?php if($this->uri->segment(1)=="laporan" && $this->uri->segment(2)=="rawatInap"){echo "text-white";}?>">Rawat Inap</span></a>
+	</li>
 	<?php
 	}
 	if($this->session->userdata('akses') == 'Manager' || $this->session->userdata('akses') == 'Rawat Inap'){

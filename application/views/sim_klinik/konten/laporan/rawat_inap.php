@@ -58,19 +58,23 @@
 						<tbody>
 							<?php 
 							$nomor = 1;
+							$gizi = 0;
+							$japel = 0;
 							foreach($ri_hari_ini as $row){
+								$gizi =  $row->gizi_hari + $row->gizi_porsi;
+					            $japel = $row->japel_hari + $row->japel_setengah;
 								$tgl_keluar = date('d-m-Y',strtotime($row->tgl_keluar));
 								$semua_obat = $row->obat_ri + $row->obat_apotik;
 								$obat_oral = (int) $row->obat_oral;
-								$pemasukan_bersih = $row->uang_masuk - $row->gizi - $row->kamar - $row->total_bp - $row->total_lab - $row->total_kia - $row->total_ugd - $row->biaya_ambulance - $semua_obat - $obat_oral;
-								$klinik_bersih = $pemasukan_bersih - $row->japel - $row->visite;
+								$pemasukan_bersih = $row->uang_masuk - $gizi - $row->kamar - $row->total_bp - $row->total_lab - $row->total_kia - $row->total_ugd - $row->biaya_ambulance - $semua_obat - $obat_oral;
+								$klinik_bersih = $pemasukan_bersih - $japel - $row->visite;
 							?>
 							<tr>
                                 <td><?php echo $nomor++; ; ?></td>
                                 <td><?php echo $tgl_keluar; ; ?></td>
                                 <td><?php echo $row->nama_pasien ; ?></td>
                                 <td class="text-right"><?php echo $row->uang_masuk ; ?></td>
-                                <td class="text-right"><?php echo $row->gizi ; ?></td>
+                                <td class="text-right"><?php echo $gizi ; ?></td>
                                 <td class="text-right"><?php echo $row->kamar ; ?></td>
                                 <td class="text-right"><?php echo $row->total_bp ; ?></td>
                                 <td class="text-right"><?php echo $row->total_lab ; ?></td>
@@ -80,7 +84,7 @@
                                 <td class="text-right"><?php echo $semua_obat; ?></td>
                                 <td class="text-right"><?php echo $obat_oral; ?></td>
                                 <td class="text-right"><?php echo $pemasukan_bersih; ?></td>
-                                <td class="text-right"><?php echo $row->japel ; ?></td>
+                                <td class="text-right"><?php echo $japel ; ?></td>
                                 <td class="text-right"><?php echo $row->visite ; ?></td>
 								<td class="text-right"><?php echo $klinik_bersih ; ?></td>
 								<td class="text-right"><?php echo $row->saldo; ?></td>
@@ -93,7 +97,7 @@
 			<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
 				<a href="<?= base_url(); ?>laporan/rawatInap/ri_bulan_ini" class="btn btn-sm btn-success mb-3">Cetak Bulan</a>
 				<div style="overflow-x:auto;">
-					<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+					<table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
 						<thead>
 							<tr>
 								<th class="text-center">No</th>
@@ -119,19 +123,23 @@
 						<tbody>
 							<?php 
 							$nomor = 1;
+							$gizi = 0;
+							$japel = 0;
 							foreach($ri_bulan_ini as $row){
+								$gizi =  $row->gizi_hari + $row->gizi_porsi;
+					            $japel = $row->japel_hari + $row->japel_setengah;
 								$tgl_keluar = date('d-m-Y',strtotime($row->tgl_keluar));
 								$semua_obat = $row->obat_ri + $row->obat_apotik;
 								$obat_oral = (int) $row->obat_oral;
-								$pemasukan_bersih = $row->uang_masuk - $row->gizi - $row->kamar - $row->total_bp - $row->total_lab - $row->total_kia - $row->total_ugd - $row->biaya_ambulance - $semua_obat - $obat_oral;
-								$klinik_bersih = $pemasukan_bersih - $row->japel - $row->visite;
+								$pemasukan_bersih = $row->uang_masuk - $gizi - $row->kamar - $row->total_bp - $row->total_lab - $row->total_kia - $row->total_ugd - $row->biaya_ambulance - $semua_obat - $obat_oral;
+								$klinik_bersih = $pemasukan_bersih - $japel - $row->visite;
 							?>
 							<tr>
                                 <td><?php echo $nomor++; ; ?></td>
                                 <td><?php echo $tgl_keluar; ; ?></td>
                                 <td><?php echo $row->nama_pasien ; ?></td>
                                 <td class="text-right"><?php echo $row->uang_masuk ; ?></td>
-                                <td class="text-right"><?php echo $row->gizi ; ?></td>
+                                <td class="text-right"><?php echo $gizi ; ?></td>
                                 <td class="text-right"><?php echo $row->kamar ; ?></td>
                                 <td class="text-right"><?php echo $row->total_bp ; ?></td>
                                 <td class="text-right"><?php echo $row->total_lab ; ?></td>
@@ -141,7 +149,7 @@
                                 <td class="text-right"><?php echo $semua_obat; ?></td>
                                 <td class="text-right"><?php echo $obat_oral; ?></td>
                                 <td class="text-right"><?php echo $pemasukan_bersih; ?></td>
-                                <td class="text-right"><?php echo $row->japel ; ?></td>
+                                <td class="text-right"><?php echo $japel ; ?></td>
                                 <td class="text-right"><?php echo $row->visite ; ?></td>
 								<td class="text-right"><?php echo $klinik_bersih ; ?></td>
 								<td class="text-right"><?php echo $row->saldo; ?></td>
