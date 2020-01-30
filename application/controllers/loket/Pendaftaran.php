@@ -21,7 +21,7 @@ class Pendaftaran extends CI_Controller
 
     public function tampil_daftar_pasien()
     {
-        require('assets\sb_admin_2\vendor\fast_load_datatable\ssp.class.php');
+        require('assets/sb_admin_2/vendor/fast_load_datatable/ssp.class.php');
 
         // DB table to use
         $table = 'pasien';
