@@ -13,7 +13,7 @@
 			<div class="form-row">
 				<div class="form-group col-sm-4">
 					<label for="inputEmail2">No RM</label>
-					<input type="text" name="no_rm" id="no_rm" class="no_rmnya form-control form-control-sm" value="<?php echo $no_rm ?>" id="no_rm" placeholder="No RM" required>
+					<input type="text" maxlength="12" name="no_rm" id="no_rm" class="no_rmnya form-control form-control-sm" value="<?php echo $no_rm ?>" id="no_rm" placeholder="No RM" required>
 				</div>
 				<div class="form-group col-sm-2">
 					<input type="hidden" id="pilih_rm" class="form-control form-control-sm" value="no"></input>

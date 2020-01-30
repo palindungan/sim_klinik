@@ -27,7 +27,7 @@
 							<div class="form-row">
 								<div class="form-group col-sm-6">
 									<label for="inputEmail2">No RM</label>
-									<input type="text" name="no_rm" class="form-control form-control-sm" id="inputEmail2" placeholder="Masukan NO RM" value="<?php echo $no_rm ?>" required>
+									<input type="text" name="no_rm" maxlength="12" class="form-control form-control-sm" id="inputEmail2" placeholder="Masukan NO RM" value="<?php echo $no_rm ?>" required>
 								</div>
 								<div class="form-group col-sm-6">
 									<label for="inputEmail2">Nama</label>
@@ -58,9 +58,9 @@
 				<table class="table table-bordered table_pasien" width="100%" cellspacing="0">
 					<thead>
 						<tr>
-							<th class="text-center">No</th>
 							<th class="text-center">No RM</th>
 							<th class="text-center">Nama</th>
+							<th class="text-center">umur</th>
 							<th class="text-center">Alamat</th>
 							<th class="text-center">Aksi</th>
 						</tr>
