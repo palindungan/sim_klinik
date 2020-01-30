@@ -14,7 +14,9 @@ class Pendaftaran extends CI_Controller
     }
     public function index()
     {
-        $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/loket/pendaftaran/tambah');
+        $data['no_rm'] = $this->M_pendaftaran->get_no_rm(); // generate
+
+        $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/loket/pendaftaran/tambah',$data);
     }
 
     public function tampil_daftar_pasien()

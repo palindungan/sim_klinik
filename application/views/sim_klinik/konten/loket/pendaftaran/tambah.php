@@ -13,7 +13,8 @@
 			<div class="form-row">
 				<div class="form-group col-sm-4">
 					<label for="inputEmail2">No RM</label>
-					<input type="text" name="no_rm" id="no_rm" class="no_rmnya form-control form-control-sm" id="no_rm" placeholder="No RM" required>
+					<input type="text" name="no_rm" id="no_rm" class="no_rmnya form-control form-control-sm"
+						value="<?php echo $no_rm ?>" id="no_rm" placeholder="No RM" required>
 				</div>
 				<div class="form-group col-sm-2">
 					<input type="hidden" id="pilih_rm" class="form-control form-control-sm" value="no"></input>
@@ -36,11 +37,13 @@
 			<div class="form-row">
 				<div class="form-group col-sm-6">
 					<label for="inputEmail1">Nama</label>
-					<input type="text" class="form-control form-control-sm" name="nama" id="nama" placeholder="Masukan Nama" required>
+					<input type="text" class="form-control form-control-sm" name="nama" id="nama"
+						placeholder="Masukan Nama" required>
 				</div>
 				<div class="form-group col-sm-6">
 					<label for="inputEmail1">Umur</label>
-					<input type="text" class="form-control form-control-sm" name="umur" id="umur" placeholder="Masukan umur" required>
+					<input type="text" class="form-control form-control-sm" name="umur" id="umur"
+						placeholder="Masukan umur" required>
 				</div>
 			</div>
 			<div class="form-row">
