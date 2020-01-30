@@ -107,6 +107,8 @@
             $kolom = 3;
             $nomor = 1;
             $pemasukan_bersih = 0;
+            $gizi = 0;
+            $japel = 0;
             foreach ($query as $row) {
             $gizi = $row->gizi_hari + $row->gizi_porsi;
             $japel = $row->japel_hari + $row->japel_setengah;
@@ -252,6 +254,8 @@
             $kolom = 3;
             $nomor = 1;
             $pemasukan_bersih = 0;
+            $gizi = 0;
+            $japel = 0;
             foreach ($query as $row) {
             $gizi = $row->gizi_hari + $row->gizi_porsi;
             $japel = $row->japel_hari + $row->japel_setengah;
@@ -408,6 +412,8 @@
             $kolom = 3;
             $nomor = 1;
             $pemasukan_bersih = 0;
+            $gizi = 0;
+            $japel = 0;
             foreach ($query as $row) {
             $gizi = $row->gizi_hari + $row->gizi_porsi;
             $japel = $row->japel_hari + $row->japel_setengah;

@@ -18,4 +18,4 @@
 <link href="<?= base_url(); ?>assets/sb_admin_2/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 <link href="<?= base_url(); ?>assets/sb_admin_2/css/select2.min.css" rel="stylesheet">
 <link rel="stylesheet" href="<?= base_url(); ?>assets/sb_admin_2/vendor/auto_complete/jquery-ui.css">
-<link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+<link href="<?= base_url(); ?>assets/sb_admin_2/css/gijgo.min.css" rel="stylesheet">

@@ -1149,6 +1149,11 @@ class Tagihan extends CI_Controller
 
         } else {
 
+             $data_update_status_pelayanan = array(
+                    'tipe_pelayanan' => 'Rawat Jalan'
+                );
+                $this->M_tagihan->update_data($where_no_ref_pelayanan, 'pelayanan', $data_update_status_pelayanan);
+
             // Start of Cek apakah ada data detail post masuk ?
             if (isset($_POST['no_stok_obat_rawat_i']) || isset($_POST['no_rawat_inap_t']) || isset($_POST['no_kamar_rawat_i'])) {
 
