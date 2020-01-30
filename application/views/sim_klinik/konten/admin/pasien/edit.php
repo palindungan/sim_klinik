@@ -1,13 +1,10 @@
-<?php if($this->session->flashdata('update')) : ?>
-<div class="pesan-update" data-flashdata="<?= $this->session->flashdata('update'); ?>"></div>
-<?php endif; ?>
 <?php 
 foreach($row as $data) :
 ?>
 <div class="container-fluid">
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">
-			<h6 class="m-0 font-weight-bold text-primary">Pendaftaran Pasien</h6>
+			<h6 class="m-0 font-weight-bold text-primary">Edit Data Pasien</h6>
 		</div>
 		<div class="card-body">
 			<!-- Page Heading -->
@@ -38,7 +35,7 @@ foreach($row as $data) :
 				</div>
 			</div>
 			<button type="submit" class="btn btn-sm btn-success">Update</button>
-			<button onclick="window.history.back()" class="btn btn-sm btn-link">Kembali</button>
+			<button type="button" onclick="window.history.back()" class="btn btn-sm btn-link">Kembali</button>
 			<?php echo form_close(); ?>
 
 		</div>
