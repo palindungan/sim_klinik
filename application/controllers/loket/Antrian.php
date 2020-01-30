@@ -4,9 +4,9 @@ class Antrian extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        if($this->session->userdata('akses') == ""){
+        if ($this->session->userdata('akses') == "") {
             redirect('login');
-        }else if($this->session->userdata('akses') != 'Loket'){
+        } else if ($this->session->userdata('akses') != 'Loket') {
             show_404();
         }
         $this->load->model('loket/M_antrian');

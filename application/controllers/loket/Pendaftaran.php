@@ -4,9 +4,9 @@ class Pendaftaran extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        if($this->session->userdata('akses') == ""){
+        if ($this->session->userdata('akses') == "") {
             redirect('login');
-        }else if($this->session->userdata('akses') != 'Loket'){
+        } else if ($this->session->userdata('akses') != 'Loket') {
             show_404();
         }
         $this->load->model('loket/M_pendaftaran');
@@ -16,7 +16,7 @@ class Pendaftaran extends CI_Controller
     {
         $data['no_rm'] = $this->M_pendaftaran->get_no_rm(); // generate
 
-        $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/loket/pendaftaran/tambah',$data);
+        $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/loket/pendaftaran/tambah', $data);
     }
 
     public function tampil_daftar_pasien()
@@ -32,7 +32,7 @@ class Pendaftaran extends CI_Controller
         date_default_timezone_set("Asia/Jakarta");
         $now = Date('Y-m-d');
         $sekarang = Date('Y-m-d H:i:s');
-        
+
         $no_rm = $this->input->post('no_rm');
         $no_ref = $this->M_pendaftaran->get_no(); // generate
         $data_pelayanan = array(
@@ -56,14 +56,10 @@ class Pendaftaran extends CI_Controller
         $rm_db = $db->jml_rm;
         if ($rm_db > 0) {
             $this->M_pendaftaran->input_data('pelayanan', $data_pelayanan);
-
-        } 
-        else {
+        } else {
             $this->M_pendaftaran->input_data('pelayanan', $data_pelayanan);
             $this->M_pendaftaran->input_data('pasien', $data_pasien);
         }
-        
-
 
         // logic antrian
         $layanan_tujuan = $this->input->post('layanan_tujuan');
@@ -127,7 +123,6 @@ class Pendaftaran extends CI_Controller
             } else {
                 $kode_antrian = $this->M_pendaftaran->get_no_anak_anak_bp(); // generate
             }
-
         } elseif ($layanan_tujuan == 'Poli KIA') {
             $kode_antrian = $this->M_pendaftaran->get_no_kia(); // generate
 
@@ -141,11 +136,11 @@ class Pendaftaran extends CI_Controller
                 $kode_antrian = $this->M_pendaftaran->get_no_anak_anak_lab(); // generate
             }
         }
-        $gabung = $kode_antrian."_".$no_ref;
-            $base_url = base_url('loket/pendaftaran/cetak/' . $gabung);
-            echo "<script type='text/javascript'>";
-            echo "window.open('" . $base_url . "','_blank')";
-            echo "</script>";
+        $gabung = $kode_antrian . "_" . $no_ref;
+        $base_url = base_url('loket/pendaftaran/cetak/' . $gabung);
+        echo "<script type='text/javascript'>";
+        echo "window.open('" . $base_url . "','_blank')";
+        echo "</script>";
 
         // // membuat objek $printer agar dapat di lakukan fungsinya
         // $connector = new Escpos\PrintConnectors\WindowsPrintConnector("POS58");
@@ -295,17 +290,15 @@ class Pendaftaran extends CI_Controller
         //     $printer->feed(4); // mencetak 2 baris kosong, agar kertas terangkat ke atas
         //     $printer->close();
         // }
-        redirect('loket/pendaftaran','refresh');
+        redirect('loket/pendaftaran', 'refresh');
     }
 
-    function cetak($gabung){
-        $string_exploded = explode('_',$gabung);
-        
+    function cetak($gabung)
+    {
+        $string_exploded = explode('_', $gabung);
+
         $data['kode_antrian'] = $string_exploded[0];
         $data['no_ref'] = $string_exploded[1];
-        $this->load->view('sim_klinik/konten/loket/pendaftaran/struk_cetak',$data);
-        
+        $this->load->view('sim_klinik/konten/loket/pendaftaran/struk_cetak', $data);
     }
-
-
 }
