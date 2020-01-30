@@ -15,7 +15,29 @@ Class RekapTagihan extends CI_Controller{
     }
 
     function index(){
-        $data['record'] = $this->M_tagihan->getRekap()->result(); 
-        $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/administrasi/tagihan/rekap_tagihan',$data);
+        $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/administrasi/tagihan/rekap_tagihan');
+    }
+    function tampil_data_tagihan()
+    {
+        require('assets/sb_admin_2/vendor/fast_load_datatable/ssp.class.php');
+
+        // DB table to use
+        $table = 'rekap_tagihan';
+
+        // Table's primary key
+        $primaryKey = 'no_ref_pelayanan';
+
+        $columns = array(
+            array('db' => 'no_ref_pelayanan', 'dt' => 0),
+            array('db' => 'no_rm', 'dt' => 1),
+            array('db' => 'nama', 'dt' => 2),
+            array('db' => 'tgl_pelayanan', 'dt' => 3),
+            array('db' => 'tipe_pelayanan', 'dt' => 4),
+        );
+
+        // koneksiDatatable ambil dari custom helper
+        echo json_encode(
+            SSP::simple($_GET, koneksiDatatable(), $table, $primaryKey, $columns)
+        );
     }
 }

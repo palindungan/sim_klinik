@@ -5,40 +5,40 @@
 		</div>
 		<div class="card-body">
 			<div class="table-responsive">
-				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+				<table class="table table-bordered" class="table_1" id="dataTable" width="100%" cellspacing="0">
 					<thead>
 						<tr>
-							<th class="text-center">No</th>
-                            <th class="text-center">Tanggal</th>
-                            <th class="text-center">No.Pelayanan</th>
+							<th class="text-center">Tanggal</th>
+							<th class="text-center">No.Pelayanan</th>
 							<th class="text-center">No.RM</th>
-                            <th class="text-center">Atas Nama</th>
-                            <th class="text-center">Tipe</th>
+							<th class="text-center">Atas Nama</th>
+							<th class="text-center">Tipe</th>
 							<th class="text-center">Detail</th>
 						</tr>
 					</thead>
 					<tbody>
-						<?php
-						$no=1;
-						foreach($record as $data):
-                        ?>
-						<tr>
-							<td class="text-center"><?= $no++ ?></td>
-							<td><?php echo date("d-m-Y",strtotime($data->tgl_pelayanan)); ?></td>
-							<td><?php echo $data->no_ref_pelayanan; ?></td>
-							<td><?php echo $data->no_rm; ?></td>
-                            <td><?php echo $data->nama; ?></td>
-                            <td><?php echo $data->tipe_pelayanan; ?></td>
-							<td class="text-center">
-								<a href="<?php echo base_url('admin/pasien/detail/'.$data->no_ref_pelayanan); ?>"
-									class="btn btn-sm btn-info">Lihat</a>
-							</td>
-
-						</tr>
-						<?php endforeach; ?>
 					</tbody>
 				</table>
 			</div>
 		</div>
 	</div>
 </div>
+
+<script src="<?= base_url(); ?>assets/sb_admin_2/vendor/jquery/jquery-3.4.1.min.js"></script>
+<script>
+	// jika kita tekan / click button search-button
+	$(document).ready(function () {
+		//DOM manipulation code
+		search_proses();
+	});
+
+	function search_proses() {
+		var table;
+		table = $('.table_1').DataTable({
+			"processing": true,
+			"serverSide": true,
+			"ajax": "<?php echo base_url() . 'laporan/RekapTagihan/tampil_data_tagihan'; ?>"
+		});
+	}
+
+</script>

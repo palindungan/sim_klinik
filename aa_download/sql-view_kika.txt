@@ -231,3 +231,7 @@ FROM pelayanan p WHERE p.status = 'finish'
 
 //Daftar Return Obat
 CREATE VIEW daftar_return_obat AS SELECT kode_obat,no_return_obat,detail_return_obat.qty as qty_detail,tanggal,nama FROM detail_return_obat JOIN obat USING(kode_obat) JOIN return_obat USING(no_return_obat)
+
+// Rekap Tagihan
+CREATE VIEW rekap_tagihan AS
+SELECT no_ref_pelayanan,pasien.no_rm,pasien.nama,tgl_pelayanan,tipe_pelayanan FROM pelayanan JOIN pasien USING(no_rm) ORDER BY no_ref_pelayanan DESC
