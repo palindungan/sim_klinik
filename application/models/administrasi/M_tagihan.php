@@ -6,18 +6,20 @@ class M_tagihan extends CI_Model
         return $this->db->get($table);
     }
 
-    function countRecordWithTglKeluarParam(){
+    function countRecordWithTglKeluarParam()
+    {
         $this->db->select('no_ref_pelayanan');
         $this->db->from('pelayanan');
         $this->db->where('tgl_keluar IS NOT NULL', null, false);
         return $this->db->get()->num_rows();
     }
 
-    function getLastRecordWithTglKeluarParam(){
+    function getLastRecordWithTglKeluarParam()
+    {
         $this->db->select('no_ref_pelayanan, temp_saldo');
         $this->db->from('pelayanan');
         $this->db->where('tgl_keluar IS NOT NULL', null, false);
-        $this->db->order_by('tgl_keluar','DESC');
+        $this->db->order_by('tgl_keluar', 'DESC');
         $this->db->limit('1');
         return  $this->db->get()->result();
         // $temp_saldo = "";
@@ -27,19 +29,21 @@ class M_tagihan extends CI_Model
         // return $temp_saldo;
     }
 
-    function getRekap(){
+    function getRekap()
+    {
         $this->db->select("no_ref_pelayanan,pasien.no_rm,pasien.nama,tgl_pelayanan,tipe_pelayanan");
         $this->db->from('pelayanan');
-        $this->db->join('pasien','pelayanan.no_rm = pasien.no_rm');
-        $this->db->order_by('no_ref_pelayanan','DESC');
+        $this->db->join('pasien', 'pelayanan.no_rm = pasien.no_rm');
+        $this->db->order_by('no_ref_pelayanan', 'DESC');
         return $this->db->get();
     }
-    function getRekapByNoRM($noRM){
+    function getRekapByNoRM($noRM)
+    {
         $this->db->select("no_ref_pelayanan,pasien.no_rm,pasien.nama,tgl_pelayanan,tipe_pelayanan");
         $this->db->from('pelayanan');
-        $this->db->join('pasien','pelayanan.no_rm = pasien.no_rm');
-        $this->db->where('pelayanan.no_rm',$noRM);
-        $this->db->order_by('no_ref_pelayanan','DESC');
+        $this->db->join('pasien', 'pelayanan.no_rm = pasien.no_rm');
+        $this->db->where('pelayanan.no_rm', $noRM);
+        $this->db->order_by('no_ref_pelayanan', 'DESC');
         return $this->db->get();
     }
 
@@ -243,5 +247,26 @@ class M_tagihan extends CI_Model
             $kd = "0001";
         }
         return 'RI' . date('ymd') . '-' . $kd; // SELECT SUBSTR('RI191121-0001', 3, 6); dari digit ke 3 sampai 6 digit seanjutnya
+    }
+
+    function get_no_transaksi_lain()
+    {
+        date_default_timezone_set('Asia/Jakarta');
+        $field = "no_transaksi_lain";
+        $tabel = "transaksi_lain";
+        $digit = "4";
+        $ymd = date('ymd');
+
+        $q = $this->db->query("SELECT MAX(RIGHT($field,$digit)) AS kd_max FROM $tabel WHERE SUBSTR($field, 3, 6) = $ymd LIMIT 1");
+        $kd = "";
+        if ($q->num_rows() > 0) {
+            foreach ($q->result() as $k) {
+                $tmp = ((int) $k->kd_max) + 1;
+                $kd = sprintf('%0' . $digit . 's', $tmp);
+            }
+        } else {
+            $kd = "0001";
+        }
+        return 'LN' . date('ymd') . '-' . $kd; // SELECT SUBSTR('LN191121-0001', 3, 6); dari digit ke 3 sampai 6 digit seanjutnya
     }
 }

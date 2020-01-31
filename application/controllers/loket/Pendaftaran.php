@@ -83,6 +83,7 @@ class Pendaftaran extends CI_Controller
         }
 
         // logic antrian
+        $kode_antrian = '';
         $layanan_tujuan = $this->input->post('layanan_tujuan');
 
         if ($layanan_tujuan == 'Balai Pengobatan') {
@@ -135,28 +136,6 @@ class Pendaftaran extends CI_Controller
         }
 
         //Cetak
-
-        if ($layanan_tujuan == 'Balai Pengobatan') {
-            $tipe_antrian =  $this->input->post('tipe_antrian');
-            $kode_antrian = '';
-            if ($tipe_antrian == 'Dewasa') {
-                $kode_antrian = $this->M_pendaftaran->get_no_dewasa_bp(); // generate
-            } else {
-                $kode_antrian = $this->M_pendaftaran->get_no_anak_anak_bp(); // generate
-            }
-        } elseif ($layanan_tujuan == 'Poli KIA') {
-            $kode_antrian = $this->M_pendaftaran->get_no_kia(); // generate
-
-        } elseif ($layanan_tujuan == 'Laboratorium') {
-            $tipe_antrian =  $this->input->post('tipe_antrian');
-            $kode_antrian = '';
-
-            if ($tipe_antrian == 'Dewasa') {
-                $kode_antrian = $this->M_pendaftaran->get_no_dewasa_lab(); // generate
-            } else {
-                $kode_antrian = $this->M_pendaftaran->get_no_anak_anak_lab(); // generate
-            }
-        }
         $gabung = $kode_antrian . "_" . $no_ref;
         $base_url = base_url('loket/pendaftaran/cetak/' . $gabung);
         echo "<script type='text/javascript'>";

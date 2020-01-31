@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 31 Jan 2020 pada 22.05
+-- Waktu pembuatan: 31 Jan 2020 pada 23.44
 -- Versi server: 10.1.37-MariaDB
 -- Versi PHP: 7.3.0
 
@@ -618,7 +618,7 @@ CREATE TABLE `detail_return_obat` (
 
 CREATE TABLE `detail_transaksi_lain` (
   `no_detail_transaksi_l` int(10) NOT NULL,
-  `no_transaksi_lain` int(10) NOT NULL,
+  `no_transaksi_lain` char(13) NOT NULL,
   `no_lain` int(5) NOT NULL,
   `nama` varchar(100) NOT NULL,
   `qty` int(3) NOT NULL,
@@ -49522,7 +49522,7 @@ CREATE TABLE `supplier` (
 --
 
 CREATE TABLE `transaksi_lain` (
-  `no_transaksi_lain` int(10) NOT NULL,
+  `no_transaksi_lain` char(13) NOT NULL,
   `no_ref_pelayanan` char(10) NOT NULL,
   `tgl_transaksi` datetime NOT NULL,
   `total_harga` int(9) NOT NULL
@@ -50214,12 +50214,6 @@ ALTER TABLE `stok_obat_apotik`
 --
 ALTER TABLE `stok_obat_rawat_inap`
   MODIFY `no_stok_obat_rawat_i` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT untuk tabel `transaksi_lain`
---
-ALTER TABLE `transaksi_lain`
-  MODIFY `no_transaksi_lain` int(10) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

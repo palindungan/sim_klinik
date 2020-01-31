@@ -355,6 +355,7 @@ class Tagihan extends CI_Controller
         $cek_pelayanan_ambulan = $this->M_tagihan->get_data('pelayanan_ambulan', $where_no_ref_pelayanan);
         $cek_penjualan_obat_apotik = $this->M_tagihan->get_data('penjualan_obat_apotik', $where_no_ref_pelayanan);
         $cek_transaksi_rawat_inap = $this->M_tagihan->get_data('transaksi_rawat_inap', $where_no_ref_pelayanan);
+        $cek_transaksi_lain = $this->M_tagihan->get_data('transaksi_lain', $where_no_ref_pelayanan);
 
         // Start of cek di setiap transaksi //// untuk lab_transaksi
         if ($cek_lab_transaksi->num_rows() > 0) {
@@ -1332,6 +1333,111 @@ class Tagihan extends CI_Controller
         }
         // End Of cek di setiap transaksi
 
+        // Start of cek di setiap transaksi //// untuk transaksi_lain
+        if ($cek_transaksi_lain->num_rows() > 0) {
+
+            // Start of hapus semua detail transaksi lama
+            // ambil kode transaksi
+            $no_transaksi_lain = "kosong";
+            foreach ($cek_transaksi_lain->result() as $data) {
+                $no_transaksi_lain = $data->no_transaksi_lain;
+            }
+
+            $where_no_transaksi_lain = array(
+                'no_transaksi_lain' => $no_transaksi_lain
+            );
+
+            $hapus = $this->M_tagihan->hapus_data($where_no_transaksi_lain, 'detail_transaksi_lain');
+            // End of hapus semua detail transaksi lama
+
+            // Start of Cek apakah ada data detail post masuk ? no_lain harga_lain
+            if (isset($_POST['no_lain']) && isset($_POST['harga_lain']) && isset($_POST['qty_lain'])) {
+
+                // menambah detail transaksi baru 
+                for ($i = 0; $i < count($this->input->post('no_lain')); $i++) {
+
+                    $no_lain = $this->input->post('no_lain')[$i];
+                    $nama_lain = $this->input->post('nama_lain')[$i];
+
+                    $harga_jual_temp = $this->input->post('harga_lain')[$i];
+                    $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
+
+                    $qty_temp = $this->input->post('qty_lain')[$i];
+                    $qty = (int) $qty_temp;
+
+                    $data = array(
+                        'no_transaksi_lain' => $no_transaksi_lain,
+                        'no_lain' => $no_lain,
+                        'nama' => $nama_lain,
+                        'qty' => $qty,
+                        'harga' => $harga_jual
+                    );
+
+                    $tambah = $this->M_tagihan->input_data('detail_transaksi_lain', $data);
+                }
+
+                // update transaksi lama
+                $tgl_transaksi = date('Y-m-d H:i:s');
+                $total_tmp = $this->input->post('sub_total_lain');
+                $total_harga = preg_replace("/[^0-9]/", "", $total_tmp);
+
+                $data = array(
+                    'tgl_transaksi' => $tgl_transaksi,
+                    'total_harga' => $total_harga
+                );
+                $update = $this->M_tagihan->update_data($where_no_transaksi_lain, 'transaksi_lain', $data);
+            } else {
+
+                // Hapus transaksi Utama
+                $hapus = $this->M_tagihan->hapus_data($where_no_transaksi_lain, 'transaksi_lain');
+            }
+            // End of Cek apakah ada data detail post masuk ?
+
+        } else {
+
+            // Start of Cek apakah ada data detail post masuk ? no_lain harga_lain
+            if (isset($_POST['no_lain']) && isset($_POST['harga_lain']) && isset($_POST['qty_lain'])) {
+
+                // menambah transaksi utama
+                $no_transaksi_lain = $this->M_tagihan->get_no_transaksi_lain(); // generate
+                $tgl_transaksi = date('Y-m-d H:i:s');
+                $total_tmp = $this->input->post('sub_total_lain');
+                $total_harga = preg_replace("/[^0-9]/", "", $total_tmp);
+
+                $data = array(
+                    'no_transaksi_lain' => $no_transaksi_lain,
+                    'no_ref_pelayanan' => $no_ref_pelayanan,
+                    'tgl_transaksi' => $tgl_transaksi,
+                    'total_harga' => $total_harga
+                );
+
+                $tambah = $this->M_tagihan->input_data('transaksi_lain', $data);
+
+                // menambah detail transaksi baru 
+                for ($i = 0; $i < count($this->input->post('no_lain')); $i++) {
+
+                    $no_lain = $this->input->post('no_lain')[$i];
+                    $nama_lain = $this->input->post('nama_lain')[$i];
+
+                    $harga_jual_temp = $this->input->post('harga_lain')[$i];
+                    $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
+
+                    $qty_temp = $this->input->post('qty_lain')[$i];
+                    $qty = (int) $qty_temp;
+
+                    $data = array(
+                        'no_transaksi_lain' => $no_transaksi_lain,
+                        'no_lain' => $no_lain,
+                        'nama' => $nama_lain,
+                        'qty' => $qty,
+                        'harga' => $harga_jual
+                    );
+
+                    $tambah = $this->M_tagihan->input_data('detail_transaksi_lain', $data);
+                }
+            }
+        }
+        // End Of cek di setiap transaksi
 
         if ($btn_simpan == "simpan_final") {
             $count_transaction = $this->M_tagihan->countRecordWithTglKeluarParam();
