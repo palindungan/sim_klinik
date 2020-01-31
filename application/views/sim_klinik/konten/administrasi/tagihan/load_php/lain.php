@@ -97,7 +97,7 @@
 
         <tr id="row` + count_transaksi + `" class="kelas_row">
             <td>
-                ` + nama + `
+                <input type="text" name="nama_lain[]" class="form-control form-control-sm" id="nama_lain` + count_transaksi + `" placeholder="nama lain" required value="` + nama + ` (` + tipe + `)">
                 <input type="hidden" name="no_lain[]" class="form-control form-control-sm" id="no_lain` + count_transaksi + `" value="` + kode + `">
             </td>
             <td>
