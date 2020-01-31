@@ -68,6 +68,15 @@ class Tagihan extends CI_Controller
         echo $data;
     }
 
+    public function tampil_transaksi_lain()
+    {
+        $data_tbl['tbl_data'] = $this->M_tagihan->tampil_data('transaksi_lain')->result();
+
+        $data = json_encode($data_tbl);
+
+        echo $data;
+    }
+
     public function ambil_total_ambulance()
     {
         $sub_total = 0;
@@ -221,6 +230,32 @@ class Tagihan extends CI_Controller
         echo $total;
     }
 
+    public function ambil_total_transaksi_lain()
+    {
+        $sub_total = 0;
+        $total = 0;
+
+        if (isset($_POST['no_lain']) && isset($_POST['harga_transaksi_lain']) && isset($_POST['qty_transaksi_lain'])) {
+
+            for ($i = 0; $i < count($this->input->post('no_lain')); $i++) {
+
+                $harga_jual_temp = $this->input->post('harga_transaksi_lain')[$i];
+                $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
+
+                $qty_temp = $this->input->post('qty_transaksi_lain')[$i];
+                $qty = (int) $qty_temp;
+
+                $perhitungan = $harga_jual * $qty;
+
+                $sub_total = $sub_total + $perhitungan;
+            }
+
+            $total = $sub_total;
+        }
+
+        echo $total;
+    }
+
     public function ambil_total_ri_kamar()
     {
         $sub_total = 0;
@@ -311,7 +346,6 @@ class Tagihan extends CI_Controller
         $where_no_ref_pelayanan = array(
             'no_ref_pelayanan' => $no_ref_pelayanan
         );
-
 
         // cek apakah ada no ref pelayanan didalam semua tabel transaksi
         $cek_lab_transaksi = $this->M_tagihan->get_data('lab_transaksi', $where_no_ref_pelayanan);
@@ -1149,10 +1183,10 @@ class Tagihan extends CI_Controller
 
         } else {
 
-             $data_update_status_pelayanan = array(
-                    'tipe_pelayanan' => 'Rawat Jalan'
-                );
-                $this->M_tagihan->update_data($where_no_ref_pelayanan, 'pelayanan', $data_update_status_pelayanan);
+            $data_update_status_pelayanan = array(
+                'tipe_pelayanan' => 'Rawat Jalan'
+            );
+            $this->M_tagihan->update_data($where_no_ref_pelayanan, 'pelayanan', $data_update_status_pelayanan);
 
             // Start of Cek apakah ada data detail post masuk ?
             if (isset($_POST['no_stok_obat_rawat_i']) || isset($_POST['no_rawat_inap_t']) || isset($_POST['no_kamar_rawat_i'])) {
