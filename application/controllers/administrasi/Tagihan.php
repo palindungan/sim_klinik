@@ -45,6 +45,7 @@ class Tagihan extends CI_Controller
         $data_tbl['daftar_detail_tindakan_bp_transaksi'] =  $this->M_tagihan->get_data('daftar_detail_tindakan_bp_transaksi', $where)->result();
         $data_tbl['daftar_detail_tindakan_ugd_transaksi'] =  $this->M_tagihan->get_data('daftar_detail_tindakan_ugd_transaksi', $where)->result();
         $data_tbl['daftar_detail_tindakan_kia_transaksi'] =  $this->M_tagihan->get_data('daftar_detail_tindakan_kia_transaksi', $where)->result();
+        $data_tbl['daftar_detail_transaksi_lain'] =  $this->M_tagihan->get_data('daftar_detail_transaksi_lain', $where)->result();
 
         $data = json_encode($data_tbl);
 

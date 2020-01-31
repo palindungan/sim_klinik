@@ -79,7 +79,7 @@
                             `','` + nama + `','` + harga + `','` + tipe + `')" id="` + kode +
                             `" class="btn btn-sm btn-dark text-white">Pilih</a>`;
 
-                        table.row.add([no, nama, ribuan, button]);
+                        table.row.add([no, nama + ' (' + tipe + ')', ribuan, button]);
 
                         no = no + 1;
                     });

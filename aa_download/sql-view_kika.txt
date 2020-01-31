@@ -195,6 +195,12 @@ SELECT dpa.harga , pa.no_pelayanan_a , pa.no_ref_pelayanan , a.no_ambulance ,a.t
 FROM detail_pelayanan_ambulan dpa JOIN pelayanan_ambulan pa USING(no_pelayanan_a) JOIN ambulance a USING(no_ambulance)
 ORDER BY dpa.no_detail_pelayanan_ambulan ASC;
 
+// daftar_detail_transaksi_lain
+CREATE VIEW daftar_detail_transaksi_lain AS 
+SELECT dtl.no_detail_transaksi_l,tl.no_transaksi_lain , l.no_lain , dtl.nama , dtl.qty,dtl.harga , l.tipe , tl.no_ref_pelayanan
+FROM detail_transaksi_lain dtl JOIN transaksi_lain tl USING(no_transaksi_lain) JOIN lain l USING(no_lain)
+ORDER BY dtl.no_detail_transaksi_l  ASC;
+
 // Laporan RJ
 CREATE VIEW laporan_rj AS
 select p.no_ref_pelayanan AS no_ref_pelayanan,p.no_rm,p.tgl_pelayanan,p.tipe_pelayanan,p.tgl_keluar,
