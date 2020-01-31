@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 31 Jan 2020 pada 21.55
+-- Waktu pembuatan: 31 Jan 2020 pada 22.05
 -- Versi server: 10.1.37-MariaDB
 -- Versi PHP: 7.3.0
 
@@ -613,6 +613,21 @@ CREATE TABLE `detail_return_obat` (
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `detail_transaksi_lain`
+--
+
+CREATE TABLE `detail_transaksi_lain` (
+  `no_detail_transaksi_l` int(10) NOT NULL,
+  `no_transaksi_lain` int(10) NOT NULL,
+  `no_lain` int(5) NOT NULL,
+  `nama` varchar(100) NOT NULL,
+  `qty` int(3) NOT NULL,
+  `harga` int(9) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `detail_transaksi_rawat_inap_kamar`
 --
 
@@ -791,6 +806,19 @@ CREATE TABLE `lab_transaksi` (
   `no_ref_pelayanan` char(10) NOT NULL,
   `tgl_transaksi` datetime NOT NULL,
   `total_harga` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `lain`
+--
+
+CREATE TABLE `lain` (
+  `no_lain` int(5) NOT NULL,
+  `nama` varchar(50) NOT NULL,
+  `tipe` enum('Koperasi','EKG','Lain') NOT NULL,
+  `harga` int(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -49490,6 +49518,19 @@ CREATE TABLE `supplier` (
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `transaksi_lain`
+--
+
+CREATE TABLE `transaksi_lain` (
+  `no_transaksi_lain` int(10) NOT NULL,
+  `no_ref_pelayanan` char(10) NOT NULL,
+  `tgl_transaksi` datetime NOT NULL,
+  `total_harga` int(9) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `transaksi_rawat_inap`
 --
 
@@ -49895,6 +49936,12 @@ ALTER TABLE `detail_return_obat`
   ADD PRIMARY KEY (`no_detail_return_obat`);
 
 --
+-- Indeks untuk tabel `detail_transaksi_lain`
+--
+ALTER TABLE `detail_transaksi_lain`
+  ADD PRIMARY KEY (`no_detail_transaksi_l`);
+
+--
 -- Indeks untuk tabel `detail_transaksi_rawat_inap_kamar`
 --
 ALTER TABLE `detail_transaksi_rawat_inap_kamar`
@@ -49953,6 +50000,12 @@ ALTER TABLE `lab_checkup`
 --
 ALTER TABLE `lab_transaksi`
   ADD PRIMARY KEY (`no_lab_t`);
+
+--
+-- Indeks untuk tabel `lain`
+--
+ALTER TABLE `lain`
+  ADD PRIMARY KEY (`no_lain`);
 
 --
 -- Indeks untuk tabel `obat`
@@ -50025,6 +50078,12 @@ ALTER TABLE `stok_obat_rawat_inap`
 --
 ALTER TABLE `supplier`
   ADD PRIMARY KEY (`no_supplier`);
+
+--
+-- Indeks untuk tabel `transaksi_lain`
+--
+ALTER TABLE `transaksi_lain`
+  ADD PRIMARY KEY (`no_transaksi_lain`);
 
 --
 -- Indeks untuk tabel `transaksi_rawat_inap`
@@ -50103,6 +50162,12 @@ ALTER TABLE `detail_return_obat`
   MODIFY `no_detail_return_obat` int(9) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT untuk tabel `detail_transaksi_lain`
+--
+ALTER TABLE `detail_transaksi_lain`
+  MODIFY `no_detail_transaksi_l` int(10) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT untuk tabel `detail_transaksi_rawat_inap_kamar`
 --
 ALTER TABLE `detail_transaksi_rawat_inap_kamar`
@@ -50127,6 +50192,12 @@ ALTER TABLE `detail_ugd_penanganan`
   MODIFY `no_detail_ugd_p` int(7) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT untuk tabel `lain`
+--
+ALTER TABLE `lain`
+  MODIFY `no_lain` int(5) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT untuk tabel `setoran_rawat_inap`
 --
 ALTER TABLE `setoran_rawat_inap`
@@ -50143,6 +50214,12 @@ ALTER TABLE `stok_obat_apotik`
 --
 ALTER TABLE `stok_obat_rawat_inap`
   MODIFY `no_stok_obat_rawat_i` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT untuk tabel `transaksi_lain`
+--
+ALTER TABLE `transaksi_lain`
+  MODIFY `no_transaksi_lain` int(10) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
