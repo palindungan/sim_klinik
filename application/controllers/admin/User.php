@@ -4,10 +4,10 @@ class User extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        if($this->session->userdata('akses') == ""){
+        if ($this->session->userdata('akses') == "") {
             redirect('login');
-        }else if($this->session->userdata('akses') == 'Manager' || $this->session->userdata('akses') == 'Admin'){ 
-        }else{
+        } else if ($this->session->userdata('akses') == 'Manager' || $this->session->userdata('akses') == 'Admin') {
+        } else {
             show_404();
         }
         $this->load->model('admin/M_user');
@@ -15,7 +15,7 @@ class User extends CI_Controller
     public function index()
     {
         $data['record'] = $this->M_user->tampil_data('user_pegawai')->result();
-        $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/admin/user/tampil',$data);
+        $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/admin/user/tampil', $data);
     }
     public function store()
     {
@@ -31,22 +31,17 @@ class User extends CI_Controller
         );
         $count_user = $this->db->query("SELECT COUNT(*) as jml_user FROM user_pegawai WHERE username='$username'")->row();
         $cek_username = $count_user->jml_user;
-        if($cek_username > 0)
-        {
-            $this->session->set_flashdata('username','Diusername');
+        if ($cek_username > 0) {
+            $this->session->set_flashdata('username', 'Diusername');
             redirect('admin/user');
-        }
-        else if($this->input->post('password') != $this->input->post('konfirmasi_password'))
-        {
-            $this->session->set_flashdata('password','Dipassword');
+        } else if ($this->input->post('password') != $this->input->post('konfirmasi_password')) {
+            $this->session->set_flashdata('password', 'Dipassword');
             redirect('admin/user');
-
         } else {
-            $this->M_user->input_data('user_pegawai',$data);
-            $this->session->set_flashdata('success','Ditambahkan');
+            $this->M_user->input_data('user_pegawai', $data);
+            $this->session->set_flashdata('success', 'Ditambahkan');
             redirect('admin/user');
         }
-        
     }
     public function update()
     {
@@ -66,22 +61,18 @@ class User extends CI_Controller
         $cek_username = $count_user->jml_user;
 
         // jika username db dan username post sama
-        if($username_db == $username)
-        {
-            $this->M_user->update_data($where,'user_pegawai',$data);
-            $this->session->set_flashdata('update','Diubah');
+        if ($username_db == $username) {
+            $this->M_user->update_data($where, 'user_pegawai', $data);
+            $this->session->set_flashdata('update', 'Diubah');
+            redirect('admin/user');
+        } else if ($cek_username > 0) {
+            $this->session->set_flashdata('username', 'Diusername');
+            redirect('admin/user');
+        } else {
+            $this->M_user->update_data($where, 'user_pegawai', $data);
+            $this->session->set_flashdata('update', 'Diubah');
             redirect('admin/user');
         }
-        else if($cek_username > 0){
-            $this->session->set_flashdata('username','Diusername');
-            redirect('admin/user');
-        }
-        else {
-            $this->M_user->update_data($where,'user_pegawai',$data);
-            $this->session->set_flashdata('update','Diubah');
-            redirect('admin/user');
-        }
-        
     }
     public function update_password()
     {
@@ -92,27 +83,22 @@ class User extends CI_Controller
             'no_user_pegawai' => $id
         );
         $data = array(
-            'password' => $password_baru
+            'password' =>  password_hash($password_baru, PASSWORD_BCRYPT)
         );
-        if($password_baru != $konfirmasi_password)
-        {
-            $this->session->set_flashdata('password','Dipassword');
+        if ($password_baru != $konfirmasi_password) {
+            $this->session->set_flashdata('password', 'Dipassword');
+            redirect('admin/user');
+        } else {
+            $this->M_user->update_data($where, 'user_pegawai', $data);
+            $this->session->set_flashdata('update', 'Diubah');
             redirect('admin/user');
         }
-        else {
-            $this->M_user->update_data($where,'user_pegawai',$data);
-            $this->session->set_flashdata('update','Diubah');
-            redirect('admin/user');
-        }
-        
     }
     public function delete($id)
     {
         $where = array('no_user_pegawai' => $id);
         $this->M_user->hapus_data($where, 'user_pegawai');
-        $this->session->set_flashdata('hapus','Dihapus');
+        $this->session->set_flashdata('hapus', 'Dihapus');
         redirect('admin/user');
     }
-    
-
 }
