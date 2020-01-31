@@ -68,9 +68,9 @@ class Tagihan extends CI_Controller
         echo $data;
     }
 
-    public function tampil_transaksi_lain()
+    public function tampil_lain()
     {
-        $data_tbl['tbl_data'] = $this->M_tagihan->tampil_data('transaksi_lain')->result();
+        $data_tbl['tbl_data'] = $this->M_tagihan->tampil_data('lain')->result();
 
         $data = json_encode($data_tbl);
 
@@ -230,19 +230,19 @@ class Tagihan extends CI_Controller
         echo $total;
     }
 
-    public function ambil_total_transaksi_lain()
+    public function ambil_total_lain()
     {
         $sub_total = 0;
         $total = 0;
 
-        if (isset($_POST['no_lain']) && isset($_POST['harga_transaksi_lain']) && isset($_POST['qty_transaksi_lain'])) {
+        if (isset($_POST['no_lain']) && isset($_POST['harga_lain']) && isset($_POST['qty_lain'])) {
 
             for ($i = 0; $i < count($this->input->post('no_lain')); $i++) {
 
-                $harga_jual_temp = $this->input->post('harga_transaksi_lain')[$i];
+                $harga_jual_temp = $this->input->post('harga_lain')[$i];
                 $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
 
-                $qty_temp = $this->input->post('qty_transaksi_lain')[$i];
+                $qty_temp = $this->input->post('qty_lain')[$i];
                 $qty = (int) $qty_temp;
 
                 $perhitungan = $harga_jual * $qty;
@@ -1458,7 +1458,6 @@ class Tagihan extends CI_Controller
             }
         }
 
-
         if ($cek_kia_penanganan2->num_rows() > 0) {
             foreach ($cek_kia_penanganan2->result() as $data_kia) {
                 $no_kia_p = $data_kia->no_kia_p;
@@ -1483,7 +1482,6 @@ class Tagihan extends CI_Controller
                 </tr>';
             }
         }
-
 
         if ($cek_lab_transaksi2->num_rows() > 0) {
             foreach ($cek_lab_transaksi2->result() as $data_lab) {
@@ -1510,7 +1508,6 @@ class Tagihan extends CI_Controller
             }
         }
 
-
         if ($cek_ugd_penanganan2->num_rows() > 0) {
             foreach ($cek_ugd_penanganan2->result() as $data_ugd) {
                 $no_ugd_p = $data_ugd->no_ugd_p;
@@ -1536,7 +1533,6 @@ class Tagihan extends CI_Controller
                 </tr>';
             }
         }
-
 
         if ($cek_penjualan_obat_apotik2->num_rows() > 0) {
             foreach ($cek_penjualan_obat_apotik2->result() as $data_apotik) {
@@ -1568,7 +1564,6 @@ class Tagihan extends CI_Controller
                 </tr>';
             }
         }
-
 
         if ($cek_transaksi_rawat_inap2->num_rows() > 0) {
             foreach ($cek_transaksi_rawat_inap2->result() as $data_rawat_inap) {
@@ -1638,7 +1633,6 @@ class Tagihan extends CI_Controller
                 }
             }
 
-
             if ($no_stok_obat_rawat_i != "kosong") {
                 $html .= '
                 <tr>
@@ -1656,7 +1650,6 @@ class Tagihan extends CI_Controller
                 </tr>';
             }
         }
-
 
         if ($cek_pelayanan_ambulan2->num_rows() > 0) {
             foreach ($cek_pelayanan_ambulan2->result() as $data_ambulance) {
