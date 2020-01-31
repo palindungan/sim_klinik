@@ -80,6 +80,23 @@
                     update_sub_total_ri_kamar();
                 }
 
+                // ambil data detail daftar_detail_transaksi_lain 
+                let data_lain = obj['daftar_detail_transaksi_lain'];
+                if (data_lain != '') {
+
+                    $.each(data_lain, function(i, item) {
+
+                        var no_lain = data_lain[i].no_lain;
+                        var nama = data_lain[i].nama;
+                        var qty = data_lain[i].qty;
+                        var harga = data_lain[i].harga;
+
+                        load_detail_lain(no_lain, nama, qty, harga);
+                    });
+
+                    update_sub_total_lain();
+                }
+
                 cek_jumlah_data_detail_transaksi();
             }
         });
@@ -209,6 +226,40 @@
         count_transaksi = count_transaksi + 1;
         jumlah_detail_transaksi = jumlah_detail_transaksi + 1;
         jumlah_detail_transaksi_ri_kamar = jumlah_detail_transaksi_ri_kamar + 1;
+    }
+
+    function load_detail_lain(kode, nama, qty, harga) {
+
+        $('#detail_list_lain').append(`
+
+        <tr id="row` + count_transaksi + `" class="kelas_row">
+            <td>
+                <input type="text" name="nama_lain[]" class="form-control form-control-sm" id="nama_lain` + count_transaksi + `" placeholder="nama lain" required value="` + nama + `">
+                <input type="hidden" name="no_lain[]" class="form-control form-control-sm" id="no_lain` + count_transaksi + `" value="` + kode + `">
+            </td>
+            <td>
+                <input type="text" name="qty_lain[]" class="form-control form-control-sm cek_qty_lain" id="qty_lain` + count_transaksi + `" placeholder="QTY" value="` + qty + `" required>
+            </td>
+            <td>
+                <input type="text" name="harga_lain[]" class="form-control form-control-sm rupiah text-right harga_lain_update" id="harga_lain` + count_transaksi + `" placeholder="Harga lain" required value="` + harga + `">
+            </td>
+            <td>  
+                <input type="text" class="form-control form-control-sm rupiah text-right" id="harga_sub_lain` + count_transaksi + `" readonly required value="` + harga * qty + `"></td>
+            <td>
+                <div class="form-group col-sm-2">
+                    <a id="` + count_transaksi + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris_lain">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-trash-alt"></i>
+                        </span>
+                    </a>
+                </div>
+            </td>
+        </tr>
+
+        `);
+
+        count_transaksi = count_transaksi + 1;
+        jumlah_detail_transaksi = jumlah_detail_transaksi + 1;
     }
 
     // End of fungsi untuk memanggil data
