@@ -48,6 +48,9 @@
                     <div class="form-group col-md-2">
                         <a href="#" id="btn_search_ugd_tindakan" class="btn btn-sm btn-primary col-md-12" data-toggle="modal" data-target="#exampleModalCenter_ugd_tindakan">Tindakan UGD</a>
                     </div>
+                    <div class="form-group col-md-2">
+                        <a href="#" id="btn_search_lain" class="btn btn-sm btn-primary col-md-12" data-toggle="modal" data-target="#exampleModalCenter_lain">Lain-Lain</a>
+                    </div>
                 </div>
 
                 <input type="hidden" readonly name="sub_total_ambulance" class="angka_default form-control form-control-sm rupiah text-right" id="sub_total_ambulance" placeholder="Sub Total Ambulance">
@@ -59,6 +62,7 @@
                 <input type="hidden" readonly name="sub_total_ri_kamar" class="angka_default form-control form-control-sm rupiah text-right" id="sub_total_ri_kamar" placeholder="Sub Total RI Kamar">
                 <input type="hidden" readonly name="sub_total_ri_obat" class="angka_default form-control form-control-sm rupiah text-right" id="sub_total_ri_obat" placeholder="Sub Total RI Obat">
                 <input type="hidden" readonly name="sub_total_ri_tindakan" class="angka_default form-control form-control-sm rupiah text-right" id="sub_total_ri_tindakan" placeholder="Sub Total RI Tindakan">
+                <input type="hidden" readonly name="sub_total_lain" class="angka_default form-control form-control-sm rupiah text-right" id="sub_total_lain" placeholder="Sub Total Lain">
 
                 <div class="row">
                     <div class="col-md-12">
@@ -128,6 +132,7 @@
                             <tbody id="detail_list_ugd_tindakan"></tbody>
                             <tbody id="detail_list_ri_obat"></tbody>
                             <tbody id="detail_list_ri_tindakan"></tbody>
+                            <tbody id="detail_list_lain"></tbody>
 
                             <tfoot>
                                 <tr>
@@ -217,6 +222,8 @@
 <?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/kia_tindakan.php') ?>
 <?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/lab_tindakan.php') ?>
 <?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/ugd_tindakan.php') ?>
+
+<?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/lain.php') ?>
 
 <?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/load_all_detail.php') ?>
 <!-- end of pecahan codingan script -->
@@ -309,64 +316,13 @@
             sub_total_ri_tindakan_v = parseInt(sub_total_ri_tindakan.split('.').join(''));
         }
 
-        $('#grand_total').val(sub_total_ambulance_v + sub_total_apotek_obat_v + sub_total_bp_tindakan_v + sub_total_kia_tindakan_v + sub_total_lab_tindakan_v + sub_total_ugd_tindakan_v + sub_total_ri_kamar_v + sub_total_ri_obat_v + sub_total_ri_tindakan_v);
-        $('#grand_total').trigger('input'); // Will be display 
-    }
-
-    // deteksi paket obat
-    $(document).on('click', '.deteksi_cek_box', function() {
-
-        var row_id = $(this).attr("id"); // status_paket_apotek_obat_cb1++
-        var row_no = row_id.substring(27); // 1++
-
-        // Get the checkbox
-        var checkBox = document.getElementById(row_id);
-
-        // If the checkbox is checked, harga_apotek_obat harga_sub_apotek_obat harga_cadangan_apotek_obat
-        if (checkBox.checked == true) {
-            $('#harga_apotek_obat' + row_no).val("0");
-            $('#harga_sub_apotek_obat' + row_no).val("0");
-            $('#status_paket_apotek_obat' + row_no).val("Ya");
-        } else {
-
-            $('#status_paket_apotek_obat' + row_no).val("Tidak");
-
-            var harga_obat_lama = $('#harga_obat_lama' + row_no).val();
-            $('#harga_apotek_obat' + row_no).val(harga_obat_lama);
-
-            var harga_apotek_obat = parseInt($('#harga_apotek_obat' + row_no).val().split('.').join(''));
-            var qty_apotek_obat = parseInt($('#qty_apotek_obat' + row_no).val().split('.').join(''));
-
-            $('#harga_sub_apotek_obat' + row_no).val(harga_apotek_obat * qty_apotek_obat);
+        var sub_total_lain = $('#sub_total_lain').val();
+        var sub_total_lain_v = 0;
+        if (sub_total_lain != "") {
+            sub_total_lain_v = parseInt(sub_total_lain.split('.').join(''));
         }
 
-        update_sub_total_apotek_obat();
-    });
-
-    // // jika di click simpan / submit
-    // $(document).on('submit', '#transaksi_form', function(event) {
-    //     event.preventDefault();
-
-    //     if (jumlah_detail_transaksi > 0) {
-
-    //         // mengambil nilai di dalam form
-    //         var form_data = $(this).serialize();
-
-    //         // tambah ke database
-    //         $.ajax({
-    //             url: "<?php echo base_url() . 'administrasi/tagihan/input_transaksi_form'; ?>",
-    //             method: "POST",
-    //             data: form_data,
-    //             success: function(data) {
-    //                 location.reload();
-    //             }
-    //         });
-    //         // tambah ke database
-    //     } else {
-    //         alert("Detail Transaksi Kosong !");
-    //     }
-
-
-
-    // });
+        $('#grand_total').val(sub_total_ambulance_v + sub_total_apotek_obat_v + sub_total_bp_tindakan_v + sub_total_kia_tindakan_v + sub_total_lab_tindakan_v + sub_total_ugd_tindakan_v + sub_total_ri_kamar_v + sub_total_ri_obat_v + sub_total_ri_tindakan_v + sub_total_lain_v);
+        $('#grand_total').trigger('input'); // Will be display 
+    }
 </script>

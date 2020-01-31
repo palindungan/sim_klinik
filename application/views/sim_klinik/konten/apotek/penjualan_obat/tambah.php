@@ -81,7 +81,6 @@
 			</form>
 		</div>
 	</div>
-
 </div>
 
 <script src="<?= base_url(); ?>assets/sb_admin_2/vendor/jquery/jquery.min.js"></script>
@@ -155,36 +154,6 @@
 		$('#grand_total').trigger('input'); // Will be display 
 	}
 
-	// deteksi paket obat
-	$(document).on('click', '.deteksi_cek_box', function() {
-
-		var row_id = $(this).attr("id"); // status_paket_apotek_obat_cb1++
-		var row_no = row_id.substring(27); // 1++
-
-		// Get the checkbox
-		var checkBox = document.getElementById(row_id);
-
-		// If the checkbox is checked, harga_apotek_obat harga_sub_apotek_obat harga_cadangan_apotek_obat
-		if (checkBox.checked == true) {
-			$('#harga_apotek_obat' + row_no).val("0");
-			$('#harga_sub_apotek_obat' + row_no).val("0");
-			$('#status_paket_apotek_obat' + row_no).val("Ya");
-		} else {
-
-			$('#status_paket_apotek_obat' + row_no).val("Tidak");
-
-			var harga_obat_lama = $('#harga_obat_lama' + row_no).val();
-			$('#harga_apotek_obat' + row_no).val(harga_obat_lama);
-
-			var harga_apotek_obat = parseInt($('#harga_apotek_obat' + row_no).val().split('.').join(''));
-			var qty_apotek_obat = parseInt($('#qty_apotek_obat' + row_no).val().split('.').join(''));
-
-			$('#harga_sub_apotek_obat' + row_no).val(harga_apotek_obat * qty_apotek_obat);
-		}
-
-		update_sub_total_apotek_obat();
-	});
-
 	// jika di click simpan / submit
 	$(document).on('submit', '#transaksi_form', function(event) {
 		event.preventDefault();
@@ -207,8 +176,5 @@
 		} else {
 			alert("Detail Transaksi Kosong !");
 		}
-
-
-
 	});
 </script>
