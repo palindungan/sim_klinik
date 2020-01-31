@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 31 Jan 2020 pada 23.44
+-- Waktu pembuatan: 01 Feb 2020 pada 00.47
 -- Versi server: 10.1.37-MariaDB
 -- Versi PHP: 7.3.0
 
@@ -327,6 +327,23 @@ CREATE TABLE `daftar_detail_tindakan_ugd_transaksi` (
 ,`nama` varchar(50)
 ,`qty` int(3)
 ,`harga` int(10)
+,`no_ref_pelayanan` char(10)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in struktur untuk tampilan `daftar_detail_transaksi_lain`
+-- (Lihat di bawah untuk tampilan aktual)
+--
+CREATE TABLE `daftar_detail_transaksi_lain` (
+`no_detail_transaksi_l` int(10)
+,`no_transaksi_lain` char(13)
+,`no_lain` int(5)
+,`nama` varchar(100)
+,`qty` int(3)
+,`harga` int(9)
+,`tipe` enum('Koperasi','EKG','Lain')
 ,`no_ref_pelayanan` char(10)
 );
 
@@ -49726,6 +49743,15 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `daftar_detail_tindakan_ugd_transaksi`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_detail_tindakan_ugd_transaksi`  AS  select `dup`.`no_ugd_p` AS `no_ugd_p`,`ut`.`no_ugd_t` AS `no_ugd_t`,`ut`.`nama` AS `nama`,`dup`.`qty` AS `qty`,`dup`.`harga` AS `harga`,`up`.`no_ref_pelayanan` AS `no_ref_pelayanan` from ((`detail_ugd_penanganan` `dup` join `ugd_tindakan` `ut` on((`dup`.`no_ugd_t` = `ut`.`no_ugd_t`))) join `ugd_penanganan` `up` on((`dup`.`no_ugd_p` = `up`.`no_ugd_p`))) order by `dup`.`no_detail_ugd_p` ;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur untuk view `daftar_detail_transaksi_lain`
+--
+DROP TABLE IF EXISTS `daftar_detail_transaksi_lain`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_detail_transaksi_lain`  AS  select `dtl`.`no_detail_transaksi_l` AS `no_detail_transaksi_l`,`tl`.`no_transaksi_lain` AS `no_transaksi_lain`,`l`.`no_lain` AS `no_lain`,`dtl`.`nama` AS `nama`,`dtl`.`qty` AS `qty`,`dtl`.`harga` AS `harga`,`l`.`tipe` AS `tipe`,`tl`.`no_ref_pelayanan` AS `no_ref_pelayanan` from ((`detail_transaksi_lain` `dtl` join `transaksi_lain` `tl` on((`dtl`.`no_transaksi_lain` = `tl`.`no_transaksi_lain`))) join `lain` `l` on((`dtl`.`no_lain` = `l`.`no_lain`))) order by `dtl`.`no_detail_transaksi_l` ;
 
 -- --------------------------------------------------------
 
