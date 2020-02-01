@@ -242,7 +242,7 @@
 						} 
                     ?>
 					<tr>
-						<td style="text-align:left;padding-left:10px"><i>Biaya Ambulance</i></td>
+						<td style="text-align:left;padding-left:10px"><i>Lain-lain</i></td>
 						<td></td>
 						<td></td>
 						<td style="text-align:right"><?php echo rupiah($harga_lain) ?></td>
