@@ -18,6 +18,15 @@ class Akomodasi extends CI_Controller
         $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/rawat_inap/akomodasi/tambah');
     }
 
+    public function tampil_daftar_obat()
+    {
+        $data_tbl['tbl_data'] = $this->M_akomodasi->tampil_data('data_obat')->result();
+
+        $data = json_encode($data_tbl);
+
+        echo $data;
+    }
+
     public function input_transaksi_form()
     {
         $tgl_transaksi = date('Y-m-d H:i:s');
@@ -73,7 +82,7 @@ class Akomodasi extends CI_Controller
                     'harga' => $harga_jual
                 );
 
-                $tambah = $this->M_akomodasi->input_data('detail_pengeluaran_rawat_inap_obat', $data);
+                $tambah = $this->M_akomodasi->input_data('detail_akomodasi_rawat_inap_obat', $data);
             }
 
         }
