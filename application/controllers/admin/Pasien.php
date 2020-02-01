@@ -176,8 +176,8 @@ class Pasien extends CI_Controller
     {
         $data_pasien = array(
             'no_rm' => $this->input->post('no_rm'),
-            'nama' => $this->input->post('nama'),
-            'alamat' => $this->input->post('alamat'),
+            'nama' => strtoupper($this->input->post('nama')),
+            'alamat' => strtoupper($this->input->post('alamat')),
             'umur' => $this->input->post('umur')
         );
 
@@ -203,8 +203,8 @@ class Pasien extends CI_Controller
             'no_rm' => $this->input->post('no_rm')
         );
         $data = array(
-            'nama' => $this->input->post('nama'),
-            'alamat' => $this->input->post('alamat'),
+            'nama' => strtoupper($this->input->post('nama')),
+            'alamat' => strtoupper($this->input->post('alamat')),
             'umur' => $this->input->post('umur')
         );
 

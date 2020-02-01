@@ -63,12 +63,22 @@
 							<td class="text-center"><?= $no++ ?></td>
 							<td><?= $data->no_kat_obat ?></td>
 							<td><?= $data->nama ?></td>
+							<?php 
+							if($data->no_kat_obat == 'K001')
+							{
+							?>
 							<td class="text-center">
+								<a style="cursor:pointer" class="btn btn-sm btn-warning text-white" data-toggle="modal"
+									data-target="#modal-edit<?= $data->no_kat_obat ?>">Edit</a>
+							</td>
+							<?php } else { ?>
+								<td class="text-center">
 								<a style="cursor:pointer" class="btn btn-sm btn-warning text-white" data-toggle="modal"
 									data-target="#modal-edit<?= $data->no_kat_obat ?>">Edit</a>
 								<a href="<?= base_url('apotek/kategori_obat/delete/'.$data->no_kat_obat) ?>"
 									class="btn btn-sm btn-danger tombol-hapus">Hapus</a>
 							</td>
+							<?php } ?>
 						</tr>
 						<?php endforeach; ?>
 					</tbody>
@@ -96,7 +106,7 @@
 						<input type="hidden" name="no_kat_obat" value="<?= $data->no_kat_obat ?>">
 						<label for="inputEmail2">Nama Kategori Obat/Alkes</label>
 						<input type="text" name="nama" value="<?= $data->nama ?>" class="form-control form-control-sm"
-							id="inputEmail2" placeholder="Masukan Nama Kategori Obat/Alkes" required>
+							id="inputEmail2" placeholder="Masukan Nama Kategori Obat/Alkes" <?php if($data->no_kat_obat = 'K001') {echo'readonly';} ?> required>
 					</div>
 				</div>
 			</div>
