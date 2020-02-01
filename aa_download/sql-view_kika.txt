@@ -234,7 +234,8 @@ SELECT p.no_ref_pelayanan, p.no_rm, p.tgl_pelayanan, p.tipe_pelayanan,p.tgl_kelu
 (select sum(dtrit.harga * dtrit.qty) from (transaksi_rawat_inap tri join detail_transaksi_rawat_inap_tindakan dtrit on (tri.no_transaksi_rawat_i = dtrit.no_transaksi_rawat_i)) where tri.no_ref_pelayanan = p.no_ref_pelayanan and dtrit.no_rawat_inap_t = 'I003') AS japel_setengah,
 (select sum(dtrit.harga * dtrit.qty) from (transaksi_rawat_inap tri join detail_transaksi_rawat_inap_tindakan dtrit on (tri.no_transaksi_rawat_i = dtrit.no_transaksi_rawat_i)) where tri.no_ref_pelayanan = p.no_ref_pelayanan and dtrit.no_rawat_inap_t = 'I001') AS visite,
 (select sum(dtrit.harga * dtrit.qty) from (transaksi_rawat_inap tri join detail_transaksi_rawat_inap_tindakan dtrit on (tri.no_transaksi_rawat_i = dtrit.no_transaksi_rawat_i)) where tri.no_ref_pelayanan = p.no_ref_pelayanan and dtrit.no_rawat_inap_t <> 'I001' and dtrit.no_rawat_inap_t <> 'I002' and dtrit.no_rawat_inap_t <> 'I003' and dtrit.no_rawat_inap_t <> 'I004' and dtrit.no_rawat_inap_t <> 'I005') AS tindakan_ri_non_primer,
-(select sum(tl.total_harga) from transaksi_lain tl where tl.no_ref_pelayanan = p.no_ref_pelayanan) AS lain_lain,
+(select sum(dtl.harga * dtl.qty) from (transaksi_lain tl join detail_transaksi_lain dtl on (tl.no_transaksi_lain = dtl.no_transaksi_lain)) where tl.no_ref_pelayanan = p.no_ref_pelayanan and dtl.no_transaksi_lain = '1') AS koperasi,
+(select sum(dtl.harga * dtl.qty) from (transaksi_lain tl join detail_transaksi_lain dtl on (tl.no_transaksi_lain = dtl.no_transaksi_lain)) where tl.no_ref_pelayanan = p.no_ref_pelayanan and dtl.no_transaksi_lain <> '1') AS lain_lain,
 (select ps.nama from sim_klinik.pasien ps where ps.no_rm = p.no_rm) AS nama_pasien
 FROM pelayanan p WHERE p.status = 'finish'
 

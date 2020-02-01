@@ -51,11 +51,13 @@
 									<th class="text-center">Ambulance</th>
 									<th class="text-center">Semua&nbsp;Obat</th>
 									<th class="text-center">Obat&nbsp;Oral</th>
+									<th class="text-center">Koperasi</th>
+									<th class="text-center">Non Primer</th>
+									<th class="text-center">Lain-Lain</th>
 									<th class="text-center">Pemasukan&nbsp;Bersih</th>
 									<th class="text-center">Japel</th>
 									<th class="text-center">Visite</th>
 									<th class="text-center">Klinik&nbsp;Bersih</th>
-									<th class="text-center">Saldo</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -63,18 +65,20 @@
 							$nomor = 1;
 							$gizi = 0;
 							$japel = 0;
+							$semua_obat = 0;
+							$semua_oral = 0;
 							foreach($ri_hari_ini as $row){
 								$gizi =  $row->gizi_hari + $row->gizi_porsi;
 					            $japel = $row->japel_hari + $row->japel_setengah;
 								$tgl_keluar = date('d-m-Y',strtotime($row->tgl_keluar));
 								$semua_obat = $row->obat_ri + $row->obat_apotik;
-								$obat_oral = (int) $row->obat_oral;
-								$pemasukan_bersih = $row->uang_masuk - $gizi - $row->kamar - $row->total_bp - $row->total_lab - $row->total_kia - $row->total_ugd - $row->biaya_ambulance - $semua_obat - $obat_oral;
+								$semua_oral = (int) $row->obat_oral_ri + (int) $row->obat_oral_apotik;
+								$pemasukan_bersih = $row->uang_masuk - $gizi - $row->total_bp - $row->total_lab - $row->total_kia - $row->total_ugd - $row->biaya_ambulance - $semua_oral - $row->koperasi - $row->lain_lain;
 								$klinik_bersih = $pemasukan_bersih - $japel - $row->visite;
 							?>
 								<tr>
 									<td><?php echo $nomor++; ; ?></td>
-									<td><?php echo $tgl_keluar; ; ?></td>
+									<td><?php echo $tgl_keluar; ?></td>
 									<td><?php echo $row->nama_pasien ; ?></td>
 									<td class="text-right"><?php echo rupiah($row->uang_masuk) ?></td>
 									<td class="text-right"><?php echo rupiah($gizi) ?></td>
@@ -85,12 +89,14 @@
 									<td class="text-right"><?php echo rupiah($row->total_ugd) ?></td>
 									<td class="text-right"><?php echo rupiah($row->biaya_ambulance) ?></td>
 									<td class="text-right"><?php echo rupiah($semua_obat) ?></td>
-									<td class="text-right"><?php echo rupiah($obat_oral) ?></td>
+									<td class="text-right"><?php echo rupiah($semua_oral) ?></td>
+									<td class="text-right"><?php echo rupiah($row->koperasi) ?></td>
+									<td class="text-right"><?php echo rupiah($row->tindakan_ri_non_primer) ?></td>
+									<td class="text-right"><?php echo rupiah($row->lain_lain) ?></td>
 									<td class="text-right"><?php echo rupiah($pemasukan_bersih) ?></td>
 									<td class="text-right"><?php echo rupiah($japel) ?></td>
 									<td class="text-right"><?php echo rupiah($row->visite) ?></td>
 									<td class="text-right"><?php echo rupiah($klinik_bersih) ?></td>
-									<td class="text-right"><?php echo rupiah($row->saldo) ?></td>
 								</tr>
 								<?php } ?>
 							</tbody>
