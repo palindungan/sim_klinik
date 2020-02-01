@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.4
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Waktu pembuatan: 01 Feb 2020 pada 04.10
--- Versi server: 10.1.37-MariaDB
--- Versi PHP: 7.3.0
+-- Host: localhost
+-- Waktu pembuatan: 30 Jan 2020 pada 16.56
+-- Versi server: 10.4.6-MariaDB
+-- Versi PHP: 7.3.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -102,8 +102,8 @@ CREATE TABLE `antrian_bp` (
 --
 
 INSERT INTO `antrian_bp` (`kode_antrian_bp`, `no_ref_pelayanan`, `status`) VALUES
-('A001', '200201-001', 'Diperiksa'),
-('A002', '200201-002', 'Antri');
+('A001', '200130-001', 'Antri'),
+('A002', '200130-002', 'Antri');
 
 -- --------------------------------------------------------
 
@@ -341,23 +341,6 @@ CREATE TABLE `daftar_detail_tindakan_ugd_transaksi` (
 -- --------------------------------------------------------
 
 --
--- Stand-in struktur untuk tampilan `daftar_detail_transaksi_lain`
--- (Lihat di bawah untuk tampilan aktual)
---
-CREATE TABLE `daftar_detail_transaksi_lain` (
-`no_detail_transaksi_l` int(10)
-,`no_transaksi_lain` char(13)
-,`no_lain` int(5)
-,`nama` varchar(100)
-,`qty` int(3)
-,`harga` int(9)
-,`tipe` enum('Koperasi','EKG','Lain')
-,`no_ref_pelayanan` char(10)
-);
-
--- --------------------------------------------------------
-
---
 -- Stand-in struktur untuk tampilan `daftar_obat_rawat_inap`
 -- (Lihat di bawah untuk tampilan aktual)
 --
@@ -466,7 +449,6 @@ CREATE TABLE `daftar_penjualan_obat_rawat_inap_detail` (
 ,`no_ref_pelayanan` char(10)
 ,`no_transaksi_rawat_i` char(13)
 ,`qty_sekarang` mediumint(5)
-,`harga_lama` int(9)
 );
 
 -- --------------------------------------------------------
@@ -554,6 +536,13 @@ CREATE TABLE `detail_bp_penanganan` (
   `harga` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `detail_bp_penanganan`
+--
+
+INSERT INTO `detail_bp_penanganan` (`no_detail_bp_p`, `no_bp_p`, `no_bp_t`, `qty`, `harga`) VALUES
+(1, 'BP200130-0001', 'T001', 1, 30000);
+
 -- --------------------------------------------------------
 
 --
@@ -600,9 +589,8 @@ CREATE TABLE `detail_obat_keluar_internal` (
 --
 
 INSERT INTO `detail_obat_keluar_internal` (`id_detail_obat_keluar_internal`, `no_obat_keluar_i`, `kode_obat`, `qty`) VALUES
-(3, 'OK200201-0001', 'O052', 20),
-(4, 'OK200201-0001', 'O011', 20),
-(5, 'OK200201-0001', 'O033', 10);
+(1, 'OK200130-0001', 'O011', 5),
+(2, 'OK200130-0001', 'O052', 5);
 
 -- --------------------------------------------------------
 
@@ -616,13 +604,6 @@ CREATE TABLE `detail_pelayanan_ambulan` (
   `no_ambulance` tinyint(2) NOT NULL,
   `harga` int(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `detail_pelayanan_ambulan`
---
-
-INSERT INTO `detail_pelayanan_ambulan` (`no_detail_pelayanan_ambulan`, `no_pelayanan_a`, `no_ambulance`, `harga`) VALUES
-(7, 'AB200201-0001', 2, 120000);
 
 -- --------------------------------------------------------
 
@@ -655,21 +636,6 @@ CREATE TABLE `detail_return_obat` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `detail_transaksi_lain`
---
-
-CREATE TABLE `detail_transaksi_lain` (
-  `no_detail_transaksi_l` int(10) NOT NULL,
-  `no_transaksi_lain` char(13) NOT NULL,
-  `no_lain` int(5) NOT NULL,
-  `nama` varchar(100) NOT NULL,
-  `qty` int(3) NOT NULL,
-  `harga` int(9) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Struktur dari tabel `detail_transaksi_rawat_inap_kamar`
 --
 
@@ -685,13 +651,6 @@ CREATE TABLE `detail_transaksi_rawat_inap_kamar` (
   `status_kamar` enum('Belum Cek Out','Sudah Cek Out') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `detail_transaksi_rawat_inap_kamar`
---
-
-INSERT INTO `detail_transaksi_rawat_inap_kamar` (`no_detail_transaksi_rawat_inap_k`, `no_transaksi_rawat_i`, `no_kamar_rawat_i`, `tanggal_cek_in`, `tanggal_cek_out`, `jumlah_hari`, `harga_harian`, `sub_total_harga`, `status_kamar`) VALUES
-(7, 'RI200201-0002', 'R002', '2020-02-01 10:06:56', '2020-02-01 10:07:51', 2, 50000, 100000, 'Sudah Cek Out');
-
 -- --------------------------------------------------------
 
 --
@@ -705,17 +664,6 @@ CREATE TABLE `detail_transaksi_rawat_inap_obat` (
   `qty` int(3) NOT NULL,
   `harga_jual` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `detail_transaksi_rawat_inap_obat`
---
-
-INSERT INTO `detail_transaksi_rawat_inap_obat` (`no_detail_transaksi_rawat_inap_o`, `no_transaksi_rawat_i`, `no_stok_obat_rawat_i`, `qty`, `harga_jual`) VALUES
-(4, 'RI200201-0001', 4, 10, 0),
-(5, 'RI200201-0001', 3, 10, 0),
-(6, 'RI200201-0001', 5, 10, 20000),
-(19, 'RI200201-0002', 3, 2, 20000),
-(20, 'RI200201-0002', 4, 2, 4000);
 
 -- --------------------------------------------------------
 
@@ -871,19 +819,6 @@ CREATE TABLE `lab_transaksi` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `lain`
---
-
-CREATE TABLE `lain` (
-  `no_lain` int(5) NOT NULL,
-  `nama` varchar(50) NOT NULL,
-  `tipe` enum('Koperasi','EKG','Lain') NOT NULL,
-  `harga` int(9) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Stand-in struktur untuk tampilan `laporan_ri`
 -- (Lihat di bawah untuk tampilan aktual)
 --
@@ -896,11 +831,11 @@ CREATE TABLE `laporan_ri` (
 ,`uang_masuk` int(10)
 ,`temp_saldo` int(10)
 ,`saldo` int(10)
-,`total_lab` bigint(11)
-,`total_kia` bigint(11)
-,`total_ugd` bigint(11)
+,`total_lab` int(11)
+,`total_kia` int(11)
+,`total_ugd` int(11)
 ,`biaya_ambulance` decimal(32,0)
-,`total_bp` bigint(11)
+,`total_bp` int(11)
 ,`gizi_hari` decimal(42,0)
 ,`gizi_porsi` decimal(42,0)
 ,`kamar` double
@@ -929,10 +864,10 @@ CREATE TABLE `laporan_rj` (
 ,`asam_urat` decimal(42,0)
 ,`cholesterol` decimal(42,0)
 ,`lab_non_primer` decimal(42,0)
-,`total_kia` bigint(11)
-,`total_ugd` bigint(11)
-,`total_bp` bigint(11)
-,`total_obat_apotik` bigint(11)
+,`total_kia` int(11)
+,`total_ugd` int(11)
+,`total_bp` int(11)
+,`total_obat_apotik` int(11)
 ,`nama_pasien` varchar(50)
 );
 
@@ -967,7 +902,7 @@ INSERT INTO `obat` (`kode_obat`, `no_kat_obat`, `nama`, `min_stok`, `harga_jual`
 ('O008', '', 'D5 1/4 NS', 100, 20000, 'Obat', 0),
 ('O009', '', 'Metronidazole', 100, 55000, 'Obat', 0),
 ('O010', '', 'Water Injection', 100, 6000, 'Obat', 0),
-('O011', '', 'Albumin', 100, 4000, 'Obat', 0),
+('O011', '', 'Albumin', 100, 4000, 'Obat', 15),
 ('O012', '', 'Epatin', 100, 70000, 'Obat', 0),
 ('O013', '', 'Psidii (Oral)', 100, 8000, 'Obat', 0),
 ('O014', '', 'Psidii (Syrup)', 100, 55000, 'Obat', 0),
@@ -1008,7 +943,7 @@ INSERT INTO `obat` (`kode_obat`, `no_kat_obat`, `nama`, `min_stok`, `harga_jual`
 ('O049', '', 'Pehacain / Lidocain', 100, 20000, 'Obat', 0),
 ('O050', '', 'Piracetam', 100, 20000, 'Obat', 0),
 ('O051', '', 'Trilac', 100, 150000, 'Obat', 0),
-('O052', '', 'Aminophylin', 100, 20000, 'Obat', 0),
+('O052', '', 'Aminophylin', 100, 20000, 'Obat', 15),
 ('O053', '', 'Epineprin', 100, 20000, 'Obat', 0),
 ('O054', '', 'Spuit /1cc', 100, 2500, 'Alkes', 0),
 ('O055', '', 'Spuit /3cc', 100, 1500, 'Alkes', 0),
@@ -1044,7 +979,7 @@ CREATE TABLE `obat_keluar_internal` (
 --
 
 INSERT INTO `obat_keluar_internal` (`no_obat_keluar_i`, `tujuan`, `tgl_obat_keluar_i`) VALUES
-('OK200201-0001', 'Rawat Inap', '2020-02-01 10:00:26');
+('OK200130-0001', 'Rawat Inap', '2020-01-30 05:51:13');
 
 -- --------------------------------------------------------
 
@@ -49441,8 +49376,8 @@ CREATE TABLE `pelayanan` (
 --
 
 INSERT INTO `pelayanan` (`no_ref_pelayanan`, `no_rm`, `no_user_pegawai`, `layanan_tujuan`, `tipe_antrian`, `tgl_pelayanan`, `status`, `tipe_pelayanan`, `grand_total`, `tgl_keluar`, `temp_saldo`, `saldo`) VALUES
-('200201-001', '024000000003', 'P001', 'Balai Pengobatan', 'Dewasa', '2020-02-01 09:59:30', 'finish', 'Rawat Inap', 200000, '2020-02-01 10:01:17', 200000, 200000),
-('200201-002', '024000000002', 'P001', 'Balai Pengobatan', 'Dewasa', '2020-02-01 10:06:37', 'belum_finish', 'Rawat Inap', 0, NULL, 0, 0);
+('200130-001', 'asdf1234', 'P001', 'Balai Pengobatan', 'Dewasa', '2020-01-30 05:17:52', 'belum_finish', 'Rawat Jalan', 0, NULL, 0, 0),
+('200130-002', '024000048494', 'P001', 'Balai Pengobatan', 'Dewasa', '2020-01-30 22:38:31', 'finish', 'Rawat Jalan', 30000, '2020-01-30 22:39:35', 30000, 30000);
 
 -- --------------------------------------------------------
 
@@ -49457,13 +49392,6 @@ CREATE TABLE `pelayanan_ambulan` (
   `total_harga` int(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `pelayanan_ambulan`
---
-
-INSERT INTO `pelayanan_ambulan` (`no_pelayanan_a`, `no_ref_pelayanan`, `tanggal`, `total_harga`) VALUES
-('AB200201-0001', '200201-002', '2020-02-01 10:08:45', 120000);
-
 -- --------------------------------------------------------
 
 --
@@ -49476,6 +49404,13 @@ CREATE TABLE `penerimaan_obat` (
   `tgl_penerimaan_o` datetime NOT NULL,
   `total_harga` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `penerimaan_obat`
+--
+
+INSERT INTO `penerimaan_obat` (`no_penerimaan_o`, `no_supplier`, `tgl_penerimaan_o`, `total_harga`) VALUES
+('PO200130-0001', 'S001', '2020-01-30 05:50:45', 460000);
 
 -- --------------------------------------------------------
 
@@ -49572,6 +49507,14 @@ CREATE TABLE `stok_obat_apotik` (
   `qty` mediumint(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `stok_obat_apotik`
+--
+
+INSERT INTO `stok_obat_apotik` (`no_stok_obat_a`, `no_penerimaan_o`, `kode_obat`, `harga_supplier`, `qty`) VALUES
+(1, 'PO200130-0001', 'O011', 3000, 20),
+(2, 'PO200130-0001', 'O052', 20000, 20);
+
 -- --------------------------------------------------------
 
 --
@@ -49589,9 +49532,8 @@ CREATE TABLE `stok_obat_rawat_inap` (
 --
 
 INSERT INTO `stok_obat_rawat_inap` (`no_stok_obat_rawat_i`, `kode_obat`, `qty`) VALUES
-(3, 'O052', 10),
-(4, 'O011', 10),
-(5, 'O033', 0);
+(1, 'O011', 5),
+(2, 'O052', 5);
 
 -- --------------------------------------------------------
 
@@ -49606,18 +49548,14 @@ CREATE TABLE `supplier` (
   `alamat` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
-
 --
--- Struktur dari tabel `transaksi_lain`
+-- Dumping data untuk tabel `supplier`
 --
 
-CREATE TABLE `transaksi_lain` (
-  `no_transaksi_lain` char(13) NOT NULL,
-  `no_ref_pelayanan` char(10) NOT NULL,
-  `tgl_transaksi` datetime NOT NULL,
-  `total_harga` int(9) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+INSERT INTO `supplier` (`no_supplier`, `nama`, `cp`, `alamat`) VALUES
+('S001', 'PT sumber obat jaya', '08123123123', 'Lumajang'),
+('S002', 'CV mantab manjur', '081236123123', 'Jember'),
+('S003', 'PT Kencana', '082234641698', 'Jalan cut mutiah');
 
 -- --------------------------------------------------------
 
@@ -49631,14 +49569,6 @@ CREATE TABLE `transaksi_rawat_inap` (
   `tgl_transaksi` datetime NOT NULL,
   `total_harga` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `transaksi_rawat_inap`
---
-
-INSERT INTO `transaksi_rawat_inap` (`no_transaksi_rawat_i`, `no_ref_pelayanan`, `tgl_transaksi`, `total_harga`) VALUES
-('RI200201-0001', '200201-001', '2020-02-01 10:01:17', 200000),
-('RI200201-0002', '200201-002', '2020-02-01 10:08:45', 148000);
 
 -- --------------------------------------------------------
 
@@ -49698,7 +49628,7 @@ INSERT INTO `user_pegawai` (`no_user_pegawai`, `nama`, `jenis_akses`, `username`
 --
 DROP TABLE IF EXISTS `antrian_balai_pengobatan_prioritas`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_balai_pengobatan_prioritas`  AS  select `abps`.`kode_antrian_bp` AS `kode_antrian_bp`,`abps`.`nama` AS `nama`,`abps`.`status` AS `status`,`abps`.`no_antrian` AS `no_antrian` from `antrian_balai_pengobatan_semua` `abps` where (`abps`.`status` = 'Prioritas') order by `abps`.`no_antrian` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_balai_pengobatan_prioritas`  AS  select `abps`.`kode_antrian_bp` AS `kode_antrian_bp`,`abps`.`nama` AS `nama`,`abps`.`status` AS `status`,`abps`.`no_antrian` AS `no_antrian` from `antrian_balai_pengobatan_semua` `abps` where `abps`.`status` = 'Prioritas' order by `abps`.`no_antrian` ;
 
 -- --------------------------------------------------------
 
@@ -49707,7 +49637,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `antrian_balai_pengobatan_semua`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_balai_pengobatan_semua`  AS  select `ab`.`kode_antrian_bp` AS `kode_antrian_bp`,`pa`.`nama` AS `nama`,`ab`.`status` AS `status`,right(`ab`.`kode_antrian_bp`,3) AS `no_antrian` from ((`antrian_bp` `ab` join `pelayanan` `pe` on((`ab`.`no_ref_pelayanan` = `pe`.`no_ref_pelayanan`))) join `pasien` `pa` on((`pe`.`no_rm` = `pa`.`no_rm`))) order by right(`ab`.`kode_antrian_bp`,3) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_balai_pengobatan_semua`  AS  select `ab`.`kode_antrian_bp` AS `kode_antrian_bp`,`pa`.`nama` AS `nama`,`ab`.`status` AS `status`,right(`ab`.`kode_antrian_bp`,3) AS `no_antrian` from ((`antrian_bp` `ab` join `pelayanan` `pe` on(`ab`.`no_ref_pelayanan` = `pe`.`no_ref_pelayanan`)) join `pasien` `pa` on(`pe`.`no_rm` = `pa`.`no_rm`)) order by right(`ab`.`kode_antrian_bp`,3) ;
 
 -- --------------------------------------------------------
 
@@ -49716,7 +49646,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `antrian_balai_pengobatan_tersisa`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_balai_pengobatan_tersisa`  AS  select `abps`.`kode_antrian_bp` AS `kode_antrian_bp`,`abps`.`nama` AS `nama`,`abps`.`status` AS `status`,`abps`.`no_antrian` AS `no_antrian` from `antrian_balai_pengobatan_semua` `abps` where ((`abps`.`status` <> 'Selesai') and (`abps`.`status` <> 'Diperiksa')) order by `abps`.`no_antrian` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_balai_pengobatan_tersisa`  AS  select `abps`.`kode_antrian_bp` AS `kode_antrian_bp`,`abps`.`nama` AS `nama`,`abps`.`status` AS `status`,`abps`.`no_antrian` AS `no_antrian` from `antrian_balai_pengobatan_semua` `abps` where `abps`.`status` <> 'Selesai' and `abps`.`status` <> 'Diperiksa' order by `abps`.`no_antrian` ;
 
 -- --------------------------------------------------------
 
@@ -49725,7 +49655,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `antrian_kesehatan_ibu_dan_anak_semua`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_kesehatan_ibu_dan_anak_semua`  AS  select `kia`.`kode_antrian_kia` AS `kode_antrian_kia`,`pa`.`nama` AS `nama`,`kia`.`status` AS `status`,right(`kia`.`kode_antrian_kia`,3) AS `no_antrian` from ((`antrian_kia` `kia` join `pelayanan` `pe` on((`kia`.`no_ref_pelayanan` = `pe`.`no_ref_pelayanan`))) join `pasien` `pa` on((`pe`.`no_rm` = `pa`.`no_rm`))) order by right(`kia`.`kode_antrian_kia`,3) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_kesehatan_ibu_dan_anak_semua`  AS  select `kia`.`kode_antrian_kia` AS `kode_antrian_kia`,`pa`.`nama` AS `nama`,`kia`.`status` AS `status`,right(`kia`.`kode_antrian_kia`,3) AS `no_antrian` from ((`antrian_kia` `kia` join `pelayanan` `pe` on(`kia`.`no_ref_pelayanan` = `pe`.`no_ref_pelayanan`)) join `pasien` `pa` on(`pe`.`no_rm` = `pa`.`no_rm`)) order by right(`kia`.`kode_antrian_kia`,3) ;
 
 -- --------------------------------------------------------
 
@@ -49734,7 +49664,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `antrian_kesehatan_ibu_dan_anak_tersisa`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_kesehatan_ibu_dan_anak_tersisa`  AS  select `x`.`kode_antrian_kia` AS `kode_antrian_kia`,`x`.`nama` AS `nama`,`x`.`status` AS `status`,`x`.`no_antrian` AS `no_antrian` from `antrian_kesehatan_ibu_dan_anak_semua` `x` where ((`x`.`status` <> 'Selesai') and (`x`.`status` <> 'Diperiksa')) order by `x`.`no_antrian` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_kesehatan_ibu_dan_anak_tersisa`  AS  select `x`.`kode_antrian_kia` AS `kode_antrian_kia`,`x`.`nama` AS `nama`,`x`.`status` AS `status`,`x`.`no_antrian` AS `no_antrian` from `antrian_kesehatan_ibu_dan_anak_semua` `x` where `x`.`status` <> 'Selesai' and `x`.`status` <> 'Diperiksa' order by `x`.`no_antrian` ;
 
 -- --------------------------------------------------------
 
@@ -49743,7 +49673,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `antrian_laboratorium_prioritas`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_laboratorium_prioritas`  AS  select `lap`.`kode_antrian_lab` AS `kode_antrian_lab`,`lap`.`nama` AS `nama`,`lap`.`status` AS `status`,`lap`.`no_antrian` AS `no_antrian` from `antrian_laboratorium_semua` `lap` where (`lap`.`status` = 'Prioritas') order by `lap`.`no_antrian` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_laboratorium_prioritas`  AS  select `lap`.`kode_antrian_lab` AS `kode_antrian_lab`,`lap`.`nama` AS `nama`,`lap`.`status` AS `status`,`lap`.`no_antrian` AS `no_antrian` from `antrian_laboratorium_semua` `lap` where `lap`.`status` = 'Prioritas' order by `lap`.`no_antrian` ;
 
 -- --------------------------------------------------------
 
@@ -49752,7 +49682,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `antrian_laboratorium_semua`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_laboratorium_semua`  AS  select `lab`.`kode_antrian_lab` AS `kode_antrian_lab`,`pa`.`nama` AS `nama`,`lab`.`status` AS `status`,right(`lab`.`kode_antrian_lab`,3) AS `no_antrian` from ((`antrian_lab` `lab` join `pelayanan` `pe` on((`lab`.`no_ref_pelayanan` = `pe`.`no_ref_pelayanan`))) join `pasien` `pa` on((`pe`.`no_rm` = `pa`.`no_rm`))) order by right(`lab`.`kode_antrian_lab`,3) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_laboratorium_semua`  AS  select `lab`.`kode_antrian_lab` AS `kode_antrian_lab`,`pa`.`nama` AS `nama`,`lab`.`status` AS `status`,right(`lab`.`kode_antrian_lab`,3) AS `no_antrian` from ((`antrian_lab` `lab` join `pelayanan` `pe` on(`lab`.`no_ref_pelayanan` = `pe`.`no_ref_pelayanan`)) join `pasien` `pa` on(`pe`.`no_rm` = `pa`.`no_rm`)) order by right(`lab`.`kode_antrian_lab`,3) ;
 
 -- --------------------------------------------------------
 
@@ -49761,7 +49691,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `antrian_laboratorium_tersisa`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_laboratorium_tersisa`  AS  select `lap`.`kode_antrian_lab` AS `kode_antrian_lab`,`lap`.`nama` AS `nama`,`lap`.`status` AS `status`,`lap`.`no_antrian` AS `no_antrian` from `antrian_laboratorium_semua` `lap` where ((`lap`.`status` <> 'Selesai') and (`lap`.`status` <> 'Diperiksa')) order by `lap`.`no_antrian` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_laboratorium_tersisa`  AS  select `lap`.`kode_antrian_lab` AS `kode_antrian_lab`,`lap`.`nama` AS `nama`,`lap`.`status` AS `status`,`lap`.`no_antrian` AS `no_antrian` from `antrian_laboratorium_semua` `lap` where `lap`.`status` <> 'Selesai' and `lap`.`status` <> 'Diperiksa' order by `lap`.`no_antrian` ;
 
 -- --------------------------------------------------------
 
@@ -49770,7 +49700,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `daftar_detail_kamar_rawat_inap`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_detail_kamar_rawat_inap`  AS  select `dtrik`.`no_detail_transaksi_rawat_inap_k` AS `no_detail_transaksi_rawat_inap_k`,`dtrik`.`status_kamar` AS `status_kamar`,`kri`.`no_kamar_rawat_i` AS `no_kamar_rawat_i`,`kri`.`nama` AS `nama`,`dtrik`.`tanggal_cek_in` AS `tanggal_cek_in`,`dtrik`.`tanggal_cek_out` AS `tanggal_cek_out`,`dtrik`.`jumlah_hari` AS `jumlah_hari`,`dtrik`.`harga_harian` AS `harga_harian`,`dtrik`.`sub_total_harga` AS `sub_total_harga`,`tri`.`no_ref_pelayanan` AS `no_ref_pelayanan`,`tri`.`no_transaksi_rawat_i` AS `no_transaksi_rawat_i` from ((`detail_transaksi_rawat_inap_kamar` `dtrik` join `transaksi_rawat_inap` `tri` on((`dtrik`.`no_transaksi_rawat_i` = `tri`.`no_transaksi_rawat_i`))) join `kamar_rawat_inap` `kri` on((`dtrik`.`no_kamar_rawat_i` = `kri`.`no_kamar_rawat_i`))) order by `dtrik`.`no_detail_transaksi_rawat_inap_k` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_detail_kamar_rawat_inap`  AS  select `dtrik`.`no_detail_transaksi_rawat_inap_k` AS `no_detail_transaksi_rawat_inap_k`,`dtrik`.`status_kamar` AS `status_kamar`,`kri`.`no_kamar_rawat_i` AS `no_kamar_rawat_i`,`kri`.`nama` AS `nama`,`dtrik`.`tanggal_cek_in` AS `tanggal_cek_in`,`dtrik`.`tanggal_cek_out` AS `tanggal_cek_out`,`dtrik`.`jumlah_hari` AS `jumlah_hari`,`dtrik`.`harga_harian` AS `harga_harian`,`dtrik`.`sub_total_harga` AS `sub_total_harga`,`tri`.`no_ref_pelayanan` AS `no_ref_pelayanan`,`tri`.`no_transaksi_rawat_i` AS `no_transaksi_rawat_i` from ((`detail_transaksi_rawat_inap_kamar` `dtrik` join `transaksi_rawat_inap` `tri` on(`dtrik`.`no_transaksi_rawat_i` = `tri`.`no_transaksi_rawat_i`)) join `kamar_rawat_inap` `kri` on(`dtrik`.`no_kamar_rawat_i` = `kri`.`no_kamar_rawat_i`)) order by `dtrik`.`no_detail_transaksi_rawat_inap_k` ;
 
 -- --------------------------------------------------------
 
@@ -49779,7 +49709,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `daftar_detail_pelayanan_ambulan`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_detail_pelayanan_ambulan`  AS  select `dpa`.`harga` AS `harga`,`pa`.`no_pelayanan_a` AS `no_pelayanan_a`,`pa`.`no_ref_pelayanan` AS `no_ref_pelayanan`,`a`.`no_ambulance` AS `no_ambulance`,`a`.`tujuan` AS `tujuan` from ((`detail_pelayanan_ambulan` `dpa` join `pelayanan_ambulan` `pa` on((`dpa`.`no_pelayanan_a` = `pa`.`no_pelayanan_a`))) join `ambulance` `a` on((`dpa`.`no_ambulance` = `a`.`no_ambulance`))) order by `dpa`.`no_detail_pelayanan_ambulan` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_detail_pelayanan_ambulan`  AS  select `dpa`.`harga` AS `harga`,`pa`.`no_pelayanan_a` AS `no_pelayanan_a`,`pa`.`no_ref_pelayanan` AS `no_ref_pelayanan`,`a`.`no_ambulance` AS `no_ambulance`,`a`.`tujuan` AS `tujuan` from ((`detail_pelayanan_ambulan` `dpa` join `pelayanan_ambulan` `pa` on(`dpa`.`no_pelayanan_a` = `pa`.`no_pelayanan_a`)) join `ambulance` `a` on(`dpa`.`no_ambulance` = `a`.`no_ambulance`)) order by `dpa`.`no_detail_pelayanan_ambulan` ;
 
 -- --------------------------------------------------------
 
@@ -49788,7 +49718,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `daftar_detail_tindakan_bp_transaksi`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_detail_tindakan_bp_transaksi`  AS  select `dbp`.`no_bp_p` AS `no_bp_p`,`bt`.`no_bp_t` AS `no_bp_t`,`bt`.`nama` AS `nama`,`dbp`.`qty` AS `qty`,`dbp`.`harga` AS `harga_detail`,`bt`.`harga` AS `harga_tindakan`,`bp`.`no_ref_pelayanan` AS `no_ref_pelayanan` from ((`detail_bp_penanganan` `dbp` join `bp_tindakan` `bt` on((`dbp`.`no_bp_t` = `bt`.`no_bp_t`))) join `bp_penanganan` `bp` on((`dbp`.`no_bp_p` = `bp`.`no_bp_p`))) order by `dbp`.`no_detail_bp_p` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_detail_tindakan_bp_transaksi`  AS  select `dbp`.`no_bp_p` AS `no_bp_p`,`bt`.`no_bp_t` AS `no_bp_t`,`bt`.`nama` AS `nama`,`dbp`.`qty` AS `qty`,`dbp`.`harga` AS `harga_detail`,`bt`.`harga` AS `harga_tindakan`,`bp`.`no_ref_pelayanan` AS `no_ref_pelayanan` from ((`detail_bp_penanganan` `dbp` join `bp_tindakan` `bt` on(`dbp`.`no_bp_t` = `bt`.`no_bp_t`)) join `bp_penanganan` `bp` on(`dbp`.`no_bp_p` = `bp`.`no_bp_p`)) order by `dbp`.`no_detail_bp_p` ;
 
 -- --------------------------------------------------------
 
@@ -49797,7 +49727,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `daftar_detail_tindakan_kia_transaksi`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_detail_tindakan_kia_transaksi`  AS  select `dkp`.`no_kia_p` AS `no_kia_p`,`kt`.`no_kia_t` AS `no_kia_t`,`kt`.`nama` AS `nama`,`dkp`.`qty` AS `qty`,`dkp`.`harga` AS `harga`,`kp`.`no_ref_pelayanan` AS `no_ref_pelayanan` from ((`detail_kia_penanganan` `dkp` join `kia_tindakan` `kt` on((`dkp`.`no_kia_t` = `kt`.`no_kia_t`))) join `kia_penanganan` `kp` on((`dkp`.`no_kia_p` = `kp`.`no_kia_p`))) order by `dkp`.`no_detail_kia_p` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_detail_tindakan_kia_transaksi`  AS  select `dkp`.`no_kia_p` AS `no_kia_p`,`kt`.`no_kia_t` AS `no_kia_t`,`kt`.`nama` AS `nama`,`dkp`.`qty` AS `qty`,`dkp`.`harga` AS `harga`,`kp`.`no_ref_pelayanan` AS `no_ref_pelayanan` from ((`detail_kia_penanganan` `dkp` join `kia_tindakan` `kt` on(`dkp`.`no_kia_t` = `kt`.`no_kia_t`)) join `kia_penanganan` `kp` on(`dkp`.`no_kia_p` = `kp`.`no_kia_p`)) order by `dkp`.`no_detail_kia_p` ;
 
 -- --------------------------------------------------------
 
@@ -49806,7 +49736,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `daftar_detail_tindakan_lab_transaksi`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_detail_tindakan_lab_transaksi`  AS  select `dlt`.`no_lab_t` AS `no_lab_t`,`lc`.`no_lab_c` AS `no_lab_c`,`lc`.`nama` AS `nama`,`dlt`.`qty` AS `qty`,`dlt`.`harga` AS `harga`,`lt`.`no_ref_pelayanan` AS `no_ref_pelayanan` from ((`detail_lab_transaksi` `dlt` join `lab_transaksi` `lt` on((`dlt`.`no_lab_t` = `lt`.`no_lab_t`))) join `lab_checkup` `lc` on((`dlt`.`no_lab_c` = `lc`.`no_lab_c`))) order by `dlt`.`no_detail_lab_t` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_detail_tindakan_lab_transaksi`  AS  select `dlt`.`no_lab_t` AS `no_lab_t`,`lc`.`no_lab_c` AS `no_lab_c`,`lc`.`nama` AS `nama`,`dlt`.`qty` AS `qty`,`dlt`.`harga` AS `harga`,`lt`.`no_ref_pelayanan` AS `no_ref_pelayanan` from ((`detail_lab_transaksi` `dlt` join `lab_transaksi` `lt` on(`dlt`.`no_lab_t` = `lt`.`no_lab_t`)) join `lab_checkup` `lc` on(`dlt`.`no_lab_c` = `lc`.`no_lab_c`)) order by `dlt`.`no_detail_lab_t` ;
 
 -- --------------------------------------------------------
 
@@ -49815,7 +49745,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `daftar_detail_tindakan_rawat_inap`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_detail_tindakan_rawat_inap`  AS  select `rit`.`no_rawat_inap_t` AS `no_rawat_inap_t`,`rit`.`nama` AS `nama`,`dtrit`.`qty` AS `qty`,`dtrit`.`harga` AS `harga`,`tri`.`no_ref_pelayanan` AS `no_ref_pelayanan`,`dtrit`.`no_transaksi_rawat_i` AS `no_transaksi_rawat_i` from ((`detail_transaksi_rawat_inap_tindakan` `dtrit` join `transaksi_rawat_inap` `tri` on((`dtrit`.`no_transaksi_rawat_i` = `tri`.`no_transaksi_rawat_i`))) join `rawat_inap_tindakan` `rit` on((`dtrit`.`no_rawat_inap_t` = `rit`.`no_rawat_inap_t`))) order by `dtrit`.`no_detail_transaksi_rawat_inap_t` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_detail_tindakan_rawat_inap`  AS  select `rit`.`no_rawat_inap_t` AS `no_rawat_inap_t`,`rit`.`nama` AS `nama`,`dtrit`.`qty` AS `qty`,`dtrit`.`harga` AS `harga`,`tri`.`no_ref_pelayanan` AS `no_ref_pelayanan`,`dtrit`.`no_transaksi_rawat_i` AS `no_transaksi_rawat_i` from ((`detail_transaksi_rawat_inap_tindakan` `dtrit` join `transaksi_rawat_inap` `tri` on(`dtrit`.`no_transaksi_rawat_i` = `tri`.`no_transaksi_rawat_i`)) join `rawat_inap_tindakan` `rit` on(`dtrit`.`no_rawat_inap_t` = `rit`.`no_rawat_inap_t`)) order by `dtrit`.`no_detail_transaksi_rawat_inap_t` ;
 
 -- --------------------------------------------------------
 
@@ -49824,16 +49754,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `daftar_detail_tindakan_ugd_transaksi`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_detail_tindakan_ugd_transaksi`  AS  select `dup`.`no_ugd_p` AS `no_ugd_p`,`ut`.`no_ugd_t` AS `no_ugd_t`,`ut`.`nama` AS `nama`,`dup`.`qty` AS `qty`,`dup`.`harga` AS `harga`,`up`.`no_ref_pelayanan` AS `no_ref_pelayanan` from ((`detail_ugd_penanganan` `dup` join `ugd_tindakan` `ut` on((`dup`.`no_ugd_t` = `ut`.`no_ugd_t`))) join `ugd_penanganan` `up` on((`dup`.`no_ugd_p` = `up`.`no_ugd_p`))) order by `dup`.`no_detail_ugd_p` ;
-
--- --------------------------------------------------------
-
---
--- Struktur untuk view `daftar_detail_transaksi_lain`
---
-DROP TABLE IF EXISTS `daftar_detail_transaksi_lain`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_detail_transaksi_lain`  AS  select `dtl`.`no_detail_transaksi_l` AS `no_detail_transaksi_l`,`tl`.`no_transaksi_lain` AS `no_transaksi_lain`,`l`.`no_lain` AS `no_lain`,`dtl`.`nama` AS `nama`,`dtl`.`qty` AS `qty`,`dtl`.`harga` AS `harga`,`l`.`tipe` AS `tipe`,`tl`.`no_ref_pelayanan` AS `no_ref_pelayanan` from ((`detail_transaksi_lain` `dtl` join `transaksi_lain` `tl` on((`dtl`.`no_transaksi_lain` = `tl`.`no_transaksi_lain`))) join `lain` `l` on((`dtl`.`no_lain` = `l`.`no_lain`))) order by `dtl`.`no_detail_transaksi_l` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_detail_tindakan_ugd_transaksi`  AS  select `dup`.`no_ugd_p` AS `no_ugd_p`,`ut`.`no_ugd_t` AS `no_ugd_t`,`ut`.`nama` AS `nama`,`dup`.`qty` AS `qty`,`dup`.`harga` AS `harga`,`up`.`no_ref_pelayanan` AS `no_ref_pelayanan` from ((`detail_ugd_penanganan` `dup` join `ugd_tindakan` `ut` on(`dup`.`no_ugd_t` = `ut`.`no_ugd_t`)) join `ugd_penanganan` `up` on(`dup`.`no_ugd_p` = `up`.`no_ugd_p`)) order by `dup`.`no_detail_ugd_p` ;
 
 -- --------------------------------------------------------
 
@@ -49842,7 +49763,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `daftar_obat_rawat_inap`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_obat_rawat_inap`  AS  select `stok_obat_rawat_inap`.`no_stok_obat_rawat_i` AS `no_stok_obat_rawat_i`,`stok_obat_rawat_inap`.`kode_obat` AS `kode_obat`,`stok_obat_rawat_inap`.`qty` AS `qty`,`obat`.`nama` AS `nama_obat`,`kategori_obat`.`nama` AS `nama_kategori`,`obat`.`harga_jual` AS `harga_jual` from ((`stok_obat_rawat_inap` join `obat` on((`stok_obat_rawat_inap`.`kode_obat` = `obat`.`kode_obat`))) left join `kategori_obat` on((`obat`.`no_kat_obat` = `kategori_obat`.`no_kat_obat`))) order by `obat`.`nama` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_obat_rawat_inap`  AS  select `stok_obat_rawat_inap`.`no_stok_obat_rawat_i` AS `no_stok_obat_rawat_i`,`stok_obat_rawat_inap`.`kode_obat` AS `kode_obat`,`stok_obat_rawat_inap`.`qty` AS `qty`,`obat`.`nama` AS `nama_obat`,`kategori_obat`.`nama` AS `nama_kategori`,`obat`.`harga_jual` AS `harga_jual` from ((`stok_obat_rawat_inap` join `obat` on(`stok_obat_rawat_inap`.`kode_obat` = `obat`.`kode_obat`)) left join `kategori_obat` on(`obat`.`no_kat_obat` = `kategori_obat`.`no_kat_obat`)) order by `obat`.`nama` ;
 
 -- --------------------------------------------------------
 
@@ -49851,7 +49772,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `daftar_penerimaan_obat_apotek`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_penerimaan_obat_apotek`  AS  select `po`.`no_penerimaan_o` AS `no_penerimaan_o`,`su`.`nama` AS `nama`,`po`.`tgl_penerimaan_o` AS `tgl_penerimaan_o`,`po`.`total_harga` AS `total_harga` from (`penerimaan_obat` `po` join `supplier` `su` on((`po`.`no_supplier` = `su`.`no_supplier`))) order by `po`.`no_penerimaan_o` desc ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_penerimaan_obat_apotek`  AS  select `po`.`no_penerimaan_o` AS `no_penerimaan_o`,`su`.`nama` AS `nama`,`po`.`tgl_penerimaan_o` AS `tgl_penerimaan_o`,`po`.`total_harga` AS `total_harga` from (`penerimaan_obat` `po` join `supplier` `su` on(`po`.`no_supplier` = `su`.`no_supplier`)) order by `po`.`no_penerimaan_o` desc ;
 
 -- --------------------------------------------------------
 
@@ -49860,7 +49781,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `daftar_penerimaan_obat_apotek_detail`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_penerimaan_obat_apotek_detail`  AS  select `po`.`no_penerimaan_o` AS `no_penerimaan_o`,`su`.`nama` AS `nama_suplier`,`po`.`tgl_penerimaan_o` AS `tgl_penerimaan_o`,`po`.`total_harga` AS `total_harga`,`o`.`nama` AS `nama_obat`,`soa`.`harga_supplier` AS `harga_supplier`,`soa`.`qty` AS `qty` from (((`penerimaan_obat` `po` join `supplier` `su` on((`po`.`no_supplier` = `su`.`no_supplier`))) join `stok_obat_apotik` `soa` on((`po`.`no_penerimaan_o` = `soa`.`no_penerimaan_o`))) join `obat` `o` on((`soa`.`kode_obat` = `o`.`kode_obat`))) order by `soa`.`no_stok_obat_a` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_penerimaan_obat_apotek_detail`  AS  select `po`.`no_penerimaan_o` AS `no_penerimaan_o`,`su`.`nama` AS `nama_suplier`,`po`.`tgl_penerimaan_o` AS `tgl_penerimaan_o`,`po`.`total_harga` AS `total_harga`,`o`.`nama` AS `nama_obat`,`soa`.`harga_supplier` AS `harga_supplier`,`soa`.`qty` AS `qty` from (((`penerimaan_obat` `po` join `supplier` `su` on(`po`.`no_supplier` = `su`.`no_supplier`)) join `stok_obat_apotik` `soa` on(`po`.`no_penerimaan_o` = `soa`.`no_penerimaan_o`)) join `obat` `o` on(`soa`.`kode_obat` = `o`.`kode_obat`)) order by `soa`.`no_stok_obat_a` ;
 
 -- --------------------------------------------------------
 
@@ -49869,7 +49790,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `daftar_pengiriman_obat_apotek_detail`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_pengiriman_obat_apotek_detail`  AS  select `doki`.`id_detail_obat_keluar_internal` AS `id_detail_obat_keluar_internal`,`doki`.`qty` AS `qty`,`oki`.`no_obat_keluar_i` AS `no_obat_keluar_i`,`o`.`nama` AS `nama_obat`,`o`.`harga_jual` AS `harga_jual`,`o`.`tipe` AS `tipe`,`ko`.`nama` AS `nama_kategori` from (((`detail_obat_keluar_internal` `doki` join `obat` `o` on((`doki`.`kode_obat` = `o`.`kode_obat`))) left join `kategori_obat` `ko` on((`o`.`no_kat_obat` = `ko`.`no_kat_obat`))) join `obat_keluar_internal` `oki` on((`doki`.`no_obat_keluar_i` = `oki`.`no_obat_keluar_i`))) order by `doki`.`id_detail_obat_keluar_internal` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_pengiriman_obat_apotek_detail`  AS  select `doki`.`id_detail_obat_keluar_internal` AS `id_detail_obat_keluar_internal`,`doki`.`qty` AS `qty`,`oki`.`no_obat_keluar_i` AS `no_obat_keluar_i`,`o`.`nama` AS `nama_obat`,`o`.`harga_jual` AS `harga_jual`,`o`.`tipe` AS `tipe`,`ko`.`nama` AS `nama_kategori` from (((`detail_obat_keluar_internal` `doki` join `obat` `o` on(`doki`.`kode_obat` = `o`.`kode_obat`)) left join `kategori_obat` `ko` on(`o`.`no_kat_obat` = `ko`.`no_kat_obat`)) join `obat_keluar_internal` `oki` on(`doki`.`no_obat_keluar_i` = `oki`.`no_obat_keluar_i`)) order by `doki`.`id_detail_obat_keluar_internal` ;
 
 -- --------------------------------------------------------
 
@@ -49878,7 +49799,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `daftar_penjualan_obat_apotek`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_penjualan_obat_apotek`  AS  select `poa`.`no_penjualan_obat_a` AS `no_penjualan_obat_a`,`poa`.`tanggal_penjualan` AS `tanggal_penjualan`,`poa`.`total_harga` AS `total_harga`,`pe`.`no_ref_pelayanan` AS `no_ref_pelayanan`,`pa`.`no_rm` AS `no_rm`,`pa`.`nama` AS `nama_pasien`,`up`.`no_user_pegawai` AS `no_user_pegawai`,`up`.`nama` AS `nama_pegawai` from (((`penjualan_obat_apotik` `poa` join `pelayanan` `pe` on((`poa`.`no_ref_pelayanan` = `pe`.`no_ref_pelayanan`))) join `pasien` `pa` on((`pe`.`no_rm` = `pa`.`no_rm`))) join `user_pegawai` `up` on((`pe`.`no_user_pegawai` = `up`.`no_user_pegawai`))) order by `poa`.`no_penjualan_obat_a` desc ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_penjualan_obat_apotek`  AS  select `poa`.`no_penjualan_obat_a` AS `no_penjualan_obat_a`,`poa`.`tanggal_penjualan` AS `tanggal_penjualan`,`poa`.`total_harga` AS `total_harga`,`pe`.`no_ref_pelayanan` AS `no_ref_pelayanan`,`pa`.`no_rm` AS `no_rm`,`pa`.`nama` AS `nama_pasien`,`up`.`no_user_pegawai` AS `no_user_pegawai`,`up`.`nama` AS `nama_pegawai` from (((`penjualan_obat_apotik` `poa` join `pelayanan` `pe` on(`poa`.`no_ref_pelayanan` = `pe`.`no_ref_pelayanan`)) join `pasien` `pa` on(`pe`.`no_rm` = `pa`.`no_rm`)) join `user_pegawai` `up` on(`pe`.`no_user_pegawai` = `up`.`no_user_pegawai`)) order by `poa`.`no_penjualan_obat_a` desc ;
 
 -- --------------------------------------------------------
 
@@ -49887,7 +49808,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `daftar_penjualan_obat_apotek_detail`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_penjualan_obat_apotek_detail`  AS  select `dpoa`.`no_detail_penjualan_obat_a` AS `no_detail_penjualan_obat_a`,`o`.`kode_obat` AS `kode_obat`,`o`.`nama` AS `nama`,`dpoa`.`qty` AS `qty`,`dpoa`.`harga_jual` AS `harga_jual`,`dpoa`.`status_paket` AS `status_paket`,`o`.`qty` AS `qty_sekarang`,`poa`.`no_penjualan_obat_a` AS `no_penjualan_obat_a`,`poa`.`no_ref_pelayanan` AS `no_ref_pelayanan`,`o`.`harga_jual` AS `harga_lama` from ((`detail_penjualan_obat_apotik` `dpoa` join `obat` `o` on((`dpoa`.`kode_obat` = `o`.`kode_obat`))) join `penjualan_obat_apotik` `poa` on((`dpoa`.`no_penjualan_obat_a` = `poa`.`no_penjualan_obat_a`))) order by `dpoa`.`no_detail_penjualan_obat_a` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_penjualan_obat_apotek_detail`  AS  select `dpoa`.`no_detail_penjualan_obat_a` AS `no_detail_penjualan_obat_a`,`o`.`kode_obat` AS `kode_obat`,`o`.`nama` AS `nama`,`dpoa`.`qty` AS `qty`,`dpoa`.`harga_jual` AS `harga_jual`,`dpoa`.`status_paket` AS `status_paket`,`o`.`qty` AS `qty_sekarang`,`poa`.`no_penjualan_obat_a` AS `no_penjualan_obat_a`,`poa`.`no_ref_pelayanan` AS `no_ref_pelayanan`,`o`.`harga_jual` AS `harga_lama` from ((`detail_penjualan_obat_apotik` `dpoa` join `obat` `o` on(`dpoa`.`kode_obat` = `o`.`kode_obat`)) join `penjualan_obat_apotik` `poa` on(`dpoa`.`no_penjualan_obat_a` = `poa`.`no_penjualan_obat_a`)) order by `dpoa`.`no_detail_penjualan_obat_a` ;
 
 -- --------------------------------------------------------
 
@@ -49896,7 +49817,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `daftar_penjualan_obat_rawat_inap_detail`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_penjualan_obat_rawat_inap_detail`  AS  select `sori`.`no_stok_obat_rawat_i` AS `no_stok_obat_rawat_i`,`o`.`nama` AS `nama_obat`,`ko`.`nama` AS `nama_kategori`,`dtrio`.`qty` AS `qty`,`dtrio`.`harga_jual` AS `harga_jual`,`tri`.`no_ref_pelayanan` AS `no_ref_pelayanan`,`dtrio`.`no_transaksi_rawat_i` AS `no_transaksi_rawat_i`,`sori`.`qty` AS `qty_sekarang`,`o`.`harga_jual` AS `harga_lama` from ((((`detail_transaksi_rawat_inap_obat` `dtrio` join `stok_obat_rawat_inap` `sori` on((`dtrio`.`no_stok_obat_rawat_i` = `sori`.`no_stok_obat_rawat_i`))) join `transaksi_rawat_inap` `tri` on((`dtrio`.`no_transaksi_rawat_i` = `tri`.`no_transaksi_rawat_i`))) join `obat` `o` on((`sori`.`kode_obat` = `o`.`kode_obat`))) left join `kategori_obat` `ko` on((`o`.`no_kat_obat` = `ko`.`no_kat_obat`))) order by `dtrio`.`no_detail_transaksi_rawat_inap_o` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_penjualan_obat_rawat_inap_detail`  AS  select `sori`.`no_stok_obat_rawat_i` AS `no_stok_obat_rawat_i`,`o`.`nama` AS `nama_obat`,`ko`.`nama` AS `nama_kategori`,`dtrio`.`qty` AS `qty`,`dtrio`.`harga_jual` AS `harga_jual`,`tri`.`no_ref_pelayanan` AS `no_ref_pelayanan`,`dtrio`.`no_transaksi_rawat_i` AS `no_transaksi_rawat_i`,`sori`.`qty` AS `qty_sekarang` from ((((`detail_transaksi_rawat_inap_obat` `dtrio` join `stok_obat_rawat_inap` `sori` on(`dtrio`.`no_stok_obat_rawat_i` = `sori`.`no_stok_obat_rawat_i`)) join `transaksi_rawat_inap` `tri` on(`dtrio`.`no_transaksi_rawat_i` = `tri`.`no_transaksi_rawat_i`)) join `obat` `o` on(`sori`.`kode_obat` = `o`.`kode_obat`)) join `kategori_obat` `ko` on(`o`.`no_kat_obat` = `ko`.`no_kat_obat`)) order by `dtrio`.`no_detail_transaksi_rawat_inap_o` ;
 
 -- --------------------------------------------------------
 
@@ -49905,7 +49826,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `daftar_return_obat`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_return_obat`  AS  select `detail_return_obat`.`kode_obat` AS `kode_obat`,`detail_return_obat`.`no_return_obat` AS `no_return_obat`,`detail_return_obat`.`qty` AS `qty_detail`,`return_obat`.`tanggal` AS `tanggal`,`obat`.`nama` AS `nama` from ((`detail_return_obat` join `obat` on((`detail_return_obat`.`kode_obat` = `obat`.`kode_obat`))) join `return_obat` on((`detail_return_obat`.`no_return_obat` = `return_obat`.`no_return_obat`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_return_obat`  AS  select `detail_return_obat`.`kode_obat` AS `kode_obat`,`detail_return_obat`.`no_return_obat` AS `no_return_obat`,`detail_return_obat`.`qty` AS `qty_detail`,`return_obat`.`tanggal` AS `tanggal`,`obat`.`nama` AS `nama` from ((`detail_return_obat` join `obat` on(`detail_return_obat`.`kode_obat` = `obat`.`kode_obat`)) join `return_obat` on(`detail_return_obat`.`no_return_obat` = `return_obat`.`no_return_obat`)) ;
 
 -- --------------------------------------------------------
 
@@ -49914,7 +49835,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `data_obat`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `data_obat`  AS  select `o`.`kode_obat` AS `kode_obat`,`o`.`nama` AS `nama_obat`,`o`.`min_stok` AS `min_stok`,`o`.`harga_jual` AS `harga_jual`,`ko`.`no_kat_obat` AS `no_kat_obat`,`ko`.`nama` AS `nama_kategori`,`o`.`tipe` AS `tipe`,`o`.`qty` AS `qty` from (`obat` `o` left join `kategori_obat` `ko` on((`o`.`no_kat_obat` = `ko`.`no_kat_obat`))) order by `o`.`nama` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `data_obat`  AS  select `o`.`kode_obat` AS `kode_obat`,`o`.`nama` AS `nama_obat`,`o`.`min_stok` AS `min_stok`,`o`.`harga_jual` AS `harga_jual`,`ko`.`no_kat_obat` AS `no_kat_obat`,`ko`.`nama` AS `nama_kategori`,`o`.`tipe` AS `tipe`,`o`.`qty` AS `qty` from (`obat` `o` left join `kategori_obat` `ko` on(`o`.`no_kat_obat` = `ko`.`no_kat_obat`)) order by `o`.`nama` ;
 
 -- --------------------------------------------------------
 
@@ -49923,7 +49844,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `data_pelayanan_pasien_default`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `data_pelayanan_pasien_default`  AS  select `pelayanan`.`no_rm` AS `no_rm`,`pelayanan`.`no_ref_pelayanan` AS `no_ref_pelayanan`,`pelayanan`.`no_user_pegawai` AS `no_user_pegawai`,`pelayanan`.`layanan_tujuan` AS `layanan_tujuan`,`pelayanan`.`tipe_antrian` AS `tipe_antrian`,`pelayanan`.`tgl_pelayanan` AS `tgl_pelayanan`,`pelayanan`.`status` AS `status`,`pelayanan`.`tipe_pelayanan` AS `tipe_pelayanan`,`pasien`.`nama` AS `nama`,`pasien`.`umur` AS `umur`,`pasien`.`alamat` AS `alamat` from (`pelayanan` join `pasien` on((`pelayanan`.`no_rm` = `pasien`.`no_rm`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `data_pelayanan_pasien_default`  AS  select `pelayanan`.`no_rm` AS `no_rm`,`pelayanan`.`no_ref_pelayanan` AS `no_ref_pelayanan`,`pelayanan`.`no_user_pegawai` AS `no_user_pegawai`,`pelayanan`.`layanan_tujuan` AS `layanan_tujuan`,`pelayanan`.`tipe_antrian` AS `tipe_antrian`,`pelayanan`.`tgl_pelayanan` AS `tgl_pelayanan`,`pelayanan`.`status` AS `status`,`pelayanan`.`tipe_pelayanan` AS `tipe_pelayanan`,`pasien`.`nama` AS `nama`,`pasien`.`umur` AS `umur`,`pasien`.`alamat` AS `alamat` from (`pelayanan` join `pasien` on(`pelayanan`.`no_rm` = `pasien`.`no_rm`)) ;
 
 -- --------------------------------------------------------
 
@@ -49932,7 +49853,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `data_stok_obat_apotek`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `data_stok_obat_apotek`  AS  select `soa`.`no_stok_obat_a` AS `no_stok_obat_a`,`soa`.`no_penerimaan_o` AS `no_penerimaan_o`,`soa`.`harga_supplier` AS `harga_supplier`,`o`.`qty` AS `qty`,`po`.`tgl_penerimaan_o` AS `tgl_penerimaan_o`,`o`.`kode_obat` AS `kode_obat`,`o`.`nama` AS `nama_obat`,`o`.`harga_jual` AS `harga_jual`,`o`.`tipe` AS `tipe`,`ko`.`no_kat_obat` AS `no_kat_obat`,`ko`.`nama` AS `nama_kategori` from (((`stok_obat_apotik` `soa` join `penerimaan_obat` `po` on((`soa`.`no_penerimaan_o` = `po`.`no_penerimaan_o`))) join `obat` `o` on((`soa`.`kode_obat` = `o`.`kode_obat`))) join `kategori_obat` `ko` on((`o`.`no_kat_obat` = `ko`.`no_kat_obat`))) order by `po`.`tgl_penerimaan_o` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `data_stok_obat_apotek`  AS  select `soa`.`no_stok_obat_a` AS `no_stok_obat_a`,`soa`.`no_penerimaan_o` AS `no_penerimaan_o`,`soa`.`harga_supplier` AS `harga_supplier`,`o`.`qty` AS `qty`,`po`.`tgl_penerimaan_o` AS `tgl_penerimaan_o`,`o`.`kode_obat` AS `kode_obat`,`o`.`nama` AS `nama_obat`,`o`.`harga_jual` AS `harga_jual`,`o`.`tipe` AS `tipe`,`ko`.`no_kat_obat` AS `no_kat_obat`,`ko`.`nama` AS `nama_kategori` from (((`stok_obat_apotik` `soa` join `penerimaan_obat` `po` on(`soa`.`no_penerimaan_o` = `po`.`no_penerimaan_o`)) join `obat` `o` on(`soa`.`kode_obat` = `o`.`kode_obat`)) join `kategori_obat` `ko` on(`o`.`no_kat_obat` = `ko`.`no_kat_obat`)) order by `po`.`tgl_penerimaan_o` ;
 
 -- --------------------------------------------------------
 
@@ -49941,7 +49862,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `laporan_ri`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `laporan_ri`  AS  select `p`.`no_ref_pelayanan` AS `no_ref_pelayanan`,`p`.`no_rm` AS `no_rm`,`p`.`tgl_pelayanan` AS `tgl_pelayanan`,`p`.`tipe_pelayanan` AS `tipe_pelayanan`,`p`.`tgl_keluar` AS `tgl_keluar`,`p`.`grand_total` AS `uang_masuk`,`p`.`temp_saldo` AS `temp_saldo`,`p`.`saldo` AS `saldo`,(select `l`.`total_harga` from `lab_transaksi` `l` where (`l`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan`)) AS `total_lab`,(select `kia`.`total_harga` from `kia_penanganan` `kia` where (`kia`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan`)) AS `total_kia`,(select `ugd`.`total_harga` from `ugd_penanganan` `ugd` where (`ugd`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan`)) AS `total_ugd`,(select sum(`pa`.`total_harga`) from `pelayanan_ambulan` `pa` where (`pa`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan`)) AS `biaya_ambulance`,(select `bp`.`total_harga` from `bp_penanganan` `bp` where (`bp`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan`)) AS `total_bp`,(select sum((`dtrit`.`harga` * `dtrit`.`qty`)) from (`transaksi_rawat_inap` `tri` join `detail_transaksi_rawat_inap_tindakan` `dtrit` on((`tri`.`no_transaksi_rawat_i` = `dtrit`.`no_transaksi_rawat_i`))) where ((`tri`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan`) and (`dtrit`.`no_rawat_inap_t` = 'I004'))) AS `gizi_hari`,(select sum((`dtrit`.`harga` * `dtrit`.`qty`)) from (`transaksi_rawat_inap` `tri` join `detail_transaksi_rawat_inap_tindakan` `dtrit` on((`tri`.`no_transaksi_rawat_i` = `dtrit`.`no_transaksi_rawat_i`))) where ((`tri`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan`) and (`dtrit`.`no_rawat_inap_t` = 'I005'))) AS `gizi_porsi`,(select sum((`dtrik`.`harga_harian` * `dtrik`.`jumlah_hari`)) from (`transaksi_rawat_inap` `tri` join `detail_transaksi_rawat_inap_kamar` `dtrik` on((`tri`.`no_transaksi_rawat_i` = `dtrik`.`no_transaksi_rawat_i`))) where (`tri`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan`)) AS `kamar`,(select sum((`dori`.`harga_jual` * `dori`.`qty`)) from (`transaksi_rawat_inap` `tri` join `detail_transaksi_rawat_inap_obat` `dori` on((`tri`.`no_transaksi_rawat_i` = `dori`.`no_transaksi_rawat_i`))) where (`tri`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan`)) AS `obat_ri`,(select sum(`poa`.`total_harga`) from `penjualan_obat_apotik` `poa` where (`poa`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan`)) AS `obat_apotik`,(select sum(((`dtrio`.`harga_jual` * `dtrio`.`qty`) * 0.5)) from ((`transaksi_rawat_inap` `tri` join `detail_transaksi_rawat_inap_obat` `dtrio` on((`tri`.`no_transaksi_rawat_i` = `dtrio`.`no_transaksi_rawat_i`))) join `stok_obat_rawat_inap` `sori` on((`dtrio`.`no_stok_obat_rawat_i` = `sori`.`no_stok_obat_rawat_i`))) where ((`tri`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan`) and (`sori`.`kode_obat` = 'O001'))) AS `obat_oral`,(select sum((`dtrit`.`harga` * `dtrit`.`qty`)) from (`transaksi_rawat_inap` `tri` join `detail_transaksi_rawat_inap_tindakan` `dtrit` on((`tri`.`no_transaksi_rawat_i` = `dtrit`.`no_transaksi_rawat_i`))) where ((`tri`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan`) and (`dtrit`.`no_rawat_inap_t` = 'I002'))) AS `japel_hari`,(select sum((`dtrit`.`harga` * `dtrit`.`qty`)) from (`transaksi_rawat_inap` `tri` join `detail_transaksi_rawat_inap_tindakan` `dtrit` on((`tri`.`no_transaksi_rawat_i` = `dtrit`.`no_transaksi_rawat_i`))) where ((`tri`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan`) and (`dtrit`.`no_rawat_inap_t` = 'I003'))) AS `japel_setengah`,(select sum((`dtrit`.`harga` * `dtrit`.`qty`)) from (`transaksi_rawat_inap` `tri` join `detail_transaksi_rawat_inap_tindakan` `dtrit` on((`tri`.`no_transaksi_rawat_i` = `dtrit`.`no_transaksi_rawat_i`))) where ((`tri`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan`) and (`dtrit`.`no_rawat_inap_t` = 'I001'))) AS `visite`,(select `ps`.`nama` from `pasien` `ps` where (`ps`.`no_rm` = `p`.`no_rm`)) AS `nama_pasien` from `pelayanan` `p` where (`p`.`status` = 'finish') ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `laporan_ri`  AS  select `p`.`no_ref_pelayanan` AS `no_ref_pelayanan`,`p`.`no_rm` AS `no_rm`,`p`.`tgl_pelayanan` AS `tgl_pelayanan`,`p`.`tipe_pelayanan` AS `tipe_pelayanan`,`p`.`tgl_keluar` AS `tgl_keluar`,`p`.`grand_total` AS `uang_masuk`,`p`.`temp_saldo` AS `temp_saldo`,`p`.`saldo` AS `saldo`,(select `l`.`total_harga` from `lab_transaksi` `l` where `l`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan`) AS `total_lab`,(select `kia`.`total_harga` from `kia_penanganan` `kia` where `kia`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan`) AS `total_kia`,(select `ugd`.`total_harga` from `ugd_penanganan` `ugd` where `ugd`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan`) AS `total_ugd`,(select sum(`pa`.`total_harga`) from `pelayanan_ambulan` `pa` where `pa`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan`) AS `biaya_ambulance`,(select `bp`.`total_harga` from `bp_penanganan` `bp` where `bp`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan`) AS `total_bp`,(select sum(`dtrit`.`harga` * `dtrit`.`qty`) from (`transaksi_rawat_inap` `tri` join `detail_transaksi_rawat_inap_tindakan` `dtrit` on(`tri`.`no_transaksi_rawat_i` = `dtrit`.`no_transaksi_rawat_i`)) where `tri`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan` and `dtrit`.`no_rawat_inap_t` = 'I004') AS `gizi_hari`,(select sum(`dtrit`.`harga` * `dtrit`.`qty`) from (`transaksi_rawat_inap` `tri` join `detail_transaksi_rawat_inap_tindakan` `dtrit` on(`tri`.`no_transaksi_rawat_i` = `dtrit`.`no_transaksi_rawat_i`)) where `tri`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan` and `dtrit`.`no_rawat_inap_t` = 'I005') AS `gizi_porsi`,(select sum(`dtrik`.`harga_harian` * `dtrik`.`jumlah_hari`) from (`transaksi_rawat_inap` `tri` join `detail_transaksi_rawat_inap_kamar` `dtrik` on(`tri`.`no_transaksi_rawat_i` = `dtrik`.`no_transaksi_rawat_i`)) where `tri`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan`) AS `kamar`,(select sum(`dori`.`harga_jual` * `dori`.`qty`) from (`transaksi_rawat_inap` `tri` join `detail_transaksi_rawat_inap_obat` `dori` on(`tri`.`no_transaksi_rawat_i` = `dori`.`no_transaksi_rawat_i`)) where `tri`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan`) AS `obat_ri`,(select sum(`poa`.`total_harga`) from `penjualan_obat_apotik` `poa` where `poa`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan`) AS `obat_apotik`,(select sum(`dtrio`.`harga_jual` * `dtrio`.`qty` * 0.5) from ((`transaksi_rawat_inap` `tri` join `detail_transaksi_rawat_inap_obat` `dtrio` on(`tri`.`no_transaksi_rawat_i` = `dtrio`.`no_transaksi_rawat_i`)) join `stok_obat_rawat_inap` `sori` on(`dtrio`.`no_stok_obat_rawat_i` = `sori`.`no_stok_obat_rawat_i`)) where `tri`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan` and `sori`.`kode_obat` = 'O001') AS `obat_oral`,(select sum(`dtrit`.`harga` * `dtrit`.`qty`) from (`transaksi_rawat_inap` `tri` join `detail_transaksi_rawat_inap_tindakan` `dtrit` on(`tri`.`no_transaksi_rawat_i` = `dtrit`.`no_transaksi_rawat_i`)) where `tri`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan` and `dtrit`.`no_rawat_inap_t` = 'I002') AS `japel_hari`,(select sum(`dtrit`.`harga` * `dtrit`.`qty`) from (`transaksi_rawat_inap` `tri` join `detail_transaksi_rawat_inap_tindakan` `dtrit` on(`tri`.`no_transaksi_rawat_i` = `dtrit`.`no_transaksi_rawat_i`)) where `tri`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan` and `dtrit`.`no_rawat_inap_t` = 'I003') AS `japel_setengah`,(select sum(`dtrit`.`harga` * `dtrit`.`qty`) from (`transaksi_rawat_inap` `tri` join `detail_transaksi_rawat_inap_tindakan` `dtrit` on(`tri`.`no_transaksi_rawat_i` = `dtrit`.`no_transaksi_rawat_i`)) where `tri`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan` and `dtrit`.`no_rawat_inap_t` = 'I001') AS `visite`,(select `ps`.`nama` from `pasien` `ps` where `ps`.`no_rm` = `p`.`no_rm`) AS `nama_pasien` from `pelayanan` `p` where `p`.`status` = 'finish' ;
 
 -- --------------------------------------------------------
 
@@ -49950,7 +49871,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `laporan_rj`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `laporan_rj`  AS  select `p`.`no_ref_pelayanan` AS `no_ref_pelayanan`,`p`.`no_rm` AS `no_rm`,`p`.`tgl_pelayanan` AS `tgl_pelayanan`,`p`.`tipe_pelayanan` AS `tipe_pelayanan`,`p`.`tgl_keluar` AS `tgl_keluar`,(select sum((`c`.`harga` * `c`.`qty`)) from (`lab_transaksi` `m` join `detail_lab_transaksi` `c` on((`m`.`no_lab_t` = `c`.`no_lab_t`))) where ((`m`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan`) and (`c`.`no_lab_c` = 'L001'))) AS `gula_darah`,(select sum((`c`.`harga` * `c`.`qty`)) from (`lab_transaksi` `m` join `detail_lab_transaksi` `c` on((`m`.`no_lab_t` = `c`.`no_lab_t`))) where ((`m`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan`) and (`c`.`no_lab_c` = 'L002'))) AS `asam_urat`,(select sum((`c`.`harga` * `c`.`qty`)) from (`lab_transaksi` `m` join `detail_lab_transaksi` `c` on((`m`.`no_lab_t` = `c`.`no_lab_t`))) where ((`m`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan`) and (`c`.`no_lab_c` = 'L003'))) AS `cholesterol`,(select sum((`c`.`harga` * `c`.`qty`)) from (`lab_transaksi` `m` join `detail_lab_transaksi` `c` on((`m`.`no_lab_t` = `c`.`no_lab_t`))) where ((`m`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan`) and (`c`.`no_lab_c` <> 'L001') and (`c`.`no_lab_c` <> 'L002') and (`c`.`no_lab_c` <> 'L003'))) AS `lab_non_primer`,(select `kia`.`total_harga` from `kia_penanganan` `kia` where (`kia`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan`)) AS `total_kia`,(select `ugd`.`total_harga` from `ugd_penanganan` `ugd` where (`ugd`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan`)) AS `total_ugd`,(select `bp`.`total_harga` from `bp_penanganan` `bp` where (`bp`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan`)) AS `total_bp`,(select `apotik`.`total_harga` from `penjualan_obat_apotik` `apotik` where (`apotik`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan`)) AS `total_obat_apotik`,(select `ps`.`nama` from `pasien` `ps` where (`ps`.`no_rm` = `p`.`no_rm`)) AS `nama_pasien` from `pelayanan` `p` where ((`p`.`status` = 'finish') and (`p`.`tipe_pelayanan` = 'Rawat Jalan')) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `laporan_rj`  AS  select `p`.`no_ref_pelayanan` AS `no_ref_pelayanan`,`p`.`no_rm` AS `no_rm`,`p`.`tgl_pelayanan` AS `tgl_pelayanan`,`p`.`tipe_pelayanan` AS `tipe_pelayanan`,`p`.`tgl_keluar` AS `tgl_keluar`,(select sum(`c`.`harga` * `c`.`qty`) from (`lab_transaksi` `m` join `detail_lab_transaksi` `c` on(`m`.`no_lab_t` = `c`.`no_lab_t`)) where `m`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan` and `c`.`no_lab_c` = 'L001') AS `gula_darah`,(select sum(`c`.`harga` * `c`.`qty`) from (`lab_transaksi` `m` join `detail_lab_transaksi` `c` on(`m`.`no_lab_t` = `c`.`no_lab_t`)) where `m`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan` and `c`.`no_lab_c` = 'L002') AS `asam_urat`,(select sum(`c`.`harga` * `c`.`qty`) from (`lab_transaksi` `m` join `detail_lab_transaksi` `c` on(`m`.`no_lab_t` = `c`.`no_lab_t`)) where `m`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan` and `c`.`no_lab_c` = 'L003') AS `cholesterol`,(select sum(`c`.`harga` * `c`.`qty`) from (`lab_transaksi` `m` join `detail_lab_transaksi` `c` on(`m`.`no_lab_t` = `c`.`no_lab_t`)) where `m`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan` and `c`.`no_lab_c` <> 'L001' and `c`.`no_lab_c` <> 'L002' and `c`.`no_lab_c` <> 'L003') AS `lab_non_primer`,(select `kia`.`total_harga` from `kia_penanganan` `kia` where `kia`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan`) AS `total_kia`,(select `ugd`.`total_harga` from `ugd_penanganan` `ugd` where `ugd`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan`) AS `total_ugd`,(select `bp`.`total_harga` from `bp_penanganan` `bp` where `bp`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan`) AS `total_bp`,(select `apotik`.`total_harga` from `penjualan_obat_apotik` `apotik` where `apotik`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan`) AS `total_obat_apotik`,(select `ps`.`nama` from `pasien` `ps` where `ps`.`no_rm` = `p`.`no_rm`) AS `nama_pasien` from `pelayanan` `p` where `p`.`status` = 'finish' and `p`.`tipe_pelayanan` = 'Rawat Jalan' ;
 
 -- --------------------------------------------------------
 
@@ -49959,7 +49880,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `rekap_tagihan`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `rekap_tagihan`  AS  select `pelayanan`.`no_ref_pelayanan` AS `no_ref_pelayanan`,`pasien`.`no_rm` AS `no_rm`,`pasien`.`nama` AS `nama`,`pelayanan`.`tgl_pelayanan` AS `tgl_pelayanan`,`pelayanan`.`tipe_pelayanan` AS `tipe_pelayanan` from (`pelayanan` join `pasien` on((`pelayanan`.`no_rm` = `pasien`.`no_rm`))) order by `pelayanan`.`no_ref_pelayanan` desc ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `rekap_tagihan`  AS  select `pelayanan`.`no_ref_pelayanan` AS `no_ref_pelayanan`,`pasien`.`no_rm` AS `no_rm`,`pasien`.`nama` AS `nama`,`pelayanan`.`tgl_pelayanan` AS `tgl_pelayanan`,`pelayanan`.`tipe_pelayanan` AS `tipe_pelayanan` from (`pelayanan` join `pasien` on(`pelayanan`.`no_rm` = `pasien`.`no_rm`)) order by `pelayanan`.`no_ref_pelayanan` desc ;
 
 --
 -- Indexes for dumped tables
@@ -50044,12 +49965,6 @@ ALTER TABLE `detail_return_obat`
   ADD PRIMARY KEY (`no_detail_return_obat`);
 
 --
--- Indeks untuk tabel `detail_transaksi_lain`
---
-ALTER TABLE `detail_transaksi_lain`
-  ADD PRIMARY KEY (`no_detail_transaksi_l`);
-
---
 -- Indeks untuk tabel `detail_transaksi_rawat_inap_kamar`
 --
 ALTER TABLE `detail_transaksi_rawat_inap_kamar`
@@ -50108,12 +50023,6 @@ ALTER TABLE `lab_checkup`
 --
 ALTER TABLE `lab_transaksi`
   ADD PRIMARY KEY (`no_lab_t`);
-
---
--- Indeks untuk tabel `lain`
---
-ALTER TABLE `lain`
-  ADD PRIMARY KEY (`no_lain`);
 
 --
 -- Indeks untuk tabel `obat`
@@ -50188,12 +50097,6 @@ ALTER TABLE `supplier`
   ADD PRIMARY KEY (`no_supplier`);
 
 --
--- Indeks untuk tabel `transaksi_lain`
---
-ALTER TABLE `transaksi_lain`
-  ADD PRIMARY KEY (`no_transaksi_lain`);
-
---
 -- Indeks untuk tabel `transaksi_rawat_inap`
 --
 ALTER TABLE `transaksi_rawat_inap`
@@ -50249,13 +50152,13 @@ ALTER TABLE `detail_lab_transaksi`
 -- AUTO_INCREMENT untuk tabel `detail_obat_keluar_internal`
 --
 ALTER TABLE `detail_obat_keluar_internal`
-  MODIFY `id_detail_obat_keluar_internal` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_detail_obat_keluar_internal` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_pelayanan_ambulan`
 --
 ALTER TABLE `detail_pelayanan_ambulan`
-  MODIFY `no_detail_pelayanan_ambulan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `no_detail_pelayanan_ambulan` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_penjualan_obat_apotik`
@@ -50270,22 +50173,16 @@ ALTER TABLE `detail_return_obat`
   MODIFY `no_detail_return_obat` int(9) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `detail_transaksi_lain`
---
-ALTER TABLE `detail_transaksi_lain`
-  MODIFY `no_detail_transaksi_l` int(10) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT untuk tabel `detail_transaksi_rawat_inap_kamar`
 --
 ALTER TABLE `detail_transaksi_rawat_inap_kamar`
-  MODIFY `no_detail_transaksi_rawat_inap_k` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `no_detail_transaksi_rawat_inap_k` int(7) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_transaksi_rawat_inap_obat`
 --
 ALTER TABLE `detail_transaksi_rawat_inap_obat`
-  MODIFY `no_detail_transaksi_rawat_inap_o` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `no_detail_transaksi_rawat_inap_o` int(7) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_transaksi_rawat_inap_tindakan`
@@ -50298,12 +50195,6 @@ ALTER TABLE `detail_transaksi_rawat_inap_tindakan`
 --
 ALTER TABLE `detail_ugd_penanganan`
   MODIFY `no_detail_ugd_p` int(7) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT untuk tabel `lain`
---
-ALTER TABLE `lain`
-  MODIFY `no_lain` int(5) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `setoran_rawat_inap`
@@ -50321,7 +50212,7 @@ ALTER TABLE `stok_obat_apotik`
 -- AUTO_INCREMENT untuk tabel `stok_obat_rawat_inap`
 --
 ALTER TABLE `stok_obat_rawat_inap`
-  MODIFY `no_stok_obat_rawat_i` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `no_stok_obat_rawat_i` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
