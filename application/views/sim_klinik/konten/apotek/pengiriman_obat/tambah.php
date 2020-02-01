@@ -215,8 +215,8 @@
 		if (val_qty <= val_qty_sekarang) {
 
 		} else {
-			alert("Maaf Qty Tidak Boleh Detail Obat Melebihi Stok Apotek");
-			$('#' + row_id).val("");
+			// alert("Maaf Qty Tidak Boleh Detail Obat Melebihi Stok Apotek");
+			// $('#' + row_id).val("");
 		}
 	});
 

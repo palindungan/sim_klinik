@@ -7,7 +7,7 @@ class Return_obat extends CI_Controller
         // if($this->session->userdata('akses') == ""){
         //     redirect('login');
         // }else if($this->session->userdata('akses') == 'Apotek' || $this->session->userdata('akses') == 'Administrasi'){ 
-            
+
         // }else{
         //     show_404();
         // }
@@ -36,43 +36,48 @@ class Return_obat extends CI_Controller
                 'no_return_obat' => $no_return_obat,
                 'tanggal' => $tanggal
             );
-            
-            $input = $this->M_return_obat->input_data('return_obat',$data_transaksi);
-                // menambah detail transaksi baru 
-                for ($i = 0; $i < count($this->input->post('kode_obat')); $i++) {
 
-                    $kode_obat = $this->input->post('kode_obat')[$i];
+            $input = $this->M_return_obat->input_data('return_obat', $data_transaksi);
+            // menambah detail transaksi baru 
+            for ($i = 0; $i < count($this->input->post('kode_obat')); $i++) {
 
-                    $qty_temp = $this->input->post('qty_apotek_obat')[$i];
-                    $qty = (int) $qty_temp;
+                $kode_obat = $this->input->post('kode_obat')[$i];
 
-                    $data_detail = array(
-                        'no_return_obat' => $no_return_obat,
-                        'kode_obat' => $kode_obat,
-                        'qty' => $qty
-                    );
-                    $input_detail = $this->M_return_obat->input_data('detail_return_obat',$data_detail);
+                $qty_temp = $this->input->post('qty_apotek_obat')[$i];
+                $qty = (int) $qty_temp;
 
-                    // update qty obat lama dibawah ini
-                    $where_kode_obat = array(
-                        'kode_obat' => $kode_obat
-                    );
+                $data_detail = array(
+                    'no_return_obat' => $no_return_obat,
+                    'kode_obat' => $kode_obat,
+                    'qty' => $qty
+                );
+                $input_detail = $this->M_return_obat->input_data('detail_return_obat', $data_detail);
 
-                    $ambil_data = $this->M_return_obat->get_data('obat', $where_kode_obat);
-                    $qty_lama = "kosong";
-                    foreach ($ambil_data->result() as $data) {
-                        $qty_lama = $data->qty;
-                    }
+                // update qty obat lama dibawah ini
+                $where_kode_obat = array(
+                    'kode_obat' => $kode_obat
+                );
 
-                    $data = array(
-                        'qty' => $qty_lama - $qty
-                    );
-                    $update = $this->M_return_obat->update_data($where_kode_obat, 'obat', $data);
+                $ambil_data = $this->M_return_obat->get_data('obat', $where_kode_obat);
+                $qty_lama = "kosong";
+                foreach ($ambil_data->result() as $data) {
+                    $qty_lama = $data->qty;
                 }
-                
+
+                $qty_sekarang = $qty_lama - $qty;
+
+                if ($qty_sekarang < 0) {
+                    $qty_sekarang = 0;
+                }
+
+                $data = array(
+                    'qty' => $qty_sekarang
+                );
+                $update = $this->M_return_obat->update_data($where_kode_obat, 'obat', $data);
             }
-            $this->session->set_flashdata('success', 'Ditambahkan');
-            redirect('apotek/return_obat');
+        }
+        $this->session->set_flashdata('success', 'Ditambahkan');
+        redirect('apotek/return_obat');
     }
     public function tampil_daftar_return_obat()
     {

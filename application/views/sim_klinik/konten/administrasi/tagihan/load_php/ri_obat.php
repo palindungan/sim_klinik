@@ -109,7 +109,10 @@
                 <input readonly type="hidden" name="cek_qty_ri_obat[]" class="form-control form-control-sm" id="cek_qty_ri_obat` + count_transaksi + `" value="` + qty + `">
             </td>
             <td>
-                <input type="text" name="harga_ri_obat[]" class="form-control form-control-sm rupiah text-right harga_ri_obat_update" id="harga_ri_obat` + count_transaksi + `" placeholder="Harga Obat Apotek" required value="` + harga_jual + `">
+                <input type="checkbox" name="status_paket_ri_obat_cb[]" class="col-md-1 icon deteksi_cek_box_ri form-control form-control-sm" id="status_paket_ri_obat_cb` + count_transaksi + `" >
+                <input type="hidden" name="status_paket_ri_obat[]" class="col-md-1 icon form-control form-control-sm" id="status_paket_ri_obat` + count_transaksi + `" value="Tidak">
+                <input type="text" name="harga_ri_obat[]" class="col-md-11 form-control form-control-sm rupiah text-right harga_ri_obat_update" id="harga_ri_obat` + count_transaksi + `" placeholder="Harga Obat Rawat Inap" required value="` + harga_jual + `">
+                <input type="hidden" name="harga_ri_obat_lama[]" class="col-md-1 icon form-control form-control-sm" id="harga_ri_obat_lama` + count_transaksi + `" value="` + harga_jual + `">
             </td>
             <td>  
                 <input type="text" class="form-control form-control-sm rupiah text-right" id="harga_sub_ri_obat` + count_transaksi + `" readonly required value="` + harga_jual + `"></td>
@@ -199,4 +202,34 @@
 
         validasi();
     }
+
+    // deteksi paket obat
+    $(document).on('click', '.deteksi_cek_box_ri', function() {
+
+        var row_id = $(this).attr("id"); // status_paket_ri_obat_cb1++ status_paket_ri_obat_cb1
+        var row_no = row_id.substring(23); // 1++
+
+        // Get the checkbox
+        var checkBox = document.getElementById(row_id);
+
+        // If the checkbox is checked, harga_ri_obat harga_sub_ri_obat harga_cadangan_ri_obat
+        if (checkBox.checked == true) {
+            $('#harga_ri_obat' + row_no).val("0");
+            $('#harga_sub_ri_obat' + row_no).val("0");
+            $('#status_paket_ri_obat' + row_no).val("Ya");
+        } else {
+
+            $('#status_paket_ri_obat' + row_no).val("Tidak");
+
+            var harga_ri_obat_lama = $('#harga_ri_obat_lama' + row_no).val();
+            $('#harga_ri_obat' + row_no).val(harga_ri_obat_lama);
+
+            var harga_ri_obat = parseInt($('#harga_ri_obat' + row_no).val().split('.').join(''));
+            var qty_ri_obat = parseInt($('#qty_ri_obat' + row_no).val().split('.').join(''));
+
+            $('#harga_sub_ri_obat' + row_no).val(harga_ri_obat * qty_ri_obat);
+        }
+
+        update_sub_total_ri_obat();
+    });
 </script>

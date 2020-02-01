@@ -4,9 +4,9 @@ class Pengiriman_obat extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        if($this->session->userdata('akses') == ""){
+        if ($this->session->userdata('akses') == "") {
             redirect('login');
-        }else if($this->session->userdata('akses') != 'Apotek'){ 
+        } else if ($this->session->userdata('akses') != 'Apotek') {
             show_404();
         }
         $this->load->model('apotek/M_pengiriman_obat');
@@ -84,8 +84,14 @@ class Pengiriman_obat extends CI_Controller
                             'kode_obat' => $kode_obat
                         );
 
+                        $qty_baru = $qty_sekarang - $qty;
+
+                        if ($qty_baru < 0) {
+                            $qty_baru = 0;
+                        }
+
                         $data = array(
-                            'qty' => $qty_sekarang -  $qty
+                            'qty' => $qty_baru
                         );
 
                         $status_update = $this->M_pengiriman_obat->update_data($where, 'obat', $data);
