@@ -217,25 +217,19 @@ from sim_klinik.pelayanan p WHERE p.status = 'finish' AND p.tipe_pelayanan = 'Ra
 
 // Laporan RI
 CREATE VIEW laporan_ri AS
-SELECT p.no_ref_pelayanan, p.no_rm, p.tgl_pelayanan, p.tipe_pelayanan,p.tgl_keluar,p.grand_total as uang_masuk,p.temp_saldo,p.saldo,  
-(SELECT l.total_harga FROM lab_transaksi l WHERE l.no_ref_pelayanan = p.no_ref_pelayanan) as total_lab,
-(select `kia`.`total_harga` from `sim_klinik`.`kia_penanganan` `kia` where `kia`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan`) AS `total_kia`,
-(select `ugd`.`total_harga` from `sim_klinik`.`ugd_penanganan` `ugd` where `ugd`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan`) AS `total_ugd`,
-(select sum(pa.total_harga) from pelayanan_ambulan pa where pa.no_ref_pelayanan = p.no_ref_pelayanan) AS biaya_ambulance,
-(select `bp`.`total_harga` from `sim_klinik`.`bp_penanganan` `bp` where `bp`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan`) AS `total_bp`,
+SELECT p.no_ref_pelayanan, p.no_rm, p.tgl_pelayanan, 
 (select sum(dtrit.harga * dtrit.qty) from (transaksi_rawat_inap tri join detail_transaksi_rawat_inap_tindakan dtrit on (tri.no_transaksi_rawat_i = dtrit.no_transaksi_rawat_i)) where tri.no_ref_pelayanan = p.no_ref_pelayanan and dtrit.no_rawat_inap_t = 'I004') AS gizi_hari,
 (select sum(dtrit.harga * dtrit.qty) from (transaksi_rawat_inap tri join detail_transaksi_rawat_inap_tindakan dtrit on (tri.no_transaksi_rawat_i = dtrit.no_transaksi_rawat_i)) where tri.no_ref_pelayanan = p.no_ref_pelayanan and dtrit.no_rawat_inap_t = 'I005') AS gizi_porsi,
-(select sum(dtrik.harga_harian * dtrik.jumlah_hari) from (transaksi_rawat_inap tri join detail_transaksi_rawat_inap_kamar dtrik on (tri.no_transaksi_rawat_i = dtrik.no_transaksi_rawat_i)) where tri.no_ref_pelayanan = p.no_ref_pelayanan) AS kamar,
-(select sum(dtrio.harga_jual * dtrio.qty) from (transaksi_rawat_inap tri join detail_transaksi_rawat_inap_obat dtrio on (tri.no_transaksi_rawat_i = dtrio.no_transaksi_rawat_i)) join stok_obat_rawat_inap sori on dtrio.no_stok_obat_rawat_i=sori.no_stok_obat_rawat_i join obat o on sori.kode_obat=o.kode_obat where tri.no_ref_pelayanan = p.no_ref_pelayanan and o.no_kat_obat <> 'K001') AS obat_ri,
-(select sum(dpoa.harga_jual * dpoa.qty) from (penjualan_obat_apotik poa join detail_penjualan_obat_apotik dpoa on (poa.no_penjualan_obat_a = dpoa.no_penjualan_obat_a)) join obat o on dpoa.kode_obat = o.kode_obat where poa.no_ref_pelayanan = p.no_ref_pelayanan and o.no_kat_obat <> 'K001') AS obat_apotik,
+(select sum(dlt.harga * dlt.qty) from (lab_transaksi lt join detail_lab_transaksi dlt on (lt.no_lab_t = dlt.no_lab_t)) where lt.no_ref_pelayanan = p.no_ref_pelayanan and dlt.no_lab_c = 'L001') AS gda,
+(select sum(dlt.harga * dlt.qty) from (lab_transaksi lt join detail_lab_transaksi dlt on (lt.no_lab_t = dlt.no_lab_t)) where lt.no_ref_pelayanan = p.no_ref_pelayanan and dlt.no_lab_c <> 'L001') AS lab,
+(select sum(pa.total_harga) from pelayanan_ambulan pa where pa.no_ref_pelayanan = p.no_ref_pelayanan) AS biaya_ambulance,
+(select `kia`.`total_harga` from `sim_klinik`.`kia_penanganan` `kia` where `kia`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan`) AS `total_kia`,
+(select sum(dtl.harga * dtl.qty) from (transaksi_lain tl join detail_transaksi_lain dtl on (tl.no_transaksi_lain = dtl.no_transaksi_lain)) where tl.no_ref_pelayanan = p.no_ref_pelayanan and dtl.no_transaksi_lain = '1') AS ekg,
+(select sum(dtl.harga * dtl.qty) from (transaksi_lain tl join detail_transaksi_lain dtl on (tl.no_transaksi_lain = dtl.no_transaksi_lain)) where tl.no_ref_pelayanan = p.no_ref_pelayanan and dtl.no_transaksi_lain <> '1') AS lain_lain,
 (select sum(dtrio.harga_jual * dtrio.qty * 0.5) from (transaksi_rawat_inap tri join detail_transaksi_rawat_inap_obat dtrio on (tri.no_transaksi_rawat_i = dtrio.no_transaksi_rawat_i)) join stok_obat_rawat_inap sori on dtrio.no_stok_obat_rawat_i=sori.no_stok_obat_rawat_i join obat o on sori.kode_obat=o.kode_obat where tri.no_ref_pelayanan = p.no_ref_pelayanan and o.no_kat_obat = 'K001') AS obat_oral_ri,
-(select sum(dpoa.harga_jual * dpoa.qty * 0.5) from (penjualan_obat_apotik poa join detail_penjualan_obat_apotik dpoa on (poa.no_penjualan_obat_a = dpoa.no_penjualan_obat_a)) join obat o on dpoa.kode_obat=o.kode_obat where poa.no_ref_pelayanan = p.no_ref_pelayanan and o.no_kat_obat = 'K001') AS obat_oral_apotik,
 (select sum(dtrit.harga * dtrit.qty) from (transaksi_rawat_inap tri join detail_transaksi_rawat_inap_tindakan dtrit on (tri.no_transaksi_rawat_i = dtrit.no_transaksi_rawat_i)) where tri.no_ref_pelayanan = p.no_ref_pelayanan and dtrit.no_rawat_inap_t = 'I002') AS japel_hari,
 (select sum(dtrit.harga * dtrit.qty) from (transaksi_rawat_inap tri join detail_transaksi_rawat_inap_tindakan dtrit on (tri.no_transaksi_rawat_i = dtrit.no_transaksi_rawat_i)) where tri.no_ref_pelayanan = p.no_ref_pelayanan and dtrit.no_rawat_inap_t = 'I003') AS japel_setengah,
 (select sum(dtrit.harga * dtrit.qty) from (transaksi_rawat_inap tri join detail_transaksi_rawat_inap_tindakan dtrit on (tri.no_transaksi_rawat_i = dtrit.no_transaksi_rawat_i)) where tri.no_ref_pelayanan = p.no_ref_pelayanan and dtrit.no_rawat_inap_t = 'I001') AS visite,
-(select sum(dtrit.harga * dtrit.qty) from (transaksi_rawat_inap tri join detail_transaksi_rawat_inap_tindakan dtrit on (tri.no_transaksi_rawat_i = dtrit.no_transaksi_rawat_i)) where tri.no_ref_pelayanan = p.no_ref_pelayanan and dtrit.no_rawat_inap_t <> 'I001' and dtrit.no_rawat_inap_t <> 'I002' and dtrit.no_rawat_inap_t <> 'I003' and dtrit.no_rawat_inap_t <> 'I004' and dtrit.no_rawat_inap_t <> 'I005') AS tindakan_ri_non_primer,
-(select sum(dtl.harga * dtl.qty) from (transaksi_lain tl join detail_transaksi_lain dtl on (tl.no_transaksi_lain = dtl.no_transaksi_lain)) where tl.no_ref_pelayanan = p.no_ref_pelayanan and dtl.no_transaksi_lain = '1') AS koperasi,
-(select sum(dtl.harga * dtl.qty) from (transaksi_lain tl join detail_transaksi_lain dtl on (tl.no_transaksi_lain = dtl.no_transaksi_lain)) where tl.no_ref_pelayanan = p.no_ref_pelayanan and dtl.no_transaksi_lain <> '1') AS lain_lain,
 (select ps.nama from sim_klinik.pasien ps where ps.no_rm = p.no_rm) AS nama_pasien
 FROM pelayanan p WHERE p.status = 'finish'
 
