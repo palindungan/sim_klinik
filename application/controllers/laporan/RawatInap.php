@@ -25,7 +25,7 @@
         }
 
         public function ri_hari_ini() {
-            $query = $this->M_laporan->laporan_ri_hari_ini();
+            // $query = $this->M_laporan->laporan_ri_hari_ini();
 
             $tgl = tgl_indo(date('Y-m-d'));
             $tgl_judul = date('d-m-Y');
@@ -44,85 +44,87 @@
             $spreadsheet->getActiveSheet()->getColumnDimension('J')->setWidth(10);
             $spreadsheet->getActiveSheet()->getColumnDimension('K')->setWidth(10);
             $spreadsheet->getActiveSheet()->getColumnDimension('L')->setWidth(10);
-            $spreadsheet->getActiveSheet()->getColumnDimension('M')->setWidth(10);
+            $spreadsheet->getActiveSheet()->getColumnDimension('M')->setWidth(15);
             $spreadsheet->getActiveSheet()->getColumnDimension('N')->setWidth(10);
             $spreadsheet->getActiveSheet()->getColumnDimension('O')->setWidth(10);
             $spreadsheet->getActiveSheet()->getColumnDimension('P')->setWidth(10);
-            $spreadsheet->getActiveSheet()->getColumnDimension('Q')->setWidth(20);
+            $spreadsheet->getActiveSheet()->getColumnDimension('Q')->setWidth(10);
             $spreadsheet->getActiveSheet()->getColumnDimension('R')->setWidth(10);
             $spreadsheet->getActiveSheet()->getColumnDimension('S')->setWidth(10);
-            $spreadsheet->getActiveSheet()->getColumnDimension('T')->setWidth(15);
+            $spreadsheet->getActiveSheet()->getColumnDimension('T')->setWidth(10);
+            $spreadsheet->getActiveSheet()->getColumnDimension('U')->setWidth(15);
 
             $spreadsheet->getActiveSheet()->getRowDimension('1')->setRowHeight(35);
             // Atur Judul
-            $spreadsheet->getActiveSheet()->getStyle('A1:T1')->getFont()->setBold(true);
-            $spreadsheet->getActiveSheet()->getStyle("A1:T1")->getFont()->setSize(20);
-            $spreadsheet->getActiveSheet()->getStyle('A1:T1')
+            $spreadsheet->getActiveSheet()->getStyle('A1:U1')->getFont()->setBold(true);
+            $spreadsheet->getActiveSheet()->getStyle("A1:U1")->getFont()->setSize(20);
+            $spreadsheet->getActiveSheet()->getStyle('A1:U1')
             ->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_TOP);
-            $spreadsheet->getActiveSheet()->mergeCells("A1:T1");
+            $spreadsheet->getActiveSheet()->mergeCells("A1:U1");
             $spreadsheet->setActiveSheetIndex(0)->setCellValue('A1', 'Laporan Rawat Inap Tanggal '.$tgl);
-            $spreadsheet->getActiveSheet()->getStyle('A1:T1')->getFont()->setBold(true);
-            $spreadsheet->getActiveSheet()->getStyle('A1:T1')->getAlignment()->setHorizontal('center');
-            $spreadsheet->getActiveSheet()->getStyle('A1:T1')
+            $spreadsheet->getActiveSheet()->getStyle('A1:U1')->getFont()->setBold(true);
+            $spreadsheet->getActiveSheet()->getStyle('A1:U1')->getAlignment()->setHorizontal('center');
+            $spreadsheet->getActiveSheet()->getStyle('A1:U1')
             ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-            $spreadsheet->getActiveSheet()->getStyle('A1:T1')
+            $spreadsheet->getActiveSheet()->getStyle('A1:U1')
             ->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
             // tutup
 
-
-            $spreadsheet->getActiveSheet()->getStyle('A2:T2')
+            $spreadsheet->getActiveSheet()->getStyle('A2:U3')
             ->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_WHITE);
-            $spreadsheet->getActiveSheet()->getStyle('A2:T2')->getFill()
+            $spreadsheet->getActiveSheet()->getStyle('A2:U3')->getFill()
             ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
             ->getStartColor()->setARGB('006400');
-            $spreadsheet->getActiveSheet()->getStyle('A2:T2')->getFont()->setBold(true);
-            $spreadsheet->getActiveSheet()->getStyle('A2:T2')->getAlignment()->setHorizontal('center');
-            $spreadsheet->getActiveSheet()->getStyle('A2:T2')
+            $spreadsheet->getActiveSheet()->getStyle('A2:U3')->getFont()->setBold(true);
+            $spreadsheet->getActiveSheet()->getStyle('A2:U3')->getAlignment()->setHorizontal('center');
+            $spreadsheet->getActiveSheet()->getStyle('A2:U3')
             ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-            $spreadsheet->getActiveSheet()->getStyle('A2:T2')
+            $spreadsheet->getActiveSheet()->getStyle('A2:U3')
             ->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
-
             // Border
-            $spreadsheet->getActiveSheet()->getStyle('A2:T2')->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK)->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_BLACK);;
+            $spreadsheet->getActiveSheet()->getStyle('A2:U3')->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK)->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_BLACK);;
 
+            $spreadsheet->getActiveSheet()->mergeCells("A2:A3");
+            $spreadsheet->getActiveSheet()->mergeCells("B2:B3");
+            $spreadsheet->getActiveSheet()->mergeCells("C2:C3");
+            $spreadsheet->getActiveSheet()->mergeCells("D2:D3");
+            $spreadsheet->getActiveSheet()->mergeCells("E2:L2");
+            $spreadsheet->getActiveSheet()->mergeCells("M2:M3");
+            $spreadsheet->getActiveSheet()->mergeCells("N2:P2");
+            $spreadsheet->getActiveSheet()->mergeCells("Q2:Q3");
+            $spreadsheet->getActiveSheet()->mergeCells("R2:R3");
+            $spreadsheet->getActiveSheet()->mergeCells("S2:S3");
+            $spreadsheet->getActiveSheet()->mergeCells("T2:T3");
+            $spreadsheet->getActiveSheet()->mergeCells("U2:U3");
 
             $spreadsheet->setActiveSheetIndex(0)
             ->setCellValue('A2', 'No')
             ->setCellValue('B2', 'Tanggal')
-            ->setCellValue('C2', 'Nama')
+            ->setCellValue('C2', 'Uraian')
             ->setCellValue('D2', 'Uang Masuk')
-            ->setCellValue('E2', 'Gizi')
-            ->setCellValue('F2', 'Kamar')
-            ->setCellValue('G2', 'BP')
-            ->setCellValue('H2', 'LAB')
-            ->setCellValue('I2', 'KIA')
-            ->setCellValue('J2', 'UGD')
-            ->setCellValue('K2', 'Ambulance')
-            ->setCellValue('L2', 'Obat')
-            ->setCellValue('M2', 'Oral')
-            ->setCellValue('N2', 'Koperasi')
-            ->setCellValue('O2', 'Non Primer')
-            ->setCellValue('P2', 'lain-lain')
-            ->setCellValue('Q2', 'Pemasukan Bersih')
+            ->setCellValue('E2', 'Pengeluaran')
+            ->setCellValue('E3', 'Gizi')
+            ->setCellValue('F3', 'GDA')
+            ->setCellValue('G3', 'LAB')
+            ->setCellValue('H3', 'AMB')
+            ->setCellValue('I3', 'KIA')
+            ->setCellValue('J3', 'EKG')
+            ->setCellValue('K3', 'Lain2')
+            ->setCellValue('L3', 'Oral')
+            ->setCellValue('M2', 'Pemasukan Bersih')
+            ->setCellValue('N2', 'Akomodasi')
+            ->setCellValue('N3', 'Obat')
+            ->setCellValue('O3', 'Alkes')
+            ->setCellValue('P3', 'Lain2')
+            ->setCellValue('Q2', 'Sisa Hari')
             ->setCellValue('R2', 'Japel')
             ->setCellValue('S2', 'Visite')
-            ->setCellValue('T2', 'Klinik Bersih');
+            ->setCellValue('T2', 'Klinik')
+            ->setCellValue('U2', 'Saldo');
 
             $kolom = 3;
             $nomor = 1;
-            $gizi = 0;
-            $japel = 0;
-			$semua_obat = 0;
-            $semua_oral = 0;
-            $pemasukan_bersih = 0;
-            foreach ($query as $row) {
-                $gizi =  $row->gizi_hari + $row->gizi_porsi;
-                $japel = $row->japel_hari + $row->japel_setengah;
-                $tgl_keluar = date('d-m-Y',strtotime($row->tgl_keluar));
-                $semua_obat = $row->obat_ri + $row->obat_apotik;
-                $semua_oral = (int) $row->obat_oral_ri + (int) $row->obat_oral_apotik;
-                $pemasukan_bersih = $row->uang_masuk - $gizi - $row->total_bp - $row->total_lab - $row->total_kia - $row->total_ugd - $row->biaya_ambulance - $semua_oral - $row->koperasi - $row->lain_lain;
-                $klinik_bersih = $pemasukan_bersih - $japel - $row->visite;
+
             // di dalam loop
             $spreadsheet->getActiveSheet()->getStyle('A')->getAlignment()->setHorizontal('center');
             $spreadsheet->getActiveSheet()->getStyle('B')->getAlignment()->setHorizontal('center');
@@ -145,30 +147,9 @@
             $spreadsheet->getActiveSheet()->getStyle('S')->getAlignment()->setHorizontal('right');
             $spreadsheet->getActiveSheet()->getStyle('T')->getAlignment()->setHorizontal('right');
         
-            $spreadsheet->setActiveSheetIndex(0)
-            ->setCellValue('A' . $kolom, $nomor)
-            ->setCellValue('B' . $kolom,$tgl_keluar)
-            ->setCellValue('C' . $kolom, $row->nama_pasien)
-            ->setCellValue('D' . $kolom, number_format($row->uang_masuk, 0, ".", ","))
-            ->setCellValue('E' . $kolom, number_format($gizi, 0, ".", ","))
-            ->setCellValue('F' . $kolom, number_format($row->kamar, 0, ".", ","))
-            ->setCellValue('G' . $kolom, number_format($row->total_bp, 0, ".", ","))
-            ->setCellValue('H' . $kolom, number_format($row->total_lab, 0, ".", ","))
-            ->setCellValue('I' . $kolom, number_format($row->total_kia, 0, ".", ","))
-            ->setCellValue('J' . $kolom, number_format($row->total_ugd, 0, ".", ","))
-            ->setCellValue('K' . $kolom, number_format($row->biaya_ambulance, 0, ".", ","))
-            ->setCellValue('L' . $kolom, number_format($semua_obat, 0, ".", ","))
-            ->setCellValue('M' . $kolom, number_format($semua_oral, 0, ".", ","))
-            ->setCellValue('N' . $kolom, number_format($row->koperasi, 0, ".", ","))
-            ->setCellValue('O' . $kolom, number_format($row->tindakan_ri_non_primer, 0, ".", ","))
-            ->setCellValue('P' . $kolom, number_format($row->lain_lain, 0, ".", ","))
-            ->setCellValue('Q' . $kolom, number_format($pemasukan_bersih, 0, ".", ","))
-            ->setCellValue('R' . $kolom, number_format($japel, 0, ".", ","))
-            ->setCellValue('S' . $kolom, number_format($row->visite, 0, ".", ","))
-            ->setCellValue('T' . $kolom, number_format($klinik_bersih, 0, ".", ","));
             $kolom++;
             $nomor++;
-            }
+            
 
 
             $writer = new Xlsx($spreadsheet);
@@ -223,6 +204,7 @@
             $spreadsheet->getActiveSheet()->getStyle('A1:R1')
             ->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
             // tutup
+            
 
 
             $spreadsheet->getActiveSheet()->getStyle('A2:R2')
@@ -240,12 +222,13 @@
             // Border
             $spreadsheet->getActiveSheet()->getStyle('A2:R2')->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK)->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_BLACK);;
 
+            
 
             $spreadsheet->setActiveSheetIndex(0)
             ->setCellValue('A2', 'Nomor')
             ->setCellValue('B2', 'Tanggal')
             ->setCellValue('C2', 'Nama')
-            ->setCellValue('D2', 'Uang Masuk')
+            ->setCellValue('D2', 'Pengeluaran')
             ->setCellValue('E2', 'Uang Makan/Gizi')
             ->setCellValue('F2', 'Kamar')
             ->setCellValue('G2', 'BP')
