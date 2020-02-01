@@ -1,0 +1,82 @@
+<?php
+class Akomodasi extends CI_Controller
+{
+    function __construct()
+    {
+        parent::__construct();
+        // if ($this->session->userdata('akses') == "") {
+        //     redirect('login');
+        // } else if ($this->session->userdata('akses') == 'Rawat Inap' || $this->session->userdata('akses') == 'Administrasi') {
+        // } else {
+        //     show_404();
+        // }
+        $this->load->model('rawat_inap/M_akomodasi');
+    }
+
+    public function index()
+    {
+        $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/rawat_inap/akomodasi/tambah');
+    }
+
+    public function input_transaksi_form()
+    {
+        $tgl_transaksi = date('Y-m-d H:i:s');
+        $no_akomodasi_rawat_i = $this->M_akomodasi->get_no_akomodasi_rawat_inap();
+        $data = array(
+            'no_akomodasi_rawat_i' => $no_akomodasi_rawat_i,
+            'tgl_transaksi' => $tgl_transaksi,
+            'total_harga' => (int) preg_replace("/[^0-9]/", "", $this->input->post('grand_total'))
+        );
+        $insert_akomodasi = $this->M_akomodasi->input_data('akomodasi_rawat_inap',$data);
+        if($insert_akomodasi)
+        {
+            if (isset($_POST['no_lain']) && isset($_POST['harga_lain']) && isset($_POST['qty_lain'])) {
+
+                // menambah detail transaksi baru 
+                for ($i = 0; $i < count($this->input->post('no_lain')); $i++) {
+
+                    $no_lain = $this->input->post('no_lain')[$i];
+                    $nama_lain = $this->input->post('nama_lain')[$i];
+
+                    $harga_jual_temp = $this->input->post('harga_lain')[$i];
+                    $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
+
+                    $qty_temp = $this->input->post('qty_lain')[$i];
+                    $qty = (int) $qty_temp;
+
+                    $data = array(
+                        'no_akomodasi_rawat_i' => $no_akomodasi_rawat_i,
+                        'no_lain' => $no_lain,
+                        'nama' => $nama_lain,
+                        'qty' => $qty,
+                        'harga' => $harga_jual
+                    );
+
+                    $tambah = $this->M_akomodasi->input_data('detail_akomodasi_rawat_inap_lain', $data);
+                }
+
+            }
+            for ($i = 0; $i < count($this->input->post('kode_obat')); $i++) {
+
+                $kode_obat = $this->input->post('kode_obat')[$i];
+
+                $harga_jual_temp = $this->input->post('harga_apotek_obat')[$i];
+                $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
+
+                $qty_temp = $this->input->post('qty_apotek_obat')[$i];
+                $qty = (int) $qty_temp;
+
+                $data = array(
+                    'no_akomodasi_rawat_i' => $no_akomodasi_rawat_i,
+                    'kode_obat' => $kode_obat,
+                    'qty' => $qty,
+                    'harga' => $harga_jual
+                );
+
+                $tambah = $this->M_akomodasi->input_data('detail_pengeluaran_rawat_inap_obat', $data);
+            }
+
+        }
+        $this->session->set_flashdata('success', 'Ditambahkan');
+    }
+}
