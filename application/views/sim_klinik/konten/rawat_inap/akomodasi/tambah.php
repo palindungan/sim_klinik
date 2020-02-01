@@ -88,7 +88,7 @@
     var jumlah_detail_transaksi = 0;
 </script>
 <?php $this->view('sim_klinik/konten/rawat_inap/akomodasi/load_php/obat.php') ?>
-<?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/lain.php') ?>
+<?php $this->view('sim_klinik/konten/rawat_inap/akomodasi/load_php/lain.php') ?>
 
 <script>
 

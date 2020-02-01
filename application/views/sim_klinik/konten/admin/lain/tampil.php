@@ -74,10 +74,16 @@
 								<td class="text-center"><?= $no++ ?></td>
 								<td><?= $data->nama . ' (' . $data->tipe . ')' ?></td>
 								<td class="text-right"><?= rupiah($data->harga) ?></td>
-								<td class="text-center">
-									<a style="cursor:pointer" class="btn btn-sm btn-warning text-white" data-toggle="modal" data-target="#modal-edit<?= $data->no_lain ?>">Edit</a>
-									<a href="<?= base_url('admin/lain/delete/' . $data->no_lain) ?>" class="btn btn-sm btn-danger tombol-hapus">Hapus</a>
-								</td>
+								<?php if($data->no_lain == '1') { ?>
+									<td class="text-center">
+										<a style="cursor:pointer" class="btn btn-sm btn-warning text-white" data-toggle="modal" data-target="#modal-edit<?= $data->no_lain ?>">Edit</a>
+									</td>
+								<?php } else { ?>
+									<td class="text-center">
+										<a style="cursor:pointer" class="btn btn-sm btn-warning text-white" data-toggle="modal" data-target="#modal-edit<?= $data->no_lain ?>">Edit</a>
+										<a href="<?= base_url('admin/lain/delete/' . $data->no_lain) ?>" class="btn btn-sm btn-danger tombol-hapus">Hapus</a>
+									</td>
+								<?php } ?>
 							</tr>
 						<?php endforeach; ?>
 					</tbody>
@@ -104,7 +110,7 @@
 						<div class="form-group col-sm-6">
 							<label for="inputEmail2">Nama Lain</label>
 							<input type="hidden" name="no_lain" value="<?= $data->no_lain ?>">
-							<input type="text" name="nama" value="<?= $data->nama ?>" class="form-control form-control-sm" id="inputEmail2" placeholder="Masukan nama" required>
+							<input type="text" name="nama" value="<?= $data->nama ?>" class="form-control form-control-sm" id="inputEmail2" placeholder="Masukan nama" <?php if($data->no_lain == '1'){echo"readonly";} ?> required>
 						</div>
 						<div class="form-group col-sm-6">
 							<label for="inputEmail2">Harga</label>

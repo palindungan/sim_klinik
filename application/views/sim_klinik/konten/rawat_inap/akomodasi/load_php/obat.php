@@ -16,7 +16,7 @@
                                 <th>No</th>
                                 <th>Item</th>
                                 <th>Kategori</th>
-                                <th>Stok</th>
+                                <th>Tipe</th>
                                 <th>Harga Jual</th>
                                 <th>Aksi</th>
                             </tr>
@@ -73,7 +73,7 @@
                         var kode_obat = data[i].kode_obat;
                         var nama_obat = data[i].nama_obat;
                         var nama_kategori = data[i].nama_kategori;
-                        var qty = data[i].qty;
+                        var tipe = data[i].tipe;
                         var harga_jual = data[i].harga_jual;
 
                         var reverse = harga_jual.toString().split('').reverse().join(''),
@@ -81,11 +81,11 @@
                         ribuan = ribuan.join('.').split('').reverse().join('');
 
                         var button = `<a onclick="tambah_detail_apotek_obat('` + kode_obat +
-                            `','` + nama_obat + `','` + harga_jual + `','` + qty + `')" id="` +
+                            `','` + nama_obat + `','` + harga_jual + `','` + tipe + `')" id="` +
                             kode_obat +
                             `" class="btn btn-sm btn-dark text-white">Pilih</a>`;
 
-                        table.row.add([no, nama_obat, nama_kategori, qty,
+                        table.row.add([no, nama_obat, nama_kategori, tipe,
                             ribuan, button
                         ]);
 
@@ -109,8 +109,7 @@
                 <input type="hidden" name="kode_obat[]" class="form-control form-control-sm" id="kode_obat` + count_transaksi + `" value="` + kode_obat + `">
             </td>
             <td>
-                <input type="text" name="qty_apotek_obat[]" class="form-control form-control-sm cek_qty_apotek_obat" id="qty_apotek_obat` + count_transaksi + `" placeholder="QTY" value="1" required>
-                <input readonly type="hidden" name="cek_qty_apotek_obat[]" class="form-control form-control-sm" id="cek_qty_apotek_obat` + count_transaksi + `" value="` + qty + `">
+                <input type="text" name="qty_apotek_obat[]" class="form-control form-control-sm cek_qty_apotek_obat" id="qty_apotek_obat` + count_transaksi + `" placeholder="QTY" value="1" required>    
             </td>
             <td>
                 <div class="btn-icon-split col-12">
@@ -195,7 +194,7 @@
         var form_data = $('#transaksi_form').serialize()
 
         $.ajax({
-            url: "<?php echo base_url() . 'administrasi/tagihan/ambil_total_apotek_obat'; ?>",
+            url: "<?php echo base_url() . 'rawat_inap/akomodasi/ambil_total_obat'; ?>",
             method: "POST",
             data: form_data,
             success: function(data) {

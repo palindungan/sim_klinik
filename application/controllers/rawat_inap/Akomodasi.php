@@ -27,6 +27,70 @@ class Akomodasi extends CI_Controller
         echo $data;
     }
 
+    public function tampil_lain()
+    {
+        $where = array(
+            'no_lain <>' => '1'
+        );
+        $data_tbl['tbl_data'] = $this->M_akomodasi->get_data('lain',$where)->result();
+
+        $data = json_encode($data_tbl);
+
+        echo $data;
+    }
+
+    public function ambil_total_obat()
+    {
+        $sub_total = 0;
+        $total = 0;
+
+        if (isset($_POST['kode_obat']) && isset($_POST['harga_apotek_obat']) && isset($_POST['qty_apotek_obat'])) {
+
+            for ($i = 0; $i < count($this->input->post('kode_obat')); $i++) {
+
+                $harga_jual_temp = $this->input->post('harga_apotek_obat')[$i];
+                $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
+
+                $qty_temp = $this->input->post('qty_apotek_obat')[$i];
+                $qty = (int) $qty_temp;
+
+                $perhitungan = $harga_jual * $qty;
+
+                $sub_total = $sub_total + $perhitungan;
+            }
+
+            $total = $sub_total;
+        }
+
+        echo $total;
+    }
+
+    public function ambil_total_lain()
+    {
+        $sub_total = 0;
+        $total = 0;
+
+        if (isset($_POST['no_lain']) && isset($_POST['harga_lain']) && isset($_POST['qty_lain'])) {
+
+            for ($i = 0; $i < count($this->input->post('no_lain')); $i++) {
+
+                $harga_jual_temp = $this->input->post('harga_lain')[$i];
+                $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
+
+                $qty_temp = $this->input->post('qty_lain')[$i];
+                $qty = (int) $qty_temp;
+
+                $perhitungan = $harga_jual * $qty;
+
+                $sub_total = $sub_total + $perhitungan;
+            }
+
+            $total = $sub_total;
+        }
+
+        echo $total;
+    }
+
     public function input_transaksi_form()
     {
         $tgl_transaksi = date('Y-m-d H:i:s');

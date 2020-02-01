@@ -201,6 +201,12 @@ SELECT dtl.no_detail_transaksi_l,tl.no_transaksi_lain , l.no_lain , dtl.nama , d
 FROM detail_transaksi_lain dtl JOIN transaksi_lain tl USING(no_transaksi_lain) JOIN lain l USING(no_lain)
 ORDER BY dtl.no_detail_transaksi_l  ASC;
 
+// daftar_detail_akomodasi_rawat_inap_lain
+CREATE VIEW daftar_detail_transaksi_lain AS 
+SELECT daril.no_detail_akomodasi_rawat_inap_l,ari.tgl_transaksi,ari.no_akomodasi_rawat_i , l.no_lain , daril.nama , daril.qty,daril.harga , l.tipe
+FROM detail_akomodasi_rawat_inap_lain daril JOIN akomodasi_rawat_inap ari USING(no_akomodasi_rawat_i) JOIN lain l USING(no_lain)
+ORDER BY daril.no_detail_akomodasi_rawat_inap_l ASC;
+
 // Laporan RJ
 CREATE VIEW laporan_rj AS
 select p.no_ref_pelayanan AS no_ref_pelayanan,p.no_rm,p.tgl_pelayanan,p.tipe_pelayanan,p.tgl_keluar,
