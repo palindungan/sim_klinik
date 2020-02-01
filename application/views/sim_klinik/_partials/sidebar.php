@@ -43,12 +43,12 @@
 
 		<li class="nav-item">
 			<a class="nav-link" href="<?= base_url('admin/lain'); ?>">
-				<i class="fas fa-bed <?php if ($this->uri->segment(1) == "admin" && $this->uri->segment(2) == "lain") {
-											echo "text-white";
-										} ?>"></i>
+				<i class="fas fa-align-center <?php if ($this->uri->segment(1) == "admin" && $this->uri->segment(2) == "lain") {
+													echo "text-white";
+												} ?>"></i>
 				<span class="<?php if ($this->uri->segment(1) == "admin" && $this->uri->segment(2) == "lain") {
 									echo "text-white";
-								} ?>">lain</span></a>
+								} ?>">Lain - Lain</span></a>
 		</li>
 	<?php
 	}
