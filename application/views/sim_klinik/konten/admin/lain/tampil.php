@@ -42,7 +42,7 @@
 										<option value="">---Pilih Tipe--</option>
 										<option value="Koperasi">Koperasi</option>
 										<option value="EKG">EKG</option>
-										<option value="Lain">Lain</option>
+										<option value="Lain">Lain - Lain</option>
 									</select>
 								</div>
 							</div>
@@ -72,7 +72,7 @@
 						?>
 							<tr>
 								<td class="text-center"><?= $no++ ?></td>
-								<td><?= $data->nama ?></td>
+								<td><?= $data->nama . ' (' . $data->tipe . ')' ?></td>
 								<td class="text-right"><?= rupiah($data->harga) ?></td>
 								<td class="text-center">
 									<a style="cursor:pointer" class="btn btn-sm btn-warning text-white" data-toggle="modal" data-target="#modal-edit<?= $data->no_lain ?>">Edit</a>
@@ -103,11 +103,12 @@
 					<div class="form-row">
 						<div class="form-group col-sm-6">
 							<label for="inputEmail2">Nama Lain</label>
-							<input type="text" name="nama" class="form-control form-control-sm" id="inputEmail2" placeholder="Masukan nama" required>
+							<input type="hidden" name="no_lain" value="<?= $data->no_lain ?>">
+							<input type="text" name="nama" value="<?= $data->nama ?>" class="form-control form-control-sm" id="inputEmail2" placeholder="Masukan nama" required>
 						</div>
 						<div class="form-group col-sm-6">
 							<label for="inputEmail2">Harga</label>
-							<input type="text" name="harga" class="form-control form-control-sm rupiah" id="inputEmail2" placeholder="Masukan Harga" required>
+							<input type="text" name="harga" value="<?= $data->harga ?>" class="form-control form-control-sm rupiah" id="inputEmail2" placeholder="Masukan Harga" required>
 						</div>
 					</div>
 					<div class="form-row">
@@ -115,9 +116,15 @@
 							<label for="inputEmail2">Tipe</label>
 							<select name="tipe" class="form-control form-control-sm" id="exampleFormControlSelect1" required>
 								<option value="">---Pilih Tipe--</option>
-								<option value="Koperasi">Koperasi</option>
-								<option value="EKG">EKG</option>
-								<option value="Lain">Lain</option>
+								<option <?php if ($data->tipe == "Koperasi") {
+											echo 'selected';
+										} ?> value="Koperasi">Koperasi</option>
+								<option <?php if ($data->tipe == "EKG") {
+											echo 'selected';
+										} ?> value="EKG">EKG</option>
+								<option <?php if ($data->tipe == "Lain") {
+											echo 'selected';
+										} ?> value="Lain">Lain - Lain</option>
 							</select>
 						</div>
 					</div>
