@@ -3,7 +3,7 @@ class M_pasien extends CI_Model
 {
     private $_table = 'pasien';
     function getDataPasienFastLoad(){
-        require('assets\sb_admin_2\vendor\fast_load_datatable\ssp.class.php');
+        require('assets/sb_admin_2/vendor/fast_load_datatable/ssp.class.php');
 
         // Table's primary key
         $primaryKey = 'no_rm';
