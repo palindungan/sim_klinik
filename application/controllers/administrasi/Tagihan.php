@@ -1490,6 +1490,7 @@ class Tagihan extends CI_Controller
         $cek_pelayanan_ambulan2 = $this->M_tagihan->get_data('pelayanan_ambulan', $where_no_ref_pelayanan);
         $cek_penjualan_obat_apotik2 = $this->M_tagihan->get_data('penjualan_obat_apotik', $where_no_ref_pelayanan);
         $cek_transaksi_rawat_inap2 = $this->M_tagihan->get_data('transaksi_rawat_inap', $where_no_ref_pelayanan);
+        $cek_transaksi_lain2 = $this->M_tagihan->get_data('transaksi_lain', $where_no_ref_pelayanan);
 
         $harga_tindakan_bp = 0;
         $harga_tindakan_kia = 0;
@@ -1500,6 +1501,7 @@ class Tagihan extends CI_Controller
         $harga_tindakan_ri = 0;
         $harga_obat_ri = 0;
         $harga_ambulance = 0;
+        $harga_lain = 0;
         $grand_total = 0;
         $image = base_url('assets/sb_admin_2/img/logo.jpg');
         $html = '
@@ -1515,9 +1517,9 @@ class Tagihan extends CI_Controller
 						<td width="14%">Nama</td>
 						<td width="1%">:</td>
 						<td width="37%">' . $nama_pasien . '</td>
-						<td width="22%">No Ref Pelayanan</td>
+						<td width="20%">No Ref Pelayanan</td>
 						<td width="1%">:</td>
-						<td width="25%">' . $no_ref . '</td>
+						<td width="27%">' . $no_ref . '</td>
 					</tr>
 					<tr>
 						<td>Nomor RM</td>
@@ -1757,6 +1759,26 @@ class Tagihan extends CI_Controller
                 </tr>';
             }
         }
+        if ($cek_transaksi_lain2->num_rows() > 0) {
+            foreach ($cek_transaksi_lain2->result() as $data_lain) {
+                $no_transaksi_lain = $data_lain->no_transaksi_lain;
+            }
+
+            $where_no_transaksi_lain = array(
+                'no_transaksi_lain' => $no_transaksi_lain
+            );
+            $detail_transaksi_lain = $this->M_tagihan->get_data('daftar_detail_transaksi_lain', $where_no_transaksi_lain)->result();
+            foreach ($detail_transaksi_lain as $detail_lain) {
+                $harga_lain += $detail_lain->qty * $detail_lain->harga;
+            }
+            $html .= '
+                <tr>
+                    <td style="text-align:left;padding-left:10px"><i>Lain-lain</i></td>
+                    <td></td>
+                    <td></td>
+                    <td style="text-align:right">' . rupiah($harga_lain) . '</td>
+                </tr>';
+        }
 
         if ($cek_pelayanan_ambulan2->num_rows() > 0) {
             foreach ($cek_pelayanan_ambulan2->result() as $data_ambulance) {
@@ -1779,7 +1801,7 @@ class Tagihan extends CI_Controller
                 </tr>';
         }
 
-        $grand_total = $harga_tindakan_bp + $harga_tindakan_kia + $harga_tindakan_lab + $harga_tindakan_ugd + $harga_apotek_total + $harga_kamar_ri + $harga_tindakan_ri + $harga_obat_ri + $harga_ambulance;
+        $grand_total = $harga_tindakan_bp + $harga_tindakan_kia + $harga_tindakan_lab + $harga_tindakan_ugd + $harga_apotek_total + $harga_kamar_ri + $harga_tindakan_ri + $harga_obat_ri + $harga_lain + $harga_ambulance;
         $html .= '
                 <tr style="line-height:50px;">
                     <td class="font-weight-bold">Jumlah Yang Harus Dibayar</td>

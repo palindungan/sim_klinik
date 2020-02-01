@@ -49,6 +49,15 @@ class Pasien extends CI_Controller
             'no_ref_pelayanan' => $id
         );
 
+        // ambil data transaksi lain
+        $no_transaksi_lain = "kosong";
+        $transaksi_lain = $this->M_pasien->get_data('transaksi_lain', $where_no_ref)->result();
+        foreach ($transaksi_lain as $data_lain) {
+            $no_transaksi_lain = $data_lain->no_transaksi_lain;
+        }
+        $data['no_transaksi_lain'] = $no_transaksi_lain;
+        $data['data_lain'] = $transaksi_lain;
+
         // ambil data Ambulance
         $no_pelayanan_a = "kosong";
         $pelayanan_ambulance = $this->M_pasien->get_data('pelayanan_ambulan', $where_no_ref)->result();

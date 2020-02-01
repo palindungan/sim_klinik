@@ -234,6 +234,24 @@
 					?>
 
 					<?php
+					$harga_lain = 0;
+                    if($no_transaksi_lain != "kosong"){
+						foreach($data_lain as $row_lain)
+						{
+							$harga_lain += $row_lain->total_harga;
+						} 
+                    ?>
+					<tr>
+						<td style="text-align:left;padding-left:10px"><i>Biaya Ambulance</i></td>
+						<td></td>
+						<td></td>
+						<td style="text-align:right"><?php echo rupiah($harga_lain) ?></td>
+					</tr>
+					<?php 
+					}
+					?>
+
+					<?php
 					$harga_ambulance = 0;
                     if($no_pelayanan_a != "kosong"){
 						foreach($data_ambulance as $row_ambulance)
@@ -249,7 +267,7 @@
 					</tr>
 					<?php 
 					}
-					$grand_total = $harga_tindakan_bp + $harga_tindakan_kia + $harga_tindakan_lab + $harga_tindakan_ugd + $harga_penjualan_obat_a + $harga_kamar_ri + $harga_tindakan_ri + $harga_obat_ri + $harga_ambulance;
+					$grand_total = $harga_tindakan_bp + $harga_tindakan_kia + $harga_tindakan_lab + $harga_tindakan_ugd + $harga_penjualan_obat_a + $harga_kamar_ri + $harga_tindakan_ri + $harga_obat_ri + $harga_lain + $harga_ambulance;
 					?>
 					<tr style="line-height:50px;">
 						<td class="font-weight-bold">Jumlah Yang Harus Dibayar</td>
