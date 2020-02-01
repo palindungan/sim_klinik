@@ -109,10 +109,12 @@
                 <input readonly type="hidden" name="cek_qty_ri_obat[]" class="form-control form-control-sm" id="cek_qty_ri_obat` + count_transaksi + `" value="` + qty + `">
             </td>
             <td>
-                <input type="checkbox" name="status_paket_ri_obat_cb[]" class="col-md-1 icon deteksi_cek_box_ri form-control form-control-sm" id="status_paket_ri_obat_cb` + count_transaksi + `" >
-                <input type="hidden" name="status_paket_ri_obat[]" class="col-md-1 icon form-control form-control-sm" id="status_paket_ri_obat` + count_transaksi + `" value="Tidak">
-                <input type="text" name="harga_ri_obat[]" class="col-md-11 form-control form-control-sm rupiah text-right harga_ri_obat_update" id="harga_ri_obat` + count_transaksi + `" placeholder="Harga Obat Rawat Inap" required value="` + harga_jual + `">
-                <input type="hidden" name="harga_ri_obat_lama[]" class="col-md-1 icon form-control form-control-sm" id="harga_ri_obat_lama` + count_transaksi + `" value="` + harga_jual + `">
+                <div class="btn-icon-split col-12">
+                    <input type="checkbox" name="status_paket_ri_obat_cb[]" class="col-md-1 icon deteksi_cek_box_ri form-control form-control-sm" id="status_paket_ri_obat_cb` + count_transaksi + `" >
+                    <input type="hidden" name="status_paket_ri_obat[]" class="col-md-1 icon form-control form-control-sm" id="status_paket_ri_obat` + count_transaksi + `" value="Tidak">
+                    <input type="text" name="harga_ri_obat[]" class="col-md-11 form-control form-control-sm rupiah text-right harga_ri_obat_update" id="harga_ri_obat` + count_transaksi + `" placeholder="Harga Obat Rawat Inap" required value="` + harga_jual + `">
+                    <input type="hidden" name="harga_ri_obat_lama[]" class="col-md-1 icon form-control form-control-sm" id="harga_ri_obat_lama` + count_transaksi + `" value="` + harga_jual + `">
+                </div>
             </td>
             <td>  
                 <input type="text" class="form-control form-control-sm rupiah text-right" id="harga_sub_ri_obat` + count_transaksi + `" readonly required value="` + harga_jual + `"></td>

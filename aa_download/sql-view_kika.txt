@@ -119,8 +119,8 @@ SELECT stok_obat_rawat_inap.no_stok_obat_rawat_i,stok_obat_rawat_inap.kode_obat,
 ----------
 
 CREATE VIEW daftar_penjualan_obat_rawat_inap_detail AS 
-SELECT sori.no_stok_obat_rawat_i,  o.nama AS nama_obat , ko.nama AS nama_kategori,dtrio.qty , dtrio.harga_jual ,tri.no_ref_pelayanan,dtrio.no_transaksi_rawat_i , sori.qty as qty_sekarang
-FROM detail_transaksi_rawat_inap_obat dtrio JOIN stok_obat_rawat_inap sori USING(no_stok_obat_rawat_i) JOIN transaksi_rawat_inap tri USING(no_transaksi_rawat_i) JOIN obat o USING(kode_obat) JOIN kategori_obat ko USING(no_kat_obat)
+SELECT sori.no_stok_obat_rawat_i,  o.nama AS nama_obat , ko.nama AS nama_kategori,dtrio.qty , dtrio.harga_jual ,tri.no_ref_pelayanan,dtrio.no_transaksi_rawat_i , sori.qty as qty_sekarang , o.harga_jual AS harga_lama
+FROM detail_transaksi_rawat_inap_obat dtrio JOIN stok_obat_rawat_inap sori USING(no_stok_obat_rawat_i) JOIN transaksi_rawat_inap tri USING(no_transaksi_rawat_i) JOIN obat o USING(kode_obat) LEFT JOIN kategori_obat ko USING(no_kat_obat)
 ORDER BY dtrio.no_detail_transaksi_rawat_inap_o ASC
 
 CREATE VIEW daftar_detail_tindakan_rawat_inap AS 

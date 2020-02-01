@@ -34,8 +34,9 @@
                         var harga_jual = data_ri_penjualan_obat[i].harga_jual;
                         var qty = data_ri_penjualan_obat[i].qty;
                         var qty_sekarang = data_ri_penjualan_obat[i].qty_sekarang;
+                        var harga_lama = data_ri_penjualan_obat[i].harga_lama;
 
-                        load_detail_ri_obat(no_stok_obat_rawat_i, nama_obat, harga_jual, qty, qty_sekarang);
+                        load_detail_ri_obat(no_stok_obat_rawat_i, nama_obat, harga_jual, qty, qty_sekarang, harga_lama);
                     });
 
                     update_sub_total_ri_obat();
@@ -104,7 +105,12 @@
 
     // start of fungsi untuk memanggil data
 
-    function load_detail_ri_obat(no_stok_obat_rawat_i, nama_obat, harga_jual, qty, qty_sekarang) {
+    function load_detail_ri_obat(no_stok_obat_rawat_i, nama_obat, harga_jual, qty, qty_sekarang, harga_lama) {
+
+        var status = "";
+        if (harga_jual == "0") {
+            status = "checked";
+        }
 
         $('#detail_list_ri_obat').append(`
 
@@ -118,7 +124,12 @@
                 <input readonly type="hidden" name="cek_qty_ri_obat[]" class="form-control form-control-sm" id="cek_qty_ri_obat` + count_transaksi + `" value="` + qty_sekarang + `">
             </td>
             <td>
-                <input type="text" name="harga_ri_obat[]" class="form-control form-control-sm rupiah text-right harga_ri_obat_update" id="harga_ri_obat` + count_transaksi + `" placeholder="Harga Obat Apotek" required value="` + harga_jual + `">
+                <div class="btn-icon-split col-12">
+                    <input ` + status + ` type="checkbox" name="status_paket_ri_obat_cb[]" class="col-md-1 icon deteksi_cek_box_ri form-control form-control-sm" id="status_paket_ri_obat_cb` + count_transaksi + `" >
+                    <input type="hidden" name="status_paket_ri_obat[]" class="col-md-1 icon form-control form-control-sm" id="status_paket_ri_obat` + count_transaksi + `" value="Tidak">
+                    <input type="text" name="harga_ri_obat[]" class="col-md-11 form-control form-control-sm rupiah text-right harga_ri_obat_update" id="harga_ri_obat` + count_transaksi + `" placeholder="Harga Obat Rawat Inap" required value="` + harga_jual + `">
+                    <input type="hidden" name="harga_ri_obat_lama[]" class="col-md-1 icon form-control form-control-sm" id="harga_ri_obat_lama` + count_transaksi + `" value="` + harga_lama + `">
+                </div>
             </td>
             <td>  
                 <input type="text" class="form-control form-control-sm rupiah text-right" id="harga_sub_ri_obat` + count_transaksi + `" readonly required value="` + harga_jual * qty + `"></td>
@@ -138,6 +149,7 @@
         count_transaksi = count_transaksi + 1;
         jumlah_detail_transaksi = jumlah_detail_transaksi + 1;
     }
+
 
     function load_detail_ri_tindakan(no_rawat_inap_t, nama, qty, harga) {
 
