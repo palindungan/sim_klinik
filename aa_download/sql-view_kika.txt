@@ -207,6 +207,18 @@ SELECT daril.no_detail_akomodasi_rawat_inap_l,ari.tgl_transaksi,ari.no_akomodasi
 FROM detail_akomodasi_rawat_inap_lain daril JOIN akomodasi_rawat_inap ari USING(no_akomodasi_rawat_i) JOIN lain l USING(no_lain)
 ORDER BY daril.no_detail_akomodasi_rawat_inap_l ASC;
 
+// daftar_detail_akomodasi_rawat_inap_lain
+CREATE VIEW daftar_detail_akomodasi_rawat_inap_lain AS 
+SELECT daril.no_detail_akomodasi_rawat_inap_l,ari.tgl_transaksi,ari.no_akomodasi_rawat_i , l.no_lain , daril.nama , daril.qty,daril.harga , l.tipe
+FROM detail_akomodasi_rawat_inap_lain daril JOIN akomodasi_rawat_inap ari USING(no_akomodasi_rawat_i) JOIN lain l USING(no_lain)
+ORDER BY daril.no_detail_akomodasi_rawat_inap_l ASC;
+
+// daftar_detail_akomodasi_rawat_inap_obat
+CREATE VIEW daftar_detail_akomodasi_rawat_inap_obat AS
+SELECT dario.no_detail_akomodasi_rawat_inap_o,ari.tgl_transaksi,ari.no_akomodasi_rawat_i , o.kode_obat , dario.qty,dario.harga , o.tipe
+FROM detail_akomodasi_rawat_inap_obat dario JOIN akomodasi_rawat_inap ari USING(no_akomodasi_rawat_i) JOIN obat o USING(kode_obat)
+ORDER BY dario.no_detail_akomodasi_rawat_inap_o ASC
+
 // Laporan RJ
 CREATE VIEW laporan_rj AS
 select p.no_ref_pelayanan AS no_ref_pelayanan,p.no_rm,p.tgl_pelayanan,p.tipe_pelayanan,p.tgl_keluar,
@@ -223,7 +235,7 @@ from sim_klinik.pelayanan p WHERE p.status = 'finish' AND p.tipe_pelayanan = 'Ra
 
 // Laporan RI
 CREATE VIEW laporan_ri AS
-SELECT p.no_ref_pelayanan, p.no_rm, p.tgl_pelayanan, 
+SELECT p.no_ref_pelayanan, p.no_rm, p.tgl_pelayanan,p.tgl_keluar,p.grand_total as uang_masuk,p.temp_saldo,p.saldo,
 (select sum(dtrit.harga * dtrit.qty) from (transaksi_rawat_inap tri join detail_transaksi_rawat_inap_tindakan dtrit on (tri.no_transaksi_rawat_i = dtrit.no_transaksi_rawat_i)) where tri.no_ref_pelayanan = p.no_ref_pelayanan and dtrit.no_rawat_inap_t = 'I004') AS gizi_hari,
 (select sum(dtrit.harga * dtrit.qty) from (transaksi_rawat_inap tri join detail_transaksi_rawat_inap_tindakan dtrit on (tri.no_transaksi_rawat_i = dtrit.no_transaksi_rawat_i)) where tri.no_ref_pelayanan = p.no_ref_pelayanan and dtrit.no_rawat_inap_t = 'I005') AS gizi_porsi,
 (select sum(dlt.harga * dlt.qty) from (lab_transaksi lt join detail_lab_transaksi dlt on (lt.no_lab_t = dlt.no_lab_t)) where lt.no_ref_pelayanan = p.no_ref_pelayanan and dlt.no_lab_c = 'L001') AS gda,
