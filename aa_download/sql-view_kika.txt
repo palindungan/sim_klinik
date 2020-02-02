@@ -248,8 +248,16 @@ SELECT p.no_ref_pelayanan, p.no_rm, p.tgl_pelayanan,p.tgl_keluar,p.grand_total a
 (select sum(dtrit.harga * dtrit.qty) from (transaksi_rawat_inap tri join detail_transaksi_rawat_inap_tindakan dtrit on (tri.no_transaksi_rawat_i = dtrit.no_transaksi_rawat_i)) where tri.no_ref_pelayanan = p.no_ref_pelayanan and dtrit.no_rawat_inap_t = 'I002') AS japel_hari,
 (select sum(dtrit.harga * dtrit.qty) from (transaksi_rawat_inap tri join detail_transaksi_rawat_inap_tindakan dtrit on (tri.no_transaksi_rawat_i = dtrit.no_transaksi_rawat_i)) where tri.no_ref_pelayanan = p.no_ref_pelayanan and dtrit.no_rawat_inap_t = 'I003') AS japel_setengah,
 (select sum(dtrit.harga * dtrit.qty) from (transaksi_rawat_inap tri join detail_transaksi_rawat_inap_tindakan dtrit on (tri.no_transaksi_rawat_i = dtrit.no_transaksi_rawat_i)) where tri.no_ref_pelayanan = p.no_ref_pelayanan and dtrit.no_rawat_inap_t = 'I001') AS visite,
-(select ps.nama from sim_klinik.pasien ps where ps.no_rm = p.no_rm) AS nama_pasien
+(select ps.nama from sim_klinik.pasien ps where ps.no_rm = p.no_rm) AS nama_pasien,
+"" as akomodasi_obat, "" as akomodasi_alkes, "" as akomodasi_lain_lain
 FROM pelayanan p WHERE p.status = 'finish'
+UNION
+SELECT "","","",tgl_transaksi, 
+"","","","","","","","","","","","","","","","",
+(SELECT SUM(daril.qty * daril.harga) FROM detail_akomodasi_rawat_inap_logistik daril JOIN obat o USING(kode_obat) WHERE daril.no_akomodasi_rawat_i = ari.no_akomodasi_rawat_i and o.tipe = 'Obat'),
+(SELECT SUM(daril.qty * daril.harga) FROM detail_akomodasi_rawat_inap_logistik daril JOIN obat o USING(kode_obat) WHERE daril.no_akomodasi_rawat_i = ari.no_akomodasi_rawat_i and o.tipe='Alkes'),
+(SELECT SUM(qty * harga) FROM detail_akomodasi_rawat_inap_lain daril WHERE daril.no_akomodasi_rawat_i = ari.no_akomodasi_rawat_i) 
+FROM akomodasi_rawat_inap ari
 
 //Daftar Return Obat
 CREATE VIEW daftar_return_obat AS SELECT kode_obat,no_return_obat,detail_return_obat.qty as qty_detail,tanggal,nama FROM detail_return_obat JOIN obat USING(kode_obat) JOIN return_obat USING(no_return_obat)
