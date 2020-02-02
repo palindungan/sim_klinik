@@ -38,6 +38,7 @@ class Pasien extends CI_Controller
         $data['pasien'] = $pasien->no_rm . '-' . $pasien->nama;
         $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/admin/pasien/list_kunjung', $data);
     }
+    
     public function detail($id)
     {
         $data['pelayanan'] = $this->M_pasien->detail_pelayanan('pelayanan', $id)->row();

@@ -191,6 +191,14 @@
 				<span class="<?php if ($this->uri->segment(1) == "rawat_inap" && $this->uri->segment(2) == "akomodasi") {
 									echo "text-white";
 								} ?>">Akomodasi Rawat Inap</span></a>
+								<li class="nav-item">
+			<a class="nav-link" href="<?= base_url('rawat_inap/history_akomodasi'); ?>">
+				<i class="fas fa-address-card <?php if ($this->uri->segment(1) == "rawat_inap" && $this->uri->segment(2) == "history_akomodasi") {
+													echo "text-white";
+												} ?>"></i>
+				<span class="<?php if ($this->uri->segment(1) == "rawat_inap" && $this->uri->segment(2) == "history_akomodasi") {
+									echo "text-white";
+								} ?>">History Akomodasi</span></a>
 		<li class="nav-item">
 			<a class="nav-link" href="<?= base_url('rawat_inap/setorUang'); ?>">
 				<i class="fas fa-address-card <?php if ($this->uri->segment(1) == "rawat_inap" && $this->uri->segment(2) == "setorUang") {
