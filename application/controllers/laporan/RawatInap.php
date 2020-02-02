@@ -124,25 +124,103 @@
             $kolom = 4;
             $nomor = 1;
             $pemasukan_bersih = 0;
+            $klinik_bersih = 0;
             $gizi = 0;
             $japel = 0;
-            $akomodasi_obat = 0;
-            $akomodasi_alkes = 0;
-            $akomodasi_lain = 0;
-            $akomodasi_obat_temp = $this->M_laporan->total_akomodasi_obat();
-            $akomodasi_obat = $akomodasi_obat_temp[0]['akomodasi_obat'];
-            $akomodasi_alkes_temp = $this->M_laporan->total_akomodasi_alkes();
-            $akomodasi_alkes = $akomodasi_alkes_temp[0]['akomodasi_alkes'];
-            $akomodasi_lain_temp = $this->M_laporan->total_akomodasi_lain();
-            $akomodasi_lain = $akomodasi_lain_temp[0]['akomodasi_lain'];
             foreach ($query as $row) {
-                $gizi = $row->gizi_hari + $row->gizi_porsi;
-                $japel = $row->japel_hari + $row->japel_setengah;
                 $tgl_keluar = date('d-m-Y',strtotime($row->tgl_keluar));
-                $obat_oral = (int) $row->obat_oral_ri;
-                $pemasukan_bersih = $row->uang_masuk - $gizi - $row->gda - $row->lab - $row->biaya_ambulance -  $row->total_kia - $row->ekg - $row->lain_lain - $obat_oral;
+
+                if($row->gizi_hari == "" || $row->gizi_hari == NULL)
+                {
+                    $row->gizi_hari = 0;
+                }
+                if($row->gizi_porsi == "" || $row->gizi_porsi == NULL)
+                {
+                    $row->gizi_porsi = 0;
+                }
+                $gizi = $row->gizi_hari + $row->gizi_porsi;
+
+                if($row->gda == "" || $row->gda == NULL)
+                {
+                    $row->gda = 0;
+                }
+
+                if($row->lab == "" || $row->lab == NULL)
+                {
+                    $row->lab = 0;
+                }
+
+                if($row->biaya_ambulance == "" || $row->biaya_ambulance == NULL)
+                {
+                    $row->biaya_ambulance = 0;
+                }
+
+                if($row->total_kia == "" || $row->total_kia == NULL)
+                {
+                    $row->total_kia = 0;
+                }
+
+                if($row->ekg == "" || $row->ekg == NULL)
+                {
+                    $row->ekg = 0;
+                }
+
+                if($row->lain_lain == "" || $row->lain_lain == NULL)
+                {
+                    $row->lain_lain = 0;
+                }
+
+                if($row->obat_oral_ri == "" || $row->obat_oral_ri == NULL)
+                {
+                    $obat_oral = 0;
+                }
+                else 
+                {
+                    $obat_oral = (int) $row->obat_oral_ri;
+                }
+                
+
+                if($row->nama_pasien == "")
+                {
+                    $pemasukan_bersih = 0;
+                }
+                else{
+                    $pemasukan_bersih = $row->uang_masuk - $gizi - $row->gda - $row->lab - $row->biaya_ambulance -  $row->total_kia - $row->ekg - $row->lain_lain - $obat_oral;
+                }
+
+                if($row->japel_hari == "" || $row->japel_hari == NULL)
+                {
+                    $row->japel_hari = 0;
+                }
+                if($row->japel_setengah == "" || $row->japel_setengah == NULL)
+                {
+                    $row->japel_setengah = 0;
+                }
+                $japel = $row->japel_hari + $row->japel_setengah;
+
+                if($row->visite == "" || $row->visite == NULL)
+                {
+                    $row->visite = 0;
+                }
+
+                if($row->akomodasi_obat == "" || $row->akomodasi_obat == NULL)
+                {
+                    $row->akomodasi_obat = 0;
+                }
+
+                if($row->akomodasi_alkes == "" || $row->akomodasi_alkes == NULL)
+                {
+                    $row->akomodasi_alkes = 0;
+                }
+
+                if($row->akomodasi_lain_lain == "" || $row->akomodasi_lain_lain == NULL)
+                {
+                    $row->akomodasi_lain_lain = 0;
+                }
+                
+
                 $klinik_bersih = $pemasukan_bersih - $japel - $row->visite;
-                // di dalam loop
+                // // di dalam loop
                 $spreadsheet->getActiveSheet()->getStyle('A')->getAlignment()->setHorizontal('center');
                 $spreadsheet->getActiveSheet()->getStyle('B')->getAlignment()->setHorizontal('center');
                 $spreadsheet->getActiveSheet()->getStyle('C')->getAlignment()->setHorizontal('left');
@@ -179,22 +257,22 @@
                 ->setCellValue('K' . $kolom, number_format($row->lain_lain, 0, ".", ","))
                 ->setCellValue('L' . $kolom, number_format($obat_oral, 0, ".", ","))
                 ->setCellValue('M' . $kolom, number_format($pemasukan_bersih, 0, ".", ","))
-                ->setCellValue('N' . $kolom, '')
-                ->setCellValue('O' . $kolom, '')
-                ->setCellValue('P' . $kolom, '')
-                ->setCellValue('Q' . $kolom, 9999)
+                ->setCellValue('N' . $kolom, number_format($row->akomodasi_obat, 0, ".", ","))
+                ->setCellValue('O' . $kolom, number_format($row->akomodasi_alkes, 0, ".", ","))
+                ->setCellValue('P' . $kolom, number_format($row->akomodasi_lain_lain, 0, ".", ","))
+                ->setCellValue('Q' . $kolom, '')
                 ->setCellValue('R' . $kolom, number_format($japel, 0, ".", ","))
                 ->setCellValue('S' . $kolom, number_format($row->visite, 0, ".", ","))
                 ->setCellValue('T' . $kolom, number_format($klinik_bersih, 0, ".", ","))
-                ->setCellValue('U' . $kolom, number_format($row->saldo, 0, ".", ","));
+                ->setCellValue('U' . $kolom, number_format($row->saldo, 0 , ".", ","));
                 $kolom++;
                 $nomor++;
                 }
 
-            $spreadsheet->setActiveSheetIndex(0)
-            ->setCellValue('N' . ((int) $kolom + 0), number_format($akomodasi_obat, 0, ".", ","))
-            ->setCellValue('O' . ((int) $kolom + 0), number_format($akomodasi_alkes, 0, ".", ","))
-            ->setCellValue('P' . ((int) $kolom + 0), number_format($akomodasi_lain, 0, ".", ","));
+            // $spreadsheet->setActiveSheetIndex(0)
+            // ->setCellValue('N' . ((int) $kolom + 0), number_format($akomodasi_obat, 0, ".", ","))
+            // ->setCellValue('O' . ((int) $kolom + 0), number_format($akomodasi_alkes, 0, ".", ","))
+            // ->setCellValue('P' . ((int) $kolom + 0), number_format($akomodasi_lain, 0, ".", ","));
     
             
 
