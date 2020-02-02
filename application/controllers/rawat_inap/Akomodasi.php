@@ -98,11 +98,35 @@ class Akomodasi extends CI_Controller
         $data = array(
             'no_akomodasi_rawat_i' => $no_akomodasi_rawat_i,
             'tgl_transaksi' => $tgl_transaksi,
-            'total_harga' => (int) preg_replace("/[^0-9]/", "", $this->input->post('grand_total'))
+            'grand_total' => (int) preg_replace("/[^0-9]/", "", $this->input->post('grand_total'))
         );
         $insert_akomodasi = $this->M_akomodasi->input_data('akomodasi_rawat_inap',$data);
+        
         if($insert_akomodasi)
         {
+            // Update Saldo
+            $count_transaction = $this->M_akomodasi->countRecordWithTglKeluarParam();
+            $temp_saldo = "";
+            if ($count_transaction == 0) {
+                $temp_saldo = 0;
+            } else if ($count_transaction > 0) {
+                foreach ($this->M_akomodasi->getLastRecordWithTglKeluarParam() as $i) {
+                    $temp_saldo = $i->temp_saldo;
+                }
+            }
+            $grand_total = (int) preg_replace("/[^0-9]/", "", $this->input->post('grand_total'));
+            $new_saldo = $temp_saldo - $grand_total;
+
+            $where_no_akomodasi_rawat_i = array(
+                'no_akomodasi_rawat_i' => $no_akomodasi_rawat_i
+            );
+
+            $data_update_status_akomodasi = array(
+                'temp_saldo' => $new_saldo,
+                'saldo' => $new_saldo
+            );
+            $this->M_akomodasi->update_data($where_no_akomodasi_rawat_i, 'akomodasi_rawat_inap', $data_update_status_akomodasi);
+            
             if (isset($_POST['no_lain']) && isset($_POST['harga_lain']) && isset($_POST['qty_lain'])) {
 
                 // menambah detail transaksi baru 

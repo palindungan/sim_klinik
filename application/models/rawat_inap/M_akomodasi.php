@@ -51,4 +51,23 @@ class M_akomodasi extends CI_Model
         }
         return 'AR' . date('ymd') . '-' . $kd; // SELECT SUBSTR('RI191121-0001', 3, 6); dari digit ke 3 sampai 6 digit seanjutnya
     }
+    function countRecordWithTglKeluarParam()
+    {
+        $this->db->select('no_akomodasi_rawat_i');
+        $this->db->from('akomodasi_rawat_inap');
+        return $this->db->get()->num_rows();
+    }
+    function getLastRecordWithTglKeluarParam()
+    {
+        $this->db->select('temp_saldo');
+        $this->db->from('laporan_ri');
+        $this->db->order_by('tgl_keluar', 'DESC');
+        $this->db->limit('1');
+        return  $this->db->get()->result();
+        // $temp_saldo = "";
+        // foreach($data as $i){
+        //     $temp_saldo = $i->temp_saldo;
+        // }
+        // return $temp_saldo;
+    }
 }

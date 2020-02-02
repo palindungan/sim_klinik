@@ -7,7 +7,7 @@ foreach ($record as $row) {
 
     $no_akomodasi_rawat_i = $row->no_akomodasi_rawat_i;
 
-    $total_harga = $row->total_harga;
+    $total_harga = $row->grand_total;
 } ?>
 
 <div class="container-fluid">

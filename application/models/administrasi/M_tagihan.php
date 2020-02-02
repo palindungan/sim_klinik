@@ -17,7 +17,7 @@ class M_tagihan extends CI_Model
     function getLastRecordWithTglKeluarParam()
     {
         $this->db->select('no_ref_pelayanan, temp_saldo');
-        $this->db->from('pelayanan');
+        $this->db->from('laporan_ri');
         $this->db->where('tgl_keluar IS NOT NULL', null, false);
         $this->db->order_by('tgl_keluar', 'DESC');
         $this->db->limit('1');

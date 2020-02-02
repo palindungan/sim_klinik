@@ -31,7 +31,7 @@ class History_akomodasi extends CI_Controller
         $columns = array(
             array('db' => 'tgl_transaksi', 'dt' => 0),
             array('db' => 'no_akomodasi_rawat_i', 'dt' => 1),
-            array('db' => 'total_harga', 'dt' => 2),
+            array('db' => 'grand_total', 'dt' => 2),
         );
 
         // koneksiDatatable ambil dari custom helper
