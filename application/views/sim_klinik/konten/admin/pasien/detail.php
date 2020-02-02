@@ -235,21 +235,27 @@
 
 					<?php
 					$harga_lain = 0;
-                    if($no_transaksi_lain != "kosong"){
-						foreach($data_lain as $row_lain)
-						{
-							$harga_lain += $row_lain->total_harga;
-						} 
+                    if($no_transaksi_lain != "kosong"){ 
+                        
                     ?>
 					<tr>
-						<td style="text-align:left;padding-left:10px"><i>Lain-lain</i></td>
-						<td></td>
-						<td></td>
-						<td style="text-align:right"><?php echo rupiah($harga_lain) ?></td>
+						<td style="text-align:left;padding-left:10px"><i>Biaya Tindakan Balai Pengobatan</i></td>
 					</tr>
 					<?php 
-					}
-					?>
+                    foreach($detail_tindakan_lain as $tindakan_lain)
+                    {
+						$harga_lain += $tindakan_lain->harga * $tindakan_lain->qty;
+                    ?>
+					<tr>
+						<td style="text-align:left;padding-left:20px"><?php echo $tindakan_lain->nama ?></td>
+						<td style="text-align:right"><?php echo $tindakan_lain->qty." x" ?></td>
+						<td style="text-align:right"><?php echo rupiah($tindakan_lain->harga) ?></td>
+						<td style="text-align:right"><?php echo rupiah($tindakan_lain->harga * $tindakan_lain->qty) ?></td>
+					</tr>
+					<?php 
+                    }
+                    }
+                    ?>
 
 					<?php
 					$harga_ambulance = 0;
