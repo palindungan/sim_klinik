@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 02 Feb 2020 pada 01.33
+-- Waktu pembuatan: 02 Feb 2020 pada 09.40
 -- Versi server: 10.4.6-MariaDB
 -- Versi PHP: 7.3.9
 
@@ -130,7 +130,8 @@ CREATE TABLE `antrian_bp` (
 INSERT INTO `antrian_bp` (`kode_antrian_bp`, `no_ref_pelayanan`, `status`) VALUES
 ('A001', '200201-001', 'Diperiksa'),
 ('A002', '200201-002', 'Antri'),
-('A003', '200201-003', 'Antri');
+('A003', '200201-003', 'Antri'),
+('A004', '200202-001', 'Antri');
 
 -- --------------------------------------------------------
 
@@ -239,7 +240,8 @@ CREATE TABLE `bp_penanganan` (
 --
 
 INSERT INTO `bp_penanganan` (`no_bp_p`, `no_ref_pelayanan`, `tgl_penanganan`, `total_harga`) VALUES
-('BP200201-0001', '200201-003', '2020-02-01 11:49:56', 30000);
+('BP200201-0001', '200201-003', '2020-02-01 11:49:56', 30000),
+('BP200202-0001', '200202-001', '2020-02-02 15:20:52', 30000);
 
 -- --------------------------------------------------------
 
@@ -271,6 +273,7 @@ INSERT INTO `bp_tindakan` (`no_bp_t`, `nama`, `harga`, `status`) VALUES
 CREATE TABLE `daftar_detail_akomodasi_rawat_inap_lain` (
 `no_detail_akomodasi_rawat_inap_l` int(10)
 ,`tgl_transaksi` datetime
+,`total_harga` int(9)
 ,`no_akomodasi_rawat_i` char(13)
 ,`no_lain` int(5)
 ,`nama` varchar(100)
@@ -288,7 +291,9 @@ CREATE TABLE `daftar_detail_akomodasi_rawat_inap_lain` (
 CREATE TABLE `daftar_detail_akomodasi_rawat_inap_obat` (
 `no_detail_akomodasi_rawat_inap_o` int(10)
 ,`tgl_transaksi` datetime
+,`total_harga` int(9)
 ,`no_akomodasi_rawat_i` char(13)
+,`nama` varchar(50)
 ,`kode_obat` char(4)
 ,`qty` int(3)
 ,`harga` int(10)
@@ -685,7 +690,8 @@ CREATE TABLE `detail_bp_penanganan` (
 --
 
 INSERT INTO `detail_bp_penanganan` (`no_detail_bp_p`, `no_bp_p`, `no_bp_t`, `qty`, `harga`) VALUES
-(3, 'BP200201-0001', 'T001', 1, 30000);
+(3, 'BP200201-0001', 'T001', 1, 30000),
+(5, 'BP200202-0001', 'T001', 1, 30000);
 
 -- --------------------------------------------------------
 
@@ -795,7 +801,8 @@ CREATE TABLE `detail_penjualan_obat_apotik` (
 
 INSERT INTO `detail_penjualan_obat_apotik` (`no_detail_penjualan_obat_a`, `no_penjualan_obat_a`, `kode_obat`, `qty`, `harga_jual`, `status_paket`) VALUES
 (3, 'PA200201-0001', 'O052', 5, 20000, 'Tidak'),
-(4, 'PA200201-0001', 'O033', 5, 20000, 'Tidak');
+(4, 'PA200201-0001', 'O033', 5, 20000, 'Tidak'),
+(6, 'PA200202-0001', 'O011', 10, 4000, 'Tidak');
 
 -- --------------------------------------------------------
 
@@ -830,7 +837,8 @@ CREATE TABLE `detail_transaksi_lain` (
 --
 
 INSERT INTO `detail_transaksi_lain` (`no_detail_transaksi_l`, `no_transaksi_lain`, `no_lain`, `nama`, `qty`, `harga`) VALUES
-(1, 'LN200201-0001', 2, 'Periksa EKG (EKG)', 1, 200000);
+(1, 'LN200201-0001', 2, 'Periksa EKG (EKG)', 1, 200000),
+(3, 'LN200202-0001', 1, 'Periksa EKG (EKG)', 1, 200000);
 
 -- --------------------------------------------------------
 
@@ -1178,7 +1186,7 @@ INSERT INTO `obat` (`kode_obat`, `no_kat_obat`, `nama`, `min_stok`, `harga_jual`
 ('O008', '', 'D5 1/4 NS', 100, 20000, 'Obat', 0),
 ('O009', '', 'Metronidazole', 100, 55000, 'Obat', 0),
 ('O010', '', 'Water Injection', 100, 6000, 'Obat', 0),
-('O011', 'K001', 'Albumin', 100, 4000, 'Obat', 100),
+('O011', 'K001', 'Albumin', 100, 4000, 'Obat', 90),
 ('O012', 'K001', 'Epatin', 100, 70000, 'Obat', 100),
 ('O013', 'K001', 'Psidii (Oral)', 100, 8000, 'Obat', 100),
 ('O014', 'K001', 'Psidii (Syrup)', 100, 55000, 'Obat', 100),
@@ -49655,7 +49663,8 @@ CREATE TABLE `pelayanan` (
 INSERT INTO `pelayanan` (`no_ref_pelayanan`, `no_rm`, `no_user_pegawai`, `layanan_tujuan`, `tipe_antrian`, `tgl_pelayanan`, `status`, `tipe_pelayanan`, `grand_total`, `tgl_keluar`, `temp_saldo`, `saldo`) VALUES
 ('200201-001', '024000000003', 'P001', 'Balai Pengobatan', 'Dewasa', '2020-02-01 09:59:30', 'finish', 'Rawat Inap', 200000, '2020-02-01 10:01:17', 200000, 200000),
 ('200201-002', '024000000002', 'P001', 'Balai Pengobatan', 'Dewasa', '2020-02-01 10:06:37', 'belum_finish', 'Rawat Inap', 0, NULL, 0, 0),
-('200201-003', '024000048494', 'P001', 'Balai Pengobatan', 'Dewasa', '2020-02-01 11:15:47', 'finish', 'Rawat Inap', 1550000, '2020-02-01 11:49:59', 1750000, 1750000);
+('200201-003', '024000048494', 'P001', 'Balai Pengobatan', 'Dewasa', '2020-02-01 11:15:47', 'finish', 'Rawat Inap', 1550000, '2020-02-01 11:49:59', 1750000, 1750000),
+('200202-001', '024000048494', 'P001', 'Balai Pengobatan', 'Dewasa', '2020-02-02 15:17:41', 'finish', 'Rawat Jalan', 270000, '2020-02-02 15:20:52', 2020000, 2020000);
 
 -- --------------------------------------------------------
 
@@ -49717,7 +49726,8 @@ CREATE TABLE `penjualan_obat_apotik` (
 --
 
 INSERT INTO `penjualan_obat_apotik` (`no_penjualan_obat_a`, `no_ref_pelayanan`, `tanggal_penjualan`, `total_harga`) VALUES
-('PA200201-0001', '200201-003', '2020-02-01 11:49:57', 200000);
+('PA200201-0001', '200201-003', '2020-02-01 11:49:57', 200000),
+('PA200202-0001', '200202-001', '2020-02-02 15:20:52', 40000);
 
 -- --------------------------------------------------------
 
@@ -49873,7 +49883,8 @@ CREATE TABLE `transaksi_lain` (
 --
 
 INSERT INTO `transaksi_lain` (`no_transaksi_lain`, `no_ref_pelayanan`, `tgl_transaksi`, `total_harga`) VALUES
-('LN200201-0001', '200201-003', '2020-02-01 11:49:58', 200000);
+('LN200201-0001', '200201-003', '2020-02-01 11:49:58', 200000),
+('LN200202-0001', '200202-001', '2020-02-02 15:20:52', 200000);
 
 -- --------------------------------------------------------
 
@@ -50041,7 +50052,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `daftar_detail_akomodasi_rawat_inap_lain`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_detail_akomodasi_rawat_inap_lain`  AS  select `daril`.`no_detail_akomodasi_rawat_inap_l` AS `no_detail_akomodasi_rawat_inap_l`,`ari`.`tgl_transaksi` AS `tgl_transaksi`,`ari`.`no_akomodasi_rawat_i` AS `no_akomodasi_rawat_i`,`l`.`no_lain` AS `no_lain`,`daril`.`nama` AS `nama`,`daril`.`qty` AS `qty`,`daril`.`harga` AS `harga`,`l`.`tipe` AS `tipe` from ((`detail_akomodasi_rawat_inap_lain` `daril` join `akomodasi_rawat_inap` `ari` on(`daril`.`no_akomodasi_rawat_i` = `ari`.`no_akomodasi_rawat_i`)) join `lain` `l` on(`daril`.`no_lain` = `l`.`no_lain`)) order by `daril`.`no_detail_akomodasi_rawat_inap_l` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_detail_akomodasi_rawat_inap_lain`  AS  select `daril`.`no_detail_akomodasi_rawat_inap_l` AS `no_detail_akomodasi_rawat_inap_l`,`ari`.`tgl_transaksi` AS `tgl_transaksi`,`ari`.`total_harga` AS `total_harga`,`ari`.`no_akomodasi_rawat_i` AS `no_akomodasi_rawat_i`,`l`.`no_lain` AS `no_lain`,`daril`.`nama` AS `nama`,`daril`.`qty` AS `qty`,`daril`.`harga` AS `harga`,`l`.`tipe` AS `tipe` from ((`detail_akomodasi_rawat_inap_lain` `daril` join `akomodasi_rawat_inap` `ari` on(`daril`.`no_akomodasi_rawat_i` = `ari`.`no_akomodasi_rawat_i`)) join `lain` `l` on(`daril`.`no_lain` = `l`.`no_lain`)) order by `daril`.`no_detail_akomodasi_rawat_inap_l` ;
 
 -- --------------------------------------------------------
 
@@ -50050,7 +50061,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `daftar_detail_akomodasi_rawat_inap_obat`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_detail_akomodasi_rawat_inap_obat`  AS  select `dario`.`no_detail_akomodasi_rawat_inap_o` AS `no_detail_akomodasi_rawat_inap_o`,`ari`.`tgl_transaksi` AS `tgl_transaksi`,`ari`.`no_akomodasi_rawat_i` AS `no_akomodasi_rawat_i`,`o`.`kode_obat` AS `kode_obat`,`dario`.`qty` AS `qty`,`dario`.`harga` AS `harga`,`o`.`tipe` AS `tipe` from ((`detail_akomodasi_rawat_inap_obat` `dario` join `akomodasi_rawat_inap` `ari` on(`dario`.`no_akomodasi_rawat_i` = `ari`.`no_akomodasi_rawat_i`)) join `obat` `o` on(`dario`.`kode_obat` = `o`.`kode_obat`)) order by `dario`.`no_detail_akomodasi_rawat_inap_o` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `daftar_detail_akomodasi_rawat_inap_obat`  AS  select `dario`.`no_detail_akomodasi_rawat_inap_o` AS `no_detail_akomodasi_rawat_inap_o`,`ari`.`tgl_transaksi` AS `tgl_transaksi`,`ari`.`total_harga` AS `total_harga`,`ari`.`no_akomodasi_rawat_i` AS `no_akomodasi_rawat_i`,`o`.`nama` AS `nama`,`o`.`kode_obat` AS `kode_obat`,`dario`.`qty` AS `qty`,`dario`.`harga` AS `harga`,`o`.`tipe` AS `tipe` from ((`detail_akomodasi_rawat_inap_obat` `dario` join `akomodasi_rawat_inap` `ari` on(`dario`.`no_akomodasi_rawat_i` = `ari`.`no_akomodasi_rawat_i`)) join `obat` `o` on(`dario`.`kode_obat` = `o`.`kode_obat`)) order by `dario`.`no_detail_akomodasi_rawat_inap_o` ;
 
 -- --------------------------------------------------------
 
@@ -50550,7 +50561,7 @@ ALTER TABLE `detail_akomodasi_rawat_inap_obat`
 -- AUTO_INCREMENT untuk tabel `detail_bp_penanganan`
 --
 ALTER TABLE `detail_bp_penanganan`
-  MODIFY `no_detail_bp_p` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `no_detail_bp_p` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_kia_penanganan`
@@ -50580,7 +50591,7 @@ ALTER TABLE `detail_pelayanan_ambulan`
 -- AUTO_INCREMENT untuk tabel `detail_penjualan_obat_apotik`
 --
 ALTER TABLE `detail_penjualan_obat_apotik`
-  MODIFY `no_detail_penjualan_obat_a` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `no_detail_penjualan_obat_a` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_return_obat`
@@ -50592,7 +50603,7 @@ ALTER TABLE `detail_return_obat`
 -- AUTO_INCREMENT untuk tabel `detail_transaksi_lain`
 --
 ALTER TABLE `detail_transaksi_lain`
-  MODIFY `no_detail_transaksi_l` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `no_detail_transaksi_l` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_transaksi_rawat_inap_kamar`
