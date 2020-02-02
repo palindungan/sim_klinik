@@ -46,13 +46,13 @@ foreach ($record as $row) {
 				</thead>
 				<tbody>
                     <?php
-                    foreach ($detail_record_obat as $row_obat) {
+                    foreach ($detail_record_logistik as $row_logistik) {
                     ?>
 					<tr>
-						<td width="25%"><?= $row_obat->nama; ?></td>
-						<td width="8%"><?= $row_obat->qty; ?></td>
-						<td width="15%" style="text-align:right"><?= rupiah($row_obat->harga) ?></td>
-						<th width="15%" style="text-align:right"><?= rupiah($row_obat->qty * $row_obat->harga) ?></th>
+						<td width="25%"><?= $row_logistik->nama; ?></td>
+						<td width="8%"><?= $row_logistik->qty; ?></td>
+						<td width="15%" style="text-align:right"><?= rupiah($row_logistik->harga) ?></td>
+						<th width="15%" style="text-align:right"><?= rupiah($row_logistik->qty * $row_logistik->harga) ?></th>
 					</tr>
 					<?php } ?>
 

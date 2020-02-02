@@ -213,11 +213,11 @@ SELECT daril.no_detail_akomodasi_rawat_inap_l,ari.tgl_transaksi,ari.total_harga,
 FROM detail_akomodasi_rawat_inap_lain daril JOIN akomodasi_rawat_inap ari USING(no_akomodasi_rawat_i) JOIN lain l USING(no_lain)
 ORDER BY daril.no_detail_akomodasi_rawat_inap_l ASC;
 
-// daftar_detail_akomodasi_rawat_inap_obat
-CREATE VIEW daftar_detail_akomodasi_rawat_inap_obat AS
-SELECT dario.no_detail_akomodasi_rawat_inap_o,ari.tgl_transaksi,ari.total_harga,ari.no_akomodasi_rawat_i ,o.nama, o.kode_obat , dario.qty,dario.harga , o.tipe
-FROM detail_akomodasi_rawat_inap_obat dario JOIN akomodasi_rawat_inap ari USING(no_akomodasi_rawat_i) JOIN obat o USING(kode_obat)
-ORDER BY dario.no_detail_akomodasi_rawat_inap_o ASC
+// daftar_detail_akomodasi_rawat_inap_logistik
+CREATE VIEW daftar_detail_akomodasi_rawat_inap_logistik AS
+SELECT daril.no_detail_akomodasi_rawat_inap_l,ari.tgl_transaksi,ari.total_harga,ari.no_akomodasi_rawat_i ,o.nama, o.kode_obat , daril.qty,daril.harga , o.tipe
+FROM detail_akomodasi_rawat_inap_logistik daril JOIN akomodasi_rawat_inap ari USING(no_akomodasi_rawat_i) JOIN obat o USING(kode_obat)
+ORDER BY daril.no_detail_akomodasi_rawat_inap_l ASC
 
 // Laporan RJ
 CREATE VIEW laporan_rj AS

@@ -50,7 +50,7 @@ class History_akomodasi extends CI_Controller
 
         // ambil detail akomodasi alkes
         $data['detail_record_lain'] = $this->M_akomodasi->get_data('daftar_detail_akomodasi_rawat_inap_lain', $where_no_akomodasi)->result();
-        $data['detail_record_obat'] = $this->M_akomodasi->get_data('daftar_detail_akomodasi_rawat_inap_obat', $where_no_akomodasi)->result();
+        $data['detail_record_logistik'] = $this->M_akomodasi->get_data('daftar_detail_akomodasi_rawat_inap_logistik', $where_no_akomodasi)->result();
 
         $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/rawat_inap/akomodasi/detail', $data);
     }
