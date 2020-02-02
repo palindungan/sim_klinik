@@ -145,8 +145,7 @@
 				method: "POST",
 				data: form_data,
 				success: function(data) {
-					// location.reload();
-					alert(data);
+					location.reload();
 				}
 			});
 			// tambah ke database

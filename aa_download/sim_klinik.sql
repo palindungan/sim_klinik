@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 02 Feb 2020 pada 16.37
+-- Waktu pembuatan: 02 Feb 2020 pada 16.56
 -- Versi server: 10.4.6-MariaDB
 -- Versi PHP: 7.3.9
 
@@ -41,37 +41,7 @@ CREATE TABLE `akomodasi_rawat_inap` (
 --
 
 INSERT INTO `akomodasi_rawat_inap` (`no_akomodasi_rawat_i`, `tgl_transaksi`, `grand_total`, `temp_saldo`, `saldo`) VALUES
-('AR200202-0001', '2020-02-02 21:46:44', 4000, -4000, -4000),
-('AR200202-0002', '2020-02-02 21:47:19', 20000, -20000, -20000),
-('AR200202-0003', '2020-02-02 21:47:58', 4000, -4000, -4000),
-('AR200202-0004', '2020-02-02 21:48:04', 4000, -4000, -4000),
-('AR200202-0005', '2020-02-02 21:48:30', 4000, -4000, -4000),
-('AR200202-0006', '2020-02-02 21:49:14', 4000, -4000, -4000),
-('AR200202-0007', '2020-02-02 21:49:39', 4000, -4000, -4000),
-('AR200202-0008', '2020-02-02 21:53:33', 4000, -4000, -4000),
-('AR200202-0009', '2020-02-02 21:56:52', 4000, -4000, -4000),
-('AR200202-0010', '2020-02-02 21:58:00', 4000, -4000, -4000),
-('AR200202-0011', '2020-02-02 21:58:46', 4000, -4000, -4000),
-('AR200202-0012', '2020-02-02 22:00:07', 20000, -20000, -20000),
-('AR200202-0013', '2020-02-02 22:03:37', 32000, -32000, -32000),
-('AR200202-0014', '2020-02-02 22:04:57', 40000, -40000, -40000),
-('AR200202-0015', '2020-02-02 22:08:24', 4000, -4000, -4000),
-('AR200202-0016', '2020-02-02 22:09:34', 20000, 833000, 833000),
-('AR200202-0017', '2020-02-02 22:13:50', 20000, -20000, -20000),
-('AR200202-0018', '2020-02-02 22:15:10', 20000, -20000, -20000),
-('AR200202-0019', '2020-02-02 22:16:02', 20000, -20000, -20000),
-('AR200202-0020', '2020-02-02 22:17:21', 20000, -40000, -40000),
-('AR200202-0021', '2020-02-02 22:18:00', 150000, -190000, -190000),
-('AR200202-0022', '2020-02-02 22:19:48', 4000, -4000, -4000),
-('AR200202-0023', '2020-02-02 22:22:01', 20000, -20000, -20000),
-('AR200202-0024', '2020-02-02 22:25:26', 32000, -32000, -32000),
-('AR200202-0025', '2020-02-02 22:26:14', 20000, -20000, -20000),
-('AR200202-0026', '2020-02-02 22:27:09', 4000, -4000, -4000),
-('AR200202-0027', '2020-02-02 22:27:31', 20000, -20000, -20000),
-('AR200202-0028', '2020-02-02 22:30:58', 20000, -20000, -20000),
-('AR200202-0029', '2020-02-02 22:31:28', 4000, -4000, -4000),
-('AR200202-0030', '2020-02-02 22:31:52', 20000, -20000, -20000),
-('AR200202-0031', '2020-02-02 22:32:21', 20000, -20000, -20000);
+('AR200202-0001', '2020-02-02 22:51:35', 20000, -20000, -20000);
 
 -- --------------------------------------------------------
 
@@ -100,92 +70,18 @@ INSERT INTO `ambulance` (`no_ambulance`, `tujuan`, `harga`) VALUES
 -- --------------------------------------------------------
 
 --
--- Stand-in struktur untuk tampilan `antrian_balai_pengobatan_prioritas`
--- (Lihat di bawah untuk tampilan aktual)
---
-CREATE TABLE `antrian_balai_pengobatan_prioritas` (
-`kode_antrian_bp` char(5)
-,`nama` varchar(50)
-,`status` enum('Antri','Prioritas','Diperiksa','Selesai')
-,`no_antrian` varchar(3)
-);
-
--- --------------------------------------------------------
-
---
--- Stand-in struktur untuk tampilan `antrian_balai_pengobatan_semua`
--- (Lihat di bawah untuk tampilan aktual)
---
-CREATE TABLE `antrian_balai_pengobatan_semua` (
-`kode_antrian_bp` char(5)
-,`nama` varchar(50)
-,`status` enum('Antri','Prioritas','Diperiksa','Selesai')
-,`no_antrian` varchar(3)
-);
-
--- --------------------------------------------------------
-
---
--- Stand-in struktur untuk tampilan `antrian_balai_pengobatan_tersisa`
--- (Lihat di bawah untuk tampilan aktual)
---
-CREATE TABLE `antrian_balai_pengobatan_tersisa` (
-`kode_antrian_bp` char(5)
-,`nama` varchar(50)
-,`status` enum('Antri','Prioritas','Diperiksa','Selesai')
-,`no_antrian` varchar(3)
-);
-
--- --------------------------------------------------------
-
---
 -- Struktur dari tabel `antrian_bp`
 --
 
 CREATE TABLE `antrian_bp` (
-  `kode_antrian_bp` char(5) NOT NULL,
+  `id_antri_bp` int(11) NOT NULL,
+  `kode_antrian_bp` char(6) NOT NULL,
+  `tanggal_antrian` date NOT NULL,
   `no_ref_pelayanan` char(10) NOT NULL,
-  `status` enum('Antri','Prioritas','Diperiksa','Selesai') NOT NULL
+  `tipe_antrian` enum('Dewasa','Anak-Anak') NOT NULL,
+  `waktu_antrian` enum('Pagi','Sore') NOT NULL,
+  `status_antrian` enum('0','1') NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `antrian_bp`
---
-
-INSERT INTO `antrian_bp` (`kode_antrian_bp`, `no_ref_pelayanan`, `status`) VALUES
-('A001', '200201-001', 'Diperiksa'),
-('A002', '200201-002', 'Antri'),
-('A003', '200201-003', 'Antri'),
-('A004', '200202-001', 'Antri'),
-('A005', '200202-001', 'Antri'),
-('A006', '200202-002', 'Antri'),
-('A007', '200202-003', 'Antri');
-
--- --------------------------------------------------------
-
---
--- Stand-in struktur untuk tampilan `antrian_kesehatan_ibu_dan_anak_semua`
--- (Lihat di bawah untuk tampilan aktual)
---
-CREATE TABLE `antrian_kesehatan_ibu_dan_anak_semua` (
-`kode_antrian_kia` char(4)
-,`nama` varchar(50)
-,`status` enum('Antri','Diperiksa','Selesai')
-,`no_antrian` varchar(3)
-);
-
--- --------------------------------------------------------
-
---
--- Stand-in struktur untuk tampilan `antrian_kesehatan_ibu_dan_anak_tersisa`
--- (Lihat di bawah untuk tampilan aktual)
---
-CREATE TABLE `antrian_kesehatan_ibu_dan_anak_tersisa` (
-`kode_antrian_kia` char(4)
-,`nama` varchar(50)
-,`status` enum('Antri','Diperiksa','Selesai')
-,`no_antrian` varchar(3)
-);
 
 -- --------------------------------------------------------
 
@@ -194,9 +90,12 @@ CREATE TABLE `antrian_kesehatan_ibu_dan_anak_tersisa` (
 --
 
 CREATE TABLE `antrian_kia` (
-  `kode_antrian_kia` char(4) NOT NULL,
+  `id_antri_kia` int(11) NOT NULL,
+  `kode_antrian_kia` char(5) NOT NULL,
+  `tanggal_antrian` date NOT NULL,
   `no_ref_pelayanan` char(10) NOT NULL,
-  `status` enum('Antri','Diperiksa','Selesai') NOT NULL
+  `tipe_antrian` enum('Dewasa','Anak-Anak') NOT NULL,
+  `status_antrian` enum('0','1') NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -206,49 +105,13 @@ CREATE TABLE `antrian_kia` (
 --
 
 CREATE TABLE `antrian_lab` (
+  `id_antri_lab` int(11) NOT NULL,
   `kode_antrian_lab` char(5) NOT NULL,
+  `tanggal_antrian` date NOT NULL,
   `no_ref_pelayanan` char(10) NOT NULL,
-  `status` enum('Antri','Prioritas','Diperiksa','Selesai') NOT NULL
+  `tipe_antrian` enum('Dewasa','Anak-Anak') NOT NULL,
+  `status_antrian` enum('0','1') NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Stand-in struktur untuk tampilan `antrian_laboratorium_prioritas`
--- (Lihat di bawah untuk tampilan aktual)
---
-CREATE TABLE `antrian_laboratorium_prioritas` (
-`kode_antrian_lab` char(5)
-,`nama` varchar(50)
-,`status` enum('Antri','Prioritas','Diperiksa','Selesai')
-,`no_antrian` varchar(3)
-);
-
--- --------------------------------------------------------
-
---
--- Stand-in struktur untuk tampilan `antrian_laboratorium_semua`
--- (Lihat di bawah untuk tampilan aktual)
---
-CREATE TABLE `antrian_laboratorium_semua` (
-`kode_antrian_lab` char(5)
-,`nama` varchar(50)
-,`status` enum('Antri','Prioritas','Diperiksa','Selesai')
-,`no_antrian` varchar(3)
-);
-
--- --------------------------------------------------------
-
---
--- Stand-in struktur untuk tampilan `antrian_laboratorium_tersisa`
--- (Lihat di bawah untuk tampilan aktual)
---
-CREATE TABLE `antrian_laboratorium_tersisa` (
-`kode_antrian_lab` char(5)
-,`nama` varchar(50)
-,`status` enum('Antri','Prioritas','Diperiksa','Selesai')
-,`no_antrian` varchar(3)
-);
 
 -- --------------------------------------------------------
 
@@ -673,38 +536,7 @@ CREATE TABLE `detail_akomodasi_rawat_inap_logistik` (
 --
 
 INSERT INTO `detail_akomodasi_rawat_inap_logistik` (`no_detail_akomodasi_rawat_inap_l`, `no_akomodasi_rawat_i`, `kode_obat`, `qty`, `harga`) VALUES
-(30, 'AR200202-0001', 'O011', 1, 4000),
-(31, 'AR200202-0002', 'O052', 1, 20000),
-(32, 'AR200202-0003', 'O011', 1, 4000),
-(33, 'AR200202-0004', 'O011', 1, 4000),
-(34, 'AR200202-0005', 'O011', 1, 4000),
-(35, 'AR200202-0006', 'O011', 1, 4000),
-(36, 'AR200202-0007', 'O011', 1, 4000),
-(37, 'AR200202-0008', 'O011', 1, 4000),
-(38, 'AR200202-0009', 'O011', 1, 4000),
-(39, 'AR200202-0010', 'O011', 1, 4000),
-(40, 'AR200202-0011', 'O011', 1, 4000),
-(41, 'AR200202-0012', 'O052', 1, 20000),
-(42, 'AR200202-0013', 'O001', 1, 32000),
-(43, 'AR200202-0014', 'O052', 1, 20000),
-(44, 'AR200202-0014', 'O043', 1, 20000),
-(45, 'AR200202-0015', 'O011', 1, 4000),
-(46, 'AR200202-0016', 'O052', 1, 20000),
-(47, 'AR200202-0017', 'O052', 1, 20000),
-(48, 'AR200202-0018', 'O052', 1, 20000),
-(49, 'AR200202-0019', 'O052', 1, 20000),
-(50, 'AR200202-0020', 'O033', 1, 20000),
-(51, 'AR200202-0021', 'O036', 1, 150000),
-(52, 'AR200202-0022', 'O011', 1, 4000),
-(53, 'AR200202-0023', 'O033', 1, 20000),
-(54, 'AR200202-0024', 'O001', 1, 32000),
-(55, 'AR200202-0025', 'O033', 1, 20000),
-(56, 'AR200202-0026', 'O011', 1, 4000),
-(57, 'AR200202-0027', 'O043', 1, 20000),
-(58, 'AR200202-0028', 'O052', 1, 20000),
-(59, 'AR200202-0029', 'O011', 1, 4000),
-(60, 'AR200202-0030', 'O052', 1, 20000),
-(61, 'AR200202-0031', 'O052', 1, 20000);
+(63, 'AR200202-0001', 'O052', 1, 20000);
 
 -- --------------------------------------------------------
 
@@ -49959,78 +49791,6 @@ INSERT INTO `user_pegawai` (`no_user_pegawai`, `nama`, `jenis_akses`, `username`
 -- --------------------------------------------------------
 
 --
--- Struktur untuk view `antrian_balai_pengobatan_prioritas`
---
-DROP TABLE IF EXISTS `antrian_balai_pengobatan_prioritas`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_balai_pengobatan_prioritas`  AS  select `abps`.`kode_antrian_bp` AS `kode_antrian_bp`,`abps`.`nama` AS `nama`,`abps`.`status` AS `status`,`abps`.`no_antrian` AS `no_antrian` from `antrian_balai_pengobatan_semua` `abps` where `abps`.`status` = 'Prioritas' order by `abps`.`no_antrian` ;
-
--- --------------------------------------------------------
-
---
--- Struktur untuk view `antrian_balai_pengobatan_semua`
---
-DROP TABLE IF EXISTS `antrian_balai_pengobatan_semua`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_balai_pengobatan_semua`  AS  select `ab`.`kode_antrian_bp` AS `kode_antrian_bp`,`pa`.`nama` AS `nama`,`ab`.`status` AS `status`,right(`ab`.`kode_antrian_bp`,3) AS `no_antrian` from ((`antrian_bp` `ab` join `pelayanan` `pe` on(`ab`.`no_ref_pelayanan` = `pe`.`no_ref_pelayanan`)) join `pasien` `pa` on(`pe`.`no_rm` = `pa`.`no_rm`)) order by right(`ab`.`kode_antrian_bp`,3) ;
-
--- --------------------------------------------------------
-
---
--- Struktur untuk view `antrian_balai_pengobatan_tersisa`
---
-DROP TABLE IF EXISTS `antrian_balai_pengobatan_tersisa`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_balai_pengobatan_tersisa`  AS  select `abps`.`kode_antrian_bp` AS `kode_antrian_bp`,`abps`.`nama` AS `nama`,`abps`.`status` AS `status`,`abps`.`no_antrian` AS `no_antrian` from `antrian_balai_pengobatan_semua` `abps` where `abps`.`status` <> 'Selesai' and `abps`.`status` <> 'Diperiksa' order by `abps`.`no_antrian` ;
-
--- --------------------------------------------------------
-
---
--- Struktur untuk view `antrian_kesehatan_ibu_dan_anak_semua`
---
-DROP TABLE IF EXISTS `antrian_kesehatan_ibu_dan_anak_semua`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_kesehatan_ibu_dan_anak_semua`  AS  select `kia`.`kode_antrian_kia` AS `kode_antrian_kia`,`pa`.`nama` AS `nama`,`kia`.`status` AS `status`,right(`kia`.`kode_antrian_kia`,3) AS `no_antrian` from ((`antrian_kia` `kia` join `pelayanan` `pe` on(`kia`.`no_ref_pelayanan` = `pe`.`no_ref_pelayanan`)) join `pasien` `pa` on(`pe`.`no_rm` = `pa`.`no_rm`)) order by right(`kia`.`kode_antrian_kia`,3) ;
-
--- --------------------------------------------------------
-
---
--- Struktur untuk view `antrian_kesehatan_ibu_dan_anak_tersisa`
---
-DROP TABLE IF EXISTS `antrian_kesehatan_ibu_dan_anak_tersisa`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_kesehatan_ibu_dan_anak_tersisa`  AS  select `x`.`kode_antrian_kia` AS `kode_antrian_kia`,`x`.`nama` AS `nama`,`x`.`status` AS `status`,`x`.`no_antrian` AS `no_antrian` from `antrian_kesehatan_ibu_dan_anak_semua` `x` where `x`.`status` <> 'Selesai' and `x`.`status` <> 'Diperiksa' order by `x`.`no_antrian` ;
-
--- --------------------------------------------------------
-
---
--- Struktur untuk view `antrian_laboratorium_prioritas`
---
-DROP TABLE IF EXISTS `antrian_laboratorium_prioritas`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_laboratorium_prioritas`  AS  select `lap`.`kode_antrian_lab` AS `kode_antrian_lab`,`lap`.`nama` AS `nama`,`lap`.`status` AS `status`,`lap`.`no_antrian` AS `no_antrian` from `antrian_laboratorium_semua` `lap` where `lap`.`status` = 'Prioritas' order by `lap`.`no_antrian` ;
-
--- --------------------------------------------------------
-
---
--- Struktur untuk view `antrian_laboratorium_semua`
---
-DROP TABLE IF EXISTS `antrian_laboratorium_semua`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_laboratorium_semua`  AS  select `lab`.`kode_antrian_lab` AS `kode_antrian_lab`,`pa`.`nama` AS `nama`,`lab`.`status` AS `status`,right(`lab`.`kode_antrian_lab`,3) AS `no_antrian` from ((`antrian_lab` `lab` join `pelayanan` `pe` on(`lab`.`no_ref_pelayanan` = `pe`.`no_ref_pelayanan`)) join `pasien` `pa` on(`pe`.`no_rm` = `pa`.`no_rm`)) order by right(`lab`.`kode_antrian_lab`,3) ;
-
--- --------------------------------------------------------
-
---
--- Struktur untuk view `antrian_laboratorium_tersisa`
---
-DROP TABLE IF EXISTS `antrian_laboratorium_tersisa`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `antrian_laboratorium_tersisa`  AS  select `lap`.`kode_antrian_lab` AS `kode_antrian_lab`,`lap`.`nama` AS `nama`,`lap`.`status` AS `status`,`lap`.`no_antrian` AS `no_antrian` from `antrian_laboratorium_semua` `lap` where `lap`.`status` <> 'Selesai' and `lap`.`status` <> 'Diperiksa' order by `lap`.`no_antrian` ;
-
--- --------------------------------------------------------
-
---
 -- Struktur untuk view `daftar_detail_akomodasi_rawat_inap_lain`
 --
 DROP TABLE IF EXISTS `daftar_detail_akomodasi_rawat_inap_lain`;
@@ -50264,19 +50024,19 @@ ALTER TABLE `ambulance`
 -- Indeks untuk tabel `antrian_bp`
 --
 ALTER TABLE `antrian_bp`
-  ADD PRIMARY KEY (`kode_antrian_bp`);
+  ADD PRIMARY KEY (`id_antri_bp`);
 
 --
 -- Indeks untuk tabel `antrian_kia`
 --
 ALTER TABLE `antrian_kia`
-  ADD PRIMARY KEY (`kode_antrian_kia`);
+  ADD PRIMARY KEY (`id_antri_kia`);
 
 --
 -- Indeks untuk tabel `antrian_lab`
 --
 ALTER TABLE `antrian_lab`
-  ADD PRIMARY KEY (`kode_antrian_lab`);
+  ADD PRIMARY KEY (`id_antri_lab`);
 
 --
 -- Indeks untuk tabel `bp_penanganan`
@@ -50529,6 +50289,24 @@ ALTER TABLE `ambulance`
   MODIFY `no_ambulance` tinyint(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT untuk tabel `antrian_bp`
+--
+ALTER TABLE `antrian_bp`
+  MODIFY `id_antri_bp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT untuk tabel `antrian_kia`
+--
+ALTER TABLE `antrian_kia`
+  MODIFY `id_antri_kia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT untuk tabel `antrian_lab`
+--
+ALTER TABLE `antrian_lab`
+  MODIFY `id_antri_lab` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT untuk tabel `detail_akomodasi_rawat_inap_lain`
 --
 ALTER TABLE `detail_akomodasi_rawat_inap_lain`
@@ -50538,7 +50316,7 @@ ALTER TABLE `detail_akomodasi_rawat_inap_lain`
 -- AUTO_INCREMENT untuk tabel `detail_akomodasi_rawat_inap_logistik`
 --
 ALTER TABLE `detail_akomodasi_rawat_inap_logistik`
-  MODIFY `no_detail_akomodasi_rawat_inap_l` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `no_detail_akomodasi_rawat_inap_l` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_bp_penanganan`
