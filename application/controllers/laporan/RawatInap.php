@@ -130,7 +130,8 @@
             $total_akomodasi_obat = 0;
             $total_akomodasi_alkes = 0;
             $total_akomodasi_lain = 0;
-            $total_klinik_bersih = 0;
+            $total_pemasukan_bersih = 0;
+            $sisa_hari = 0;
             foreach ($query as $row) {
                 $tgl_keluar = date('d-m-Y',strtotime($row->tgl_keluar));
 
@@ -226,7 +227,7 @@
                 $total_akomodasi_obat += $row->akomodasi_obat;
                 $total_akomodasi_alkes += $row->akomodasi_alkes;
                 $total_akomodasi_lain += $row->akomodasi_lain_lain;
-                // $total_klinik_bersih += $klinik_bersih; 
+                $total_pemasukan_bersih += $pemasukan_bersih; 
 
                 // // di dalam loop
                 $spreadsheet->getActiveSheet()->getStyle('A')->getAlignment()->setHorizontal('center');
@@ -276,11 +277,14 @@
                 $kolom++;
                 $nomor++;
                 }
-
+            
+            $sisa_hari = $total_pemasukan_bersih - $total_akomodasi_obat - $total_akomodasi_alkes -$total_akomodasi_lain; 
             $spreadsheet->setActiveSheetIndex(0)
             ->setCellValue('N' . ((int) $kolom + 0), number_format($total_akomodasi_obat, 0, ".", ","))
             ->setCellValue('O' . ((int) $kolom + 0), number_format($total_akomodasi_alkes, 0, ".", ","))
-            ->setCellValue('P' . ((int) $kolom + 0), number_format($total_akomodasi_lain, 0, ".", ","));
+            ->setCellValue('P' . ((int) $kolom + 0), number_format($total_akomodasi_lain, 0, ".", ","))
+            ->setCellValue('Q' . ((int) $kolom + 0), number_format($sisa_hari, 0, ".", ","));
+            // ->setCellValue('Q' . ((int) $kolom + 0), number_format($total_pemasukan_bersih - $total_akomodasi_obat - $total_akomodasi_alkes -$total_akomodasi_lain, 0, ".", ","));
     
             
 
