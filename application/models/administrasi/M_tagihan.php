@@ -47,6 +47,11 @@ class M_tagihan extends CI_Model
         return $this->db->get();
     }
 
+    function deleteTrashData(){
+        $date = date("Y-m-d", strtotime( '-4 days' ) );
+        $this->db->query("DELETE FROM pelayanan WHERE tgl_pelayanan<='$date' AND grand_total='0'");
+    }
+
     function input_data($table, $data)
     {
         $status = $this->db->insert($table, $data);

@@ -2,7 +2,6 @@
 $now = Date('Y-m-d');
 $hari = hari_ini();
 $tgl_indo = tgl_indo($now);
-$jam = date("H:i");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,17 +35,20 @@ $jam = date("H:i");
     </style>
 </head>
 
-<body onload="">
+<body style="text-align: center;">
     <h6 style="font-weight:100;text-align:center;">Klinik Ampel Sehat</h6>
-    <h6 style="text-align:center;margin-top:-25px;">Nomor Antrian</h6>
-    <h1 style="text-align:center;margin-top:-20px;"><?php echo $kode_antrian; ?></h1>
-    <p style="text-align:center;">No.Ref : <?php echo $no_ref; ?></p>
-    <p style="text-align:center;margin-top:-10px;"><?php echo $hari . "," . $tgl_indo . " " . $jam; ?></p>
+    <h6 style="margin-top:-25px;">Nomor Antrian</h6>
+    <h1 style="margin-top:-20px;"><?php echo $kode_antrian; ?></h1>
+    <h5 style="margin-top:-20px"><?php echo $nama; ?></h5>
+    <p style="margin-top:-10px;">No.Ref : <?php echo $no_ref; ?></p>
+    <p style="margin-top:-10px;"><?php echo $hari . "," . $tgl_indo; ?></p>
+    <hr style="border-top: 1px dashed black;">
+    <p style="margin-top:-5px;">Terima Kasih Atas Kunjungannya</p>
 
 </body>
 
 </html>
-<script>
+<script>23
 
 </script>
 <script type="text/javascript">

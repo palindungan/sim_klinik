@@ -7,51 +7,32 @@
 			<h6 class="m-0 font-weight-bold text-primary">Pendaftaran Pasien</h6>
 		</div>
 		<div class="card-body">
-			<!-- Page Heading -->
-			<!-- <h5 class="h3 mb-2 text-gray-800">No. Ref Pelayanan</h5> -->
 			<?php echo form_open('loket/pendaftaran/store'); ?>
+			<button type="button" id="btn_search" class="btn btn-primary btn-sm mb-1" data-toggle="modal" data-target="#exampleModalCenter"><i class="fas fa-search-plus"></i> Cari Pasien</button>
 			<div class="form-row">
-				<div class="form-group col-sm-4">
+				<div class="form-group col-sm-5">
 					<label for="inputEmail2">No RM</label>
 					<input type="text" maxlength="12" name="no_rm" id="no_rm" class="no_rmnya form-control form-control-sm" value="<?php echo $no_rm ?>" id="no_rm" placeholder="No RM" required>
 				</div>
-				<div class="form-group col-sm-2">
-					<input type="hidden" id="pilih_rm" class="form-control form-control-sm" value="no"></input>
-				</div>
-				<div class="form-group col-sm-2">
-					<label for="inputEmail2">&nbsp</label>
-					<a style="display:block" href="#" id="btn_search" class="btn btn-sm btn-primary btn-icon-split" data-toggle="modal" data-target="#exampleModalCenter">
-						<span class="icon text-white-50">
-							<i class="fas fa-search-plus"></i>
-						</span>
-						<span class="text">Pencarian Pasien</span>
-					</a>
-				</div>
-
-
-
-			</div>
-			<!-- <h5 class="h3 mb-2 text-gray-800">Biodata Pasien</h5> -->
-			<div class="form-row">
-				<div class="form-group col-sm-6">
+				<div class="form-group col-sm-5">
 					<label for="inputEmail1">Nama</label>
 					<input type="text" class="form-control form-control-sm" name="nama" id="nama" placeholder="Masukan Nama" required>
 				</div>
-				<div class="form-group col-sm-6">
+			</div>
+			<div class="form-row">
+				<div class="form-group col-sm-5">
 					<label for="inputEmail1">Umur</label>
 					<input type="text" class="form-control form-control-sm" name="umur" id="umur" placeholder="Masukan umur" required>
 				</div>
-			</div>
-			<div class="form-row">
-				<div class="form-group col-sm-6">
+				<div class="form-group col-sm-5">
 					<label for="alamat">Alamat</label>
 					<textarea class="form-control form-control-sm" name="alamat" id="alamat" required></textarea>
 				</div>
 			</div>
 			<div class="form-row">
-				<div class="form-group col-sm-6">
+				<div class="form-group col-sm-5">
 					<label for="inputEmail3">Layanan Tujuan</label>
-					<select name="layanan_tujuan" class="form-control form-control-sm" id="exampleFormControlSelect1" required>
+					<select name="layanan_tujuan" class="form-control form-control-sm" id="layanan_tujuan" onchange="control_waktu_pendaftaran_bp()" required>
 						<option value="">---Pilih Layanan Tujuan--</option>
 						<option value="Balai Pengobatan">Balai
 							Pengobatan
@@ -62,18 +43,29 @@
 						<option value="UGD">UGD</option>
 					</select>
 				</div>
-				<div class="form-group col-sm-6">
+				<div class="form-group col-sm-5">
 					<label for="inputEmail4">Tipe Antrian</label>
-					<select name="tipe_antrian" class="form-control form-control-sm" id="exampleFormControlSelect1" required>
-						<option value="">---Pilih Tipe Antrian--</option>
+					<select name="tipe_antrian" class="form-control form-control-sm" id="tipe_antrian" required>
 						<option value="Dewasa">Dewasa</option>
 						<option value="Anak-Anak">Anak-Anak</option>
 					</select>
 				</div>
-				<button type="submit" class="btn btn-sm btn-success">Simpan</button>
-				<a href="" class="btn btn-sm btn-link">Kembali</a>
-				<?php echo form_close(); ?>
-
+			</div>
+			<div class="form-row" id="control_tipe_antrian">
+				<div class="form-group col-sm-5">
+					<label for="inputEmail4">Waktu Antrian</label>
+					<select name="waktu_antrian" class="form-control form-control-sm" id="waktu_antrian" required>
+						<option value="Pagi">Pagi</option>
+						<option value="Sore">Sore</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="form-group col-sm-5">
+					<button type="submit" class="btn btn-sm btn-success">Simpan</button>
+					<a href="" class="btn btn-sm btn-link">Kembali</a>
+					<?php echo form_close(); ?>
+				</div>
 			</div>
 		</div>
 
@@ -114,10 +106,17 @@
 	<script src="<?= base_url(); ?>assets/sb_admin_2/vendor/jquery/jquery-3.4.1.min.js"></script>
 	<script>
 		$(document).ready(function() {
-			//DOM manipulation code
+			$("#control_tipe_antrian").hide();
 			search_proses();
-
 		});
+
+		function control_waktu_pendaftaran_bp(){
+			if($("#layanan_tujuan").val() == "Balai Pengobatan"){
+				$("#control_tipe_antrian").show();
+			}else{
+				$("#control_tipe_antrian").hide();
+			}
+		}
 
 		function search_proses() {
 			var table;
@@ -129,7 +128,6 @@
 					"targets": -1,
 					"className": "text-center",
 					render: function(data, type, row, meta) {
-						// return '<a type="button" class="btn btn-danger btn-block" href="http://google.com"  >删除</a>';
 						return '<button class="btn btn-sm btn-warning btn-pilih btn-edit">Pilih</button>'
 					}
 				}]

@@ -52,14 +52,27 @@ class M_pendaftaran extends CI_Model
         return date('ymd') . '-' . $kd; // SELECT SUBSTR('RI191121-0001', 3, 6); dari digit ke 3 sampai 6 digit seanjutnya
     }
 
-    function get_no_dewasa_bp()
+    function get_no_bp($tipe_antrian,$waktu_antrian)
     {
         $field = "kode_antrian_bp";
         $tabel = "antrian_bp";
         $digit = "3";
-        $kode = "A";
+        if($waktu_antrian == "Pagi"){
+            if($tipe_antrian == "Dewasa"){
+                $kode = "PA";
+            }else if($tipe_antrian == "Anak-Anak"){
+                $kode = "PAG";
+            }
+        }else if($waktu_antrian == "Sore"){
+            if($tipe_antrian == "Dewasa"){
+                $kode = "SA";
+            }else if($tipe_antrian == "Anak-Anak"){
+                $kode = "SAG";
+            }
+        }
+        
 
-        $q = $this->db->query("SELECT MAX(RIGHT($field,$digit)) AS kd_max FROM $tabel");
+        $q = $this->db->query("SELECT MAX(RIGHT($field,$digit)) AS kd_max FROM $tabel WHERE tanggal_antrian=CURRENT_DATE AND waktu_antrian='$waktu_antrian'");
         $kd = "";
         if ($q->num_rows() > 0) {
             foreach ($q->result() as $k) {
@@ -67,59 +80,36 @@ class M_pendaftaran extends CI_Model
                 $kd = $kode . sprintf('%0' . $digit . 's',  $tmp);
             }
         } else {
-            $kd = "A001";
-        }
-        return $kd;
-    }
-
-    function get_no_anak_anak_bp()
-    {
-        $field = "kode_antrian_bp";
-        $tabel = "antrian_bp";
-        $digit = "3";
-        $kode = "AG";
-
-        $q = $this->db->query("SELECT MAX(RIGHT($field,$digit)) AS kd_max FROM $tabel");
-        $kd = "";
-        if ($q->num_rows() > 0) {
-            foreach ($q->result() as $k) {
-                $tmp = ((int) $k->kd_max) + 1;
-                $kd = $kode . sprintf('%0' . $digit . 's',  $tmp);
+            if($waktu_antrian == "Pagi"){
+                if($tipe_antrian == "Dewasa"){
+                    $kode = "PA001";
+                }else if($tipe_antrian == "Anak-Anak"){
+                    $kode = "PAG001";
+                }
+            }else if($waktu_antrian == "Sore"){
+                if($tipe_antrian == "Dewasa"){
+                    $kode = "SA001";
+                }else if($tipe_antrian == "Anak-Anak"){
+                    $kode = "SAG001";
+                }
             }
-        } else {
-            $kd = "AG001";
         }
         return $kd;
     }
 
-    function get_no_dewasa_lab()
-    {
-        $field = "kode_antrian_lab";
-        $tabel = "antrian_lab";
-        $digit = "3";
-        $kode = "C";
-
-        $q = $this->db->query("SELECT MAX(RIGHT($field,$digit)) AS kd_max FROM $tabel");
-        $kd = "";
-        if ($q->num_rows() > 0) {
-            foreach ($q->result() as $k) {
-                $tmp = ((int) $k->kd_max) + 1;
-                $kd = $kode . sprintf('%0' . $digit . 's',  $tmp);
-            }
-        } else {
-            $kd = "C001";
-        }
-        return $kd;
-    }
-
-    function get_no_anak_anak_lab()
+    function get_no_lab($tipe_antrian)
     {
         $field = "kode_antrian_lab";
         $tabel = "antrian_lab";
         $digit = "3";
-        $kode = "CG";
+        
+        if($tipe_antrian == "Dewasa"){
+            $kode = "A";
+        }else if($tipe_antrian == "Anak-Anak"){
+            $kode = "AG";
+        }
 
-        $q = $this->db->query("SELECT MAX(RIGHT($field,$digit)) AS kd_max FROM $tabel");
+        $q = $this->db->query("SELECT MAX(RIGHT($field,$digit)) AS kd_max FROM $tabel WHERE tanggal_antrian=CURRENT_DATE");
         $kd = "";
         if ($q->num_rows() > 0) {
             foreach ($q->result() as $k) {
@@ -127,19 +117,28 @@ class M_pendaftaran extends CI_Model
                 $kd = $kode . sprintf('%0' . $digit . 's',  $tmp);
             }
         } else {
-            $kd = "CG001";
+            if($tipe_antrian == "Dewasa"){
+                $kd = "C001";
+            }else if($tipe_antrian == "Anak-Anak"){
+                $kd = "CG001";
+            }
         }
         return $kd;
     }
 
-    function get_no_kia()
+    function get_no_kia($tipe_antrian)
     {
         $field = "kode_antrian_kia";
         $tabel = "antrian_kia";
         $digit = "3";
-        $kode = "B";
+        if($tipe_antrian == "Dewasa"){
+            $kode = "B";
+        }else if($tipe_antrian == "Anak-Anak"){
+            $kode = "BG";
+        }
+        
 
-        $q = $this->db->query("SELECT MAX(RIGHT($field,$digit)) AS kd_max FROM $tabel");
+        $q = $this->db->query("SELECT MAX(RIGHT($field,$digit)) AS kd_max FROM $tabel WHERE tanggal_antrian=CURRENT_DATE");
         $kd = "";
         if ($q->num_rows() > 0) {
             foreach ($q->result() as $k) {
@@ -147,7 +146,11 @@ class M_pendaftaran extends CI_Model
                 $kd = $kode . sprintf('%0' . $digit . 's',  $tmp);
             }
         } else {
-            $kd = "B001";
+            if($tipe_antrian == "Dewasa"){
+                $kd = "B001";
+            }else if($tipe_antrian == "Anak-Anak"){
+                $kd = "BA001";
+            }
         }
         return $kd;
     }
@@ -159,24 +162,24 @@ class M_pendaftaran extends CI_Model
         $this->db->limit(10);
         return $this->db->get($table)->result();
     }
-    function get_no_transaksi_ambulan()
-    {
-        $field = "no_pelayanan_a";
-        $tabel = "pelayanan_ambulan";
-        $digit = "3";
-        $kode = "T";
-        $q = $this->db->query("SELECT MAX(RIGHT($field,$digit)) AS kd_max FROM $tabel");
-        $kd = "";
-        if ($q->num_rows() > 0) {
-            foreach ($q->result() as $k) {
-                $tmp = ((int) $k->kd_max) + 1;
-                $kd = $kode . sprintf('%0' . $digit . 's', $tmp);
-            }
-        } else {
-            $kd = "T001";
-        }
-        return $kd;
-    }
+    // function get_no_transaksi_ambulan()
+    // {
+    //     $field = "no_pelayanan_a";
+    //     $tabel = "pelayanan_ambulan";
+    //     $digit = "3";
+    //     $kode = "T";
+    //     $q = $this->db->query("SELECT MAX(RIGHT($field,$digit)) AS kd_max FROM $tabel");
+    //     $kd = "";
+    //     if ($q->num_rows() > 0) {
+    //         foreach ($q->result() as $k) {
+    //             $tmp = ((int) $k->kd_max) + 1;
+    //             $kd = $kode . sprintf('%0' . $digit . 's', $tmp);
+    //         }
+    //     } else {
+    //         $kd = "T001";
+    //     }
+    //     return $kd;
+    // }
 
     function get_no_rm()
     {
