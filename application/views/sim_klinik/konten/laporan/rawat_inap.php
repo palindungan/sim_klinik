@@ -4,7 +4,7 @@
 			<h6 class="m-0 font-weight-bold text-primary">Laporan Rawat Inap</h6>
 		</div>
 		<div class="card-body">
-			<!-- <h5>Laporan Custom</h5>
+			<h5>Laporan Custom</h5>
 			<form action="<?php echo base_url('laporan/rawatInap/ri_custom') ?>" method="post">
 				<div class="row mb-3">
 					<div class="col-md-3">
@@ -20,7 +20,7 @@
 						<button type="submit" class="btn btn-sm btn-success mt-1">Cetak Custom</button>
 					</div>
 				</div>
-			</form> -->
+			</form>
 			<nav class="mb-3">
 				<div class="nav nav-tabs" id="nav-tab" role="tablist">
 					<a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
@@ -104,8 +104,9 @@
 					</div> -->
 				</div>
 				<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-					<!-- <a href="<?= base_url(); ?>laporan/rawatInap/ri_bulan_ini" class="btn btn-sm btn-success mb-3">Cetak
+				<a href="<?= base_url(); ?>laporan/rawatInap/ri_bulan_ini" class="btn btn-sm btn-success mb-3">Cetak
 						Bulan</a>
+					<!-- 
 					<div style="overflow-x:auto;">
 						<table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
 							<thead>
