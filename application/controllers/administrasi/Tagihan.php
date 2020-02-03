@@ -12,6 +12,7 @@ class Tagihan extends CI_Controller
         }
         $this->load->model('ambulance/M_ambulance');
         $this->load->model('administrasi/M_tagihan');
+        $this->load->model('M_v_rawat_inap');
     }
 
     public function index()
@@ -1441,12 +1442,12 @@ class Tagihan extends CI_Controller
         // End Of cek di setiap transaksi
 
         if ($btn_simpan == "simpan_final") {
-            $count_transaction = $this->M_tagihan->countRecordWithTglKeluarParam();
+            $count_transaction = $this->M_v_rawat_inap->countRecordWithTglKeluarParam();
             $temp_saldo = "";
             if ($count_transaction == 0) {
                 $temp_saldo = 0;
             } else if ($count_transaction > 0) {
-                foreach ($this->M_tagihan->getLastRecordWithTglKeluarParam() as $i) {
+                foreach ($this->M_akomodasi->getLastRecordWithTglKeluarParam() as $i) {
                     $temp_saldo = $i->temp_saldo;
                 }
             }

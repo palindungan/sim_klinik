@@ -6,29 +6,6 @@ class M_tagihan extends CI_Model
         return $this->db->get($table);
     }
 
-    function countRecordWithTglKeluarParam()
-    {
-        $this->db->select('no_ref_pelayanan');
-        $this->db->from('pelayanan');
-        $this->db->where('tgl_keluar IS NOT NULL', null, false);
-        return $this->db->get()->num_rows();
-    }
-
-    function getLastRecordWithTglKeluarParam()
-    {
-        $this->db->select('no_ref_pelayanan, temp_saldo');
-        $this->db->from('laporan_ri');
-        $this->db->where('tgl_keluar IS NOT NULL', null, false);
-        $this->db->order_by('tgl_keluar', 'DESC');
-        $this->db->limit('1');
-        return  $this->db->get()->result();
-        // $temp_saldo = "";
-        // foreach($data as $i){
-        //     $temp_saldo = $i->temp_saldo;
-        // }
-        // return $temp_saldo;
-    }
-
     function getRekap()
     {
         $this->db->select("no_ref_pelayanan,pasien.no_rm,pasien.nama,tgl_pelayanan,tipe_pelayanan");
