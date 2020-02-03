@@ -1447,7 +1447,7 @@ class Tagihan extends CI_Controller
             if ($count_transaction == 0) {
                 $temp_saldo = 0;
             } else if ($count_transaction > 0) {
-                foreach ($this->M_akomodasi->getLastRecordWithTglKeluarParam() as $i) {
+                foreach ($this->M_v_rawat_inap->getLastRecordWithTglKeluarParam() as $i) {
                     $temp_saldo = $i->temp_saldo;
                 }
             }
