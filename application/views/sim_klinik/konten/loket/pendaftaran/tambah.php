@@ -21,9 +21,15 @@
 			</div>
 			<div class="form-row">
 				<div class="form-group col-sm-5">
-					<label for="inputEmail1">Umur</label>
-					<input type="text" class="form-control form-control-sm" name="umur" id="umur" placeholder="Masukan umur" required>
+					<label for="inputEmail1">Tanggal Lahir</label>
+					<input type="date" class="form-control form-control-sm" name="tgl_lahir" id="tgl_lahir" placeholder="Masukan Tanggal Lahir" required>
 				</div>
+				<div class="form-group col-sm-5">
+					<label for="inputEmail1">Nama KK</label>
+					<input type="text" class="form-control form-control-sm" name="nama_kk" id="nama_kk" placeholder="Masukan Nama KK" required>
+				</div>
+			</div>
+			<div class="form-row">
 				<div class="form-group col-sm-5">
 					<label for="alamat">Alamat</label>
 					<textarea class="form-control form-control-sm" name="alamat" id="alamat" required></textarea>
@@ -110,10 +116,10 @@
 			search_proses();
 		});
 
-		function control_waktu_pendaftaran_bp(){
-			if($("#layanan_tujuan").val() == "Balai Pengobatan"){
+		function control_waktu_pendaftaran_bp() {
+			if ($("#layanan_tujuan").val() == "Balai Pengobatan") {
 				$("#control_tipe_antrian").show();
-			}else{
+			} else {
 				$("#control_tipe_antrian").hide();
 			}
 		}

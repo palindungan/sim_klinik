@@ -49,34 +49,44 @@ class Pendaftaran extends CI_Controller
 
     public function store()
     {
-        $now = Date('Y-m-d');
+        // deklarasi  
+        $no_ref = $this->M_pendaftaran->get_no(); // generate
+        $no_rm = $this->input->post('no_rm');
         $sekarang = Date('Y-m-d H:i:s');
 
-        $no_rm = $this->input->post('no_rm');
-        $no_ref = $this->M_pendaftaran->get_no(); // generate
         $data_pelayanan = array(
             'no_ref_pelayanan' => $no_ref,
             'no_rm' => $this->input->post('no_rm'),
-            'no_user_pegawai' => "P001",
+            'no_user_pegawai' => $this->session->userdata('id_user'),
             'layanan_tujuan' => $this->input->post('layanan_tujuan'),
             'tipe_antrian' => $this->input->post('tipe_antrian'),
             'tgl_pelayanan' => $sekarang,
             'status' => 'belum_finish',
             'tipe_pelayanan' => 'Rawat Jalan'
         );
-        
+
+        $this->M_pendaftaran->input_data('pelayanan', $data_pelayanan);
+
+        // query cek data
         $db = $this->db->query("SELECT COUNT(*) as jml_rm FROM pasien WHERE no_rm='$no_rm'")->row();
         $rm_db = $db->jml_rm;
 
-        $this->M_pendaftaran->input_data('pelayanan', $data_pelayanan);
+        $data_pasien = array(
+            'no_rm' => $this->input->post('no_rm'),
+            'nama' => strtoupper($this->input->post('nama')),
+            'alamat' => strtoupper($this->input->post('alamat')),
+            'tgl_lahir' => $this->input->post('tgl_lahir'),
+            'nama_kk' => strtoupper($this->input->post('nama_kk')),
+        );
+
         if ($rm_db == 0) {
-            $data_pasien = array(
-                'no_rm' => $this->input->post('no_rm'),
-                'nama' => strtoupper($this->input->post('nama')),
-                'alamat' => strtoupper($this->input->post('alamat')),
-                'umur' => $this->input->post('umur')
-            );
+
+            // jika tidak ada data yang sama di db maka menambahkan pasien baru
             $this->M_pendaftaran->input_data('pasien', $data_pasien);
+        } else { // jika ada data yang sama di db maka mengupdate pasien
+
+            // update data
+            // $this->M_pendaftaran->input_data('pasien', $data_pasien);
         }
 
         // logic antrian
@@ -85,10 +95,9 @@ class Pendaftaran extends CI_Controller
         $tipe_antrian =  $this->input->post('tipe_antrian');
         $waktu_antrian = $this->input->post('waktu_antrian');
 
-
         if ($layanan_tujuan == 'Balai Pengobatan') {
-            
-            $kode_antrian = $this->M_pendaftaran->get_no_bp($tipe_antrian,$waktu_antrian); // generate
+
+            $kode_antrian = $this->M_pendaftaran->get_no_bp($tipe_antrian, $waktu_antrian); // generate
 
             $data = array(
                 'kode_antrian_bp' => $kode_antrian,
@@ -126,7 +135,7 @@ class Pendaftaran extends CI_Controller
         }
 
         //Cetak
-        if($layanan_tujuan != 'UGD'){
+        if ($layanan_tujuan != 'UGD') {
             $gabung = $kode_antrian . "_" . $no_ref . "_" . $no_rm;
             $base_url = base_url('loket/pendaftaran/cetak/' . $gabung);
             echo "<script type='text/javascript'>";
