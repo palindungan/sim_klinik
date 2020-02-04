@@ -478,18 +478,8 @@ class Tagihan extends CI_Controller
             $hapus = $this->M_tagihan->hapus_data($where_no_bp_p, 'detail_bp_penanganan');
             // End of hapus semua detail transaksi lama
 
-            // $data_update_status_pelayanan = array(
-            //     'tipe_pelayanan' => 'Rawat Inap'
-            // );
-            // $this->M_tagihan->update_data($where_no_ref_pelayanan, 'pelayanan', $data_update_status_pelayanan);
-
             // Start of Cek apakah ada data detail post masuk ? no_bp_t harga_bp_tindakan
             if (isset($_POST['no_bp_t']) && isset($_POST['harga_bp_tindakan']) && isset($_POST['qty_bp_tindakan'])) {
-
-                // $data_update_status_pelayanan = array(
-                //     'tipe_pelayanan' => 'Rawat Jalan'
-                // );
-                // $this->M_tagihan->update_data($where_no_ref_pelayanan, 'pelayanan', $data_update_status_pelayanan);
 
                 // menambah detail transaksi baru 
                 for ($i = 0; $i < count($this->input->post('no_bp_t')); $i++) {
@@ -531,11 +521,6 @@ class Tagihan extends CI_Controller
 
         } else {
 
-            // $data_update_status_pelayanan = array(
-            //     'tipe_pelayanan' => 'Rawat Inap'
-            // );
-            // $this->M_tagihan->update_data($where_no_ref_pelayanan, 'pelayanan', $data_update_status_pelayanan);
-
             // Start of Cek apakah ada data detail post masuk ? no_bp_t harga_bp_tindakan
             if (isset($_POST['no_bp_t']) && isset($_POST['harga_bp_tindakan']) && isset($_POST['qty_bp_tindakan'])) {
 
@@ -551,11 +536,6 @@ class Tagihan extends CI_Controller
                     'tgl_penanganan' => $tgl_transaksi,
                     'total_harga' => $total_harga
                 );
-
-                // $data_update_status_pelayanan = array(
-                //     'tipe_pelayanan' => 'Rawat Jalan'
-                // );
-                // $this->M_tagihan->update_data($where_no_ref_pelayanan, 'pelayanan', $data_update_status_pelayanan);
 
                 $tambah = $this->M_tagihan->input_data('bp_penanganan', $data);
 
@@ -1206,11 +1186,6 @@ class Tagihan extends CI_Controller
 
         } else {
 
-            // $data_update_status_pelayanan = array(
-            //     'tipe_pelayanan' => 'Rawat Jalan'
-            // );
-            // $this->M_tagihan->update_data($where_no_ref_pelayanan, 'pelayanan', $data_update_status_pelayanan);
-
             // Start of Cek apakah ada data detail post masuk ?
             if (isset($_POST['no_stok_obat_rawat_i']) || isset($_POST['no_rawat_inap_t']) || isset($_POST['no_kamar_rawat_i'])) {
 
@@ -1230,11 +1205,6 @@ class Tagihan extends CI_Controller
                     'tgl_transaksi' => $tgl_transaksi,
                     'total_harga' => $total_harga
                 );
-
-                // $data_update_status_pelayanan = array(
-                //     'tipe_pelayanan' => 'Rawat Inap'
-                // );
-                // $this->M_tagihan->update_data($where_no_ref_pelayanan, 'pelayanan', $data_update_status_pelayanan);
 
                 $tambah = $this->M_tagihan->input_data('transaksi_rawat_inap', $data);
 
@@ -1460,6 +1430,9 @@ class Tagihan extends CI_Controller
             }
         }
         // End Of cek di setiap transaksi
+
+        // validasi tipe_pelayanan
+
 
         if ($btn_simpan == "simpan_final") {
             $count_transaction = $this->M_v_rawat_inap->countRecordWithTglKeluarParam();
