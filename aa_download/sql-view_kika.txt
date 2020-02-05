@@ -227,7 +227,8 @@ SELECT daril.no_detail_akomodasi_rawat_inap_l,ari.tgl_transaksi,ari.grand_total,
 FROM detail_akomodasi_rawat_inap_logistik daril JOIN akomodasi_rawat_inap ari USING(no_akomodasi_rawat_i) JOIN obat o USING(kode_obat)
 ORDER BY daril.no_detail_akomodasi_rawat_inap_l ASC
 
-// Laporan RJ
+-------------
+
 CREATE VIEW laporan_rj AS
 select p.no_ref_pelayanan AS no_ref_pelayanan,p.no_rm,p.tgl_pelayanan,p.tipe_pelayanan,p.tgl_keluar,
 (select sum(c.harga * c.qty) from (sim_klinik.lab_transaksi m join sim_klinik.detail_lab_transaksi c on(m.no_lab_t = c.no_lab_t)) where m.no_ref_pelayanan = p.no_ref_pelayanan and c.no_lab_c = 'L001') AS gula_darah,
@@ -235,20 +236,19 @@ select p.no_ref_pelayanan AS no_ref_pelayanan,p.no_rm,p.tgl_pelayanan,p.tipe_pel
 (select sum(c.harga * c.qty) from (sim_klinik.lab_transaksi m join sim_klinik.detail_lab_transaksi c on(m.no_lab_t = c.no_lab_t)) where m.no_ref_pelayanan = p.no_ref_pelayanan and c.no_lab_c = 'L003') AS cholesterol,
 (select sum(c.harga * c.qty) from (sim_klinik.lab_transaksi m join sim_klinik.detail_lab_transaksi c on(m.no_lab_t = c.no_lab_t)) where m.no_ref_pelayanan = p.no_ref_pelayanan and c.no_lab_c <> 'L001' and c.no_lab_c <> 'L002' and c.no_lab_c <> 'L003') AS lab_non_primer,
 (select kia.total_harga from sim_klinik.kia_penanganan kia where kia.no_ref_pelayanan = p.no_ref_pelayanan) AS total_kia,
-(select ugd.total_harga from sim_klinik.ugd_penanganan ugd where ugd.no_ref_pelayanan = p.no_ref_pelayanan) AS total_ugd,
 (select bp.total_harga from sim_klinik.bp_penanganan bp where bp.no_ref_pelayanan = p.no_ref_pelayanan) AS total_bp,
 (select apotik.total_harga from sim_klinik.penjualan_obat_apotik apotik where apotik.no_ref_pelayanan = p.no_ref_pelayanan) AS total_obat_apotik,
 (select ps.nama from sim_klinik.pasien ps where ps.no_rm = p.no_rm) AS nama_pasien 
 from sim_klinik.pelayanan p WHERE p.status = 'finish' AND p.tipe_pelayanan = 'Rawat Jalan'
 
-// Laporan RI
 CREATE VIEW laporan_ri AS
-SELECT "Pelayanan" as tipe_saldo, p.no_ref_pelayanan,"" as no_akomodasi, p.no_rm, p.tgl_pelayanan,p.tgl_keluar,p.grand_total as uang_masuk,p.temp_saldo,p.saldo,
+SELECT p.tipe_pelayanan, "" as id_setoran,p.no_ref_pelayanan,"" as no_akomodasi, p.no_rm, p.tgl_pelayanan,p.tgl_keluar,p.grand_total as uang_masuk,
 (select sum(dtrit.harga * dtrit.qty) from (transaksi_rawat_inap tri join detail_transaksi_rawat_inap_tindakan dtrit on (tri.no_transaksi_rawat_i = dtrit.no_transaksi_rawat_i)) where tri.no_ref_pelayanan = p.no_ref_pelayanan and dtrit.no_rawat_inap_t = 'I004') AS gizi_hari,
 (select sum(dtrit.harga * dtrit.qty) from (transaksi_rawat_inap tri join detail_transaksi_rawat_inap_tindakan dtrit on (tri.no_transaksi_rawat_i = dtrit.no_transaksi_rawat_i)) where tri.no_ref_pelayanan = p.no_ref_pelayanan and dtrit.no_rawat_inap_t = 'I005') AS gizi_porsi,
 (select sum(dlt.harga * dlt.qty) from (lab_transaksi lt join detail_lab_transaksi dlt on (lt.no_lab_t = dlt.no_lab_t)) where lt.no_ref_pelayanan = p.no_ref_pelayanan and dlt.no_lab_c = 'L001') AS gda,
 (select sum(dlt.harga * dlt.qty) from (lab_transaksi lt join detail_lab_transaksi dlt on (lt.no_lab_t = dlt.no_lab_t)) where lt.no_ref_pelayanan = p.no_ref_pelayanan and dlt.no_lab_c <> 'L001') AS lab,
 (select sum(pa.total_harga) from pelayanan_ambulan pa where pa.no_ref_pelayanan = p.no_ref_pelayanan) AS biaya_ambulance,
+(select bp.total_harga from sim_klinik.bp_penanganan bp where bp.no_ref_pelayanan = p.no_ref_pelayanan) AS total_bp,
 (select `kia`.`total_harga` from `sim_klinik`.`kia_penanganan` `kia` where `kia`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan`) AS `total_kia`,
 (select sum(dtl.harga * dtl.qty) from (transaksi_lain tl join detail_transaksi_lain dtl on (tl.no_transaksi_lain = dtl.no_transaksi_lain)) where tl.no_ref_pelayanan = p.no_ref_pelayanan and dtl.no_lain = '1') AS ekg,
 (select sum(dtl.harga * dtl.qty) from (transaksi_lain tl join detail_transaksi_lain dtl on (tl.no_transaksi_lain = dtl.no_transaksi_lain)) where tl.no_ref_pelayanan = p.no_ref_pelayanan and dtl.no_lain <> '1') AS lain_lain,
@@ -257,15 +257,19 @@ SELECT "Pelayanan" as tipe_saldo, p.no_ref_pelayanan,"" as no_akomodasi, p.no_rm
 (select sum(dtrit.harga * dtrit.qty) from (transaksi_rawat_inap tri join detail_transaksi_rawat_inap_tindakan dtrit on (tri.no_transaksi_rawat_i = dtrit.no_transaksi_rawat_i)) where tri.no_ref_pelayanan = p.no_ref_pelayanan and dtrit.no_rawat_inap_t = 'I003') AS japel_setengah,
 (select sum(dtrit.harga * dtrit.qty) from (transaksi_rawat_inap tri join detail_transaksi_rawat_inap_tindakan dtrit on (tri.no_transaksi_rawat_i = dtrit.no_transaksi_rawat_i)) where tri.no_ref_pelayanan = p.no_ref_pelayanan and dtrit.no_rawat_inap_t = 'I001') AS visite,
 (select ps.nama from sim_klinik.pasien ps where ps.no_rm = p.no_rm) AS nama_pasien,
-"" as akomodasi_obat, "" as akomodasi_alkes, "" as akomodasi_lain_lain
-FROM pelayanan p WHERE p.tipe_pelayanan = 'Rawat Inap' AND p.status = 'finish'
+"" as akomodasi_obat, "" as akomodasi_alkes, "" as akomodasi_lain_lain, "" as jumlah_setoran
+FROM pelayanan p WHERE p.status = 'finish'
 UNION
-SELECT "Akomodasi","",ari.no_akomodasi_rawat_i,"","",tgl_transaksi, 
-grand_total,temp_saldo,saldo,"","","","","","","","","","","","","",
+SELECT "Akomodasi","","",ari.no_akomodasi_rawat_i,"","",tgl_transaksi, 
+grand_total,"","","","","","","","","","","","","","",
 (SELECT SUM(daril.qty * daril.harga) FROM detail_akomodasi_rawat_inap_logistik daril JOIN obat o USING(kode_obat) WHERE daril.no_akomodasi_rawat_i = ari.no_akomodasi_rawat_i and o.tipe = 'Obat'),
 (SELECT SUM(daril.qty * daril.harga) FROM detail_akomodasi_rawat_inap_logistik daril JOIN obat o USING(kode_obat) WHERE daril.no_akomodasi_rawat_i = ari.no_akomodasi_rawat_i and o.tipe='Alkes'),
-(SELECT SUM(qty * harga) FROM detail_akomodasi_rawat_inap_lain daril WHERE daril.no_akomodasi_rawat_i = ari.no_akomodasi_rawat_i) 
+(SELECT SUM(qty * harga) FROM detail_akomodasi_rawat_inap_lain daril WHERE daril.no_akomodasi_rawat_i = ari.no_akomodasi_rawat_i), "" 
 FROM akomodasi_rawat_inap ari
+UNION
+SELECT "Setor Uang", sri.id_setoran,"","","","",sri.tanggal_setor,"","","","","","","","","","","","","","","","","","", sri.jumlah_setor FROM setoran_rawat_inap sri
+
+------------
 
 //Daftar Return Obat
 CREATE VIEW daftar_return_obat AS SELECT kode_obat,no_return_obat,detail_return_obat.qty as qty_detail,tanggal,nama FROM detail_return_obat JOIN obat USING(kode_obat) JOIN return_obat USING(no_return_obat)
