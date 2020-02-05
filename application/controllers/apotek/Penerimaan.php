@@ -109,7 +109,7 @@ class Penerimaan extends CI_Controller
                     );
 
                     $this->M_penerimaan->update_data($where_ko, 'obat', $data_obat);
-                    $status = $this->M_penerimaan->input_data('stok_obat_apotik', $data);
+                    $status = $this->M_penerimaan->input_data('detail_penerimaan_obat', $data);
                 }
 
                 if ($status) {
@@ -127,7 +127,7 @@ class Penerimaan extends CI_Controller
 
     public function tampil_daftar_penerimaan_obat()
     {
-        $data['record'] = $this->db->order_by('no_penerimaan_o', 'DESC')->get('daftar_penerimaan_obat_apotek')->result();
+        $data['record'] = $this->db->order_by('no_penerimaan_o', 'DESC')->get('daftar_penerimaan_obat')->result();
 
         $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/apotek/history/penerimaan/tampil', $data);
     }
@@ -140,9 +140,9 @@ class Penerimaan extends CI_Controller
             'no_penerimaan_o' => $no_penerimaan_o
         );
 
-        $data['record'] = $this->M_penerimaan->get_data('daftar_penerimaan_obat_apotek', $where)->result();
+        $data['record'] = $this->M_penerimaan->get_data('daftar_penerimaan_obat', $where)->result();
 
-        $data['detail_record'] = $this->M_penerimaan->get_data('daftar_penerimaan_obat_apotek_detail', $where)->result();
+        $data['detail_record'] = $this->M_penerimaan->get_data('daftar_penerimaan_obat_detail', $where)->result();
 
         $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/apotek/history/penerimaan/detail', $data);
     }

@@ -41,7 +41,7 @@ foreach ($record as $row) {
 						<th width="7%" scope="col" class="text-center">No.</th>
 						<th width="25%" scope="col" class="text-center">Rincian</th>
 						<th width="8%" scope="col" class="text-center">Qty</th>
-						<th width="15%" scope="col" class="text-center">Harga</th>
+						<th width="15%" scope="col" class="text-center">Harga Supplier</th>
 						<th width="15%" style="text-align:center" scope="col" class="text-center">Subtotal</th>
 					</tr>
 
