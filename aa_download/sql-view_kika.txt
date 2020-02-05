@@ -119,6 +119,13 @@ SELECT stok_obat_rawat_inap.no_stok_obat_rawat_i,stok_obat_rawat_inap.kode_obat,
 
 ----------
 
+CREATE VIEW daftar_pengiriman_obat_detail AS
+select `doki`.`id_detail_obat_keluar_internal` AS `id_detail_obat_keluar_internal`,`doki`.`qty` AS `qty`,`oki`.`no_obat_keluar_i` AS `no_obat_keluar_i`,`o`.`nama` AS `nama_obat`,`o`.`harga_jual` AS `harga_jual`,`o`.`tipe` AS `tipe`,`ko`.`nama` AS `nama_kategori` 
+from (((`sim_klinik`.`detail_obat_keluar_internal` `doki` join `sim_klinik`.`obat` `o` on(`doki`.`kode_obat` = `o`.`kode_obat`)) left join `sim_klinik`.`kategori_obat` `ko` on(`o`.`no_kat_obat` = `ko`.`no_kat_obat`)) 
+join `sim_klinik`.`obat_keluar_internal` `oki` on(`doki`.`no_obat_keluar_i` = `oki`.`no_obat_keluar_i`)) order by `doki`.`id_detail_obat_keluar_internal`
+
+----------
+
 CREATE VIEW daftar_penjualan_obat_rawat_inap_detail AS 
 SELECT sori.no_stok_obat_rawat_i,  o.nama AS nama_obat , ko.nama AS nama_kategori,dtrio.qty , dtrio.harga_jual ,tri.no_ref_pelayanan,dtrio.no_transaksi_rawat_i , sori.qty as qty_sekarang , o.harga_jual AS harga_lama
 FROM detail_transaksi_rawat_inap_obat dtrio JOIN stok_obat_rawat_inap sori USING(no_stok_obat_rawat_i) JOIN transaksi_rawat_inap tri USING(no_transaksi_rawat_i) JOIN obat o USING(kode_obat) LEFT JOIN kategori_obat ko USING(no_kat_obat)

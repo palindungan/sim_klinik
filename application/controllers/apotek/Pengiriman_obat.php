@@ -52,21 +52,48 @@ class Pengiriman_obat extends CI_Controller
                     $qty_ri = 0;
                     $status_detail = false;
 
-                    foreach ($stok_obat_ri as $stok_ri) {
-                        $qty_ri = $stok_ri->qty;
+                    $cek_obat_apotik = $this->M_pengiriman_obat->get_data('stok_obat_apotik', $where)->num_rows();
+                    $stok_obat_apotik = $this->M_pengiriman_obat->get_data('stok_obat_apotik', $where)->result();
+                    $qty_apotik = 0;
+
+                    if($tujuan == "Rawat Inap")
+                    {
+                        foreach ($stok_obat_ri as $stok_ri) {
+                            $qty_ri = $stok_ri->qty;
+                        }
+    
+                        if ($cek_obat_ri > 0) {
+                            $data = array(
+                                'qty' => $qty + $qty_ri
+                            );
+                            $status_detail = $this->M_pengiriman_obat->update_data($where, 'stok_obat_rawat_inap', $data);
+                        } else {
+                            $data = array(
+                                'kode_obat' => $kode_obat,
+                                'qty' => $qty
+                            );
+                            $status_detail = $this->M_pengiriman_obat->input_data('stok_obat_rawat_inap', $data);
+                        }
                     }
 
-                    if ($cek_obat_ri > 0) {
-                        $data = array(
-                            'qty' => $qty + $qty_ri
-                        );
-                        $status_detail = $this->M_pengiriman_obat->update_data($where, 'stok_obat_rawat_inap', $data);
-                    } else {
-                        $data = array(
-                            'kode_obat' => $kode_obat,
-                            'qty' => $qty
-                        );
-                        $status_detail = $this->M_pengiriman_obat->input_data('stok_obat_rawat_inap', $data);
+                    else
+                    {
+                        foreach ($stok_obat_apotik as $stok_apotik) {
+                            $qty_apotik = $stok_apotik->qty;
+                        }
+    
+                        if ($cek_obat_apotik > 0) {
+                            $data = array(
+                                'qty' => $qty + $qty_apotik
+                            );
+                            $status_detail = $this->M_pengiriman_obat->update_data($where, 'stok_obat_apotik', $data);
+                        } else {
+                            $data = array(
+                                'kode_obat' => $kode_obat,
+                                'qty' => $qty
+                            );
+                            $status_detail = $this->M_pengiriman_obat->input_data('stok_obat_apotik', $data);
+                        }
                     }
 
                     // detail 
@@ -78,8 +105,8 @@ class Pengiriman_obat extends CI_Controller
                     $status_detail = $this->M_pengiriman_obat->input_data('detail_obat_keluar_internal', $data);
 
                     // update stok di penyimpanan
-                    if ($status_detail) {
-
+                    if ($status_detail) 
+                    {
                         $where = array(
                             'kode_obat' => $kode_obat
                         );
@@ -96,6 +123,7 @@ class Pengiriman_obat extends CI_Controller
 
                         $status_update = $this->M_pengiriman_obat->update_data($where, 'obat', $data);
                     }
+
                 }
                 if ($status_update) {
                     $this->session->set_flashdata('success', 'Ditambahkan');
@@ -128,7 +156,7 @@ class Pengiriman_obat extends CI_Controller
 
         $data['record'] = $this->M_pengiriman_obat->get_data('obat_keluar_internal', $where)->result();
 
-        $data['detail_record'] = $this->M_pengiriman_obat->get_data('daftar_pengiriman_obat_apotek_detail', $where)->result();
+        $data['detail_record'] = $this->M_pengiriman_obat->get_data('daftar_pengiriman_obat_detail', $where)->result();
 
         $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/apotek/history/pengiriman/detail', $data);
     }

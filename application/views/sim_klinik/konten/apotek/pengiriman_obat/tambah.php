@@ -14,6 +14,7 @@
 					</div>
 					<div class="form-group col-sm-4">
 						<select class="form-control form-control-sm" name="tujuan">
+							<option value="Apotik">Apotik</option>
 							<option value="Rawat Inap">Rawat Inap</option>
 						</select>
 					</div>
