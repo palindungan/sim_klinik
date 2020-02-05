@@ -1431,8 +1431,32 @@ class Tagihan extends CI_Controller
         }
         // End Of cek di setiap transaksi
 
-        // validasi tipe_pelayanan
+        // validasi tipe_pelayanan start
+        $data_update_status_pelayanan = array(
+            'tipe_pelayanan' => 'Rawat Inap'
+        );
 
+        if (isset($_POST['no_bp_t']) && isset($_POST['harga_bp_tindakan']) && isset($_POST['qty_bp_tindakan'])) {
+            // jika ada BP maka Rawat Jalan
+            $data_update_status_pelayanan = array(
+                'tipe_pelayanan' => 'Rawat Jalan'
+            );
+        }
+        if (isset($_POST['no_ugd_t']) && isset($_POST['harga_ugd_tindakan']) && isset($_POST['qty_ugd_tindakan'])) {
+            // jika ada UGD maka UGD
+            $data_update_status_pelayanan = array(
+                'tipe_pelayanan' => 'UGD'
+            );
+        }
+        if (isset($_POST['no_stok_obat_rawat_i']) || isset($_POST['no_rawat_inap_t']) || isset($_POST['no_kamar_rawat_i'])) {
+            // jika ada Rawai inap maka Rawat Inap
+            $data_update_status_pelayanan = array(
+                'tipe_pelayanan' => 'Rawat Inap'
+            );
+        }
+
+        $this->M_tagihan->update_data($where_no_ref_pelayanan, 'pelayanan', $data_update_status_pelayanan);
+        // validasi tipe pelayanan end
 
         if ($btn_simpan == "simpan_final") {
             $count_transaction = $this->M_v_rawat_inap->countRecordWithTglKeluarParam();
