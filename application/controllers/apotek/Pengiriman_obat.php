@@ -15,9 +15,19 @@ class Pengiriman_obat extends CI_Controller
     {
         $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/apotek/pengiriman_obat/tambah');
     }
-    public function tampil_daftar_obat()
+
+    public function tampil_daftar_obat_gudang()
     {
         $data_tbl['tbl_data'] = $this->M_pengiriman_obat->tampil_data('data_obat')->result();
+
+        $data = json_encode($data_tbl);
+
+        echo $data;
+    }
+
+    public function tampil_daftar_obat_apotik()
+    {
+        $data_tbl['tbl_data'] = $this->M_pengiriman_obat->tampil_data('data_stok_obat_apotek')->result();
 
         $data = json_encode($data_tbl);
 
@@ -74,6 +84,33 @@ class Pengiriman_obat extends CI_Controller
                             );
                             $status_detail = $this->M_pengiriman_obat->input_data('stok_obat_rawat_inap', $data);
                         }
+                        // detail 
+                        $data = array(
+                            'no_obat_keluar_i' => $no_obat_keluar_i,
+                            'kode_obat' => $kode_obat,
+                            'qty' => $qty
+                        );
+                        $status_detail = $this->M_pengiriman_obat->input_data('detail_obat_keluar_internal', $data);
+
+                        // update stok di penyimpanan
+                        if ($status_detail) 
+                        {
+                            $where = array(
+                                'kode_obat' => $kode_obat
+                            );
+
+                            $qty_baru = $qty_sekarang - $qty;
+
+                            if ($qty_baru < 0) {
+                                $qty_baru = 0;
+                            }
+
+                            $data = array(
+                                'qty' => $qty_baru
+                            );
+
+                            $status_update = $this->M_pengiriman_obat->update_data($where, 'stok_obat_apotik', $data);
+                        }
                     }
 
                     else
@@ -94,35 +131,36 @@ class Pengiriman_obat extends CI_Controller
                             );
                             $status_detail = $this->M_pengiriman_obat->input_data('stok_obat_apotik', $data);
                         }
-                    }
-
-                    // detail 
-                    $data = array(
-                        'no_obat_keluar_i' => $no_obat_keluar_i,
-                        'kode_obat' => $kode_obat,
-                        'qty' => $qty
-                    );
-                    $status_detail = $this->M_pengiriman_obat->input_data('detail_obat_keluar_internal', $data);
-
-                    // update stok di penyimpanan
-                    if ($status_detail) 
-                    {
-                        $where = array(
-                            'kode_obat' => $kode_obat
-                        );
-
-                        $qty_baru = $qty_sekarang - $qty;
-
-                        if ($qty_baru < 0) {
-                            $qty_baru = 0;
-                        }
-
+                        // detail 
                         $data = array(
-                            'qty' => $qty_baru
+                            'no_obat_keluar_i' => $no_obat_keluar_i,
+                            'kode_obat' => $kode_obat,
+                            'qty' => $qty
                         );
+                        $status_detail = $this->M_pengiriman_obat->input_data('detail_obat_keluar_internal', $data);
 
-                        $status_update = $this->M_pengiriman_obat->update_data($where, 'obat', $data);
+                        // update stok di penyimpanan
+                        if ($status_detail) 
+                        {
+                            $where = array(
+                                'kode_obat' => $kode_obat
+                            );
+
+                            $qty_baru = $qty_sekarang - $qty;
+
+                            if ($qty_baru < 0) {
+                                $qty_baru = 0;
+                            }
+
+                            $data = array(
+                                'qty' => $qty_baru
+                            );
+
+                            $status_update = $this->M_pengiriman_obat->update_data($where, 'obat', $data);
+                        }
                     }
+
+                    
 
                 }
                 if ($status_update) {
