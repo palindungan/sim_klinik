@@ -73,7 +73,7 @@
                         var kode_obat = data[i].kode_obat;
                         var nama_obat = data[i].nama_obat;
                         var nama_kategori = data[i].nama_kategori;
-                        var qty = data[i].qty;
+                        var qty = data[i].qty_apotik;
                         var harga_jual = data[i].harga_jual;
 
                         var reverse = harga_jual.toString().split('').reverse().join(''),

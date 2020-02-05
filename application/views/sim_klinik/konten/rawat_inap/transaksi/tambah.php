@@ -29,12 +29,16 @@
 					<div class="form-group col-md-2">
 						<a href="#" id="btn_search_lain" class="btn btn-sm btn-primary col-md-12" data-toggle="modal" data-target="#exampleModalCenter_lain">Lain-Lain</a>
 					</div>
+					<div class="form-group col-md-2">
+                        <a href="#" id="btn_search_apotek_obat" class="btn btn-sm btn-primary col-md-12" data-toggle="modal" data-target="#exampleModalCenter_apotek_obat">Obat Apotek</a>
+                    </div>
 				</div>
 
 				<input type="hidden" readonly name="sub_total_ri_kamar" class="angka_default form-control form-control-sm rupiah text-right" id="sub_total_ri_kamar" placeholder="Sub Total RI Kamar">
 				<input type="hidden" readonly name="sub_total_ri_obat" class="angka_default form-control form-control-sm rupiah text-right" id="sub_total_ri_obat" placeholder="Sub Total RI Obat">
 				<input type="hidden" readonly name="sub_total_ri_tindakan" class="angka_default form-control form-control-sm rupiah text-right" id="sub_total_ri_tindakan" placeholder="Sub Total RI Tindakan">
 				<input type="hidden" readonly name="sub_total_lain" class="angka_default form-control form-control-sm rupiah text-right" id="sub_total_lain" placeholder="Sub Total Lain">
+                <input type="hidden" readonly name="sub_total_apotek_obat" class="angka_default form-control form-control-sm rupiah text-right" id="sub_total_apotek_obat" placeholder="Sub Total Obat Apotek">
 
 				<div class="row">
 					<div class="col-md-12">
@@ -99,6 +103,8 @@
 							<tbody id="detail_list_ri_obat"></tbody>
 							<tbody id="detail_list_ri_tindakan"></tbody>
 							<tbody id="detail_list_lain"></tbody>
+                            <tbody id="detail_list_apotek_obat"></tbody>
+
 
 							<tfoot>
 								<tr>
@@ -174,8 +180,9 @@
 <?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/ri_kamar.php') ?>
 <?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/ri_obat.php') ?>
 <?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/ri_tindakan.php') ?>
-
 <?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/lain.php') ?>
+<?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/apotek_obat.php') ?>
+
 
 <?php $this->view('sim_klinik/konten/rawat_inap/transaksi/load_php/load_all_detail.php') ?>
 <!-- end of pecahan codingan script -->
@@ -238,7 +245,13 @@
 			sub_total_lain_v = parseInt(sub_total_lain.split('.').join(''));
 		}
 
-		$('#grand_total').val(sub_total_ri_kamar_v + sub_total_ri_obat_v + sub_total_ri_tindakan_v + sub_total_lain_v);
+		var sub_total_apotek_obat = $('#sub_total_apotek_obat').val();
+        var sub_total_apotek_obat_v = 0;
+        if (sub_total_apotek_obat != "") {
+            sub_total_apotek_obat_v = parseInt(sub_total_apotek_obat.split('.').join(''));
+        }
+
+		$('#grand_total').val(sub_total_ri_kamar_v + sub_total_ri_obat_v + sub_total_ri_tindakan_v + sub_total_lain_v + sub_total_apotek_obat_v);
 		$('#grand_total').trigger('input'); // Will be display 
 	}
 

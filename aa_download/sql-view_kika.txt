@@ -61,7 +61,7 @@ ORDER BY o.nama
 -----------------
 
 CREATE VIEW data_stok_obat_apotek AS 
-SELECT soa.no_stok_obat_a,soa.kode_obat,o.nama as nama_obat,ko.nama as nama_kategori,soa.qty as qty_apotik 
+SELECT soa.no_stok_obat_a,soa.kode_obat,o.nama as nama_obat,ko.nama as nama_kategori,soa.qty as qty_apotik,o.harga_jual 
 FROM stok_obat_apotik soa JOIN obat o USING (kode_obat) LEFT JOIN kategori_obat ko USING(no_kat_obat)
 ORDER BY o.nama
 
