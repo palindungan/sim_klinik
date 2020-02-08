@@ -1,10 +1,10 @@
 <?php
 foreach ($record as $row) {
-
-
     $tanggal = tgl_indo(date('Y-m-d',strtotime($row->tanggal)));
     $waktu = date('H:i',strtotime($row->tanggal));
     $no_return_obat = $row->no_return_obat;
+    $asal = $row->asal;
+    $tujuan = $row->tujuan;
 } ?>
 
 <div class="container-fluid">
@@ -24,6 +24,14 @@ foreach ($record as $row) {
                     <th>Kode</th>
                     <td>:</th>
                     <td><?= $no_return_obat; ?></th>
+                </tr>
+                <tr>
+                    <th>Asal</th>
+                    <td>:</th>
+                    <td><?= $asal; ?></th>
+                    <th>Tujuan</th>
+                    <td>:</th>
+                    <td><?= $tujuan; ?></th>
                 </tr>
             </table>
             <table class="table table-sm table-bordered" width="100%">
