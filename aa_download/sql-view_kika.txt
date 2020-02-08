@@ -248,7 +248,8 @@ SELECT p.tipe_pelayanan, "" as id_setoran,p.no_ref_pelayanan,"" as no_akomodasi,
 (select sum(dlt.harga * dlt.qty) from (lab_transaksi lt join detail_lab_transaksi dlt on (lt.no_lab_t = dlt.no_lab_t)) where lt.no_ref_pelayanan = p.no_ref_pelayanan and dlt.no_lab_c = 'L001') AS gda,
 (select sum(dlt.harga * dlt.qty) from (lab_transaksi lt join detail_lab_transaksi dlt on (lt.no_lab_t = dlt.no_lab_t)) where lt.no_ref_pelayanan = p.no_ref_pelayanan and dlt.no_lab_c <> 'L001') AS lab,
 (select sum(pa.total_harga) from pelayanan_ambulan pa where pa.no_ref_pelayanan = p.no_ref_pelayanan) AS biaya_ambulance,
-(select bp.total_harga from sim_klinik.bp_penanganan bp where bp.no_ref_pelayanan = p.no_ref_pelayanan) AS total_bp,
+(select sum(dpp_p.qty * dpp_p.harga) from sim_klinik.bp_penanganan bp_p JOIN detail_bp_penanganan dpp_p ON bp_p.no_bp_p=dpp_p.no_bp_p JOIN bp_tindakan bpt ON dpp_p.no_bp_t=bpt.no_bp_t where bp_p.no_ref_pelayanan = p.no_ref_pelayanan AND bpt.status_paket='1') AS total_bp_paket,
+(select sum(dpp_p.qty * dpp_p.harga) from sim_klinik.bp_penanganan bp_p JOIN detail_bp_penanganan dpp_p ON bp_p.no_bp_p=dpp_p.no_bp_p JOIN bp_tindakan bpt ON dpp_p.no_bp_t=bpt.no_bp_t where bp_p.no_ref_pelayanan = p.no_ref_pelayanan AND bpt.status_paket='0') AS total_bp_non_paket,
 (select `kia`.`total_harga` from `sim_klinik`.`kia_penanganan` `kia` where `kia`.`no_ref_pelayanan` = `p`.`no_ref_pelayanan`) AS `total_kia`,
 (select sum(dtl.harga * dtl.qty) from (transaksi_lain tl join detail_transaksi_lain dtl on (tl.no_transaksi_lain = dtl.no_transaksi_lain)) where tl.no_ref_pelayanan = p.no_ref_pelayanan and dtl.no_lain = '1') AS ekg,
 (select sum(dtl.harga * dtl.qty) from (transaksi_lain tl join detail_transaksi_lain dtl on (tl.no_transaksi_lain = dtl.no_transaksi_lain)) where tl.no_ref_pelayanan = p.no_ref_pelayanan and dtl.no_lain <> '1') AS lain_lain,
@@ -261,13 +262,13 @@ SELECT p.tipe_pelayanan, "" as id_setoran,p.no_ref_pelayanan,"" as no_akomodasi,
 FROM pelayanan p WHERE p.status = 'finish'
 UNION
 SELECT "Akomodasi","","",ari.no_akomodasi_rawat_i,"","",tgl_transaksi, 
-grand_total,"","","","","","","","","","","","","","",
+"","","","","","","","","","","","","","","","",
 (SELECT SUM(daril.qty * daril.harga) FROM detail_akomodasi_rawat_inap_logistik daril JOIN obat o USING(kode_obat) WHERE daril.no_akomodasi_rawat_i = ari.no_akomodasi_rawat_i and o.tipe = 'Obat'),
 (SELECT SUM(daril.qty * daril.harga) FROM detail_akomodasi_rawat_inap_logistik daril JOIN obat o USING(kode_obat) WHERE daril.no_akomodasi_rawat_i = ari.no_akomodasi_rawat_i and o.tipe='Alkes'),
 (SELECT SUM(qty * harga) FROM detail_akomodasi_rawat_inap_lain daril WHERE daril.no_akomodasi_rawat_i = ari.no_akomodasi_rawat_i), "" 
 FROM akomodasi_rawat_inap ari
 UNION
-SELECT "Setor Uang", sri.id_setoran,"","","","",sri.tanggal_setor,"","","","","","","","","","","","","","","","","","", sri.jumlah_setor FROM setoran_rawat_inap sri
+SELECT "Setor Uang", sri.id_setoran,"","","","",sri.tanggal_setor,"","","","","","","","","","","","","","","","","","","", sri.jumlah_setor FROM setoran_rawat_inap sri
 
 ------------
 

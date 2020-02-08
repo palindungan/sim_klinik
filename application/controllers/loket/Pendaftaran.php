@@ -58,8 +58,6 @@ class Pendaftaran extends CI_Controller
             'no_ref_pelayanan' => $no_ref,
             'no_rm' => $this->input->post('no_rm'),
             'no_user_pegawai' => $this->session->userdata('id_user'),
-            'layanan_tujuan' => $this->input->post('layanan_tujuan'),
-            'tipe_antrian' => $this->input->post('tipe_antrian'),
             'tgl_pelayanan' => $sekarang,
             'status' => 'belum_finish',
             'tipe_pelayanan' => 'Rawat Jalan'

@@ -102,25 +102,11 @@ class Akomodasi extends CI_Controller
         $no_akomodasi_rawat_i = $this->M_akomodasi->get_no_akomodasi_rawat_inap();
         $grand_total = (int) preg_replace("/[^0-9]/", "", $this->input->post('grand_total'));
 
-        //Mencari Saldo Temp
-        $count_transaction = $this->M_v_rawat_inap->countRecordWithTglKeluarParam();
-        $temp_saldo = "";
-        if ($count_transaction == 0) {
-            $temp_saldo = 0;
-        } else if ($count_transaction > 0) {
-            foreach ($this->M_v_rawat_inap->getLastRecordWithTglKeluarParam() as $i) {
-                $temp_saldo = $i->temp_saldo;
-            }
-        }
-        $new_saldo = $temp_saldo - $grand_total;
-
         //Script Input Ke Tabel Akomodasi
         $data = array(
             'no_akomodasi_rawat_i' => $no_akomodasi_rawat_i,
             'tgl_transaksi' => $tgl_transaksi,
-            'grand_total' => $grand_total,
-            'temp_saldo' => $new_saldo,
-            'saldo' => $new_saldo
+            'grand_total' => $grand_total
         );
         $insert_akomodasi = $this->M_akomodasi->input_data('akomodasi_rawat_inap',$data);
         

@@ -23,6 +23,24 @@ class M_laporan extends CI_Model
         return $query;
     }
 
+    //Rawat Inap
+
+    function get_laporan_ri_by_date($date){
+        $query = $this->db->query("SELECT * FROM laporan_ri WHERE DATE(tgl_keluar) ='$date' ORDER BY tgl_keluar ASC")->result();
+        return $query;
+        // echo array_sum(array_column($query, 'uang_masuk'));
+    }
+
+    function get_rekap_laporan_ri_by_date($date){
+        $query = $this->db->query("SELECT tipe_pelayanan,uang_masuk,_pemasukan_bersih,akomodasi_obat FROM laporan_ri WHERE DATE(tgl_keluar) ='$date' ORDER BY tgl_keluar ASC")->result();
+        // return $query;
+        $data = array(
+            'uang_masuk' => array_sum(array_column($query, 'uang_masuk')),
+
+        );
+        return $data;
+    }
+
     function laporan_ri_hari_ini()
     {
         // Belum Di Where
