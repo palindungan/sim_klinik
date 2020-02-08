@@ -8,7 +8,32 @@
         </div>
         <div class="card-body">
             <form method="post" id="transaksi_form" action="<?php echo base_url('apotek/return_obat/input_transaksi_form') ?>">
-
+                <div class="row">
+                    <div class="col-sm-3">
+                        <label for="">Asal</label>
+                        <select name="asal" id="asal" class="form-control form-control-sm" required>
+                            <option value="">Pilih</option>
+                            <option value="Gudang">Gudang</option>
+                            <option value="RI">RI</option>
+                            <option value="RJ">RJ</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3">
+                        <label for="">Tujuan</label>
+                        <select name="tujuan" id="tujuan" class="form-control form-control-sm" required>
+                            <option value="">Pilih</option>
+                            <option value="Supplier">Supplier</option>
+                            <option value="Gudang">Gudang</option>
+                            <option value="RI">RI</option>
+                            <option value="RJ">RJ</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <hr>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="form-group col-md-2">
                         <a href="#" id="btn_search_apotek_obat" class="btn btn-sm btn-primary col-md-12" data-toggle="modal" data-target="#exampleModalCenter_apotek_obat">Cari Obat</a>
@@ -79,7 +104,9 @@
                                 <th>No</th>
                                 <th>Item</th>
                                 <th>Kategori</th>
-                                <th>Stok</th>
+                                <th>Stok Gudang</th>
+                                <th>Stok RI</th>
+                                <th>Stok RJ</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -133,14 +160,16 @@
                         var kode_obat = data[i].kode_obat;
                         var nama_obat = data[i].nama_obat;
                         var nama_kategori = data[i].nama_kategori;
-                        var qty = data[i].qty;
+                        var stok_gudang = data[i].stok_gudang;
+                        var stok_ri = data[i].stok_rawat_inap;
+                        var stok_rj = data[i].stok_rawat_jalan;
 
                         var button = `<a onclick="tambah_detail_apotek_obat('` + kode_obat +
-                            `','` + nama_obat + `','` + nama_kategori + `','` + qty + `')" id="` +
+                            `','` + nama_obat + `','` + nama_kategori + `')" id="` +
                             kode_obat +
                             `" class="btn btn-sm btn-dark text-white">Pilih</a>`;
 
-                        table.row.add([no, nama_obat, nama_kategori, qty, button]);
+                        table.row.add([no, nama_obat, nama_kategori, stok_gudang, stok_ri, stok_rj, button]);
 
                         no = no + 1;
                     });
