@@ -49,14 +49,14 @@
 
                     $.each(data_ri_penjualan_obat, function(i, item) {
 
-                        var no_stok_obat_rawat_i = data_ri_penjualan_obat[i].no_stok_obat_rawat_i;
+                        var kode_obat_ri = data_ri_penjualan_obat[i].kode_obat;
                         var nama_obat = data_ri_penjualan_obat[i].nama_obat;
                         var harga_jual = data_ri_penjualan_obat[i].harga_jual;
                         var qty = data_ri_penjualan_obat[i].qty;
                         var qty_sekarang = data_ri_penjualan_obat[i].qty_sekarang;
                         var harga_lama = data_ri_penjualan_obat[i].harga_lama;
 
-                        load_detail_ri_obat(no_stok_obat_rawat_i, nama_obat, harga_jual, qty, qty_sekarang, harga_lama);
+                        load_detail_ri_obat(kode_obat_ri, nama_obat, harga_jual, qty, qty_sekarang, harga_lama);
                     });
 
                     update_sub_total_ri_obat();
@@ -93,7 +93,7 @@
                         var jumlah_hari = data_ri_kamar[i].jumlah_hari;
                         var harga_harian = data_ri_kamar[i].harga_harian;
                         var sub_total_harga = data_ri_kamar[i].sub_total_harga;
-                        var tipe = data_ri_kamar[i].tipe;
+                        var tipe = "";
 
                         load_detail_ri_kamar(no_kamar_rawat_i, nama, tanggal_cek_in, tanggal_cek_out, status_kamar, jumlah_hari, harga_harian, sub_total_harga, tipe);
                     });
@@ -172,7 +172,7 @@
         jumlah_detail_transaksi = jumlah_detail_transaksi + 1;
     }
 
-    function load_detail_ri_obat(no_stok_obat_rawat_i, nama_obat, harga_jual, qty, qty_sekarang, harga_lama) {
+    function load_detail_ri_obat(kode_obat_ri, nama_obat, harga_jual, qty, qty_sekarang, harga_lama) {
 
         var status = "";
         if (harga_jual == "0") {
@@ -184,7 +184,7 @@
         <tr id="row` + count_transaksi + `" class="kelas_row">
             <td>
                 ` + nama_obat + `
-                <input type="hidden" name="no_stok_obat_rawat_i[]" class="form-control form-control-sm" id="no_stok_obat_rawat_i` + count_transaksi + `" value="` + no_stok_obat_rawat_i + `">
+                <input type="hidden" name="kode_obat_ri[]" class="form-control form-control-sm" id="kode_obat_ri` + count_transaksi + `" value="` + kode_obat_ri + `">
             </td>
             <td>
                 <input type="text" name="qty_ri_obat[]" class="form-control form-control-sm cek_qty_ri_obat" id="qty_ri_obat` + count_transaksi + `" placeholder="QTY" value="` + qty + `" required>
@@ -216,7 +216,6 @@
         count_transaksi = count_transaksi + 1;
         jumlah_detail_transaksi = jumlah_detail_transaksi + 1;
     }
-
 
     function load_detail_ri_tindakan(no_rawat_inap_t, nama, qty, harga) {
 

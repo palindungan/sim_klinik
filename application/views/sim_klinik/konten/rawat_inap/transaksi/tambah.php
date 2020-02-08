@@ -14,6 +14,15 @@
 						<select id="xx" class="form-control form-control-sm noRef" name="no_ref_pelayanan" required>
 						</select>
 					</div>
+					<div class="form-group col-sm-5">
+						<label for="inputEmail4">Tipe Pelayanan</label>
+						<select name="tipe_pelayanan" class="form-control form-control-sm" id="tipe_pelayanan" required>
+							<option value="">-</option>
+							<option value="Rawat Jalan">Rawat Jalan</option>
+							<option value="Rawat Inap">Rawat Inap</option>
+							<option value="IGD">IGD</option>
+						</select>
+					</div>
 				</div>
 
 				<div class="row">
@@ -30,15 +39,15 @@
 						<a href="#" id="btn_search_lain" class="btn btn-sm btn-primary col-md-12" data-toggle="modal" data-target="#exampleModalCenter_lain">Lain-Lain</a>
 					</div>
 					<div class="form-group col-md-2">
-                        <a href="#" id="btn_search_apotek_obat" class="btn btn-sm btn-primary col-md-12" data-toggle="modal" data-target="#exampleModalCenter_apotek_obat">Obat Apotek</a>
-                    </div>
+						<a href="#" id="btn_search_apotek_obat" class="btn btn-sm btn-primary col-md-12" data-toggle="modal" data-target="#exampleModalCenter_apotek_obat">Obat Apotek</a>
+					</div>
 				</div>
 
 				<input type="hidden" readonly name="sub_total_ri_kamar" class="angka_default form-control form-control-sm rupiah text-right" id="sub_total_ri_kamar" placeholder="Sub Total RI Kamar">
 				<input type="hidden" readonly name="sub_total_ri_obat" class="angka_default form-control form-control-sm rupiah text-right" id="sub_total_ri_obat" placeholder="Sub Total RI Obat">
 				<input type="hidden" readonly name="sub_total_ri_tindakan" class="angka_default form-control form-control-sm rupiah text-right" id="sub_total_ri_tindakan" placeholder="Sub Total RI Tindakan">
 				<input type="hidden" readonly name="sub_total_lain" class="angka_default form-control form-control-sm rupiah text-right" id="sub_total_lain" placeholder="Sub Total Lain">
-                <input type="hidden" readonly name="sub_total_apotek_obat" class="angka_default form-control form-control-sm rupiah text-right" id="sub_total_apotek_obat" placeholder="Sub Total Obat Apotek">
+				<input type="hidden" readonly name="sub_total_apotek_obat" class="angka_default form-control form-control-sm rupiah text-right" id="sub_total_apotek_obat" placeholder="Sub Total Obat Apotek">
 
 				<div class="row">
 					<div class="col-md-12">
@@ -103,7 +112,7 @@
 							<tbody id="detail_list_ri_obat"></tbody>
 							<tbody id="detail_list_ri_tindakan"></tbody>
 							<tbody id="detail_list_lain"></tbody>
-                            <tbody id="detail_list_apotek_obat"></tbody>
+							<tbody id="detail_list_apotek_obat"></tbody>
 
 
 							<tfoot>
@@ -246,10 +255,10 @@
 		}
 
 		var sub_total_apotek_obat = $('#sub_total_apotek_obat').val();
-        var sub_total_apotek_obat_v = 0;
-        if (sub_total_apotek_obat != "") {
-            sub_total_apotek_obat_v = parseInt(sub_total_apotek_obat.split('.').join(''));
-        }
+		var sub_total_apotek_obat_v = 0;
+		if (sub_total_apotek_obat != "") {
+			sub_total_apotek_obat_v = parseInt(sub_total_apotek_obat.split('.').join(''));
+		}
 
 		$('#grand_total').val(sub_total_ri_kamar_v + sub_total_ri_obat_v + sub_total_ri_tindakan_v + sub_total_lain_v + sub_total_apotek_obat_v);
 		$('#grand_total').trigger('input'); // Will be display 
@@ -259,25 +268,19 @@
 	$(document).on('submit', '#transaksi_form', function(event) {
 		event.preventDefault();
 
-		if (jumlah_detail_transaksi > 0) {
+		// mengambil nilai di dalam form
+		var form_data = $(this).serialize();
 
-			// mengambil nilai di dalam form
-			var form_data = $(this).serialize();
-
-			// tambah ke database
-			$.ajax({
-				url: "<?php echo base_url() . 'rawat_inap/transaksi/input_transaksi_form'; ?>",
-				method: "POST",
-				data: form_data,
-				success: function(data) {
-					location.reload();
-				}
-			});
-			// tambah ke database
-
-		} else {
-			alert("Detail Transaksi Kosong !");
-		}
+		// tambah ke database
+		$.ajax({
+			url: "<?php echo base_url() . 'rawat_inap/transaksi/input_transaksi_form'; ?>",
+			method: "POST",
+			data: form_data,
+			success: function(data) {
+				location.reload();
+			}
+		});
+		// tambah ke database
 
 	});
 </script>

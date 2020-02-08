@@ -52,25 +52,25 @@ class M_pendaftaran extends CI_Model
         return date('ymd') . '-' . $kd; // SELECT SUBSTR('RI191121-0001', 3, 6); dari digit ke 3 sampai 6 digit seanjutnya
     }
 
-    function get_no_bp($tipe_antrian,$waktu_antrian)
+    function get_no_bp($tipe_antrian, $waktu_antrian)
     {
         $field = "kode_antrian_bp";
         $tabel = "antrian_bp";
         $digit = "3";
-        if($waktu_antrian == "Pagi"){
-            if($tipe_antrian == "Dewasa"){
+        if ($waktu_antrian == "Pagi") {
+            if ($tipe_antrian == "Dewasa") {
                 $kode = "PA";
-            }else if($tipe_antrian == "Anak-Anak"){
+            } else if ($tipe_antrian == "Anak-Anak") {
                 $kode = "PAG";
             }
-        }else if($waktu_antrian == "Sore"){
-            if($tipe_antrian == "Dewasa"){
+        } else if ($waktu_antrian == "Sore") {
+            if ($tipe_antrian == "Dewasa") {
                 $kode = "SA";
-            }else if($tipe_antrian == "Anak-Anak"){
+            } else if ($tipe_antrian == "Anak-Anak") {
                 $kode = "SAG";
             }
         }
-        
+
 
         $q = $this->db->query("SELECT MAX(RIGHT($field,$digit)) AS kd_max FROM $tabel WHERE tanggal_antrian=CURRENT_DATE AND waktu_antrian='$waktu_antrian'");
         $kd = "";
@@ -80,16 +80,16 @@ class M_pendaftaran extends CI_Model
                 $kd = $kode . sprintf('%0' . $digit . 's',  $tmp);
             }
         } else {
-            if($waktu_antrian == "Pagi"){
-                if($tipe_antrian == "Dewasa"){
+            if ($waktu_antrian == "Pagi") {
+                if ($tipe_antrian == "Dewasa") {
                     $kode = "PA001";
-                }else if($tipe_antrian == "Anak-Anak"){
+                } else if ($tipe_antrian == "Anak-Anak") {
                     $kode = "PAG001";
                 }
-            }else if($waktu_antrian == "Sore"){
-                if($tipe_antrian == "Dewasa"){
+            } else if ($waktu_antrian == "Sore") {
+                if ($tipe_antrian == "Dewasa") {
                     $kode = "SA001";
-                }else if($tipe_antrian == "Anak-Anak"){
+                } else if ($tipe_antrian == "Anak-Anak") {
                     $kode = "SAG001";
                 }
             }
@@ -102,10 +102,10 @@ class M_pendaftaran extends CI_Model
         $field = "kode_antrian_lab";
         $tabel = "antrian_lab";
         $digit = "3";
-        
-        if($tipe_antrian == "Dewasa"){
+
+        if ($tipe_antrian == "Dewasa") {
             $kode = "A";
-        }else if($tipe_antrian == "Anak-Anak"){
+        } else if ($tipe_antrian == "Anak-Anak") {
             $kode = "AG";
         }
 
@@ -117,9 +117,9 @@ class M_pendaftaran extends CI_Model
                 $kd = $kode . sprintf('%0' . $digit . 's',  $tmp);
             }
         } else {
-            if($tipe_antrian == "Dewasa"){
+            if ($tipe_antrian == "Dewasa") {
                 $kd = "C001";
-            }else if($tipe_antrian == "Anak-Anak"){
+            } else if ($tipe_antrian == "Anak-Anak") {
                 $kd = "CG001";
             }
         }
@@ -131,12 +131,12 @@ class M_pendaftaran extends CI_Model
         $field = "kode_antrian_kia";
         $tabel = "antrian_kia";
         $digit = "3";
-        if($tipe_antrian == "Dewasa"){
+        if ($tipe_antrian == "Dewasa") {
             $kode = "B";
-        }else if($tipe_antrian == "Anak-Anak"){
+        } else if ($tipe_antrian == "Anak-Anak") {
             $kode = "BG";
         }
-        
+
 
         $q = $this->db->query("SELECT MAX(RIGHT($field,$digit)) AS kd_max FROM $tabel WHERE tanggal_antrian=CURRENT_DATE");
         $kd = "";
@@ -146,9 +146,9 @@ class M_pendaftaran extends CI_Model
                 $kd = $kode . sprintf('%0' . $digit . 's',  $tmp);
             }
         } else {
-            if($tipe_antrian == "Dewasa"){
+            if ($tipe_antrian == "Dewasa") {
                 $kd = "B001";
-            }else if($tipe_antrian == "Anak-Anak"){
+            } else if ($tipe_antrian == "Anak-Anak") {
                 $kd = "BA001";
             }
         }
@@ -184,7 +184,7 @@ class M_pendaftaran extends CI_Model
     function get_no_rm()
     {
         $field = "no_rm";
-        $tabel = "pasien";
+        $tabel = "master_pasien";
         $digit = "9";
         $kode = "024";
 

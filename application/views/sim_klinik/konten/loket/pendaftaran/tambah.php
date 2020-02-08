@@ -7,34 +7,38 @@
 			<h6 class="m-0 font-weight-bold text-primary">Pendaftaran Pasien</h6>
 		</div>
 		<div class="card-body">
+
 			<?php echo form_open('loket/pendaftaran/store'); ?>
+
 			<button type="button" id="btn_search" class="btn btn-primary btn-sm mb-1" data-toggle="modal" data-target="#exampleModalCenter"><i class="fas fa-search-plus"></i> Cari Pasien</button>
+
 			<div class="form-row">
-				<div class="form-group col-sm-5">
+				<div class="form-group col-sm-6">
 					<label for="inputEmail2">No RM</label>
-					<input type="text" maxlength="12" name="no_rm" id="no_rm" class="no_rmnya form-control form-control-sm" value="<?php echo $no_rm ?>" id="no_rm" placeholder="No RM" required>
+					<input type="text" name="no_rm" maxlength="12" class="form-control form-control-sm" id="no_rm" placeholder="Masukan NO RM" value="<?php echo $no_rm ?>" required>
 				</div>
-				<div class="form-group col-sm-5">
-					<label for="inputEmail1">Nama</label>
-					<input type="text" class="form-control form-control-sm" name="nama" id="nama" placeholder="Masukan Nama" required>
-				</div>
-			</div>
-			<div class="form-row">
-				<div class="form-group col-sm-5">
-					<label for="inputEmail1">Tanggal Lahir</label>
-					<input type="date" class="form-control form-control-sm" name="tgl_lahir" id="tgl_lahir" placeholder="Masukan Tanggal Lahir" required>
-				</div>
-				<div class="form-group col-sm-5">
-					<label for="inputEmail1">Nama KK</label>
-					<input type="text" class="form-control form-control-sm" name="nama_kk" id="nama_kk" placeholder="Masukan Nama KK" required>
+				<div class="form-group col-sm-6">
+					<label for="inputEmail2">Nama</label>
+					<input type="text" name="nama" class="form-control form-control-sm" id="nama" placeholder="Masukkan Nama Pasien" required>
 				</div>
 			</div>
 			<div class="form-row">
-				<div class="form-group col-sm-5">
-					<label for="alamat">Alamat</label>
-					<textarea class="form-control form-control-sm" name="alamat" id="alamat" required></textarea>
+				<div class="form-group col-sm-6">
+					<label for="inputEmail2">Nama KK</label>
+					<input type="text" name="nama_kk" class="form-control form-control-sm" id="nama_kk" placeholder="Masukkan Nama KK" required>
+				</div>
+				<div class="form-group col-sm-6">
+					<label for="inputEmail2">Tanggal Lahir</label>
+					<input type="date" name="tgl_lahir" class="form-control form-control-sm" id="tgl_lahir" placeholder="Tanggal Lahir" required>
 				</div>
 			</div>
+			<div class="form-row">
+				<div class="form-group col-sm-6">
+					<label for="inputEmail2">Alamat</label>
+					<textarea class="form-control form-control-sm" name="alamat" placeholder="Masukan alamat" id="alamat" rows="2" required></textarea>
+				</div>
+			</div>
+
 			<div class="form-row">
 				<div class="form-group col-sm-5">
 					<label for="inputEmail3">Layanan Tujuan</label>
@@ -57,6 +61,7 @@
 					</select>
 				</div>
 			</div>
+
 			<div class="form-row" id="control_tipe_antrian">
 				<div class="form-group col-sm-5">
 					<label for="inputEmail4">Waktu Antrian</label>
@@ -66,6 +71,7 @@
 					</select>
 				</div>
 			</div>
+
 			<div class="form-row">
 				<div class="form-group col-sm-5">
 					<button type="submit" class="btn btn-sm btn-success">Simpan</button>
@@ -73,6 +79,7 @@
 					<?php echo form_close(); ?>
 				</div>
 			</div>
+
 		</div>
 
 	</div>
@@ -94,8 +101,10 @@
 								<tr>
 									<th class="text-center">No RM</th>
 									<th class="text-center">Nama</th>
-									<th class="text-center">Umur</th>
 									<th class="text-center">Alamat</th>
+									<th class="text-center">Tanggal Lahir</th>
+									<th class="text-center">Nama KK</th>
+									<th class="text-center">Umur</th>
 									<th class="text-center">Aksi</th>
 								</tr>
 							</thead>
@@ -107,7 +116,6 @@
 			</div>
 		</div>
 	</div>
-
 
 	<script src="<?= base_url(); ?>assets/sb_admin_2/vendor/jquery/jquery-3.4.1.min.js"></script>
 	<script>
@@ -125,6 +133,7 @@
 		}
 
 		function search_proses() {
+
 			var table;
 			table = $('.table_pasien').DataTable({
 				"processing": true,
@@ -144,20 +153,28 @@
 
 				var kode = data[0];
 				var nama = data[1];
-				var umur = data[2];
-				var alamat = data[3];
+				var alamat = data[2];
+				var tgl_lahir = data[3];
+				var nama_kk = data[4];
 
-				pilihPasien(kode, nama, alamat, umur);
+				// 	array('db' => 'no_rm', 'dt' => 0),
+				// 	array('db' => 'nama',  'dt' => 1),
+				// 	array('db' => 'alamat',  'dt' => 2),
+				// 	array('db' => 'tgl_lahir',  'dt' => 3),
+				// 	array('db' => 'nama_kk',  'dt' => 4),
+
+				pilihPasien(kode, nama, alamat, tgl_lahir, nama_kk);
 			});
 		}
 
-		function pilihPasien(kode, nama, alamat, umur) {
+		function pilihPasien(kode, nama, alamat, tgl_lahir, nama_kk) {
 			document.getElementById("no_rm").value = kode;
 			$("#pilih_rm").val("yes");
 			$("#no_rm").val(kode);
 			$("#nama").val(nama);
 			$("#alamat").val(alamat);
-			$("#umur").val(umur);
+			$("#tgl_lahir").val(tgl_lahir);
+			$("#nama_kk").val(nama_kk);
 			$('#exampleModalCenter').modal('hide');
 		}
 	</script>

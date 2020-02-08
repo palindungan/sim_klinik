@@ -231,6 +231,14 @@ class Penjualan_obat extends CI_Controller
         }
         // End Of cek di setiap transaksi
 
+        // validasi tipe_pelayanan start
+        $data_update_status_pelayanan = array(
+            'tipe_pelayanan' =>  $this->input->post('tipe_pelayanan')
+        );
+
+        $this->M_tagihan->update_data($where_no_ref_pelayanan, 'pelayanan', $data_update_status_pelayanan);
+        // validasi tipe pelayanan end
+
         $this->session->set_flashdata('success', 'Ditambahkan');
     }
 }

@@ -27,21 +27,27 @@
 							<div class="form-row">
 								<div class="form-group col-sm-6">
 									<label for="inputEmail2">No RM</label>
-									<input type="text" name="no_rm" maxlength="12" class="form-control form-control-sm" id="inputEmail2" placeholder="Masukan NO RM" value="<?php echo $no_rm ?>" required>
+									<input type="text" name="no_rm" maxlength="12" class="form-control form-control-sm" id="no_rm" placeholder="Masukan NO RM" value="<?php echo $no_rm ?>" required>
 								</div>
 								<div class="form-group col-sm-6">
 									<label for="inputEmail2">Nama</label>
-									<input type="text" name="nama" class="form-control form-control-sm" id="inputEmail2" placeholder="Masukkan Nama" required>
+									<input type="text" name="nama" class="form-control form-control-sm" id="nama" placeholder="Masukkan Nama Pasien" required>
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="form-group col-sm-6">
+									<label for="inputEmail2">Nama KK</label>
+									<input type="text" name="nama_kk" class="form-control form-control-sm" id="nama_kk" placeholder="Masukkan Nama KK" required>
+								</div>
+								<div class="form-group col-sm-6">
+									<label for="inputEmail2">Tanggal Lahir</label>
+									<input type="date" name="tgl_lahir" class="form-control form-control-sm" id="tgl_lahir" placeholder="Tanggal Lahir" required>
 								</div>
 							</div>
 							<div class="form-row">
 								<div class="form-group col-sm-6">
 									<label for="inputEmail2">Alamat</label>
-									<textarea class="form-control form-control-sm" name="alamat" placeholder="Masukan alamat" id="exampleFormControlTextarea1" rows="2" required></textarea>
-								</div>
-								<div class="form-group col-sm-6">
-									<label for="inputEmail2">Umur</label>
-									<textarea class="form-control form-control-sm karakterAngka" name="umur" placeholder="Masukan Umur" id="exampleFormControlTextarea1" required></textarea>
+									<textarea class="form-control form-control-sm" name="alamat" placeholder="Masukan alamat" id="alamat" rows="2" required></textarea>
 								</div>
 							</div>
 						</div>
@@ -60,8 +66,10 @@
 						<tr>
 							<th class="text-center">No RM</th>
 							<th class="text-center">Nama</th>
-							<th class="text-center">umur</th>
 							<th class="text-center">Alamat</th>
+							<th class="text-center">Tanggal lahir</th>
+							<th class="text-center">Nama KK</th>
+							<th class="text-center">Umur</th>
 							<th class="text-center">Aksi</th>
 						</tr>
 					</thead>

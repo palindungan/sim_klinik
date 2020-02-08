@@ -15,6 +15,15 @@
 						<select id="xx" class="form-control form-control-sm itemName" name="no_ref_pelayanan" required>
 						</select>
 					</div>
+					<div class="form-group col-sm-5">
+						<label for="inputEmail4">Tipe Pelayanan</label>
+						<select name="tipe_pelayanan" class="form-control form-control-sm" id="tipe_pelayanan" required>
+							<option value="">-</option>
+							<option value="Rawat Jalan">Rawat Jalan</option>
+							<option value="Rawat Inap">Rawat Inap</option>
+							<option value="IGD">IGD</option>
+						</select>
+					</div>
 				</div>
 
 				<div class="row">
