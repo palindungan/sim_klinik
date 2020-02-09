@@ -24,7 +24,7 @@ class Tindakan extends CI_Controller
             'no_bp_t' => $id,
             'nama' => $this->input->post('nama'),
             'harga' => $harga,
-            'status' => $this->input->post('status')
+            'status_paket' => $this->input->post('status_paket')
         );
         $this->M_tindakan->input_data('bp_tindakan', $data);
         $this->session->set_flashdata('success','Ditambahkan');
@@ -39,7 +39,7 @@ class Tindakan extends CI_Controller
         $data = array(
             'nama' => $this->input->post('nama'),
             'harga' => $harga,
-            'status' => $this->input->post('status')
+            'status_paket' => $this->input->post('status_paket')
 
         );
         $this->M_tindakan->update_data($where, 'bp_tindakan', $data);

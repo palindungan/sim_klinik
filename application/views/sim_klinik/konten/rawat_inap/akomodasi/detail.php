@@ -24,13 +24,8 @@ foreach ($record as $row) {
 					<th width="11%">Kode</th>
 					<td width="1%">:</th>
 					<td><?php echo $no_akomodasi_rawat_i ?></th>
-					<th width="11%">Total Harga</th>
+					<th width="11%">Tanggal</th>
 					<td width="1%">:</th>
-					<td><?php echo rupiah($total_harga); ?></th>
-				</tr>
-				<tr>
-					<th>Tanggal</th>
-					<td>:</th>
 					<td><?= $tanggal." ".$waktu; ?></th>
 				</tr>
 			</table>

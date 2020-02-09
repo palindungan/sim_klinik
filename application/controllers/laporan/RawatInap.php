@@ -5,20 +5,19 @@
     use PhpOffice\PhpSpreadsheet\Spreadsheet;
     use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
     class RawatInap extends CI_Controller {
-
-        // public function index() {
-        //     $this->load->view('sim_klinik/konten/administrasi/cetak_struk/tampil');
-        // }
         function __construct()
         {
             parent::__construct();
             $this->load->model('admin/M_laporan');
-            // date_default_timezone_set('Asia/Jakarta');
+            $this->load->model('M_cek_saldo');
 
         }
 
         public function index()
         {
+            $yesterday = date("Y-m-d",strtotime("-1 day",strtotime(date('Y-m-d'))));
+            $data['db_grand_saldo'] =  $this->M_cek_saldo->getCekSaldoByDate($yesterday);
+            
             $data['ri_hari_ini'] = $this->M_laporan->laporan_ri_hari_ini();
             $data['ri_bulan_ini'] = $this->M_laporan->laporan_ri_bulan_ini();
             $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/laporan/rawat_inap',$data);
