@@ -109,7 +109,7 @@ class Pengiriman_obat extends CI_Controller
                                 'qty' => $qty_baru
                             );
 
-                            $status_update = $this->M_pengiriman_obat->update_data($where, 'stok_obat_apotik', $data);
+                            $status_update = $this->M_pengiriman_obat->update_data($where, 'obat', $data);
                         }
                     }
 

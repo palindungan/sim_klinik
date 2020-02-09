@@ -29,14 +29,14 @@
 							<span class="text">Obat/Alkes Gudang</span>
 						</a>
 					</div>
-					<div class="form-group col-sm-6" id="row_apotik">
+					<!-- <div class="form-group col-sm-6" id="row_apotik">
 						<a href="#" id="btn_search_apotik" class="btn btn-sm btn-primary btn-icon-split" data-toggle="modal" data-target="#exampleModalCenterApotik">
 							<span class="icon text-white-50">
 								<i class="fas fa-search-plus"></i>
 							</span>
 							<span class="text">Obat/Alkes Apotik</span>
 						</a>
-					</div>
+					</div> -->
 
 				</div>
 
@@ -76,6 +76,7 @@
 	</div>
 
 </div>
+
 <div class="modal fade  bd-example-modal-lg" id="exampleModalCenterGudang" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
@@ -105,6 +106,7 @@
 		</div>
 	</div>
 </div>
+<!-- 
 <div class="modal fade  bd-example-modal-lg" id="exampleModalCenterApotik" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
@@ -133,22 +135,22 @@
 			</div>
 		</div>
 	</div>
-</div>
+</div> -->
 <script src="<?= base_url(); ?>assets/sb_admin_2/vendor/jquery/jquery.min.js"></script>
 
 <script>
-	$(function() {
-		$('#row_apotik').hide(); 
-		$('#tujuan').change(function(){
-			if($('#tujuan').val() == 'Rawat Inap') {
-				$('#row_apotik').show();
-				$('#row_gudang').hide(); 
-			} else {
-				$('#row_apotik').hide();
-				$('#row_gudang').show(); 
-			} 
-		});
-	});
+	// $(function() {
+	// 	$('#row_apotik').hide(); 
+	// 	$('#tujuan').change(function(){
+	// 		if($('#tujuan').val() == 'Rawat Inap') {
+	// 			$('#row_apotik').show();
+	// 			$('#row_gudang').hide(); 
+	// 		} else {
+	// 			$('#row_apotik').hide();
+	// 			$('#row_gudang').show(); 
+	// 		} 
+	// 	});
+	// });
 
 	// jika kita tekan / click button search-button
 	$('#btn_search_gudang').on('click', function() {
@@ -243,97 +245,97 @@
 		cekJumlahDataPenerimaan();
 	}
 
-	$('#btn_search_apotik').on('click', function() {
-		search_proses_apotik();
-	});
+	// $('#btn_search_apotik').on('click', function() {
+	// 	search_proses_apotik();
+	// });
 
-	function search_proses_apotik() {
+	// function search_proses_apotik() {
 
-		var table;
-		table = $('.table_obat_apotik').DataTable({
-			"columnDefs": [{
-				"targets": [0, 3, 4],
-				"className": "text-center"
-			}],
-			"bDestroy": true,
-			"pageLength": 5
-		});
+	// 	var table;
+	// 	table = $('.table_obat_apotik').DataTable({
+	// 		"columnDefs": [{
+	// 			"targets": [0, 3, 4],
+	// 			"className": "text-center"
+	// 		}],
+	// 		"bDestroy": true,
+	// 		"pageLength": 5
+	// 	});
 
-		table.clear();
+	// 	table.clear();
 
-		$.ajax({
-			url: "<?php echo base_url() . 'apotek/pengiriman_obat/tampil_daftar_obat_apotik'; ?>",
-			success: function(hasil) {
+	// 	$.ajax({
+	// 		url: "<?php echo base_url() . 'apotek/pengiriman_obat/tampil_daftar_obat_apotik'; ?>",
+	// 		success: function(hasil) {
 
-				var obj = JSON.parse(hasil);
-				let data = obj['tbl_data'];
+	// 			var obj = JSON.parse(hasil);
+	// 			let data = obj['tbl_data'];
 
-				if (data != '') {
+	// 			if (data != '') {
 
-					var no = 1;
+	// 				var no = 1;
 
-					$.each(data, function(i, item) {
+	// 				$.each(data, function(i, item) {
 
-						var kode_obat = data[i].kode_obat;
-						var nama_obat = data[i].nama_obat;
-						var nama_kategori = data[i].nama_kategori;
-						var qty_sekarang = data[i].qty_apotik;
+	// 					var kode_obat = data[i].kode_obat;
+	// 					var nama_obat = data[i].nama_obat;
+	// 					var nama_kategori = data[i].nama_kategori;
+	// 					var qty_sekarang = data[i].qty_apotik;
 
-						var button = `<a onclick="tambah_detail_obat_apotik('` + kode_obat +
-							`','` + nama_obat + `','` + nama_kategori + `','` + qty_sekarang + `')" id="` + kode_obat + `" class="btn btn-sm btn-dark text-white">Pilih</a>`;
+	// 					var button = `<a onclick="tambah_detail_obat_apotik('` + kode_obat +
+	// 						`','` + nama_obat + `','` + nama_kategori + `','` + qty_sekarang + `')" id="` + kode_obat + `" class="btn btn-sm btn-dark text-white">Pilih</a>`;
 
-						table.row.add([no, nama_obat, nama_kategori, qty_sekarang, button]);
+	// 					table.row.add([no, nama_obat, nama_kategori, qty_sekarang, button]);
 
-						no = no + 1;
-					});
-				} else {
+	// 					no = no + 1;
+	// 				});
+	// 			} else {
 
-					$('.table_obat').html('<h3>Tidak Ada Data Yang Tersedia</h3>');
+	// 				$('.table_obat').html('<h3>Tidak Ada Data Yang Tersedia</h3>');
 
-				}
-				table.draw();
+	// 			}
+	// 			table.draw();
 
-			}
-		});
-	}
+	// 		}
+	// 	});
+	// }
 
-	var count_pengiriman_obat = 0;
-	var jumlah_detail_pengiriman_obat = 0;
-	// Start add_row
-	function tambah_detail_obat_apotik(kode_obat, nama_obat, nama_kategori, qty_sekarang) {
+	// var count_pengiriman_obat = 0;
+	// var jumlah_detail_pengiriman_obat = 0;
+	// // Start add_row
+	// function tambah_detail_obat_apotik(kode_obat, nama_obat, nama_kategori, qty_sekarang) {
 
-		$('#detail_list').append(`
+	// 	$('#detail_list').append(`
 
-        <div id="row` + count_pengiriman_obat + `" class="form-row">
-            <div class="form-group col-sm-5">
-                <input type="text" readonly name="nama_obat[]" class="form-control form-control-sm karakter" id="nama_obat` + count_pengiriman_obat + `" placeholder="Nama" required value="` + nama_obat + `">
-                <input type="hidden" name="kode_obat[]" class="form-control form-control-sm" id="kode_obat` + count_pengiriman_obat + `" value="` + kode_obat + `">
-            </div>
-            <div class="form-group col-sm-4">
-                <input type="text" readonly name="nama_kategori[]" class="form-control form-control-sm" id="nama_kategori` + count_pengiriman_obat + `" value="` + nama_kategori + `">
-            </div>
-            <div class="form-group col-sm-1">
-                <input type="text" name="qty[]" class="form-control form-control-sm cek_qty" id="qty` + count_pengiriman_obat + `" placeholder="QTY" required>
-				<input type="hidden" name="qty_sekarang[]" id="qty_sekarang` + count_pengiriman_obat + `" class="form-control form-control-sm" value="` + qty_sekarang + `"></input>
-			</div>
-            <div class="form-group col-sm-2">
-                <a id="` + count_pengiriman_obat + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris">
-                    <span class="icon text-white-50">
-                        <i class="fas fa-trash-alt"></i>
-                    </span>
-                    <span class="text">Hapus</span>
-                </a>
-            </div>
-        </div>
+    //     <div id="row` + count_pengiriman_obat + `" class="form-row">
+    //         <div class="form-group col-sm-5">
+    //             <input type="text" readonly name="nama_obat[]" class="form-control form-control-sm karakter" id="nama_obat` + count_pengiriman_obat + `" placeholder="Nama" required value="` + nama_obat + `">
+    //             <input type="hidden" name="kode_obat[]" class="form-control form-control-sm" id="kode_obat` + count_pengiriman_obat + `" value="` + kode_obat + `">
+    //         </div>
+    //         <div class="form-group col-sm-4">
+    //             <input type="text" readonly name="nama_kategori[]" class="form-control form-control-sm" id="nama_kategori` + count_pengiriman_obat + `" value="` + nama_kategori + `">
+    //         </div>
+    //         <div class="form-group col-sm-1">
+    //             <input type="text" name="qty[]" class="form-control form-control-sm cek_qty" id="qty` + count_pengiriman_obat + `" placeholder="QTY" required>
+	// 			<input type="hidden" name="qty_sekarang[]" id="qty_sekarang` + count_pengiriman_obat + `" class="form-control form-control-sm" value="` + qty_sekarang + `"></input>
+	// 		</div>
+    //         <div class="form-group col-sm-2">
+    //             <a id="` + count_pengiriman_obat + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris">
+    //                 <span class="icon text-white-50">
+    //                     <i class="fas fa-trash-alt"></i>
+    //                 </span>
+    //                 <span class="text">Hapus</span>
+    //             </a>
+    //         </div>
+    //     </div>
 
-		`);
+	// 	`);
 
-		count_pengiriman_obat = count_pengiriman_obat + 1;
-		jumlah_detail_pengiriman_obat = jumlah_detail_pengiriman_obat + 1;
-		$('#exampleModalCenterApotik').modal('hide');
+	// 	count_pengiriman_obat = count_pengiriman_obat + 1;
+	// 	jumlah_detail_pengiriman_obat = jumlah_detail_pengiriman_obat + 1;
+	// 	$('#exampleModalCenterApotik').modal('hide');
 
-		cekJumlahDataPenerimaan();
-	}
+	// 	cekJumlahDataPenerimaan();
+	// }
 
 	function cekJumlahDataPenerimaan() {
 
