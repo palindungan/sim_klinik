@@ -115,7 +115,9 @@ ORDER BY dpo.id_detail_penerimaan_o ASC
 
 
 CREATE VIEW daftar_obat_rawat_inap AS 
-SELECT stok_obat_rawat_inap.no_stok_obat_rawat_i,stok_obat_rawat_inap.kode_obat,stok_obat_rawat_inap.qty,obat.nama as nama_obat,kategori_obat.nama as nama_kategori,obat.harga_jual FROM stok_obat_rawat_inap JOIN obat USING (kode_obat) LEFT JOIN kategori_obat USING(no_kat_obat) ORDER BY nama_obat ASC
+SELECT stok_obat_rawat_inap.no_stok_obat_rawat_i,stok_obat_rawat_inap.kode_obat,stok_obat_rawat_inap.qty,obat.nama as nama_obat,kategori_obat.nama as nama_kategori,obat.harga_jual 
+FROM stok_obat_rawat_inap JOIN obat USING (kode_obat) LEFT JOIN kategori_obat USING(no_kat_obat) 
+ORDER BY nama_obat ASC
 
 ----------
 

@@ -73,13 +73,13 @@
                         var nama_obat = data[i].nama_obat;
                         var nama_kategori = data[i].nama_kategori;
                         var qty_sekarang = data[i].qty;
-                        var harga_obat = data[i].harga_jual;
+                        var harga_jual = data[i].harga_jual;
 
-                        var reverse = harga_obat.toString().split('').reverse().join(''),
+                        var reverse = harga_jual.toString().split('').reverse().join(''),
                             ribuan = reverse.match(/\d{1,3}/g);
                         ribuan = ribuan.join('.').split('').reverse().join('');
 
-                        var button = `<a onclick="tambah_detail_ri_obat('` + no_stok_obat_rawat_i + `','` + nama_obat + `','` + harga_obat + `','` + qty_sekarang + `')" id="` + no_stok_obat_rawat_i + `" class="btn btn-sm btn-dark text-white">Pilih</a>`;
+                        var button = `<a onclick="tambah_detail_ri_obat('` + no_stok_obat_rawat_i + `','` + nama_obat + `','` + harga_jual + `','` + qty_sekarang + `')" id="` + no_stok_obat_rawat_i + `" class="btn btn-sm btn-dark text-white">Pilih</a>`;
 
                         table.row.add([no, nama_obat, nama_kategori, qty_sekarang,
                             ribuan, button
@@ -112,6 +112,7 @@
                 <div class="btn-icon-split col-12">
                     <input type="checkbox" name="status_paket_ri_obat_cb[]" class="col-md-1 icon deteksi_cek_box_ri form-control form-control-sm" id="status_paket_ri_obat_cb` + count_transaksi + `" >
                     <input type="hidden" name="status_paket_ri_obat[]" class="col-md-1 icon form-control form-control-sm" id="status_paket_ri_obat` + count_transaksi + `" value="Tidak">
+                    
                     <input type="text" name="harga_ri_obat[]" class="col-md-11 form-control form-control-sm rupiah text-right harga_ri_obat_update" id="harga_ri_obat` + count_transaksi + `" placeholder="Harga Obat Rawat Inap" required value="` + harga_jual + `">
                     <input type="hidden" name="harga_ri_obat_lama[]" class="col-md-1 icon form-control form-control-sm" id="harga_ri_obat_lama` + count_transaksi + `" value="` + harga_jual + `">
                 </div>
