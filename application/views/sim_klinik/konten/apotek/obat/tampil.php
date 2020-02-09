@@ -65,6 +65,27 @@
 									</select>
 								</div>
 							</div>
+							<div class="row">
+								<div class="col-sm-12">
+									<hr>
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="form-group col-sm-6">
+									<label for="inputEmail3">Stok Gudang</label>
+									<input type="number" name="stok_gudang" class="form-control form-control-sm" value="0">
+								</div>
+								<div class="form-group col-sm-6">
+									<label for="inputEmail3">Stok Rawat Inap</label>
+									<input type="number" name="stok_rawat_inap" class="form-control form-control-sm" value="0">
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="form-group col-sm-6">
+									<label for="inputEmail3">Stok Rawat Jalan</label>
+									<input type="number" name="stok_rawat_jalan" class="form-control form-control-sm" value="0">
+								</div>
+							</div>
 						</div>
 						<div class="modal-footer">
 							<button type="submit" class="btn btn-sm btn-success">Simpan</button>
@@ -84,8 +105,10 @@
 							<th width="15%">Kategori</th>
 							<th width="10%">Min. Stok</th>
 							<th width="10%" class="text-center">Harga Jual</th>
-							<th width="5%" class="text-center">Stok</th>
 							<th width="10%" class="text-center">Tipe Logistik</th>
+							<th width="5%" class="text-center">Stok Gudang</th>
+							<th width="5%" class="text-center">Stok RI</th>
+							<th width="5%" class="text-center">Stok RJ</th>
 							<th width="15%" class="text-center">Aksi</th>
 						</tr>
 					</thead>
@@ -95,14 +118,16 @@
 						foreach($record as $data):
                         ?>
 						<tr>
-							<td class="text-center"><?= $no++ ?></td>
-							<td class="text-center"><?= $data->kode_obat ?></td>
-							<td><?= $data->nama_obat ?></td>
-							<td><?= $data->nama_kategori ?></td>
-							<td><?= $data->min_stok ?></td>
-							<td class="text-right"><?= rupiah($data->harga_jual) ?></td>
-							<td><?= $data->qty ?></td>
-							<td><?= $data->tipe ?></td>
+							<td class="text-center"><?= $no++; ?></td>
+							<td class="text-center"><?= $data->kode_obat; ?></td>
+							<td><?= $data->nama_obat; ?></td>
+							<td><?= $data->nama_kategori; ?></td>
+							<td><?= $data->min_stok; ?></td>
+							<td class="text-right"><?= rupiah($data->harga_jual); ?></td>
+							<td><?= $data->tipe; ?></td>
+							<td><?= $data->stok_gudang; ?></td>
+							<td><?= $data->stok_rawat_inap;?></td>
+							<td><?= $data->stok_rawat_jalan; ?></td>
 							<td class="text-center">
 								<a style="cursor:pointer" class="btn btn-sm btn-warning text-white" data-toggle="modal"
 									data-target="#modal-edit<?= $data->kode_obat ?>">Edit</a>
@@ -172,6 +197,27 @@
 							<option value="Obat" <?php if($data->tipe == 'Obat'){ echo "selected";} ?>>Obat</option>
 							<option value="Alkes" <?php if($data->tipe == 'Alkes'){ echo "selected";} ?>>Alkes</option>
 						</select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<hr>
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-sm-6">
+						<label for="inputEmail3">Stok Gudang</label>
+						<input type="number" name="stok_gudang" class="form-control form-control-sm" value="<?php echo $data->stok_gudang;?>">
+					</div>
+					<div class="form-group col-sm-6">
+						<label for="inputEmail3">Stok Rawat Inap</label>
+						<input type="number" name="stok_rawat_inap" class="form-control form-control-sm" value="<?php echo $data->stok_rawat_inap;?>">
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-sm-6">
+						<label for="inputEmail3">Stok Rawat Jalan</label>
+						<input type="number" name="stok_rawat_jalan" class="form-control form-control-sm" value="<?php echo $data->stok_rawat_jalan ?>">
 					</div>
 				</div>
 			</div>
