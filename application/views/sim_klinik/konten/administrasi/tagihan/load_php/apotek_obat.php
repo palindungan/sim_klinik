@@ -70,22 +70,22 @@
 
                     $.each(data, function(i, item) {
 
-                        var kode_obat = data[i].kode_obat;
+                        var no_stok_obat_a = data[i].no_stok_obat_a;
                         var nama_obat = data[i].nama_obat;
                         var nama_kategori = data[i].nama_kategori;
-                        var qty = data[i].qty_apotik;
+                        var qty_apotik = data[i].qty_apotik;
                         var harga_jual = data[i].harga_jual;
 
                         var reverse = harga_jual.toString().split('').reverse().join(''),
                             ribuan = reverse.match(/\d{1,3}/g);
                         ribuan = ribuan.join('.').split('').reverse().join('');
 
-                        var button = `<a onclick="tambah_detail_apotek_obat('` + kode_obat +
-                            `','` + nama_obat + `','` + harga_jual + `','` + qty + `')" id="` +
-                            kode_obat +
+                        var button = `<a onclick="tambah_detail_apotek_obat('` + no_stok_obat_a +
+                            `','` + nama_obat + `','` + harga_jual + `','` + qty_apotik + `')" id="` +
+                            no_stok_obat_a +
                             `" class="btn btn-sm btn-dark text-white">Pilih</a>`;
 
-                        table.row.add([no, nama_obat, nama_kategori, qty,
+                        table.row.add([no, nama_obat, nama_kategori, qty_apotik,
                             ribuan, button
                         ]);
 
@@ -98,31 +98,32 @@
         });
     }
 
-    // Start add_row kode_obat, nama_obat, harga_jual, qty
-    function tambah_detail_apotek_obat(kode_obat, nama_obat, harga_apotek_obat, qty) {
+    // Start add_row no_stok_obat_a, nama_obat, harga_jual, qty
+    function tambah_detail_apotek_obat(no_stok_obat_a, nama_obat, harga_jual, qty_apotik) {
 
         $('#detail_list_apotek_obat').append(`
 
         <tr id="row` + count_transaksi + `" class="kelas_row">
             <td>
                 ` + nama_obat + `
-                <input type="hidden" name="kode_obat[]" class="form-control form-control-sm" id="kode_obat` + count_transaksi + `" value="` + kode_obat + `">
+                <input type="hidden" name="no_stok_obat_a[]" class="form-control form-control-sm" id="no_stok_obat_a` + count_transaksi + `" value="` + no_stok_obat_a + `">
             </td>
             <td>
                 <input type="text" name="qty_apotek_obat[]" class="form-control form-control-sm cek_qty_apotek_obat" id="qty_apotek_obat` + count_transaksi + `" placeholder="QTY" value="1" required>
-                <input readonly type="hidden" name="cek_qty_apotek_obat[]" class="form-control form-control-sm" id="cek_qty_apotek_obat` + count_transaksi + `" value="` + qty + `">
+                <input readonly type="hidden" name="cek_qty_apotek_obat[]" class="form-control form-control-sm" id="cek_qty_apotek_obat` + count_transaksi + `" value="` + qty_apotik + `">
             </td>
             <td>
                 <div class="btn-icon-split col-12">
                     <input type="checkbox" name="status_paket_apotek_obat_cb[]" class="col-md-1 icon deteksi_cek_box form-control form-control-sm" id="status_paket_apotek_obat_cb` + count_transaksi + `" >
                     <input type="hidden" name="status_paket_apotek_obat[]" class="col-md-1 icon form-control form-control-sm" id="status_paket_apotek_obat` + count_transaksi + `" value="Tidak">
-                    <input type="text" name="harga_apotek_obat[]" class="col-md-11 form-control form-control-sm rupiah text-right harga_apotek_obat_update" id="harga_apotek_obat` + count_transaksi + `" placeholder="Harga Obat Apotek" required value="` + harga_apotek_obat + `">
-                    <input type="hidden" name="harga_obat_lama[]" class="col-md-1 icon form-control form-control-sm" id="harga_obat_lama` + count_transaksi + `" value="` + harga_apotek_obat + `">
+                    
+                    <input type="text" name="harga_apotek_obat[]" class="col-md-11 form-control form-control-sm rupiah text-right harga_apotek_obat_update" id="harga_apotek_obat` + count_transaksi + `" placeholder="Harga Obat Apotek" required value="` + harga_jual + `">
+                    <input type="hidden" name="harga_obat_lama[]" class="col-md-1 icon form-control form-control-sm" id="harga_obat_lama` + count_transaksi + `" value="` + harga_jual + `">
                 </div>
-                <input type="hidden" class="form-control form-control-sm rupiah text-right" id="harga_cadangan_apotek_obat` + count_transaksi + `" readonly required value="` + harga_apotek_obat + `">
+                <input type="hidden" class="form-control form-control-sm rupiah text-right" id="harga_cadangan_apotek_obat` + count_transaksi + `" readonly required value="` + harga_jual + `">
             </td>
             <td>  
-                <input type="text" class="form-control form-control-sm rupiah text-right" id="harga_sub_apotek_obat` + count_transaksi + `" readonly required value="` + harga_apotek_obat + `">
+                <input type="text" class="form-control form-control-sm rupiah text-right" id="harga_sub_apotek_obat` + count_transaksi + `" readonly required value="` + harga_jual + `">
             </td>
             <td>
                 <div class="form-group col-sm-2">

@@ -107,9 +107,9 @@ class Tagihan extends CI_Controller
         $sub_total = 0;
         $total = 0;
 
-        if (isset($_POST['kode_obat']) && isset($_POST['harga_apotek_obat']) && isset($_POST['qty_apotek_obat'])) {
+        if (isset($_POST['no_stok_obat_a']) && isset($_POST['harga_apotek_obat']) && isset($_POST['qty_apotek_obat'])) {
 
-            for ($i = 0; $i < count($this->input->post('kode_obat')); $i++) {
+            for ($i = 0; $i < count($this->input->post('no_stok_obat_a')); $i++) {
 
                 $harga_jual_temp = $this->input->post('harga_apotek_obat')[$i];
                 $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
@@ -878,13 +878,13 @@ class Tagihan extends CI_Controller
             $hapus = $this->M_tagihan->hapus_data($where_no_penjualan_obat_a, 'detail_penjualan_obat_apotik');
             // End of hapus semua detail transaksi lama
 
-            // Start of Cek apakah ada data detail post masuk ? kode_obat harga_apotek_obat qty_apotek_obat
-            if (isset($_POST['kode_obat']) && isset($_POST['harga_apotek_obat']) && isset($_POST['qty_apotek_obat'])) {
+            // Start of Cek apakah ada data detail post masuk ? no_stok_obat_a harga_apotek_obat qty_apotek_obat
+            if (isset($_POST['no_stok_obat_a']) && isset($_POST['harga_apotek_obat']) && isset($_POST['qty_apotek_obat'])) {
 
                 // menambah detail transaksi baru 
-                for ($i = 0; $i < count($this->input->post('kode_obat')); $i++) {
+                for ($i = 0; $i < count($this->input->post('no_stok_obat_a')); $i++) {
 
-                    $kode_obat = $this->input->post('kode_obat')[$i];
+                    $no_stok_obat_a = $this->input->post('no_stok_obat_a')[$i];
 
                     $status_paket_tmp = isset($this->input->post('status_paket_apotek_obat')[$i]) ? $this->input->post('status_paket_apotek_obat')[$i] : "Tidak";
                     $status_paket = "Tidak";
@@ -900,7 +900,7 @@ class Tagihan extends CI_Controller
 
                     $data = array(
                         'no_penjualan_obat_a' => $no_penjualan_obat_a,
-                        'kode_obat' => $kode_obat,
+                        'no_stok_obat_a' => $no_stok_obat_a,
                         'qty' => $qty,
                         'harga_jual' => $harga_jual,
                         'status_paket' => $status_paket
@@ -910,11 +910,11 @@ class Tagihan extends CI_Controller
 
                     // update qty obat lama dibawah ini
                     if ($btn_simpan == "simpan_final") {
-                        $where_kode_obat = array(
-                            'kode_obat' => $kode_obat
+                        $where_no_stok_obat_a = array(
+                            'no_stok_obat_a' => $no_stok_obat_a
                         );
 
-                        $ambil_data = $this->M_tagihan->get_data('stok_obat_apotik', $where_kode_obat);
+                        $ambil_data = $this->M_tagihan->get_data('stok_obat_apotik', $where_no_stok_obat_a);
                         $qty_lama = "kosong";
                         foreach ($ambil_data->result() as $data) {
                             $qty_lama = $data->qty;
@@ -929,7 +929,7 @@ class Tagihan extends CI_Controller
                         $data = array(
                             'qty' => $qty_sekarang
                         );
-                        $update = $this->M_tagihan->update_data($where_kode_obat, 'stok_obat_apotik', $data);
+                        $update = $this->M_tagihan->update_data($where_no_stok_obat_a, 'stok_obat_apotik', $data);
                     }
                 }
 
@@ -952,8 +952,8 @@ class Tagihan extends CI_Controller
 
         } else {
 
-            // Start of Cek apakah ada data detail post masuk ? kode_obat harga_apotek_obat qty_apotek_obat
-            if (isset($_POST['kode_obat']) && isset($_POST['harga_apotek_obat']) && isset($_POST['qty_apotek_obat'])) {
+            // Start of Cek apakah ada data detail post masuk ? no_stok_obat_a harga_apotek_obat qty_apotek_obat
+            if (isset($_POST['no_stok_obat_a']) && isset($_POST['harga_apotek_obat']) && isset($_POST['qty_apotek_obat'])) {
 
                 // menambah transaksi utama
                 $no_penjualan_obat_a = $this->M_tagihan->get_no_penjualan_obat_a(); // generate
@@ -971,9 +971,9 @@ class Tagihan extends CI_Controller
                 $tambah = $this->M_tagihan->input_data('penjualan_obat_apotik', $data);
 
                 // menambah detail transaksi baru 
-                for ($i = 0; $i < count($this->input->post('kode_obat')); $i++) {
+                for ($i = 0; $i < count($this->input->post('no_stok_obat_a')); $i++) {
 
-                    $kode_obat = $this->input->post('kode_obat')[$i];
+                    $no_stok_obat_a = $this->input->post('no_stok_obat_a')[$i];
 
                     $status_paket_tmp = isset($this->input->post('status_paket_apotek_obat')[$i]) ? $this->input->post('status_paket_apotek_obat')[$i] : "Tidak";
                     $status_paket = "Tidak";
@@ -989,7 +989,7 @@ class Tagihan extends CI_Controller
 
                     $data = array(
                         'no_penjualan_obat_a' => $no_penjualan_obat_a,
-                        'kode_obat' => $kode_obat,
+                        'no_stok_obat_a' => $no_stok_obat_a,
                         'qty' => $qty,
                         'harga_jual' => $harga_jual,
                         'status_paket' => $status_paket
@@ -999,11 +999,11 @@ class Tagihan extends CI_Controller
 
                     // update qty obat lama dibawah ini
                     if ($btn_simpan == "simpan_final") {
-                        $where_kode_obat = array(
-                            'kode_obat' => $kode_obat
+                        $where_no_stok_obat_a = array(
+                            'no_stok_obat_a' => $no_stok_obat_a
                         );
 
-                        $ambil_data = $this->M_tagihan->get_data('stok_obat_apotik', $where_kode_obat);
+                        $ambil_data = $this->M_tagihan->get_data('stok_obat_apotik', $where_no_stok_obat_a);
                         $qty_lama = "kosong";
                         foreach ($ambil_data->result() as $data) {
                             $qty_lama = $data->qty;
@@ -1018,7 +1018,8 @@ class Tagihan extends CI_Controller
                         $data = array(
                             'qty' => $qty_sekarang
                         );
-                        $update = $this->M_tagihan->update_data($where_kode_obat, 'stok_obat_apotik', $data);
+
+                        $update = $this->M_tagihan->update_data($where_no_stok_obat_a, 'stok_obat_apotik', $data);
                     }
                 }
             }
@@ -1533,20 +1534,20 @@ class Tagihan extends CI_Controller
     //                 <td colspan="7"><hr></td>
     //             </tr>
     //             <tr>
-	// 					<td width="14%">Nama</td>
-	// 					<td width="1%">:</td>
-	// 					<td width="37%">' . $nama_pasien . '</td>
-	// 					<td width="20%">No Ref Pelayanan</td>
-	// 					<td width="1%">:</td>
-	// 					<td width="27%">' . $no_ref . '</td>
-	// 				</tr>
-	// 				<tr>
-	// 					<td>Nomor RM</td>
-	// 					<td>:</td>
-	// 					<td>' . $no_rm . '</td>
-	// 					<td>Tanggal</td>
-	// 					<td>:</td>
-	// 					<td>' . $tgl_pelayanan . '</td>
+    // 					<td width="14%">Nama</td>
+    // 					<td width="1%">:</td>
+    // 					<td width="37%">' . $nama_pasien . '</td>
+    // 					<td width="20%">No Ref Pelayanan</td>
+    // 					<td width="1%">:</td>
+    // 					<td width="27%">' . $no_ref . '</td>
+    // 				</tr>
+    // 				<tr>
+    // 					<td>Nomor RM</td>
+    // 					<td>:</td>
+    // 					<td>' . $no_rm . '</td>
+    // 					<td>Tanggal</td>
+    // 					<td>:</td>
+    // 					<td>' . $tgl_pelayanan . '</td>
     //                 </tr>
     //             <tr>
     //                 <td colspan="7"><hr></td>
@@ -1855,6 +1856,6 @@ class Tagihan extends CI_Controller
         $data['cek_transaksi_rawat_inap2'] = $this->M_tagihan->get_data('transaksi_rawat_inap', $where_no_ref_pelayanan);
         $data['cek_transaksi_lain2'] = $this->M_tagihan->get_data('transaksi_lain', $where_no_ref_pelayanan);
 
-        $this->load->view('sim_klinik/konten/administrasi/cetak_struk/tampil',$data);
+        $this->load->view('sim_klinik/konten/administrasi/cetak_struk/tampil', $data);
     }
 }
