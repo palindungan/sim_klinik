@@ -213,16 +213,13 @@
 <!-- start of pecahan codingan script -->
 <?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/ambulance.php') ?>
 <?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/apotek_obat.php') ?>
-
 <?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/ri_kamar.php') ?>
 <?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/ri_obat.php') ?>
 <?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/ri_tindakan.php') ?>
-
 <?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/bp_tindakan.php') ?>
 <?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/kia_tindakan.php') ?>
 <?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/lab_tindakan.php') ?>
 <?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/ugd_tindakan.php') ?>
-
 <?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/lain.php') ?>
 
 <?php $this->view('sim_klinik/konten/administrasi/tagihan/load_php/load_all_detail.php') ?>
