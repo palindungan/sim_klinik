@@ -72,7 +72,7 @@
                         var qty_sekarang = data_ri_penjualan_obat[i].qty_sekarang;
                         var harga_lama = data_ri_penjualan_obat[i].harga_lama;
 
-                        load_detail_ri_obat(no_stok_obat_rawat_i, nama_obat, harga_jual, qty, qty_sekarang,harga_lama);
+                        load_detail_ri_obat(no_stok_obat_rawat_i, nama_obat, harga_jual, qty, qty_sekarang, harga_lama);
                     });
 
                     update_sub_total_ri_obat();
@@ -218,7 +218,9 @@
                 ` + tujuan + ` (Ambulance)
                 <input type="hidden" name="no_ambulance[]" class="form-control form-control-sm" id="no_ambulance` + count_transaksi + `" value="` + no_ambulance + `">
             </td>
-            <td>1</td>
+            <td>
+                <input type="text" name="qty_ambulance[]" class="form-control form-control-sm" id="qty_ambulance` + count_transaksi + `" placeholder="QTY" value="1" readonly required>
+            </td>
             <td>
                 <input type="text" name="harga_ambulance[]" class="form-control form-control-sm rupiah text-right harga_ambulance_update" id="harga_ambulance` + count_transaksi + `" placeholder="Harga Ambulance" required value="` + harga + `">
             </td>
@@ -288,7 +290,7 @@
         jumlah_detail_transaksi = jumlah_detail_transaksi + 1;
     }
 
-    function load_detail_ri_obat(no_stok_obat_rawat_i, nama_obat, harga_jual, qty, qty_sekarang,harga_lama) {
+    function load_detail_ri_obat(no_stok_obat_rawat_i, nama_obat, harga_jual, qty, qty_sekarang, harga_lama) {
 
         var status = "";
         if (harga_jual == "0") {
