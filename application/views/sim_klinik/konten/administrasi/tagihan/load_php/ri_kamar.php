@@ -68,21 +68,21 @@
 
                     $.each(data, function(i, item) {
 
-                        var kode_kamar = data[i].no_kamar_rawat_i;
-                        var nama_kamar = data[i].nama;
-                        var harga_harian_kamar = data[i].harga_harian;
-                        var tipe_kamar = data[i].tipe;
+                        var no_kamar_rawat_i = data[i].no_kamar_rawat_i;
+                        var nama = data[i].nama;
+                        var harga_harian = data[i].harga_harian;
+                        var tipe = data[i].tipe;
 
-                        var reverse = harga_harian_kamar.toString().split('').reverse().join(''),
+                        var reverse = harga_harian.toString().split('').reverse().join(''),
                             ribuan = reverse.match(/\d{1,3}/g);
                         ribuan = ribuan.join('.').split('').reverse().join('');
 
-                        var button = `<a onclick="tambah_detail_ri_kamar('` + kode_kamar +
-                            `','` + nama_kamar + `','` + harga_harian_kamar + `','` + tipe_kamar +
-                            `')" id="` + kode_kamar +
+                        var button = `<a onclick="tambah_detail_ri_kamar('` + no_kamar_rawat_i +
+                            `','` + nama + `','` + harga_harian + `','` + tipe +
+                            `')" id="` + no_kamar_rawat_i +
                             `" class="btn btn-sm btn-dark text-white">Pilih</a>`;
 
-                        table.row.add([no, nama_kamar, tipe_kamar, ribuan, button]);
+                        table.row.add([no, nama, tipe, ribuan, button]);
 
                         no = no + 1;
                     });
@@ -93,15 +93,15 @@
         });
     }
 
-    // Start add_row kode_kamar, nama_kamar, harga_harian_kamar, tipe_kamar
-    function tambah_detail_ri_kamar(kode, nama, harga, tipe) {
+    // Start add_row no_kamar_rawat_i, nama, harga_harian, tipe
+    function tambah_detail_ri_kamar(no_kamar_rawat_i, nama, harga_harian, tipe) {
 
         $('#detail_list_ri_kamar').append(`
 
         <tr id="row` + count_transaksi + `" class="kelas_row">
             <td>
                 ` + nama + ` (` + tipe + `)
-                <input type="hidden" name="no_kamar_rawat_i[]" class="form-control form-control-sm" id="no_kamar_rawat_i` + count_transaksi + `" value="` + kode + `">
+                <input type="hidden" name="no_kamar_rawat_i[]" class="form-control form-control-sm" id="no_kamar_rawat_i` + count_transaksi + `" value="` + no_kamar_rawat_i + `">
             </td>
             <td>  
                 <input readonly type="text" name="tanggal_cek_in_ri_kamar[]" class="form-control form-control-sm text-right" id="tanggal_cek_in_ri_kamar` + count_transaksi + `" required value="` + moment().format('YYYY-MM-DD HH:mm:ss') + `">
@@ -117,7 +117,7 @@
                 <input readonly maxlength="3" type="text" name="jumlah_hari_ri_kamar[]" class="cek_jumlah_hari_ri_kamar form-control form-control-sm text-right" id="jumlah_hari_ri_kamar` + count_transaksi + `" placeholder="@Hari" required value="0">
             </td>
             <td>
-                <input type="text" name="harga_harian_ri_kamar[]" class="form-control form-control-sm rupiah text-right harga_harian_ri_kamar_update" id="harga_harian_ri_kamar` + count_transaksi + `" placeholder="Harga RI Kamar" required value="` + harga + `">
+                <input type="text" name="harga_harian_ri_kamar[]" class="form-control form-control-sm rupiah text-right harga_harian_ri_kamar_update" id="harga_harian_ri_kamar` + count_transaksi + `" placeholder="Harga RI Kamar" required value="` + harga_harian + `">
                 <input type="hidden" name="status_kamar_ri_kamar[]" class="form-control form-control-sm text-right" id="status_kamar_ri_kamar` + count_transaksi + `" required value="Belum Cek Out">
             </td>
             <td>    
