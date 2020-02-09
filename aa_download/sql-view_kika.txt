@@ -57,16 +57,12 @@ ORDER BY no_ref_pelayanan ASC
 -----------------
 
 CREATE VIEW data_obat AS 
-SELECT o.kode_obat , o.nama AS nama_obat , o.min_stok , o.harga_jual , ko.no_kat_obat , ko.nama AS nama_kategori , o.tipe, o.qty
-FROM obat o JOIN kategori_obat ko USING(no_kat_obat)
+SELECT o.kode_obat , o.nama AS nama_obat , o.min_stok , o.harga_jual , ko.no_kat_obat , ko.nama AS nama_kategori , o.tipe, o.stok_gudang,o.stok_rawat_jalan,o.stok_rawat_inap
+FROM obat o LEFT JOIN kategori_obat ko USING(no_kat_obat)
 ORDER BY o.nama
 
 -----------------
 
-CREATE VIEW data_stok_obat_apotek AS 
-SELECT soa.no_stok_obat_a,soa.kode_obat,o.nama as nama_obat,ko.nama as nama_kategori,soa.qty as qty_apotik,o.harga_jual 
-FROM stok_obat_apotik soa JOIN obat o USING (kode_obat) LEFT JOIN kategori_obat ko USING(no_kat_obat)
-ORDER BY o.nama
 
 -----------------
 
@@ -102,8 +98,8 @@ FROM  penjualan_obat_apotik poa JOIN pelayanan pe USING(no_ref_pelayanan) JOIN p
 ORDER BY poa.no_penjualan_obat_a DESC;
 
 CREATE VIEW daftar_penjualan_obat_apotek_detail AS 
-SELECT dpoa.no_detail_penjualan_obat_a , soa.no_stok_obat_a , o.kode_obat , poa.no_penjualan_obat_a , poa.no_ref_pelayanan, o.nama , dpoa.qty , dpoa.harga_jual , dpoa.status_paket , soa.qty AS qty_sekarang ,  o.harga_jual AS harga_lama
-FROM detail_penjualan_obat_apotik dpoa JOIN stok_obat_apotik soa USING(no_stok_obat_a) JOIN obat o USING(kode_obat) JOIN penjualan_obat_apotik poa USING(no_penjualan_obat_a) 
+SELECT dpoa.no_detail_penjualan_obat_a , o.kode_obat , poa.no_penjualan_obat_a , poa.no_ref_pelayanan, o.nama , dpoa.qty , dpoa.harga_jual , dpoa.status_paket , o.stok_rawat_jalan AS qty_sekarang ,  o.harga_jual AS harga_lama
+FROM detail_penjualan_obat_apotik dpoa JOIN obat o USING(kode_obat) JOIN penjualan_obat_apotik poa USING(no_penjualan_obat_a) 
 ORDER BY dpoa.no_detail_penjualan_obat_a ASC
 
 CREATE VIEW daftar_penerimaan_obat AS 
@@ -117,10 +113,6 @@ FROM penerimaan_obat po JOIN supplier su USING(no_supplier) JOIN detail_penerima
 ORDER BY dpo.id_detail_penerimaan_o ASC
 
 
-CREATE VIEW daftar_obat_rawat_inap AS 
-SELECT stok_obat_rawat_inap.no_stok_obat_rawat_i,stok_obat_rawat_inap.kode_obat,stok_obat_rawat_inap.qty,obat.nama as nama_obat,kategori_obat.nama as nama_kategori,obat.harga_jual 
-FROM stok_obat_rawat_inap JOIN obat USING (kode_obat) LEFT JOIN kategori_obat USING(no_kat_obat) 
-ORDER BY nama_obat ASC
 
 ----------
 

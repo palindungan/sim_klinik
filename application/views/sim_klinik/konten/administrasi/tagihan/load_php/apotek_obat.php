@@ -52,7 +52,9 @@
                 }
 
             ],
-            "bDestroy": true
+            "bDestroy": true,
+			"pageLength": 5
+
         });
 
         table.clear();
@@ -70,22 +72,22 @@
 
                     $.each(data, function(i, item) {
 
-                        var no_stok_obat_a = data[i].no_stok_obat_a;
+                        var kode_obat = data[i].kode_obat;
                         var nama_obat = data[i].nama_obat;
                         var nama_kategori = data[i].nama_kategori;
-                        var qty_apotik = data[i].qty_apotik;
+                        var stok_rawat_jalan = data[i].stok_rawat_jalan;
                         var harga_jual = data[i].harga_jual;
 
                         var reverse = harga_jual.toString().split('').reverse().join(''),
                             ribuan = reverse.match(/\d{1,3}/g);
                         ribuan = ribuan.join('.').split('').reverse().join('');
 
-                        var button = `<a onclick="tambah_detail_apotek_obat('` + no_stok_obat_a +
-                            `','` + nama_obat + `','` + harga_jual + `','` + qty_apotik + `')" id="` +
-                            no_stok_obat_a +
+                        var button = `<a onclick="tambah_detail_apotek_obat('` + kode_obat +
+                            `','` + nama_obat + `','` + harga_jual + `','` + stok_rawat_jalan + `')" id="` +
+                            kode_obat +
                             `" class="btn btn-sm btn-dark text-white">Pilih</a>`;
 
-                        table.row.add([no, nama_obat, nama_kategori, qty_apotik,
+                        table.row.add([no, nama_obat, nama_kategori, stok_rawat_jalan,
                             ribuan, button
                         ]);
 
@@ -98,19 +100,19 @@
         });
     }
 
-    // Start add_row no_stok_obat_a, nama_obat, harga_jual, qty
-    function tambah_detail_apotek_obat(no_stok_obat_a, nama_obat, harga_jual, qty_apotik) {
+    // Start add_row kode_obat, nama_obat, harga_jual, qty
+    function tambah_detail_apotek_obat(kode_obat, nama_obat, harga_jual, stok_rawat_jalan) {
 
         $('#detail_list_apotek_obat').append(`
 
         <tr id="row` + count_transaksi + `" class="kelas_row">
             <td>
                 ` + nama_obat + `
-                <input type="hidden" name="no_stok_obat_a[]" class="form-control form-control-sm" id="no_stok_obat_a` + count_transaksi + `" value="` + no_stok_obat_a + `">
+                <input type="hidden" name="kode_obat[]" class="form-control form-control-sm" id="kode_obat` + count_transaksi + `" value="` + kode_obat + `">
             </td>
             <td>
                 <input type="text" name="qty_apotek_obat[]" class="form-control form-control-sm cek_qty_apotek_obat" id="qty_apotek_obat` + count_transaksi + `" placeholder="QTY" value="1" required>
-                <input readonly type="hidden" name="cek_qty_apotek_obat[]" class="form-control form-control-sm" id="cek_qty_apotek_obat` + count_transaksi + `" value="` + qty_apotik + `">
+                <input readonly type="hidden" name="cek_qty_apotek_obat[]" class="form-control form-control-sm" id="cek_qty_apotek_obat` + count_transaksi + `" value="` + stok_rawat_jalan + `">
             </td>
             <td>
                 <div class="btn-icon-split col-12">
