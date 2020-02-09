@@ -15,10 +15,25 @@
 
         public function index()
         {
+            //Harian
+            $day = date("Y-m-d"); //Tanggal Hari ini
             $yesterday = date("Y-m-d",strtotime("-1 day",strtotime(date('Y-m-d'))));
             $data['db_grand_saldo'] =  $this->M_cek_saldo->getCekSaldoByDate($yesterday);
-            
-            $data['ri_hari_ini'] = $this->M_laporan->laporan_ri_hari_ini();
+            $data['ri_harian'] = $this->M_laporan->laporan_ri_harian($day);
+
+            //Bulanan
+            $data['data_bulanan'] = array();
+            $data['ri_bulanan'] = array();
+            $date_month = strtotime(date('Y-m-01'));
+            $last_date_month = strtotime(date('Y-m-t'));
+            while($date_month <= $last_date_month){
+                //Mendapatkan Saldo Terakhir Untuk Perhitungan Hari ini
+                $day = date("Y-m-d",$date_month); //Tanggal Hari ini
+                $yesterday = date("Y-m-d",strtotime("-1 day",$date_month)); //Tanggal Kemarin
+                $data['data_bulanan'][$day] = $this->M_cek_saldo->getCekSaldoByDate($yesterday); //Untuk Perhitungan Hari ini, maka dibutuhkan saldo kemarin
+                $data['ri_bulanan'][$day] = $this->M_laporan->laporan_ri_harian($day);
+                $date_month = strtotime("+1 day", $date_month);
+            }
             $data['ri_bulan_ini'] = $this->M_laporan->laporan_ri_bulan_ini();
             $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/laporan/rawat_inap',$data);
         }

@@ -41,11 +41,9 @@ class M_laporan extends CI_Model
         return $data;
     }
 
-    function laporan_ri_hari_ini()
+    function laporan_ri_harian($day)
     {
-        // Belum Di Where
-        // WHERE DATE(tgl_keluar) = CURDATE()
-        $query = $this->db->query("SELECT * FROM laporan_ri  ORDER BY tgl_keluar ASC")->result();
+        $query = $this->db->query("SELECT * FROM laporan_ri WHERE DATE(tgl_keluar) = '$day' ORDER BY tgl_keluar ASC")->result();
         return $query;
     }
 

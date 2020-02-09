@@ -21,7 +21,7 @@ Class M_cek_saldo extends CI_Model{
         foreach($data as $i){
             $saldo = $i->saldo_ri;
         }
-        return $saldo;
+        return (int) $saldo;
     }
     function input_saldo($data){
         $this->db->insert($this->_table,$data);

@@ -31,7 +31,7 @@
 			<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
 			
 				<a href="<?= base_url(); ?>laporan/rawatJalan/rj_hari_ini" class="btn btn-sm btn-success mb-3">Cetak Hari</a>
-				<!-- <div class="table-responsive">
+				<div class="table-responsive">
 					<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 						<thead>
 							<tr>
@@ -44,7 +44,6 @@
 								<th class="text-center">BP</th>
 								<th class="text-center">LAB</th>
 								<th class="text-center">KIA</th>
-								<th class="text-center">UGD</th>
 								<th class="text-center">Apotik</th>
 								<th class="text-center">Total</th>
 							</tr>
@@ -56,7 +55,7 @@
 						foreach($rj_hari as $row_hari) 
 						{
 						$tanggal_hari = date('d-m-Y',strtotime($row_hari->tgl_pelayanan));
-						$grand_total_hari = $row_hari->gula_darah + $row_hari->asam_urat + $row_hari->cholesterol + $row_hari->total_bp + $row_hari->lab_non_primer + $row_hari->total_kia + $row_hari->total_ugd + $row_hari->total_obat_apotik;
+						$grand_total_hari = $row_hari->gula_darah + $row_hari->asam_urat + $row_hari->cholesterol + $row_hari->total_bp + $row_hari->lab_non_primer + $row_hari->total_kia + $row_hari->total_obat_apotik;
 						?>
 							<tr>
 								<td><?php echo $no_hari++ ?></td>
@@ -68,18 +67,17 @@
 								<td class="text-right"><?php echo ($row_hari->total_bp == NULL) ? '0' : rupiah($row_hari->total_bp);  ?></td>
 								<td class="text-right"><?php echo ($row_hari->lab_non_primer == NULL) ? '0' : rupiah($row_hari->lab_non_primer);  ?></td>
 								<td class="text-right"><?php echo ($row_hari->total_kia == NULL) ? '0' : rupiah($row_hari->total_kia);  ?></td>
-								<td class="text-right"><?php echo ($row_hari->total_ugd == NULL) ? '0' : rupiah($row_hari->total_ugd);  ?></td>
 								<td class="text-right"><?php echo ($row_hari->total_obat_apotik == NULL) ? '0' : rupiah($row_hari->total_obat_apotik);  ?></td>
 								<td class="text-right"><?php echo rupiah($grand_total_hari) ?></td>
 							</tr>
 						<?php } ?>
 						</tbody>
 					</table>
-				</div> -->
+				</div>
 			</div>
 			<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
 				<a href="<?= base_url(); ?>laporan/rawatJalan/rj_bulan_ini" class="btn btn-sm btn-success mb-3">Cetak Bulan</a>
-				<!-- <div class="table-responsive">
+				<div class="table-responsive">
 					<table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
 						<thead>
 							<tr>
@@ -92,7 +90,6 @@
 								<th class="text-center">BP</th>
 								<th class="text-center">LAB</th>
 								<th class="text-center">KIA</th>
-								<th class="text-center">UGD</th>
 								<th class="text-center">Apotik</th>
 								<th class="text-center">Total</th>
 							</tr>
@@ -104,7 +101,7 @@
 						foreach($rj_bulan as $row_bulan) 
 						{
 						$tanggal_bulan = date('d-m-Y',strtotime($row_bulan->tgl_pelayanan));
-						$grand_total_bulan = $row_bulan->gula_darah + $row_bulan->asam_urat + $row_bulan->cholesterol + $row_bulan->total_bp + $row_bulan->lab_non_primer + $row_bulan->total_kia + $row_bulan->total_ugd + $row_bulan->total_obat_apotik;
+						$grand_total_bulan = $row_bulan->gula_darah + $row_bulan->asam_urat + $row_bulan->cholesterol + $row_bulan->total_bp + $row_bulan->lab_non_primer + $row_bulan->total_kia + $row_bulan->total_obat_apotik;
 						?>
 							<tr>
 								<td><?php echo $no_bulan++ ?></td>
@@ -116,14 +113,13 @@
 								<td class="text-right"><?php echo ($row_bulan->total_bp == NULL) ? '0' : rupiah($row_bulan->total_bp);  ?></td>
 								<td class="text-right"><?php echo ($row_bulan->lab_non_primer == NULL) ? '0' : rupiah($row_bulan->lab_non_primer);  ?></td>
 								<td class="text-right"><?php echo ($row_bulan->total_kia == NULL) ? '0' : rupiah($row_bulan->total_kia);  ?></td>
-								<td class="text-right"><?php echo ($row_bulan->total_ugd == NULL) ? '0' : rupiah($row_bulan->total_ugd);  ?></td>
 								<td class="text-right"><?php echo ($row_bulan->total_obat_apotik == NULL) ? '0' : rupiah($row_bulan->total_obat_apotik);  ?></td>
 								<td class="text-right"><?php echo rupiah($grand_total_bulan) ?></td>
 							</tr>
 						<?php } ?>
 						</tbody>
 					</table>
-				</div> -->
+				</div>
 			</div>
 		</div>
 		</div>
