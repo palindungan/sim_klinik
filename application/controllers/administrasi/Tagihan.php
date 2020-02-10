@@ -804,8 +804,47 @@ class Tagihan extends CI_Controller
 
                 $tambah = $this->M_tagihan->input_data('transaksi_rawat_inap', $data);
 
+                // no_kamar_rawat_i tanggal_cek_in_ri_kamar tanggal_cek_out_ri_kamar jumlah_hari_ri_kamar harga_harian_ri_kamar status_kamar_ri_kamar
+                if (isset($_POST['no_kamar_rawat_i'])) {
+
+                    // menambah detail transaksi baru 
+                    for ($i = 0; $i < count($this->input->post('no_kamar_rawat_i')); $i++) {
+
+                        $no_kamar_rawat_i = $this->input->post('no_kamar_rawat_i')[$i];
+
+                        $tanggal_cek_in_ri_kamar = $this->input->post('tanggal_cek_in_ri_kamar')[$i];
+                        $tanggal_cek_out_ri_kamar = $this->input->post('tanggal_cek_out_ri_kamar')[$i];
+
+                        $jumlah_hari_temp = $this->input->post('jumlah_hari_ri_kamar')[$i];
+                        $jumlah_hari = (float) $jumlah_hari_temp;
+
+                        $harga_harian_temp = $this->input->post('harga_harian_ri_kamar')[$i];
+                        $harga_harian = (float) preg_replace("/[^0-9]/", "", $harga_harian_temp);
+
+                        $status_kamar_ri_kamar = $this->input->post('status_kamar_ri_kamar')[$i];
+
+                        $sub_total_harga = 0;
+                        if ($status_kamar_ri_kamar == "Sudah Cek Out") {
+                            $sub_total_harga = $jumlah_hari * $harga_harian;
+                        }
+
+                        $data = array(
+                            'no_transaksi_rawat_i' => $no_transaksi_rawat_i,
+                            'no_kamar_rawat_i' => $no_kamar_rawat_i,
+                            'tanggal_cek_in' => $tanggal_cek_in_ri_kamar,
+                            'tanggal_cek_out' => $tanggal_cek_out_ri_kamar,
+                            'jumlah_hari' => $jumlah_hari,
+                            'harga_harian' => $harga_harian,
+                            'sub_total_harga' => $sub_total_harga,
+                            'status_kamar' => $status_kamar_ri_kamar
+                        );
+
+                        $tambah = $this->M_tagihan->input_data('detail_transaksi_rawat_inap_kamar', $data);
+                    }
+                }
+
                 // no_stok_obat_rawat_i harga_ri_obat qty_ri_obat
-                if (isset($_POST['no_stok_obat_rawat_i']) && isset($_POST['harga_ri_obat']) && isset($_POST['qty_ri_obat'])) {
+                if (isset($_POST['no_stok_obat_rawat_i'])) {
 
                     // menambah detail transaksi baru 
                     for ($i = 0; $i < count($this->input->post('no_stok_obat_rawat_i')); $i++) {
@@ -854,7 +893,7 @@ class Tagihan extends CI_Controller
                 }
 
                 // no_rawat_inap_t harga_ri_tindakan
-                if (isset($_POST['no_rawat_inap_t']) && isset($_POST['harga_ri_tindakan']) && isset($_POST['qty_ri_tindakan'])) {
+                if (isset($_POST['no_rawat_inap_t'])) {
 
                     // menambah detail transaksi baru 
                     for ($i = 0; $i < count($this->input->post('no_rawat_inap_t')); $i++) {
@@ -875,45 +914,6 @@ class Tagihan extends CI_Controller
                         );
 
                         $tambah = $this->M_tagihan->input_data('detail_transaksi_rawat_inap_tindakan', $data);
-                    }
-                }
-
-                // no_kamar_rawat_i tanggal_cek_in_ri_kamar tanggal_cek_out_ri_kamar jumlah_hari_ri_kamar harga_harian_ri_kamar status_kamar_ri_kamar
-                if (isset($_POST['no_kamar_rawat_i']) && isset($_POST['harga_harian_ri_kamar']) && isset($_POST['jumlah_hari_ri_kamar'])) {
-
-                    // menambah detail transaksi baru 
-                    for ($i = 0; $i < count($this->input->post('no_kamar_rawat_i')); $i++) {
-
-                        $no_kamar_rawat_i = $this->input->post('no_kamar_rawat_i')[$i];
-
-                        $tanggal_cek_in_ri_kamar = $this->input->post('tanggal_cek_in_ri_kamar')[$i];
-                        $tanggal_cek_out_ri_kamar = $this->input->post('tanggal_cek_out_ri_kamar')[$i];
-
-                        $jumlah_hari_temp = $this->input->post('jumlah_hari_ri_kamar')[$i];
-                        $jumlah_hari = (float) $jumlah_hari_temp;
-
-                        $harga_harian_temp = $this->input->post('harga_harian_ri_kamar')[$i];
-                        $harga_harian = (float) preg_replace("/[^0-9]/", "", $harga_harian_temp);
-
-                        $status_kamar_ri_kamar = $this->input->post('status_kamar_ri_kamar')[$i];
-
-                        $sub_total_harga = 0;
-                        if ($status_kamar_ri_kamar == "Sudah Cek Out") {
-                            $sub_total_harga = $jumlah_hari * $harga_harian;
-                        }
-
-                        $data = array(
-                            'no_transaksi_rawat_i' => $no_transaksi_rawat_i,
-                            'no_kamar_rawat_i' => $no_kamar_rawat_i,
-                            'tanggal_cek_in' => $tanggal_cek_in_ri_kamar,
-                            'tanggal_cek_out' => $tanggal_cek_out_ri_kamar,
-                            'jumlah_hari' => $jumlah_hari,
-                            'harga_harian' => $harga_harian,
-                            'sub_total_harga' => $sub_total_harga,
-                            'status_kamar' => $status_kamar_ri_kamar
-                        );
-
-                        $tambah = $this->M_tagihan->input_data('detail_transaksi_rawat_inap_kamar', $data);
                     }
                 }
             }
