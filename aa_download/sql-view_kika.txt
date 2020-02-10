@@ -102,7 +102,7 @@ FROM  penjualan_obat_apotik poa JOIN pelayanan pe USING(no_ref_pelayanan) JOIN p
 ORDER BY poa.no_penjualan_obat_a DESC;
 
 CREATE VIEW daftar_penjualan_obat_apotek_detail AS 
-SELECT dpoa.no_detail_penjualan_obat_a , soa.no_stok_obat_a , o.kode_obat , o.nama , dpoa.qty , dpoa.harga_jual , dpoa.status_paket , soa.qty AS qty_sekarang , poa.no_penjualan_obat_a , poa.no_ref_pelayanan, o.harga_jual AS harga_lama
+SELECT dpoa.no_detail_penjualan_obat_a , soa.no_stok_obat_a , o.kode_obat , poa.no_penjualan_obat_a , poa.no_ref_pelayanan, o.nama , dpoa.qty , dpoa.harga_jual , dpoa.status_paket , soa.qty AS qty_sekarang ,  o.harga_jual AS harga_lama
 FROM detail_penjualan_obat_apotik dpoa JOIN stok_obat_apotik soa USING(no_stok_obat_a) JOIN obat o USING(kode_obat) JOIN penjualan_obat_apotik poa USING(no_penjualan_obat_a) 
 ORDER BY dpoa.no_detail_penjualan_obat_a ASC
 

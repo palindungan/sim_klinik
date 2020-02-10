@@ -69,19 +69,19 @@
                     $.each(data, function(i, item) {
 
                         var no_ambulance = data[i].no_ambulance;
-                        var tujuan_ambulance = data[i].tujuan;
-                        var harga_ambulance = data[i].harga;
+                        var tujuan = data[i].tujuan;
+                        var harga = data[i].harga;
 
-                        var reverse = harga_ambulance.toString().split('').reverse().join(''),
+                        var reverse = harga.toString().split('').reverse().join(''),
                             ribuan = reverse.match(/\d{1,3}/g);
                         ribuan = ribuan.join('.').split('').reverse().join('');
 
                         var button = `<a href="#" onclick="tambah_detail_ambulance('` + no_ambulance +
-                            `','` + tujuan_ambulance + `','` + harga_ambulance + `')" id="` +
+                            `','` + tujuan + `','` + harga + `')" id="` +
                             no_ambulance +
                             `" class="btn btn-sm btn-dark text-white">Pilih</a>`;
 
-                        table.row.add([no, tujuan_ambulance, ribuan, button]);
+                        table.row.add([no, tujuan, ribuan, button]);
 
                         no = no + 1;
                     });
@@ -93,23 +93,23 @@
     }
 
     // Start add_row
-    function tambah_detail_ambulance(no_ambulance, tujuan_ambulance, harga_ambulance) {
+    function tambah_detail_ambulance(no_ambulance, tujuan, harga) {
 
         $('#detail_list_ambulance').append(`
 
         <tr id="row` + count_transaksi + `" class="kelas_row">
             <td>
-                ` + tujuan_ambulance + ` (Ambulance)
+                ` + tujuan + ` (Ambulance)
                 <input type="hidden" name="no_ambulance[]" class="form-control form-control-sm" id="no_ambulance` + count_transaksi + `" value="` + no_ambulance + `">
             </td>
             <td>
                 <input type="text" name="qty_ambulance[]" class="form-control form-control-sm" id="qty_ambulance` + count_transaksi + `" placeholder="QTY" value="1" readonly required>
             </td>
             <td>
-                <input type="text" name="harga_ambulance[]" class="form-control form-control-sm rupiah text-right harga_ambulance_update" id="harga_ambulance` + count_transaksi + `" placeholder="Harga Ambulance" required value="` + harga_ambulance + `">
+                <input type="text" name="harga_ambulance[]" class="form-control form-control-sm rupiah text-right harga_ambulance_update" id="harga_ambulance` + count_transaksi + `" placeholder="Harga Ambulance" required value="` + harga + `">
             </td>
             <td>  
-                <input type="text" class="form-control form-control-sm rupiah text-right" id="harga_sub_ambulance` + count_transaksi + `" readonly required value="` + harga_ambulance + `"></td>
+                <input type="text" class="form-control form-control-sm rupiah text-right" id="harga_sub_ambulance` + count_transaksi + `" readonly required value="` + harga + `"></td>
             <td>
                 <div class="form-group col-sm-2">
                     <a id="` + count_transaksi + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris_ambulance">
