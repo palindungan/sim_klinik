@@ -52,7 +52,9 @@
                 }
 
             ],
-            "bDestroy": true
+            "bDestroy": true,
+			"pageLength": 5
+
         });
 
         table.clear();

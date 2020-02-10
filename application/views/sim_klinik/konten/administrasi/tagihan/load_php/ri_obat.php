@@ -51,7 +51,9 @@
                 }
 
             ],
-            "bDestroy": true
+            "bDestroy": true,
+			"pageLength": 5
+
         });
 
         table.clear();
@@ -72,7 +74,7 @@
                         var no_stok_obat_rawat_i = data[i].no_stok_obat_rawat_i;
                         var nama_obat = data[i].nama_obat;
                         var nama_kategori = data[i].nama_kategori;
-                        var qty = data[i].qty;
+                        var qty = data[i].stok_rawat_inap;
                         var harga_jual = data[i].harga_jual;
 
                         var reverse = harga_jual.toString().split('').reverse().join(''),

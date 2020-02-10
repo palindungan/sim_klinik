@@ -101,11 +101,11 @@ class Penerimaan extends CI_Controller
                     $qty_obat = 0;
 
                     foreach ($ambil_obat as $obat) {
-                        $qty_obat = $obat->qty;
+                        $qty_obat = $obat->stok_gudang;
                     }
 
                     $data_obat = array(
-                        'qty' => $qty_obat + $qty
+                        'stok_gudang' => $qty_obat + $qty
                     );
 
                     $this->M_penerimaan->update_data($where_ko, 'obat', $data_obat);

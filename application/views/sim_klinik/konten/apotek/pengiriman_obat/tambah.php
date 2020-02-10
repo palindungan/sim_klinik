@@ -187,7 +187,7 @@
 						var kode_obat = data[i].kode_obat;
 						var nama_obat = data[i].nama_obat;
 						var nama_kategori = data[i].nama_kategori;
-						var qty_sekarang = data[i].qty;
+						var qty_sekarang = data[i].stok_gudang;
 
 						var button = `<a onclick="tambah_detail_obat_gudang('` + kode_obat +
 							`','` + nama_obat + `','` + nama_kategori + `','` + qty_sekarang + `')" id="` + kode_obat + `" class="btn btn-sm btn-dark text-white">Pilih</a>`;
