@@ -66,8 +66,10 @@ class Pendaftaran extends CI_Controller
         $this->M_pendaftaran->input_data('pelayanan', $data_pelayanan);
 
         // query cek data
-        $db = $this->db->query("SELECT COUNT(*) as jml_rm FROM pasien WHERE no_rm='$no_rm'")->row();
-        $rm_db = $db->jml_rm;
+        $where_no_rm = array(
+            'no_rm' => $no_rm
+        );
+        $cek_master_pasien = $this->M_pasien->get_data('master_pasien', $where_no_rm);
 
         $data_pasien = array(
             'no_rm' => $this->input->post('no_rm'),
@@ -77,14 +79,12 @@ class Pendaftaran extends CI_Controller
             'nama_kk' => strtoupper($this->input->post('nama_kk')),
         );
 
-        if ($rm_db == 0) {
-
-            // jika tidak ada data yang sama di db maka menambahkan pasien baru
-            $this->M_pendaftaran->input_data('pasien', $data_pasien);
-        } else { // jika ada data yang sama di db maka mengupdate pasien
-
-            // update data
-            // $this->M_pendaftaran->input_data('pasien', $data_pasien);
+        if ($cek_master_pasien->num_rows() > 0) {
+            // jika data sudah ada dalam master pasien maka akan update
+            $update = $this->M_pasien->update_data($where_no_rm, 'master_pasien', $data_pasien);
+        } else {
+            // jika data tidak ada dalam master pasien maka akan input baru
+            $tambah = $this->M_pasien->input_data('master_pasien', $data_pasien);
         }
 
         // logic antrian
