@@ -49,7 +49,10 @@ ORDER BY lap.no_antrian ASC;
 
 -----------------
 
-CREATE VIEW pelayanan_pasien_default AS SELECT * FROM pelayanan JOIN pasien USING(no_rm) ORDER BY no_ref_pelayanan ASC
+CREATE VIEW pelayanan_pasien_default AS 
+SELECT * 
+FROM pelayanan JOIN pasien USING(no_rm) 
+ORDER BY no_ref_pelayanan ASC
 
 -----------------
 

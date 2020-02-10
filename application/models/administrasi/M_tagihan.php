@@ -14,6 +14,7 @@ class M_tagihan extends CI_Model
         $this->db->order_by('no_ref_pelayanan', 'DESC');
         return $this->db->get();
     }
+
     function getRekapByNoRM($noRM)
     {
         $this->db->select("no_ref_pelayanan,pasien.no_rm,pasien.nama,tgl_pelayanan,tipe_pelayanan");
@@ -24,8 +25,9 @@ class M_tagihan extends CI_Model
         return $this->db->get();
     }
 
-    function deleteTrashData(){
-        $date = date("Y-m-d", strtotime( '-4 days' ) );
+    function deleteTrashData()
+    {
+        $date = date("Y-m-d", strtotime('-4 days'));
         $this->db->query("DELETE FROM pelayanan WHERE tgl_pelayanan<='$date' AND grand_total='0'");
     }
 
@@ -62,11 +64,13 @@ class M_tagihan extends CI_Model
     function get_select($no_ref, $nama, $kolom)
     {
         $this->db->select('no_ref_pelayanan,nama');
-        $this->db->from('data_pelayanan_pasien_default');
+        $this->db->from('pelayanan_pasien_default');
+
         $this->db->group_start();  //group start
         $this->db->like('no_ref_pelayanan', $no_ref);
         $this->db->or_like('nama', $nama);
         $this->db->group_end();  //group ed
+
         $where = array(
             'status' => 'belum_finish'
         );
@@ -95,7 +99,7 @@ class M_tagihan extends CI_Model
         if ($q->num_rows() > 0) {
             foreach ($q->result() as $k) {
                 $tmp = ((int) $k->kd_max) + 1;
-                $kd = sprintf("%04s", $tmp);
+                $kd = sprintf('%0' . $digit . 's', $tmp);
             }
         } else {
             $kd = "0001";
@@ -116,7 +120,7 @@ class M_tagihan extends CI_Model
         if ($q->num_rows() > 0) {
             foreach ($q->result() as $k) {
                 $tmp = ((int) $k->kd_max) + 1;
-                $kd = sprintf("%04s", $tmp);
+                $kd = sprintf('%0' . $digit . 's', $tmp);
             }
         } else {
             $kd = "0001";
@@ -137,7 +141,7 @@ class M_tagihan extends CI_Model
         if ($q->num_rows() > 0) {
             foreach ($q->result() as $k) {
                 $tmp = ((int) $k->kd_max) + 1;
-                $kd = sprintf("%04s", $tmp);
+                $kd = sprintf('%0' . $digit . 's', $tmp);
             }
         } else {
             $kd = "0001";
@@ -158,7 +162,7 @@ class M_tagihan extends CI_Model
         if ($q->num_rows() > 0) {
             foreach ($q->result() as $k) {
                 $tmp = ((int) $k->kd_max) + 1;
-                $kd = sprintf("%04s", $tmp);
+                $kd = sprintf('%0' . $digit . 's', $tmp);
             }
         } else {
             $kd = "0001";
@@ -179,7 +183,7 @@ class M_tagihan extends CI_Model
         if ($q->num_rows() > 0) {
             foreach ($q->result() as $k) {
                 $tmp = ((int) $k->kd_max) + 1;
-                $kd = sprintf("%04s", $tmp);
+                $kd = sprintf('%0' . $digit . 's', $tmp);
             }
         } else {
             $kd = "0001";
@@ -201,7 +205,7 @@ class M_tagihan extends CI_Model
         if ($q->num_rows() > 0) {
             foreach ($q->result() as $k) {
                 $tmp = ((int) $k->kd_max) + 1;
-                $kd = sprintf("%04s", $tmp);
+                $kd = sprintf('%0' . $digit . 's', $tmp);
             }
         } else {
             $kd = "0001";
