@@ -1,3 +1,8 @@
+---- untuk view pasien ----
+CREATE VIEW pasien AS
+SELECT mp.no_rm , mp.nama , mp.alamat , mp.tgl_lahir , k.nama  AS nama_kk
+FROM master_pasien mp JOIN kk k USING(nokk);
+
 CREATE VIEW antrian_balai_pengobatan_semua AS 
 SELECT ab.kode_antrian_bp , pa.nama , ab.status , RIGHT(ab.kode_antrian_bp, 3) AS no_antrian
 FROM antrian_bp ab JOIN pelayanan pe USING(no_ref_pelayanan) JOIN pasien pa USING(no_rm)

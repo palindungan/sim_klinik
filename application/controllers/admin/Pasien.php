@@ -1,7 +1,6 @@
 <?php
 class Pasien extends CI_Controller
 {
-
     function __construct()
     {
         parent::__construct();
@@ -18,6 +17,7 @@ class Pasien extends CI_Controller
         $this->load->model('administrasi/M_tagihan');
         $this->load->model('loket/M_pendaftaran');
     }
+
     public function index()
     {
         $data['no_rm'] = $this->M_pendaftaran->get_no_rm(); // generate
@@ -38,7 +38,7 @@ class Pasien extends CI_Controller
         $data['pasien'] = $pasien->no_rm . '-' . $pasien->nama;
         $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/admin/pasien/list_kunjung', $data);
     }
-    
+
     public function detail($id)
     {
         $data['pelayanan'] = $this->M_pasien->detail_pelayanan('pelayanan', $id)->row();
@@ -182,10 +182,11 @@ class Pasien extends CI_Controller
             'no_rm' => $this->input->post('no_rm'),
             'nama' => strtoupper($this->input->post('nama')),
             'alamat' => strtoupper($this->input->post('alamat')),
-            'umur' => $this->input->post('umur')
+            'tgl_lahir' => $this->input->post('tgl_lahir'),
+            'nama_kk' => $this->input->post('nama_kk')
         );
 
-        $this->M_pasien->input_data('pasien', $data_pasien);
+        $this->M_pasien->input_data('master_pasien', $data_pasien);
 
         $this->session->set_flashdata('success', 'Ditambahkan');
         redirect('admin/pasien');
@@ -197,10 +198,11 @@ class Pasien extends CI_Controller
             'no_rm' => $id
         );
 
-        $data['row'] = $this->M_pasien->get_data('pasien', $where)->result();
+        $data['row'] = $this->M_pasien->get_data('master_pasien', $where)->result();
 
         $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/admin/pasien/edit', $data);
     }
+
     public function update()
     {
         $where = array(
@@ -209,10 +211,11 @@ class Pasien extends CI_Controller
         $data = array(
             'nama' => strtoupper($this->input->post('nama')),
             'alamat' => strtoupper($this->input->post('alamat')),
-            'umur' => $this->input->post('umur')
+            'tgl_lahir' => $this->input->post('tgl_lahir'),
+            'nama_kk' => $this->input->post('nama_kk')
         );
 
-        $this->M_pasien->update_data($where, 'pasien', $data);
+        $this->M_pasien->update_data($where, 'master_pasien', $data);
 
         $this->session->set_flashdata('update', 'Diubah');
         redirect('admin/pasien');

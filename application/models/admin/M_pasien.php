@@ -1,8 +1,9 @@
 <?php
 class M_pasien extends CI_Model
 {
-    private $_table = 'pasien';
-    function getDataPasienFastLoad(){
+    private $_table = 'master_pasien';
+    function getDataPasienFastLoad()
+    {
         require('assets/sb_admin_2/vendor/fast_load_datatable/ssp.class.php');
 
         // Table's primary key
@@ -11,9 +12,9 @@ class M_pasien extends CI_Model
         $columns = array(
             array('db' => 'no_rm', 'dt' => 0),
             array('db' => 'nama',  'dt' => 1),
-            array('db' => 'umur',  'dt' => 2),
-            array('db' => 'alamat',  'dt' => 3),
-            
+            array('db' => 'alamat',  'dt' => 2),
+            array('db' => 'tgl_lahir',  'dt' => 3),
+            array('db' => 'nama_kk',  'dt' => 4),
         );
 
         // koneksiDatatable ambil dari custom helper
@@ -26,8 +27,6 @@ class M_pasien extends CI_Model
     {
         return $this->db->get($table);
     }
-
-    
 
     function input_data($table, $data)
     {
@@ -54,28 +53,27 @@ class M_pasien extends CI_Model
         return $status;
     }
 
-    function list_kunjung($table,$id)
+    function list_kunjung($table, $id)
     {
-        return $this->db->order_by('tgl_pelayanan', 'DESC')->get_where($table, array('no_rm' => $id),10);
+        return $this->db->order_by('tgl_pelayanan', 'DESC')->get_where($table, array('no_rm' => $id), 10);
     }
 
     function tampil_pasien($table)
     {
-        return $this->db->order_by('tgl_pelayanan','DESC')->get($table);
+        return $this->db->order_by('tgl_pelayanan', 'DESC')->get($table);
     }
 
-    function ambil_nama($table,$no_rm)
+    function ambil_nama($table, $no_rm)
     {
-        return $this->db->get_where($table,array('no_rm' => $no_rm));
+        return $this->db->get_where($table, array('no_rm' => $no_rm));
     }
 
-    function detail_pasien($table,$id)
+    function detail_pasien($table, $id)
     {
-        return $this->db->get_where($table,array('no_rm' => $id));
+        return $this->db->get_where($table, array('no_rm' => $id));
     }
-    function detail_pelayanan($table,$id)
+    function detail_pelayanan($table, $id)
     {
-        return $this->db->get_where($table,array('no_ref_pelayanan' => $id));
+        return $this->db->get_where($table, array('no_ref_pelayanan' => $id));
     }
-    
 }
