@@ -749,11 +749,11 @@ class Tagihan extends CI_Controller
 
                         $no_rawat_inap_t = $this->input->post('no_rawat_inap_t')[$i];
 
-                        $harga_jual_temp = $this->input->post('harga_ri_tindakan')[$i];
-                        $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
-
                         $qty_temp = $this->input->post('qty_ri_tindakan')[$i];
                         $qty = (int) $qty_temp;
+
+                        $harga_jual_temp = $this->input->post('harga_ri_tindakan')[$i];
+                        $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
 
                         $data = array(
                             'no_transaksi_rawat_i' => $no_transaksi_rawat_i,
@@ -916,11 +916,11 @@ class Tagihan extends CI_Controller
 
                         $no_rawat_inap_t = $this->input->post('no_rawat_inap_t')[$i];
 
-                        $harga_jual_temp = $this->input->post('harga_ri_tindakan')[$i];
-                        $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
-
                         $qty_temp = $this->input->post('qty_ri_tindakan')[$i];
                         $qty = (int) $qty_temp;
+
+                        $harga_jual_temp = $this->input->post('harga_ri_tindakan')[$i];
+                        $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
 
                         $data = array(
                             'no_transaksi_rawat_i' => $no_transaksi_rawat_i,

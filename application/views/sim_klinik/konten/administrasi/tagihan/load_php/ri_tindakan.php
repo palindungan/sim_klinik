@@ -68,20 +68,20 @@
 
                     $.each(data, function(i, item) {
 
-                        var kode_tindakan = data[i].no_rawat_inap_t;
-                        var nama_tindakan = data[i].nama;
-                        var harga_tindakan = data[i].harga;
+                        var no_rawat_inap_t = data[i].no_rawat_inap_t;
+                        var nama = data[i].nama;
+                        var harga = data[i].harga;
 
-                        var reverse = harga_tindakan.toString().split('').reverse().join(''),
+                        var reverse = harga.toString().split('').reverse().join(''),
                             ribuan = reverse.match(/\d{1,3}/g);
                         ribuan = ribuan.join('.').split('').reverse().join('');
 
-                        var button = `<a onclick="tambah_detail_ri_tindakan('` + kode_tindakan +
-                            `','` + nama_tindakan + `','` + harga_tindakan + `')" id="` +
-                            kode_tindakan +
+                        var button = `<a onclick="tambah_detail_ri_tindakan('` + no_rawat_inap_t +
+                            `','` + nama + `','` + harga + `')" id="` +
+                            no_rawat_inap_t +
                             `" class="btn btn-sm btn-dark text-white">Pilih</a>`;
 
-                        table.row.add([no, nama_tindakan, ribuan, button]);
+                        table.row.add([no, nama, ribuan, button]);
 
                         no = no + 1;
                     });
@@ -92,15 +92,15 @@
         });
     }
 
-    // Start add_row kode, nama, harga, status
-    function tambah_detail_ri_tindakan(kode, nama, harga) {
+    // Start add_row no_rawat_inap_t, nama, harga, status
+    function tambah_detail_ri_tindakan(no_rawat_inap_t, nama, harga) {
 
         $('#detail_list_ri_tindakan').append(`
 
         <tr id="row` + count_transaksi + `" class="kelas_row">
             <td>
                 ` + nama + `
-                <input type="hidden" name="no_rawat_inap_t[]" class="form-control form-control-sm" id="no_rawat_inap_t` + count_transaksi + `" value="` + kode + `">
+                <input type="hidden" name="no_rawat_inap_t[]" class="form-control form-control-sm" id="no_rawat_inap_t` + count_transaksi + `" value="` + no_rawat_inap_t + `">
             </td>
             <td>
                 <input type="text" name="qty_ri_tindakan[]" class="form-control form-control-sm cek_qty_ri_tindakan" id="qty_ri_tindakan` + count_transaksi + `" placeholder="QTY" value="1" required>
