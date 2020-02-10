@@ -40,7 +40,7 @@ class Tagihan extends CI_Controller
 
         $data_tbl['daftar_detail_pelayanan_ambulan'] =  $this->M_tagihan->get_data('daftar_detail_pelayanan_ambulan', $where)->result();
         $data_tbl['daftar_penjualan_obat_apotek_detail'] =  $this->M_tagihan->get_data('daftar_penjualan_obat_apotek_detail', $where)->result();
-        $data_tbl['daftar_penjualan_obat_rawat_inap_detail'] =  $this->M_tagihan->get_data('daftar_penjualan_obat_rawat_inap_detail', $where)->result();
+        // $data_tbl['daftar_penjualan_obat_rawat_inap_detail'] =  $this->M_tagihan->get_data('daftar_penjualan_obat_rawat_inap_detail', $where)->result();
         $data_tbl['daftar_detail_tindakan_rawat_inap'] =  $this->M_tagihan->get_data('daftar_detail_tindakan_rawat_inap', $where)->result();
         $data_tbl['daftar_detail_kamar_rawat_inap'] =  $this->M_tagihan->get_data('daftar_detail_kamar_rawat_inap', $where)->result();
         $data_tbl['daftar_detail_tindakan_lab_transaksi'] =  $this->M_tagihan->get_data('daftar_detail_tindakan_lab_transaksi', $where)->result();
