@@ -71,7 +71,7 @@
 
                     $.each(data, function(i, item) {
 
-                        var no_stok_obat_rawat_i = data[i].no_stok_obat_rawat_i;
+                        var kode_obat_ri = data[i].kode_obat;
                         var nama_obat = data[i].nama_obat;
                         var nama_kategori = data[i].nama_kategori;
                         var qty = data[i].stok_rawat_inap;
@@ -81,7 +81,7 @@
                             ribuan = reverse.match(/\d{1,3}/g);
                         ribuan = ribuan.join('.').split('').reverse().join('');
 
-                        var button = `<a onclick="tambah_detail_ri_obat('` + no_stok_obat_rawat_i + `','` + nama_obat + `','` + harga_jual + `','` + qty + `')" id="` + no_stok_obat_rawat_i + `" class="btn btn-sm btn-dark text-white">Pilih</a>`;
+                        var button = `<a onclick="tambah_detail_ri_obat('` + kode_obat_ri + `','` + nama_obat + `','` + harga_jual + `','` + qty + `')" id="` + kode_obat_ri + `" class="btn btn-sm btn-dark text-white">Pilih</a>`;
 
                         table.row.add([no, nama_obat, nama_kategori, qty,
                             ribuan, button
@@ -96,15 +96,15 @@
         });
     }
 
-    // Start add_row no_stok_obat_rawat_i, nama_obat, harga_jual, qty
-    function tambah_detail_ri_obat(no_stok_obat_rawat_i, nama_obat, harga_jual, qty) {
+    // Start add_row kode_obat_ri, nama_obat, harga_jual, qty
+    function tambah_detail_ri_obat(kode_obat_ri, nama_obat, harga_jual, qty) {
 
         $('#detail_list_ri_obat').append(`
 
         <tr id="row` + count_transaksi + `" class="kelas_row">
             <td>
                 ` + nama_obat + `
-                <input type="hidden" name="no_stok_obat_rawat_i[]" class="form-control form-control-sm" id="no_stok_obat_rawat_i` + count_transaksi + `" value="` + no_stok_obat_rawat_i + `">
+                <input type="hidden" name="kode_obat_ri[]" class="form-control form-control-sm" id="kode_obat_ri` + count_transaksi + `" value="` + kode_obat_ri + `">
             </td>
             <td>
                 <input type="text" name="qty_ri_obat[]" class="form-control form-control-sm cek_qty_ri_obat" id="qty_ri_obat` + count_transaksi + `" placeholder="QTY" value="1" required>
