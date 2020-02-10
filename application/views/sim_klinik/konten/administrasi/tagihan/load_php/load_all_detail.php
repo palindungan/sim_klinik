@@ -45,7 +45,7 @@
 
                     $.each(data_apotek_penjualan_obat, function(i, item) {
 
-                        var no_stok_obat_a = data_apotek_penjualan_obat[i].no_stok_obat_a;
+                        var kode_obat = data_apotek_penjualan_obat[i].kode_obat;
                         var nama = data_apotek_penjualan_obat[i].nama;
                         var harga_jual = data_apotek_penjualan_obat[i].harga_jual;
                         var qty = data_apotek_penjualan_obat[i].qty;
@@ -53,7 +53,7 @@
                         var status_paket = data_apotek_penjualan_obat[i].status_paket;
                         var harga_lama = data_apotek_penjualan_obat[i].harga_lama;
 
-                        load_detail_apotek_obat(no_stok_obat_a, nama, harga_jual, qty, qty_sekarang, status_paket, harga_lama);
+                        load_detail_apotek_obat(kode_obat, nama, harga_jual, qty, qty_sekarang, status_paket, harga_lama);
                     });
 
                     update_sub_total_apotek_obat();
@@ -243,7 +243,7 @@
         jumlah_detail_transaksi = jumlah_detail_transaksi + 1;
     }
 
-    function load_detail_apotek_obat(no_stok_obat_a, nama, harga_jual, qty, qty_sekarang, status_paket, harga_lama) {
+    function load_detail_apotek_obat(kode_obat, nama, harga_jual, qty, qty_sekarang, status_paket, harga_lama) {
 
         var status = "";
         if (status_paket == "Ya") {
@@ -255,7 +255,7 @@
             <tr id="row` + count_transaksi + `" class="kelas_row">
                 <td>
                     ` + nama + `
-                    <input type="hidden" name="no_stok_obat_a[]" class="form-control form-control-sm" id="no_stok_obat_a` + count_transaksi + `" value="` + no_stok_obat_a + `">
+                    <input type="hidden" name="kode_obat[]" class="form-control form-control-sm" id="kode_obat` + count_transaksi + `" value="` + kode_obat + `">
                 </td>
                 <td>
                     <input type="text" name="qty_apotek_obat[]" class="form-control form-control-sm cek_qty_apotek_obat" id="qty_apotek_obat` + count_transaksi + `" placeholder="QTY" value="` + qty + `" required>

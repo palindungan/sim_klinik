@@ -20,7 +20,7 @@ class Penjualan_obat extends CI_Controller
 
     public function tampil_daftar_obat()
     {
-        $data_tbl['tbl_data'] = $this->M_penjualan_obat->tampil_data('data_stok_obat_apotek')->result();
+        $data_tbl['tbl_data'] = $this->M_penjualan_obat->tampil_data('data_obat')->result();
 
         $data = json_encode($data_tbl);
 
