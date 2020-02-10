@@ -25906,7 +25906,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFuSXNm6mXi//w="
 							},
-							"name": "no_user_pegawai"
+							"name": "no_user_pegawai",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -25914,7 +25915,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFuSXNm6mXi//w="
 							},
-							"name": "tgl_pelayanan"
+							"name": "tgl_pelayanan",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -25922,7 +25924,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFuSXNm6mXi//w="
 							},
-							"name": "status"
+							"name": "status",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -25930,7 +25933,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFuSXNm6mXi//w="
 							},
-							"name": "tipe_pelayanan"
+							"name": "tipe_pelayanan",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -25938,7 +25942,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFuSXNm6mXi//w="
 							},
-							"name": "grand_total"
+							"name": "grand_total",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -25946,7 +25951,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFuSXNm6mXi//w="
 							},
-							"name": "tgl_keluar"
+							"name": "tgl_keluar",
+							"type": ""
 						}
 					]
 				},
@@ -26221,7 +26227,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFuSX7JCHACmnk="
 							},
-							"name": "status_paket"
+							"name": "status_paket",
+							"type": ""
 						}
 					]
 				},
@@ -28116,7 +28123,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFuSe0QcyorQ0o="
 							},
-							"name": "status_paket"
+							"name": "status_paket",
+							"type": ""
 						}
 					]
 				},
@@ -28760,7 +28768,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFwD7BNyz8/z4U="
 							},
-							"name": "id_detail_penerimaan_o"
+							"name": "id_detail_penerimaan_o",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -29278,7 +29287,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFwKwI0FnueZO0="
 							},
-							"name": "id_temp_saldo"
+							"name": "id_temp_saldo",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -29286,7 +29296,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFwKwI0FnueZO0="
 							},
-							"name": "tanggal"
+							"name": "tanggal",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -29294,7 +29305,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFwKwI0FnueZO0="
 							},
-							"name": "saldo_ri"
+							"name": "saldo_ri",
+							"type": ""
 						}
 					]
 				}
