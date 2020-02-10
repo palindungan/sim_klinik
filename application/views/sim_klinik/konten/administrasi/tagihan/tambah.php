@@ -55,11 +55,11 @@
 
                 <input type="text" readonly name="sub_total_ambulance" class="angka_default form-control form-control-sm rupiah text-right" id="sub_total_ambulance" placeholder="Sub Total Ambulance">
                 <input type="text" readonly name="sub_total_apotek_obat" class="angka_default form-control form-control-sm rupiah text-right" id="sub_total_apotek_obat" placeholder="Sub Total Obat Apotek">
+                <input type="text" readonly name="sub_total_ri_kamar" class="angka_default form-control form-control-sm rupiah text-right" id="sub_total_ri_kamar" placeholder="Sub Total RI Kamar">
                 <input type="text" readonly name="sub_total_bp_tindakan" class="angka_default form-control form-control-sm rupiah text-right" id="sub_total_bp_tindakan" placeholder="Sub Total BP Tindakan">
                 <input type="text" readonly name="sub_total_kia_tindakan" class="angka_default form-control form-control-sm rupiah text-right" id="sub_total_kia_tindakan" placeholder="Sub Total KIA Tindakan">
                 <input type="text" readonly name="sub_total_lab_tindakan" class="angka_default form-control form-control-sm rupiah text-right" id="sub_total_lab_tindakan" placeholder="Sub Total LAB Tindakan">
                 <input type="text" readonly name="sub_total_ugd_tindakan" class="angka_default form-control form-control-sm rupiah text-right" id="sub_total_ugd_tindakan" placeholder="Sub Total UGD Tindakan">
-                <input type="text" readonly name="sub_total_ri_kamar" class="angka_default form-control form-control-sm rupiah text-right" id="sub_total_ri_kamar" placeholder="Sub Total RI Kamar">
                 <input type="text" readonly name="sub_total_ri_obat" class="angka_default form-control form-control-sm rupiah text-right" id="sub_total_ri_obat" placeholder="Sub Total RI Obat">
                 <input type="text" readonly name="sub_total_ri_tindakan" class="angka_default form-control form-control-sm rupiah text-right" id="sub_total_ri_tindakan" placeholder="Sub Total RI Tindakan">
                 <input type="text" readonly name="sub_total_lain" class="angka_default form-control form-control-sm rupiah text-right" id="sub_total_lain" placeholder="Sub Total Lain">
@@ -277,6 +277,18 @@
             sub_total_ri_kamar_v = parseInt(sub_total_ri_kamar.split('.').join(''));
         }
 
+        var sub_total_ri_obat = $('#sub_total_ri_obat').val();
+        var sub_total_ri_obat_v = 0;
+        if (sub_total_ri_obat != "") {
+            sub_total_ri_obat_v = parseInt(sub_total_ri_obat.split('.').join(''));
+        }
+
+        var sub_total_ri_tindakan = $('#sub_total_ri_tindakan').val();
+        var sub_total_ri_tindakan_v = 0;
+        if (sub_total_ri_tindakan != "") {
+            sub_total_ri_tindakan_v = parseInt(sub_total_ri_tindakan.split('.').join(''));
+        }
+
         var sub_total_bp_tindakan = $('#sub_total_bp_tindakan').val();
         var sub_total_bp_tindakan_v = 0;
         if (sub_total_bp_tindakan != "") {
@@ -299,18 +311,6 @@
         var sub_total_ugd_tindakan_v = 0;
         if (sub_total_ugd_tindakan != "") {
             sub_total_ugd_tindakan_v = parseInt(sub_total_ugd_tindakan.split('.').join(''));
-        }
-
-        var sub_total_ri_obat = $('#sub_total_ri_obat').val();
-        var sub_total_ri_obat_v = 0;
-        if (sub_total_ri_obat != "") {
-            sub_total_ri_obat_v = parseInt(sub_total_ri_obat.split('.').join(''));
-        }
-
-        var sub_total_ri_tindakan = $('#sub_total_ri_tindakan').val();
-        var sub_total_ri_tindakan_v = 0;
-        if (sub_total_ri_tindakan != "") {
-            sub_total_ri_tindakan_v = parseInt(sub_total_ri_tindakan.split('.').join(''));
         }
 
         var sub_total_lain = $('#sub_total_lain').val();

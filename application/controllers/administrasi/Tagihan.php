@@ -129,6 +129,88 @@ class Tagihan extends CI_Controller
         echo $total;
     }
 
+    public function ambil_total_ri_kamar()
+    {
+        $sub_total = 0;
+        $total = 0;
+
+        if (isset($_POST['no_kamar_rawat_i']) && isset($_POST['harga_harian_ri_kamar']) && isset($_POST['jumlah_hari_ri_kamar'])) {
+
+            for ($i = 0; $i < count($this->input->post('no_kamar_rawat_i')); $i++) {
+
+                $harga_jual_temp = $this->input->post('harga_harian_ri_kamar')[$i];
+                $harga_jual = (float) preg_replace("/[^0-9]/", "", $harga_jual_temp);
+
+                if ($this->input->post('status_kamar_ri_kamar')[$i] == "Belum Cek Out") {
+                    $harga_jual = 0;
+                }
+
+                $jumlah_hari_temp = $this->input->post('jumlah_hari_ri_kamar')[$i];
+                $jumlah_hari = (float) $jumlah_hari_temp;
+
+                $perhitungan = $harga_jual * $jumlah_hari;
+
+                $sub_total = $sub_total + $perhitungan;
+            }
+
+            $total = $sub_total;
+        }
+
+        echo $total;
+    }
+
+    public function ambil_total_ri_obat()
+    {
+        $sub_total = 0;
+        $total = 0;
+
+        if (isset($_POST['no_stok_obat_rawat_i']) && isset($_POST['harga_ri_obat']) && isset($_POST['qty_ri_obat'])) {
+
+            for ($i = 0; $i < count($this->input->post('no_stok_obat_rawat_i')); $i++) {
+
+                $harga_jual_temp = $this->input->post('harga_ri_obat')[$i];
+                $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
+
+                $qty_temp = $this->input->post('qty_ri_obat')[$i];
+                $qty = (int) $qty_temp;
+
+                $perhitungan = $harga_jual * $qty;
+
+                $sub_total = $sub_total + $perhitungan;
+            }
+
+            $total = $sub_total;
+        }
+
+        echo $total;
+    }
+
+    public function ambil_total_ri_tindakan()
+    {
+        $sub_total = 0;
+        $total = 0;
+
+        if (isset($_POST['no_rawat_inap_t']) && isset($_POST['harga_ri_tindakan']) && isset($_POST['qty_ri_tindakan'])) {
+
+            for ($i = 0; $i < count($this->input->post('no_rawat_inap_t')); $i++) {
+
+                $harga_jual_temp = $this->input->post('harga_ri_tindakan')[$i];
+                $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
+
+                $qty_temp = $this->input->post('qty_ri_tindakan')[$i];
+                $qty = (int) $qty_temp;
+
+                $perhitungan = $harga_jual * $qty;
+
+                $sub_total = $sub_total + $perhitungan;
+            }
+
+            $total = $sub_total;
+        }
+
+        echo $total;
+    }
+
     public function ambil_total_bp_tindakan()
     {
         $sub_total = 0;
@@ -246,88 +328,6 @@ class Tagihan extends CI_Controller
                 $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
 
                 $qty_temp = $this->input->post('qty_lain')[$i];
-                $qty = (int) $qty_temp;
-
-                $perhitungan = $harga_jual * $qty;
-
-                $sub_total = $sub_total + $perhitungan;
-            }
-
-            $total = $sub_total;
-        }
-
-        echo $total;
-    }
-
-    public function ambil_total_ri_kamar()
-    {
-        $sub_total = 0;
-        $total = 0;
-
-        if (isset($_POST['no_kamar_rawat_i']) && isset($_POST['harga_harian_ri_kamar']) && isset($_POST['jumlah_hari_ri_kamar'])) {
-
-            for ($i = 0; $i < count($this->input->post('no_kamar_rawat_i')); $i++) {
-
-                $harga_jual_temp = $this->input->post('harga_harian_ri_kamar')[$i];
-                $harga_jual = (float) preg_replace("/[^0-9]/", "", $harga_jual_temp);
-
-                if ($this->input->post('status_kamar_ri_kamar')[$i] == "Belum Cek Out") {
-                    $harga_jual = 0;
-                }
-
-                $jumlah_hari_temp = $this->input->post('jumlah_hari_ri_kamar')[$i];
-                $jumlah_hari = (float) $jumlah_hari_temp;
-
-                $perhitungan = $harga_jual * $jumlah_hari;
-
-                $sub_total = $sub_total + $perhitungan;
-            }
-
-            $total = $sub_total;
-        }
-
-        echo $total;
-    }
-
-    public function ambil_total_ri_obat()
-    {
-        $sub_total = 0;
-        $total = 0;
-
-        if (isset($_POST['no_stok_obat_rawat_i']) && isset($_POST['harga_ri_obat']) && isset($_POST['qty_ri_obat'])) {
-
-            for ($i = 0; $i < count($this->input->post('no_stok_obat_rawat_i')); $i++) {
-
-                $harga_jual_temp = $this->input->post('harga_ri_obat')[$i];
-                $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
-
-                $qty_temp = $this->input->post('qty_ri_obat')[$i];
-                $qty = (int) $qty_temp;
-
-                $perhitungan = $harga_jual * $qty;
-
-                $sub_total = $sub_total + $perhitungan;
-            }
-
-            $total = $sub_total;
-        }
-
-        echo $total;
-    }
-
-    public function ambil_total_ri_tindakan()
-    {
-        $sub_total = 0;
-        $total = 0;
-
-        if (isset($_POST['no_rawat_inap_t']) && isset($_POST['harga_ri_tindakan']) && isset($_POST['qty_ri_tindakan'])) {
-
-            for ($i = 0; $i < count($this->input->post('no_rawat_inap_t')); $i++) {
-
-                $harga_jual_temp = $this->input->post('harga_ri_tindakan')[$i];
-                $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
-
-                $qty_temp = $this->input->post('qty_ri_tindakan')[$i];
                 $qty = (int) $qty_temp;
 
                 $perhitungan = $harga_jual * $qty;
