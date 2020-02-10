@@ -33,9 +33,9 @@
             $spreadsheet = new Spreadsheet;
             // Mengatur Lebar Kolom
             $spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth(5);
-            $spreadsheet->getActiveSheet()->getColumnDimension('B')->setWidth(12);
-            $spreadsheet->getActiveSheet()->getColumnDimension('C')->setWidth(30);
-            $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(15);
+            $spreadsheet->getActiveSheet()->getColumnDimension('B')->setWidth(30);
+            $spreadsheet->getActiveSheet()->getColumnDimension('C')->setWidth(15);
+            $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(10);
             $spreadsheet->getActiveSheet()->getColumnDimension('E')->setWidth(10);
             $spreadsheet->getActiveSheet()->getColumnDimension('F')->setWidth(10);
             $spreadsheet->getActiveSheet()->getColumnDimension('G')->setWidth(10);
@@ -43,15 +43,15 @@
             $spreadsheet->getActiveSheet()->getColumnDimension('I')->setWidth(10);
             $spreadsheet->getActiveSheet()->getColumnDimension('J')->setWidth(10);
             $spreadsheet->getActiveSheet()->getColumnDimension('K')->setWidth(10);
-            $spreadsheet->getActiveSheet()->getColumnDimension('L')->setWidth(10);
-            $spreadsheet->getActiveSheet()->getColumnDimension('M')->setWidth(17);
+            $spreadsheet->getActiveSheet()->getColumnDimension('L')->setWidth(17);
+            $spreadsheet->getActiveSheet()->getColumnDimension('M')->setWidth(10);
             $spreadsheet->getActiveSheet()->getColumnDimension('N')->setWidth(10);
             $spreadsheet->getActiveSheet()->getColumnDimension('O')->setWidth(10);
-            $spreadsheet->getActiveSheet()->getColumnDimension('P')->setWidth(10);
+            $spreadsheet->getActiveSheet()->getColumnDimension('P')->setWidth(15);
             $spreadsheet->getActiveSheet()->getColumnDimension('Q')->setWidth(10);
             $spreadsheet->getActiveSheet()->getColumnDimension('R')->setWidth(10);
             $spreadsheet->getActiveSheet()->getColumnDimension('S')->setWidth(10);
-            $spreadsheet->getActiveSheet()->getColumnDimension('T')->setWidth(10);
+            $spreadsheet->getActiveSheet()->getColumnDimension('T')->setWidth(15);
             $spreadsheet->getActiveSheet()->getColumnDimension('U')->setWidth(15);
 
             $spreadsheet->getActiveSheet()->getRowDimension('1')->setRowHeight(35);
@@ -219,6 +219,7 @@
                 $ekg = (int) $row->ekg;
                 $lain_lain = (int) $row->lain_lain;
                 $obat_oral_ri = (int) $row->obat_oral_ri;
+                
                 if($row->nama_pasien == ""){
                     $pemasukan_bersih = 0;
                 }
@@ -237,8 +238,8 @@
 
                 // // di dalam loop
                 $spreadsheet->getActiveSheet()->getStyle('A')->getAlignment()->setHorizontal('center');
-                $spreadsheet->getActiveSheet()->getStyle('B')->getAlignment()->setHorizontal('center');
-                $spreadsheet->getActiveSheet()->getStyle('C')->getAlignment()->setHorizontal('left');
+                $spreadsheet->getActiveSheet()->getStyle('B')->getAlignment()->setHorizontal('left');
+                $spreadsheet->getActiveSheet()->getStyle('C')->getAlignment()->setHorizontal('right');
                 $spreadsheet->getActiveSheet()->getStyle('D')->getAlignment()->setHorizontal('right');
                 $spreadsheet->getActiveSheet()->getStyle('E')->getAlignment()->setHorizontal('right');
                 $spreadsheet->getActiveSheet()->getStyle('F')->getAlignment()->setHorizontal('right');
@@ -261,7 +262,7 @@
                 if($row->tipe_pelayanan == "Rawat Inap"){
 
                 $spreadsheet->setActiveSheetIndex(0)
-                ->setCellValue('A' . $kolom, $nomor)
+                ->setCellValue('A' . $kolom, $nomor++)
                 ->setCellValue('B' . $kolom, $row->nama_pasien)
                 ->setCellValue('C' . $kolom, number_format($uang_masuk, 0, ".", ","))
                 ->setCellValue('D' . $kolom, number_format($gizi, 0, ".", ","))
@@ -364,61 +365,138 @@
                     $GT_visite += $visite;
                     $GT_klinik_bersih += $klinik_bersih;
 
-                $kolom++;
-                $nomor++;
+                
             }
 
             if($jumlah_pasien_igd > 0)
             {
                 $spreadsheet->setActiveSheetIndex(0)
-                ->setCellValue('A' . $kolom, $nomor)
-                ->setCellValue('B' . $kolom,'IGD')
-                ->setCellValue('C' . $kolom, number_format($IGD_uang_masuk, 0, ".", ","))
-                ->setCellValue('D' . $kolom, number_format($IGD_gizi, 0, ".", ","))
-                ->setCellValue('E' . $kolom, number_format($IGD_gda, 0, ".", ","))
-                ->setCellValue('F' . $kolom, number_format($IGD_lab, 0, ".", ","))
-                ->setCellValue('G' . $kolom, number_format($IGD_biaya_ambulance, 0, ".", ","))
-                ->setCellValue('H' . $kolom, number_format($IGD_total_kia, 0, ".", ","))
-                ->setCellValue('I' . $kolom, number_format($IGD_ekg, 0, ".", ","))
-                ->setCellValue('J' . $kolom, number_format($IGD_lain_lain, 0, ".", ","))
-                ->setCellValue('K' . $kolom, number_format($IGD_obat_oral_ri, 0, ".", ","))
-                ->setCellValue('L' . $kolom, number_format($IGD_pemasukan_bersih, 0, ".", ","))
-                ->setCellValue('M' . $kolom, '')
-                ->setCellValue('N' . $kolom, '')
-                ->setCellValue('O' . $kolom, '')
-                ->setCellValue('P' . $kolom, '')
-                ->setCellValue('Q' . $kolom, number_format($IGD_japel))
-                ->setCellValue('R' . $kolom, number_format($IGD_visite, 0, ".", ","))
-                ->setCellValue('S' . $kolom, number_format($IGD_klinik_bersih, 0, ".", ","))
-                ->setCellValue('T' . $kolom, '')
-                ->setCellValue('U' . $kolom, number_format($grand_saldo += $IGD_pemasukan_bersih, 0 , ".", ","));
+                ->setCellValue('A' . ( (int) $kolom + 0), $nomor++)
+                ->setCellValue('B' . ( (int) $kolom + 0),'IGD')
+                ->setCellValue('C' . ( (int) $kolom + 0), number_format($IGD_uang_masuk, 0, ".", ","))
+                ->setCellValue('D' . ( (int) $kolom + 0), number_format($IGD_gizi, 0, ".", ","))
+                ->setCellValue('E' . ( (int) $kolom + 0), number_format($IGD_gda, 0, ".", ","))
+                ->setCellValue('F' . ( (int) $kolom + 0), number_format($IGD_lab, 0, ".", ","))
+                ->setCellValue('G' . ( (int) $kolom + 0), number_format($IGD_biaya_ambulance, 0, ".", ","))
+                ->setCellValue('H' . ( (int) $kolom + 0), number_format($IGD_total_kia, 0, ".", ","))
+                ->setCellValue('I' . ( (int) $kolom + 0), number_format($IGD_ekg, 0, ".", ","))
+                ->setCellValue('J' . ( (int) $kolom + 0), number_format($IGD_lain_lain, 0, ".", ","))
+                ->setCellValue('K' . ( (int) $kolom + 0), number_format($IGD_obat_oral_ri, 0, ".", ","))
+                ->setCellValue('L' . ( (int) $kolom + 0), number_format($IGD_pemasukan_bersih, 0, ".", ","))
+                ->setCellValue('M' . ( (int) $kolom + 0), '')
+                ->setCellValue('N' . ( (int) $kolom + 0), '')
+                ->setCellValue('O' . ( (int) $kolom + 0), '')
+                ->setCellValue('P' . ( (int) $kolom + 0), '')
+                ->setCellValue('Q' . ( (int) $kolom + 0), number_format($IGD_japel, 0, ".", ","))
+                ->setCellValue('R' . ( (int) $kolom + 0), number_format($IGD_visite, 0, ".", ","))
+                ->setCellValue('S' . ( (int) $kolom + 0), number_format($IGD_klinik_bersih, 0, ".", ","))
+                ->setCellValue('T' . ( (int) $kolom + 0), '')
+                ->setCellValue('U' . ( (int) $kolom + 0), number_format($grand_saldo += $IGD_pemasukan_bersih, 0 , ".", ","));
             }
 
             if($jumlah_pasien_rj > 0)
             {
                 $spreadsheet->setActiveSheetIndex(0)
-                ->setCellValue('A' . $kolom, $nomor)
-                ->setCellValue('B' . $kolom,'BP/Rawat Inap')
-                ->setCellValue('C' . $kolom, number_format($RJ_uang_masuk, 0, ".", ","))
-                ->setCellValue('D' . $kolom, number_format($RJ_gizi, 0, ".", ","))
-                ->setCellValue('E' . $kolom, number_format($RJ_gda, 0, ".", ","))
-                ->setCellValue('F' . $kolom, number_format($RJ_lab, 0, ".", ","))
-                ->setCellValue('G' . $kolom, number_format($RJ_biaya_ambulance, 0, ".", ","))
-                ->setCellValue('H' . $kolom, number_format($RJ_total_kia, 0, ".", ","))
-                ->setCellValue('I' . $kolom, number_format($RJ_ekg, 0, ".", ","))
-                ->setCellValue('J' . $kolom, number_format($RJ_lain_lain, 0, ".", ","))
-                ->setCellValue('K' . $kolom, number_format($RJ_obat_oral_ri, 0, ".", ","))
-                ->setCellValue('L' . $kolom, number_format($RJ_pemasukan_bersih, 0, ".", ","))
-                ->setCellValue('M' . $kolom, '')
-                ->setCellValue('N' . $kolom, '')
-                ->setCellValue('O' . $kolom, '')
-                ->setCellValue('P' . $kolom, '')
-                ->setCellValue('Q' . $kolom, number_format($RJ_japel))
-                ->setCellValue('R' . $kolom, number_format($RJ_visite, 0, ".", ","))
-                ->setCellValue('S' . $kolom, number_format($RJ_klinik_bersih, 0, ".", ","))
-                ->setCellValue('T' . $kolom, '')
-                ->setCellValue('U' . $kolom, number_format($grand_saldo += $RJ_pemasukan_bersih, 0 , ".", ","));
+                ->setCellValue('A' . ( (int) $kolom + 1), $nomor++)
+                ->setCellValue('B' . ( (int) $kolom + 1),'BP/Rawat Inap')
+                ->setCellValue('C' . ( (int) $kolom + 1), number_format($RJ_uang_masuk, 0, ".", ","))
+                ->setCellValue('D' . ( (int) $kolom + 1), number_format($RJ_gizi, 0, ".", ","))
+                ->setCellValue('E' . ( (int) $kolom + 1), number_format($RJ_gda, 0, ".", ","))
+                ->setCellValue('F' . ( (int) $kolom + 1), number_format($RJ_lab, 0, ".", ","))
+                ->setCellValue('G' . ( (int) $kolom + 1), number_format($RJ_biaya_ambulance, 0, ".", ","))
+                ->setCellValue('H' . ( (int) $kolom + 1), number_format($RJ_total_kia, 0, ".", ","))
+                ->setCellValue('I' . ( (int) $kolom + 1), number_format($RJ_ekg, 0, ".", ","))
+                ->setCellValue('J' . ( (int) $kolom + 1), number_format($RJ_lain_lain, 0, ".", ","))
+                ->setCellValue('K' . ( (int) $kolom + 1), number_format($RJ_obat_oral_ri, 0, ".", ","))
+                ->setCellValue('L' . ( (int) $kolom + 1), number_format($RJ_pemasukan_bersih, 0, ".", ","))
+                ->setCellValue('M' . ( (int) $kolom + 1), '')
+                ->setCellValue('N' . ( (int) $kolom + 1), '')
+                ->setCellValue('O' . ( (int) $kolom + 1), '')
+                ->setCellValue('P' . ( (int) $kolom + 1), '')
+                ->setCellValue('Q' . ( (int) $kolom + 1), number_format($RJ_japel, 0, ".", ","))
+                ->setCellValue('R' . ( (int) $kolom + 1), number_format($RJ_visite, 0, ".", ","))
+                ->setCellValue('S' . ( (int) $kolom + 1), number_format($RJ_klinik_bersih, 0, ".", ","))
+                ->setCellValue('T' . ( (int) $kolom + 1), '')
+                ->setCellValue('U' . ( (int) $kolom + 1), number_format($grand_saldo += $RJ_pemasukan_bersih, 0 , ".", ","));
             }
+
+            if($jumlah_trx_akomodasi > 0){
+                $spreadsheet->setActiveSheetIndex(0)
+                ->setCellValue('A' . ( (int) $kolom + 2), $nomor++)
+                ->setCellValue('B' . ( (int) $kolom + 2),'Akomodasi')
+                ->setCellValue('C' . ( (int) $kolom + 2), '')
+                ->setCellValue('D' . ( (int) $kolom + 2), '')
+                ->setCellValue('E' . ( (int) $kolom + 2), '')
+                ->setCellValue('F' . ( (int) $kolom + 2), '')
+                ->setCellValue('G' . ( (int) $kolom + 2), '')
+                ->setCellValue('H' . ( (int) $kolom + 2), '')
+                ->setCellValue('I' . ( (int) $kolom + 2), '')
+                ->setCellValue('J' . ( (int) $kolom + 2), '')
+                ->setCellValue('K' . ( (int) $kolom + 2), '')
+                ->setCellValue('L' . ( (int) $kolom + 2), '')
+                ->setCellValue('M' . ( (int) $kolom + 2), number_format($AK_akomodasi_obat, 0, ".", ","))
+                ->setCellValue('N' . ( (int) $kolom + 2), number_format($AK_akomodasi_alkes, 0, ".", ","))
+                ->setCellValue('O' . ( (int) $kolom + 2), number_format($AK_akomodasi_lain, 0, ".", ","))
+                ->setCellValue('P' . ( (int) $kolom + 2), '')
+                ->setCellValue('Q' . ( (int) $kolom + 2), '')
+                ->setCellValue('R' . ( (int) $kolom + 2), '')
+                ->setCellValue('S' . ( (int) $kolom + 2), '')
+                ->setCellValue('T' . ( (int) $kolom + 2), '')
+                ->setCellValue('U' . ( (int) $kolom + 2), number_format($grand_saldo -= ($AK_akomodasi_obat + $AK_akomodasi_alkes + $AK_akomodasi_lain), 0 , ".", ","));
+            }
+
+            if($jumlah_trx_setoran > 0){
+                $spreadsheet->setActiveSheetIndex(0)
+                ->setCellValue('B' . ( (int) $kolom + 3), 'SETORAN')
+                ->setCellValue('C' . ( (int) $kolom + 3), '')
+                ->setCellValue('D' . ( (int) $kolom + 3), '')
+                ->setCellValue('E' . ( (int) $kolom + 3), '')
+                ->setCellValue('F' . ( (int) $kolom + 3), '')
+                ->setCellValue('G' . ( (int) $kolom + 3), '')
+                ->setCellValue('H' . ( (int) $kolom + 3), '')
+                ->setCellValue('I' . ( (int) $kolom + 3), '')
+                ->setCellValue('J' . ( (int) $kolom + 3), '')
+                ->setCellValue('K' . ( (int) $kolom + 3), '')
+                ->setCellValue('L' . ( (int) $kolom + 3), '')
+                ->setCellValue('M' . ( (int) $kolom + 3), '')
+                ->setCellValue('N' . ( (int) $kolom + 3), '')
+                ->setCellValue('O' . ( (int) $kolom + 3), '')
+                ->setCellValue('P' . ( (int) $kolom + 3), '')
+                ->setCellValue('Q' . ( (int) $kolom + 3), '')
+                ->setCellValue('R' . ( (int) $kolom + 3), '')
+                ->setCellValue('S' . ( (int) $kolom + 3), '')
+                ->setCellValue('T' . ( (int) $kolom + 3), number_format($SETORAN_jumlah_setoran, 0 , ".", ","))
+                ->setCellValue('U' . ( (int) $kolom + 3), number_format($grand_saldo -= $SETORAN_jumlah_setoran, 0 , ".", ","));
+            }
+
+            for($i=0;$i<$jumlah_pasien_paket_rj;$i++){
+                $GT_uang_masuk += $uang_masuk_bp_ke_ri;
+                $GT_obat_oral_ri += $potong_obat_oral; 
+                $GT_pemasukan_bersih += $pemasukan_bersih_bp_ke_ri; 
+            }
+
+            $spreadsheet->setActiveSheetIndex(0)
+            ->setCellValue('B' . ( (int) $kolom + 4), 'TOTAL')
+            ->setCellValue('C' . ( (int) $kolom + 4), number_format($GT_uang_masuk, 0 , ".", ","))
+            ->setCellValue('D' . ( (int) $kolom + 4), number_format($GT_gizi, 0 , ".", ","))
+            ->setCellValue('E' . ( (int) $kolom + 4), number_format($GT_gda, 0 , ".", ","))
+            ->setCellValue('F' . ( (int) $kolom + 4), number_format($GT_lab, 0 , ".", ","))
+            ->setCellValue('G' . ( (int) $kolom + 4), number_format($GT_biaya_ambulance, 0 , ".", ","))
+            ->setCellValue('H' . ( (int) $kolom + 4), number_format($GT_total_kia, 0 , ".", ","))
+            ->setCellValue('I' . ( (int) $kolom + 4), number_format($GT_ekg, 0 , ".", ","))
+            ->setCellValue('J' . ( (int) $kolom + 4), number_format($GT_lain_lain, 0 , ".", ","))
+            ->setCellValue('K' . ( (int) $kolom + 4), number_format($GT_obat_oral_ri, 0 , ".", ","))
+            ->setCellValue('L' . ( (int) $kolom + 4), number_format($GT_pemasukan_bersih, 0 , ".", ","))
+            ->setCellValue('M' . ( (int) $kolom + 4), number_format($GT_akomodasi_obat, 0 , ".", ","))
+            ->setCellValue('N' . ( (int) $kolom + 4), number_format($GT_akomodasi_alkes, 0 , ".", ","))
+            ->setCellValue('O' . ( (int) $kolom + 4), number_format($GT_akomodasi_lain, 0 , ".", ","))
+            ->setCellValue('P' . ( (int) $kolom + 4), number_format($grand_saldo, 0 , ".", ","))
+            ->setCellValue('Q' . ( (int) $kolom + 4), number_format($GT_japel, 0 , ".", ","))
+            ->setCellValue('R' . ( (int) $kolom + 4), number_format($GT_visite, 0 , ".", ","))
+            ->setCellValue('S' . ( (int) $kolom + 4), number_format($GT_klinik_bersih, 0 , ".", ","))
+            ->setCellValue('T' . ( (int) $kolom + 4), number_format($GT_jumlah_setoran, 0 , ".", ","))
+            ->setCellValue('U' . ( (int) $kolom + 4), '');
+
             
             // $sisa_hari = $total_pemasukan_bersih - $total_akomodasi_obat - $total_akomodasi_alkes -$total_akomodasi_lain; 
             // $spreadsheet->setActiveSheetIndex(0)
@@ -427,7 +505,7 @@
             // ->setCellValue('P' . ((int) $kolom + 0), number_format($total_akomodasi_lain, 0, ".", ","))
             // ->setCellValue('Q' . ((int) $kolom + 0), number_format($sisa_hari, 0, ".", ","));
             // // ->setCellValue('Q' . ((int) $kolom + 0), number_format($total_pemasukan_bersih - $total_akomodasi_obat - $total_akomodasi_alkes -$total_akomodasi_lain, 0, ".", ","));
-    
+        $kolom++;
             
 
 

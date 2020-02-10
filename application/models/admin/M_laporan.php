@@ -44,8 +44,8 @@ class M_laporan extends CI_Model
     function laporan_ri_hari_ini()
     {
         // Belum Di Where
-        // 
-        $query = $this->db->query("SELECT * FROM laporan_ri WHERE DATE(tgl_keluar) = CURDATE() ORDER BY tgl_keluar ASC")->result();
+        // WHERE DATE(tgl_keluar) = CURDATE()
+        $query = $this->db->query("SELECT * FROM laporan_ri  ORDER BY tgl_keluar ASC")->result();
         return $query;
     }
 
