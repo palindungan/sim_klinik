@@ -1492,11 +1492,11 @@ class Tagihan extends CI_Controller
             // $grand_total = preg_replace("/[^0-9]/", "", $this->input->post('grand_total'));
             // $new_saldo = $temp_saldo + $grand_total;
 
-            // $data_update_status_pelayanan = array(
-            //     'status' => 'finish',
-            //     'tgl_keluar' => date('Y-m-d H:i:s')
-            // );
-            // $this->M_tagihan->update_data($where_no_ref_pelayanan, 'pelayanan', $data_update_status_pelayanan);
+            $data_update_status_pelayanan = array(
+                'status' => 'finish',
+                'tgl_keluar' => date('Y-m-d H:i:s')
+            );
+            $this->M_tagihan->update_data($where_no_ref_pelayanan, 'pelayanan', $data_update_status_pelayanan);
 
             $base_url = base_url('administrasi/tagihan/cetak/' . $no_ref_pelayanan);
             echo "<script type='text/javascript'>";
