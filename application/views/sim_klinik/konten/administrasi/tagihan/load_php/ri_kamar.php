@@ -100,7 +100,7 @@
 
         <tr id="row` + count_transaksi + `" class="kelas_row">
             <td>
-                ` + nama + ` (` + tipe + `)
+                ` + nama + `
                 <input type="hidden" name="no_kamar_rawat_i[]" class="form-control form-control-sm" id="no_kamar_rawat_i` + count_transaksi + `" value="` + no_kamar_rawat_i + `">
             </td>
             <td>  

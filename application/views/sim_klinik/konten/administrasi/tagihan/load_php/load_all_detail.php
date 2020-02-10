@@ -59,6 +59,28 @@
                     update_sub_total_apotek_obat();
                 }
 
+                // ambil data detail daftar_detail_kamar_rawat_inap
+                let data_ri_kamar = obj['daftar_detail_kamar_rawat_inap'];
+                if (data_ri_kamar != '') {
+
+                    $.each(data_ri_kamar, function(i, item) {
+
+                        var no_kamar_rawat_i = data_ri_kamar[i].no_kamar_rawat_i;
+                        var nama = data_ri_kamar[i].nama;
+                        var tanggal_cek_in = data_ri_kamar[i].tanggal_cek_in;
+                        var tanggal_cek_out = data_ri_kamar[i].tanggal_cek_out;
+                        var status_kamar = data_ri_kamar[i].status_kamar;
+                        var jumlah_hari = data_ri_kamar[i].jumlah_hari;
+                        var harga_harian = data_ri_kamar[i].harga_harian;
+                        var sub_total_harga = data_ri_kamar[i].sub_total_harga;
+                        var tipe = "";
+
+                        load_detail_ri_kamar(no_kamar_rawat_i, nama, tanggal_cek_in, tanggal_cek_out, status_kamar, jumlah_hari, harga_harian, sub_total_harga, tipe);
+                    });
+
+                    update_sub_total_ri_kamar();
+                }
+
                 // ambil data detail daftar_penjualan_obat_rawat_inap_detail
                 let data_ri_penjualan_obat = obj['daftar_penjualan_obat_rawat_inap_detail'];
                 if (data_ri_penjualan_obat != '') {
@@ -95,26 +117,38 @@
                     update_sub_total_ri_tindakan();
                 }
 
-                // ambil data detail daftar_detail_kamar_rawat_inap
-                let data_ri_kamar = obj['daftar_detail_kamar_rawat_inap'];
-                if (data_ri_kamar != '') {
+                // ambil data detail daftar_detail_tindakan_bp_transaksi
+                let data_bp_tindakan = obj['daftar_detail_tindakan_bp_transaksi'];
+                if (data_bp_tindakan != '') {
 
-                    $.each(data_ri_kamar, function(i, item) {
+                    $.each(data_bp_tindakan, function(i, item) {
 
-                        var no_kamar_rawat_i = data_ri_kamar[i].no_kamar_rawat_i;
-                        var nama = data_ri_kamar[i].nama;
-                        var tanggal_cek_in = data_ri_kamar[i].tanggal_cek_in;
-                        var tanggal_cek_out = data_ri_kamar[i].tanggal_cek_out;
-                        var status_kamar = data_ri_kamar[i].status_kamar;
-                        var jumlah_hari = data_ri_kamar[i].jumlah_hari;
-                        var harga_harian = data_ri_kamar[i].harga_harian;
-                        var sub_total_harga = data_ri_kamar[i].sub_total_harga;
-                        var tipe = data_ri_kamar[i].tipe;
+                        var no_bp_t = data_bp_tindakan[i].no_bp_t;
+                        var nama = data_bp_tindakan[i].nama;
+                        var qty = data_bp_tindakan[i].qty;
+                        var harga_detail = data_bp_tindakan[i].harga_detail;
 
-                        load_detail_ri_kamar(no_kamar_rawat_i, nama, tanggal_cek_in, tanggal_cek_out, status_kamar, jumlah_hari, harga_harian, sub_total_harga, tipe);
+                        load_detail_bp_tindakan(no_bp_t, nama, qty, harga_detail);
                     });
 
-                    update_sub_total_ri_kamar();
+                    update_sub_total_bp_tindakan();
+                }
+
+                // ambil data detail daftar_detail_tindakan_kia_transaksi
+                let data_kia_tindakan = obj['daftar_detail_tindakan_kia_transaksi'];
+                if (data_kia_tindakan != '') {
+
+                    $.each(data_kia_tindakan, function(i, item) {
+
+                        var no_kia_t = data_kia_tindakan[i].no_kia_t;
+                        var nama = data_kia_tindakan[i].nama;
+                        var qty = data_kia_tindakan[i].qty;
+                        var harga = data_kia_tindakan[i].harga;
+
+                        load_detail_kia_tindakan(no_kia_t, nama, qty, harga);
+                    });
+
+                    update_sub_total_kia_tindakan();
                 }
 
                 // ambil data detail daftar_detail_tindakan_lab_transaksi
@@ -134,23 +168,6 @@
                     update_sub_total_lab_tindakan();
                 }
 
-                // ambil data detail daftar_detail_tindakan_bp_transaksi
-                let data_bp_tindakan = obj['daftar_detail_tindakan_bp_transaksi'];
-                if (data_bp_tindakan != '') {
-
-                    $.each(data_bp_tindakan, function(i, item) {
-
-                        var no_bp_t = data_bp_tindakan[i].no_bp_t;
-                        var nama = data_bp_tindakan[i].nama;
-                        var qty = data_bp_tindakan[i].qty;
-                        var harga_detail = data_bp_tindakan[i].harga_detail;
-
-                        load_detail_bp_tindakan(no_bp_t, nama, qty, harga_detail);
-                    });
-
-                    update_sub_total_bp_tindakan();
-                }
-
                 // ambil data detail daftar_detail_tindakan_ugd_transaksi
                 let data_ugd_tindakan = obj['daftar_detail_tindakan_ugd_transaksi'];
                 if (data_ugd_tindakan != '') {
@@ -166,23 +183,6 @@
                     });
 
                     update_sub_total_ugd_tindakan();
-                }
-
-                // ambil data detail daftar_detail_tindakan_kia_transaksi
-                let data_kia_tindakan = obj['daftar_detail_tindakan_kia_transaksi'];
-                if (data_kia_tindakan != '') {
-
-                    $.each(data_kia_tindakan, function(i, item) {
-
-                        var no_kia_t = data_kia_tindakan[i].no_kia_t;
-                        var nama = data_kia_tindakan[i].nama;
-                        var qty = data_kia_tindakan[i].qty;
-                        var harga = data_kia_tindakan[i].harga;
-
-                        load_detail_kia_tindakan(no_kia_t, nama, qty, harga);
-                    });
-
-                    update_sub_total_kia_tindakan();
                 }
 
                 // ambil data detail daftar_detail_transaksi_lain 
@@ -290,6 +290,61 @@
         jumlah_detail_transaksi = jumlah_detail_transaksi + 1;
     }
 
+    function load_detail_ri_kamar(no_kamar_rawat_i, nama, tanggal_cek_in, tanggal_cek_out, status_kamar, jumlah_hari, harga_harian, sub_total_harga, tipe) {
+
+        var hidden_btn = '';
+        var hidden_tgl_cek_out = '';
+
+        if (status_kamar == "Sudah Cek Out") {
+            hidden_btn = 'display: none';
+        } else {
+            hidden_tgl_cek_out = 'display: none';
+        }
+
+        $('#detail_list_ri_kamar').append(`
+
+            <tr id="row` + count_transaksi + `" class="kelas_row">
+                <td>
+                    ` + nama + `
+                    <input type="hidden" name="no_kamar_rawat_i[]" class="form-control form-control-sm" id="no_kamar_rawat_i` + count_transaksi + `" value="` + no_kamar_rawat_i + `">
+                </td>
+                <td>  
+                    <input readonly type="text" name="tanggal_cek_in_ri_kamar[]" class="form-control form-control-sm text-right" id="tanggal_cek_in_ri_kamar` + count_transaksi + `" required value="` + tanggal_cek_in + `">
+                </td>
+                <td>
+                    <span style="` + hidden_btn + `" id="label_cek_out` + count_transaksi + `" class="text">(Belum) - </span>
+                    <a style="` + hidden_btn + `" href="#" id="btn_check_out` + count_transaksi + `" class="btn btn-sm btn-danger btn-icon-split btn_check_out">
+                        <span class="text">Check Out</span>
+                    </a>
+                    <input style="` + hidden_tgl_cek_out + `" readonly type="text" name="tanggal_cek_out_ri_kamar[]" class="form-control form-control-sm text-right" id="tanggal_cek_out_ri_kamar` + count_transaksi + `" required value="` + tanggal_cek_out + `">
+                </td>
+                <td>  
+                    <input readonly maxlength="3" type="text" name="jumlah_hari_ri_kamar[]" class="cek_jumlah_hari_ri_kamar form-control form-control-sm text-right" id="jumlah_hari_ri_kamar` + count_transaksi + `" placeholder="@Hari" required value="` + jumlah_hari + `">
+                </td>
+                <td>
+                    <input type="text" name="harga_harian_ri_kamar[]" class="form-control form-control-sm rupiah text-right harga_harian_ri_kamar_update" id="harga_harian_ri_kamar` + count_transaksi + `" placeholder="Harga RI Kamar" required value="` + harga_harian + `">
+                    <input type="hidden" name="status_kamar_ri_kamar[]" class="form-control form-control-sm text-right" id="status_kamar_ri_kamar` + count_transaksi + `" required value="` + status_kamar + `">
+                </td>
+                <td>    
+                    <input type="text" class="form-control form-control-sm rupiah text-right" id="harga_sub_ri_kamar` + count_transaksi + `" readonly required value="` + sub_total_harga + `"></td></td>
+                <td>
+                    <div class="form-group col-sm-2">
+                        <a id="` + count_transaksi + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris_ri_kamar">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-trash-alt"></i>
+                            </span>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+
+            `);
+
+        count_transaksi = count_transaksi + 1;
+        jumlah_detail_transaksi = jumlah_detail_transaksi + 1;
+        jumlah_detail_transaksi_ri_kamar = jumlah_detail_transaksi_ri_kamar + 1;
+    }
+
     function load_detail_ri_obat(no_stok_obat_rawat_i, nama_obat, harga_jual, qty, qty_sekarang, harga_lama) {
 
         var status = "";
@@ -369,46 +424,60 @@
         jumlah_detail_transaksi = jumlah_detail_transaksi + 1;
     }
 
-    function load_detail_ri_kamar(no_kamar_rawat_i, nama, tanggal_cek_in, tanggal_cek_out, status_kamar, jumlah_hari, harga_harian, sub_total_harga, tipe) {
+    function load_detail_bp_tindakan(no_bp_t, nama, qty, harga_detail) {
 
-        var hidden_btn = '';
-        var hidden_tgl_cek_out = '';
+        $('#detail_list_bp_tindakan').append(`
 
-        if (status_kamar == "Sudah Cek Out") {
-            hidden_btn = 'display: none';
-        } else {
-            hidden_tgl_cek_out = 'display: none';
-        }
+            <tr id="row` + count_transaksi + `" class="kelas_row">
+                <td>
+                    ` + nama + `
+                    <input type="hidden" name="no_bp_t[]" class="form-control form-control-sm" id="no_bp_t` + count_transaksi + `" value="` + no_bp_t + `">
+                </td>
+                <td>
+                    <input type="text" name="qty_bp_tindakan[]" class="form-control form-control-sm cek_qty_bp_tindakan" id="qty_bp_tindakan` + count_transaksi + `" placeholder="QTY" value="` + qty + `" required>
+                </td>
+                <td>
+                    <input type="text" name="harga_bp_tindakan[]" class="form-control form-control-sm rupiah text-right harga_bp_tindakan_update" id="harga_bp_tindakan` + count_transaksi + `" placeholder="Harga Tindakan BP" required value="` + harga_detail + `">
+                </td>
+                <td>  
+                    <input type="text" class="form-control form-control-sm rupiah text-right" id="harga_sub_bp_tindakan` + count_transaksi + `" readonly required value="` + harga_detail * qty + `"></td>
+                <td>
+                    <div class="form-group col-sm-2">
+                        <a id="` + count_transaksi + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris_bp_tindakan">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-trash-alt"></i>
+                            </span>
+                        </a>
+                    </div>
+                </td>
+            </tr>
 
-        $('#detail_list_ri_kamar').append(`
+            `);
+
+        count_transaksi = count_transaksi + 1;
+        jumlah_detail_transaksi = jumlah_detail_transaksi + 1;
+    }
+
+    function load_detail_kia_tindakan(no_kia_t, nama, qty, harga) {
+
+        $('#detail_list_kia_tindakan').append(`
 
         <tr id="row` + count_transaksi + `" class="kelas_row">
             <td>
-                ` + nama + ` (` + tipe + `)
-                <input type="hidden" name="no_kamar_rawat_i[]" class="form-control form-control-sm" id="no_kamar_rawat_i` + count_transaksi + `" value="` + no_kamar_rawat_i + `">
-            </td>
-            <td>  
-                <input readonly type="text" name="tanggal_cek_in_ri_kamar[]" class="form-control form-control-sm text-right" id="tanggal_cek_in_ri_kamar` + count_transaksi + `" required value="` + tanggal_cek_in + `">
+                ` + nama + `
+                <input type="hidden" name="no_kia_t[]" class="form-control form-control-sm" id="no_kia_t` + count_transaksi + `" value="` + no_kia_t + `">
             </td>
             <td>
-                <span style="` + hidden_btn + `" id="label_cek_out` + count_transaksi + `" class="text">(Belum) - </span>
-                <a style="` + hidden_btn + `" href="#" id="btn_check_out` + count_transaksi + `" class="btn btn-sm btn-danger btn-icon-split btn_check_out">
-                    <span class="text">Check Out</span>
-                </a>
-                <input style="` + hidden_tgl_cek_out + `" readonly type="text" name="tanggal_cek_out_ri_kamar[]" class="form-control form-control-sm text-right" id="tanggal_cek_out_ri_kamar` + count_transaksi + `" required value="` + tanggal_cek_out + `">
-            </td>
-            <td>  
-                <input readonly maxlength="3" type="text" name="jumlah_hari_ri_kamar[]" class="cek_jumlah_hari_ri_kamar form-control form-control-sm text-right" id="jumlah_hari_ri_kamar` + count_transaksi + `" placeholder="@Hari" required value="` + jumlah_hari + `">
+                <input type="text" name="qty_kia_tindakan[]" class="form-control form-control-sm cek_qty_kia_tindakan" id="qty_kia_tindakan` + count_transaksi + `" placeholder="QTY" value="` + qty + `" required>
             </td>
             <td>
-                <input type="text" name="harga_harian_ri_kamar[]" class="form-control form-control-sm rupiah text-right harga_harian_ri_kamar_update" id="harga_harian_ri_kamar` + count_transaksi + `" placeholder="Harga RI Kamar" required value="` + harga_harian + `">
-                <input type="hidden" name="status_kamar_ri_kamar[]" class="form-control form-control-sm text-right" id="status_kamar_ri_kamar` + count_transaksi + `" required value="` + status_kamar + `">
+                <input type="text" name="harga_kia_tindakan[]" class="form-control form-control-sm rupiah text-right harga_kia_tindakan_update" id="harga_kia_tindakan` + count_transaksi + `" placeholder="Harga Tindakan KIA" required value="` + harga + `">
             </td>
-            <td>    
-                <input type="text" class="form-control form-control-sm rupiah text-right" id="harga_sub_ri_kamar` + count_transaksi + `" readonly required value="` + sub_total_harga + `"></td></td>
+            <td>  
+                <input type="text" class="form-control form-control-sm rupiah text-right" id="harga_sub_kia_tindakan` + count_transaksi + `" readonly required value="` + harga * qty + `"></td>
             <td>
                 <div class="form-group col-sm-2">
-                    <a id="` + count_transaksi + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris_ri_kamar">
+                    <a id="` + count_transaksi + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris_kia_tindakan">
                         <span class="icon text-white-50">
                             <i class="fas fa-trash-alt"></i>
                         </span>
@@ -421,7 +490,6 @@
 
         count_transaksi = count_transaksi + 1;
         jumlah_detail_transaksi = jumlah_detail_transaksi + 1;
-        jumlah_detail_transaksi_ri_kamar = jumlah_detail_transaksi_ri_kamar + 1;
     }
 
     function load_detail_lab_tindakan(kode, nama, qty, harga) {
@@ -458,40 +526,6 @@
         jumlah_detail_transaksi = jumlah_detail_transaksi + 1;
     }
 
-    function load_detail_bp_tindakan(no_bp_t, nama, qty, harga_detail) {
-
-        $('#detail_list_bp_tindakan').append(`
-
-        <tr id="row` + count_transaksi + `" class="kelas_row">
-            <td>
-                ` + nama + `
-                <input type="hidden" name="no_bp_t[]" class="form-control form-control-sm" id="no_bp_t` + count_transaksi + `" value="` + no_bp_t + `">
-            </td>
-            <td>
-                <input type="text" name="qty_bp_tindakan[]" class="form-control form-control-sm cek_qty_bp_tindakan" id="qty_bp_tindakan` + count_transaksi + `" placeholder="QTY" value="` + qty + `" required>
-            </td>
-            <td>
-                <input type="text" name="harga_bp_tindakan[]" class="form-control form-control-sm rupiah text-right harga_bp_tindakan_update" id="harga_bp_tindakan` + count_transaksi + `" placeholder="Harga Tindakan BP" required value="` + harga_detail + `">
-            </td>
-            <td>  
-                <input type="text" class="form-control form-control-sm rupiah text-right" id="harga_sub_bp_tindakan` + count_transaksi + `" readonly required value="` + harga_detail * qty + `"></td>
-            <td>
-                <div class="form-group col-sm-2">
-                    <a id="` + count_transaksi + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris_bp_tindakan">
-                        <span class="icon text-white-50">
-                            <i class="fas fa-trash-alt"></i>
-                        </span>
-                    </a>
-                </div>
-            </td>
-        </tr>
-
-        `);
-
-        count_transaksi = count_transaksi + 1;
-        jumlah_detail_transaksi = jumlah_detail_transaksi + 1;
-    }
-
     function load_detail_ugd_tindakan(no_ugd_t, nama, qty, harga) {
 
         $('#detail_list_ugd_tindakan').append(`
@@ -512,40 +546,6 @@
             <td>
                 <div class="form-group col-sm-2">
                     <a id="` + count_transaksi + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris_ugd_tindakan">
-                        <span class="icon text-white-50">
-                            <i class="fas fa-trash-alt"></i>
-                        </span>
-                    </a>
-                </div>
-            </td>
-        </tr>
-
-        `);
-
-        count_transaksi = count_transaksi + 1;
-        jumlah_detail_transaksi = jumlah_detail_transaksi + 1;
-    }
-
-    function load_detail_kia_tindakan(no_kia_t, nama, qty, harga) {
-
-        $('#detail_list_kia_tindakan').append(`
-
-        <tr id="row` + count_transaksi + `" class="kelas_row">
-            <td>
-                ` + nama + `
-                <input type="hidden" name="no_kia_t[]" class="form-control form-control-sm" id="no_kia_t` + count_transaksi + `" value="` + no_kia_t + `">
-            </td>
-            <td>
-                <input type="text" name="qty_kia_tindakan[]" class="form-control form-control-sm cek_qty_kia_tindakan" id="qty_kia_tindakan` + count_transaksi + `" placeholder="QTY" value="` + qty + `" required>
-            </td>
-            <td>
-                <input type="text" name="harga_kia_tindakan[]" class="form-control form-control-sm rupiah text-right harga_kia_tindakan_update" id="harga_kia_tindakan` + count_transaksi + `" placeholder="Harga Tindakan KIA" required value="` + harga + `">
-            </td>
-            <td>  
-                <input type="text" class="form-control form-control-sm rupiah text-right" id="harga_sub_kia_tindakan` + count_transaksi + `" readonly required value="` + harga * qty + `"></td>
-            <td>
-                <div class="form-group col-sm-2">
-                    <a id="` + count_transaksi + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris_kia_tindakan">
                         <span class="icon text-white-50">
                             <i class="fas fa-trash-alt"></i>
                         </span>
