@@ -275,9 +275,9 @@
                 $no_detail_transaksi_rawat_inap_k = $detail_kamar_rawat_inap->no_detail_transaksi_rawat_inap_k;
             }
 
-            $no_stok_obat_rawat_i = "kosong";
+            $kode_obat_ri = "kosong";
             foreach ($detail_obat_ri as $detail_obat_rawat_inap) {
-                $no_stok_obat_rawat_i = $detail_obat_rawat_inap->no_stok_obat_rawat_i;
+                $kode_obat_ri = $detail_obat_rawat_inap->kode_obat;
             }
         ?>
         <tr>
@@ -333,7 +333,7 @@
 
         <!-- Rincian Obat Rawat Inap -->
         <?php
-        if ($no_stok_obat_rawat_i != "kosong") {
+        if ($kode_obat_ri != "kosong") {
         ?>
         <tr>
             <td style="text-align:left;padding-left:20px">Obat Rawat Inap</td>

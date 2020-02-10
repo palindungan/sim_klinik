@@ -520,7 +520,7 @@ class Tagihan extends CI_Controller
                         }
 
                         $data = array(
-                            'qty' => $qty_sekarang
+                            'stok_rawat_jalan' => $qty_sekarang
                         );
 
                         $update = $this->M_tagihan->update_data($where_kode_obat, 'obat', $data);
@@ -611,7 +611,7 @@ class Tagihan extends CI_Controller
                         }
 
                         $data = array(
-                            'qty' => $qty_sekarang
+                            'stok_rawat_jalan' => $qty_sekarang
                         );
 
                         $update = $this->M_tagihan->update_data($where_kode_obat, 'obat', $data);
@@ -733,7 +733,7 @@ class Tagihan extends CI_Controller
                             }
 
                             $data = array(
-                                'qty' => $qty_sekarang
+                                'stok_rawat_inap' => $qty_sekarang
                             );
 
                             $update = $this->M_tagihan->update_data($where_kode_obat_ri, 'obat', $data);
@@ -884,13 +884,13 @@ class Tagihan extends CI_Controller
                         // update qty obat lama dibawah ini
                         if ($btn_simpan == "simpan_final") {
                             $where_kode_obat_ri = array(
-                                'kode_obat_ri' => $kode_obat_ri
+                                'kode_obat' => $kode_obat_ri
                             );
 
-                            $ambil_data = $this->M_tagihan->get_data('stok_obat_rawat_inap', $where_kode_obat_ri);
+                            $ambil_data = $this->M_tagihan->get_data('obat', $where_kode_obat_ri);
                             $qty_lama = "kosong";
                             foreach ($ambil_data->result() as $data) {
-                                $qty_lama = $data->qty;
+                                $qty_lama = $data->stok_rawat_inap;
                             }
 
                             $qty_sekarang = $qty_lama - $qty;
@@ -900,10 +900,10 @@ class Tagihan extends CI_Controller
                             }
 
                             $data = array(
-                                'qty' => $qty_sekarang
+                                'stok_rawat_inap' => $qty_sekarang
                             );
 
-                            $update = $this->M_tagihan->update_data($where_kode_obat_ri, 'stok_obat_rawat_inap', $data);
+                            $update = $this->M_tagihan->update_data($where_kode_obat_ri, 'obat', $data);
                         }
                     }
                 }
@@ -1492,11 +1492,11 @@ class Tagihan extends CI_Controller
             // $grand_total = preg_replace("/[^0-9]/", "", $this->input->post('grand_total'));
             // $new_saldo = $temp_saldo + $grand_total;
 
-            $data_update_status_pelayanan = array(
-                'status' => 'finish',
-                'tgl_keluar' => date('Y-m-d H:i:s')
-            );
-            $this->M_tagihan->update_data($where_no_ref_pelayanan, 'pelayanan', $data_update_status_pelayanan);
+            // $data_update_status_pelayanan = array(
+            //     'status' => 'finish',
+            //     'tgl_keluar' => date('Y-m-d H:i:s')
+            // );
+            // $this->M_tagihan->update_data($where_no_ref_pelayanan, 'pelayanan', $data_update_status_pelayanan);
 
             $base_url = base_url('administrasi/tagihan/cetak/' . $no_ref_pelayanan);
             echo "<script type='text/javascript'>";
@@ -1517,7 +1517,7 @@ class Tagihan extends CI_Controller
         $data['nama_pasien'] = $data_pelayanan_pasien->nama;
         $data['no_rm'] = $data_pelayanan_pasien->no_rm;
         $data['no_ref'] = $data_pelayanan_pasien->no_ref_pelayanan;
-        $tgl_pelayanan_tmp = $data_pelayanan_pasien->tgl_pelayanan;
+        $tgl_pelayanan_tmp = $data_pelayanan_pasien->tgl_keluar;
         $data['tgl_pelayanan'] = tgl_indo(date('Y-m-d', strtotime($tgl_pelayanan_tmp)));
         $daata['tipe_pelayanan'] = $data_pelayanan_pasien->tipe_pelayanan;
 
