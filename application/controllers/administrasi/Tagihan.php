@@ -692,17 +692,24 @@ class Tagihan extends CI_Controller
 
                         $no_stok_obat_rawat_i = $this->input->post('no_stok_obat_rawat_i')[$i];
 
+                        $qty_temp = $this->input->post('qty_ri_obat')[$i];
+                        $qty = (int) $qty_temp;
+
                         $harga_jual_temp = $this->input->post('harga_ri_obat')[$i];
                         $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
 
-                        $qty_temp = $this->input->post('qty_ri_obat')[$i];
-                        $qty = (int) $qty_temp;
+                        $status_paket_tmp = isset($this->input->post('status_paket_ri_obat')[$i]) ? $this->input->post('status_paket_ri_obat')[$i] : "Tidak";
+                        $status_paket = "Tidak";
+                        if ($status_paket_tmp == "Ya") {
+                            $status_paket = "Ya";
+                        }
 
                         $data = array(
                             'no_transaksi_rawat_i' => $no_transaksi_rawat_i,
                             'no_stok_obat_rawat_i' => $no_stok_obat_rawat_i,
                             'qty' => $qty,
-                            'harga_jual' => $harga_jual
+                            'harga_jual' => $harga_jual,
+                            'status_paket' => $status_paket
                         );
 
                         $tambah = $this->M_tagihan->input_data('detail_transaksi_rawat_inap_obat', $data);
@@ -728,6 +735,7 @@ class Tagihan extends CI_Controller
                             $data = array(
                                 'qty' => $qty_sekarang
                             );
+
                             $update = $this->M_tagihan->update_data($where_no_stok_obat_rawat_i, 'stok_obat_rawat_inap', $data);
                         }
                     }
@@ -851,17 +859,24 @@ class Tagihan extends CI_Controller
 
                         $no_stok_obat_rawat_i = $this->input->post('no_stok_obat_rawat_i')[$i];
 
+                        $qty_temp = $this->input->post('qty_ri_obat')[$i];
+                        $qty = (int) $qty_temp;
+
                         $harga_jual_temp = $this->input->post('harga_ri_obat')[$i];
                         $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
 
-                        $qty_temp = $this->input->post('qty_ri_obat')[$i];
-                        $qty = (int) $qty_temp;
+                        $status_paket_tmp = isset($this->input->post('status_paket_ri_obat')[$i]) ? $this->input->post('status_paket_ri_obat')[$i] : "Tidak";
+                        $status_paket = "Tidak";
+                        if ($status_paket_tmp == "Ya") {
+                            $status_paket = "Ya";
+                        }
 
                         $data = array(
                             'no_transaksi_rawat_i' => $no_transaksi_rawat_i,
                             'no_stok_obat_rawat_i' => $no_stok_obat_rawat_i,
                             'qty' => $qty,
-                            'harga_jual' => $harga_jual
+                            'harga_jual' => $harga_jual,
+                            'status_paket' => $status_paket
                         );
 
                         $tambah = $this->M_tagihan->input_data('detail_transaksi_rawat_inap_obat', $data);
@@ -887,6 +902,7 @@ class Tagihan extends CI_Controller
                             $data = array(
                                 'qty' => $qty_sekarang
                             );
+
                             $update = $this->M_tagihan->update_data($where_no_stok_obat_rawat_i, 'stok_obat_rawat_inap', $data);
                         }
                     }

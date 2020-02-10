@@ -72,16 +72,16 @@
                         var no_stok_obat_rawat_i = data[i].no_stok_obat_rawat_i;
                         var nama_obat = data[i].nama_obat;
                         var nama_kategori = data[i].nama_kategori;
-                        var qty_sekarang = data[i].qty;
+                        var qty = data[i].qty;
                         var harga_jual = data[i].harga_jual;
 
                         var reverse = harga_jual.toString().split('').reverse().join(''),
                             ribuan = reverse.match(/\d{1,3}/g);
                         ribuan = ribuan.join('.').split('').reverse().join('');
 
-                        var button = `<a onclick="tambah_detail_ri_obat('` + no_stok_obat_rawat_i + `','` + nama_obat + `','` + harga_jual + `','` + qty_sekarang + `')" id="` + no_stok_obat_rawat_i + `" class="btn btn-sm btn-dark text-white">Pilih</a>`;
+                        var button = `<a onclick="tambah_detail_ri_obat('` + no_stok_obat_rawat_i + `','` + nama_obat + `','` + harga_jual + `','` + qty + `')" id="` + no_stok_obat_rawat_i + `" class="btn btn-sm btn-dark text-white">Pilih</a>`;
 
-                        table.row.add([no, nama_obat, nama_kategori, qty_sekarang,
+                        table.row.add([no, nama_obat, nama_kategori, qty,
                             ribuan, button
                         ]);
 
@@ -172,9 +172,9 @@
         var row_no = row_id.substring(11); // 1++
 
         var val_qty = $('#' + row_id).val();
-        var val_qty_sekarang = parseInt($('#cek_qty_ri_obat' + row_no).val());
+        var val_qty_stok = parseInt($('#cek_qty_ri_obat' + row_no).val());
 
-        if (val_qty <= val_qty_sekarang) {
+        if (val_qty <= val_qty_stok) {
             update_sub_total_ri_obat()
         } else {
             // alert("Maaf Qty Detail Obat Tidak Boleh Melebihi Stok Rawat Inap");
