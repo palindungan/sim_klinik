@@ -204,7 +204,7 @@
                     });
                 }
 
-                var total_akhir = grand_total_ambulance + grand_total_tindakan_bp + grand_total_tindakan_kia + grand_total_tindakan_lab + grand_total_tindakan_ugd; // grand_total_lainnya
+                var total_akhir = parseInt(grand_total_ambulance) + parseInt(grand_total_tindakan_bp) + parseInt(grand_total_tindakan_kia) + parseInt(grand_total_tindakan_lab) + parseInt(grand_total_tindakan_ugd); // grand_total_lainnya
 
                 $('#grand_total_lainnya').val(total_akhir);
                 $('#grand_total_lainnya').trigger('input'); // Will be display 

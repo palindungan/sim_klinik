@@ -121,7 +121,7 @@
 									<td></td>
 									<td align="right">Grand Total :</td>
 									<td>
-										<input readonly type="text" name="grand_total_lainnya" class="angka_default form-control form-control-sm rupiah text-right" id="grand_total_lainnya" placeholder="Grand Total Lainnya" required value="">
+										<input readonly type="hidden" name="grand_total_lainnya" class="angka_default form-control form-control-sm rupiah text-right" id="grand_total_lainnya" placeholder="Grand Total Lainnya" required value="">
 										<input readonly type="text" name="grand_total" class="angka_default form-control form-control-sm rupiah text-right" id="grand_total" placeholder="Grand Total" required value="">
 									</td>
 									<td></td>
