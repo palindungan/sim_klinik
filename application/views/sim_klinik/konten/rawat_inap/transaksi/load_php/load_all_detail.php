@@ -118,6 +118,97 @@
                     update_sub_total_lain();
                 }
 
+                // ambil data detail daftar_detail_pelayanan_ambulan 
+                var grand_total_ambulance = 0;
+
+                let data_pelayanan_ambulance = obj['daftar_detail_pelayanan_ambulan'];
+                if (data_pelayanan_ambulance != '') {
+
+                    $.each(data_pelayanan_ambulance, function(i, item) {
+
+                        var harga = data_pelayanan_ambulance[i].harga;
+
+                        grand_total_ambulance = grand_total_ambulance + harga;
+
+                    });
+                }
+
+                // ambil data detail daftar_detail_tindakan_bp_transaksi
+                var grand_total_tindakan_bp = 0;
+
+                let data_bp_tindakan = obj['daftar_detail_tindakan_bp_transaksi'];
+                if (data_bp_tindakan != '') {
+
+                    $.each(data_bp_tindakan, function(i, item) {
+
+                        var qty = data_bp_tindakan[i].qty;
+                        var harga_detail = data_bp_tindakan[i].harga_detail;
+
+                        var sub_total_tindakan_bp = harga_detail * qty;
+
+                        grand_total_tindakan_bp = grand_total_tindakan_bp + sub_total_tindakan_bp;
+
+
+                    });
+                }
+
+                // ambil data detail daftar_detail_tindakan_kia_transaksi
+                var grand_total_tindakan_kia = 0;
+
+                let data_kia_tindakan = obj['daftar_detail_tindakan_kia_transaksi'];
+                if (data_kia_tindakan != '') {
+
+                    $.each(data_kia_tindakan, function(i, item) {
+
+                        var qty = data_kia_tindakan[i].qty;
+                        var harga = data_kia_tindakan[i].harga;
+
+                        var sub_total_tindakan_kia = harga * qty;
+
+                        grand_total_tindakan_kia = grand_total_tindakan_kia + sub_total_tindakan_kia;
+
+                    });
+                }
+
+                // ambil data detail daftar_detail_tindakan_lab_transaksi
+                var grand_total_tindakan_lab = 0;
+
+                let data_lab_tindakan = obj['daftar_detail_tindakan_lab_transaksi'];
+                if (data_lab_tindakan != '') {
+
+                    $.each(data_lab_tindakan, function(i, item) {
+
+                        var qty = data_lab_tindakan[i].qty;
+                        var harga = data_lab_tindakan[i].harga;
+
+                        var sub_total_tindakan_lab = harga * qty;
+
+                        grand_total_tindakan_lab = grand_total_tindakan_lab + sub_total_tindakan_lab;
+                    });
+                }
+
+                // ambil data detail daftar_detail_tindakan_ugd_transaksi
+                var grand_total_tindakan_ugd = 0;
+
+                let data_ugd_tindakan = obj['daftar_detail_tindakan_ugd_transaksi'];
+                if (data_ugd_tindakan != '') {
+
+                    $.each(data_ugd_tindakan, function(i, item) {
+
+                        var qty = data_ugd_tindakan[i].qty;
+                        var harga = data_ugd_tindakan[i].harga;
+
+                        var sub_total_tindakan_ugd = harga * qty;
+
+                        grand_total_tindakan_ugd = grand_total_tindakan_ugd + sub_total_tindakan_ugd;
+                    });
+                }
+
+                var total_akhir = grand_total_ambulance + grand_total_tindakan_bp + grand_total_tindakan_kia + grand_total_tindakan_lab + grand_total_tindakan_ugd; // grand_total_lainnya
+
+                $('#grand_total_lainnya').val(total_akhir);
+                $('#grand_total_lainnya').trigger('input'); // Will be display 
+
                 cek_jumlah_data_detail_transaksi();
             }
         });

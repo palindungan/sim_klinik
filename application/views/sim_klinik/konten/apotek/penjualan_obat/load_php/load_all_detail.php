@@ -198,10 +198,10 @@
                     });
                 }
 
-                var total_akhir = grand_total_ambulance + grand_total_rawat_inap_kamar + grand_total_rawat_inap_obat + grand_total_rawat_inap_tindakan + grand_total_tindakan_bp + grand_total_tindakan_kia + grand_total_tindakan_lab + grand_total_tindakan_ugd + grand_total_lain; // grand_total_lain
+                var total_akhir = grand_total_ambulance + grand_total_rawat_inap_kamar + grand_total_rawat_inap_obat + grand_total_rawat_inap_tindakan + grand_total_tindakan_bp + grand_total_tindakan_kia + grand_total_tindakan_lab + grand_total_tindakan_ugd + grand_total_lain; // grand_total_lainnya
 
-                $('#grand_total_lain').val(total_akhir);
-                $('#grand_total_lain').trigger('input'); // Will be display 
+                $('#grand_total_lainnya').val(total_akhir);
+                $('#grand_total_lainnya').trigger('input'); // Will be display 
 
                 cek_jumlah_data_detail_transaksi();
             }
