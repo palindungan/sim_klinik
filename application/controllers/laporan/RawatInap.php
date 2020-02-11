@@ -1034,11 +1034,11 @@ class RawatInap extends CI_Controller
         // $tgl_mulai = $tgl1 . " 00:00:01";
         // $tgl_akhir = $tgl2 . " 23:59:59";
 
-        // $tgl_header_mulai = tgl_indo($tgl1);
-        // $tgl_header_akhir = tgl_indo($tgl2);
+        $tgl_header_mulai = tgl_indo($tgl_1);
+        $tgl_header_akhir = tgl_indo($tgl_2);
 
-        // $tgl_judul_mulai = date('m-d-Y', strtotime($tgl1));
-        // $tgl_judul_akhir = date('m-d-Y', strtotime($tgl2));\
+        $tgl_judul_mulai = date('m-d-Y', strtotime($tgl_1));
+        $tgl_judul_akhir = date('m-d-Y', strtotime($tgl_2));
 
         $yesterday = date("Y-m-d", strtotime("-1 day", strtotime(date('Y-m-d'))));
         $db_grand_saldo =  $this->M_cek_saldo->getCekSaldoByDate($yesterday);
@@ -1087,7 +1087,7 @@ class RawatInap extends CI_Controller
         $spreadsheet->getActiveSheet()->getStyle('A1:U1')
             ->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_TOP);
         $spreadsheet->getActiveSheet()->mergeCells("A1:U1");
-        $spreadsheet->setActiveSheetIndex(0)->setCellValue('A1', 'Laporan Rawat Inap Bulan ' . $tgl_judul);
+        $spreadsheet->setActiveSheetIndex(0)->setCellValue('A1', 'Laporan Rawat Inap Tanggal ' . $tgl_header_mulai." sampai ".$tgl_header_akhir);
         $spreadsheet->getActiveSheet()->getStyle('A1:U1')->getFont()->setBold(true);
         $spreadsheet->getActiveSheet()->getStyle('A1:U1')->getAlignment()->setHorizontal('center');
         $spreadsheet->getActiveSheet()->getStyle('A1:U1')
@@ -1528,7 +1528,7 @@ class RawatInap extends CI_Controller
         $writer = new Xlsx($spreadsheet);
 
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="RI_' . $tgl_judul . '.xlsx"');
+        header('Content-Disposition: attachment;filename="RI_' . $tgl_judul_mulai." sampai ".$tgl_judul_akhir . '.xlsx"');
         header('Cache-Control: max-age=0');
 
         $writer->save('php://output');
