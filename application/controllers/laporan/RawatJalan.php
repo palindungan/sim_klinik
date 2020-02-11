@@ -90,9 +90,23 @@
             $nomor = 1;
             $grand_total = 0;
             $sub_total = 0;
+            $grand_gd = 0;
+            $grand_ua = 0;
+            $grand_chol = 0;
+            $grand_bp = 0;
+            $grand_lab = 0;
+            $grand_kia = 0;
+            $grand_apotik = 0;
             foreach ($query as $row) {
             $tgl_keluar = date('d-m-Y',strtotime($row->tgl_keluar));
             $waktu = date('H:i',strtotime($row->tgl_keluar));
+            $grand_gd += $row->gula_darah;
+            $grand_ua += $row->asam_urat;
+            $grand_chol += $row->cholesterol;
+            $grand_bp += $row->total_bp;
+            $grand_lab += $row->lab_non_primer;
+            $grand_kia += $row->total_kia;
+            $grand_apotik += $row->total_obat_apotik;
             $sub_total = $row->gula_darah + $row->asam_urat + $row->cholesterol + $row->total_bp + $row->lab_non_primer + $row->total_kia + $row->total_obat_apotik;
 
             $grand_total += $sub_total;
@@ -131,11 +145,18 @@
             }
 
             $spreadsheet->setActiveSheetIndex(0)
-            ->setCellValue('K' . ((int) $kolom + 3), 'Grand Total')
-            ->setCellValue('L' . ((int) $kolom + 3), number_format($grand_total, 0, ".", ","));
+            ->setCellValue('D' . ((int) $kolom + 2), 'GRAND TOTAL')
+            ->setCellValue('E' . ((int) $kolom + 2), number_format($grand_gd, 0, ".", ","))
+            ->setCellValue('F' . ((int) $kolom + 2), number_format($grand_ua, 0, ".", ","))
+            ->setCellValue('G' . ((int) $kolom + 2), number_format($grand_chol, 0, ".", ","))
+            ->setCellValue('H' . ((int) $kolom + 2), number_format($grand_bp, 0, ".", ","))
+            ->setCellValue('I' . ((int) $kolom + 2), number_format($grand_lab, 0, ".", ","))
+            ->setCellValue('J' . ((int) $kolom + 2), number_format($grand_kia, 0, ".", ","))
+            ->setCellValue('K' . ((int) $kolom + 2), number_format($grand_apotik, 0, ".", ","))
+            ->setCellValue('L' . ((int) $kolom + 2), number_format($grand_total, 0, ".", ","));
 
-            $spreadsheet->getActiveSheet()->getStyle('K' . ((int) $kolom + 3) . ':L' . ((int) $kolom +
-            3))->getFont()->setBold(true);
+            $spreadsheet->getActiveSheet()->getStyle('D' . ((int) $kolom + 2) . ':L' . ((int) $kolom +
+            2))->getFont()->setBold(true);
 
             $writer = new Xlsx($spreadsheet);
 
@@ -217,9 +238,23 @@
             $nomor = 1;
             $grand_total = 0;
             $sub_total = 0;
+            $grand_gd = 0;
+            $grand_ua = 0;
+            $grand_chol = 0;
+            $grand_bp = 0;
+            $grand_lab = 0;
+            $grand_kia = 0;
+            $grand_apotik = 0;
             foreach ($query as $row) {
             $tgl_keluar = date('d-m-Y',strtotime($row->tgl_keluar));
             $waktu = date('H:i',strtotime($row->tgl_keluar));
+            $grand_gd += $row->gula_darah;
+            $grand_ua += $row->asam_urat;
+            $grand_chol += $row->cholesterol;
+            $grand_bp += $row->total_bp;
+            $grand_lab += $row->lab_non_primer;
+            $grand_kia += $row->total_kia;
+            $grand_apotik += $row->total_obat_apotik;
             $sub_total = $row->gula_darah + $row->asam_urat + $row->cholesterol + $row->total_bp + $row->lab_non_primer + $row->total_kia + $row->total_obat_apotik;
 
             $grand_total += $sub_total;
@@ -258,11 +293,18 @@
             }
 
             $spreadsheet->setActiveSheetIndex(0)
-            ->setCellValue('K' . ((int) $kolom + 3), 'Grand Total')
-            ->setCellValue('L' . ((int) $kolom + 3), number_format($grand_total, 0, ".", ","));
+            ->setCellValue('D' . ((int) $kolom + 2), 'GRAND TOTAL')
+            ->setCellValue('E' . ((int) $kolom + 2), number_format($grand_gd, 0, ".", ","))
+            ->setCellValue('F' . ((int) $kolom + 2), number_format($grand_ua, 0, ".", ","))
+            ->setCellValue('G' . ((int) $kolom + 2), number_format($grand_chol, 0, ".", ","))
+            ->setCellValue('H' . ((int) $kolom + 2), number_format($grand_bp, 0, ".", ","))
+            ->setCellValue('I' . ((int) $kolom + 2), number_format($grand_lab, 0, ".", ","))
+            ->setCellValue('J' . ((int) $kolom + 2), number_format($grand_kia, 0, ".", ","))
+            ->setCellValue('K' . ((int) $kolom + 2), number_format($grand_apotik, 0, ".", ","))
+            ->setCellValue('L' . ((int) $kolom + 2), number_format($grand_total, 0, ".", ","));
 
-            $spreadsheet->getActiveSheet()->getStyle('K' . ((int) $kolom + 3) . ':L' . ((int) $kolom +
-            3))->getFont()->setBold(true);
+            $spreadsheet->getActiveSheet()->getStyle('D' . ((int) $kolom + 2) . ':L' . ((int) $kolom +
+            2))->getFont()->setBold(true);
 
             $writer = new Xlsx($spreadsheet);
 
@@ -353,9 +395,23 @@
             $nomor = 1;
             $grand_total = 0;
             $sub_total = 0;
+            $grand_gd = 0;
+            $grand_ua = 0;
+            $grand_chol = 0;
+            $grand_bp = 0;
+            $grand_lab = 0;
+            $grand_kia = 0;
+            $grand_apotik = 0;
             foreach ($query as $row) {
             $tgl_keluar = date('d-m-Y',strtotime($row->tgl_keluar));
             $waktu = date('H:i',strtotime($row->tgl_keluar));
+            $grand_gd += $row->gula_darah;
+            $grand_ua += $row->asam_urat;
+            $grand_chol += $row->cholesterol;
+            $grand_bp += $row->total_bp;
+            $grand_lab += $row->lab_non_primer;
+            $grand_kia += $row->total_kia;
+            $grand_apotik += $row->total_obat_apotik;
             $sub_total = $row->gula_darah + $row->asam_urat + $row->cholesterol + $row->total_bp + $row->lab_non_primer + $row->total_kia + $row->total_obat_apotik;
 
             $grand_total += $sub_total;
@@ -391,11 +447,18 @@
             }
 
             $spreadsheet->setActiveSheetIndex(0)
-            ->setCellValue('K' . ((int) $kolom + 3), 'Grand Total')
-            ->setCellValue('L' . ((int) $kolom + 3), number_format($grand_total, 0, ".", ","));
+            ->setCellValue('D' . ((int) $kolom + 2), 'GRAND TOTAL')
+            ->setCellValue('E' . ((int) $kolom + 2), number_format($grand_gd, 0, ".", ","))
+            ->setCellValue('F' . ((int) $kolom + 2), number_format($grand_ua, 0, ".", ","))
+            ->setCellValue('G' . ((int) $kolom + 2), number_format($grand_chol, 0, ".", ","))
+            ->setCellValue('H' . ((int) $kolom + 2), number_format($grand_bp, 0, ".", ","))
+            ->setCellValue('I' . ((int) $kolom + 2), number_format($grand_lab, 0, ".", ","))
+            ->setCellValue('J' . ((int) $kolom + 2), number_format($grand_kia, 0, ".", ","))
+            ->setCellValue('K' . ((int) $kolom + 2), number_format($grand_apotik, 0, ".", ","))
+            ->setCellValue('L' . ((int) $kolom + 2), number_format($grand_total, 0, ".", ","));
 
-            $spreadsheet->getActiveSheet()->getStyle('K' . ((int) $kolom + 3) . ':L' . ((int) $kolom +
-            3))->getFont()->setBold(true);
+            $spreadsheet->getActiveSheet()->getStyle('D' . ((int) $kolom + 2) . ':L' . ((int) $kolom +
+            2))->getFont()->setBold(true);
 
             $writer = new Xlsx($spreadsheet);
 
