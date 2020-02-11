@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Cetak Struk Tagihan</title>
-    <!-- <style type="text/css" media="print">
+    <style type="text/css" media="print">
         @page {
-            margin: 0;
+            margin: 0 1 2 1;
 
         }
 
@@ -26,7 +26,7 @@
         td {
             font-size: 12px;
         }
-    </style> -->
+    </style>
 </head>
 
 <body>
@@ -42,42 +42,16 @@
     $harga_ambulance = 0;
     $harga_lain = 0;
     $grand_total = 0;
-    $image = base_url('assets/sb_admin_2/img/logo.jpg');
     ?>
+    <h6 style="font-weight:100;text-align:center;">KLINIK PRATAMA RAWAT INAP AMPEL SEHAT</h6>
+    <h6 style="font-weight:100;text-align:center;margin-top:-20px">Jl. Sunan Muria No.10 Ampel Wuluhan Jember</h6>
+    <h6 style="font-weight:100;text-align:center;margin-top:-20px">Telp (0336) 622454 | Kode Pos 68162</h6>
+    <hr style="margin-top:-20px">
+    
     <table width="100%">
-        <tr>
-            <td width="14%" style="padding-right:10px;"><img width="100" height="100" src="<?php echo $image ?>"></td>
-            <td colspan="6"><span style="font-size:20px;">KLINIK PRATAMA RAWAT INAP AMPEL SEHAT </span> <br> <span style="font-size:15px">Jl. Sunan Muria No.10 Ampel Wuluhan Jember<span> <br> <span style="font-size:15px">Telp (0336) 622454 | Kode Pos 68162 </span></td>
-        </tr>
-        <tr>
-            <td colspan="7"><hr></td>
-        </tr>
-        <tr>
-                <td width="14%">Nama</td>
-                <td width="1%">:</td>
-                <td width="37%"><?php echo $nama_pasien; ?></td>
-                <td width="20%">No Ref Pelayanan</td>
-                <td width="1%">:</td>
-                <td width="27%"><?php echo $no_ref; ?></td>
-            </tr>
-            <tr>
-                <td>Nomor RM</td>
-                <td>:</td>
-                <td><?php echo $no_rm; ?></td>
-                <td>Tanggal</td>
-                <td>:</td>
-                <td><?php echo $tgl_pelayanan; ?></td>
-            </tr>
-        <tr>
-            <td colspan="7"><hr></td>
-        </tr>
-    <table>
-    <table width="100%">
-        <tr>
+        <tr style="bottom-border: 1pt solid black;">
             <td><p style="font-weight:normal">Rincian Transaksi</p></td>
-            <td></td>
-            <td></td>
-            <td style="text-align:right">Biaya</td>
+            <td style="text-align:right;margin:bottom:-10px;">Biaya</td>
         </tr>
 
         <!-- Rincian Tindakan BP -->
@@ -94,24 +68,21 @@
 
         ?>
         <tr>
-            <td style="text-align:left;padding-left:10px"><i>Biaya Tindakan Balai Pengobatan</i></td>
+            <td style="font-weight:bold;text-align:left;padding-left:10px" colspan="2"><i>Balai Pengobatan</i></td>
         </tr>
         <?php 
         foreach ($detail_penanganan_bp->result() as $detail_bp) {
             $harga_tindakan_bp += $detail_bp->harga_tindakan * $detail_bp->qty;
         ?>
         <tr>
-            <td style="text-align:left;padding-left:20px"><?php echo $detail_bp->nama ?></td>
-            <td style="text-align:right"><?php echo $detail_bp->qty . " x" ?></td>
-            <td style="text-align:right"><?php echo rupiah($detail_bp->harga_tindakan) ?></td>
-            <td style="text-align:right"><?php echo rupiah($detail_bp->harga_tindakan * $detail_bp->qty) ?></td>
+            <td style="text-align:left;padding-left:20px"><?php echo $detail_bp->nama.' ('.$detail_bp->qty.'X)'; ?></td>
+            <td style="text-align:right"><?php echo rupiah($harga_tindakan_bp) ?></td>
         </tr>
         <?php 
         }
         }
         ?>
         <!-- End Rincian Tindakan BP -->
-
 
         <!-- Rincian Pelayanan KIA -->
         <?php 
@@ -127,24 +98,21 @@
             
         ?>
         <tr>
-            <td style="text-align:left;padding-left:10px"><i>Biaya Tindakan Poli KIA</i></td>
+            <td style="font-weight:bold;text-align:left;padding-left:10px"><i>KIA</i></td>
         </tr>
         <?php 
         foreach ($detail_penanganan_kia->result() as $detail_kia) {
             $harga_tindakan_kia += $detail_kia->harga * $detail_kia->qty;
         ?>
         <tr>
-            <td style="text-align:left;padding-left:20px"><?php echo $detail_kia->nama ?></td>
-            <td style="text-align:right"><?php echo $detail_kia->qty . " x" ?></td>
-            <td style="text-align:right"><?php echo rupiah($detail_kia->harga) ?></td>
-            <td style="text-align:right"><?php echo rupiah($detail_kia->harga * $detail_kia->qty) ?></td>
+            <td style="text-align:left;padding-left:20px"><?php echo $detail_kia->nama.' ('.$detail_kia->qty.'X)'; ?></td>
+            <td style="text-align:right"><?php echo rupiah($harga_tindakan_kia); ?></td>
         </tr>
         <?php 
         }
         }
         ?>
         <!-- End Rincian Pelayanan KIA -->
-
 
         <!-- Rincian Tindakan LAB  -->
         <?php 
@@ -160,24 +128,21 @@
             
         ?>
         <tr>
-            <td style="text-align:left;padding-left:10px"><i>Biaya Tindakan Laboratorium</i></td>
+            <td style="font-weight:bold;text-align:left;padding-left:10px"><i>Laboratorium</i></td>
         </tr>
         <?php 
         foreach ($detail_penanganan_lab->result() as $detail_lab) {
             $harga_tindakan_lab += $detail_lab->harga * $detail_lab->qty;
         ?>
         <tr>
-            <td style="text-align:left;padding-left:20px"><?php echo $detail_lab->nama ?></td>
-            <td style="text-align:right"><?php echo $detail_lab->qty . " x" ?></td>
-            <td style="text-align:right"><?php echo rupiah($detail_lab->harga) ?></td>
-            <td style="text-align:right"><?php echo rupiah($detail_lab->harga * $detail_lab->qty) ?></td>
+            <td style="text-align:left;padding-left:20px"><?php echo $detail_lab->nama.' ('.$detail_lab->qty.'X)'; ?></td>
+            <td style="text-align:right"><?php echo rupiah($harga_tindakan_lab); ?></td>
         </tr>
         <?php 
         }
         }
         ?>
         <!-- END Rincian Tindakan LAB  -->
-
 
         <!-- Rincian Tindakan UGD  -->
         <?php 
@@ -193,24 +158,21 @@
 
         ?>
         <tr>
-            <td style="text-align:left;padding-left:10px"><i>Biaya Tindakan UGD</i></td>
+            <td style="font-weight:bold;text-align:left;padding-left:10px"><i> UGD</i></td>
         </tr>
         <?php 
         foreach ($detail_penanganan_ugd->result() as $detail_ugd) {
             $harga_tindakan_ugd += $detail_ugd->harga * $detail_ugd->qty;
         ?>
         <tr>
-            <td style="text-align:left;padding-left:20px"><?php echo $detail_ugd->nama ?></td>
-            <td style="text-align:right"><?php echo $detail_ugd->qty . " x" ?></td>
-            <td style="text-align:right"><?php echo rupiah($detail_ugd->harga) ?></td>
-            <td style="text-align:right"><?php echo rupiah($detail_ugd->harga * $detail_ugd->qty) ?></td>
+            <td style="text-align:left;padding-left:20px"><?php echo $detail_ugd->nama.' ('.$detail_ugd->qty.'X)'; ?></td>
+            <td style="text-align:right"><?php echo rupiah($harga_tindakan_ugd); ?></td>
         </tr>
         <?php 
         }
         }
         ?>
         <!-- END Rincian Tindakan UGD  -->
-
 
         <!-- Rincian Biaya Obat Apotek  -->
         <?php 
@@ -230,7 +192,7 @@
             if ($harga_apotek_totals != 0) {
         ?>
         <tr>
-            <td style="text-align:left;padding-left:10px"><i>Apotek</i></td>
+            <td style="font-weight:bold;text-align:left;padding-left:10px"><i>Apotek</i></td>
         </tr>
         <?php 
         foreach ($detail_penjualan_apotik as $data_apotiks) {
@@ -239,8 +201,6 @@
         ?>
         <tr>
             <td style="text-align:left;padding-left:20px">Biaya Obat-Obatan</td>
-            <td style="text-align:right"></td>
-            <td style="text-align:right"></td>
             <td style="text-align:right"><?php echo rupiah($harga_apotek_total) ?></td>
         </tr>
         <?php 
@@ -281,7 +241,7 @@
             }
         ?>
         <tr>
-            <td style="text-align:left;padding-left:10px"><i>Biaya Rawat inap</i></td>
+            <td style="font-weight:bold;text-align:left;padding-left:10px"><i>Rawat inap</i></td>
         </tr>
 
         <!-- Rincian Kamar Rawat Inap -->
@@ -289,16 +249,14 @@
         if ($no_detail_transaksi_rawat_inap_k != "kosong") {
         ?>
         <tr>
-            <td style="text-align:left;padding-left:20px">Kamar</td>
+            <td style="font-weight:bold;text-align:left;padding-left:20px">Kamar</td>
         </tr>
         <?php 
         foreach ($detail_kamar_ri as $detail_rawat_inap_k) {
             $harga_kamar_ri += $detail_rawat_inap_k->jumlah_hari * $detail_rawat_inap_k->harga_harian;
         ?>
         <tr>
-            <td style="text-align:left;padding-left:40px"><?php echo $detail_rawat_inap_k->nama ?></td>
-            <td style="text-align:right"><?php echo $detail_rawat_inap_k->jumlah_hari . " hari" ?></td>
-            <td style="text-align:right"><?php echo rupiah($detail_rawat_inap_k->harga_harian) ?></td>
+            <td style="text-align:left;padding-left:40px"><?php echo $detail_rawat_inap_k->nama.' ('.$detail_rawat_inap_k->jumlah_hari.' Hari)'; ?></td>
             <td style="text-align:right"><?php echo rupiah($detail_rawat_inap_k->jumlah_hari * $detail_rawat_inap_k->harga_harian) ?></td>
         </tr>
         <?php 
@@ -312,7 +270,7 @@
         if ($no_rawat_inap_t != "kosong") {
         ?>
         <tr>
-            <td style="text-align:left;padding-left:20px">Tindakan Rawat Inap</td>
+            <td style="font-weight:bold;text-align:left;padding-left:20px">Tindakan Rawat Inap</td>
         </tr>
         <?php 
         foreach ($detail_tindakan_ri as $detail_rawat_inap_t) {
@@ -320,9 +278,7 @@
             
         ?>
         <tr>
-            <td style="text-align:left;padding-left:40px"><?php echo $detail_rawat_inap_t->nama ?></td>
-            <td style="text-align:right"><?php echo $detail_rawat_inap_t->qty . " x" ?></td>
-            <td style="text-align:right"><?php echo rupiah($detail_rawat_inap_t->harga) ?></td>
+            <td style="text-align:left;padding-left:40px"><?php echo $detail_rawat_inap_t->nama.' ('.$detail_rawat_inap_t->qty.'X)'; ?></td>
             <td style="text-align:right"><?php echo rupiah($detail_rawat_inap_t->harga * $detail_rawat_inap_t->qty) ?></td>
         </tr>
         <?php 
@@ -336,7 +292,7 @@
         if ($kode_obat_ri != "kosong") {
         ?>
         <tr>
-            <td style="text-align:left;padding-left:20px">Obat Rawat Inap</td>
+            <td style="font-weight:bold;text-align:left;padding-left:20px">Obat Rawat Inap</td>
         </tr>
         <?php
         foreach ($detail_obat_ri as $detail_rawat_inap_o) {
@@ -345,16 +301,10 @@
         ?>
         <tr>
             <td style="text-align:left;padding-left:40px">Biaya Obat-Obatan</td>
-            <td style="text-align:right"></td>
-            <td style="text-align:right"></td>
             <td style="text-align:right"><?php echo rupiah($harga_obat_ri) ?></td>
         </tr>
         <?php 
         }
-        ?>
-        <!-- END Rincian Obat Rawat Inap -->
-
-        <?php 
         }
         ?>
         <!-- END Rincian Biaya Rawat Inap  -->
@@ -376,9 +326,7 @@
             }
         ?>
         <tr>
-            <td style="text-align:left;padding-left:10px"><i>Lain-lain</i></td>
-            <td></td>
-            <td></td>
+            <td style="font-weight:bold;text-align:left;padding-left:10px"><i>Lain-lain</i></td>
             <td style="text-align:right"><?php echo rupiah($harga_lain) ?></td>
         </tr>
         <?php 
@@ -403,9 +351,7 @@
             }
         ?>
         <tr>
-            <td style="text-align:left;padding-left:10px"><i>Biaya Ambulance</i></td>
-            <td></td>
-            <td></td>
+            <td style="font-weight:bold;text-align:left;padding-left:10px"><i>Biaya Ambulance</i></td>
             <td style="text-align:right"><?php echo rupiah($harga_ambulance) ?></td>
         </tr>
         <?php 
@@ -416,15 +362,10 @@
 
 
         <tr style="line-height:50px;">
-            <td class="font-weight-bold">Jumlah Yang Harus Dibayar</td>
-            <td></td>
-            <td></td>
-            <td style="text-align:right"><?php echo rupiah($grand_total) ?></td>
+            <td style="font-weight:bold">Grand Total</td>
+            <td style="text-align:right;font-weight:bold"><?php echo rupiah($grand_total) ?></td>
         </tr>
-
     </table>
-
-
 </body>
 
 </html>

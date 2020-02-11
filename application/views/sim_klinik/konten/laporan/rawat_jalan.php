@@ -8,13 +8,13 @@
 				<form action="<?php echo base_url('laporan/rawatJalan/rj_custom') ?>" method="post">
 					<div class="row mb-3">
 							<div class="col-md-3">
-								<input id="datepicker_awal" placeholder="tanggal mulai" name="tgl_mulai" width="250" />
+								<input type="date" class="form-control form-control-sm" placeholder="Tanggal Mulai" name="tgl_mulai">
 							</div>
 							<div class="col-md-1">
 								<h6 class="mt-2 text-center">Sampai</h6>
 							</div>
 							<div class="col-md-3">
-								<input id="datepicker_akhir" placeholder="tanggal akhir" name="tgl_akhir" width="250" />
+								<input type="date" class="form-control form-control-sm" placeholder="Tanggal Mulai" name="tgl_akhir">
 							</div>
 							<div class="col-md-2">
 								<button type="submit" class="btn btn-sm btn-success mt-1">Cetak Custom</button>
