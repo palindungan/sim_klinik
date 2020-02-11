@@ -93,7 +93,7 @@
                         var jumlah_hari = data_ri_kamar[i].jumlah_hari;
                         var harga_harian = data_ri_kamar[i].harga_harian;
                         var sub_total_harga = data_ri_kamar[i].sub_total_harga;
-                        var tipe = data_ri_kamar[i].tipe;
+                        var tipe = "";
 
                         load_detail_ri_kamar(no_kamar_rawat_i, nama, tanggal_cek_in, tanggal_cek_out, status_kamar, jumlah_hari, harga_harian, sub_total_harga, tipe);
                     });

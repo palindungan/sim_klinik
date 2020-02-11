@@ -514,28 +514,28 @@ class Transaksi extends CI_Controller
                     $tambah = $this->M_tagihan->input_data('detail_penjualan_obat_apotik', $data);
 
                     // update qty obat lama dibawah ini
-                    if ($btn_simpan == "simpan_final") {
-                        $where_kode_obat = array(
-                            'kode_obat' => $kode_obat
-                        );
+                    // if ($btn_simpan == "simpan_final") {
+                    //     $where_kode_obat = array(
+                    //         'kode_obat' => $kode_obat
+                    //     );
 
-                        $ambil_data = $this->M_tagihan->get_data('stok_obat_apotik', $where_kode_obat);
-                        $qty_lama = "kosong";
-                        foreach ($ambil_data->result() as $data) {
-                            $qty_lama = $data->qty;
-                        }
+                    //     $ambil_data = $this->M_tagihan->get_data('stok_obat_apotik', $where_kode_obat);
+                    //     $qty_lama = "kosong";
+                    //     foreach ($ambil_data->result() as $data) {
+                    //         $qty_lama = $data->qty;
+                    //     }
 
-                        $qty_sekarang = $qty_lama - $qty;
+                    //     $qty_sekarang = $qty_lama - $qty;
 
-                        if ($qty_sekarang < 0) {
-                            $qty_sekarang = 0;
-                        }
+                    //     if ($qty_sekarang < 0) {
+                    //         $qty_sekarang = 0;
+                    //     }
 
-                        $data = array(
-                            'qty' => $qty_sekarang
-                        );
-                        $update = $this->M_tagihan->update_data($where_kode_obat, 'stok_obat_apotik', $data);
-                    }
+                    //     $data = array(
+                    //         'qty' => $qty_sekarang
+                    //     );
+                    //     $update = $this->M_tagihan->update_data($where_kode_obat, 'stok_obat_apotik', $data);
+                    // }
                 }
 
                 // update transaksi lama
@@ -603,28 +603,28 @@ class Transaksi extends CI_Controller
                     $tambah = $this->M_tagihan->input_data('detail_penjualan_obat_apotik', $data);
 
                     // update qty obat lama dibawah ini
-                    if ($btn_simpan == "simpan_final") {
-                        $where_kode_obat = array(
-                            'kode_obat' => $kode_obat
-                        );
+                    // if ($btn_simpan == "simpan_final") {
+                    //     $where_kode_obat = array(
+                    //         'kode_obat' => $kode_obat
+                    //     );
 
-                        $ambil_data = $this->M_tagihan->get_data('stok_obat_apotik', $where_kode_obat);
-                        $qty_lama = "kosong";
-                        foreach ($ambil_data->result() as $data) {
-                            $qty_lama = $data->qty;
-                        }
+                    //     $ambil_data = $this->M_tagihan->get_data('stok_obat_apotik', $where_kode_obat);
+                    //     $qty_lama = "kosong";
+                    //     foreach ($ambil_data->result() as $data) {
+                    //         $qty_lama = $data->qty;
+                    //     }
 
-                        $qty_sekarang = $qty_lama - $qty;
+                    //     $qty_sekarang = $qty_lama - $qty;
 
-                        if ($qty_sekarang < 0) {
-                            $qty_sekarang = 0;
-                        }
+                    //     if ($qty_sekarang < 0) {
+                    //         $qty_sekarang = 0;
+                    //     }
 
-                        $data = array(
-                            'qty' => $qty_sekarang
-                        );
-                        $update = $this->M_tagihan->update_data($where_kode_obat, 'stok_obat_apotik', $data);
-                    }
+                    //     $data = array(
+                    //         'qty' => $qty_sekarang
+                    //     );
+                    //     $update = $this->M_tagihan->update_data($where_kode_obat, 'stok_obat_apotik', $data);
+                    // }
                 }
             }
             // End of Cek apakah ada data detail post masuk ?
