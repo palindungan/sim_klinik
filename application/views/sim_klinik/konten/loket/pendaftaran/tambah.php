@@ -101,8 +101,10 @@
 								<tr>
 									<th class="text-center">No RM</th>
 									<th class="text-center">Nama</th>
-									<th class="text-center">Umur</th>
 									<th class="text-center">Alamat</th>
+									<th class="text-center">Tanggal Lahir</th>
+									<th class="text-center">Nama KK</th>
+									<th class="text-center">Umur</th>
 									<th class="text-center">Aksi</th>
 								</tr>
 							</thead>

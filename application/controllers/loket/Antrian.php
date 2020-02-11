@@ -49,26 +49,30 @@ class Antrian extends CI_Controller
         echo $data;
     }
 
-    public function aksiPilihAntrianBP(){
+    public function aksiPilihAntrianBP()
+    {
         $id_antri_bp = $this->input->post('id');
         //Update Data Antrian
         $where  = array('id_antri_bp' => $id_antri_bp);
         $data = array('status_antrian' => '1');
-        $this->M_antrian->update_data($where, 'antrian_bp',$data);
+        $this->M_antrian->update_data($where, 'antrian_bp', $data);
     }
 
-    public function aksiPilihAntrianKIA(){
+    public function aksiPilihAntrianKIA()
+    {
         $id_antri_kia = $this->input->post('id');
         //Update Data Antrian
         $where  = array('id_antri_kia' => $id_antri_kia);
         $data = array('status_antrian' => '1');
-        $this->M_antrian->update_data($where, 'antrian_kia',$data);
+        $this->M_antrian->update_data($where, 'antrian_kia', $data);
     }
 
-    public function aksiPilihAntrianLab(){
+    public function aksiPilihAntrianLab()
+    {
         $id_antri_lab = $this->input->post('id');
         //Update Data Antrian
         $where  = array('id_antri_lab' => $id_antri_lab);
-        $this->M_antrian->update_data($where, 'antrian_lab',$data);
+        $data = array('status_antrian' => '1');
+        $this->M_antrian->update_data($where, 'antrian_lab', $data);
     }
 }

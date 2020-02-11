@@ -69,6 +69,7 @@
 							<th class="text-center">Alamat</th>
 							<th class="text-center">Tanggal lahir</th>
 							<th class="text-center">Nama KK</th>
+							<th class="text-center">Umur</th>
 							<th class="text-center">Aksi</th>
 						</tr>
 					</thead>

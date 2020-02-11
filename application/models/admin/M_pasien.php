@@ -1,7 +1,7 @@
 <?php
 class M_pasien extends CI_Model
 {
-    private $_table = 'master_pasien';
+    private $_table = 'pasien';
     function getDataPasienFastLoad()
     {
         require('assets/sb_admin_2/vendor/fast_load_datatable/ssp.class.php');
@@ -15,6 +15,7 @@ class M_pasien extends CI_Model
             array('db' => 'alamat',  'dt' => 2),
             array('db' => 'tgl_lahir',  'dt' => 3),
             array('db' => 'nama_kk',  'dt' => 4),
+            array('db' => 'umur',  'dt' => 5),
         );
 
         // koneksiDatatable ambil dari custom helper

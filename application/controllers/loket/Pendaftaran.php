@@ -24,29 +24,6 @@ class Pendaftaran extends CI_Controller
         echo $this->M_pasien->getDataPasienFastLoad();
     }
 
-    public function tampil_daftar_pasien()
-    {
-        require('assets/sb_admin_2/vendor/fast_load_datatable/ssp.class.php');
-
-        // DB table to use
-        $table = 'pasien';
-
-        // Table's primary key
-        $primaryKey = 'no_rm';
-
-        $columns = array(
-            array('db' => 'no_rm', 'dt' => 0),
-            array('db' => 'nama',  'dt' => 1),
-            array('db' => 'umur',  'dt' => 2),
-            array('db' => 'alamat',  'dt' => 3),
-        );
-
-        // koneksiDatatable ambil dari custom helper
-        echo json_encode(
-            SSP::simple($_GET, koneksiDatatable(), $table, $primaryKey, $columns)
-        );
-    }
-
     public function store()
     {
         // deklarasi  
