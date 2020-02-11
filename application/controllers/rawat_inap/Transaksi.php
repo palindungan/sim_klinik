@@ -97,11 +97,18 @@ class Transaksi extends CI_Controller
                         $qty_temp = $this->input->post('qty_ri_obat')[$i];
                         $qty = (int) $qty_temp;
 
+                        $status_paket_tmp = isset($this->input->post('status_paket_ri_obat')[$i]) ? $this->input->post('status_paket_ri_obat')[$i] : "Tidak";
+                        $status_paket = "Tidak";
+                        if ($status_paket_tmp == "Ya") {
+                            $status_paket = "Ya";
+                        }
+
                         $data = array(
                             'no_transaksi_rawat_i' => $no_transaksi_rawat_i,
                             'kode_obat' => $kode_obat_ri,
                             'qty' => $qty,
-                            'harga_jual' => $harga_jual
+                            'harga_jual' => $harga_jual,
+                            'status_paket' => $status_paket
                         );
 
                         $tambah = $this->M_tagihan->input_data('detail_transaksi_rawat_inap_obat', $data);
@@ -259,11 +266,18 @@ class Transaksi extends CI_Controller
                         $qty_temp = $this->input->post('qty_ri_obat')[$i];
                         $qty = (int) $qty_temp;
 
+                        $status_paket_tmp = isset($this->input->post('status_paket_ri_obat')[$i]) ? $this->input->post('status_paket_ri_obat')[$i] : "Tidak";
+                        $status_paket = "Tidak";
+                        if ($status_paket_tmp == "Ya") {
+                            $status_paket = "Ya";
+                        }
+
                         $data = array(
                             'no_transaksi_rawat_i' => $no_transaksi_rawat_i,
                             'kode_obat' => $kode_obat_ri,
                             'qty' => $qty,
-                            'harga_jual' => $harga_jual
+                            'harga_jual' => $harga_jual,
+                            'status_paket' => $status_paket
                         );
 
                         $tambah = $this->M_tagihan->input_data('detail_transaksi_rawat_inap_obat', $data);

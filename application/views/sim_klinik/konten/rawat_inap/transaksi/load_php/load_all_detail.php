@@ -217,7 +217,6 @@
         jumlah_detail_transaksi = jumlah_detail_transaksi + 1;
     }
 
-
     function load_detail_ri_tindakan(no_rawat_inap_t, nama, qty, harga) {
 
         $('#detail_list_ri_tindakan').append(`
