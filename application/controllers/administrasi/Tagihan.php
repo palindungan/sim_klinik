@@ -1463,19 +1463,7 @@ class Tagihan extends CI_Controller
         // validasi pelayanan end
 
         if ($btn_simpan == "simpan_final") {
-
-            // $count_transaction = $this->M_v_rawat_inap->countRecordWithTglKeluarParam();
-            // $temp_saldo = "";
-            // if ($count_transaction == 0) {
-            //     $temp_saldo = 0;
-            // } else if ($count_transaction > 0) {
-            //     foreach ($this->M_v_rawat_inap->getLastRecordWithTglKeluarParam() as $i) {
-            //         $temp_saldo = $i->temp_saldo;
-            //     }
-            // }
-            // $grand_total = preg_replace("/[^0-9]/", "", $this->input->post('grand_total'));
-            // $new_saldo = $temp_saldo + $grand_total;
-
+            
             $data_update_status_pelayanan = array(
                 'status' => 'finish',
                 'tgl_keluar' => date('Y-m-d H:i:s')

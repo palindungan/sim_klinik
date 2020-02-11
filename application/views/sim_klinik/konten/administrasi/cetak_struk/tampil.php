@@ -47,8 +47,9 @@
     <h6 style="font-weight:100;text-align:center;margin-top:-20px">Jl. Sunan Muria No.10 Ampel Wuluhan Jember</h6>
     <h6 style="font-weight:100;text-align:center;margin-top:-20px">Telp (0336) 622454 | Kode Pos 68162</h6>
     <hr style="margin-top:-20px">
-    
-    <table width="100%">
+    <p style="margin-top:0px">No. Ref : <?php echo $no_ref; ?></p>
+    <p style="margin-top:-10px">Atas Nama : <?php echo $nama_pasien; ?></p>
+    <table width="100%" style="margin-top:-15px;">
         <tr style="bottom-border: 1pt solid black;">
             <td><p style="font-weight:normal">Rincian Transaksi</p></td>
             <td style="text-align:right;margin:bottom:-10px;">Biaya</td>
@@ -366,6 +367,8 @@
             <td style="text-align:right;font-weight:bold"><?php echo rupiah($grand_total) ?></td>
         </tr>
     </table>
+    <hr>
+    <p style="font-size:12px;"><?php echo date('d-m-Y H:i:s'); ?></p>
 </body>
 
 </html>
