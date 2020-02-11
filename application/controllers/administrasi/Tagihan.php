@@ -1465,7 +1465,7 @@ class Tagihan extends CI_Controller
         if (isset($_POST['no_ugd_t']) && isset($_POST['harga_ugd_tindakan']) && isset($_POST['qty_ugd_tindakan'])) {
             // jika ada UGD maka UGD
             $data_update_status_pelayanan = array(
-                'tipe_pelayanan' => 'UGD'
+                'tipe_pelayanan' => 'IGD'
             );
         }
         if (isset($_POST['kode_obat_ri']) || isset($_POST['no_rawat_inap_t']) || isset($_POST['no_kamar_rawat_i'])) {
