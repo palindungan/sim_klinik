@@ -35,7 +35,6 @@ class RawatInap extends CI_Controller
             $data['ri_bulanan'][$day] = $this->M_laporan->laporan_ri_harian($day);
             $date_month = strtotime("+1 day", $date_month);
         }
-        $data['ri_bulan_ini'] = $this->M_laporan->laporan_ri_bulan_ini();
         $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/laporan/rawat_inap', $data);
     }
 
