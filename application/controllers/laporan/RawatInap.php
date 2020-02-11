@@ -544,8 +544,7 @@ class RawatInap extends CI_Controller
             $date_month = strtotime("+1 day", $date_month);
         }
 
-        $tgl = tgl_indo(date('Y-m-d'));
-        $tgl_judul = date('d-m-Y');
+        $tgl_judul = date('F Y');
         $spreadsheet = new Spreadsheet();
         $spreadsheet = new Spreadsheet;
         // Mengatur Lebar Kolom
@@ -578,7 +577,7 @@ class RawatInap extends CI_Controller
         $spreadsheet->getActiveSheet()->getStyle('A1:U1')
             ->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_TOP);
         $spreadsheet->getActiveSheet()->mergeCells("A1:U1");
-        $spreadsheet->setActiveSheetIndex(0)->setCellValue('A1', 'Laporan Rawat Inap Tanggal ' . $tgl);
+        $spreadsheet->setActiveSheetIndex(0)->setCellValue('A1', 'Laporan Rawat Inap Bulan ' . $tgl_judul);
         $spreadsheet->getActiveSheet()->getStyle('A1:U1')->getFont()->setBold(true);
         $spreadsheet->getActiveSheet()->getStyle('A1:U1')->getAlignment()->setHorizontal('center');
         $spreadsheet->getActiveSheet()->getStyle('A1:U1')
