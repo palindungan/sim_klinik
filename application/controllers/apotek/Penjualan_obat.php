@@ -233,10 +233,11 @@ class Penjualan_obat extends CI_Controller
 
         // validasi pelayanan start
         $grand_total = preg_replace("/[^0-9]/", "", $this->input->post('grand_total'));
+        $grand_total_lain = preg_replace("/[^0-9]/", "", $this->input->post('grand_total_lain'));
 
         $data_update_status_pelayanan = array(
             'tipe_pelayanan' =>  $this->input->post('tipe_pelayanan'),
-            'grand_total' =>  $grand_total
+            'grand_total' =>  $grand_total + $grand_total_lain
         );
 
         $this->M_tagihan->update_data($where_no_ref_pelayanan, 'pelayanan', $data_update_status_pelayanan);

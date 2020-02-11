@@ -67,6 +67,7 @@
 									<td></td>
 									<td align="right">Grand Total :</td>
 									<td>
+										<input readonly type="hidden" name="grand_total_lain" class="angka_default form-control form-control-sm rupiah text-right" id="grand_total_lain" placeholder="Grand Total Lain" required value="">
 										<input readonly type="text" name="grand_total" class="angka_default form-control form-control-sm rupiah text-right" id="grand_total" placeholder="Grand Total" required value="">
 									</td>
 									<td></td>
