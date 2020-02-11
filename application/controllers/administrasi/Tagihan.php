@@ -1451,13 +1451,16 @@ class Tagihan extends CI_Controller
         }
         // End Of cek di setiap transaksi
 
-        // validasi tipe_pelayanan start
+        // validasi pelayanan start
+        $grand_total = preg_replace("/[^0-9]/", "", $this->input->post('grand_total'));
+
         $data_update_status_pelayanan = array(
-            'tipe_pelayanan' =>  $this->input->post('tipe_pelayanan')
+            'tipe_pelayanan' =>  $this->input->post('tipe_pelayanan'),
+            'grand_total' =>  $grand_total
         );
 
         $this->M_tagihan->update_data($where_no_ref_pelayanan, 'pelayanan', $data_update_status_pelayanan);
-        // validasi tipe pelayanan end
+        // validasi pelayanan end
 
         if ($btn_simpan == "simpan_final") {
 
