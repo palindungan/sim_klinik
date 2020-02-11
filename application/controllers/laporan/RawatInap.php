@@ -1037,8 +1037,8 @@ class RawatInap extends CI_Controller
         $tgl_header_mulai = tgl_indo($tgl_1);
         $tgl_header_akhir = tgl_indo($tgl_2);
 
-        $tgl_judul_mulai = date('m-d-Y', strtotime($tgl_1));
-        $tgl_judul_akhir = date('m-d-Y', strtotime($tgl_2));
+        $tgl_judul_mulai = date('d-m-Y', strtotime($tgl_1));
+        $tgl_judul_akhir = date('d-m-Y', strtotime($tgl_2));
 
         $yesterday = date("Y-m-d", strtotime("-1 day", strtotime(date('Y-m-d'))));
         $db_grand_saldo =  $this->M_cek_saldo->getCekSaldoByDate($yesterday);
