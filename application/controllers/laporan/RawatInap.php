@@ -39,7 +39,8 @@
         }
 
         public function ri_hari_ini() {
-            $ri_hari_ini= $this->M_laporan->laporan_ri_hari_ini();
+            $day = date("Y-m-d"); //Tanggal Hari ini
+            $ri_hari_ini= $this->M_laporan->laporan_ri_harian($day);
             $yesterday = date("Y-m-d",strtotime("-1 day",strtotime(date('Y-m-d'))));
             $db_grand_saldo =  $this->M_cek_saldo->getCekSaldoByDate($yesterday);
             $tgl = tgl_indo(date('Y-m-d'));
@@ -298,7 +299,9 @@
                 ->setCellValue('S' . $kolom, number_format($klinik_bersih, 0, ".", ","))
                 ->setCellValue('T' . $kolom, '')
                 ->setCellValue('U' . $kolom, number_format($grand_saldo += $pemasukan_bersih, 0 , ".", ","));
+                $kolom++;
                 }
+
 
                 else if($row->tipe_pelayanan == "IGD"){
                 //Menghitung Jumlah Pasien IGD
@@ -520,7 +523,6 @@
             // ->setCellValue('P' . ((int) $kolom + 0), number_format($total_akomodasi_lain, 0, ".", ","))
             // ->setCellValue('Q' . ((int) $kolom + 0), number_format($sisa_hari, 0, ".", ","));
             // // ->setCellValue('Q' . ((int) $kolom + 0), number_format($total_pemasukan_bersih - $total_akomodasi_obat - $total_akomodasi_alkes -$total_akomodasi_lain, 0, ".", ","));
-        $kolom++;
             
 
 
