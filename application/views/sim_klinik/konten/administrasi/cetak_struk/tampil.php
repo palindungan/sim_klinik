@@ -44,8 +44,9 @@
     $grand_total = 0;
     ?>
     <h6 style="font-weight:100;text-align:center;">KLINIK PRATAMA RAWAT INAP AMPEL SEHAT</h6>
-    <h6 style="font-weight:100;text-align:center;margin-top:-20px">Jl. Sunan Muria No.10 Ampel Wuluhan Jember</h6>
-    <h6 style="font-weight:100;text-align:center;margin-top:-20px">Telp (0336) 622454 | Kode Pos 68162</h6>
+    <h6 style="font-weight:100;text-align:center;margin-top:-20px">Jl. Sunan Muria No.10 Rt 04 Rw 04</h6>
+    <h6 style="font-weight:100;text-align:center;margin-top:-20px">Ampel Wuluhan Jember</h6>
+    <h6 style="font-weight:100;text-align:center;margin-top:-20px">Telp 0822 3016 9638 Kode Pos 68162</h6>
     <hr style="margin-top:-20px">
     <p style="margin-top:0px">No. Ref : <?php echo $no_ref; ?></p>
     <p style="margin-top:-10px">Atas Nama : <?php echo $nama_pasien; ?></p>
