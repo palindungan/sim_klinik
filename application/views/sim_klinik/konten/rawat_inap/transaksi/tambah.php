@@ -14,6 +14,15 @@
 						<select id="xx" class="form-control form-control-sm noRef" name="no_ref_pelayanan" required>
 						</select>
 					</div>
+					<div class="form-group col-sm-5">
+						<label for="inputEmail4">Tipe Pelayanan</label>
+						<select name="tipe_pelayanan" class="form-control form-control-sm" id="tipe_pelayanan" required>
+							<option value="">-</option>
+							<option value="Rawat Jalan">Rawat Jalan</option>
+							<option value="Rawat Inap">Rawat Inap</option>
+							<option value="IGD">IGD</option>
+						</select>
+					</div>
 				</div>
 
 				<div class="row">
@@ -34,11 +43,11 @@
 					</div>
 				</div>
 
-				<input type="text" readonly name="sub_total_ri_kamar" class="angka_default form-control form-control-sm rupiah text-right" id="sub_total_ri_kamar" placeholder="Sub Total RI Kamar">
-				<input type="text" readonly name="sub_total_ri_obat" class="angka_default form-control form-control-sm rupiah text-right" id="sub_total_ri_obat" placeholder="Sub Total RI Obat">
-				<input type="text" readonly name="sub_total_ri_tindakan" class="angka_default form-control form-control-sm rupiah text-right" id="sub_total_ri_tindakan" placeholder="Sub Total RI Tindakan">
-				<input type="text" readonly name="sub_total_lain" class="angka_default form-control form-control-sm rupiah text-right" id="sub_total_lain" placeholder="Sub Total Lain">
-				<input type="text" readonly name="sub_total_apotek_obat" class="angka_default form-control form-control-sm rupiah text-right" id="sub_total_apotek_obat" placeholder="Sub Total Obat Apotek">
+				<input type="hidden" readonly name="sub_total_ri_kamar" class="angka_default form-control form-control-sm rupiah text-right" id="sub_total_ri_kamar" placeholder="Sub Total RI Kamar">
+				<input type="hidden" readonly name="sub_total_ri_obat" class="angka_default form-control form-control-sm rupiah text-right" id="sub_total_ri_obat" placeholder="Sub Total RI Obat">
+				<input type="hidden" readonly name="sub_total_ri_tindakan" class="angka_default form-control form-control-sm rupiah text-right" id="sub_total_ri_tindakan" placeholder="Sub Total RI Tindakan">
+				<input type="hidden" readonly name="sub_total_lain" class="angka_default form-control form-control-sm rupiah text-right" id="sub_total_lain" placeholder="Sub Total Lain">
+				<input type="hidden" readonly name="sub_total_apotek_obat" class="angka_default form-control form-control-sm rupiah text-right" id="sub_total_apotek_obat" placeholder="Sub Total Obat Apotek">
 
 				<div class="row">
 					<div class="col-md-12">
