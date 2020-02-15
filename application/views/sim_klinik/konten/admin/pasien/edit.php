@@ -15,7 +15,7 @@ foreach ($row as $data) :
 					<div class="form-group col-sm-6">
 						<label for="inputEmail2">No RM</label>
 						<input value="<?php echo $data->no_rm ?>" type="text" minlength="12" name="no_rm" maxlength="12" class="form-control form-control-sm" id="no_rm" placeholder="Masukan NO RM" required>
-						<input readonly value="<?php echo $data->no_rm ?>" type="text" minlength="12" name="no_rm_lama" maxlength="12" class="form-control form-control-sm" id="no_rm_lama" required>
+						<input readonly value="<?php echo $data->no_rm ?>" type="hidden" minlength="12" name="no_rm_lama" maxlength="12" class="form-control form-control-sm" id="no_rm_lama" required>
 					</div>
 					<div class="form-group col-sm-6">
 						<label for="inputEmail2">Nama</label>
