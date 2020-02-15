@@ -205,9 +205,14 @@ class Pasien extends CI_Controller
 
     public function update()
     {
+
+        $no_rm = $this->input->post('no_rm'); // yang dipakek
+        $no_rm_lama = $this->input->post('no_rm_lama'); // yang lama
+
         $where = array(
-            'no_rm' => $this->input->post('no_rm')
+            'no_rm' =>  $no_rm
         );
+
         $data = array(
             'nama' => strtoupper($this->input->post('nama')),
             'alamat' => strtoupper($this->input->post('alamat')),
@@ -215,7 +220,42 @@ class Pasien extends CI_Controller
             'nama_kk' => $this->input->post('nama_kk')
         );
 
-        $this->M_pasien->update_data($where, 'master_pasien', $data);
+        if ($no_rm == $no_rm_lama) {
+
+            // jika nomer rm nya sama maka update biasa
+            $update =  $this->M_pasien->update_data($where, 'master_pasien', $data);
+        } else {
+
+            // jika no rm diubah maka
+
+            $data = array(
+                'no_rm' => $no_rm,
+                'nama' => strtoupper($this->input->post('nama')),
+                'alamat' => strtoupper($this->input->post('alamat')),
+                'tgl_lahir' => $this->input->post('tgl_lahir'),
+                'nama_kk' => $this->input->post('nama_kk')
+            );
+
+            $cek_master_pasien = $this->M_pasien->get_data('master_pasien', $where);
+
+            // cek apakah no rm yang diubah ada yang sama
+            if ($cek_master_pasien->num_rows() > 0) {
+
+                // jika data rm sudah ada dalam master pasien maka alert gagal
+                $this->session->set_flashdata('gagal', 'Digagal');
+                redirect('admin/pasien');
+            } else {
+
+                // jika data tidak ada dalam master pasien maka akan hapus file lama dan tambah baru
+                $where_lama = array(
+                    'no_rm' =>  $no_rm_lama
+                );
+
+                $hapus = $this->M_pasien->hapus_data($where_lama, 'master_pasien');
+
+                $tambah = $this->M_pasien->input_data('master_pasien', $data);
+            }
+        }
 
         $this->session->set_flashdata('update', 'Diubah');
         redirect('admin/pasien');

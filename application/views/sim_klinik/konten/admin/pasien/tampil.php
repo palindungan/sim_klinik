@@ -1,6 +1,9 @@
 <?php if ($this->session->flashdata('success')) : ?>
 	<div class="pesan-sukses" data-flashdata="<?= $this->session->flashdata('success'); ?>"></div>
 <?php endif; ?>
+<?php if ($this->session->flashdata('gagal')) : ?>
+	<div class="cek-gagal" data-flashdata="<?= $this->session->flashdata('gagal'); ?>"></div>
+<?php endif; ?>
 <?php if ($this->session->flashdata('update')) : ?>
 	<div class="pesan-update" data-flashdata="<?= $this->session->flashdata('update'); ?>"></div>
 <?php endif; ?>
@@ -27,7 +30,7 @@
 							<div class="form-row">
 								<div class="form-group col-sm-6">
 									<label for="inputEmail2">No RM</label>
-									<input type="text" name="no_rm" maxlength="12" class="form-control form-control-sm" id="no_rm" placeholder="Masukan NO RM" value="<?php echo $no_rm ?>" required>
+									<input type="text" name="no_rm" minlength="12" maxlength="12" class="form-control form-control-sm" id="no_rm" placeholder="Masukan NO RM" value="<?php echo $no_rm ?>" required>
 								</div>
 								<div class="form-group col-sm-6">
 									<label for="inputEmail2">Nama</label>

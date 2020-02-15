@@ -13,7 +13,6 @@
 <!-- Agar input tidak ada history -->
 <script>
 	$("form :input").attr("autocomplete", "off");
-
 </script>
 <!-- Format Rupiah -->
 <script src="<?= base_url(); ?>assets/sb_admin_2/vendor/jquery/jquery.mask.js"></script>
@@ -22,7 +21,7 @@
 
 <!-- validasi inputan rupiah -->
 <script type="text/javascript">
-	$(document).ready(function () {
+	$(document).ready(function() {
 		$('.rupiah').mask('000.000.000', {
 			reverse: true
 		});
@@ -30,11 +29,10 @@
 		$('.nik').mask('0000000000000000');
 		$('.min_stok').mask('000');
 	})
-
 </script>
 <!-- Validasi hanya karakter -->
 <script>
-	$('.karakter').keypress(function (e) {
+	$('.karakter').keypress(function(e) {
 		var regex = new RegExp(/^[a-zA-Z\s]+$/);
 		var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
 		if (regex.test(str)) {
@@ -44,10 +42,9 @@
 			return false;
 		}
 	});
-
 </script>
 <script>
-	$('.karakterAngka').keypress(function (e) {
+	$('.karakterAngka').keypress(function(e) {
 		var regex = new RegExp(/^[a-z0-9\s]+$/i);
 		var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
 		if (regex.test(str)) {
@@ -57,7 +54,6 @@
 			return false;
 		}
 	});
-
 </script>
 <script type="text/javascript">
 	// crud sukses 
@@ -71,6 +67,8 @@
 	// Validasi konfirmasi password dan Cek username yang ada
 	var cek_password = $('.cek-password').data(cek_password);
 	var cek_username = $('.cek-username').data(cek_username);
+
+	var gagal = $('.cek-gagal').data(gagal);
 	if (cek_username) {
 		Swal.fire({
 			icon: 'error',
@@ -82,6 +80,12 @@
 			icon: 'error',
 			title: 'Gagal',
 			text: 'Password Dan Konfirmasi Tidak Cocok'
+		})
+	} else if (gagal) {
+		Swal.fire({
+			icon: 'error',
+			title: 'Gagal',
+			text: 'Gagal, Terdapat No-RM yang Sama !'
 		})
 	} else if (pesan_sukses) {
 		Swal.fire(
@@ -108,7 +112,6 @@
 			'success'
 		)
 	}
-
 </script>
 <script>
 	$('#dataTable').DataTable({
@@ -118,4 +121,3 @@
 		ordering: false
 	});
 </script>
-
