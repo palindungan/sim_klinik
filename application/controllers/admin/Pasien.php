@@ -178,15 +178,32 @@ class Pasien extends CI_Controller
 
     public function store()
     {
+        $no_rm = $this->input->post('no_rm');
+
         $data_pasien = array(
-            'no_rm' => $this->input->post('no_rm'),
+            'no_rm' => $no_rm,
             'nama' => strtoupper($this->input->post('nama')),
             'alamat' => strtoupper($this->input->post('alamat')),
             'tgl_lahir' => $this->input->post('tgl_lahir'),
             'nama_kk' => $this->input->post('nama_kk')
         );
 
-        $this->M_pasien->input_data('master_pasien', $data_pasien);
+        $where = array(
+            'no_rm' =>  $no_rm
+        );
+
+        $cek_master_pasien = $this->M_pasien->get_data('master_pasien', $where);
+
+        if ($cek_master_pasien->num_rows() > 0) {
+
+            // jika data rm sudah ada dalam master pasien maka alert gagal
+            $this->session->set_flashdata('gagal', 'Digagal');
+            redirect('admin/pasien');
+        } else {
+
+            // jika data sudah unik
+            $this->M_pasien->input_data('master_pasien', $data_pasien);
+        }
 
         $this->session->set_flashdata('success', 'Ditambahkan');
         redirect('admin/pasien');
