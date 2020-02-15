@@ -43,13 +43,12 @@ $tgl_indo = tgl_indo($now);
     <p style="margin-top:-10px;">No.Ref : <?php echo $no_ref; ?></p>
     <p style="margin-top:-10px;"><?php echo $hari . "," . $tgl_indo; ?></p>
     <hr style="border-top: 1px dashed black;">
-    <p style="margin-top:-5px;">Terima Kasih Atas Kunjungannya</p>
-
+    <p style="margin-top:-5px;">Semoga lekas sembuh</p>
 </body>
 
 </html>
-<script>23
-
+<script>
+    23
 </script>
 <script type="text/javascript">
     function PrintWindow() {
