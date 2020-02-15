@@ -17,7 +17,7 @@
 								<input type="date" class="form-control form-control-sm" placeholder="Tanggal Mulai" name="tgl_akhir">
 							</div>
 							<div class="col-md-2">
-								<button type="submit" class="btn btn-sm btn-success mt-1">Cetak Custom</button>
+								<button type="submit" class="btn btn-sm btn-success">Cetak Custom</button>
 							</div>
 					</div>
 				</form>

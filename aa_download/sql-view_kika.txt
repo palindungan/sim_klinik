@@ -107,6 +107,12 @@ SELECT dpoa.no_detail_penjualan_obat_a , o.kode_obat , poa.no_penjualan_obat_a ,
 FROM detail_penjualan_obat_apotik dpoa JOIN obat o USING(kode_obat) JOIN penjualan_obat_apotik poa USING(no_penjualan_obat_a) 
 ORDER BY dpoa.no_detail_penjualan_obat_a ASC
 
+CREATE VIEW daftar_rekap_penjualan_obat_apotek AS 
+SELECT o.kode_obat , o.nama , dpoa.qty ,poa.tanggal_penjualan as tanggal
+FROM detail_penjualan_obat_apotik dpoa JOIN obat o USING(kode_obat) JOIN penjualan_obat_apotik poa USING(no_penjualan_obat_a) 
+ORDER BY dpoa.no_detail_penjualan_obat_a ASC
+
+
 CREATE VIEW daftar_penerimaan_obat AS 
 SELECT po.no_penerimaan_o , su.nama , po.tgl_penerimaan_o , po.total_harga 
 FROM penerimaan_obat po JOIN supplier su USING(no_supplier)
@@ -117,6 +123,10 @@ SELECT po.no_penerimaan_o , su.nama AS nama_suplier , po.tgl_penerimaan_o , po.t
 FROM penerimaan_obat po JOIN supplier su USING(no_supplier) JOIN detail_penerimaan_obat dpo USING(no_penerimaan_o) JOIN obat o USING(kode_obat) 
 ORDER BY dpo.id_detail_penerimaan_o ASC
 
+CREATE VIEW daftar_rekap_penjualan_obat_semua AS
+SELECT * FROM `daftar_rekap_penjualan_obat_apotek`
+UNION ALL
+SELECT * FROM `daftar_rekap_penjualan_obat_rawat_inap`
 
 
 ----------
@@ -130,6 +140,11 @@ join `sim_klinik`.`obat_keluar_internal` `oki` on(`doki`.`no_obat_keluar_i` = `o
 
 CREATE VIEW daftar_penjualan_obat_rawat_inap_detail AS 
 SELECT o.kode_obat,  o.nama AS nama_obat , ko.nama AS nama_kategori,dtrio.qty , dtrio.harga_jual ,tri.no_ref_pelayanan,dtrio.no_transaksi_rawat_i , o.stok_rawat_inap as qty_sekarang , o.harga_jual AS harga_lama
+FROM detail_transaksi_rawat_inap_obat dtrio JOIN transaksi_rawat_inap tri USING(no_transaksi_rawat_i) JOIN obat o USING(kode_obat) LEFT JOIN kategori_obat ko USING(no_kat_obat)
+ORDER BY dtrio.no_detail_transaksi_rawat_inap_o ASC
+
+CREATE VIEW daftar_rekap_penjualan_obat_rawat_inap AS 
+SELECT o.kode_obat,  o.nama , dtrio.qty , tri.tgl_transaksi as tanggal
 FROM detail_transaksi_rawat_inap_obat dtrio JOIN transaksi_rawat_inap tri USING(no_transaksi_rawat_i) JOIN obat o USING(kode_obat) LEFT JOIN kategori_obat ko USING(no_kat_obat)
 ORDER BY dtrio.no_detail_transaksi_rawat_inap_o ASC
 

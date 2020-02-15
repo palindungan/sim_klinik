@@ -245,4 +245,25 @@ class Penjualan_obat extends CI_Controller
 
         $this->session->set_flashdata('success', 'Ditambahkan');
     }
+
+    public function daftar_obat_terjual()
+    {
+        $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/apotek/history/daftar_obat_terjual/tampil');
+        
+    }
+
+    public function cetak_custom()
+    {
+        $tgl_1 = $this->input->post('tgl_mulai');
+        $tgl_2 = $this->input->post('tgl_akhir');
+        $tgl_temp_mulai = date('Y-m-d',strtotime($tgl_1));
+        $tgl_temp_akhir = date('Y-m-d',strtotime($tgl_2));
+        $tgl_mulai = $tgl_temp_mulai." 00:00:01";
+        $tgl_akhir = $tgl_temp_akhir." 23:59:59";
+        $data['judul_mulai'] = tgl_indo($tgl_temp_mulai);
+        $data['judul_akhir'] = tgl_indo($tgl_temp_akhir);
+        $data['obat_semua'] = $this->M_penjualan_obat->daftar_rekap_penjualan_obat_semua($tgl_mulai,$tgl_akhir)->result();
+        $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/apotek/history/daftar_obat_terjual/detail', $data);
+
+    }
 }

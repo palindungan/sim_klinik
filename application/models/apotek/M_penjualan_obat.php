@@ -88,4 +88,10 @@ class M_penjualan_obat extends CI_Model
         $this->db->where($where);
         return $this->db->get()->result_array();
     }
+
+    function daftar_rekap_penjualan_obat_semua($tgl_mulai,$tgl_akhir)
+    {
+        $query = $this->db->query("SELECT sum(qty) as qty,kode_obat,nama,tanggal FROM daftar_rekap_penjualan_obat_semua WHERE tanggal BETWEEN '$tgl_mulai' AND '$tgl_akhir' GROUP BY nama ORDER BY nama ASC");
+        return $query;
+    }
 }
