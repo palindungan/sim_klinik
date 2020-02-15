@@ -5,7 +5,7 @@
 		</div>
 		<div class="card-body">
 		<h5>Laporan Obat</h5>
-			<form action="<?php echo base_url('apotek/penjualan_obat/cetak_custom') ?>" method="post" target="_blank">
+			<form action="<?php echo base_url('apotek/penjualan_obat/cetak_custom') ?>" method="post">
 				<div class="row mb-3">
 					<div class="col-md-3">
 						<input type="date" class="form-control form-control-sm" placeholder="Tanggal Mulai" name="tgl_mulai"/>

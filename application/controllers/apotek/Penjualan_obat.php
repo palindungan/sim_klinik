@@ -1,4 +1,9 @@
 <?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+require('./vendor/autoload.php');
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 class Penjualan_obat extends CI_Controller
 {
     function __construct()
@@ -260,10 +265,78 @@ class Penjualan_obat extends CI_Controller
         $tgl_temp_akhir = date('Y-m-d',strtotime($tgl_2));
         $tgl_mulai = $tgl_temp_mulai." 00:00:01";
         $tgl_akhir = $tgl_temp_akhir." 23:59:59";
-        $data['judul_mulai'] = tgl_indo($tgl_temp_mulai);
-        $data['judul_akhir'] = tgl_indo($tgl_temp_akhir);
-        $data['obat_semua'] = $this->M_penjualan_obat->daftar_rekap_penjualan_obat_semua($tgl_mulai,$tgl_akhir)->result();
-        $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/apotek/history/daftar_obat_terjual/detail', $data);
+        $judul_mulai = tgl_indo($tgl_temp_mulai);
+        $judul_akhir = tgl_indo($tgl_temp_akhir);
+        $obat_semua = $this->M_penjualan_obat->daftar_rekap_penjualan_obat_semua($tgl_mulai,$tgl_akhir)->result();
+
+        $spreadsheet = new Spreadsheet();
+        $spreadsheet = new Spreadsheet;
+        // Mengatur Lebar Kolom
+        $spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth(10);
+        $spreadsheet->getActiveSheet()->getColumnDimension('B')->setWidth(40);
+        $spreadsheet->getActiveSheet()->getColumnDimension('C')->setWidth(10);
+
+        $spreadsheet->getActiveSheet()->getRowDimension('1')->setRowHeight(35);
+        // Atur Judul
+        $spreadsheet->getActiveSheet()->getStyle('A1:C1')->getFont()->setBold(true);
+        $spreadsheet->getActiveSheet()->getStyle("A1:C1")->getFont()->setSize(13);
+        $spreadsheet->getActiveSheet()->getStyle('A1:C1')
+        ->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_TOP);
+        $spreadsheet->getActiveSheet()->mergeCells("A1:C1");
+        $spreadsheet->setActiveSheetIndex(0)->setCellValue('A1', $judul_mulai." sampai ".$judul_akhir);
+        $spreadsheet->getActiveSheet()->getStyle('A1:C1')->getFont()->setBold(true);
+        $spreadsheet->getActiveSheet()->getStyle('A1:C1')->getAlignment()->setHorizontal('center');
+        $spreadsheet->getActiveSheet()->getStyle('A1:C1')
+        ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        $spreadsheet->getActiveSheet()->getStyle('A1:C1')
+        ->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+        // tutup
+
+        $spreadsheet->getActiveSheet()->getStyle('A2:C2')
+        ->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_WHITE);
+        $spreadsheet->getActiveSheet()->getStyle('A2:C2')->getFill()
+        ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+        ->getStartColor()->setARGB('006400');
+        $spreadsheet->getActiveSheet()->getStyle('A2:C2')->getFont()->setBold(true);
+        $spreadsheet->getActiveSheet()->getStyle('A2:C2')->getAlignment()->setHorizontal('center');
+        $spreadsheet->getActiveSheet()->getStyle('A2:C2')
+        ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        $spreadsheet->getActiveSheet()->getStyle('A2:C2')
+        ->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+
+        // Border
+        $spreadsheet->getActiveSheet()->getStyle('A2:C2')->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK)->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_BLACK);;
+
+        $spreadsheet->setActiveSheetIndex(0)
+        ->setCellValue('A2', 'Nomor')
+        ->setCellValue('B2', 'Nama Obat')
+        ->setCellValue('C2', 'Qty');
+
+            $kolom = 3;
+            $nomor = 1;
+            foreach ($obat_semua as $data) {
+
+            $spreadsheet->getActiveSheet()->getStyle('A')->getAlignment()->setHorizontal('center');
+            $spreadsheet->getActiveSheet()->getStyle('B')->getAlignment()->setHorizontal('left');
+            $spreadsheet->getActiveSheet()->getStyle('C')->getAlignment()->setHorizontal('center');
+
+
+            $spreadsheet->setActiveSheetIndex(0)
+            ->setCellValue('A' . $kolom, $nomor)
+            ->setCellValue('B' . $kolom,$data->nama)
+            ->setCellValue('C' . $kolom,$data->qty);
+            $kolom++;
+            $nomor++;
+            }
+
+
+            $writer = new Xlsx($spreadsheet);
+
+            header('Content-Type: application/vnd.ms-excel');
+            header('Content-Disposition: attachment;filename="Laporan-Obat-'.$judul_mulai." sampai ".$judul_akhir.'.xlsx"');
+            header('Cache-Control: max-age=0');
+
+            $writer->save('php://output');
 
     }
 }
