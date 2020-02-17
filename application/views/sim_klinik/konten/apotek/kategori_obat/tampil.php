@@ -64,7 +64,7 @@
 							<td><?= $data->no_kat_obat ?></td>
 							<td><?= $data->nama ?></td>
 							<?php 
-							if($data->no_kat_obat == 'K001')
+							if($data->no_kat_obat == 'K001' || $data->no_kat_obat == 'K002' || $data->no_kat_obat == 'K003')
 							{
 							?>
 							<td class="text-center">
