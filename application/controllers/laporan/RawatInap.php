@@ -234,9 +234,7 @@ class RawatInap extends CI_Controller
         foreach ($ri_hari_ini as $row) {
             //Validasi Value Karena Bukan Tipe Integer
             $uang_masuk = (int) $row->uang_masuk;
-            $gizi_hari = (int) $row->gizi_hari;
-            $gizi_porsi = (int) $row->gizi_porsi;
-            $gizi = $gizi_hari + $gizi_porsi; //
+            $gizi = (int) $row->gizi;
             $gda = (int) $row->gda;
             $lab = (int) $row->lab;
             $biaya_ambulance = (int) $row->biaya_ambulance;
@@ -753,9 +751,7 @@ class RawatInap extends CI_Controller
             foreach ($ri_bulanan[$day] as $row) {
                 // Validasi Value Karena Bukan Tipe Integer
                 $uang_masuk = (int) $row->uang_masuk;
-                $gizi_hari = (int) $row->gizi_hari;
-                $gizi_porsi = (int) $row->gizi_porsi;
-                $gizi = $gizi_hari + $gizi_porsi; //
+                $gizi = (int) $row->gizi;
                 $gda = (int) $row->gda;
                 $lab = (int) $row->lab;
                 $biaya_ambulance = (int) $row->biaya_ambulance;
@@ -1063,9 +1059,6 @@ class RawatInap extends CI_Controller
         $tgl_mulai = strtotime(date($tgl_1));
         $tgl_akhir = strtotime(date($tgl_2));
 
-        // $tgl_mulai = $tgl1 . " 00:00:01";
-        // $tgl_akhir = $tgl2 . " 23:59:59";
-
         $tgl_header_mulai = tgl_indo($tgl_1);
         $tgl_header_akhir = tgl_indo($tgl_2);
 
@@ -1281,9 +1274,7 @@ class RawatInap extends CI_Controller
             foreach ($ri_bulanan[$day] as $row) {
                 // Validasi Value Karena Bukan Tipe Integer
                 $uang_masuk = (int) $row->uang_masuk;
-                $gizi_hari = (int) $row->gizi_hari;
-                $gizi_porsi = (int) $row->gizi_porsi;
-                $gizi = $gizi_hari + $gizi_porsi; //
+                $gizi = (int) $row->gizi;
                 $gda = (int) $row->gda;
                 $lab = (int) $row->lab;
                 $biaya_ambulance = (int) $row->biaya_ambulance;

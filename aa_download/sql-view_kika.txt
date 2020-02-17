@@ -260,8 +260,7 @@ from sim_klinik.pelayanan p WHERE p.status = 'finish' AND p.tipe_pelayanan = 'Ra
 
 CREATE VIEW laporan_ri AS
 SELECT p.tipe_pelayanan, "" as id_setoran,p.no_ref_pelayanan,"" as no_akomodasi, p.no_rm, p.tgl_pelayanan,p.tgl_keluar,p.grand_total as uang_masuk,
-(select sum(dtrit.harga * dtrit.qty) from (transaksi_rawat_inap tri join detail_transaksi_rawat_inap_tindakan dtrit on (tri.no_transaksi_rawat_i = dtrit.no_transaksi_rawat_i)) where tri.no_ref_pelayanan = p.no_ref_pelayanan and dtrit.no_rawat_inap_t = 'I004') AS gizi_hari,
-(select sum(dtrit.harga * dtrit.qty) from (transaksi_rawat_inap tri join detail_transaksi_rawat_inap_tindakan dtrit on (tri.no_transaksi_rawat_i = dtrit.no_transaksi_rawat_i)) where tri.no_ref_pelayanan = p.no_ref_pelayanan and dtrit.no_rawat_inap_t = 'I005') AS gizi_porsi,
+(select sum(dtrit.harga * dtrit.qty) from (transaksi_rawat_inap tri join detail_transaksi_rawat_inap_tindakan dtrit on (tri.no_transaksi_rawat_i = dtrit.no_transaksi_rawat_i)) where tri.no_ref_pelayanan = p.no_ref_pelayanan and dtrit.no_rawat_inap_t IN ('I004','I005')) AS gizi,
 (select sum(dlt.harga * dlt.qty) from (lab_transaksi lt join detail_lab_transaksi dlt on (lt.no_lab_t = dlt.no_lab_t)) where lt.no_ref_pelayanan = p.no_ref_pelayanan and dlt.no_lab_c IN ('L001','L002','L003')) AS gda,
 (select sum(dlt.harga * dlt.qty) from (lab_transaksi lt join detail_lab_transaksi dlt on (lt.no_lab_t = dlt.no_lab_t)) where lt.no_ref_pelayanan = p.no_ref_pelayanan and dlt.no_lab_c NOT IN ('L001','L002','L003')) AS lab,
 (select sum(pa.total_harga) from pelayanan_ambulan pa where pa.no_ref_pelayanan = p.no_ref_pelayanan) AS biaya_ambulance,
@@ -281,13 +280,13 @@ AS obat_oral_ri,
 FROM pelayanan p WHERE p.status = 'finish'
 UNION
 SELECT "Akomodasi","","",ari.no_akomodasi_rawat_i,"","",tgl_transaksi, 
-"","","","","","","","","","","","","","","",
+"","","","","","","","","","","","","","",
 (SELECT SUM(daril.qty * daril.harga) FROM detail_akomodasi_rawat_inap_logistik daril JOIN obat o USING(kode_obat) WHERE daril.no_akomodasi_rawat_i = ari.no_akomodasi_rawat_i and o.tipe = 'Obat'),
 (SELECT SUM(daril.qty * daril.harga) FROM detail_akomodasi_rawat_inap_logistik daril JOIN obat o USING(kode_obat) WHERE daril.no_akomodasi_rawat_i = ari.no_akomodasi_rawat_i and o.tipe='Alkes'),
 (SELECT SUM(qty * harga) FROM detail_akomodasi_rawat_inap_lain daril WHERE daril.no_akomodasi_rawat_i = ari.no_akomodasi_rawat_i), "" 
 FROM akomodasi_rawat_inap ari
 UNION
-SELECT "Setor Uang", sri.id_setoran,"","","","",sri.tanggal_setor,"","","","","","","","","","","","","","","","","","", sri.jumlah_setor FROM setoran_rawat_inap sri
+SELECT "Setor Uang", sri.id_setoran,"","","","",sri.tanggal_setor,"","","","","","","","","","","","","","","","","", sri.jumlah_setor FROM setoran_rawat_inap sri
 
 ------------
 

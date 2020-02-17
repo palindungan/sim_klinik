@@ -67,108 +67,112 @@ class Login extends CI_Controller
     }
 
     function cek(){
+        //Dokumentasi Contoh
+        // 1. Untuk Menghitung Saldo Tanggal 2 Januari, dibutuhkan Saldo Terakhir pada tanggal 1 Januari
+        // 2. Perhitungan Dilakukan pada hari setelahnya yaitu tanggal 3 januari
+        // 3. Ketika Login pada tanggal 3 januari, maka akan melakukan perhitungan mulai tanggal terakhir tersimpan
+        //    hingga tanggal 2 januari
+
+        //Mengambil Data Terakhir Tersimpan Pada Tabel Temp Saldo
         $data = $this->M_cek_saldo->getLastRecordCekSaldo();
         $string_start_date = '';
         foreach($data as $i){
             $string_start_date = $i->tanggal;
         }
 
-        // $date_temp = strtotime("+1 day",strtotime(date($string_start_date)));
         $date_temp = strtotime(date($string_start_date));
         $endTimeStamp = strtotime("-1 day",strtotime(date('Y-m-d')));
-        
-        $saldo_ri_harian = '';
-        
-        while ($date_temp < $endTimeStamp) { //Loop PerHari
-            // Keterangan Proses //
-            //1. Mengambil Saldo Terakhir Tabel Temp Saldo Pada Hari Sebelumnya
-            //2. Kemudian ditambahkan dengan hari ini
-            //3. Contoh Untuk membuat mencatat saldo tanggal 3 = saldo tanggal 2 + (pemasukan RI + pemasukan IGD + Pemasukan BP - Pengeluaran Akomodasi - Setor Uang) tanggal 3
-            // End Keterangan Proses //
 
-            //Ambil Saldo Temp Terakhir
-            $data = $this->M_cek_saldo->getLastRecordCekSaldo();
-            $saldo_temp_terakhir = 0;
-            foreach($data as $i){
-                $saldo_temp_terakhir = $i->saldo_ri;
-            }   
-            // echo $saldo_temp_terakhir;
-            // echo date("Y-m-d", $date_temp).' ';
+        while ($date_temp < $endTimeStamp) { //Loop PerHari, $date_temp dimulai dari tanggal terakhir yang tersimpan dalam Tabel Temp Saldo
+            $day = date("Y-m-d", $date_temp); //Tanggal Ambil Saldo Pada Tabel Temp Saldo
+            $grand_saldo = $this->M_cek_saldo->getCekSaldoByDate($day); //Saldo Awal, Berasal Dari Temporary Saldo
+            $date_temp = strtotime("+1 day", $date_temp); //Menambah 1 Hari
+            $next_day = date("Y-m-d", $date_temp); //Tanggal Ambil Transaksi Harian 
+            $laporan_ri_harian = $this->M_laporan->laporan_ri_harian($next_day); //Ambil Dari Laporan Harian
 
-            //Menambah Tanggal
-            $date_temp = strtotime("+1 day", $date_temp); //Menambah Tanggal
-            $tanggal_transaksi = date("Y-m-d", $date_temp);
-            // echo date("Y-m-d", $date_temp).'<br>';
+            //Inisialisasi Grand Total
+            $GT_pemasukan_bersih = 0;
+            $GT_akomodasi_obat = 0;
+            $GT_akomodasi_alkes = 0;
+            $GT_akomodasi_lain = 0;
+            $GT_jumlah_setoran = 0;
 
-            //Mengambil Data
-            $data = $this->M_laporan->get_laporan_ri_by_date($tanggal_transaksi);
-            
-            //Inisialisasi
-            $total_akomodasi = 0;
-            $total_jumlah_setoran = 0;
-            $total_pemasukan_bersih = 0;
-            // $dana_rj_masuk_ri = 0;
+            //Inisisalisasi Rawat Inap
+            $RI_pemasukan_bersih = 0;
+            //Inisialisasi IGD
+            $IGD_pemasukan_bersih = 0;
+            //Inisialisasi Rawat Jalan
+            $pemasukan_bersih_bp_ke_ri = 2000;
+            $RJ_pemasukan_bersih = 0;
+            //Inisialisasi Akomodasi
+            $AK_akomodasi_obat = 0;
+            $AK_akomodasi_alkes = 0;
+            $AK_akomodasi_lain = 0;
+            //Inisialisasi Setoran
+            $SETORAN_jumlah_setoran = 0;
 
-            $uang_masukz = 0;
-            $uang_masuk = 0;
-            foreach($data as $row){ //Loop Per hari
-                //Validasi Value Karena Bukan Tipe Integer
-                $gizi_hari = (int) $row->gizi_hari;
-                $gizi_porsi = (int) $row->gizi_porsi;
-                $gizi = $gizi_hari + $gizi_porsi; //
+            //Loop:
+            foreach($laporan_ri_harian as $row){
+                // Validasi Value Karena Bukan Tipe Integer
+                $uang_masuk = (int) $row->uang_masuk;
+                $gizi = (int) $row->gizi;
                 $gda = (int) $row->gda;
                 $lab = (int) $row->lab;
                 $biaya_ambulance = (int) $row->biaya_ambulance;
                 $total_bp_paket = (int) $row->total_bp_paket;
-                $total_bp_non_paket =  (int) $row->total_bp_non_paket;
-                $total_bp = $total_bp_paket + $total_bp_non_paket;
-                $total_kia_paket = (int) $row->total_kia_paket;
-                $total_kia_non_paket =  (int) $row->total_kia_non_paket;
-                $total_kia = $total_kia_paket + $total_kia_non_paket;
+                $total_bp_non_paket = (int) $row->total_bp_non_paket;
+                $total_bp =  $total_bp_paket + $total_bp_non_paket;
+                $total_kia = (int) $row->total_kia;
                 $ekg = (int) $row->ekg;
                 $lain_lain = (int) $row->lain_lain;
+                $obat_oral_ri = (int) $row->obat_oral_ri;
 
-                
-
-                if($row->tipe_pelayanan != 'Rawat Jalan'){
-                    $uang_masuk = (int) $row->uang_masuk;
-                    $obat_oral_ri = (int) $row->obat_oral_ri;
-                    echo $uang_masuk.'<br>';
-                    
-                }else if($row->tipe_pelayanan == 'Rawat Jalan' && $total_bp_paket > 0 || $total_kia_paket > 0){
-                    // $uang_masukz    += 5000 + $gizi + $gda + $lab + $biaya_ambulance + $total_bp + $total_kia + $ekg + $lain_lain;
-                    $uang_masukz += (int) $row->uang_masuk - $total_bp;
-                    $obat_oral_ri = 3000;
+                if ($row->nama_pasien == "") {
+                    $pemasukan_bersih = 0;
+                } else {
+                    $pemasukan_bersih = $uang_masuk - $gizi - $gda - $lab - $biaya_ambulance - $total_bp - $total_kia - $ekg - $lain_lain - $obat_oral_ri;
                 }
-                
-
-
-                $pemasukan_bersih = $uang_masuk - $gizi - $gda - $lab - $biaya_ambulance - $total_bp - $total_kia - $ekg - $lain_lain - $obat_oral_ri;
-                
                 $akomodasi_obat = (int) $row->akomodasi_obat;
-                $akomodasi_alkes = (int) $row->akomodasi_alkes;                
-                $akomodasi_lain_lain = (int) $row->akomodasi_lain_lain;
+                $akomodasi_alkes = (int) $row->akomodasi_alkes;
+                $akomodasi_lain = (int) $row->akomodasi_lain_lain;
                 $jumlah_setoran = (int) $row->jumlah_setoran;
-                $total_pemasukan_bersih += $pemasukan_bersih;
-                $total_akomodasi += $akomodasi_obat;
-                $total_akomodasi += $akomodasi_alkes;
-                $total_akomodasi += $akomodasi_lain_lain;
-                $total_jumlah_setoran += $jumlah_setoran;
+                $japel = (int) $row->japel;
+                $visite = (int) $row->visite;
+                $klinik_bersih = $pemasukan_bersih - $japel - $visite;
 
+                if ($row->tipe_pelayanan == "Rawat Inap") {
+                    $RI_pemasukan_bersih += $pemasukan_bersih;
+                }else if ($row->tipe_pelayanan == "IGD") {
+                    $IGD_pemasukan_bersih += $pemasukan_bersih;
+                } else if ($row->tipe_pelayanan == "Rawat Jalan") { //End If IGD, Start IG Rawat Jalan
+                    $RJ_pemasukan_bersih += $pemasukan_bersih;
+                    if($total_bp_paket > 0){
+                        $RJ_pemasukan_bersih += $pemasukan_bersih_bp_ke_ri;
+                    }
+                } else if ($row->tipe_pelayanan == "Akomodasi") { //End If Rawat Jalan Start Akomodasi
+                    $AK_akomodasi_obat += $akomodasi_obat;
+                    $AK_akomodasi_alkes += $akomodasi_alkes;
+                    $AK_akomodasi_lain += $akomodasi_lain;
+                } else if ($row->tipe_pelayanan == "Setor Uang") {
+                    $SETORAN_jumlah_setoran += $jumlah_setoran;
+                }
             }
-            echo $uang_masukz.'<br>';
-            // echo $total_pemasukan_bersih;
-            $saldo_ri_harian = $saldo_temp_terakhir + $total_pemasukan_bersih - $total_akomodasi - $total_jumlah_setoran;
-            // echo $saldo_temp_terakhir. ' '.$total_pemasukan_bersih. ' '. $total_akomodasi . ' ' . $total_jumlah_setoran. ' ' . $saldo_ri_harian;
+            //Grand Total
+            $GT_pemasukan_bersih = $RI_pemasukan_bersih + $IGD_pemasukan_bersih + $RJ_pemasukan_bersih;
+            $GT_akomodasi_obat = $AK_akomodasi_obat;
+            $GT_akomodasi_alkes = $AK_akomodasi_alkes;
+            $GT_akomodasi_lain = $AK_akomodasi_lain;
+            $GT_jumlah_setoran = $SETORAN_jumlah_setoran;
+
+            $grand_saldo += $GT_pemasukan_bersih - ($GT_akomodasi_obat + $GT_akomodasi_alkes + $GT_akomodasi_lain) - $GT_jumlah_setoran;
 
             // Insert Ke Tabel Cek Saldo
-            // $data = array(
-            //     'tanggal' => $tanggal_transaksi,
-            //     'saldo_ri' => $saldo_ri_harian
-            // );
-            // $this->M_cek_saldo->input_saldo($data);
+            $data = array(
+                'tanggal' => $next_day,
+                'saldo_ri' => $grand_saldo
+            );
+            $this->M_cek_saldo->input_saldo($data);
         }
-
     }
 
     public function logout(){

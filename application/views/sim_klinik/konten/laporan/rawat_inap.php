@@ -161,9 +161,7 @@
 							foreach($ri_harian as $row){
 								//Validasi Value Karena Bukan Tipe Integer
 								$uang_masuk = (int) $row->uang_masuk;
-								$gizi_hari = (int) $row->gizi_hari;
-								$gizi_porsi = (int) $row->gizi_porsi;
-								$gizi = $gizi_hari + $gizi_porsi; //
+								$gizi = (int) $row->gizi;
 								$gda = (int) $row->gda;
 								$lab = (int) $row->lab;
 								$biaya_ambulance = (int) $row->biaya_ambulance;
@@ -585,9 +583,7 @@
 							foreach($ri_bulanan[$day] as $row){
 								//Validasi Value Karena Bukan Tipe Integer
 								$uang_masuk = (int) $row->uang_masuk;
-								$gizi_hari = (int) $row->gizi_hari;
-								$gizi_porsi = (int) $row->gizi_porsi;
-								$gizi = $gizi_hari + $gizi_porsi; //
+								$gizi = (int) $row->gizi;
 								$gda = (int) $row->gda;
 								$lab = (int) $row->lab;
 								$biaya_ambulance = (int) $row->biaya_ambulance;
