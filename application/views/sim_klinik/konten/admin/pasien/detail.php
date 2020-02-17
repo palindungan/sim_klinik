@@ -97,7 +97,7 @@
 					<?php 
                     foreach($detail_tindakan_lab as $tindakan_lab)
                     {
-						$harga_tindakan_lab += $tindakan_lab->harga;
+						$harga_tindakan_lab += $tindakan_lab->harga * $tindakan_lab->qty;
                     ?>
 					<tr>
 						<td style="text-align:left;padding-left:20px"><?php echo $tindakan_lab->nama ?></td>
@@ -121,7 +121,7 @@
 					<?php 
                     foreach($detail_tindakan_ugd as $tindakan_ugd)
                     {
-						$harga_tindakan_ugd += $tindakan_ugd->harga;
+						$harga_tindakan_ugd += $tindakan_ugd->harga * $tindakan_ugd->qty;
                     ?>
 					<tr>
 						<td style="text-align:left;padding-left:20px"><?php echo $tindakan_ugd->nama ?></td>
