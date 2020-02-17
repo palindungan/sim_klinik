@@ -103,7 +103,7 @@
 						<td style="text-align:left;padding-left:20px"><?php echo $tindakan_lab->nama ?></td>
 						<td style="text-align:right"><?php echo $tindakan_lab->qty." x" ?></td>
 						<td style="text-align:right"><?php echo rupiah($tindakan_lab->harga) ?></td>
-						<td style="text-align:right"><?php echo rupiah($tindakan_lab->harga) ?></td>
+						<td style="text-align:right"><?php echo rupiah($tindakan_lab->harga * $tindakan_lab->qty) ?></td>
 					</tr>
 					<?php 
 					}
@@ -127,7 +127,7 @@
 						<td style="text-align:left;padding-left:20px"><?php echo $tindakan_ugd->nama ?></td>
 						<td style="text-align:right"><?php echo $tindakan_ugd->qty." x" ?></td>
 						<td style="text-align:right"><?php echo rupiah($tindakan_ugd->harga) ?></td>
-						<td style="text-align:right"><?php echo rupiah($tindakan_ugd->harga) ?></td>
+						<td style="text-align:right"><?php echo rupiah($tindakan_ugd->harga * $tindakan_ugd->qty) ?></td>
 					</tr>
 					<?php 
 					}
