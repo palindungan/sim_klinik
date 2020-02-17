@@ -237,7 +237,7 @@
 										$RJ_pemasukan_bersih += $pemasukan_bersih_bp_ke_ri;
 									}
 
-									$RJ_uang_masuk += $uang_masuk;
+									// $RJ_uang_masuk += $uang_masuk;
 									$RJ_gizi += $gizi;
 									$RJ_gda += $gda;
 									$RJ_lab += $lab;
@@ -246,8 +246,8 @@
 									$RJ_total_kia += $total_kia;
 									$RJ_ekg += $ekg;
 									$RJ_lain_lain += $lain_lain;
-									$RJ_obat_oral_ri += $obat_oral_ri;
-									$RJ_pemasukan_bersih += $pemasukan_bersih;
+									// $RJ_obat_oral_ri += $obat_oral_ri;
+									// $RJ_pemasukan_bersih += $pemasukan_bersih;
 									$RJ_japel += $japel;
 									$RJ_visite += $visite;
 									$RJ_klinik_bersih += $klinik_bersih;
@@ -265,24 +265,26 @@
 									$SETORAN_jumlah_setoran += $jumlah_setoran;
 								}
 								//Hitung Grand Total
-								$GT_uang_masuk += $uang_masuk;
-								$GT_gizi += $gizi;
-								$GT_gda += $gda;
-								$GT_lab += $lab;
-								$GT_biaya_ambulance += $biaya_ambulance;
-								$GT_total_bp += $total_bp;
-								$GT_total_kia += $total_kia;
-								$GT_ekg += $ekg;
-								$GT_lain_lain += $lain_lain;
-								$GT_obat_oral_ri += $obat_oral_ri;
-								$GT_pemasukan_bersih += $pemasukan_bersih;
-								$GT_akomodasi_obat += $akomodasi_obat;
-								$GT_akomodasi_alkes += $akomodasi_alkes;
-								$GT_akomodasi_lain += $akomodasi_lain;
-								$GT_jumlah_setoran += $jumlah_setoran;
-								$GT_japel += $japel;
-								$GT_visite += $visite;
-								$GT_klinik_bersih += $klinik_bersih;
+								if($row->tipe_pelayanan != 'Rawat Jalan'){
+									$GT_uang_masuk += $uang_masuk;
+									$GT_gizi += $gizi;
+									$GT_gda += $gda;
+									$GT_lab += $lab;
+									$GT_biaya_ambulance += $biaya_ambulance;
+									$GT_total_bp += $total_bp;
+									$GT_total_kia += $total_kia;
+									$GT_ekg += $ekg;
+									$GT_lain_lain += $lain_lain;
+									$GT_obat_oral_ri += $obat_oral_ri;
+									$GT_pemasukan_bersih += $pemasukan_bersih;
+									$GT_akomodasi_obat += $akomodasi_obat;
+									$GT_akomodasi_alkes += $akomodasi_alkes;
+									$GT_akomodasi_lain += $akomodasi_lain;
+									$GT_jumlah_setoran += $jumlah_setoran;
+									$GT_japel += $japel;
+									$GT_visite += $visite;
+									$GT_klinik_bersih += $klinik_bersih;
+								}
 
 							} 
 								if($jumlah_pasien_igd > 0){
@@ -642,8 +644,9 @@
 										$RJ_obat_oral_ri += $potong_obat_oral;
 										$RJ_pemasukan_bersih += $pemasukan_bersih_bp_ke_ri;
 									}
+									// $RJ_uang_masuk++;
 
-									$RJ_uang_masuk += $uang_masuk;
+									// $RJ_uang_masuk += $uang_masuk;
 									$RJ_gizi += $gizi;
 									$RJ_gda += $gda;
 									$RJ_lab += $lab;
@@ -652,8 +655,8 @@
 									$RJ_total_kia += $total_kia;
 									$RJ_ekg += $ekg;
 									$RJ_lain_lain += $lain_lain;
-									$RJ_obat_oral_ri += $obat_oral_ri;
-									$RJ_pemasukan_bersih += $pemasukan_bersih;
+									// $RJ_obat_oral_ri += $obat_oral_ri;
+									// $RJ_pemasukan_bersih += $pemasukan_bersih;
 									$RJ_japel += $japel;
 									$RJ_visite += $visite;
 									$RJ_klinik_bersih += $klinik_bersih;
@@ -671,24 +674,26 @@
 									$SETORAN_jumlah_setoran += $jumlah_setoran;
 								}
 								//Hitung Grand Total
-								$GT_uang_masuk += $uang_masuk;
-								$GT_gizi += $gizi;
-								$GT_gda += $gda;
-								$GT_lab += $lab;
-								$GT_biaya_ambulance += $biaya_ambulance;
-								$GT_total_bp += $total_bp;
-								$GT_total_kia += $total_kia;
-								$GT_ekg += $ekg;
-								$GT_lain_lain += $lain_lain;
-								$GT_obat_oral_ri += $obat_oral_ri;
-								$GT_pemasukan_bersih += $pemasukan_bersih;
-								$GT_akomodasi_obat += $akomodasi_obat;
-								$GT_akomodasi_alkes += $akomodasi_alkes;
-								$GT_akomodasi_lain += $akomodasi_lain;
-								$GT_jumlah_setoran += $jumlah_setoran;
-								$GT_japel += $japel;
-								$GT_visite += $visite;
-								$GT_klinik_bersih += $klinik_bersih;
+								if($row->tipe_pelayanan != 'Rawat Jalan'){
+									$GT_uang_masuk += $uang_masuk;
+									$GT_gizi += $gizi;
+									$GT_gda += $gda;
+									$GT_lab += $lab;
+									$GT_biaya_ambulance += $biaya_ambulance;
+									$GT_total_bp += $total_bp;
+									$GT_total_kia += $total_kia;
+									$GT_ekg += $ekg;
+									$GT_lain_lain += $lain_lain;
+									$GT_obat_oral_ri += $obat_oral_ri;
+									$GT_pemasukan_bersih += $pemasukan_bersih;
+									$GT_akomodasi_obat += $akomodasi_obat;
+									$GT_akomodasi_alkes += $akomodasi_alkes;
+									$GT_akomodasi_lain += $akomodasi_lain;
+									$GT_jumlah_setoran += $jumlah_setoran;
+									$GT_japel += $japel;
+									$GT_visite += $visite;
+									$GT_klinik_bersih += $klinik_bersih;
+								}
 
 							} 
 								if($jumlah_pasien_igd > 0){
