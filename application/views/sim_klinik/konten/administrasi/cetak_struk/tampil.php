@@ -78,7 +78,7 @@
         ?>
         <tr>
             <td style="text-align:left;padding-left:20px"><?php echo $detail_bp->nama.' ('.$detail_bp->qty.'X)'; ?></td>
-            <td style="text-align:right"><?php echo rupiah($harga_tindakan_bp) ?></td>
+            <td style="text-align:right"><?php echo rupiah($detail_bp->harga_tindakan * $detail_bp->qty) ?></td>
         </tr>
         <?php 
         }
@@ -108,7 +108,7 @@
         ?>
         <tr>
             <td style="text-align:left;padding-left:20px"><?php echo $detail_kia->nama.' ('.$detail_kia->qty.'X)'; ?></td>
-            <td style="text-align:right"><?php echo rupiah($harga_tindakan_kia); ?></td>
+            <td style="text-align:right"><?php echo rupiah($detail_kia->harga * $detail_kia->qty); ?></td>
         </tr>
         <?php 
         }
@@ -138,7 +138,7 @@
         ?>
         <tr>
             <td style="text-align:left;padding-left:20px"><?php echo $detail_lab->nama.' ('.$detail_lab->qty.'X)'; ?></td>
-            <td style="text-align:right"><?php echo rupiah($harga_tindakan_lab); ?></td>
+            <td style="text-align:right"><?php echo rupiah($detail_lab->harga * $detail_lab->qty); ?></td>
         </tr>
         <?php 
         }
@@ -168,7 +168,7 @@
         ?>
         <tr>
             <td style="text-align:left;padding-left:20px"><?php echo $detail_ugd->nama.' ('.$detail_ugd->qty.'X)'; ?></td>
-            <td style="text-align:right"><?php echo rupiah($harga_tindakan_ugd); ?></td>
+            <td style="text-align:right"><?php echo rupiah($detail_ugd->harga * $detail_ugd->qty); ?></td>
         </tr>
         <?php 
         }
