@@ -107,12 +107,12 @@ class Login extends CI_Controller
             $total_akomodasi = 0;
             $total_jumlah_setoran = 0;
             $total_pemasukan_bersih = 0;
-            $dana_rj_masuk_ri = 0;
+            // $dana_rj_masuk_ri = 0;
 
+            $uang_masukz = 0;
+            $uang_masuk = 0;
             foreach($data as $row){ //Loop Per hari
-
                 //Validasi Value Karena Bukan Tipe Integer
-                $uang_masuk = (int) $row->uang_masuk;
                 $gizi_hari = (int) $row->gizi_hari;
                 $gizi_porsi = (int) $row->gizi_porsi;
                 $gizi = $gizi_hari + $gizi_porsi; //
@@ -122,10 +122,26 @@ class Login extends CI_Controller
                 $total_bp_paket = (int) $row->total_bp_paket;
                 $total_bp_non_paket =  (int) $row->total_bp_non_paket;
                 $total_bp = $total_bp_paket + $total_bp_non_paket;
-                $total_kia = (int) $row->total_kia;
+                $total_kia_paket = (int) $row->total_kia_paket;
+                $total_kia_non_paket =  (int) $row->total_kia_non_paket;
+                $total_kia = $total_kia_paket + $total_kia_non_paket;
                 $ekg = (int) $row->ekg;
                 $lain_lain = (int) $row->lain_lain;
-                $obat_oral_ri = (int) $row->obat_oral_ri;
+
+                
+
+                if($row->tipe_pelayanan != 'Rawat Jalan'){
+                    $uang_masuk = (int) $row->uang_masuk;
+                    $obat_oral_ri = (int) $row->obat_oral_ri;
+                    echo $uang_masuk.'<br>';
+                    
+                }else if($row->tipe_pelayanan == 'Rawat Jalan' && $total_bp_paket > 0 || $total_kia_paket > 0){
+                    // $uang_masukz    += 5000 + $gizi + $gda + $lab + $biaya_ambulance + $total_bp + $total_kia + $ekg + $lain_lain;
+                    $uang_masukz += (int) $row->uang_masuk - $total_bp;
+                    $obat_oral_ri = 3000;
+                }
+                
+
 
                 $pemasukan_bersih = $uang_masuk - $gizi - $gda - $lab - $biaya_ambulance - $total_bp - $total_kia - $ekg - $lain_lain - $obat_oral_ri;
                 
@@ -133,11 +149,6 @@ class Login extends CI_Controller
                 $akomodasi_alkes = (int) $row->akomodasi_alkes;                
                 $akomodasi_lain_lain = (int) $row->akomodasi_lain_lain;
                 $jumlah_setoran = (int) $row->jumlah_setoran;
-                
-                if($row->tipe_pelayanan == 'Rawat Jalan' && $total_bp_paket > 0){
-                    $dana_rj_masuk_ri += 2000;
-                }
-
                 $total_pemasukan_bersih += $pemasukan_bersih;
                 $total_akomodasi += $akomodasi_obat;
                 $total_akomodasi += $akomodasi_alkes;
@@ -145,15 +156,17 @@ class Login extends CI_Controller
                 $total_jumlah_setoran += $jumlah_setoran;
 
             }
-            $saldo_ri_harian = $saldo_temp_terakhir + $total_pemasukan_bersih + $dana_rj_masuk_ri - $total_akomodasi - $total_jumlah_setoran;
-            // echo $saldo_ri_harian;
+            echo $uang_masukz.'<br>';
+            // echo $total_pemasukan_bersih;
+            $saldo_ri_harian = $saldo_temp_terakhir + $total_pemasukan_bersih - $total_akomodasi - $total_jumlah_setoran;
+            // echo $saldo_temp_terakhir. ' '.$total_pemasukan_bersih. ' '. $total_akomodasi . ' ' . $total_jumlah_setoran. ' ' . $saldo_ri_harian;
 
             // Insert Ke Tabel Cek Saldo
-            $data = array(
-                'tanggal' => $tanggal_transaksi,
-                'saldo_ri' => $saldo_ri_harian
-            );
-            $this->M_cek_saldo->input_saldo($data);
+            // $data = array(
+            //     'tanggal' => $tanggal_transaksi,
+            //     'saldo_ri' => $saldo_ri_harian
+            // );
+            // $this->M_cek_saldo->input_saldo($data);
         }
 
     }
