@@ -40,15 +40,6 @@
 										id="inputEmail1" placeholder="Masukan biaya tindakan" required>
 								</div>
 							</div>
-							<div class="form-row">
-								<div class="form-group col-sm-6">
-									<label for="inputEmail2">Status Paket</label>
-									<select name="status_paket" id="" class="form-control form-control-sm" required>
-										<option value="1">Paket</option>
-										<option value="0">Non Paket</option>
-									</select>
-								</div>
-							</div>
 						</div>
 						<div class="modal-footer">
 							<button type="submit" class="btn btn-sm btn-success">Simpan</button>
@@ -66,7 +57,6 @@
 							<th width="10%">Kode</th>
 							<th width="30%">Nama Tindakan</th>
 							<th width="15%" class="text-center">Biaya</th>
-							<th width="25%" class="text-center">Status Paket</th>
 							<th width="15%" class="text-center">Aksi</th>
 						</tr>
 					</thead>
@@ -80,7 +70,6 @@
 							<td><?= $data->no_kia_t ?></td>
 							<td><?= $data->nama ?></td>
 							<td class="text-right"><?= rupiah($data->harga) ?></td>
-							<td class="text-center"><?php echo ($data->status_paket == 1 ? 'Paket' : 'Non Paket'); ?></td>
 							<td class="text-center">
 								<a style="cursor:pointer" class="btn btn-sm btn-warning text-white" data-toggle="modal"
 									data-target="#modal-edit<?= $data->no_kia_t ?>">Edit</a>
@@ -124,15 +113,6 @@
 							class="form-control form-control-sm rupiah" id="inputEmail1"
 							placeholder="Masukan biaya tindakan" required>
 
-					</div>
-				</div>
-				<div class="form-row">
-					<div class="form-group col-sm-6">
-						<label for="inputEmail2">Penerimaan Uang</label>
-						<select name="status_paket" id="" class="form-control form-control-sm" required>
-							<option value="1" <?php echo ($data->status_paket == '1' ? 'Selected' : ''); ?>>Paket</option>
-							<option value="0" <?php echo ($data->status_paket == '0' ? 'Selected' : ''); ?>>Non Paket</option>
-						</select>
 					</div>
 				</div>
 			</div>
