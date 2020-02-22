@@ -165,10 +165,21 @@ class RawatInap extends CI_Controller
         $GT_klinik_bersih = 0;
 
         //Inisisalisasi Rawat Inap
-        $total_pemasukan_bersih = 0;
-        $total_akomodasi = 0;
-        $total_jumlah_setoran = 0;
         $nomor = 1;
+        $RI_uang_masuk = 0;
+        $RI_gizi = 0;
+        $RI_gda = 0;
+        $RI_lab = 0;
+        $RI_biaya_ambulance = 0;
+        $RI_total_bp = 0;
+        $RI_total_kia = 0;
+        $RI_ekg = 0;
+        $RI_lain_lain = 0;
+        $RI_obat_oral_ri = 0;
+        $RI_pemasukan_bersih = 0;
+        $RI_japel = 0;
+        $RI_visite = 0;
+        $RI_klinik_bersih = 0;
 
         //Inisialisasi IGD
         $jumlah_pasien_igd = 0;
@@ -223,9 +234,7 @@ class RawatInap extends CI_Controller
         foreach ($ri_hari_ini as $row) {
             //Validasi Value Karena Bukan Tipe Integer
             $uang_masuk = (int) $row->uang_masuk;
-            $gizi_hari = (int) $row->gizi_hari;
-            $gizi_porsi = (int) $row->gizi_porsi;
-            $gizi = $gizi_hari + $gizi_porsi; //
+            $gizi = (int) $row->gizi;
             $gda = (int) $row->gda;
             $lab = (int) $row->lab;
             $biaya_ambulance = (int) $row->biaya_ambulance;
@@ -246,9 +255,7 @@ class RawatInap extends CI_Controller
             $akomodasi_alkes = (int) $row->akomodasi_alkes;
             $akomodasi_lain = (int) $row->akomodasi_lain_lain;
             $jumlah_setoran = (int) $row->jumlah_setoran;
-            $japel_hari = (int) $row->japel_hari;
-            $japel_setengah = (int) $row->japel_setengah;
-            $japel = $japel_hari + $japel_setengah;
+            $japel = (int) $row->japel;
             $visite = (int) $row->visite;
             $klinik_bersih = $pemasukan_bersih - $japel - $visite;
 
@@ -276,6 +283,20 @@ class RawatInap extends CI_Controller
             $spreadsheet->getActiveSheet()->getStyle('U')->getAlignment()->setHorizontal('right');
 
             if ($row->tipe_pelayanan == "Rawat Inap") {
+                $RI_uang_masuk += $uang_masuk;
+                $RI_gizi += $gizi;
+                $RI_gda += $gda;
+                $RI_lab += $lab;
+                $RI_biaya_ambulance += $biaya_ambulance;
+                $RI_total_bp += $total_bp;
+                $RI_total_kia += $total_kia;
+                $RI_ekg += $ekg;
+                $RI_lain_lain += $lain_lain;
+                $RI_obat_oral_ri += $obat_oral_ri;
+                $RI_pemasukan_bersih += $pemasukan_bersih;
+                $RI_japel += $japel;
+                $RI_visite += $visite;
+                $RI_klinik_bersih += $klinik_bersih;
 
                 $spreadsheet->setActiveSheetIndex(0)
                     ->setCellValue('A' . $kolom, $nomor++)
@@ -324,14 +345,7 @@ class RawatInap extends CI_Controller
                 //Menghitung Jumlah Pasien Rawat Jalan
                 $jumlah_pasien_rj++;
 
-                if ($total_bp_paket > 0) {
-                    $jumlah_pasien_paket_rj++;
-                    $RJ_uang_masuk += $uang_masuk_bp_ke_ri;
-                    $RJ_obat_oral_ri += $potong_obat_oral;
-                    $RJ_pemasukan_bersih += $pemasukan_bersih_bp_ke_ri;
-                }
-
-                // $RJ_uang_masuk += $uang_masuk;
+                $RJ_uang_masuk += ($uang_masuk - $total_bp);
                 $RJ_gizi += $gizi;
                 $RJ_gda += $gda;
                 $RJ_lab += $lab;
@@ -340,11 +354,19 @@ class RawatInap extends CI_Controller
                 $RJ_total_kia += $total_kia;
                 $RJ_ekg += $ekg;
                 $RJ_lain_lain += $lain_lain;
-                // $RJ_obat_oral_ri += $obat_oral_ri;
-                // $RJ_pemasukan_bersih += $pemasukan_bersih;
+                $RJ_obat_oral_ri += $obat_oral_ri;
+                $RJ_pemasukan_bersih += $pemasukan_bersih;
                 $RJ_japel += $japel;
                 $RJ_visite += $visite;
                 $RJ_klinik_bersih += $klinik_bersih;
+
+                if($total_bp_paket > 0){
+                    // $jumlah_pasien_paket_rj++;
+                    $RJ_uang_masuk += $uang_masuk_bp_ke_ri;
+                    $RJ_obat_oral_ri += $potong_obat_oral;
+                    $RJ_pemasukan_bersih += $pemasukan_bersih_bp_ke_ri;
+                    $RJ_klinik_bersih += $pemasukan_bersih_bp_ke_ri;
+                }
             } else if ($row->tipe_pelayanan == "Akomodasi") { //End If Rawat Jalan Start Akomodasi
                 $jumlah_trx_akomodasi++;
 
@@ -354,27 +376,6 @@ class RawatInap extends CI_Controller
             } else if ($row->tipe_pelayanan == "Setor Uang") {
                 $jumlah_trx_setoran++;
                 $SETORAN_jumlah_setoran += $jumlah_setoran;
-            }
-            //Hitung Grand Total
-            if($row->tipe_pelayanan != 'Rawat Jalan'){
-                $GT_uang_masuk += $uang_masuk;
-                $GT_gizi += $gizi;
-                $GT_gda += $gda;
-                $GT_lab += $lab;
-                $GT_biaya_ambulance += $biaya_ambulance;
-                $GT_total_bp += $total_bp;
-                $GT_total_kia += $total_kia;
-                $GT_ekg += $ekg;
-                $GT_lain_lain += $lain_lain;
-                $GT_obat_oral_ri += $obat_oral_ri;
-                $GT_pemasukan_bersih += $pemasukan_bersih;
-                $GT_akomodasi_obat += $akomodasi_obat;
-                $GT_akomodasi_alkes += $akomodasi_alkes;
-                $GT_akomodasi_lain += $akomodasi_lain;
-                $GT_jumlah_setoran += $jumlah_setoran;
-                $GT_japel += $japel;
-                $GT_visite += $visite;
-                $GT_klinik_bersih += $klinik_bersih;
             }
         }
 
@@ -477,11 +478,25 @@ class RawatInap extends CI_Controller
                 ->setCellValue('U' . ((int) $kolom + 3), number_format($grand_saldo -= $SETORAN_jumlah_setoran, 0, ".", ","));
         }
 
-        for ($i = 0; $i < $jumlah_pasien_paket_rj; $i++) {
-            $GT_uang_masuk += $uang_masuk_bp_ke_ri;
-            $GT_obat_oral_ri += $potong_obat_oral;
-            $GT_pemasukan_bersih += $pemasukan_bersih_bp_ke_ri;
-        }
+        // Grand Total
+        $GT_uang_masuk = $RI_uang_masuk + $IGD_uang_masuk + $RJ_uang_masuk;
+        $GT_gizi = $RI_gizi + $IGD_gizi + $RJ_gizi;
+        $GT_gda = $RI_gda + $IGD_gda + $RJ_gda;
+        $GT_lab = $RI_lab + $IGD_lab + $RJ_lab;
+        $GT_biaya_ambulance = $RI_biaya_ambulance + $IGD_biaya_ambulance + $RJ_biaya_ambulance;
+        $GT_total_bp = $RI_total_bp + $IGD_total_bp + $RJ_total_bp;
+        $GT_total_kia = $RI_total_kia + $IGD_total_kia + $RJ_total_kia;
+        $GT_ekg = $RI_ekg + $IGD_ekg + $RJ_ekg;
+        $GT_lain_lain = $RI_lain_lain + $IGD_lain_lain + $RJ_lain_lain;
+        $GT_obat_oral_ri = $RI_obat_oral_ri + $IGD_obat_oral_ri + $RJ_obat_oral_ri;
+        $GT_pemasukan_bersih = $RI_pemasukan_bersih + $IGD_pemasukan_bersih + $RJ_pemasukan_bersih;
+        $GT_akomodasi_obat = $AK_akomodasi_obat;
+        $GT_akomodasi_alkes = $AK_akomodasi_alkes;
+        $GT_akomodasi_lain = $AK_akomodasi_lain;
+        $GT_japel = $RI_japel + $IGD_japel + $RJ_japel;
+        $GT_visite = $RI_visite + $IGD_visite + $RJ_visite;
+        $GT_klinik_bersih = $RI_klinik_bersih + $IGD_klinik_bersih + $RJ_klinik_bersih;
+        $GT_jumlah_setoran = $SETORAN_jumlah_setoran;
 
         $spreadsheet->setActiveSheetIndex(0)
             ->setCellValue('B' . ((int) $kolom + 4), 'TOTAL')
@@ -527,11 +542,6 @@ class RawatInap extends CI_Controller
 
     public function ri_bulan_ini()
     {
-
-        // $day = date("Y-m-d"); //Tanggal Hari ini
-        // $ri_hari_ini = $this->M_laporan->laporan_ri_harian($day);
-        $yesterday = date("Y-m-d", strtotime("-1 day", strtotime(date('Y-m-d'))));
-        $db_grand_saldo =  $this->M_cek_saldo->getCekSaldoByDate($yesterday);
         // Bulanan
         $data_bulanan = array();
         $ri_bulanan = array();
@@ -648,6 +658,7 @@ class RawatInap extends CI_Controller
                 ->setCellValue('A' . $kolom, $day);
             // $kolom++;
             //Get Saldo Kemarin
+            // $grand_saldo = 0;
             $grand_saldo = $yesterday_saldo; //Diambil Record Hari Kemarin Dari Tabel Saldo Temp
             //Inisialisasi Grand Total
             $kolom += 1;
@@ -671,10 +682,21 @@ class RawatInap extends CI_Controller
             $GT_klinik_bersih = 0;
 
             //Inisisalisasi Rawat Inap
-            $total_pemasukan_bersih = 0;
-            $total_akomodasi = 0;
-            $total_jumlah_setoran = 0;
             $nomor = 1;
+            $RI_uang_masuk = 0;
+            $RI_gizi = 0;
+            $RI_gda = 0;
+            $RI_lab = 0;
+            $RI_biaya_ambulance = 0;
+            $RI_total_bp = 0;
+            $RI_total_kia = 0;
+            $RI_ekg = 0;
+            $RI_lain_lain = 0;
+            $RI_obat_oral_ri = 0;
+            $RI_pemasukan_bersih = 0;
+            $RI_japel = 0;
+            $RI_visite = 0;
+            $RI_klinik_bersih = 0;
 
             //Inisialisasi IGD
             $jumlah_pasien_igd = 0;
@@ -729,9 +751,7 @@ class RawatInap extends CI_Controller
             foreach ($ri_bulanan[$day] as $row) {
                 // Validasi Value Karena Bukan Tipe Integer
                 $uang_masuk = (int) $row->uang_masuk;
-                $gizi_hari = (int) $row->gizi_hari;
-                $gizi_porsi = (int) $row->gizi_porsi;
-                $gizi = $gizi_hari + $gizi_porsi; //
+                $gizi = (int) $row->gizi;
                 $gda = (int) $row->gda;
                 $lab = (int) $row->lab;
                 $biaya_ambulance = (int) $row->biaya_ambulance;
@@ -752,9 +772,7 @@ class RawatInap extends CI_Controller
                 $akomodasi_alkes = (int) $row->akomodasi_alkes;
                 $akomodasi_lain = (int) $row->akomodasi_lain_lain;
                 $jumlah_setoran = (int) $row->jumlah_setoran;
-                $japel_hari = (int) $row->japel_hari;
-                $japel_setengah = (int) $row->japel_setengah;
-                $japel = $japel_hari + $japel_setengah;
+                $japel = (int) $row->japel;
                 $visite = (int) $row->visite;
                 $klinik_bersih = $pemasukan_bersih - $japel - $visite;
 
@@ -782,7 +800,20 @@ class RawatInap extends CI_Controller
                 $spreadsheet->getActiveSheet()->getStyle('U')->getAlignment()->setHorizontal('right');
 
                 if ($row->tipe_pelayanan == "Rawat Inap") {
-
+                    $RI_uang_masuk += $uang_masuk;
+                    $RI_gizi += $gizi;
+                    $RI_gda += $gda;
+                    $RI_lab += $lab;
+                    $RI_biaya_ambulance += $biaya_ambulance;
+                    $RI_total_bp += $total_bp;
+                    $RI_total_kia += $total_kia;
+                    $RI_ekg += $ekg;
+                    $RI_lain_lain += $lain_lain;
+                    $RI_obat_oral_ri += $obat_oral_ri;
+                    $RI_pemasukan_bersih += $pemasukan_bersih;
+                    $RI_japel += $japel;
+                    $RI_visite += $visite;
+                    $RI_klinik_bersih += $klinik_bersih;
                     $spreadsheet->setActiveSheetIndex(0)
                         ->setCellValue('A' .  $kolom, $nomor++)
                         ->setCellValue('B' .  $kolom, $row->nama_pasien)
@@ -804,7 +835,7 @@ class RawatInap extends CI_Controller
                         ->setCellValue('R' .  $kolom, number_format($visite, 0, ".", ","))
                         ->setCellValue('S' .  $kolom, number_format($klinik_bersih, 0, ".", ","))
                         ->setCellValue('T' .  $kolom, '')
-                        ->setCellValue('U' .  $kolom, number_format($grand_saldo += $pemasukan_bersih, 0, ".", ","));
+                        ->setCellValue('U' .  $kolom, number_format($grand_saldo += $pemasukan_bersih,0,".",","));
 
                     $kolom++;
                 } else if ($row->tipe_pelayanan == "IGD") {
@@ -825,20 +856,12 @@ class RawatInap extends CI_Controller
                     $IGD_japel += $japel;
                     $IGD_visite += $visite;
                     $IGD_klinik_bersih += $klinik_bersih;
-
-                    $grand_saldo += $IGD_pemasukan_bersih;
+                    
                 } else if ($row->tipe_pelayanan == "Rawat Jalan") { //End If IGD, Start IG Rawat Jalan
                     //Menghitung Jumlah Pasien Rawat Jalan
                     $jumlah_pasien_rj++;
 
-                    if ($total_bp_paket > 0) {
-                        $jumlah_pasien_paket_rj++;
-                        $RJ_uang_masuk += $uang_masuk_bp_ke_ri;
-                        $RJ_obat_oral_ri += $potong_obat_oral;
-                        $RJ_pemasukan_bersih += $pemasukan_bersih_bp_ke_ri;
-                    }
-
-                    // $RJ_uang_masuk += $uang_masuk;
+                    $RJ_uang_masuk += ($uang_masuk - $total_bp);
                     $RJ_gizi += $gizi;
                     $RJ_gda += $gda;
                     $RJ_lab += $lab;
@@ -847,11 +870,19 @@ class RawatInap extends CI_Controller
                     $RJ_total_kia += $total_kia;
                     $RJ_ekg += $ekg;
                     $RJ_lain_lain += $lain_lain;
-                    // $RJ_obat_oral_ri += $obat_oral_ri;
-                    // $RJ_pemasukan_bersih += $pemasukan_bersih;
+                    $RJ_obat_oral_ri += $obat_oral_ri;
+                    $RJ_pemasukan_bersih += $pemasukan_bersih;
                     $RJ_japel += $japel;
                     $RJ_visite += $visite;
                     $RJ_klinik_bersih += $klinik_bersih;
+
+                    if($total_bp_paket > 0){
+                        // $jumlah_pasien_paket_rj++;
+                        $RJ_uang_masuk += $uang_masuk_bp_ke_ri;
+                        $RJ_obat_oral_ri += $potong_obat_oral;
+                        $RJ_pemasukan_bersih += $pemasukan_bersih_bp_ke_ri;
+                        $RJ_klinik_bersih += $pemasukan_bersih_bp_ke_ri;
+                    }
                 } else if ($row->tipe_pelayanan == "Akomodasi") { //End If Rawat Jalan Start Akomodasi
                     $jumlah_trx_akomodasi++;
 
@@ -861,27 +892,6 @@ class RawatInap extends CI_Controller
                 } else if ($row->tipe_pelayanan == "Setor Uang") {
                     $jumlah_trx_setoran++;
                     $SETORAN_jumlah_setoran += $jumlah_setoran;
-                }
-                //Hitung Grand Total
-                if($row->tipe_pelayanan != 'Rawat Jalan'){
-                    $GT_uang_masuk += $uang_masuk;
-                    $GT_gizi += $gizi;
-                    $GT_gda += $gda;
-                    $GT_lab += $lab;
-                    $GT_biaya_ambulance += $biaya_ambulance;
-                    $GT_total_bp += $total_bp;
-                    $GT_total_kia += $total_kia;
-                    $GT_ekg += $ekg;
-                    $GT_lain_lain += $lain_lain;
-                    $GT_obat_oral_ri += $obat_oral_ri;
-                    $GT_pemasukan_bersih += $pemasukan_bersih;
-                    $GT_akomodasi_obat += $akomodasi_obat;
-                    $GT_akomodasi_alkes += $akomodasi_alkes;
-                    $GT_akomodasi_lain += $akomodasi_lain;
-                    $GT_jumlah_setoran += $jumlah_setoran;
-                    $GT_japel += $japel;
-                    $GT_visite += $visite;
-                    $GT_klinik_bersih += $klinik_bersih;
                 }
             }
 
@@ -989,11 +999,25 @@ class RawatInap extends CI_Controller
                 $kolom++;
             }
 
-            for ($i = 0; $i < $jumlah_pasien_paket_rj; $i++) {
-                $GT_uang_masuk += $uang_masuk_bp_ke_ri;
-                $GT_obat_oral_ri += $potong_obat_oral;
-                $GT_pemasukan_bersih += $pemasukan_bersih_bp_ke_ri;
-            }
+            //Grand Total
+            $GT_uang_masuk = $RI_uang_masuk + $IGD_uang_masuk + $RJ_uang_masuk;
+            $GT_gizi = $RI_gizi + $IGD_gizi + $RJ_gizi;
+            $GT_gda = $RI_gda + $IGD_gda + $RJ_gda;
+            $GT_lab = $RI_lab + $IGD_lab + $RJ_lab;
+            $GT_biaya_ambulance = $RI_biaya_ambulance + $IGD_biaya_ambulance + $RJ_biaya_ambulance;
+            $GT_total_bp = $RI_total_bp + $IGD_total_bp + $RJ_total_bp;
+            $GT_total_kia = $RI_total_kia + $IGD_total_kia + $RJ_total_kia;
+            $GT_ekg = $RI_ekg + $IGD_ekg + $RJ_ekg;
+            $GT_lain_lain = $RI_lain_lain + $IGD_lain_lain + $RJ_lain_lain;
+            $GT_obat_oral_ri = $RI_obat_oral_ri + $IGD_obat_oral_ri + $RJ_obat_oral_ri;
+            $GT_pemasukan_bersih = $RI_pemasukan_bersih + $IGD_pemasukan_bersih + $RJ_pemasukan_bersih;
+            $GT_akomodasi_obat = $AK_akomodasi_obat;
+            $GT_akomodasi_alkes = $AK_akomodasi_alkes;
+            $GT_akomodasi_lain = $AK_akomodasi_lain;
+            $GT_japel = $RI_japel + $IGD_japel + $RJ_japel;
+            $GT_visite = $RI_visite + $IGD_visite + $RJ_visite;
+            $GT_klinik_bersih = $RI_klinik_bersih + $IGD_klinik_bersih + $RJ_klinik_bersih;
+            $GT_jumlah_setoran = $SETORAN_jumlah_setoran;
 
             $spreadsheet->setActiveSheetIndex(0)
                 ->setCellValue('B' . $kolom, 'TOTAL')
@@ -1034,9 +1058,6 @@ class RawatInap extends CI_Controller
         $tgl_2 = $this->input->post('tgl_akhir');
         $tgl_mulai = strtotime(date($tgl_1));
         $tgl_akhir = strtotime(date($tgl_2));
-
-        // $tgl_mulai = $tgl1 . " 00:00:01";
-        // $tgl_akhir = $tgl2 . " 23:59:59";
 
         $tgl_header_mulai = tgl_indo($tgl_1);
         $tgl_header_akhir = tgl_indo($tgl_2);
@@ -1183,10 +1204,22 @@ class RawatInap extends CI_Controller
             $GT_klinik_bersih = 0;
 
             //Inisisalisasi Rawat Inap
-            $total_pemasukan_bersih = 0;
-            $total_akomodasi = 0;
-            $total_jumlah_setoran = 0;
             $nomor = 1;
+            $RI_uang_masuk = 0;
+            $RI_gizi = 0;
+            $RI_gda = 0;
+            $RI_lab = 0;
+            $RI_biaya_ambulance = 0;
+            $RI_total_bp = 0;
+            $RI_total_kia = 0;
+            $RI_ekg = 0;
+            $RI_lain_lain = 0;
+            $RI_obat_oral_ri = 0;
+            $RI_pemasukan_bersih = 0;
+            $RI_japel = 0;
+            $RI_visite = 0;
+            $RI_klinik_bersih = 0;
+
 
             //Inisialisasi IGD
             $jumlah_pasien_igd = 0;
@@ -1241,9 +1274,7 @@ class RawatInap extends CI_Controller
             foreach ($ri_bulanan[$day] as $row) {
                 // Validasi Value Karena Bukan Tipe Integer
                 $uang_masuk = (int) $row->uang_masuk;
-                $gizi_hari = (int) $row->gizi_hari;
-                $gizi_porsi = (int) $row->gizi_porsi;
-                $gizi = $gizi_hari + $gizi_porsi; //
+                $gizi = (int) $row->gizi;
                 $gda = (int) $row->gda;
                 $lab = (int) $row->lab;
                 $biaya_ambulance = (int) $row->biaya_ambulance;
@@ -1264,9 +1295,7 @@ class RawatInap extends CI_Controller
                 $akomodasi_alkes = (int) $row->akomodasi_alkes;
                 $akomodasi_lain = (int) $row->akomodasi_lain_lain;
                 $jumlah_setoran = (int) $row->jumlah_setoran;
-                $japel_hari = (int) $row->japel_hari;
-                $japel_setengah = (int) $row->japel_setengah;
-                $japel = $japel_hari + $japel_setengah;
+                $japel = (int) $row->japel;
                 $visite = (int) $row->visite;
                 $klinik_bersih = $pemasukan_bersih - $japel - $visite;
 
@@ -1294,6 +1323,20 @@ class RawatInap extends CI_Controller
                 $spreadsheet->getActiveSheet()->getStyle('U')->getAlignment()->setHorizontal('right');
 
                 if ($row->tipe_pelayanan == "Rawat Inap") {
+                    $RI_uang_masuk += $uang_masuk;
+                    $RI_gizi += $gizi;
+                    $RI_gda += $gda;
+                    $RI_lab += $lab;
+                    $RI_biaya_ambulance += $biaya_ambulance;
+                    $RI_total_bp += $total_bp;
+                    $RI_total_kia += $total_kia;
+                    $RI_ekg += $ekg;
+                    $RI_lain_lain += $lain_lain;
+                    $RI_obat_oral_ri += $obat_oral_ri;
+                    $RI_pemasukan_bersih += $pemasukan_bersih;
+                    $RI_japel += $japel;
+                    $RI_visite += $visite;
+                    $RI_klinik_bersih += $klinik_bersih;
 
                     $spreadsheet->setActiveSheetIndex(0)
                         ->setCellValue('A' .  $kolom, $nomor++)
@@ -1338,19 +1381,11 @@ class RawatInap extends CI_Controller
                     $IGD_visite += $visite;
                     $IGD_klinik_bersih += $klinik_bersih;
 
-                    $grand_saldo += $IGD_pemasukan_bersih;
                 } else if ($row->tipe_pelayanan == "Rawat Jalan") { //End If IGD, Start IG Rawat Jalan
                     //Menghitung Jumlah Pasien Rawat Jalan
                     $jumlah_pasien_rj++;
 
-                    if ($total_bp_paket > 0) {
-                        $jumlah_pasien_paket_rj++;
-                        $RJ_uang_masuk += $uang_masuk_bp_ke_ri;
-                        $RJ_obat_oral_ri += $potong_obat_oral;
-                        $RJ_pemasukan_bersih += $pemasukan_bersih_bp_ke_ri;
-                    }
-
-                    // $RJ_uang_masuk += $uang_masuk;
+                    $RJ_uang_masuk += ($uang_masuk - $total_bp);
                     $RJ_gizi += $gizi;
                     $RJ_gda += $gda;
                     $RJ_lab += $lab;
@@ -1359,11 +1394,19 @@ class RawatInap extends CI_Controller
                     $RJ_total_kia += $total_kia;
                     $RJ_ekg += $ekg;
                     $RJ_lain_lain += $lain_lain;
-                    // $RJ_obat_oral_ri += $obat_oral_ri;
-                    // $RJ_pemasukan_bersih += $pemasukan_bersih;
+                    $RJ_obat_oral_ri += $obat_oral_ri;
+                    $RJ_pemasukan_bersih += $pemasukan_bersih;
                     $RJ_japel += $japel;
                     $RJ_visite += $visite;
                     $RJ_klinik_bersih += $klinik_bersih;
+
+                    if($total_bp_paket > 0){
+                        // $jumlah_pasien_paket_rj++;
+                        $RJ_uang_masuk += $uang_masuk_bp_ke_ri;
+                        $RJ_obat_oral_ri += $potong_obat_oral;
+                        $RJ_pemasukan_bersih += $pemasukan_bersih_bp_ke_ri;
+                        $RJ_klinik_bersih += $pemasukan_bersih_bp_ke_ri;
+                    }
                 } else if ($row->tipe_pelayanan == "Akomodasi") { //End If Rawat Jalan Start Akomodasi
                     $jumlah_trx_akomodasi++;
 
@@ -1373,27 +1416,6 @@ class RawatInap extends CI_Controller
                 } else if ($row->tipe_pelayanan == "Setor Uang") {
                     $jumlah_trx_setoran++;
                     $SETORAN_jumlah_setoran += $jumlah_setoran;
-                }
-                //Hitung Grand Total
-                if($row->tipe_pelayanan != 'Rawat Jalan'){
-                    $GT_uang_masuk += $uang_masuk;
-                    $GT_gizi += $gizi;
-                    $GT_gda += $gda;
-                    $GT_lab += $lab;
-                    $GT_biaya_ambulance += $biaya_ambulance;
-                    $GT_total_bp += $total_bp;
-                    $GT_total_kia += $total_kia;
-                    $GT_ekg += $ekg;
-                    $GT_lain_lain += $lain_lain;
-                    $GT_obat_oral_ri += $obat_oral_ri;
-                    $GT_pemasukan_bersih += $pemasukan_bersih;
-                    $GT_akomodasi_obat += $akomodasi_obat;
-                    $GT_akomodasi_alkes += $akomodasi_alkes;
-                    $GT_akomodasi_lain += $akomodasi_lain;
-                    $GT_jumlah_setoran += $jumlah_setoran;
-                    $GT_japel += $japel;
-                    $GT_visite += $visite;
-                    $GT_klinik_bersih += $klinik_bersih;
                 }
             }
 
@@ -1500,12 +1522,26 @@ class RawatInap extends CI_Controller
                     ->setCellValue('U' . $kolom, number_format($grand_saldo -= $SETORAN_jumlah_setoran, 0, ".", ","));
                 $kolom++;
             }
-
-            for ($i = 0; $i < $jumlah_pasien_paket_rj; $i++) {
-                $GT_uang_masuk += $uang_masuk_bp_ke_ri;
-                $GT_obat_oral_ri += $potong_obat_oral;
-                $GT_pemasukan_bersih += $pemasukan_bersih_bp_ke_ri;
-            }
+            //Grand Total
+            $GT_uang_masuk = $RI_uang_masuk + $IGD_uang_masuk + $RJ_uang_masuk;
+            $GT_gizi = $RI_gizi + $IGD_gizi + $RJ_gizi;
+            $GT_gda = $RI_gda + $IGD_gda + $RJ_gda;
+            $GT_lab = $RI_lab + $IGD_lab + $RJ_lab;
+            $GT_biaya_ambulance = $RI_biaya_ambulance + $IGD_biaya_ambulance + $RJ_biaya_ambulance;
+            $GT_total_bp = $RI_total_bp + $IGD_total_bp + $RJ_total_bp;
+            $GT_total_kia = $RI_total_kia + $IGD_total_kia + $RJ_total_kia;
+            $GT_ekg = $RI_ekg + $IGD_ekg + $RJ_ekg;
+            $GT_lain_lain = $RI_lain_lain + $IGD_lain_lain + $RJ_lain_lain;
+            $GT_obat_oral_ri = $RI_obat_oral_ri + $IGD_obat_oral_ri + $RJ_obat_oral_ri;
+            $GT_pemasukan_bersih = $RI_pemasukan_bersih + $IGD_pemasukan_bersih + $RJ_pemasukan_bersih;
+            $GT_akomodasi_obat = $AK_akomodasi_obat;
+            $GT_akomodasi_alkes = $AK_akomodasi_alkes;
+            $GT_akomodasi_lain = $AK_akomodasi_lain;
+            $GT_japel = $RI_japel + $IGD_japel + $RJ_japel;
+            $GT_visite = $RI_visite + $IGD_visite + $RJ_visite;
+            $GT_klinik_bersih = $RI_klinik_bersih + $IGD_klinik_bersih + $RJ_klinik_bersih;
+            $GT_jumlah_setoran = $SETORAN_jumlah_setoran;
+            
 
             $spreadsheet->setActiveSheetIndex(0)
                 ->setCellValue('B' . $kolom, 'TOTAL')

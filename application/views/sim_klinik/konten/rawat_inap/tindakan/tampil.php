@@ -30,14 +30,21 @@
 						<div class="modal-body">
 							<div class="form-row">
 								<div class="form-group col-sm-6">
-									<label for="inputEmail2">Nama Tindakan</label>
+									<label>Nama Tindakan</label>
 									<input type="text" name="nama" class="form-control form-control-sm"
 										id="inputEmail2" placeholder="Masukan nama tindakan" required>
 								</div>
 								<div class="form-group col-sm-6">
-									<label for="inputEmail1">Biaya Tindakan</label>
+									<label>Biaya Tindakan</label>
 									<input type="text" name="harga" class="form-control form-control-sm rupiah"
 										id="inputEmail1" placeholder="Masukan biaya tindakan" required>
+								</div>
+								<div class="form-group col-sm-6">
+									<label>Tipe Paket</label>
+									<select class="form-control form-control-sm" name="tipe_paket" id="tipe_paket">
+										<option value="0">Non Paket</option>
+										<option value="1">Paket Oral</option>
+									</select>
 								</div>
 							</div>
 						</div>
@@ -55,8 +62,9 @@
 						<tr>
 							<th width="5%" class="text-center">No</th>
 							<th width="20%">Kode</th>
-							<th width="40%">Nama Tindakan</th>
+							<th width="30%">Nama Tindakan</th>
 							<th width="15%" class="text-center">Biaya</th>
+							<th>Tipe</th>
 							<th width="20%" class="text-center">Aksi</th>
 						</tr>
 					</thead>
@@ -70,6 +78,7 @@
 							<td><?= $data->no_rawat_inap_t ?></td>
 							<td><?= $data->nama ?></td>
 							<td class="text-right"><?= rupiah($data->harga) ?></td>
+							<td><?php echo $data->tipe_paket=='1' ? 'Paket Oral':'' ; ?></td>
 							<?php 
 							if($data->no_rawat_inap_t == "I001" || $data->no_rawat_inap_t == "I002" || $data->no_rawat_inap_t == "I003" || $data->no_rawat_inap_t == "I004" || $data->no_rawat_inap_t == "I005")
 							{
@@ -122,7 +131,14 @@
 						<input type="text" name="harga" value="<?= rupiah($data->harga) ?>"
 							class="form-control form-control-sm rupiah" id="inputEmail1"
 							placeholder="Masukan biaya tindakan" required>
-
+					</div>
+					
+					<div class="form-group col-sm-6">
+						<label>Tipe Paket</label>
+						<select class="form-control form-control-sm" name="tipe_paket" id="tipe_paket">
+							<option value="0" >Non Paket</option>
+							<option value="1" <?php echo $data->tipe_paket == '1' ? 'Selected' : '' ;?>>Paket Oral</option>
+						</select>
 					</div>
 				</div>
 			</div>

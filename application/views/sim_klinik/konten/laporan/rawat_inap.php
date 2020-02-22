@@ -53,8 +53,8 @@
 								</tr>
 								<tr>
 									<th class="text-center">Gizi</th>
-									<th class="text-center">GDA</th>
-									<th class="text-center">LAB</th>
+									<th class="text-center">LAB 1</th>
+									<th class="text-center">LAB 2</th>
 									<th class="text-center">AMB</th>
 									<th class="text-center">KIA</th>
 									<th class="text-center">EKG</th>
@@ -90,10 +90,22 @@
 							$GT_klinik_bersih = 0;
 
 							//Inisisalisasi Rawat Inap
-							$total_pemasukan_bersih = 0;
-							$total_akomodasi = 0;
-							$total_jumlah_setoran = 0;
 							$nomor = 1;
+							$RI_uang_masuk = 0;
+							$RI_gizi = 0;
+							$RI_gda = 0;
+							$RI_lab = 0;
+							$RI_biaya_ambulance = 0;
+							$RI_total_bp = 0;
+							$RI_total_kia = 0;
+							$RI_ekg = 0;
+							$RI_lain_lain = 0;
+							$RI_obat_oral_ri = 0;
+							$RI_pemasukan_bersih = 0;
+							$RI_japel = 0;
+							$RI_visite = 0;
+							$RI_klinik_bersih = 0;
+							
 							
 							//Inisialisasi IGD
 							$jumlah_pasien_igd = 0;
@@ -149,9 +161,7 @@
 							foreach($ri_harian as $row){
 								//Validasi Value Karena Bukan Tipe Integer
 								$uang_masuk = (int) $row->uang_masuk;
-								$gizi_hari = (int) $row->gizi_hari;
-								$gizi_porsi = (int) $row->gizi_porsi;
-								$gizi = $gizi_hari + $gizi_porsi; //
+								$gizi = (int) $row->gizi;
 								$gda = (int) $row->gda;
 								$lab = (int) $row->lab;
 								$biaya_ambulance = (int) $row->biaya_ambulance;
@@ -172,14 +182,25 @@
 								$akomodasi_alkes = (int) $row->akomodasi_alkes;
 								$akomodasi_lain = (int) $row->akomodasi_lain_lain;
 								$jumlah_setoran = (int) $row->jumlah_setoran;
-								$japel_hari = (int) $row->japel_hari;
-								$japel_setengah = (int) $row->japel_setengah;
-								$japel = $japel_hari + $japel_setengah;
+								$japel = (int) $row->japel;
 								$visite = (int) $row->visite;
 								$klinik_bersih = $pemasukan_bersih - $japel - $visite;
-
 								
 								if($row->tipe_pelayanan == "Rawat Inap"){
+									$RI_uang_masuk += $uang_masuk;
+									$RI_gizi += $gizi;
+									$RI_gda += $gda;
+									$RI_lab += $lab;
+									$RI_biaya_ambulance += $biaya_ambulance;
+									$RI_total_bp += $total_bp;
+									$RI_total_kia += $total_kia;
+									$RI_ekg += $ekg;
+									$RI_lain_lain += $lain_lain;
+									$RI_obat_oral_ri += $obat_oral_ri;
+									$RI_pemasukan_bersih += $pemasukan_bersih;
+									$RI_japel += $japel;
+									$RI_visite += $visite;
+									$RI_klinik_bersih += $klinik_bersih;
 							?>
 								<tr>
 									<td><?php echo $nomor++; ; ?></td>
@@ -194,9 +215,9 @@
 									<td class="text-right"><?php echo rupiah($lain_lain); ?></td>
 									<td class="text-right"><?php echo rupiah($obat_oral_ri); ?></td>
 									<td class="text-right"><?php echo rupiah($pemasukan_bersih); ?></td>
-									<td class="text-right"><?php echo 0; ?></td>
-									<td class="text-right"><?php echo 0; ?></td>
-									<td class="text-right"><?php echo 0; ?></td>
+									<td></td>
+									<td></td>
+									<td></td>
 									<td></td>
 									<td class="text-right"><?php echo rupiah($japel) ?></td>
 									<td class="text-right"><?php echo rupiah($visite) ?></td>
@@ -229,15 +250,8 @@
 								}else if($row->tipe_pelayanan == "Rawat Jalan"){ //End If IGD, Start IG Rawat Jalan
 									//Menghitung Jumlah Pasien Rawat Jalan
 									$jumlah_pasien_rj++;
-									
-									if($total_bp_paket > 0){
-										$jumlah_pasien_paket_rj++;
-										$RJ_uang_masuk += $uang_masuk_bp_ke_ri;
-										$RJ_obat_oral_ri += $potong_obat_oral;
-										$RJ_pemasukan_bersih += $pemasukan_bersih_bp_ke_ri;
-									}
 
-									// $RJ_uang_masuk += $uang_masuk;
+									$RJ_uang_masuk += ($uang_masuk - $total_bp);
 									$RJ_gizi += $gizi;
 									$RJ_gda += $gda;
 									$RJ_lab += $lab;
@@ -246,11 +260,20 @@
 									$RJ_total_kia += $total_kia;
 									$RJ_ekg += $ekg;
 									$RJ_lain_lain += $lain_lain;
-									// $RJ_obat_oral_ri += $obat_oral_ri;
-									// $RJ_pemasukan_bersih += $pemasukan_bersih;
+									$RJ_obat_oral_ri += $obat_oral_ri;
+									$RJ_pemasukan_bersih += $pemasukan_bersih;
 									$RJ_japel += $japel;
 									$RJ_visite += $visite;
 									$RJ_klinik_bersih += $klinik_bersih;
+
+									if($total_bp_paket > 0){
+										// $jumlah_pasien_paket_rj++;
+										$RJ_uang_masuk += $uang_masuk_bp_ke_ri;
+										$RJ_obat_oral_ri += $potong_obat_oral;
+										$RJ_pemasukan_bersih += $pemasukan_bersih_bp_ke_ri;
+										$RJ_klinik_bersih += $pemasukan_bersih_bp_ke_ri;
+									}
+									
 
 									
 								} else if($row->tipe_pelayanan == "Akomodasi"){ //End If Rawat Jalan Start Akomodasi
@@ -264,28 +287,6 @@
 									$jumlah_trx_setoran++;
 									$SETORAN_jumlah_setoran += $jumlah_setoran;
 								}
-								//Hitung Grand Total
-								if($row->tipe_pelayanan != 'Rawat Jalan'){
-									$GT_uang_masuk += $uang_masuk;
-									$GT_gizi += $gizi;
-									$GT_gda += $gda;
-									$GT_lab += $lab;
-									$GT_biaya_ambulance += $biaya_ambulance;
-									$GT_total_bp += $total_bp;
-									$GT_total_kia += $total_kia;
-									$GT_ekg += $ekg;
-									$GT_lain_lain += $lain_lain;
-									$GT_obat_oral_ri += $obat_oral_ri;
-									$GT_pemasukan_bersih += $pemasukan_bersih;
-									$GT_akomodasi_obat += $akomodasi_obat;
-									$GT_akomodasi_alkes += $akomodasi_alkes;
-									$GT_akomodasi_lain += $akomodasi_lain;
-									$GT_jumlah_setoran += $jumlah_setoran;
-									$GT_japel += $japel;
-									$GT_visite += $visite;
-									$GT_klinik_bersih += $klinik_bersih;
-								}
-
 							} 
 								if($jumlah_pasien_igd > 0){
 							?>
@@ -320,7 +321,7 @@
 								<!-- Menampilkan Total Rawat Jalan -->
 								<tr>
 									<td><?php echo $nomor++; ?></td>
-									<td>BP/Rawat Inap</td>
+									<td>BP/Rawat Jalan</td>
 									<td class="text-right"><?php echo rupiah($RJ_uang_masuk); ?></td>
 									<td class="text-right"><?php echo rupiah($RJ_gizi); ?></td>
 									<td class="text-right"><?php echo rupiah($RJ_gda); ?></td>
@@ -399,11 +400,25 @@
 							<?php } ?>
 								<!-- Grand Total -->
 								<?php
-								for($i=0;$i<$jumlah_pasien_paket_rj;$i++){
-									$GT_uang_masuk += $uang_masuk_bp_ke_ri;
-									$GT_obat_oral_ri += $potong_obat_oral; 
-									$GT_pemasukan_bersih += $pemasukan_bersih_bp_ke_ri; 
-								}
+									$GT_uang_masuk = $RI_uang_masuk + $IGD_uang_masuk + $RJ_uang_masuk;
+									$GT_gizi = $RI_gizi + $IGD_gizi + $RJ_gizi;
+									$GT_gda = $RI_gda + $IGD_gda + $RJ_gda;
+									$GT_lab = $RI_lab + $IGD_lab + $RJ_lab;
+									$GT_biaya_ambulance = $RI_biaya_ambulance + $IGD_biaya_ambulance + $RJ_biaya_ambulance;
+									$GT_total_bp = $RI_total_bp + $IGD_total_bp + $RJ_total_bp;
+									$GT_total_kia = $RI_total_kia + $IGD_total_kia + $RJ_total_kia;
+									$GT_ekg = $RI_ekg + $IGD_ekg + $RJ_ekg;
+									$GT_lain_lain = $RI_lain_lain + $IGD_lain_lain + $RJ_lain_lain;
+									$GT_obat_oral_ri = $RI_obat_oral_ri + $IGD_obat_oral_ri + $RJ_obat_oral_ri;
+									$GT_pemasukan_bersih = $RI_pemasukan_bersih + $IGD_pemasukan_bersih + $RJ_pemasukan_bersih;
+									$GT_akomodasi_obat = $AK_akomodasi_obat;
+									$GT_akomodasi_alkes = $AK_akomodasi_alkes;
+									$GT_akomodasi_lain = $AK_akomodasi_lain;
+									$GT_japel = $RI_japel + $IGD_japel + $RJ_japel;
+									$GT_visite = $RI_visite + $IGD_visite + $RJ_visite;
+									$GT_klinik_bersih = $RI_klinik_bersih + $IGD_klinik_bersih + $RJ_klinik_bersih;
+									$GT_jumlah_setoran = $SETORAN_jumlah_setoran;
+
 								?>
 								<tr>
 									<td colspan="2" class="font-weight-bold">Total</td>
@@ -472,7 +487,7 @@
 							foreach($data_bulanan as $day=>$yesterday_saldo){
 							?>	
 								<tr>
-									<td colspan="21" class="font-weight-bolder"><?php echo "--".$day."--"; ?></td>
+									<td colspan="21" class="font-weight-bolder"><?php echo "--".date('d-m-Y',strtotime($day))."--"; ?></td>
 								</tr>
 							<?php 
 							//Get Saldo Kemarin
@@ -498,10 +513,21 @@
 							$GT_klinik_bersih = 0;
 
 							//Inisisalisasi Rawat Inap
-							$total_pemasukan_bersih = 0;
-							$total_akomodasi = 0;
-							$total_jumlah_setoran = 0;
 							$nomor = 1;
+							$RI_uang_masuk = 0;
+							$RI_gizi = 0;
+							$RI_gda = 0;
+							$RI_lab = 0;
+							$RI_biaya_ambulance = 0;
+							$RI_total_bp = 0;
+							$RI_total_kia = 0;
+							$RI_ekg = 0;
+							$RI_lain_lain = 0;
+							$RI_obat_oral_ri = 0;
+							$RI_pemasukan_bersih = 0;
+							$RI_japel = 0;
+							$RI_visite = 0;
+							$RI_klinik_bersih = 0;
 							
 							//Inisialisasi IGD
 							$jumlah_pasien_igd = 0;
@@ -557,9 +583,7 @@
 							foreach($ri_bulanan[$day] as $row){
 								//Validasi Value Karena Bukan Tipe Integer
 								$uang_masuk = (int) $row->uang_masuk;
-								$gizi_hari = (int) $row->gizi_hari;
-								$gizi_porsi = (int) $row->gizi_porsi;
-								$gizi = $gizi_hari + $gizi_porsi; //
+								$gizi = (int) $row->gizi;
 								$gda = (int) $row->gda;
 								$lab = (int) $row->lab;
 								$biaya_ambulance = (int) $row->biaya_ambulance;
@@ -580,14 +604,25 @@
 								$akomodasi_alkes = (int) $row->akomodasi_alkes;
 								$akomodasi_lain = (int) $row->akomodasi_lain_lain;
 								$jumlah_setoran = (int) $row->jumlah_setoran;
-								$japel_hari = (int) $row->japel_hari;
-								$japel_setengah = (int) $row->japel_setengah;
-								$japel = $japel_hari + $japel_setengah;
+								$japel = (int) $row->japel;
 								$visite = (int) $row->visite;
 								$klinik_bersih = $pemasukan_bersih - $japel - $visite;
-
 								
 								if($row->tipe_pelayanan == "Rawat Inap"){
+									$RI_uang_masuk += $uang_masuk;
+									$RI_gizi += $gizi;
+									$RI_gda += $gda;
+									$RI_lab += $lab;
+									$RI_biaya_ambulance += $biaya_ambulance;
+									$RI_total_bp += $total_bp;
+									$RI_total_kia += $total_kia;
+									$RI_ekg += $ekg;
+									$RI_lain_lain += $lain_lain;
+									$RI_obat_oral_ri += $obat_oral_ri;
+									$RI_pemasukan_bersih += $pemasukan_bersih;
+									$RI_japel += $japel;
+									$RI_visite += $visite;
+									$RI_klinik_bersih += $klinik_bersih;
 							?>
 								<tr>
 									<td><?php echo $nomor++; ; ?></td>
@@ -602,9 +637,9 @@
 									<td class="text-right"><?php echo rupiah($lain_lain); ?></td>
 									<td class="text-right"><?php echo rupiah($obat_oral_ri); ?></td>
 									<td class="text-right"><?php echo rupiah($pemasukan_bersih); ?></td>
-									<td class="text-right"><?php echo 0; ?></td>
-									<td class="text-right"><?php echo 0; ?></td>
-									<td class="text-right"><?php echo 0; ?></td>
+									<td></td>
+									<td></td>
+									<td></td>
 									<td></td>
 									<td class="text-right"><?php echo rupiah($japel) ?></td>
 									<td class="text-right"><?php echo rupiah($visite) ?></td>
@@ -637,16 +672,8 @@
 								}else if($row->tipe_pelayanan == "Rawat Jalan"){ //End If IGD, Start IG Rawat Jalan
 									//Menghitung Jumlah Pasien Rawat Jalan
 									$jumlah_pasien_rj++;
-									
-									if($total_bp_paket > 0){
-										$jumlah_pasien_paket_rj++;
-										$RJ_uang_masuk += $uang_masuk_bp_ke_ri;
-										$RJ_obat_oral_ri += $potong_obat_oral;
-										$RJ_pemasukan_bersih += $pemasukan_bersih_bp_ke_ri;
-									}
-									// $RJ_uang_masuk++;
 
-									// $RJ_uang_masuk += $uang_masuk;
+									$RJ_uang_masuk += ($uang_masuk - $total_bp);
 									$RJ_gizi += $gizi;
 									$RJ_gda += $gda;
 									$RJ_lab += $lab;
@@ -655,11 +682,19 @@
 									$RJ_total_kia += $total_kia;
 									$RJ_ekg += $ekg;
 									$RJ_lain_lain += $lain_lain;
-									// $RJ_obat_oral_ri += $obat_oral_ri;
-									// $RJ_pemasukan_bersih += $pemasukan_bersih;
+									$RJ_obat_oral_ri += $obat_oral_ri;
+									$RJ_pemasukan_bersih += $pemasukan_bersih;
 									$RJ_japel += $japel;
 									$RJ_visite += $visite;
 									$RJ_klinik_bersih += $klinik_bersih;
+
+									if($total_bp_paket > 0){
+										// $jumlah_pasien_paket_rj++;
+										$RJ_uang_masuk += $uang_masuk_bp_ke_ri;
+										$RJ_obat_oral_ri += $potong_obat_oral;
+										$RJ_pemasukan_bersih += $pemasukan_bersih_bp_ke_ri;
+										$RJ_klinik_bersih += $pemasukan_bersih_bp_ke_ri;
+									}
 
 									
 								} else if($row->tipe_pelayanan == "Akomodasi"){ //End If Rawat Jalan Start Akomodasi
@@ -673,28 +708,7 @@
 									$jumlah_trx_setoran++;
 									$SETORAN_jumlah_setoran += $jumlah_setoran;
 								}
-								//Hitung Grand Total
-								if($row->tipe_pelayanan != 'Rawat Jalan'){
-									$GT_uang_masuk += $uang_masuk;
-									$GT_gizi += $gizi;
-									$GT_gda += $gda;
-									$GT_lab += $lab;
-									$GT_biaya_ambulance += $biaya_ambulance;
-									$GT_total_bp += $total_bp;
-									$GT_total_kia += $total_kia;
-									$GT_ekg += $ekg;
-									$GT_lain_lain += $lain_lain;
-									$GT_obat_oral_ri += $obat_oral_ri;
-									$GT_pemasukan_bersih += $pemasukan_bersih;
-									$GT_akomodasi_obat += $akomodasi_obat;
-									$GT_akomodasi_alkes += $akomodasi_alkes;
-									$GT_akomodasi_lain += $akomodasi_lain;
-									$GT_jumlah_setoran += $jumlah_setoran;
-									$GT_japel += $japel;
-									$GT_visite += $visite;
-									$GT_klinik_bersih += $klinik_bersih;
-								}
-
+								
 							} 
 								if($jumlah_pasien_igd > 0){
 							?>
@@ -729,7 +743,7 @@
 								<!-- Menampilkan Total Rawat Jalan -->
 								<tr>
 									<td><?php echo $nomor++; ?></td>
-									<td>BP/Rawat Inap</td>
+									<td>BP/Rawat Jalan</td>
 									<td class="text-right"><?php echo rupiah($RJ_uang_masuk); ?></td>
 									<td class="text-right"><?php echo rupiah($RJ_gizi); ?></td>
 									<td class="text-right"><?php echo rupiah($RJ_gda); ?></td>
@@ -808,11 +822,24 @@
 							<?php } ?>
 								<!-- Grand Total -->
 								<?php
-								for($i=0;$i<$jumlah_pasien_paket_rj;$i++){
-									$GT_uang_masuk += $uang_masuk_bp_ke_ri;
-									$GT_obat_oral_ri += $potong_obat_oral; 
-									$GT_pemasukan_bersih += $pemasukan_bersih_bp_ke_ri; 
-								}
+									$GT_uang_masuk = $RI_uang_masuk + $IGD_uang_masuk + $RJ_uang_masuk;
+									$GT_gizi = $RI_gizi + $IGD_gizi + $RJ_gizi;
+									$GT_gda = $RI_gda + $IGD_gda + $RJ_gda;
+									$GT_lab = $RI_lab + $IGD_lab + $RJ_lab;
+									$GT_biaya_ambulance = $RI_biaya_ambulance + $IGD_biaya_ambulance + $RJ_biaya_ambulance;
+									$GT_total_bp = $RI_total_bp + $IGD_total_bp + $RJ_total_bp;
+									$GT_total_kia = $RI_total_kia + $IGD_total_kia + $RJ_total_kia;
+									$GT_ekg = $RI_ekg + $IGD_ekg + $RJ_ekg;
+									$GT_lain_lain = $RI_lain_lain + $IGD_lain_lain + $RJ_lain_lain;
+									$GT_obat_oral_ri = $RI_obat_oral_ri + $IGD_obat_oral_ri + $RJ_obat_oral_ri;
+									$GT_pemasukan_bersih = $RI_pemasukan_bersih + $IGD_pemasukan_bersih + $RJ_pemasukan_bersih;
+									$GT_akomodasi_obat = $AK_akomodasi_obat;
+									$GT_akomodasi_alkes = $AK_akomodasi_alkes;
+									$GT_akomodasi_lain = $AK_akomodasi_lain;
+									$GT_japel = $RI_japel + $IGD_japel + $RJ_japel;
+									$GT_visite = $RI_visite + $IGD_visite + $RJ_visite;
+									$GT_klinik_bersih = $RI_klinik_bersih + $IGD_klinik_bersih + $RJ_klinik_bersih;
+									$GT_jumlah_setoran = $SETORAN_jumlah_setoran;
 								?>
 								<tr>
 									<td colspan="2" class="font-weight-bold">Total</td>
