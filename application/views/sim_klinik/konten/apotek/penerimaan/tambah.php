@@ -184,7 +184,7 @@
 	});
 
 	// jika kita mengubah class inputan rupiah
-	$(document).on('keyup', '.rupiah', function() {
+	$(document).on('keyup', '.update_', function() {
 		update_total();
 	});
 
@@ -199,11 +199,11 @@
 					<input type="hidden" name="kode_obat[]" class="form-control form-control-sm" id="kode_obat` + count_penerimaan_obat + `" value="` + kode + `">
 				</div>
 				<div class="form-group col-sm-4">
-					<input type="text" name="harga_supplier[]" class="form-control form-control-sm rupiah text-right" id="harga_supplier` +
+					<input type="text" name="harga_supplier[]" class="form-control form-control-sm rupiah text-right update_" id="harga_supplier` +
 			count_penerimaan_obat + `" placeholder="harga supplier" required>
 				</div>
                 <div class="form-group col-sm-1">
-					<input type="text" name="qty[]" class="form-control form-control-sm  rupiah" id="qty` + count_penerimaan_obat + `" placeholder="QTY" value="1" required>
+					<input type="text" name="qty[]" class="form-control form-control-sm update_" id="qty` + count_penerimaan_obat + `" placeholder="QTY" value="1" required>
 				</div>
 				<div class="form-group col-sm-2">
 					<a id="` + count_penerimaan_obat + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris">

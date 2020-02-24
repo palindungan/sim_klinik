@@ -149,6 +149,10 @@ class Login extends CI_Controller
                     if($total_bp_paket > 0){
                         $RJ_pemasukan_bersih += $pemasukan_bersih_bp_ke_ri;
                     }
+
+                    if($total_kia > 0){
+                        $RJ_pemasukan_bersih += $pemasukan_bersih_bp_ke_ri;
+                    }
                 } else if ($row->tipe_pelayanan == "Akomodasi") { //End If Rawat Jalan Start Akomodasi
                     $AK_akomodasi_obat += $akomodasi_obat;
                     $AK_akomodasi_alkes += $akomodasi_alkes;

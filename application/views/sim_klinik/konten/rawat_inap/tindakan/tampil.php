@@ -71,6 +71,7 @@
 					<tbody>
 						<?php
 						$no=1;
+						$array_restrict_edit = array('I001','I002','I003','I004','I005','I037','I038','I039','I040','I041','I042','I043','I044','I045','I046','I047','I048','I049','I050','I051','I052','I053','I054','I055','I056','I057','I058','I059');
 						foreach($record as $data):
                         ?>
 						<tr>
@@ -79,22 +80,14 @@
 							<td><?= $data->nama ?></td>
 							<td class="text-right"><?= rupiah($data->harga) ?></td>
 							<td><?php echo $data->tipe_paket=='1' ? 'Paket Oral':'' ; ?></td>
-							<?php 
-							if($data->no_rawat_inap_t == "I001" || $data->no_rawat_inap_t == "I002" || $data->no_rawat_inap_t == "I003" || $data->no_rawat_inap_t == "I004" || $data->no_rawat_inap_t == "I005")
-							{
+							<td class="text-center">
+								<a style="cursor:pointer" class="btn btn-sm btn-warning text-white" data-toggle="modal" data-target="#modal-edit<?= $data->no_rawat_inap_t ?>">Edit</a>
+							<?php if(in_array($data->no_rawat_inap_t, $array_restrict_edit)){
+							}else {  
 							?>
-							<td class="text-center">
-								<a style="cursor:pointer" class="btn btn-sm btn-warning text-white" data-toggle="modal"
-									data-target="#modal-edit<?= $data->no_rawat_inap_t ?>">Edit</a>
-							</td>
-							<?php } else { ?>
-							<td class="text-center">
-								<a style="cursor:pointer" class="btn btn-sm btn-warning text-white" data-toggle="modal"
-									data-target="#modal-edit<?= $data->no_rawat_inap_t ?>">Edit</a>
-								<a href="<?= base_url('rawat_inap/tindakan/delete/'.$data->no_rawat_inap_t) ?>"
-									class="btn btn-sm btn-danger tombol-hapus">Hapus</a>
-							</td>
+								<a href="<?= base_url('rawat_inap/tindakan/delete/'.$data->no_rawat_inap_t) ?>" class="btn btn-sm btn-danger tombol-hapus">Hapus</a>
 							<?php } ?>
+							</td>
 						</tr>
 						<?php endforeach; ?>
 					</tbody>
@@ -105,6 +98,9 @@
 </div>
 
 <!-- Modal Edit -->
+<?php
+$array_restrict_edit = array('I001','I002','I003','I004','I005','I037','I038','I039','I040','I041','I048','I049','I050','I051','I052','I059');
+?>
 <?php foreach($record as $data):  ?>
 <div id="modal-edit<?=$data->no_rawat_inap_t;?>" class="modal fade">
 	<div class="modal-dialog modal-lg">
@@ -123,7 +119,7 @@
 						<label for="inputEmail2">Nama Tindakan</label>
 						<input type="text" name="nama" value="<?= $data->nama ?>"
 							class="form-control form-control-sm" id="inputEmail2"
-							placeholder="Masukan nama tindakan" <?php if($data->no_rawat_inap_t == "I001" || $data->no_rawat_inap_t == "I002" || $data->no_rawat_inap_t == "I003"){echo"readonly";} ?> required>
+							placeholder="Masukan nama tindakan" <?php if(in_array($data->no_rawat_inap_t, $array_restrict_edit)){echo"readonly";} ?> required>
 
 					</div>
 					<div class="form-group col-sm-6">

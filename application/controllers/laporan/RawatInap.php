@@ -367,6 +367,14 @@ class RawatInap extends CI_Controller
                     $RJ_pemasukan_bersih += $pemasukan_bersih_bp_ke_ri;
                     $RJ_klinik_bersih += $pemasukan_bersih_bp_ke_ri;
                 }
+
+                if($total_kia > 0){
+                    $RJ_total_kia -= $uang_masuk_bp_ke_ri;
+                    $RJ_obat_oral_ri += $potong_obat_oral;
+                    $RJ_pemasukan_bersih += $pemasukan_bersih_bp_ke_ri;
+                    $RJ_klinik_bersih += $pemasukan_bersih_bp_ke_ri;
+                }
+
             } else if ($row->tipe_pelayanan == "Akomodasi") { //End If Rawat Jalan Start Akomodasi
                 $jumlah_trx_akomodasi++;
 
@@ -407,7 +415,7 @@ class RawatInap extends CI_Controller
         if ($jumlah_pasien_rj > 0) {
             $spreadsheet->setActiveSheetIndex(0)
                 ->setCellValue('A' . ((int) $kolom + 1), $nomor++)
-                ->setCellValue('B' . ((int) $kolom + 1), 'BP/Rawat Inap')
+                ->setCellValue('B' . ((int) $kolom + 1), 'BP/Rawat Jalan')
                 ->setCellValue('C' . ((int) $kolom + 1), number_format($RJ_uang_masuk, 0, ".", ","))
                 ->setCellValue('D' . ((int) $kolom + 1), number_format($RJ_gizi, 0, ".", ","))
                 ->setCellValue('E' . ((int) $kolom + 1), number_format($RJ_gda, 0, ".", ","))
@@ -883,6 +891,13 @@ class RawatInap extends CI_Controller
                         $RJ_pemasukan_bersih += $pemasukan_bersih_bp_ke_ri;
                         $RJ_klinik_bersih += $pemasukan_bersih_bp_ke_ri;
                     }
+
+                    if($total_kia > 0){
+                        $RJ_total_kia -= $uang_masuk_bp_ke_ri;
+                        $RJ_obat_oral_ri += $potong_obat_oral;
+                        $RJ_pemasukan_bersih += $pemasukan_bersih_bp_ke_ri;
+                        $RJ_klinik_bersih += $pemasukan_bersih_bp_ke_ri;
+                    }
                 } else if ($row->tipe_pelayanan == "Akomodasi") { //End If Rawat Jalan Start Akomodasi
                     $jumlah_trx_akomodasi++;
 
@@ -925,7 +940,7 @@ class RawatInap extends CI_Controller
             if ($jumlah_pasien_rj > 0) {
                 $spreadsheet->setActiveSheetIndex(0)
                     ->setCellValue('A' . $kolom, $nomor++)
-                    ->setCellValue('B' . $kolom, 'BP/Rawat Inap')
+                    ->setCellValue('B' . $kolom, 'BP/Rawat Jalan')
                     ->setCellValue('C' . $kolom, number_format($RJ_uang_masuk, 0, ".", ","))
                     ->setCellValue('D' . $kolom, number_format($RJ_gizi, 0, ".", ","))
                     ->setCellValue('E' . $kolom, number_format($RJ_gda, 0, ".", ","))
@@ -1407,6 +1422,14 @@ class RawatInap extends CI_Controller
                         $RJ_pemasukan_bersih += $pemasukan_bersih_bp_ke_ri;
                         $RJ_klinik_bersih += $pemasukan_bersih_bp_ke_ri;
                     }
+
+                    if($total_kia > 0){
+                        $RJ_total_kia -= $uang_masuk_bp_ke_ri;
+                        $RJ_obat_oral_ri += $potong_obat_oral;
+                        $RJ_pemasukan_bersih += $pemasukan_bersih_bp_ke_ri;
+                        $RJ_klinik_bersih += $pemasukan_bersih_bp_ke_ri;
+                    }
+
                 } else if ($row->tipe_pelayanan == "Akomodasi") { //End If Rawat Jalan Start Akomodasi
                     $jumlah_trx_akomodasi++;
 
@@ -1449,7 +1472,7 @@ class RawatInap extends CI_Controller
             if ($jumlah_pasien_rj > 0) {
                 $spreadsheet->setActiveSheetIndex(0)
                     ->setCellValue('A' . $kolom, $nomor++)
-                    ->setCellValue('B' . $kolom, 'BP/Rawat Inap')
+                    ->setCellValue('B' . $kolom, 'BP/Rawat Jalan')
                     ->setCellValue('C' . $kolom, number_format($RJ_uang_masuk, 0, ".", ","))
                     ->setCellValue('D' . $kolom, number_format($RJ_gizi, 0, ".", ","))
                     ->setCellValue('E' . $kolom, number_format($RJ_gda, 0, ".", ","))

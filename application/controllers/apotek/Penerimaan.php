@@ -82,8 +82,7 @@ class Penerimaan extends CI_Controller
                 for ($i = 0; $i < count($this->input->post('kode_obat')); $i++) {
 
                     $kode_obat = $this->input->post('kode_obat')[$i];
-                    $harga_temp = $this->input->post('harga_supplier')[$i];
-                    $harga_supplier = preg_replace("/[^0-9]/", "", $harga_temp);
+                    $harga_supplier = preg_replace("/[^0-9]/", "", $this->input->post('harga_supplier')[$i]);
                     $qty = $this->input->post('qty')[$i];
 
                     // proses pemasukan ke dalam database detail

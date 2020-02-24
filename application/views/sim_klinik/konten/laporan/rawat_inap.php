@@ -267,8 +267,14 @@
 									$RJ_klinik_bersih += $klinik_bersih;
 
 									if($total_bp_paket > 0){
-										// $jumlah_pasien_paket_rj++;
 										$RJ_uang_masuk += $uang_masuk_bp_ke_ri;
+										$RJ_obat_oral_ri += $potong_obat_oral;
+										$RJ_pemasukan_bersih += $pemasukan_bersih_bp_ke_ri;
+										$RJ_klinik_bersih += $pemasukan_bersih_bp_ke_ri;
+									}
+
+									if($total_kia > 0){
+										$RJ_total_kia -= $uang_masuk_bp_ke_ri;
 										$RJ_obat_oral_ri += $potong_obat_oral;
 										$RJ_pemasukan_bersih += $pemasukan_bersih_bp_ke_ri;
 										$RJ_klinik_bersih += $pemasukan_bersih_bp_ke_ri;

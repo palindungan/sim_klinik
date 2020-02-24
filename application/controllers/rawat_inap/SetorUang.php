@@ -24,52 +24,89 @@ Class SetorUang extends CI_Controller{
         $saldo_kemarin =  $this->M_cek_saldo->getCekSaldoByDate($yesterday); //Diambil Record Hari Kemarin Dari Tabel Saldo Temp
         //Mengambil Data
         $day = date('Y-m-d');
-        $data =  $this->M_laporan->get_laporan_ri_by_date($day);
-        //Inisialisasi
-        $total_akomodasi = 0;
-        $total_jumlah_setoran = 0;
-        $total_pemasukan_bersih = 0;
-        $dana_rj_masuk_ri = 0;
+        $laporan_ri_harian =  $this->M_laporan->laporan_ri_harian($day);
+        
+        //Inisialisasi Grand Total
+        $grand_saldo = 0;
+        $GT_pemasukan_bersih = 0;
+        $GT_akomodasi_obat = 0;
+        $GT_akomodasi_alkes = 0;
+        $GT_akomodasi_lain = 0;
+        $GT_jumlah_setoran = 0;
 
-        foreach($data as $row){ //Loop Per hari
+        //Inisisalisasi Rawat Inap
+        $RI_pemasukan_bersih = 0;
+        //Inisialisasi IGD
+        $IGD_pemasukan_bersih = 0;
+        //Inisialisasi Rawat Jalan
+        $pemasukan_bersih_bp_ke_ri = 2000;
+        $RJ_pemasukan_bersih = 0;
+        //Inisialisasi Akomodasi
+        $AK_akomodasi_obat = 0;
+        $AK_akomodasi_alkes = 0;
+        $AK_akomodasi_lain = 0;
+        //Inisialisasi Setoran
+        $SETORAN_jumlah_setoran = 0;
 
-            //Validasi Value Karena Bukan Tipe Integer
+        //Loop:
+        foreach($laporan_ri_harian as $row){
+            // Validasi Value Karena Bukan Tipe Integer
             $uang_masuk = (int) $row->uang_masuk;
-            $gizi_hari = (int) $row->gizi_hari;
-            $gizi_porsi = (int) $row->gizi_porsi;
-            $gizi = $gizi_hari + $gizi_porsi; //
+            $gizi = (int) $row->gizi;
             $gda = (int) $row->gda;
             $lab = (int) $row->lab;
             $biaya_ambulance = (int) $row->biaya_ambulance;
             $total_bp_paket = (int) $row->total_bp_paket;
-            $total_bp_non_paket =  (int) $row->total_bp_non_paket;
-            $total_bp = $total_bp_paket + $total_bp_non_paket;
+            $total_bp_non_paket = (int) $row->total_bp_non_paket;
+            $total_bp =  $total_bp_paket + $total_bp_non_paket;
             $total_kia = (int) $row->total_kia;
             $ekg = (int) $row->ekg;
             $lain_lain = (int) $row->lain_lain;
             $obat_oral_ri = (int) $row->obat_oral_ri;
 
-            $pemasukan_bersih = $uang_masuk - $gizi - $gda - $lab - $biaya_ambulance - $total_bp - $total_kia - $ekg - $lain_lain - $obat_oral_ri;
-            
-            $akomodasi_obat = (int) $row->akomodasi_obat;
-            $akomodasi_alkes = (int) $row->akomodasi_alkes;                
-            $akomodasi_lain_lain = (int) $row->akomodasi_lain_lain;
-            $jumlah_setoran = (int) $row->jumlah_setoran;
-            
-            //Pasien Rawat Jalan Dengan Pengobatan Paket, mendapat pemasukan bersih 2000
-            if($row->tipe_pelayanan == 'Rawat Jalan' && $total_bp_paket > 0){
-                $dana_rj_masuk_ri += 2000;
+            if ($row->nama_pasien == "") {
+                $pemasukan_bersih = 0;
+            } else {
+                $pemasukan_bersih = $uang_masuk - $gizi - $gda - $lab - $biaya_ambulance - $total_bp - $total_kia - $ekg - $lain_lain - $obat_oral_ri;
             }
+            $akomodasi_obat = (int) $row->akomodasi_obat;
+            $akomodasi_alkes = (int) $row->akomodasi_alkes;
+            $akomodasi_lain = (int) $row->akomodasi_lain_lain;
+            $jumlah_setoran = (int) $row->jumlah_setoran;
+            $japel = (int) $row->japel;
+            $visite = (int) $row->visite;
+            $klinik_bersih = $pemasukan_bersih - $japel - $visite;
 
-            $total_pemasukan_bersih += $pemasukan_bersih;
-            $total_akomodasi += $akomodasi_obat;
-            $total_akomodasi += $akomodasi_alkes;
-            $total_akomodasi += $akomodasi_lain_lain;
-            $total_jumlah_setoran += $jumlah_setoran;
+            if ($row->tipe_pelayanan == "Rawat Inap") {
+                $RI_pemasukan_bersih += $pemasukan_bersih;
+            }else if ($row->tipe_pelayanan == "IGD") {
+                $IGD_pemasukan_bersih += $pemasukan_bersih;
+            } else if ($row->tipe_pelayanan == "Rawat Jalan") { //End If IGD, Start IG Rawat Jalan
+                $RJ_pemasukan_bersih += $pemasukan_bersih;
+                if($total_bp_paket > 0){
+                    $RJ_pemasukan_bersih += $pemasukan_bersih_bp_ke_ri;
+                }
 
+                if($total_kia > 0){
+                    $RJ_pemasukan_bersih += $pemasukan_bersih_bp_ke_ri;
+                }
+            } else if ($row->tipe_pelayanan == "Akomodasi") { //End If Rawat Jalan Start Akomodasi
+                $AK_akomodasi_obat += $akomodasi_obat;
+                $AK_akomodasi_alkes += $akomodasi_alkes;
+                $AK_akomodasi_lain += $akomodasi_lain;
+            } else if ($row->tipe_pelayanan == "Setor Uang") {
+                $SETORAN_jumlah_setoran += $jumlah_setoran;
+            }
         }
-        $saldo_ri_harian = $saldo_kemarin + $total_pemasukan_bersih + $dana_rj_masuk_ri - $total_akomodasi - $total_jumlah_setoran;
-        return $saldo_ri_harian;
+        //Grand Total
+        $GT_pemasukan_bersih = $RI_pemasukan_bersih + $IGD_pemasukan_bersih + $RJ_pemasukan_bersih;
+        $GT_akomodasi_obat = $AK_akomodasi_obat;
+        $GT_akomodasi_alkes = $AK_akomodasi_alkes;
+        $GT_akomodasi_lain = $AK_akomodasi_lain;
+        $GT_jumlah_setoran = $SETORAN_jumlah_setoran;
+
+        $grand_saldo += $GT_pemasukan_bersih - ($GT_akomodasi_obat + $GT_akomodasi_alkes + $GT_akomodasi_lain) - $GT_jumlah_setoran;
+        return $grand_saldo;
         
 
     }
