@@ -239,7 +239,7 @@
                         
                     ?>
 					<tr>
-						<td style="text-align:left;padding-left:10px"><i>Biaya Tindakan Balai Pengobatan</i></td>
+						<td style="text-align:left;padding-left:10px"><i>Biaya Lain-lain</i></td>
 					</tr>
 					<?php 
                     foreach($detail_tindakan_lain as $tindakan_lain)
