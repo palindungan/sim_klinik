@@ -39,7 +39,8 @@
             $spreadsheet->getActiveSheet()->getColumnDimension('I')->setWidth(15);
             $spreadsheet->getActiveSheet()->getColumnDimension('J')->setWidth(15);
             $spreadsheet->getActiveSheet()->getColumnDimension('K')->setWidth(15);
-            $spreadsheet->getActiveSheet()->getColumnDimension('L')->setWidth(20);
+            $spreadsheet->getActiveSheet()->getColumnDimension('L')->setWidth(15);
+            $spreadsheet->getActiveSheet()->getColumnDimension('M')->setWidth(20);
 
             $spreadsheet->getActiveSheet()->getRowDimension('1')->setRowHeight(35);
             // Atur Judul
@@ -57,20 +58,20 @@
             ->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
             // tutup
 
-            $spreadsheet->getActiveSheet()->getStyle('A2:L2')
+            $spreadsheet->getActiveSheet()->getStyle('A2:M2')
             ->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_WHITE);
-            $spreadsheet->getActiveSheet()->getStyle('A2:L2')->getFill()
+            $spreadsheet->getActiveSheet()->getStyle('A2:M2')->getFill()
             ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
             ->getStartColor()->setARGB('006400');
-            $spreadsheet->getActiveSheet()->getStyle('A2:L2')->getFont()->setBold(true);
-            $spreadsheet->getActiveSheet()->getStyle('A2:L2')->getAlignment()->setHorizontal('center');
-            $spreadsheet->getActiveSheet()->getStyle('A2:L2')
+            $spreadsheet->getActiveSheet()->getStyle('A2:M2')->getFont()->setBold(true);
+            $spreadsheet->getActiveSheet()->getStyle('A2:M2')->getAlignment()->setHorizontal('center');
+            $spreadsheet->getActiveSheet()->getStyle('A2:M2')
             ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-            $spreadsheet->getActiveSheet()->getStyle('A2:L2')
+            $spreadsheet->getActiveSheet()->getStyle('A2:M2')
             ->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
 
             // Border
-            $spreadsheet->getActiveSheet()->getStyle('A2:L2')->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK)->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_BLACK);;
+            $spreadsheet->getActiveSheet()->getStyle('A2:M2')->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK)->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_BLACK);;
 
             $spreadsheet->setActiveSheetIndex(0)
             ->setCellValue('A2', 'Nomor')
@@ -83,8 +84,9 @@
             ->setCellValue('H2', 'BP')
             ->setCellValue('I2', 'LAB')
             ->setCellValue('J2', 'KIA')
-            ->setCellValue('K2', 'Apotik')
-            ->setCellValue('L2', 'Total');
+            ->setCellValue('K2', 'IGD')
+            ->setCellValue('L2', 'Apotik')
+            ->setCellValue('M2', 'Total');
 
             $kolom = 3;
             $nomor = 1;
@@ -96,6 +98,7 @@
             $grand_bp = 0;
             $grand_lab = 0;
             $grand_kia = 0;
+            $grand_ugd = 0;
             $grand_apotik = 0;
             foreach ($query as $row) {
             $tgl_keluar = date('d-m-Y',strtotime($row->tgl_keluar));
@@ -106,8 +109,9 @@
             $grand_bp += $row->total_bp;
             $grand_lab += $row->lab_non_primer;
             $grand_kia += $row->total_kia;
+            $grand_ugd += $row->total_ugd;
             $grand_apotik += $row->total_obat_apotik;
-            $sub_total = $row->gula_darah + $row->asam_urat + $row->cholesterol + $row->total_bp + $row->lab_non_primer + $row->total_kia + $row->total_obat_apotik;
+            $sub_total = $row->gula_darah + $row->asam_urat + $row->cholesterol + $row->total_bp + $row->lab_non_primer + $row->total_kia + $row->total_ugd + $row->total_obat_apotik;
 
             $grand_total += $sub_total;
 
@@ -123,6 +127,7 @@
             $spreadsheet->getActiveSheet()->getStyle('J')->getAlignment()->setHorizontal('right');
             $spreadsheet->getActiveSheet()->getStyle('K')->getAlignment()->setHorizontal('right');
             $spreadsheet->getActiveSheet()->getStyle('L')->getAlignment()->setHorizontal('right');
+            $spreadsheet->getActiveSheet()->getStyle('M')->getAlignment()->setHorizontal('right');
 
 
 
@@ -138,8 +143,9 @@
             ->setCellValue('H' . $kolom, number_format($row->total_bp, 0, ".", ","))
             ->setCellValue('I' . $kolom, number_format($row->lab_non_primer, 0, ".", ","))
             ->setCellValue('J' . $kolom, number_format($row->total_kia, 0, ".", ","))
-            ->setCellValue('K' . $kolom, number_format($row->total_obat_apotik, 0, ".", ","))
-            ->setCellValue('L' . $kolom, number_format($sub_total, 0, ".", ","));
+            ->setCellValue('K' . $kolom, number_format($row->total_ugd, 0, ".", ","))
+            ->setCellValue('L' . $kolom, number_format($row->total_obat_apotik, 0, ".", ","))
+            ->setCellValue('M' . $kolom, number_format($sub_total, 0, ".", ","));
             $kolom++;
             $nomor++;
             }
@@ -152,10 +158,11 @@
             ->setCellValue('H' . ((int) $kolom + 2), number_format($grand_bp, 0, ".", ","))
             ->setCellValue('I' . ((int) $kolom + 2), number_format($grand_lab, 0, ".", ","))
             ->setCellValue('J' . ((int) $kolom + 2), number_format($grand_kia, 0, ".", ","))
-            ->setCellValue('K' . ((int) $kolom + 2), number_format($grand_apotik, 0, ".", ","))
-            ->setCellValue('L' . ((int) $kolom + 2), number_format($grand_total, 0, ".", ","));
+            ->setCellValue('K' . ((int) $kolom + 2), number_format($grand_ugd, 0, ".", ","))
+            ->setCellValue('L' . ((int) $kolom + 2), number_format($grand_apotik, 0, ".", ","))
+            ->setCellValue('M' . ((int) $kolom + 2), number_format($grand_total, 0, ".", ","));
 
-            $spreadsheet->getActiveSheet()->getStyle('D' . ((int) $kolom + 2) . ':L' . ((int) $kolom +
+            $spreadsheet->getActiveSheet()->getStyle('D' . ((int) $kolom + 2) . ':M' . ((int) $kolom +
             2))->getFont()->setBold(true);
 
             $writer = new Xlsx($spreadsheet);
@@ -187,7 +194,8 @@
             $spreadsheet->getActiveSheet()->getColumnDimension('I')->setWidth(15);
             $spreadsheet->getActiveSheet()->getColumnDimension('J')->setWidth(15);
             $spreadsheet->getActiveSheet()->getColumnDimension('K')->setWidth(15);
-            $spreadsheet->getActiveSheet()->getColumnDimension('L')->setWidth(20);
+            $spreadsheet->getActiveSheet()->getColumnDimension('L')->setWidth(15);
+            $spreadsheet->getActiveSheet()->getColumnDimension('M')->setWidth(20);
 
             $spreadsheet->getActiveSheet()->getRowDimension('1')->setRowHeight(35);
             // Atur Judul
@@ -205,20 +213,20 @@
             ->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
             // tutup
 
-            $spreadsheet->getActiveSheet()->getStyle('A2:L2')
+            $spreadsheet->getActiveSheet()->getStyle('A2:M2')
             ->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_WHITE);
-            $spreadsheet->getActiveSheet()->getStyle('A2:L2')->getFill()
+            $spreadsheet->getActiveSheet()->getStyle('A2:M2')->getFill()
             ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
             ->getStartColor()->setARGB('006400');
-            $spreadsheet->getActiveSheet()->getStyle('A2:L2')->getFont()->setBold(true);
-            $spreadsheet->getActiveSheet()->getStyle('A2:L2')->getAlignment()->setHorizontal('center');
-            $spreadsheet->getActiveSheet()->getStyle('A2:L2')
+            $spreadsheet->getActiveSheet()->getStyle('A2:M2')->getFont()->setBold(true);
+            $spreadsheet->getActiveSheet()->getStyle('A2:M2')->getAlignment()->setHorizontal('center');
+            $spreadsheet->getActiveSheet()->getStyle('A2:M2')
             ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-            $spreadsheet->getActiveSheet()->getStyle('A2:L2')
+            $spreadsheet->getActiveSheet()->getStyle('A2:M2')
             ->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
 
             // Border
-            $spreadsheet->getActiveSheet()->getStyle('A2:L2')->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK)->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_BLACK);;
+            $spreadsheet->getActiveSheet()->getStyle('A2:M2')->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK)->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_BLACK);;
 
             $spreadsheet->setActiveSheetIndex(0)
             ->setCellValue('A2', 'Nomor')
@@ -231,8 +239,9 @@
             ->setCellValue('H2', 'BP')
             ->setCellValue('I2', 'LAB')
             ->setCellValue('J2', 'KIA')
-            ->setCellValue('K2', 'Apotik')
-            ->setCellValue('L2', 'Total');
+            ->setCellValue('K2', 'IGD')
+            ->setCellValue('L2', 'Apotik')
+            ->setCellValue('M2', 'Total');
 
             $kolom = 3;
             $nomor = 1;
@@ -244,6 +253,7 @@
             $grand_bp = 0;
             $grand_lab = 0;
             $grand_kia = 0;
+            $grand_ugd = 0;
             $grand_apotik = 0;
             foreach ($query as $row) {
             $tgl_keluar = date('d-m-Y',strtotime($row->tgl_keluar));
@@ -254,8 +264,9 @@
             $grand_bp += $row->total_bp;
             $grand_lab += $row->lab_non_primer;
             $grand_kia += $row->total_kia;
+            $grand_ugd += $row->total_ugd;
             $grand_apotik += $row->total_obat_apotik;
-            $sub_total = $row->gula_darah + $row->asam_urat + $row->cholesterol + $row->total_bp + $row->lab_non_primer + $row->total_kia + $row->total_obat_apotik;
+            $sub_total = $row->gula_darah + $row->asam_urat + $row->cholesterol + $row->total_bp + $row->lab_non_primer + $row->total_kia + $row->total_ugd + $row->total_obat_apotik;
 
             $grand_total += $sub_total;
 
@@ -271,6 +282,7 @@
             $spreadsheet->getActiveSheet()->getStyle('J')->getAlignment()->setHorizontal('right');
             $spreadsheet->getActiveSheet()->getStyle('K')->getAlignment()->setHorizontal('right');
             $spreadsheet->getActiveSheet()->getStyle('L')->getAlignment()->setHorizontal('right');
+            $spreadsheet->getActiveSheet()->getStyle('M')->getAlignment()->setHorizontal('right');
 
 
 
@@ -286,8 +298,9 @@
             ->setCellValue('H' . $kolom, number_format($row->total_bp, 0, ".", ","))
             ->setCellValue('I' . $kolom, number_format($row->lab_non_primer, 0, ".", ","))
             ->setCellValue('J' . $kolom, number_format($row->total_kia, 0, ".", ","))
-            ->setCellValue('K' . $kolom, number_format($row->total_obat_apotik, 0, ".", ","))
-            ->setCellValue('L' . $kolom, number_format($sub_total, 0, ".", ","));
+            ->setCellValue('K' . $kolom, number_format($row->total_ugd, 0, ".", ","))
+            ->setCellValue('L' . $kolom, number_format($row->total_obat_apotik, 0, ".", ","))
+            ->setCellValue('M' . $kolom, number_format($sub_total, 0, ".", ","));
             $kolom++;
             $nomor++;
             }
@@ -300,10 +313,11 @@
             ->setCellValue('H' . ((int) $kolom + 2), number_format($grand_bp, 0, ".", ","))
             ->setCellValue('I' . ((int) $kolom + 2), number_format($grand_lab, 0, ".", ","))
             ->setCellValue('J' . ((int) $kolom + 2), number_format($grand_kia, 0, ".", ","))
-            ->setCellValue('K' . ((int) $kolom + 2), number_format($grand_apotik, 0, ".", ","))
-            ->setCellValue('L' . ((int) $kolom + 2), number_format($grand_total, 0, ".", ","));
+            ->setCellValue('K' . ((int) $kolom + 2), number_format($grand_ugd, 0, ".", ","))
+            ->setCellValue('L' . ((int) $kolom + 2), number_format($grand_apotik, 0, ".", ","))
+            ->setCellValue('M' . ((int) $kolom + 2), number_format($grand_total, 0, ".", ","));
 
-            $spreadsheet->getActiveSheet()->getStyle('D' . ((int) $kolom + 2) . ':L' . ((int) $kolom +
+            $spreadsheet->getActiveSheet()->getStyle('D' . ((int) $kolom + 2) . ':M' . ((int) $kolom +
             2))->getFont()->setBold(true);
 
             $writer = new Xlsx($spreadsheet);
@@ -344,7 +358,8 @@
             $spreadsheet->getActiveSheet()->getColumnDimension('I')->setWidth(15);
             $spreadsheet->getActiveSheet()->getColumnDimension('J')->setWidth(15);
             $spreadsheet->getActiveSheet()->getColumnDimension('K')->setWidth(15);
-            $spreadsheet->getActiveSheet()->getColumnDimension('L')->setWidth(20);
+            $spreadsheet->getActiveSheet()->getColumnDimension('L')->setWidth(15);
+            $spreadsheet->getActiveSheet()->getColumnDimension('M')->setWidth(20);
 
             $spreadsheet->getActiveSheet()->getRowDimension('1')->setRowHeight(35);
             // Atur Judul
@@ -362,20 +377,20 @@
             ->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
             // tutup
 
-            $spreadsheet->getActiveSheet()->getStyle('A2:L2')
+            $spreadsheet->getActiveSheet()->getStyle('A2:M2')
             ->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_WHITE);
-            $spreadsheet->getActiveSheet()->getStyle('A2:L2')->getFill()
+            $spreadsheet->getActiveSheet()->getStyle('A2:M2')->getFill()
             ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
             ->getStartColor()->setARGB('006400');
-            $spreadsheet->getActiveSheet()->getStyle('A2:L2')->getFont()->setBold(true);
-            $spreadsheet->getActiveSheet()->getStyle('A2:L2')->getAlignment()->setHorizontal('center');
-            $spreadsheet->getActiveSheet()->getStyle('A2:L2')
+            $spreadsheet->getActiveSheet()->getStyle('A2:M2')->getFont()->setBold(true);
+            $spreadsheet->getActiveSheet()->getStyle('A2:M2')->getAlignment()->setHorizontal('center');
+            $spreadsheet->getActiveSheet()->getStyle('A2:M2')
             ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-            $spreadsheet->getActiveSheet()->getStyle('A2:L2')
+            $spreadsheet->getActiveSheet()->getStyle('A2:M2')
             ->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
 
             // Border
-            $spreadsheet->getActiveSheet()->getStyle('A2:L2')->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK)->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_BLACK);;
+            $spreadsheet->getActiveSheet()->getStyle('A2:M2')->getBorders()->getallBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK)->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_BLACK);;
 
             $spreadsheet->setActiveSheetIndex(0)
             ->setCellValue('A2', 'Nomor')
@@ -388,8 +403,9 @@
             ->setCellValue('H2', 'BP')
             ->setCellValue('I2', 'LAB')
             ->setCellValue('J2', 'KIA')
-            ->setCellValue('K2', 'Apotik')
-            ->setCellValue('L2', 'Total');
+            ->setCellValue('K2', 'IGD')
+            ->setCellValue('L2', 'Apotik')
+            ->setCellValue('M2', 'Total');
 
             $kolom = 3;
             $nomor = 1;
@@ -401,6 +417,7 @@
             $grand_bp = 0;
             $grand_lab = 0;
             $grand_kia = 0;
+            $grand_ugd = 0;
             $grand_apotik = 0;
             foreach ($query as $row) {
             $tgl_keluar = date('d-m-Y',strtotime($row->tgl_keluar));
@@ -411,8 +428,9 @@
             $grand_bp += $row->total_bp;
             $grand_lab += $row->lab_non_primer;
             $grand_kia += $row->total_kia;
+            $grand_ugd += $row->total_ugd;
             $grand_apotik += $row->total_obat_apotik;
-            $sub_total = $row->gula_darah + $row->asam_urat + $row->cholesterol + $row->total_bp + $row->lab_non_primer + $row->total_kia + $row->total_obat_apotik;
+            $sub_total = $row->gula_darah + $row->asam_urat + $row->cholesterol + $row->total_bp + $row->lab_non_primer + $row->total_kia + $row->total_ugd + $row->total_obat_apotik;
 
             $grand_total += $sub_total;
 
@@ -428,6 +446,7 @@
             $spreadsheet->getActiveSheet()->getStyle('J')->getAlignment()->setHorizontal('right');
             $spreadsheet->getActiveSheet()->getStyle('K')->getAlignment()->setHorizontal('right');
             $spreadsheet->getActiveSheet()->getStyle('L')->getAlignment()->setHorizontal('right');
+            $spreadsheet->getActiveSheet()->getStyle('M')->getAlignment()->setHorizontal('right');
 
             $spreadsheet->setActiveSheetIndex(0)
             ->setCellValue('A' . $kolom, $nomor)
@@ -440,8 +459,9 @@
             ->setCellValue('H' . $kolom, number_format($row->total_bp, 0, ".", ","))
             ->setCellValue('I' . $kolom, number_format($row->lab_non_primer, 0, ".", ","))
             ->setCellValue('J' . $kolom, number_format($row->total_kia, 0, ".", ","))
-            ->setCellValue('K' . $kolom, number_format($row->total_obat_apotik, 0, ".", ","))
-            ->setCellValue('L' . $kolom, number_format($sub_total, 0, ".", ","));
+            ->setCellValue('K' . $kolom, number_format($row->total_ugd, 0, ".", ","))
+            ->setCellValue('L' . $kolom, number_format($row->total_obat_apotik, 0, ".", ","))
+            ->setCellValue('M' . $kolom, number_format($sub_total, 0, ".", ","));
             $kolom++;
             $nomor++;
             }
@@ -454,10 +474,11 @@
             ->setCellValue('H' . ((int) $kolom + 2), number_format($grand_bp, 0, ".", ","))
             ->setCellValue('I' . ((int) $kolom + 2), number_format($grand_lab, 0, ".", ","))
             ->setCellValue('J' . ((int) $kolom + 2), number_format($grand_kia, 0, ".", ","))
-            ->setCellValue('K' . ((int) $kolom + 2), number_format($grand_apotik, 0, ".", ","))
-            ->setCellValue('L' . ((int) $kolom + 2), number_format($grand_total, 0, ".", ","));
+            ->setCellValue('K' . ((int) $kolom + 2), number_format($grand_ugd, 0, ".", ","))
+            ->setCellValue('L' . ((int) $kolom + 2), number_format($grand_apotik, 0, ".", ","))
+            ->setCellValue('M' . ((int) $kolom + 2), number_format($grand_total, 0, ".", ","));
 
-            $spreadsheet->getActiveSheet()->getStyle('D' . ((int) $kolom + 2) . ':L' . ((int) $kolom +
+            $spreadsheet->getActiveSheet()->getStyle('D' . ((int) $kolom + 2) . ':M' . ((int) $kolom +
             2))->getFont()->setBold(true);
 
             $writer = new Xlsx($spreadsheet);
