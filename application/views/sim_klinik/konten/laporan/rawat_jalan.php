@@ -92,6 +92,7 @@
 								<th class="text-center">BP</th>
 								<th class="text-center">LAB</th>
 								<th class="text-center">KIA</th>
+								<th class="text-center">IGD</th>
 								<th class="text-center">Apotik</th>
 								<th class="text-center">Total</th>
 							</tr>
@@ -103,7 +104,7 @@
 						foreach($rj_bulan as $row_bulan) 
 						{
 						$tanggal_bulan = date('d-m-Y',strtotime($row_bulan->tgl_pelayanan));
-						$grand_total_bulan = $row_bulan->gula_darah + $row_bulan->asam_urat + $row_bulan->cholesterol + $row_bulan->total_bp + $row_bulan->lab_non_primer + $row_bulan->total_kia + $row_bulan->total_obat_apotik;
+						$grand_total_bulan = $row_bulan->gula_darah + $row_bulan->asam_urat + $row_bulan->cholesterol + $row_bulan->total_bp + $row_bulan->lab_non_primer + $row_bulan->total_kia + $row_bulan->total_ugd + $row_bulan->total_obat_apotik;
 						?>
 							<tr>
 								<td><?php echo $no_bulan++ ?></td>
@@ -115,6 +116,7 @@
 								<td class="text-right"><?php echo ($row_bulan->total_bp == NULL) ? '0' : rupiah($row_bulan->total_bp);  ?></td>
 								<td class="text-right"><?php echo ($row_bulan->lab_non_primer == NULL) ? '0' : rupiah($row_bulan->lab_non_primer);  ?></td>
 								<td class="text-right"><?php echo ($row_bulan->total_kia == NULL) ? '0' : rupiah($row_bulan->total_kia);  ?></td>
+								<td class="text-right"><?php echo ($row_bulan->total_ugd == NULL) ? '0' : rupiah($row_bulan->total_ugd);  ?></td>
 								<td class="text-right"><?php echo ($row_bulan->total_obat_apotik == NULL) ? '0' : rupiah($row_bulan->total_obat_apotik);  ?></td>
 								<td class="text-right"><?php echo rupiah($grand_total_bulan) ?></td>
 							</tr>
