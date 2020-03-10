@@ -106,7 +106,7 @@ Class SetorUang extends CI_Controller{
         $GT_jumlah_setoran = $SETORAN_jumlah_setoran;
 
         $grand_saldo += $GT_pemasukan_bersih - ($GT_akomodasi_obat + $GT_akomodasi_alkes + $GT_akomodasi_lain) - $GT_jumlah_setoran;
-        return $grand_saldo;
+        return $saldo_kemarin + $grand_saldo;
         
 
     }

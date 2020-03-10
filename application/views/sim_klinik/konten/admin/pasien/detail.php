@@ -1,7 +1,11 @@
 <div class="container-fluid">
 	<div class="card shadow mb-4">
-		<div class="card-header py-3">
+		<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 			<h6 class="m-0 font-weight-bold text-primary">Detail Kunjungan Pasien</h6>
+			<div class="dropdown no-arrow">
+				<?php $print_url = base_url('administrasi/tagihan/cetak/' . $pelayanan->no_ref_pelayanan); ?>
+				<button onclick="window.open('<?php echo $print_url ?>','_blank')" class="btn btn-sm btn-primary"><i class="fa fa-print"></i> Cetak</button>
+			</div>
 		</div>
 		<div class="card-body">
 			<div class="container">

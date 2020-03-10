@@ -1,5 +1,9 @@
 <script>
     // ketika memilih pasien yang dilayani
+    // $(document).on('change', '#xx', function(event) {
+    //     var nilai_value = $('#xx').val();
+    //     alert(nilai_value);
+    // }
     $(document).on('change', '#xx', function(event) {
         var nilai_value = $('#xx').val();
 
@@ -11,7 +15,18 @@
         jumlah_detail_transaksi = 0;
         jumlah_detail_transaksi_ri_kamar = 0;
 
-        // Fetch data
+        //Fetch data Master
+        $.ajax({
+            url : "<?php echo base_url() . 'administrasi/tagihan/getTipePelayanan'; ?>",
+            type : "POST",
+            data : {no_ref_pelayanan : nilai_value},
+            success : function(hasil){
+                $("#tipe_pelayanan").prop('selectedIndex',hasil);
+            }
+        });
+
+
+        // Fetch data Detail
         $.ajax({
             url: "<?php echo base_url() . 'administrasi/tagihan/get_transaksi_pasien'; ?>",
             type: 'post',

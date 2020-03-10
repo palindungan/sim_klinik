@@ -252,6 +252,7 @@ select p.no_ref_pelayanan AS no_ref_pelayanan,p.no_rm,p.tgl_pelayanan,p.tipe_pel
 (select sum(c.harga * c.qty) from (sim_klinik.lab_transaksi m join sim_klinik.detail_lab_transaksi c on(m.no_lab_t = c.no_lab_t)) where m.no_ref_pelayanan = p.no_ref_pelayanan and c.no_lab_c = 'L002') AS asam_urat,
 (select sum(c.harga * c.qty) from (sim_klinik.lab_transaksi m join sim_klinik.detail_lab_transaksi c on(m.no_lab_t = c.no_lab_t)) where m.no_ref_pelayanan = p.no_ref_pelayanan and c.no_lab_c = 'L003') AS cholesterol,
 (select sum(c.harga * c.qty) from (sim_klinik.lab_transaksi m join sim_klinik.detail_lab_transaksi c on(m.no_lab_t = c.no_lab_t)) where m.no_ref_pelayanan = p.no_ref_pelayanan and c.no_lab_c <> 'L001' and c.no_lab_c <> 'L002' and c.no_lab_c <> 'L003') AS lab_non_primer,
+(SELECT ugd.total_harga FROM ugd_penanganan ugd WHERE ugd.no_ref_pelayanan = p.no_ref_pelayanan) AS total_ugd,
 (select kia.total_harga from sim_klinik.kia_penanganan kia where kia.no_ref_pelayanan = p.no_ref_pelayanan) AS total_kia,
 (select bp.total_harga from sim_klinik.bp_penanganan bp where bp.no_ref_pelayanan = p.no_ref_pelayanan) AS total_bp,
 (select apotik.total_harga from sim_klinik.penjualan_obat_apotik apotik where apotik.no_ref_pelayanan = p.no_ref_pelayanan) AS total_obat_apotik,
@@ -275,7 +276,7 @@ AS obat_oral_ri,
 
 (select sum(dtrit.harga * dtrit.qty) from (transaksi_rawat_inap tri join detail_transaksi_rawat_inap_tindakan dtrit on (tri.no_transaksi_rawat_i = dtrit.no_transaksi_rawat_i)) where tri.no_ref_pelayanan = p.no_ref_pelayanan and dtrit.no_rawat_inap_t IN ('I002','I003')) AS japel,
 (select sum(dtrit.harga * dtrit.qty) from (transaksi_rawat_inap tri join detail_transaksi_rawat_inap_tindakan dtrit on (tri.no_transaksi_rawat_i = dtrit.no_transaksi_rawat_i)) where tri.no_ref_pelayanan = p.no_ref_pelayanan and dtrit.no_rawat_inap_t 
-IN ('I001','I037','I038','I039','I040','I041','I042','I043','I044','I045','I046','I047','I048','I049','I050','I051','I052','I053','I054','I055','I056','I057','I058','I059')) AS visite,
+IN ('I001','I009','I037','I038','I039','I040','I041','I042','I043','I044','I045','I046','I047','I048','I049','I050','I051','I052','I053','I054','I055','I056','I057','I058','I059')) AS visite,
 
 (select ps.nama from sim_klinik.pasien ps where ps.no_rm = p.no_rm) AS nama_pasien,
 "" as akomodasi_obat, "" as akomodasi_alkes, "" as akomodasi_lain_lain, "" as jumlah_setoran

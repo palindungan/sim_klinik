@@ -44,6 +44,7 @@
 								<th class="text-center">BP</th>
 								<th class="text-center">LAB</th>
 								<th class="text-center">KIA</th>
+								<th class="text-center">IGD</th>
 								<th class="text-center">Apotik</th>
 								<th class="text-center">Total</th>
 							</tr>
@@ -55,7 +56,7 @@
 						foreach($rj_hari as $row_hari) 
 						{
 						$tanggal_hari = date('d-m-Y',strtotime($row_hari->tgl_pelayanan));
-						$grand_total_hari = $row_hari->gula_darah + $row_hari->asam_urat + $row_hari->cholesterol + $row_hari->total_bp + $row_hari->lab_non_primer + $row_hari->total_kia + $row_hari->total_obat_apotik;
+						$grand_total_hari = $row_hari->gula_darah + $row_hari->asam_urat + $row_hari->cholesterol + $row_hari->total_bp + $row_hari->lab_non_primer + $row_hari->total_kia + $row_hari->total_ugd + $row_hari->total_obat_apotik;
 						?>
 							<tr>
 								<td><?php echo $no_hari++ ?></td>
@@ -67,6 +68,7 @@
 								<td class="text-right"><?php echo ($row_hari->total_bp == NULL) ? '0' : rupiah($row_hari->total_bp);  ?></td>
 								<td class="text-right"><?php echo ($row_hari->lab_non_primer == NULL) ? '0' : rupiah($row_hari->lab_non_primer);  ?></td>
 								<td class="text-right"><?php echo ($row_hari->total_kia == NULL) ? '0' : rupiah($row_hari->total_kia);  ?></td>
+								<td class="text-right"><?php echo ($row_hari->total_ugd == NULL) ? '0' : rupiah($row_hari->total_ugd);  ?></td>
 								<td class="text-right"><?php echo ($row_hari->total_obat_apotik == NULL) ? '0' : rupiah($row_hari->total_obat_apotik);  ?></td>
 								<td class="text-right"><?php echo rupiah($grand_total_hari) ?></td>
 							</tr>

@@ -26,8 +26,23 @@ class Tagihan extends CI_Controller
         $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/administrasi/tagihan/rekap_tagihan', $data);
     }
 
-    function detailRekapTagihan()
-    {
+    function getTipePelayanan(){
+        $noRef = $this->input->post('no_ref_pelayanan');
+        $where = array(
+            'no_ref_pelayanan' => $noRef
+        );
+        $data = $this->M_tagihan->getTipePelayananByNoRef($noRef)->result();
+        foreach($data as $i){
+            if($i->tipe_pelayanan == "Rawat Jalan"){
+                echo "1";
+            }else if($i->tipe_pelayanan == "Rawat Inap"){
+                echo "2";
+            }else if($i->tipe_pelayanan == "IGD"){
+                echo "3";
+            }else{
+                echo "0";
+            }
+        }
     }
 
     public function get_transaksi_pasien()
