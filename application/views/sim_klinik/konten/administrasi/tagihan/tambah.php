@@ -10,12 +10,12 @@
             <form method="post" id="transaksi_form" action="<?php echo base_url('administrasi/tagihan/input_transaksi_form') ?>">
 
                 <div class="form-row">
-                    <div class="form-group col-sm-5">
+                    <div class="form-group col-sm-4">
                         <label>Cari No Ref</label>
                         <select id="xx" class="form-control form-control-sm noRef" name="no_ref_pelayanan" required>
                         </select>
                     </div>
-                    <div class="form-group col-sm-5">
+                    <div class="form-group col-sm-4">
                         <label for="inputEmail4">Tipe Pelayanan</label>
                         <select name="tipe_pelayanan" class="form-control form-control-sm" id="tipe_pelayanan" required>
                             <option value="">-</option>
@@ -23,6 +23,10 @@
                             <option value="Rawat Inap">Rawat Inap</option>
                             <option value="IGD">IGD</option>
                         </select>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label for="inputEmail4">Operator</label>
+                        <input type="text" name="operator" id="operator" class="form-control form-control-sm" required>
                     </div>
                 </div>
 
@@ -149,7 +153,25 @@
                                     <td></td>
                                     <td align="right">Grand Total :</td>
                                     <td>
-                                        <input readonly type="text" name="grand_total" class="angka_default form-control form-control-sm rupiah text-right" id="grand_total" placeholder="Grand Total" required value="">
+                                        <input type="text" name="grand_total" class="angka_default form-control form-control-sm rupiah text-right" id="grand_total" placeholder="Grand Total" onchange="miniCalc()" required readonly>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td align="right">Terbayar :</td>
+                                    <td>
+                                        <input type="text" name="terbayar" class="angka_default form-control form-control-sm rupiah text-right" id="terbayar" placeholder="Terbayar" onkeyup="miniCalc()">
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td align="right">Sisa :</td>
+                                    <td>
+                                        <input type="text" name="sisa" class="angka_default form-control form-control-sm rupiah text-right" id="sisa" placeholder="Sisa" onchange="validasi()" required readonly>
                                     </td>
                                     <td></td>
                                 </tr>
@@ -330,5 +352,16 @@
 
         $('#grand_total').val(sub_total_ambulance_v + sub_total_apotek_obat_v + sub_total_bp_tindakan_v + sub_total_kia_tindakan_v + sub_total_lab_tindakan_v + sub_total_ugd_tindakan_v + sub_total_ri_kamar_v + sub_total_ri_obat_v + sub_total_ri_tindakan_v + sub_total_lain_v);
         $('#grand_total').trigger('input'); // Will be display 
+
+        miniCalc();
+    }
+
+    function miniCalc(){
+        
+        var grand_total = $("#grand_total").val().replace(/\D/g, '');
+        var terbayar = $("#terbayar").val().replace(/\D/g, '');
+        var sisa = grand_total - terbayar;
+        $("#sisa").val(sisa)
+        $("#sisa").trigger('input');
     }
 </script>

@@ -32,6 +32,20 @@ class M_tagihan extends CI_Model
         return $this->db->get();
     }
 
+    function getTerbayarByNoRef($noRef){
+        $this->db->select("terbayar");
+        $this->db->from('pelayanan');
+        $this->db->where('pelayanan.no_ref_pelayanan', $noRef);
+        return $this->db->get();
+    }
+
+    function getOperatorByNoRef($noRef){
+        $this->db->select("operator");
+        $this->db->from('pelayanan');
+        $this->db->where('pelayanan.no_ref_pelayanan', $noRef);
+        return $this->db->get();
+    }
+
     function deleteTrashData()
     {
         $date = date("Y-m-d", strtotime('-4 days'));

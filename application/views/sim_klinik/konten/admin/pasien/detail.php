@@ -1,37 +1,62 @@
+<?php 
+	$no_ref = $pelayanan->no_ref_pelayanan; 
+	$no_rm = $pelayanan->no_rm;    
+	$tgl_pelayanan = $pelayanan->tgl_pelayanan;
+	$tipe_pelayanan = $pelayanan->tipe_pelayanan;
+	$grand_total = $pelayanan->grand_total;
+	$tgl_selesai = $pelayanan->tgl_keluar;
+	$tgl_lunas = $pelayanan->tgl_lunas;
+	$terbayar =$pelayanan->terbayar;
+	$status_pembayaran = $pelayanan->status_pembayaran;
+	$nama_pasien = $pasien->nama;
+?>
 <div class="container-fluid">
 	<div class="card shadow mb-4">
 		<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 			<h6 class="m-0 font-weight-bold text-primary">Detail Kunjungan Pasien</h6>
 			<div class="dropdown no-arrow">
 				<?php $print_url = base_url('administrasi/tagihan/cetak/' . $pelayanan->no_ref_pelayanan); ?>
+				<!-- Button Edit -->
+				<?php if($this->session->userdata('akses') == "Manager" || $this->session->userdata('akses') == "Rawat Inap" || $this->session->userdata('akses') == "Administrasi"){ ?>
+				<button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modal_edit">
+					<i class="fa fa-edit"></i> Ubah Pembayaran
+				</button>
+				<?php } ?>
+				<!-- Button Cetak -->
 				<button onclick="window.open('<?php echo $print_url ?>','_blank')" class="btn btn-sm btn-primary"><i class="fa fa-print"></i> Cetak</button>
 			</div>
 		</div>
 		<div class="card-body">
 			<div class="container">
-				<?php 
-					$no_ref = $pelayanan->no_ref_pelayanan; 
-					$no_rm = $pelayanan->no_rm;    
-					$tgl_pelayanan = $pelayanan->tgl_pelayanan;
-					$tipe_pelayanan = $pelayanan->tipe_pelayanan;
-					$nama_pasien = $pasien->nama;
-				?>
 				<table width="100%">
 					<tr>
 						<td width="14%" class="font-weight-bold">Nama</td>
 						<td width="1%">:</td>
 						<td width="35%"><?php echo $nama_pasien ?></td>
-						<td width="19%" class="font-weight-bold">No Ref Pelayanan</td>
+						<td width="19%" class="font-weight-bold">Nomor RM</td>
 						<td width="1%">:</td>
-						<td width="30%"><?php echo $no_ref ?></td>
+						<td width="30%"><?php echo $no_rm ?></td>
 					</tr>
 					<tr>
-						<td class="font-weight-bold">Nomor RM</td>
+						<td class="font-weight-bold">No Ref Pelayanan</td>
 						<td>:</td>
-						<td><?php echo $no_rm ?></td>
-						<td class="font-weight-bold">Tanggal</td>
+						<td><?php echo $no_ref ?></td>
+						<td class="font-weight-bold">Tanggal Masuk</td>
 						<td>:</td>
 						<td><?php echo date("d-m-Y H:i:s",strtotime($tgl_pelayanan)); ?></td>
+					</tr>
+					<tr>
+						<td class="font-weight-bold">Tanggal Selesai</td>
+						<td>:</td>
+						<td><?php if($tgl_selesai != NULL){echo date("d-m-Y H:i:s",strtotime($tgl_selesai));} ?></td>
+						<td class="font-weight-bold">Tanggal Lunas</td>
+						<td>:</td>
+						<td><?php if($tgl_lunas != NULL){echo date("d-m-Y H:i:s",strtotime($tgl_lunas)); } ?></td>
+					</tr>
+					<tr>
+						<td class="font-weight-bold">Tipe Pelayanan</td>
+						<td>:</td>
+						<td width="30%"><?php echo $tipe_pelayanan; ?></td>
 					</tr>
 				</table>
 				<hr>
@@ -275,19 +300,86 @@
 						<td></td>
 						<td style="text-align:right"><?php echo rupiah($harga_ambulance) ?></td>
 					</tr>
-					<?php 
-					}
-					$grand_total = $harga_tindakan_bp + $harga_tindakan_kia + $harga_tindakan_lab + $harga_tindakan_ugd + $harga_penjualan_obat_a + $harga_kamar_ri + $harga_tindakan_ri + $harga_obat_ri + $harga_lain + $harga_ambulance;
-					?>
-					<tr style="line-height:50px;">
+					<?php  } ?>
+					<tr>
+						<td colspan="4">&nbsp;</td>
+					</tr>
+					<tr>
 						<td class="font-weight-bold">Jumlah Yang Harus Dibayar</td>
 						<td></td>
 						<td></td>
 						<td class="text-right font-weight-bold"><?php echo rupiah($grand_total) ?></td>
 					</tr>
-
+					<tr>
+						<td class="font-weight-bold">Terbayar</td>
+						<td></td>
+						<td></td>
+						<td class="text-right font-weight-bold"><?php echo rupiah($terbayar) ?></td>
+					</tr>
+					<tr>
+						<td class="font-weight-bold">Sisa</td>
+						<td></td>
+						<td></td>
+						<td class="text-right font-weight-bold"><?php echo rupiah($grand_total - $terbayar) ?></td>
+					</tr>
 				</table>
 			</div>
 		</div>
 	</div>
 </div>
+
+<!-- Modal Ubah Pembayaran -->
+<div id="modal_edit" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Ubah Data Pembayaran</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<?php echo form_open('administrasi/tagihan/updatePembayaran'); ?>
+			<div class="modal-body">
+				<input type="hidden" name="no_ref_pelayanan" id="no_ref_pelayanan" value="<?php echo $no_ref; ?>">
+				<div class="form-row">
+					<div class="form-group col-sm-6">
+						<label for="inputEmail2">Jumlah Yang Harus Dibayar</label>
+						<input type="number" name="jumlah_harus_dibayar" class="form-control form-control-sm" id="jumlah_harus_dibayar" value="<?php echo $grand_total ?>" readonly>
+					</div>
+					<div class="form-group col-sm-6">
+						<label for="inputEmail2">Terbayar</label>
+						<input type="number" name="terbayar" class="form-control form-control-sm" id="terbayar" value="<?php echo $terbayar; ?>" onkeyup="miniCalc()">
+					</div>
+					<div class="form-group col-sm-6">
+						<label for="inputEmail2">Sisa</label>
+						<input type="number" name="sisa" class="form-control form-control-sm" id="sisa" value="<?php echo $grand_total - $terbayar; ?>" readonly>
+					</div>
+					<div class="form-group col-sm-6">
+						<label for="inputEmail2">Status Pembayaran</label>
+						<input type="text" name="status_pembayaran" class="form-control form-control-sm" id="status_pembayaran" value="<?php echo $status_pembayaran; ?>" readonly>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="submit" class="btn btn-sm btn-success">Simpan</button>
+				<button type="button" class="btn btn-sm btn-link" data-dismiss="modal">Kembali</button>
+			</div>
+			<?php echo form_close(); ?>
+		</div>
+	</div>
+</div>
+<script>
+	function miniCalc(){
+		var jumlah_harus_dibayar = $("#jumlah_harus_dibayar").val();
+		var terbayar = $("#terbayar").val();
+		
+		var sisa = jumlah_harus_dibayar - terbayar;
+		$("#sisa").val(sisa);
+
+		if(sisa == 0){
+			$("#status_pembayaran").val("Lunas");
+		}else{
+			$("#status_pembayaran").val("Belum Lunas");
+		}
+	}
+</script>

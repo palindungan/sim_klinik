@@ -31,6 +31,7 @@
 			<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
 			
 				<a href="<?= base_url(); ?>laporan/rawatJalan/rj_hari_ini" class="btn btn-sm btn-success mb-3">Cetak Hari</a>
+				<!--
 				<div class="table-responsive">
 					<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 						<thead>
@@ -76,9 +77,11 @@
 						</tbody>
 					</table>
 				</div>
+				-->
 			</div>
 			<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
 				<a href="<?= base_url(); ?>laporan/rawatJalan/rj_bulan_ini" class="btn btn-sm btn-success mb-3">Cetak Bulan</a>
+				<!--
 				<div class="table-responsive">
 					<table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
 						<thead>
@@ -124,6 +127,7 @@
 						</tbody>
 					</table>
 				</div>
+				-->
 			</div>
 		</div>
 		</div>

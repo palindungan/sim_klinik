@@ -344,7 +344,7 @@
 	<?php } ?>
 
 	<?php
-	if ($this->session->userdata('akses') == 'Manager' || $this->session->userdata('akses') == 'Administrasi' || $this->session->userdata('akses') == 'Rawat Inap') {
+	if ($this->session->userdata('akses') == 'Manager' || $this->session->userdata('akses') == 'Administrasi' || $this->session->userdata('akses') == 'Rawat Inap' || $this->session->userdata('akses') == 'Loket') {
 	?>
 		<li class="nav-item">
 			<a class="nav-link" href="<?= base_url('laporan/rekapTagihan'); ?>">

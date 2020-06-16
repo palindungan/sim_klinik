@@ -25,6 +25,16 @@
             }
         });
 
+        //Fetch Operator
+        $.ajax({
+            url : "<?php echo base_url() . 'administrasi/tagihan/getOperator'; ?>",
+            type : "POST",
+            data : {no_ref_pelayanan : nilai_value},
+            success : function(hasil){
+                $("#operator").val(hasil);
+            }
+        })
+
 
         // Fetch data Detail
         $.ajax({
@@ -220,6 +230,19 @@
                 cek_jumlah_data_detail_transaksi();
             }
         });
+
+        //Fetch Terbayar
+        $.ajax({
+            url : "<?php echo base_url() . 'administrasi/tagihan/getTerbayar'; ?>",
+            type : "POST",
+            data : {no_ref_pelayanan : nilai_value},
+            success : function(hasil){
+                $("#terbayar").val(hasil);
+            }
+        })
+
+        
+
     });
 
     // start of fungsi untuk memanggil data

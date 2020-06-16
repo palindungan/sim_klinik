@@ -6,25 +6,23 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Cetak Struk Tagihan</title>
     <style type="text/css" media="print">
-        @page {
-            margin: 0 1 2 1;
+        
 
-        }
-
-        .body {
-            margin: 0in 0.2in 0in 0.3in;
+        body {
+            margin: -0.1in 0.1in 0in 0.1in;
 
             font-family: Arial, Helvetica, sans-serif;
+            bottom : 0
         }
 
-        .footer {
+        /* .footer {
             position: absolute;
             bottom: 0;
-        }
+        } */
 
         p,
         td {
-            font-size: 12px;
+            font-size: 10px;
         }
     </style>
 </head>
@@ -50,10 +48,10 @@
     <hr style="margin-top:-20px">
     <p style="margin-top:0px">No. Ref : <?php echo $no_ref; ?></p>
     <p style="margin-top:-10px">Atas Nama : <?php echo $nama_pasien; ?></p>
-    <table width="100%" style="margin-top:-15px;">
+    <table width="100%" style="margin-top:-8px;">
         <tr style="bottom-border: 1pt solid black;">
-            <td><p style="font-weight:normal">Rincian Transaksi</p></td>
-            <td style="text-align:right;margin:bottom:-10px;">Biaya</td>
+            <td>Rincian Transaksi</td>
+            <td style="text-align:right;">Biaya</td>
         </tr>
 
         <!-- Rincian Tindakan BP -->
@@ -70,7 +68,7 @@
 
         ?>
         <tr>
-            <td style="font-weight:bold;text-align:left;padding-left:10px" colspan="2"><i>Balai Pengobatan</i></td>
+            <td style="font-weight:bold;text-align:left;padding-left:10px;" colspan="2"><i>Balai Pengobatan</i></td>
         </tr>
         <?php 
         foreach ($detail_penanganan_bp->result() as $detail_bp) {
@@ -363,13 +361,15 @@
         <!-- END Rincian Biaya Ambulance -->
 
 
-        <tr style="line-height:50px;">
+        <tr>
             <td style="font-weight:bold">Grand Total</td>
             <td style="text-align:right;font-weight:bold"><?php echo rupiah($grand_total) ?></td>
         </tr>
     </table>
-    <hr>
-    <p style="font-size:12px;"><?php echo date('d-m-Y H:i:s'); ?></p>
+    <hr style="margin-top:-2px;">
+    <p style="font-size:10px;margin-top:-5px;">Op : <?php echo $operator; ?></p>
+    <p style="font-size:10px;margin-top:-5px;"><?php echo date('d-m-Y H:i:s'); ?></p>   
+
 </body>
 
 </html>

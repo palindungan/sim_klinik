@@ -31,8 +31,7 @@
 	});
 
 	function search_proses() {
-		var table;
-		table = $('.table_1').DataTable({
+		$('.table_1').DataTable({
 			"processing": true,
 			"serverSide": true,
 			"ajax": "<?php echo base_url() . 'rawat_inap/history_akomodasi/tampil_data_akomodasi'; ?>",

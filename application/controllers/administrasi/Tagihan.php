@@ -6,7 +6,8 @@ class Tagihan extends CI_Controller
         parent::__construct();
         if ($this->session->userdata('akses') == "") {
             redirect('login');
-        } else if ($this->session->userdata('akses') == 'Administrasi' || $this->session->userdata('akses') == 'Rawat Inap' || $this->session->userdata('akses') == 'Apotek') {
+        } else if ($this->session->userdata('akses') == 'Administrasi' || $this->session->userdata('akses') == 'Rawat Inap' 
+        || $this->session->userdata('akses') == 'Apotek' || $this->session->userdata('akses') == "Loket") {
         } else {
             show_404();
         }
@@ -44,6 +45,25 @@ class Tagihan extends CI_Controller
             }
         }
     }
+
+    function getTerbayar(){
+        $noRef = $this->input->post('no_ref_pelayanan');
+        $where = array(
+            'no_ref_pelayanan' => $noRef
+        );
+        $data = $this->M_tagihan->getTerbayarByNoRef($noRef)->row();
+        echo $data->terbayar;
+    }
+
+    function getOperator(){
+        $noRef = $this->input->post('no_ref_pelayanan');
+        $where = array(
+            'no_ref_pelayanan' => $noRef
+        );
+        $data = $this->M_tagihan->getOperatorByNoRef($noRef)->row();
+        echo $data->operator;
+    }
+    
 
     public function get_transaksi_pasien()
     {
@@ -1468,10 +1488,17 @@ class Tagihan extends CI_Controller
 
         // validasi pelayanan start
         $grand_total = preg_replace("/[^0-9]/", "", $this->input->post('grand_total'));
+        $terbayar = preg_replace("/[^0-9]/", "", $this->input->post('terbayar'));
+        $sisa = $grand_total - $terbayar;
+        $sisa = $sisa>0 ? 'Belum Lunas' : 'Lunas';
+        $operator = $this->input->post('operator');
 
         $data_update_status_pelayanan = array(
             'tipe_pelayanan' =>  $this->input->post('tipe_pelayanan'),
-            'grand_total' =>  $grand_total
+            'grand_total' =>  $grand_total,
+            'terbayar' => $terbayar,
+            'status_pembayaran' => $status_pembayaran,
+            'operator' => $operator
         );
 
         $this->M_tagihan->update_data($where_no_ref_pelayanan, 'pelayanan', $data_update_status_pelayanan);
@@ -1506,7 +1533,8 @@ class Tagihan extends CI_Controller
         $data['no_ref'] = $data_pelayanan_pasien->no_ref_pelayanan;
         $tgl_pelayanan_tmp = $data_pelayanan_pasien->tgl_keluar;
         $data['tgl_pelayanan'] = tgl_indo(date('Y-m-d', strtotime($tgl_pelayanan_tmp)));
-        $daata['tipe_pelayanan'] = $data_pelayanan_pasien->tipe_pelayanan;
+        $data['tipe_pelayanan'] = $data_pelayanan_pasien->tipe_pelayanan;
+        $data['operator'] = $data_pelayanan_pasien->operator;
 
         $data['cek_lab_transaksi2'] = $this->M_tagihan->get_data('lab_transaksi', $where_no_ref_pelayanan);
         $data['cek_bp_penanganan2'] = $this->M_tagihan->get_data('bp_penanganan', $where_no_ref_pelayanan);
@@ -1518,5 +1546,29 @@ class Tagihan extends CI_Controller
         $data['cek_transaksi_lain2'] = $this->M_tagihan->get_data('transaksi_lain', $where_no_ref_pelayanan);
 
         $this->load->view('sim_klinik/konten/administrasi/cetak_struk/tampil', $data);
+    }
+
+    function updatePembayaran(){
+        //Get Data From View
+        $no_ref_pelayanan = $_POST['no_ref_pelayanan'];
+        $terbayar = $_POST['terbayar'];
+        $status_pembayaran = $_POST['status_pembayaran'];
+
+        //Update Tanggal Lunas, Terbayar dan Status Pembayaran di Tabel Pelayanan
+        $where_no_ref_pelayanan = array(
+            'no_ref_pelayanan' => $no_ref_pelayanan
+        );
+
+        $data_update_status_pelayanan = array(
+            'terbayar' => $terbayar,
+            'status_pembayaran' => $status_pembayaran,
+            'tgl_lunas' => date('Y-m-d H:i:s'),
+        );
+        $this->M_tagihan->update_data($where_no_ref_pelayanan, 'pelayanan', $data_update_status_pelayanan);
+        $this->session->set_flashdata('success', 'Ubah Data Pembayaran Berhasil');
+        redirect('admin/pasien/detail/'.$no_ref_pelayanan, 'refresh');
+        
+        
+
     }
 }

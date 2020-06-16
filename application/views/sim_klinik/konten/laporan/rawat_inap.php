@@ -30,10 +30,10 @@
 				</div>
 			</nav>
 			<div class="tab-content" id="nav-tabContent">
-				<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-
+				<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">			
 					<a href="<?= base_url(); ?>laporan/rawatInap/ri_hari_ini" class="btn btn-sm btn-success mb-3">Cetak
 						Hari</a>
+					<!--
 					<div style="overflow-x:auto;">
 						<table class="table table-bordered table-sm" id="dataTable3" width="100%" cellspacing="0">
 							<thead>
@@ -295,8 +295,9 @@
 								}
 							} 
 								if($jumlah_pasien_igd > 0){
+								// Menampilkan Total IGD
 							?>
-								<!-- Menampilkan Total IGD -->
+								
 								<tr>
 									<td><?php echo $nomor++; ?></td>
 									<td>IGD</td>
@@ -323,8 +324,8 @@
 							<?php
 								}
 								if($jumlah_pasien_rj > 0){
+								// Menampilkan Total Rawat Jalan
 							?>
-								<!-- Menampilkan Total Rawat Jalan -->
 								<tr>
 									<td><?php echo $nomor++; ?></td>
 									<td>BP/Rawat Jalan</td>
@@ -351,8 +352,9 @@
 							<?php
 								}
 								if($jumlah_trx_akomodasi > 0){
+								// Jumlah Akomodasi
 							?>
-								<!-- Jumlah Akomodasi -->
+								
 								<tr>
 									<td><?php echo $nomor++; ?></td>
 									<td>Akomodasi</td>
@@ -379,8 +381,9 @@
 							<?php
 								}
 								if($jumlah_trx_setoran > 0){
+								// Jumlah Setoran
 							?>
-								<!-- Jumlah Setoran -->
+								
 								<tr>
 									<td colspan="2" class="font-weight-bold">Setoran</td>
 									<td></td>
@@ -403,8 +406,10 @@
 									<td class="text-right"><?php echo rupiah($SETORAN_jumlah_setoran); ?></td>
 									<td class="text-right"><?php echo rupiah($grand_saldo -= $SETORAN_jumlah_setoran); ?></td>
 								</tr>
-							<?php } ?>
-								<!-- Grand Total -->
+								<?php
+								} 
+								// Grand Total
+								?>
 								<?php
 									$GT_uang_masuk = $RI_uang_masuk + $IGD_uang_masuk + $RJ_uang_masuk;
 									$GT_gizi = $RI_gizi + $IGD_gizi + $RJ_gizi;
@@ -452,10 +457,12 @@
 							</tbody>
 						</table>
 					</div>
+					-->
 				</div>
 				<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
 					<a href="<?= base_url(); ?>laporan/rawatInap/ri_bulan_ini" class="btn btn-sm btn-success mb-3">Cetak
 						Bulan</a>
+					<!--
 					<div style="overflow-x:auto;">
 						<table class="table table-bordered table-sm" id="" width="100%" cellspacing="0">
 							<thead>
@@ -717,8 +724,9 @@
 								
 							} 
 								if($jumlah_pasien_igd > 0){
+									// Menampilkan Total IGD
 							?>
-								<!-- Menampilkan Total IGD -->
+								
 								<tr>
 									<td><?php echo $nomor++; ?></td>
 									<td>IGD</td>
@@ -745,8 +753,9 @@
 							<?php
 								}
 								if($jumlah_pasien_rj > 0){
+								// Menampilkan Total Rawat Jalan
 							?>
-								<!-- Menampilkan Total Rawat Jalan -->
+								
 								<tr>
 									<td><?php echo $nomor++; ?></td>
 									<td>BP/Rawat Jalan</td>
@@ -773,8 +782,9 @@
 							<?php
 								}
 								if($jumlah_trx_akomodasi > 0){
+								// Jumlah Akomodasi
 							?>
-								<!-- Jumlah Akomodasi -->
+								
 								<tr>
 									<td><?php echo $nomor++; ?></td>
 									<td>Akomodasi</td>
@@ -801,8 +811,9 @@
 							<?php
 								}
 								if($jumlah_trx_setoran > 0){
+								// Jumlah Setoran
 							?>
-								<!-- Jumlah Setoran -->
+								
 								<tr>
 									<td colspan="2">Setoran</td>
 									<td></td>
@@ -825,9 +836,11 @@
 									<td class="text-right"><?php echo rupiah($SETORAN_jumlah_setoran); ?></td>
 									<td class="text-right"><?php echo rupiah($grand_saldo -= $SETORAN_jumlah_setoran); ?></td>
 								</tr>
-							<?php } ?>
-								<!-- Grand Total -->
 								<?php
+								} 
+								
+								// Grand Total
+								
 									$GT_uang_masuk = $RI_uang_masuk + $IGD_uang_masuk + $RJ_uang_masuk;
 									$GT_gizi = $RI_gizi + $IGD_gizi + $RJ_gizi;
 									$GT_gda = $RI_gda + $IGD_gda + $RJ_gda;
@@ -874,6 +887,7 @@
 							</tbody>
 						</table>
 					</div>
+					-->
 				</div>
 			</div>
 		</div>
