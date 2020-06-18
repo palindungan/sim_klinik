@@ -1490,12 +1490,14 @@ class Tagihan extends CI_Controller
         $grand_total = preg_replace("/[^0-9]/", "", $this->input->post('grand_total'));
         $terbayar = preg_replace("/[^0-9]/", "", $this->input->post('terbayar'));
         $sisa = $grand_total - $terbayar;
-        $sisa = $sisa>0 ? 'Belum Lunas' : 'Lunas';
+        $status_pembayaran = $sisa>0 ? 'Belum Lunas' : 'Lunas';
+        $tgl_lunas = $status_pembayaran == "Lunas" ? date('Y-m-d H:i:s') : NULL;
         $operator = $this->input->post('operator');
 
         $data_update_status_pelayanan = array(
             'tipe_pelayanan' =>  $this->input->post('tipe_pelayanan'),
             'grand_total' =>  $grand_total,
+            'tgl_lunas' => $tgl_lunas,
             'terbayar' => $terbayar,
             'status_pembayaran' => $status_pembayaran,
             'operator' => $operator
@@ -1553,6 +1555,7 @@ class Tagihan extends CI_Controller
         $no_ref_pelayanan = $_POST['no_ref_pelayanan'];
         $terbayar = $_POST['terbayar'];
         $status_pembayaran = $_POST['status_pembayaran'];
+        $tgl_lunas = $status_pembayaran == "Lunas" ? date('Y-m-d H:i:s') : NULL;
 
         //Update Tanggal Lunas, Terbayar dan Status Pembayaran di Tabel Pelayanan
         $where_no_ref_pelayanan = array(

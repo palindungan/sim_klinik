@@ -15,9 +15,9 @@
 
         public function index()
         {
-            $data['rj_hari'] = $this->M_laporan->laporan_rj_hari_ini();
-            $data['rj_bulan'] = $this->M_laporan->laporan_rj_bulan_ini();
-            $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/laporan/rawat_jalan',$data);
+            // $data['rj_hari'] = $this->M_laporan->laporan_rj_hari_ini();
+            // $data['rj_bulan'] = $this->M_laporan->laporan_rj_bulan_ini();
+            $this->template->load('sim_klinik/template/full_template', 'sim_klinik/konten/laporan/rawat_jalan');
         }
 
         public function rj_hari_ini() {
@@ -101,8 +101,8 @@
             $grand_ugd = 0;
             $grand_apotik = 0;
             foreach ($query as $row) {
-            $tgl_keluar = date('d-m-Y',strtotime($row->tgl_keluar));
-            $waktu = date('H:i',strtotime($row->tgl_keluar));
+            $tgl_lunas = date('d-m-Y',strtotime($row->tgl_lunas));
+            $waktu = date('H:i',strtotime($row->tgl_lunas));
             $grand_gd += $row->gula_darah;
             $grand_ua += $row->asam_urat;
             $grand_chol += $row->cholesterol;
@@ -134,7 +134,7 @@
 
             $spreadsheet->setActiveSheetIndex(0)
             ->setCellValue('A' . $kolom, $nomor)
-            ->setCellValue('B' . $kolom,$tgl_keluar)
+            ->setCellValue('B' . $kolom,$tgl_lunas)
             ->setCellValue('C' . $kolom,$waktu)
             ->setCellValue('D' . $kolom, $row->nama_pasien)
             ->setCellValue('E' . $kolom, number_format($row->gula_darah, 0, ".", ","))
@@ -256,8 +256,8 @@
             $grand_ugd = 0;
             $grand_apotik = 0;
             foreach ($query as $row) {
-            $tgl_keluar = date('d-m-Y',strtotime($row->tgl_keluar));
-            $waktu = date('H:i',strtotime($row->tgl_keluar));
+            $tgl_lunas = date('d-m-Y',strtotime($row->tgl_lunas));
+            $waktu = date('H:i',strtotime($row->tgl_lunas));
             $grand_gd += $row->gula_darah;
             $grand_ua += $row->asam_urat;
             $grand_chol += $row->cholesterol;
@@ -289,7 +289,7 @@
 
             $spreadsheet->setActiveSheetIndex(0)
             ->setCellValue('A' . $kolom, $nomor)
-            ->setCellValue('B' . $kolom,$tgl_keluar)
+            ->setCellValue('B' . $kolom,$tgl_lunas)
             ->setCellValue('C' . $kolom,$waktu)
             ->setCellValue('D' . $kolom, $row->nama_pasien)
             ->setCellValue('E' . $kolom, number_format($row->gula_darah, 0, ".", ","))
@@ -394,7 +394,7 @@
 
             $spreadsheet->setActiveSheetIndex(0)
             ->setCellValue('A2', 'Nomor')
-            ->setCellValue('B2', 'Tanggal')
+            ->setCellValue('B2', 'Tanggal Lunas')
             ->setCellValue('C2', 'Waktu')
             ->setCellValue('D2', 'Nama')
             ->setCellValue('E2', 'GD')
@@ -420,8 +420,8 @@
             $grand_ugd = 0;
             $grand_apotik = 0;
             foreach ($query as $row) {
-            $tgl_keluar = date('d-m-Y',strtotime($row->tgl_keluar));
-            $waktu = date('H:i',strtotime($row->tgl_keluar));
+            $tgl_lunas = date('d-m-Y',strtotime($row->tgl_lunas));
+            $waktu = date('H:i',strtotime($row->tgl_lunas));
             $grand_gd += $row->gula_darah;
             $grand_ua += $row->asam_urat;
             $grand_chol += $row->cholesterol;
@@ -450,7 +450,7 @@
 
             $spreadsheet->setActiveSheetIndex(0)
             ->setCellValue('A' . $kolom, $nomor)
-            ->setCellValue('B' . $kolom,$tgl_keluar)
+            ->setCellValue('B' . $kolom,$tgl_lunas)
             ->setCellValue('C' . $kolom,$waktu)
             ->setCellValue('D' . $kolom, $row->nama_pasien)
             ->setCellValue('E' . $kolom, number_format($row->gula_darah, 0, ".", ","))
