@@ -39,9 +39,10 @@ class RawatInap extends CI_Controller
     }
 
     public function ri_hari_ini()
-    {
+    {        
+        ini_set('max_execution_time', 0); // 0 = Unlimited
         $day = date("Y-m-d"); //Tanggal Hari ini
-        $ri_hari_ini = $this->M_laporan->laporan_ri_harian($day);
+        // $ri_hari_ini = $this->M_laporan->laporan_ri_harian($day);
         $yesterday = date("Y-m-d", strtotime("-1 day", strtotime(date('Y-m-d'))));
         $db_grand_saldo =  $this->M_cek_saldo->getCekSaldoByDate($yesterday);
         $tgl = tgl_indo(date('Y-m-d'));
@@ -231,7 +232,9 @@ class RawatInap extends CI_Controller
         $jumlah_trx_setoran = 0;
         $SETORAN_jumlah_setoran = 0;
 
-        foreach ($ri_hari_ini as $row) {
+        //Query RI Pelayanan
+        $ri_pelayanan = $this->M_laporan->laporan_ri_harian_new_pelayanan($day);
+        foreach ($ri_pelayanan as $row) {
             //Validasi Value Karena Bukan Tipe Integer
             $uang_masuk = (int) $row->uang_masuk;
             $gizi = (int) $row->gizi;
@@ -251,10 +254,7 @@ class RawatInap extends CI_Controller
             } else {
                 $pemasukan_bersih = $uang_masuk - $gizi - $gda - $lab - $biaya_ambulance - $total_bp - $total_kia - $ekg - $lain_lain - $obat_oral_ri;
             }
-            $akomodasi_obat = (int) $row->akomodasi_obat;
-            $akomodasi_alkes = (int) $row->akomodasi_alkes;
-            $akomodasi_lain = (int) $row->akomodasi_lain_lain;
-            $jumlah_setoran = (int) $row->jumlah_setoran;
+            
             $japel = (int) $row->japel;
             $visite = (int) $row->visite;
             $klinik_bersih = $pemasukan_bersih - $japel - $visite;
@@ -375,16 +375,23 @@ class RawatInap extends CI_Controller
                     $RJ_klinik_bersih += $pemasukan_bersih_bp_ke_ri;
                 }
 
-            } else if ($row->tipe_pelayanan == "Akomodasi") { //End If Rawat Jalan Start Akomodasi
-                $jumlah_trx_akomodasi++;
-
-                $AK_akomodasi_obat += $akomodasi_obat;
-                $AK_akomodasi_alkes += $akomodasi_alkes;
-                $AK_akomodasi_lain += $akomodasi_lain;
-            } else if ($row->tipe_pelayanan == "Setor Uang") {
-                $jumlah_trx_setoran++;
-                $SETORAN_jumlah_setoran += $jumlah_setoran;
             }
+        }
+
+        //Query RI Akomodasi
+        $ri_akomodasi = $this->M_laporan->laporan_ri_harian_new_akomodasi_ri($day);
+        foreach($ri_akomodasi as $row){
+            $jumlah_trx_akomodasi++;
+            $AK_akomodasi_obat += (int) $row->sum_obat;
+            $AK_akomodasi_alkes += (int) $row->sum_alkes;
+            $AK_akomodasi_lain += (int) $row->sum_lain_lain;
+        }
+
+        //Laporan RI Setoran Rawat Inap
+        $laporan_ri_harian_new_setoran_ri = $this->M_laporan->laporan_ri_harian_new_setoran_ri($day);
+        foreach($laporan_ri_harian_new_setoran_ri as $row){
+            $jumlah_trx_setoran++;
+            $SETORAN_jumlah_setoran += (int) $row->jumlah_setoran;
         }
 
         if ($jumlah_pasien_igd > 0) {
@@ -549,18 +556,23 @@ class RawatInap extends CI_Controller
     }
 
     public function ri_bulan_ini()
-    {
+    {        
+        ini_set('max_execution_time', 0); // 0 = Unlimited
         // Bulanan
-        $data_bulanan = array();
-        $ri_bulanan = array();
-        $date_month = strtotime(date('Y-m-01'));
+        $data_yesterday_saldo = array();
+        $ri_pelayanan = array();
+        $ri_akomodasi = array();
+        $ri_setoran = array();
+        $date_month = strtotime(date('Y-m-1'));
         $last_date_month = strtotime(date('Y-m-t'));
         while ($date_month <= $last_date_month) {
             //Mendapatkan Saldo Terakhir Untuk Perhitungan Hari ini
             $day = date("Y-m-d", $date_month); //Tanggal Hari ini
             $yesterday = date("Y-m-d", strtotime("-1 day", $date_month)); //Tanggal Kemarin
-            $data_bulanan[$day] = $this->M_cek_saldo->getCekSaldoByDate($yesterday); //Untuk Perhitungan Hari ini, maka dibutuhkan saldo kemarin
-            $ri_bulanan[$day] = $this->M_laporan->laporan_ri_harian($day);
+            $data_yesterday_saldo[$day] = $this->M_cek_saldo->getCekSaldoByDate($yesterday); //Untuk Perhitungan Hari ini, maka dibutuhkan saldo kemarin
+            $ri_pelayanan[$day] = $this->M_laporan->laporan_ri_harian_new_pelayanan($day);
+            $ri_akomodasi[$day] = $this->M_laporan->laporan_ri_harian_new_akomodasi_ri($day);
+            $ri_setoran[$day] = $this->M_laporan->laporan_ri_harian_new_setoran_ri($day);
             $date_month = strtotime("+1 day", $date_month);
         }
 
@@ -661,7 +673,7 @@ class RawatInap extends CI_Controller
         // N2,N3 => M2,M3
         $kolom = 4;
 
-        foreach ($data_bulanan as $day => $yesterday_saldo) {
+        foreach ($data_yesterday_saldo as $day => $yesterday_saldo) {
             $spreadsheet->setActiveSheetIndex(0)
                 ->setCellValue('A' . $kolom, $day);
             // $kolom++;
@@ -756,7 +768,7 @@ class RawatInap extends CI_Controller
             $jumlah_trx_setoran = 0;
             $SETORAN_jumlah_setoran = 0;
 
-            foreach ($ri_bulanan[$day] as $row) {
+            foreach ($ri_pelayanan[$day] as $row) {
                 // Validasi Value Karena Bukan Tipe Integer
                 $uang_masuk = (int) $row->uang_masuk;
                 $gizi = (int) $row->gizi;
@@ -776,10 +788,6 @@ class RawatInap extends CI_Controller
                 } else {
                     $pemasukan_bersih = $uang_masuk - $gizi - $gda - $lab - $biaya_ambulance - $total_bp - $total_kia - $ekg - $lain_lain - $obat_oral_ri;
                 }
-                $akomodasi_obat = (int) $row->akomodasi_obat;
-                $akomodasi_alkes = (int) $row->akomodasi_alkes;
-                $akomodasi_lain = (int) $row->akomodasi_lain_lain;
-                $jumlah_setoran = (int) $row->jumlah_setoran;
                 $japel = (int) $row->japel;
                 $visite = (int) $row->visite;
                 $klinik_bersih = $pemasukan_bersih - $japel - $visite;
@@ -898,16 +906,19 @@ class RawatInap extends CI_Controller
                         $RJ_pemasukan_bersih += $pemasukan_bersih_bp_ke_ri;
                         $RJ_klinik_bersih += $pemasukan_bersih_bp_ke_ri;
                     }
-                } else if ($row->tipe_pelayanan == "Akomodasi") { //End If Rawat Jalan Start Akomodasi
-                    $jumlah_trx_akomodasi++;
-
-                    $AK_akomodasi_obat += $akomodasi_obat;
-                    $AK_akomodasi_alkes += $akomodasi_alkes;
-                    $AK_akomodasi_lain += $akomodasi_lain;
-                } else if ($row->tipe_pelayanan == "Setor Uang") {
-                    $jumlah_trx_setoran++;
-                    $SETORAN_jumlah_setoran += $jumlah_setoran;
                 }
+            }
+
+            foreach($ri_akomodasi[$day] as $row){
+                $jumlah_trx_akomodasi++;
+                $AK_akomodasi_obat += (int) $row->sum_obat;
+                $AK_akomodasi_alkes += (int) $row->sum_alkes;
+                $AK_akomodasi_lain += (int) $row->sum_lain_lain;
+            }
+
+            foreach($ri_setoran[$day] as $row){
+                $jumlah_trx_setoran++;
+                $SETORAN_jumlah_setoran += (int) $row->jumlah_setoran;
             }
 
 
@@ -1069,6 +1080,7 @@ class RawatInap extends CI_Controller
 
     public function ri_custom()
     {
+        ini_set('max_execution_time', 0); // 0 = Unlimited
         $tgl_1 = $this->input->post('tgl_mulai');
         $tgl_2 = $this->input->post('tgl_akhir');
         $tgl_mulai = strtotime(date($tgl_1));
@@ -1085,12 +1097,17 @@ class RawatInap extends CI_Controller
         // Bulanan
         $data_bulanan = array();
         $ri_bulanan = array();
+        $ri_pelayanan = array();
+        $ri_akomodasi = array();
+        $ri_setoran = array();
         while ($tgl_mulai <= $tgl_akhir) {
             //Mendapatkan Saldo Terakhir Untuk Perhitungan Hari ini
             $day = date("Y-m-d", $tgl_mulai); //Tanggal Hari ini
             $yesterday = date("Y-m-d", strtotime("-1 day", $tgl_mulai)); //Tanggal Kemarin
             $data_bulanan[$day] = $this->M_cek_saldo->getCekSaldoByDate($yesterday); //Untuk Perhitungan Hari ini, maka dibutuhkan saldo kemarin
-            $ri_bulanan[$day] = $this->M_laporan->laporan_ri_harian($day);
+            $ri_pelayanan[$day] = $this->M_laporan->laporan_ri_harian_new_pelayanan($day);
+            $ri_akomodasi[$day] = $this->M_laporan->laporan_ri_harian_new_akomodasi_ri($day);
+            $ri_setoran[$day] = $this->M_laporan->laporan_ri_harian_new_setoran_ri($day);
             $tgl_mulai = strtotime("+1 day", $tgl_mulai);
         }
 
@@ -1286,7 +1303,7 @@ class RawatInap extends CI_Controller
             $jumlah_trx_setoran = 0;
             $SETORAN_jumlah_setoran = 0;
 
-            foreach ($ri_bulanan[$day] as $row) {
+            foreach ($ri_pelayanan[$day] as $row) {
                 // Validasi Value Karena Bukan Tipe Integer
                 $uang_masuk = (int) $row->uang_masuk;
                 $gizi = (int) $row->gizi;
@@ -1306,10 +1323,6 @@ class RawatInap extends CI_Controller
                 } else {
                     $pemasukan_bersih = $uang_masuk - $gizi - $gda - $lab - $biaya_ambulance - $total_bp - $total_kia - $ekg - $lain_lain - $obat_oral_ri;
                 }
-                $akomodasi_obat = (int) $row->akomodasi_obat;
-                $akomodasi_alkes = (int) $row->akomodasi_alkes;
-                $akomodasi_lain = (int) $row->akomodasi_lain_lain;
-                $jumlah_setoran = (int) $row->jumlah_setoran;
                 $japel = (int) $row->japel;
                 $visite = (int) $row->visite;
                 $klinik_bersih = $pemasukan_bersih - $japel - $visite;
@@ -1430,16 +1443,19 @@ class RawatInap extends CI_Controller
                         $RJ_klinik_bersih += $pemasukan_bersih_bp_ke_ri;
                     }
 
-                } else if ($row->tipe_pelayanan == "Akomodasi") { //End If Rawat Jalan Start Akomodasi
-                    $jumlah_trx_akomodasi++;
-
-                    $AK_akomodasi_obat += $akomodasi_obat;
-                    $AK_akomodasi_alkes += $akomodasi_alkes;
-                    $AK_akomodasi_lain += $akomodasi_lain;
-                } else if ($row->tipe_pelayanan == "Setor Uang") {
-                    $jumlah_trx_setoran++;
-                    $SETORAN_jumlah_setoran += $jumlah_setoran;
                 }
+            }
+
+            foreach($ri_akomodasi[$day] as $row){
+                $jumlah_trx_akomodasi++;
+                $AK_akomodasi_obat += (int) $row->sum_obat;
+                $AK_akomodasi_alkes += (int) $row->sum_alkes;
+                $AK_akomodasi_lain += (int) $row->sum_lain_lain;
+            }
+
+            foreach($ri_setoran[$day] as $row){
+                $jumlah_trx_setoran++;
+                $SETORAN_jumlah_setoran += (int) $row->jumlah_setoran;
             }
 
 

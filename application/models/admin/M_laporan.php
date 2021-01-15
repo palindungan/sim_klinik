@@ -46,5 +46,21 @@ class M_laporan extends CI_Model
         $query = $this->db->query("SELECT * FROM laporan_ri WHERE DATE(tgl_lunas) = '$day' ORDER BY tgl_lunas ASC")->result();
         return $query;
     }
-    
+
+    //LAPORAN RI BARU (TIDAK PAKAI UNION, TAPI DIPISAH)
+    function laporan_ri_harian_new_pelayanan($day){
+        $query = $this->db->query("SELECT * FROM v_laporan_ri_pelayanan WHERE DATE(tgl_lunas) = '$day' ORDER BY tgl_lunas ASC")->result();
+        return $query;
+    }
+
+    function laporan_ri_harian_new_akomodasi_ri($day){
+        $query = $this->db->query("SELECT * FROM v_laporan_ri_akomodasi_ri WHERE DATE(tgl_transaksi) = '$day' ORDER BY tgl_transaksi ASC")->result();
+        return $query;
+    }
+
+    function laporan_ri_harian_new_setoran_ri($day){
+        $query = $this->db->query("SELECT id_setoran, tanggal_setor, jumlah_setor FROM setoran_rawat_inap
+        WHERE DATE(tanggal_setor) = '$day' ORDER BY tanggal_setor ASC")->result();
+        return $query;
+    }
 }
