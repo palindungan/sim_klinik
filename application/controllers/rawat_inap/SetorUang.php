@@ -19,19 +19,18 @@ Class SetorUang extends CI_Controller{
     }
 
     function getLastSaldoRI(){
+        ini_set('max_execution_time', 0); // 0 = Unlimited
+
         //Get Saldo Kemarin
         $yesterday = date("Y-m-d",strtotime("-1 day",strtotime(date('Y-m-d'))));
         $saldo_kemarin =  $this->M_cek_saldo->getCekSaldoByDate($yesterday); //Diambil Record Hari Kemarin Dari Tabel Saldo Temp
         //Mengambil Data
         $day = date('Y-m-d');
-        $laporan_ri_harian =  $this->M_laporan->laporan_ri_harian($day);
-        
+
         //Inisialisasi Grand Total
         $grand_saldo = 0;
         $GT_pemasukan_bersih = 0;
-        $GT_akomodasi_obat = 0;
-        $GT_akomodasi_alkes = 0;
-        $GT_akomodasi_lain = 0;
+        $GT_akomodasi = 0;
         $GT_jumlah_setoran = 0;
 
         //Inisisalisasi Rawat Inap
@@ -48,8 +47,10 @@ Class SetorUang extends CI_Controller{
         //Inisialisasi Setoran
         $SETORAN_jumlah_setoran = 0;
 
+        //RI Pelayanan
+        $ri_pelayanan = $this->M_laporan->laporan_ri_harian_new_pelayanan($day);
         //Loop:
-        foreach($laporan_ri_harian as $row){
+        foreach($ri_pelayanan as $row){
             // Validasi Value Karena Bukan Tipe Integer
             $uang_masuk = (int) $row->uang_masuk;
             $gizi = (int) $row->gizi;
@@ -69,10 +70,7 @@ Class SetorUang extends CI_Controller{
             } else {
                 $pemasukan_bersih = $uang_masuk - $gizi - $gda - $lab - $biaya_ambulance - $total_bp - $total_kia - $ekg - $lain_lain - $obat_oral_ri;
             }
-            $akomodasi_obat = (int) $row->akomodasi_obat;
-            $akomodasi_alkes = (int) $row->akomodasi_alkes;
-            $akomodasi_lain = (int) $row->akomodasi_lain_lain;
-            $jumlah_setoran = (int) $row->jumlah_setoran;
+            
             $japel = (int) $row->japel;
             $visite = (int) $row->visite;
             $klinik_bersih = $pemasukan_bersih - $japel - $visite;
@@ -90,25 +88,33 @@ Class SetorUang extends CI_Controller{
                 if($total_kia > 0){
                     $RJ_pemasukan_bersih += $pemasukan_bersih_bp_ke_ri;
                 }
-            } else if ($row->tipe_pelayanan == "Akomodasi") { //End If Rawat Jalan Start Akomodasi
-                $AK_akomodasi_obat += $akomodasi_obat;
-                $AK_akomodasi_alkes += $akomodasi_alkes;
-                $AK_akomodasi_lain += $akomodasi_lain;
-            } else if ($row->tipe_pelayanan == "Setor Uang") {
-                $SETORAN_jumlah_setoran += $jumlah_setoran;
-            }
+            }            
         }
+
+        //Query RI Akomodasi
+        $ri_akomodasi = $this->M_laporan->laporan_ri_harian_new_akomodasi_ri($day);
+        foreach($ri_akomodasi as $row){
+            $jumlah_trx_akomodasi++;
+            $AK_akomodasi_obat += (int) $row->sum_obat;
+            $AK_akomodasi_alkes += (int) $row->sum_alkes;
+            $AK_akomodasi_lain += (int) $row->sum_lain_lain;
+        }
+
+        //Laporan RI Setoran Rawat Inap
+        $laporan_ri_harian_new_setoran_ri = $this->M_laporan->laporan_ri_harian_new_setoran_ri($day);
+        foreach($laporan_ri_harian_new_setoran_ri as $row){
+            $jumlah_trx_setoran++;
+            $SETORAN_jumlah_setoran += (int) $row->jumlah_setoran;
+        }
+    
+
         //Grand Total
         $GT_pemasukan_bersih = $RI_pemasukan_bersih + $IGD_pemasukan_bersih + $RJ_pemasukan_bersih;
-        $GT_akomodasi_obat = $AK_akomodasi_obat;
-        $GT_akomodasi_alkes = $AK_akomodasi_alkes;
-        $GT_akomodasi_lain = $AK_akomodasi_lain;
+        $GT_akomodasi = $AK_akomodasi_obat + $AK_akomodasi_alkes + $AK_akomodasi_lain;
         $GT_jumlah_setoran = $SETORAN_jumlah_setoran;
 
-        $grand_saldo += $GT_pemasukan_bersih - ($GT_akomodasi_obat + $GT_akomodasi_alkes + $GT_akomodasi_lain) - $GT_jumlah_setoran;
+        $grand_saldo += $GT_pemasukan_bersih - ($GT_akomodasi + $GT_jumlah_setoran);
         return $saldo_kemarin + $grand_saldo;
-        
-
     }
 
     
